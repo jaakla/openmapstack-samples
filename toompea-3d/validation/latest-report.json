@@ -1,8 +1,8 @@
 {
-  "run_id": "run-20261016-075851",
+  "run_id": "run-20261016-094305",
   "status": "warning",
-  "inputs_hash": "sha256:a854f21a76f1072ae6c9df772a2907cd8731b5b1d1a3496183d2e92c3dd2f618",
-  "outputs_hash": "sha256:ca6bf1027eb1234c72634cd1ee493e1e40c39fb6192fc6cb2e4c50b7734ab958",
+  "inputs_hash": "sha256:fd5006f91c766f08766389fb545c328cd1fbc962697094459d30ccc8d295eddf",
+  "outputs_hash": "sha256:9f8d674221898186de2a4d611b478b7f39ce44fe2bb40390f751759941d6ec42",
   "checks": [
     {
       "id": "crs_known",
@@ -57,7 +57,7 @@
     {
       "id": "interactive_tool_calculations",
       "status": "passed",
-      "message": "> toompea-digital-atlas@1.0.0 test\n> node --test tests/*.test.js\n\n✔ Known 3–4–12 triangle: horizontal 5, chord 13, vertical 12 (0.883369ms)\n✔ Mixed source datums withhold 3D and vertical measurements (0.166371ms)\n✔ Exploratory export correctly reverses local south-positive Z (0.592701ms)\n✔ Analytic triangle intersection stays on x=0 and keeps measured height (0.368704ms)\n✔ Indexed terrain is triangulated through its index, not adjacent grid rows (0.285168ms)\n✔ Plane outside geometry and coplanar face produce no invented section (0.153441ms)\n✔ Tallinn local time applies both EET and EEST independently of host zone (0.66578ms)\n✔ DST spring gap is rejected, autumn repetition is explicit (0.460132ms)\n✔ Invalid calendar inputs do not silently become a different date (3.418009ms)\n✔ Solstice geometry, dawn, night and grid convergence are physically consistent (2.425928ms)\n✔ Unknown height datums never default to an aligned class (0.1595ms)\nℹ tests 11\nℹ suites 0\nℹ pass 11\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 81.159865"
+      "message": "> toompea-digital-atlas@1.0.0 test\n> node --test tests/*.test.js\n\n✔ tests/survey-tools.test.js (64.872009ms)\nℹ tests 1\nℹ suites 0\nℹ pass 1\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 71.03829"
     },
     {
       "id": "solar_reference_metric_alignment",

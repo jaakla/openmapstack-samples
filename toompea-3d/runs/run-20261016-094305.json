@@ -1,0 +1,3286 @@
+{
+  "id": "run-20261016-094305",
+  "run_id": "run-20261016-094305",
+  "environment": {
+    "python": "3.13.15",
+    "qgis": "3.40.15-Bratislava",
+    "gdal": "3.12.2",
+    "node": "24.19.0"
+  },
+  "started_at": "2026-10-16T09:43:05.023531+00:00",
+  "completed_at": "2026-10-16T09:43:32.481957+00:00",
+  "status": "warning",
+  "inputs_hash": "sha256:fd5006f91c766f08766389fb545c328cd1fbc962697094459d30ccc8d295eddf",
+  "outputs_hash": "sha256:9f8d674221898186de2a4d611b478b7f39ce44fe2bb40390f751759941d6ec42",
+  "inputs": [
+    {
+      "path": ".gitattributes",
+      "sha256": "sha256:242c7407fa34c6de51df5c317443bdb010d312946f104eb4b5476131355d91e2"
+    },
+    {
+      "path": "data/source/588541_2023_madal.laz",
+      "sha256": "sha256:5f29fdd0a3695811e6f94a5259975ce6fc439699315633d42c830210be8111e2"
+    },
+    {
+      "path": "data/source/588541_2023_madal.laz.json",
+      "sha256": "sha256:9cd3a326afeaf20b426d68d0dab402d6e1469311f4a2ab54333088b217105892"
+    },
+    {
+      "path": "data/source/588542_2023_madal.laz",
+      "sha256": "sha256:7e8cc6b8ca6262c672dcf72b42d12bf4dd633ce7e9868f7f3542707b580ee9d8"
+    },
+    {
+      "path": "data/source/588542_2023_madal.laz.json",
+      "sha256": "sha256:d2482cdc68280f727cb1257d835b9203a01d855dc1753ebda4a9bea02a755c90"
+    },
+    {
+      "path": "data/source/589541_2023_madal.laz",
+      "sha256": "sha256:44b45b73f91319be21047bcbca2d80c7ddc5f51844cc31c5cde271aeb2ea583d"
+    },
+    {
+      "path": "data/source/589541_2023_madal.laz.json",
+      "sha256": "sha256:fcbbcf383f4900d77ece62464e609231d07dc5fc8b4bc873e9253fc4c3a5d96c"
+    },
+    {
+      "path": "data/source/589542_2023_madal.laz",
+      "sha256": "sha256:60f97e2e01de7b1babb7778b1362227957e4428eb85de027e03031ecf0fcbba7"
+    },
+    {
+      "path": "data/source/589542_2023_madal.laz.json",
+      "sha256": "sha256:6267b9573011b109b982ee531ca67b846d2edcb010b681993fb95e8527cee3ff"
+    },
+    {
+      "path": "data/source/estonian-flag-reference-2022.svg",
+      "sha256": "sha256:69b65c5a8c3d98288d22d8be96dc2859ba9f436376eabb3ab82bff50621357ab"
+    },
+    {
+      "path": "data/source/maa-ruum-license-2025.pdf",
+      "sha256": "sha256:167719a3834cd61e7d03e9437bd823559cf2cb7f515e24dc3a90f1795d20282e"
+    },
+    {
+      "path": "data/source/nodepages-0.json",
+      "sha256": "sha256:13fb795a5cb434bceb4972429f6ddd78d2a2f23bae9140de40217bd03d3840e6"
+    },
+    {
+      "path": "data/source/nodes-23-shared.json",
+      "sha256": "sha256:ebd3379b613b00046679cc5e81d63fce7a5dc6951c0de1699b23fe2bc636ff9e"
+    },
+    {
+      "path": "data/source/nodes-23.json",
+      "sha256": "sha256:0f7022da3d1f42a002f596cdbce325a584bb3b481b8b1d4d6092340cb44bff06"
+    },
+    {
+      "path": "data/source/oldtown/1/geometry.bin",
+      "sha256": "sha256:0a80521ba03bdffdf0b8b9fd50f5a4815b23de3c911da93f733385d77cad8fd6"
+    },
+    {
+      "path": "data/source/oldtown/1/node.json",
+      "sha256": "sha256:833a7654035ab5fd0c158d52a90bf5537bbafe167d220865a1705e2d981eaf3e"
+    },
+    {
+      "path": "data/source/oldtown/1/shared.json",
+      "sha256": "sha256:36b783cc361190372903a05c76b47ab7803574259808b9131bae3f9d14cb6417"
+    },
+    {
+      "path": "data/source/oldtown/10/geometry.bin",
+      "sha256": "sha256:89b33f0362b488a5476cd6b3c05c01a832aad361f7f4abef61fa951b885e1dd6"
+    },
+    {
+      "path": "data/source/oldtown/10/node.json",
+      "sha256": "sha256:9a6def3608bba678fdbde37ccb1c4eb2f67dbdf9a6ceb6c1ee903b2859a88785"
+    },
+    {
+      "path": "data/source/oldtown/10/shared.json",
+      "sha256": "sha256:142b8929943a872038cbc831580fdddd7c7bf36946ee9d52bfaf82e7f51f5285"
+    },
+    {
+      "path": "data/source/oldtown/1003/geometry.bin",
+      "sha256": "sha256:c8b074f1364f8b207f3db6a8271c869dbd452d1da9531fc566d8c69ad9dd7f60"
+    },
+    {
+      "path": "data/source/oldtown/1003/node.json",
+      "sha256": "sha256:f253884e00a6a8210b50fd0cd5f2b7e55a6903d2107a7386122a3d44d87fac37"
+    },
+    {
+      "path": "data/source/oldtown/1003/shared.json",
+      "sha256": "sha256:a496bd0d0b5605b0075dbee41ddc8489d6d18c96d10d8a6998c73bfa0f3fca1b"
+    },
+    {
+      "path": "data/source/oldtown/1003/texture.jpg",
+      "sha256": "sha256:62eee3f03fa4297cc02589f6b4a50bb41017e5025838dbed2733f64465d535d1"
+    },
+    {
+      "path": "data/source/oldtown/1042/geometry.bin",
+      "sha256": "sha256:cfc285b97e504802105702deecdfdb5c8748fd2c13e7f1eb137b704de706edb7"
+    },
+    {
+      "path": "data/source/oldtown/1042/node.json",
+      "sha256": "sha256:d5d0508c252f21423033b2ac478b864077e6052b499c91b721ea3996cb1022a5"
+    },
+    {
+      "path": "data/source/oldtown/1042/shared.json",
+      "sha256": "sha256:7f3d81f55861b12f9c26d6efbe17501562d22f16be6f5efbcbfb10f8120e73fe"
+    },
+    {
+      "path": "data/source/oldtown/1042/texture.jpg",
+      "sha256": "sha256:60fcd14a1a0cc87e3c921927e2a219472131d78ac3f9d3cc6254eb7c32b3b010"
+    },
+    {
+      "path": "data/source/oldtown/1079/geometry.bin",
+      "sha256": "sha256:7d96f4bf19a7432681a349cd315ed7f876bda6338d6859e35f8bb0e630032a3d"
+    },
+    {
+      "path": "data/source/oldtown/1079/node.json",
+      "sha256": "sha256:c5ae3a5b96713e85df10129ed09f513fc2f97fc3dc21ea20bc439092e4034bb8"
+    },
+    {
+      "path": "data/source/oldtown/1079/shared.json",
+      "sha256": "sha256:85c08ae02f3ab8707a7317ae8c3970e57d93aad4d40813db8de45c4487d89d22"
+    },
+    {
+      "path": "data/source/oldtown/1079/texture.jpg",
+      "sha256": "sha256:a271632363e6218735f867bfe14022ee50f55ccbd98ba77b97ea705eb79f34d6"
+    },
+    {
+      "path": "data/source/oldtown/1097/geometry.bin",
+      "sha256": "sha256:d155fb7d17593f3fe00cc72a0c4ee9671448cc1709fa67c110f5d2bba1144e69"
+    },
+    {
+      "path": "data/source/oldtown/1097/node.json",
+      "sha256": "sha256:4555efd9d0b40d72a3d716348b22c27eb29ec9ec41e662c6ca9e429bd7b4aeb1"
+    },
+    {
+      "path": "data/source/oldtown/1097/shared.json",
+      "sha256": "sha256:68c448b4318052428fe587948b9c1dae4bb707642d1e13fa7579362a7ec6b3c2"
+    },
+    {
+      "path": "data/source/oldtown/1097/texture.jpg",
+      "sha256": "sha256:f8dff06fd1a6b960316136ea9fea53e0f030b3c2aac8f105f4406b42ee165b93"
+    },
+    {
+      "path": "data/source/oldtown/11/geometry.bin",
+      "sha256": "sha256:e56f8b9aec97e86ebe54b650f81991513101c8d94b0bdaea5299af58ecdf6391"
+    },
+    {
+      "path": "data/source/oldtown/11/node.json",
+      "sha256": "sha256:b94fa53f3e8fe475aabca47c75a7cfcfaf71b301bd421dc4a5306f73f324fee6"
+    },
+    {
+      "path": "data/source/oldtown/11/shared.json",
+      "sha256": "sha256:77be156e916b01c88a384cdfb8d4505f73c85160e839fd70a0794e303feeca21"
+    },
+    {
+      "path": "data/source/oldtown/111/geometry.bin",
+      "sha256": "sha256:c545f5c8945eb87950007e546aecfbd28dd5b7234433476d83c27ed8d6184071"
+    },
+    {
+      "path": "data/source/oldtown/111/node.json",
+      "sha256": "sha256:c75b1871b679984db3766795db080f17a941b87b57d468f3ce22b02a499b9137"
+    },
+    {
+      "path": "data/source/oldtown/111/shared.json",
+      "sha256": "sha256:dc6755e09dfd10e736cbad8d63a8e74914f185c158fa11b3bd743f2a749327b4"
+    },
+    {
+      "path": "data/source/oldtown/111/texture.jpg",
+      "sha256": "sha256:4908a5ea646c0553fa8e69610efe1ff58c0db0ed9951ada06ea1adbcc0245b86"
+    },
+    {
+      "path": "data/source/oldtown/12/geometry.bin",
+      "sha256": "sha256:9410d3f84b4418f777025d226bcde355ab3d7342c6718d5209bd55820c48579e"
+    },
+    {
+      "path": "data/source/oldtown/12/node.json",
+      "sha256": "sha256:2e5a5348c6842ee59257f16609be44301e3d02fc96ce60be0c3cfb58a678e865"
+    },
+    {
+      "path": "data/source/oldtown/12/shared.json",
+      "sha256": "sha256:19cdf7140701081750c34f8afca680961ba8c3d93690a5dcabde206800f91d3f"
+    },
+    {
+      "path": "data/source/oldtown/121/geometry.bin",
+      "sha256": "sha256:a48595ed7cc6b39d1031b99fb841ef5e4a51181bd6bc999ec8ffaba0e88a05ba"
+    },
+    {
+      "path": "data/source/oldtown/121/node.json",
+      "sha256": "sha256:b51945d72acf2e16f22ced9912742365b095b9d2f21d128cb0bf6138b38924df"
+    },
+    {
+      "path": "data/source/oldtown/121/shared.json",
+      "sha256": "sha256:03a53cbfa85565f84aa1f56a41b69bda84bcec1e6b785f47931824f6f8f6dd3a"
+    },
+    {
+      "path": "data/source/oldtown/121/texture.jpg",
+      "sha256": "sha256:74aa0580de0d0fdae76ef03b216a34a465318b33cea60956dd498585d43d5bc3"
+    },
+    {
+      "path": "data/source/oldtown/1210/geometry.bin",
+      "sha256": "sha256:f0f3bf8d77d1c8d3fadd3d00a4231923484213648e4aa807c2079cfe03acb0c1"
+    },
+    {
+      "path": "data/source/oldtown/1210/node.json",
+      "sha256": "sha256:7df4fb8706c5f6f3e7e1602be33b7be2fc9d5fc399976302ff12da36fac09c7f"
+    },
+    {
+      "path": "data/source/oldtown/1210/shared.json",
+      "sha256": "sha256:d6d53bc8bc2ef68dfc689228e141aff89483431bc7a89b0b613eef606360db12"
+    },
+    {
+      "path": "data/source/oldtown/1210/texture.jpg",
+      "sha256": "sha256:18273c3fab5a6d66363458628b429eca37d2aa80c750a57d8bbe218b5eaa05e2"
+    },
+    {
+      "path": "data/source/oldtown/13/geometry.bin",
+      "sha256": "sha256:9c3a779b20580942de133693d99ae8c57ed59867f4cbef84d492a5cc9037ce37"
+    },
+    {
+      "path": "data/source/oldtown/13/node.json",
+      "sha256": "sha256:824da8330f22a06110227835c038d499943404ee8a5d7ba64ff116f5b7bf2fda"
+    },
+    {
+      "path": "data/source/oldtown/13/shared.json",
+      "sha256": "sha256:04192c2c765fc9531069f68f1ac2ff12e8cf0aa37d02f5fba52cc467a4b4eb45"
+    },
+    {
+      "path": "data/source/oldtown/1329/geometry.bin",
+      "sha256": "sha256:ea9c25510af75263d8a0a04751584003c68ab1535073689670cb3784f99ba22b"
+    },
+    {
+      "path": "data/source/oldtown/1329/node.json",
+      "sha256": "sha256:4567a6a4a825cff1f090605e673d5f7c44291d1ed15fb5e214c815b4d7c8d2c9"
+    },
+    {
+      "path": "data/source/oldtown/1329/shared.json",
+      "sha256": "sha256:75948eadd407d4a53a0efae186fdce129be12f6cdebca11e76523f5c37907dde"
+    },
+    {
+      "path": "data/source/oldtown/1329/texture.jpg",
+      "sha256": "sha256:6f8c49af6fb8b9a2ee1bd4c96c889ccceeca9cd5f3db64e77087e46cad9c16a4"
+    },
+    {
+      "path": "data/source/oldtown/14/geometry.bin",
+      "sha256": "sha256:374b51d4f10198583909719d36fbbd7d453f35edd1e435e1d0cc838e2959c064"
+    },
+    {
+      "path": "data/source/oldtown/14/node.json",
+      "sha256": "sha256:4eb2ca45d8517401b6473370d291221eb2b845ef787c89cd4aec045c13b7cb50"
+    },
+    {
+      "path": "data/source/oldtown/14/shared.json",
+      "sha256": "sha256:fc556ea2799c64f5e5217d5ea7caac0f8bb06b3f270b97942c656f326378198f"
+    },
+    {
+      "path": "data/source/oldtown/1554/geometry.bin",
+      "sha256": "sha256:83738d59ad1b2c81c98d60fb7d0601cc238531a0d566ad34b32f28b5a8d6ec17"
+    },
+    {
+      "path": "data/source/oldtown/1554/node.json",
+      "sha256": "sha256:001f041ae03f9f7535382ad80e0b0434d1a06f5e4ee55c312c0b29331f3607ca"
+    },
+    {
+      "path": "data/source/oldtown/1554/shared.json",
+      "sha256": "sha256:39fe7aabba42de377ea09d75a55e9a22fc999eaca83e4a0b6f197c6d854cd136"
+    },
+    {
+      "path": "data/source/oldtown/1554/texture.jpg",
+      "sha256": "sha256:2944657ff2b3148063ffe590c71699b53d33433025077d256b9fb34467830ab0"
+    },
+    {
+      "path": "data/source/oldtown/1689/geometry.bin",
+      "sha256": "sha256:e8b935b4c63530fa4cff6db4b7d88c69a00b62d2f0174f019baa38abf0f5f7e6"
+    },
+    {
+      "path": "data/source/oldtown/1689/node.json",
+      "sha256": "sha256:448c610b27e6eb231f07eba1c71e28280af0c07e16a01e5f819b3d545a4a39de"
+    },
+    {
+      "path": "data/source/oldtown/1689/shared.json",
+      "sha256": "sha256:93fd774cb6bbcd43715e9158411637ced95c36bf6ec05ad12fe749077b698197"
+    },
+    {
+      "path": "data/source/oldtown/1689/texture.jpg",
+      "sha256": "sha256:d579328a1853c7d6e67f1e3c62cc0a9b8c563a13b71a0a7ca6b72919f9617c9b"
+    },
+    {
+      "path": "data/source/oldtown/1711/geometry.bin",
+      "sha256": "sha256:498ee72271244e04f9ef884df567d1794838165a676f25f76c11d943749e63f0"
+    },
+    {
+      "path": "data/source/oldtown/1711/node.json",
+      "sha256": "sha256:19a60e2c3d5abfac7360f37f5f00c5c8292642d3c9d82c82c25b26d826f66ab3"
+    },
+    {
+      "path": "data/source/oldtown/1711/shared.json",
+      "sha256": "sha256:db45e2e3614af8eef74ab106780a11a8e850043e4ca65667947109251f11650e"
+    },
+    {
+      "path": "data/source/oldtown/1711/texture.jpg",
+      "sha256": "sha256:e93a39c78e54d9392e3763f12571b0f57a2d392444fb3b6a3d0e4c81d73fc51a"
+    },
+    {
+      "path": "data/source/oldtown/1882/geometry.bin",
+      "sha256": "sha256:e750c6511c9ecaf7f67483ac98c60b240cb78abdbd2e78c911b77c26e618bf10"
+    },
+    {
+      "path": "data/source/oldtown/1882/node.json",
+      "sha256": "sha256:ea422357a3f2d9262028be550092eb837125e3cd4c6ee7137fbdf100c6c91051"
+    },
+    {
+      "path": "data/source/oldtown/1882/shared.json",
+      "sha256": "sha256:37b8eddfccdfca363feabf1452c74f9633828c22e229e645a341b7ac72dd60c4"
+    },
+    {
+      "path": "data/source/oldtown/1882/texture.jpg",
+      "sha256": "sha256:d9a8241ac48090f4d15f555b6088eceb8b30629d4eadb13df2c225606bc774fd"
+    },
+    {
+      "path": "data/source/oldtown/2/geometry.bin",
+      "sha256": "sha256:fa2d6bb9e337005ca931cb267b572bd37d74a1b33fb4c346cc501210d1418fe0"
+    },
+    {
+      "path": "data/source/oldtown/2/node.json",
+      "sha256": "sha256:a1d23fe1036f4c4f35bf85be9a47d956835499f7132ac7b9b54532564a0fb348"
+    },
+    {
+      "path": "data/source/oldtown/2/shared.json",
+      "sha256": "sha256:adf348f646589a090a2634c3ffd9ddf49eebd611689927e9240701c685d1301c"
+    },
+    {
+      "path": "data/source/oldtown/23/geometry.bin",
+      "sha256": "sha256:fe52267dbb029eacfa7ac6c7f8de2bd4568681c3c3fa2c309a6d5cacfac0ec60"
+    },
+    {
+      "path": "data/source/oldtown/23/node.json",
+      "sha256": "sha256:82ef72a0bd163bbebcfb313238ab1671493d1d7e98726d305501708b3453e1d3"
+    },
+    {
+      "path": "data/source/oldtown/23/shared.json",
+      "sha256": "sha256:5fe17b7fd48d0bba31a9d499e736c9085c385e0996c74b65b40f088595e80096"
+    },
+    {
+      "path": "data/source/oldtown/24/geometry.bin",
+      "sha256": "sha256:622f0f455d545183369d5093bbb367c4f102d7cf190a4a89bd2239b63fa853dd"
+    },
+    {
+      "path": "data/source/oldtown/24/node.json",
+      "sha256": "sha256:1bfed1f44ef52a432f19b78ae4ce69caeb30c80305fd31221b2435b37fd35354"
+    },
+    {
+      "path": "data/source/oldtown/24/shared.json",
+      "sha256": "sha256:baf2beb6eeeb5bb21c95127d5f1adcfa500c00d6704d6c6c23597af4ae98cec6"
+    },
+    {
+      "path": "data/source/oldtown/2400/geometry.bin",
+      "sha256": "sha256:f1946d1a5d1efc78d26fdb159b11a0af30165698aff327593aca88d5df0c745d"
+    },
+    {
+      "path": "data/source/oldtown/2400/node.json",
+      "sha256": "sha256:33cf1d520c7661e9ec06b8dc2b964bb1555da18b22e0c9c9e758620b8dc6c3fa"
+    },
+    {
+      "path": "data/source/oldtown/2400/shared.json",
+      "sha256": "sha256:5835fe8004618ab7ca4181d2fa6fd2e84d1fe5ccc80d097baac3b576e898207e"
+    },
+    {
+      "path": "data/source/oldtown/2400/texture.jpg",
+      "sha256": "sha256:721e0570ae029916e58c46a90cd565ab7303323139c511a08b4c0672947914e3"
+    },
+    {
+      "path": "data/source/oldtown/2428/geometry.bin",
+      "sha256": "sha256:03168c17a88ed612f88ef9834ce3ef29da71d57e3e4a508641c4e6a919099980"
+    },
+    {
+      "path": "data/source/oldtown/2428/node.json",
+      "sha256": "sha256:2b2d5e639ab76fa0e0a681b7771d5ab4b9b0801e51d19de669f9352e235e71b1"
+    },
+    {
+      "path": "data/source/oldtown/2428/shared.json",
+      "sha256": "sha256:402974ea070c79c773a04008f62126964d497d1de9574934c323a3ffac113705"
+    },
+    {
+      "path": "data/source/oldtown/2428/texture.jpg",
+      "sha256": "sha256:d9b169e14b4f2c2bf00c0e41ce7c2799ce06855996b86f73eda51f122c710644"
+    },
+    {
+      "path": "data/source/oldtown/25/geometry.bin",
+      "sha256": "sha256:6db2fb1b21a9b60d68ecc7d2811480ff1a7a15f2117c1d3f7b8425f2666a2b67"
+    },
+    {
+      "path": "data/source/oldtown/25/node.json",
+      "sha256": "sha256:a5b40af5b520b8c7a2b63eacba24485ec652424125097e8d906cfc6fa226a377"
+    },
+    {
+      "path": "data/source/oldtown/25/shared.json",
+      "sha256": "sha256:68a5392353b655074ee8bcdd00ed00603c16f7b1a19491dfa57cb0f89997c779"
+    },
+    {
+      "path": "data/source/oldtown/252/geometry.bin",
+      "sha256": "sha256:9173839c840524fe0ab2b70e20858d95fa562a0842af718f6d0c431cf2a1f36c"
+    },
+    {
+      "path": "data/source/oldtown/252/node.json",
+      "sha256": "sha256:52c3d3097626ec178f36a3d7b41292178e696228f560279fc768bd2b417d2d61"
+    },
+    {
+      "path": "data/source/oldtown/252/shared.json",
+      "sha256": "sha256:1ae765d38302656ed254aff01c7e63faeec63565d874e3b24a0ed19139f3890e"
+    },
+    {
+      "path": "data/source/oldtown/252/texture.jpg",
+      "sha256": "sha256:5d64ee4ee3fcf25df957144e61caa044fcb57d163463bb4458102d6e7dad6c4c"
+    },
+    {
+      "path": "data/source/oldtown/26/geometry.bin",
+      "sha256": "sha256:1d477b27d1b1c641d66e183c95392b45e0cbf3ae46948e6bfcfa8516822c5997"
+    },
+    {
+      "path": "data/source/oldtown/26/node.json",
+      "sha256": "sha256:904d797fd9b7ce3162e0ec6e7a71bef7c7ac7699275419dd1cc0392b817db4fe"
+    },
+    {
+      "path": "data/source/oldtown/26/shared.json",
+      "sha256": "sha256:10e0f320d78c6a61633c509a8e0e3b4f89a05f2e9a160d09307a97e3db5d56d9"
+    },
+    {
+      "path": "data/source/oldtown/2681/geometry.bin",
+      "sha256": "sha256:1a8273b528949422820093d683bcc06371527d52248e485704441653c3297f6c"
+    },
+    {
+      "path": "data/source/oldtown/2681/node.json",
+      "sha256": "sha256:ee86e95d1ce4529b0b2eaaf170106552107f6e08a0e236bd5f44e1b6708eab22"
+    },
+    {
+      "path": "data/source/oldtown/2681/shared.json",
+      "sha256": "sha256:9b0f0582870b5a8ddb409fc72a9ff6afe8eac33f79c7f5dde4401184d85c70a5"
+    },
+    {
+      "path": "data/source/oldtown/2681/texture.jpg",
+      "sha256": "sha256:f9d3768101c0446b5b550984c46ebea424e4276ebbdb2090fb2bd2badf09ca59"
+    },
+    {
+      "path": "data/source/oldtown/27/geometry.bin",
+      "sha256": "sha256:919417429c5802846ff5b1c73adb643e9252003138a7e921ecfeaa175fa9d7bd"
+    },
+    {
+      "path": "data/source/oldtown/27/node.json",
+      "sha256": "sha256:9a0a1ad68f09b8cd26d2f7fa2fc1a68f567fafdc2dedbf45fa8b0c8c0e59af53"
+    },
+    {
+      "path": "data/source/oldtown/27/shared.json",
+      "sha256": "sha256:13c238bf1f44fcc9c151a9d3867229425276569c497abb2dac223bd247e49b8f"
+    },
+    {
+      "path": "data/source/oldtown/28/geometry.bin",
+      "sha256": "sha256:11a2772f69734c15e4fbcee3be14ee520786b41fe335ba2147d79bf850017702"
+    },
+    {
+      "path": "data/source/oldtown/28/node.json",
+      "sha256": "sha256:42a48a4633335b404d141014d9bdf0a44dbabf5ff04ad932d00a148c8d3916d2"
+    },
+    {
+      "path": "data/source/oldtown/28/shared.json",
+      "sha256": "sha256:c8cc5c9658c07c312d0b1cafc8d1440926035e59cef428ed7f71c6c22ecf164a"
+    },
+    {
+      "path": "data/source/oldtown/2852/geometry.bin",
+      "sha256": "sha256:31b091ba5fd1419904c6803611f9ca829b98c6577598b5ceabb6d2069f543ed7"
+    },
+    {
+      "path": "data/source/oldtown/2852/node.json",
+      "sha256": "sha256:5a04b1035487766911334718e679e12873081101338e1fabe41f724083489345"
+    },
+    {
+      "path": "data/source/oldtown/2852/shared.json",
+      "sha256": "sha256:52c794067d2f690cb69e3ce77de7997b07783ed7d4627ecf10f88e45c2399b86"
+    },
+    {
+      "path": "data/source/oldtown/2852/texture.jpg",
+      "sha256": "sha256:c3e93bcff4e68800388793a021e28e5f519ce99299c5bf2ab36bdc7b1ad6e2bb"
+    },
+    {
+      "path": "data/source/oldtown/2873/geometry.bin",
+      "sha256": "sha256:8ec3f297179cba01e59bdf1c628ac6f16484677c92bd4501f326888f2ef31121"
+    },
+    {
+      "path": "data/source/oldtown/2873/node.json",
+      "sha256": "sha256:e48c80faebadbb3d38cbb6816c9c80477077793d6c74881a7a3111dc44b95090"
+    },
+    {
+      "path": "data/source/oldtown/2873/shared.json",
+      "sha256": "sha256:37959b4d73abb28a36a70d9e79529dafa1834905ff36f18bae0ddd7bad55d27b"
+    },
+    {
+      "path": "data/source/oldtown/2873/texture.jpg",
+      "sha256": "sha256:c015a19e5321e122d2151ec1eb91fdf83001d803f34c4a9f60be5c543ca5cd76"
+    },
+    {
+      "path": "data/source/oldtown/29/geometry.bin",
+      "sha256": "sha256:7187d43bfc9b311dc82450719a26d800c2934c5f617bd7c0679e75b60f41ab50"
+    },
+    {
+      "path": "data/source/oldtown/29/node.json",
+      "sha256": "sha256:8f9bc8593d8f59e41f8358235573ca2d282ad461bfc38b6bfd1ea8bca508e123"
+    },
+    {
+      "path": "data/source/oldtown/29/shared.json",
+      "sha256": "sha256:d82bdd733bed8b5f958bc43328d58dfa8ecf10dbcfb95447be6067f8b149fdbc"
+    },
+    {
+      "path": "data/source/oldtown/2914/geometry.bin",
+      "sha256": "sha256:4f02924f1e3e9d6ca716a4aa73a2351a6e5d1a7b34d62b0a811390b6f07227e7"
+    },
+    {
+      "path": "data/source/oldtown/2914/node.json",
+      "sha256": "sha256:9b1b251668a8d257ad1e27ac88d9f3bff68a932d009dd2240cf3f31a0534dffe"
+    },
+    {
+      "path": "data/source/oldtown/2914/shared.json",
+      "sha256": "sha256:6f033225b4e1796550147288bf8fe1aeb5a6fce7559605f31c3b4459c3cd99dd"
+    },
+    {
+      "path": "data/source/oldtown/2914/texture.jpg",
+      "sha256": "sha256:f9e46d8b0b031e797dbf41d0a452d1b79edd8422f109159cb1ba8187010b32ce"
+    },
+    {
+      "path": "data/source/oldtown/3/geometry.bin",
+      "sha256": "sha256:a7c62667f5a8ba76de437407642d37c4b094c270bc41b793988bd06d1c5674cf"
+    },
+    {
+      "path": "data/source/oldtown/3/node.json",
+      "sha256": "sha256:fb5e36c917f982bd87f191720cd7406c67da829d928df56b39fa3c54190e9e8a"
+    },
+    {
+      "path": "data/source/oldtown/3/shared.json",
+      "sha256": "sha256:f5f05786511a2f0e8874292cda34a34375b2161d44951811e01724af57434e48"
+    },
+    {
+      "path": "data/source/oldtown/30/geometry.bin",
+      "sha256": "sha256:c344a7ea8d0d40b8e2c323239e7e0fbd25c56b62f6fb0f263c9f4f61195fe61a"
+    },
+    {
+      "path": "data/source/oldtown/30/node.json",
+      "sha256": "sha256:b546e1057246d6f2f491f15d821b2b6981e5175fcc4b9f4ee7c28614d99cd350"
+    },
+    {
+      "path": "data/source/oldtown/30/shared.json",
+      "sha256": "sha256:99f4df5743bad61e4993f62359470433e585713684d5df00c84925b765879316"
+    },
+    {
+      "path": "data/source/oldtown/31/geometry.bin",
+      "sha256": "sha256:0505a1e836636a054803dc7e6f9289d84f558b4aaf705adb54c7237ecbcf7a98"
+    },
+    {
+      "path": "data/source/oldtown/31/node.json",
+      "sha256": "sha256:e2ed04653709ab2e8f9d813d94a698c1d6dd3518b2355dc5ab6b1bd068257d39"
+    },
+    {
+      "path": "data/source/oldtown/31/shared.json",
+      "sha256": "sha256:086daf52ca51dea6dffdb8ac6065fbf53713283f4f13c1db74e491a89be8552a"
+    },
+    {
+      "path": "data/source/oldtown/3106/geometry.bin",
+      "sha256": "sha256:a15eba178c409a1558433e945168f0cd5ec9d793795c826c3520127a0fe63b39"
+    },
+    {
+      "path": "data/source/oldtown/3106/node.json",
+      "sha256": "sha256:632297e9584294242eb185539970a67a15178985b8edda5b4d76aade7cd40eec"
+    },
+    {
+      "path": "data/source/oldtown/3106/shared.json",
+      "sha256": "sha256:c87b2444e5c02366d817c0e79ad9dbf904635b3ffa607ece1fdb228725ab873f"
+    },
+    {
+      "path": "data/source/oldtown/3106/texture.jpg",
+      "sha256": "sha256:709c7d8e7b439181b39b16ffc5e64934cb514868cc755ea893f2a728bb0c9dff"
+    },
+    {
+      "path": "data/source/oldtown/3167/geometry.bin",
+      "sha256": "sha256:17c7d408735c80d6315e8d5308d97bd84ad26ce1cf7fc4108b91272e851c3f80"
+    },
+    {
+      "path": "data/source/oldtown/3167/node.json",
+      "sha256": "sha256:ae2ed8ca0b465cc0cef8f2d0f2af3a8e89b4901fc3c0abccdf554049fb13cc3b"
+    },
+    {
+      "path": "data/source/oldtown/3167/shared.json",
+      "sha256": "sha256:37d4d735dd43f1224232860c3658326d7aed78f2114b4392721bc52ef90ce025"
+    },
+    {
+      "path": "data/source/oldtown/3167/texture.jpg",
+      "sha256": "sha256:0f5723bbcbc8137bc68b6a2489611046ce28dbda34ba2f48d55992b0f730b583"
+    },
+    {
+      "path": "data/source/oldtown/3191/geometry.bin",
+      "sha256": "sha256:b4a016b90ab5cd8dd8a0f316cd9b9a6641074f07f45dd7ae4875383ff24f91fc"
+    },
+    {
+      "path": "data/source/oldtown/3191/node.json",
+      "sha256": "sha256:2fd6e904a5deb4e150e5ac068994950763829ef9ef0924445a39e49af06547ee"
+    },
+    {
+      "path": "data/source/oldtown/3191/shared.json",
+      "sha256": "sha256:9c7c2d042beabec3d880b4e46762bc5b0619e537be0407359c76e19833eccd3c"
+    },
+    {
+      "path": "data/source/oldtown/3191/texture.jpg",
+      "sha256": "sha256:ab8d554c9f78340a478c9041938895c2a414c3598aa66d24273cae4e949bc596"
+    },
+    {
+      "path": "data/source/oldtown/32/geometry.bin",
+      "sha256": "sha256:9620e24617dbd11c194a42f84b40636fd0b8773ffb77d973d315236a8223ac14"
+    },
+    {
+      "path": "data/source/oldtown/32/node.json",
+      "sha256": "sha256:9438f2fb67eb3bac6652bc3ec68a2f5b46e62f498ba20f31478fa4febf5584a8"
+    },
+    {
+      "path": "data/source/oldtown/32/shared.json",
+      "sha256": "sha256:29872fe7b88f5eb295ea3829fb7b5174bf9dae45a300b005023c11e2c11d4e47"
+    },
+    {
+      "path": "data/source/oldtown/33/geometry.bin",
+      "sha256": "sha256:a0ae2167ed4e21192f9b0120933e885503a5e36e926202355925970773d937c2"
+    },
+    {
+      "path": "data/source/oldtown/33/node.json",
+      "sha256": "sha256:cc2bd285f8940f60d0d456db8f794c885a4f7c0ca335fd7b58da384d0b325476"
+    },
+    {
+      "path": "data/source/oldtown/33/shared.json",
+      "sha256": "sha256:78229c1e21cdbd1c00332566cb76f3508b73e6c51efb2812dcb100009c65cb42"
+    },
+    {
+      "path": "data/source/oldtown/3351/geometry.bin",
+      "sha256": "sha256:94a8ca68f90f1cfa1f3524f9df867d8e6d268215d39dca49bc6733c313725228"
+    },
+    {
+      "path": "data/source/oldtown/3351/node.json",
+      "sha256": "sha256:ac23dfa817e6d44b1fdd597b916f315dabeb54a0861a0ed284f474267d6fb46b"
+    },
+    {
+      "path": "data/source/oldtown/3351/shared.json",
+      "sha256": "sha256:2649a6db015a7f1fe844811b0f4ad1ebe560cce286cbfe26b195e2bd77ac6e9c"
+    },
+    {
+      "path": "data/source/oldtown/3351/texture.jpg",
+      "sha256": "sha256:e58666b60ab15073da7daaab3eecd2587fbb77f5df3235505e8324f49794d7e2"
+    },
+    {
+      "path": "data/source/oldtown/34/geometry.bin",
+      "sha256": "sha256:325c718e056c6c250a9969ec66b7bec35fdbd5d670f33e0f9db400a8e56302a0"
+    },
+    {
+      "path": "data/source/oldtown/34/node.json",
+      "sha256": "sha256:172f657905132d2b2253695299e97076ae417c518ef1b9d8e10b1645035cc71a"
+    },
+    {
+      "path": "data/source/oldtown/34/shared.json",
+      "sha256": "sha256:7dd2cdca04a16f912c4bb5cbbfcbc5159d80f756f5f8693e0f2cb3352e678ecf"
+    },
+    {
+      "path": "data/source/oldtown/3432/geometry.bin",
+      "sha256": "sha256:b77d09fa88462741d3861b4de323baa834aeb433506c016ad16a6520954f86e5"
+    },
+    {
+      "path": "data/source/oldtown/3432/node.json",
+      "sha256": "sha256:b2cb62138100746127d737b4e1fcfea12bf661c6a48d598854e611231357b305"
+    },
+    {
+      "path": "data/source/oldtown/3432/shared.json",
+      "sha256": "sha256:86de0942a61ff517d4dfa0ba3b340eff6ba5a86cb05914736e9b9dd59d124999"
+    },
+    {
+      "path": "data/source/oldtown/3432/texture.jpg",
+      "sha256": "sha256:85325cb1c751112d588aa5da6b70380ff75a4519c17d96e5cf9a72cfc4646015"
+    },
+    {
+      "path": "data/source/oldtown/3466/geometry.bin",
+      "sha256": "sha256:3b33905703c208c0b79ff690457b7f87aef7c0d4333aa7fcdb76a6d9083568d7"
+    },
+    {
+      "path": "data/source/oldtown/3466/node.json",
+      "sha256": "sha256:14745c894541e4bcc5381140d519624d18a85f3f4f664f7c34bab9b14bc0f718"
+    },
+    {
+      "path": "data/source/oldtown/3466/shared.json",
+      "sha256": "sha256:c6a803e92b42fca9bd5d901d3feed33e93c77e22e851c42bec6995593bc04eda"
+    },
+    {
+      "path": "data/source/oldtown/3466/texture.jpg",
+      "sha256": "sha256:bd326e4e476961783f02f1018a690683cdad8c64aa24a8591767169fdf2493fc"
+    },
+    {
+      "path": "data/source/oldtown/35/geometry.bin",
+      "sha256": "sha256:eb478dcaa7d46aaa639aac6796100fedcdbeb7eb6ec11d2f8e44f52795349fdd"
+    },
+    {
+      "path": "data/source/oldtown/35/node.json",
+      "sha256": "sha256:678bfa8a64d9ad8f0ebae44cdf285af42ec11f2d3df0924254976e2e5bb17abc"
+    },
+    {
+      "path": "data/source/oldtown/35/shared.json",
+      "sha256": "sha256:e6870e4fd3e07f67a4d1425074a8fe6a372bafae785ade1c1adafd1704e517ba"
+    },
+    {
+      "path": "data/source/oldtown/3522/geometry.bin",
+      "sha256": "sha256:5788b7b1fbe52f24e95f7175b176457edd180217d5ce4c40c12584f2b59e3195"
+    },
+    {
+      "path": "data/source/oldtown/3522/node.json",
+      "sha256": "sha256:42d7eb19ec41e444e529bf31ea6486b8af9a05d5b073aacc5c1bf6c7a42644cc"
+    },
+    {
+      "path": "data/source/oldtown/3522/shared.json",
+      "sha256": "sha256:04a78f1fa5536c89d11c1171fe3d29b7d8a8b00e084d077f06e4f7c2fcea0ac6"
+    },
+    {
+      "path": "data/source/oldtown/3522/texture.jpg",
+      "sha256": "sha256:aab9e27321f62e3a03bc2bbf9544e526edcb74c6da7c6cc1c66329e2f99bbd28"
+    },
+    {
+      "path": "data/source/oldtown/3537/geometry.bin",
+      "sha256": "sha256:e6db1b32ef466ac726a63e41bc03459a23b3d02c80b4fb3113ca8e0f02af56d2"
+    },
+    {
+      "path": "data/source/oldtown/3537/node.json",
+      "sha256": "sha256:53baf2ca9da96d7ca51bf0ae1df2f07e458a33632010061139b64ebe411142d2"
+    },
+    {
+      "path": "data/source/oldtown/3537/shared.json",
+      "sha256": "sha256:83050ee582e1d7da7588fae85b52e37da493d034c553a12184384d86712c6874"
+    },
+    {
+      "path": "data/source/oldtown/3537/texture.jpg",
+      "sha256": "sha256:70e730f43f764bc80f4ec3ac0c3d3984093e66fa9b5d621635d64a6bf9e891f0"
+    },
+    {
+      "path": "data/source/oldtown/36/geometry.bin",
+      "sha256": "sha256:3a016965ab8d022e600e1e1336f5b1663a790552ece372f93747ba591284d9aa"
+    },
+    {
+      "path": "data/source/oldtown/36/node.json",
+      "sha256": "sha256:f75d5528bad224f009802b49a5142da42df1d86d4c73f53c18fcb411b8f3ba13"
+    },
+    {
+      "path": "data/source/oldtown/36/shared.json",
+      "sha256": "sha256:fa16d427bdfc17d9c4a188f8c6924837fcd0888fbac2603e64b91ec0fbb61a78"
+    },
+    {
+      "path": "data/source/oldtown/37/geometry.bin",
+      "sha256": "sha256:502bfcf697da67438f4067d1a5a86bb4237d46af461075c067d09b46beee3cd9"
+    },
+    {
+      "path": "data/source/oldtown/37/node.json",
+      "sha256": "sha256:27a5faf368a13401788e301f077728b4e79358e4c664842bbd56f32d3777bd99"
+    },
+    {
+      "path": "data/source/oldtown/37/shared.json",
+      "sha256": "sha256:cbe50c327e157a5da980b7d8f4105aa2078095a0ae827ff8eec9f2a510eb4087"
+    },
+    {
+      "path": "data/source/oldtown/3707/geometry.bin",
+      "sha256": "sha256:2096b6c4dadf495cb633dc3072ead064c0c5954a51696498a2878f639f8a3513"
+    },
+    {
+      "path": "data/source/oldtown/3707/node.json",
+      "sha256": "sha256:1e1d3e575a9709a8b8cd8eebee08fecb29ea5e7bb8dd2b3686ffd32b5cf1d8ff"
+    },
+    {
+      "path": "data/source/oldtown/3707/shared.json",
+      "sha256": "sha256:08089a7973830beefae6784374655918a908c122681e40d7738d7e41e39a9cb2"
+    },
+    {
+      "path": "data/source/oldtown/3707/texture.jpg",
+      "sha256": "sha256:123ef3fe6236b797f3eefdebedfffb42d1545954f44f065c64ecdb2ed48b504c"
+    },
+    {
+      "path": "data/source/oldtown/3739/geometry.bin",
+      "sha256": "sha256:23dd44b4ccdfa5537b17305c40030bf3846119b5b90578a97b9ea0cb4b59c8db"
+    },
+    {
+      "path": "data/source/oldtown/3739/node.json",
+      "sha256": "sha256:660745ecd47c7adf79efbefc126588041a1dde68c622f64c0bbb15c710188d38"
+    },
+    {
+      "path": "data/source/oldtown/3739/shared.json",
+      "sha256": "sha256:d244319268dfdc3a4e7869d43ea50647af50f39ae48e960cc313ceef61daa2a8"
+    },
+    {
+      "path": "data/source/oldtown/3739/texture.jpg",
+      "sha256": "sha256:2db2fd0d83a4be16b57c1a2ed31e90d5292856e043d73ece5679ffe564a9b83c"
+    },
+    {
+      "path": "data/source/oldtown/38/geometry.bin",
+      "sha256": "sha256:37f0cc11cd1d8c57026994b1a612cb4034cf90841cef97fd196db00351725ecf"
+    },
+    {
+      "path": "data/source/oldtown/38/node.json",
+      "sha256": "sha256:6fd552c5252ab12363ae188bbd2bd91506590ce3f8e19611b876e21ebee0b5e4"
+    },
+    {
+      "path": "data/source/oldtown/38/shared.json",
+      "sha256": "sha256:fae2870c739f01b1106d2d2379e2db1bd41f786e799b869fb0fc645672df4eb0"
+    },
+    {
+      "path": "data/source/oldtown/3838/geometry.bin",
+      "sha256": "sha256:5ac8023cf848ba4efa99b7cd35727be980ebed632046aa3367654665337a4e42"
+    },
+    {
+      "path": "data/source/oldtown/3838/node.json",
+      "sha256": "sha256:eb71f507150db354965bdd25b1d07174be5b0a00bc58eec8a60440bbfcf90425"
+    },
+    {
+      "path": "data/source/oldtown/3838/shared.json",
+      "sha256": "sha256:e30629348e233abca4801444445f0aa5657a9746d35302e427b3624cc59ddbb2"
+    },
+    {
+      "path": "data/source/oldtown/3838/texture.jpg",
+      "sha256": "sha256:1c140abcf0bcc05fe40ea6a448d2344d5ccaafb3c9229632eb878b15556503ae"
+    },
+    {
+      "path": "data/source/oldtown/39/geometry.bin",
+      "sha256": "sha256:e5e95ee119369654f9aded637e1d025019d3b9018616c978c0f016f62876e6d7"
+    },
+    {
+      "path": "data/source/oldtown/39/node.json",
+      "sha256": "sha256:bf976a8cc7fbc6cc4669305c560d872b886286e0349cea58a2794d8645fcefbd"
+    },
+    {
+      "path": "data/source/oldtown/39/shared.json",
+      "sha256": "sha256:9b44a92946876172e50d7776d038efaf574203787847812eec4ce83aafd81ca9"
+    },
+    {
+      "path": "data/source/oldtown/3938/geometry.bin",
+      "sha256": "sha256:6ca841cc952fc34ec9ff9d1aece6d782e030600d0406733a379ffde3f50d6d40"
+    },
+    {
+      "path": "data/source/oldtown/3938/node.json",
+      "sha256": "sha256:4da42de656e533daa3828e59bfa584dd8a02079795943ce4a0fd1fa4554d7c28"
+    },
+    {
+      "path": "data/source/oldtown/3938/shared.json",
+      "sha256": "sha256:1f363c9ae2073a0f6e0d5d0e68f78897f1159c7a5b5e41f162ba100991c07d53"
+    },
+    {
+      "path": "data/source/oldtown/3938/texture.jpg",
+      "sha256": "sha256:7aea51a14975ee84ff8462d9ea013953fbaa2761933fb9522c6ecd7bc70903e4"
+    },
+    {
+      "path": "data/source/oldtown/3969/geometry.bin",
+      "sha256": "sha256:69d35802bcce724ad629d0369f217919d9586537a43751cbb5b62fa0ba473b69"
+    },
+    {
+      "path": "data/source/oldtown/3969/node.json",
+      "sha256": "sha256:0449a0522367a28ecd1c3f7ac4980425dfe3d60b5b095f22771b7f705f0ce067"
+    },
+    {
+      "path": "data/source/oldtown/3969/shared.json",
+      "sha256": "sha256:c42cd49c9879aa88502228c69a999d26bfeb2e8a7be028e6551690b6979eac8b"
+    },
+    {
+      "path": "data/source/oldtown/3969/texture.jpg",
+      "sha256": "sha256:aa1f84347f97dabfa3b525849379afe81088714b10a356e8407a9abcd9bd1724"
+    },
+    {
+      "path": "data/source/oldtown/3997/geometry.bin",
+      "sha256": "sha256:6295acaca80bb79e953ee546e5aa77ca466df63cf549ca6127e49c95a38f00f7"
+    },
+    {
+      "path": "data/source/oldtown/3997/node.json",
+      "sha256": "sha256:5dcf0dd0dc7d11ee0a07f8af951e5b373547de777bca720d17f16580f26155f2"
+    },
+    {
+      "path": "data/source/oldtown/3997/shared.json",
+      "sha256": "sha256:627665d0f283aa260293a1ae98d9d99ec6d06fe5ccf32bae3d1dab33483d7c2e"
+    },
+    {
+      "path": "data/source/oldtown/3997/texture.jpg",
+      "sha256": "sha256:2ac3191e2db0c731eaa587c9b20800ba877bdbab3ef543b53dc4c32661b73c74"
+    },
+    {
+      "path": "data/source/oldtown/4/geometry.bin",
+      "sha256": "sha256:1966bb4c77adfa186de7864bd11c2d4d419061c4d549202cae7083d8ffbd748f"
+    },
+    {
+      "path": "data/source/oldtown/4/node.json",
+      "sha256": "sha256:7ecc21f5a832d269bf2810be0a6f6b0481e41926a010890d901206289e103ff7"
+    },
+    {
+      "path": "data/source/oldtown/4/shared.json",
+      "sha256": "sha256:493fd7b6636d436e3528604ab89332cad597f55694ca8a991a49c9bc5a184903"
+    },
+    {
+      "path": "data/source/oldtown/40/geometry.bin",
+      "sha256": "sha256:763375c1c60d18ed92489aeebb891bcb45cf56b4ac590adfe1fded59a8e666c5"
+    },
+    {
+      "path": "data/source/oldtown/40/node.json",
+      "sha256": "sha256:29f6ce40b2d194444d9da8622f80031650e9256e5ff213cd2c5230bd1803b804"
+    },
+    {
+      "path": "data/source/oldtown/40/shared.json",
+      "sha256": "sha256:623e1552749f5398535b12f63a5b78cf2f0fa193d490e3750a71084f1cefe17b"
+    },
+    {
+      "path": "data/source/oldtown/41/geometry.bin",
+      "sha256": "sha256:26a018e6c0497224af31c86eb106449ba5d37208c76bc6847463c0248c627504"
+    },
+    {
+      "path": "data/source/oldtown/41/node.json",
+      "sha256": "sha256:666ebb522b3cfd8cf44fc263ecedc8bc7846a64ffe31771be743302b9eaa2760"
+    },
+    {
+      "path": "data/source/oldtown/41/shared.json",
+      "sha256": "sha256:aee6d4a81f83b856e1e00cb03027862b60dceaecf95f10dbf9b18699d9379ecb"
+    },
+    {
+      "path": "data/source/oldtown/4109/geometry.bin",
+      "sha256": "sha256:06f316f1b93f366826097685372302ed0f8e0774010d460f4998649f9e3bea3c"
+    },
+    {
+      "path": "data/source/oldtown/4109/node.json",
+      "sha256": "sha256:864e725bcb6ed140581371f6e945dcbb0693b63846dd1745600dda3f67502ce5"
+    },
+    {
+      "path": "data/source/oldtown/4109/shared.json",
+      "sha256": "sha256:2f58beadd68e7d44ce5fd6c3d337aba68a6eb1ffa10548f4bc1ab6dda3607248"
+    },
+    {
+      "path": "data/source/oldtown/4109/texture.jpg",
+      "sha256": "sha256:072152183330c7041d8c58db6e54a3e59bd232c174d16226e18d884c318fa2bc"
+    },
+    {
+      "path": "data/source/oldtown/42/geometry.bin",
+      "sha256": "sha256:e3a3e995517702c072e8d05f7fe479264ac6780eba3f199bd835cb820c6ecbbc"
+    },
+    {
+      "path": "data/source/oldtown/42/node.json",
+      "sha256": "sha256:81f4ce1441985aaf72f2deded874792100c7d9c7a430d04fdade6d1a266a5bc7"
+    },
+    {
+      "path": "data/source/oldtown/42/shared.json",
+      "sha256": "sha256:d448d1005c0cce2a4ab4503265ab8959e5729bcc04aacda0fe0011c62de3bec3"
+    },
+    {
+      "path": "data/source/oldtown/423/geometry.bin",
+      "sha256": "sha256:79e240bdb82e6e674a3acbbb83a8294e71382528b9a66721d393bf22d56fdc96"
+    },
+    {
+      "path": "data/source/oldtown/423/node.json",
+      "sha256": "sha256:2ada54834253ed64f68192ecb656ed2b5d2b8dd6d7e02c9a497b0bc6c5fc1565"
+    },
+    {
+      "path": "data/source/oldtown/423/shared.json",
+      "sha256": "sha256:22b7faa93d60dfdf7a74886de123e6e341746ada8033b872ee8587d2c2e70240"
+    },
+    {
+      "path": "data/source/oldtown/423/texture.jpg",
+      "sha256": "sha256:1522b58134fecc111e588a1ce8d359efa9fe630fd3e04d5050b2b841839d25b0"
+    },
+    {
+      "path": "data/source/oldtown/43/geometry.bin",
+      "sha256": "sha256:a7a296c7b383162d4ba4edce89cae60c96621d0f771e986a63e4bbbbaf601022"
+    },
+    {
+      "path": "data/source/oldtown/43/node.json",
+      "sha256": "sha256:58c4ca4080380daa354ef2ff5624a8aa4888f364e43dcf33cc000766b42a2adb"
+    },
+    {
+      "path": "data/source/oldtown/43/shared.json",
+      "sha256": "sha256:745a33321c6a4ba5e1d9d866b284004c42881c52390124c26c4f92881fe93960"
+    },
+    {
+      "path": "data/source/oldtown/4332/geometry.bin",
+      "sha256": "sha256:31f6ac8927489841565adc0218fb93ed6f47ff2fe2b0cec18d604aa9865d5945"
+    },
+    {
+      "path": "data/source/oldtown/4332/node.json",
+      "sha256": "sha256:409f57a8bb9b3454710267f4b77abb3252da869ce83be9ba6e4f0270de7adede"
+    },
+    {
+      "path": "data/source/oldtown/4332/shared.json",
+      "sha256": "sha256:b8cd331e78e3440cbad77f5df4d7406cd3aad1930390076eccf71e6dfd076430"
+    },
+    {
+      "path": "data/source/oldtown/4332/texture.jpg",
+      "sha256": "sha256:b7973b7f070bbb8dd80857bb5fd2a47b5aaaeb11fcd508aa2df38bc2745c7cf7"
+    },
+    {
+      "path": "data/source/oldtown/436/geometry.bin",
+      "sha256": "sha256:030dec40dbf1d0b975ee1852baa17eee60d7206e0c4cfd690de1b1357b552255"
+    },
+    {
+      "path": "data/source/oldtown/436/node.json",
+      "sha256": "sha256:3193dd6db59b39e695a88bd7454d1d9bd5e75d95b5a629dc95ddfc1a7734987d"
+    },
+    {
+      "path": "data/source/oldtown/436/shared.json",
+      "sha256": "sha256:9b5297ee8028eec109bb95157c95e0fb6bb54fca1b3e01de961b331d8a605f54"
+    },
+    {
+      "path": "data/source/oldtown/436/texture.jpg",
+      "sha256": "sha256:3a67fd17922953e8954fc8206c59c071376e9727b7e5c49555cf023e4c88d40b"
+    },
+    {
+      "path": "data/source/oldtown/4360/geometry.bin",
+      "sha256": "sha256:3df5700b3835faf7b4c58426661251ecf2f8dfe32a9b94bf60d8944e16731b59"
+    },
+    {
+      "path": "data/source/oldtown/4360/node.json",
+      "sha256": "sha256:6fe900c7e2c48b65cbfdcf4a292a27421d83c0b25d3c90651e509a50ae9222ca"
+    },
+    {
+      "path": "data/source/oldtown/4360/shared.json",
+      "sha256": "sha256:3d5eab1c0504640450ba7da9f4b8698e3a5cbb9cf076b3c71e50e340c1a565eb"
+    },
+    {
+      "path": "data/source/oldtown/4360/texture.jpg",
+      "sha256": "sha256:beef1e8a1ae96abe4edc448e4cf52458e0d812455807db3e5e88d12f2206213a"
+    },
+    {
+      "path": "data/source/oldtown/4396/geometry.bin",
+      "sha256": "sha256:43a74aad5a61b22102fcede8970f1489d1a784b2431398e724b57cf421f6ea8a"
+    },
+    {
+      "path": "data/source/oldtown/4396/node.json",
+      "sha256": "sha256:f714418e9b5c27ad8255e925695751e4b179f8902eba62ebb193a330633ff1aa"
+    },
+    {
+      "path": "data/source/oldtown/4396/shared.json",
+      "sha256": "sha256:7e1210eecd43f0d87308d05ea70456ecfd4f3d32af101c159fcc4696571cbe1a"
+    },
+    {
+      "path": "data/source/oldtown/4396/texture.jpg",
+      "sha256": "sha256:2a4c8d53837d1d6535238363d956ebae388ee8ad081294db96f8b6e4d9712985"
+    },
+    {
+      "path": "data/source/oldtown/4421/geometry.bin",
+      "sha256": "sha256:ca7b6ec7d81c78258bffc4e130b3ce2d95fdf91dae736e2e09aa997cb357d2e5"
+    },
+    {
+      "path": "data/source/oldtown/4421/node.json",
+      "sha256": "sha256:9d6f1fd472b49d49f540a75effcc55cde10779f49a988fb6078cf87f7a791edc"
+    },
+    {
+      "path": "data/source/oldtown/4421/shared.json",
+      "sha256": "sha256:7ff941d4e6c5115d8cf20a04fc7907b299fb8f9b11bbc53aab7ba176884f0c17"
+    },
+    {
+      "path": "data/source/oldtown/4421/texture.jpg",
+      "sha256": "sha256:63da0740ca5e4d966972c00557c71c7e347db7135b91edcc9fb7872718c95331"
+    },
+    {
+      "path": "data/source/oldtown/4586/geometry.bin",
+      "sha256": "sha256:da498e40d6619ea64858a45dff8dd386a6b3c8bd4c185df5b27e4d9d0701e98c"
+    },
+    {
+      "path": "data/source/oldtown/4586/node.json",
+      "sha256": "sha256:c74ae69f78b68517c96a9ae77a594d4c4650e61d31b90da8d72d560a30a6070a"
+    },
+    {
+      "path": "data/source/oldtown/4586/shared.json",
+      "sha256": "sha256:ed71b255438902193486c87a6866f91bc7edada0837cec909ce4ad50084127bd"
+    },
+    {
+      "path": "data/source/oldtown/4586/texture.jpg",
+      "sha256": "sha256:156fb3e457ee6b46cecd073f90e5f0f4ec4880956bfd939293633c0664cfbf0f"
+    },
+    {
+      "path": "data/source/oldtown/489/geometry.bin",
+      "sha256": "sha256:901da6ca739fed3ada50d4eaf6905afcc0cb81b806eafb460ec57179ba0d20b8"
+    },
+    {
+      "path": "data/source/oldtown/489/node.json",
+      "sha256": "sha256:711f833b70534e582fe13a35e267a331b5ebec34584ef29032d0da4ed3d6e8c8"
+    },
+    {
+      "path": "data/source/oldtown/489/shared.json",
+      "sha256": "sha256:88940752502c88c51f943a48dbece084fbe4577ff0cf61dcc9bc1d3909f8eec3"
+    },
+    {
+      "path": "data/source/oldtown/489/texture.jpg",
+      "sha256": "sha256:648e9ecb29493a08e9c5e5811e62275f88926d0bc3e7356e21e34d181cb199a8"
+    },
+    {
+      "path": "data/source/oldtown/5/geometry.bin",
+      "sha256": "sha256:5665e721bcb03fe879031e45c174d8fbf817fd23b83463a36923f270c1f9c62c"
+    },
+    {
+      "path": "data/source/oldtown/5/node.json",
+      "sha256": "sha256:8aa8795e6f395039c98b9acb882026bcb87ed7176f528eed22bf54e91a12321d"
+    },
+    {
+      "path": "data/source/oldtown/5/shared.json",
+      "sha256": "sha256:f8b4c9b1a02129c05fd2a4b2bc69ee52c60a6deb4349b96e28b61126ead7803a"
+    },
+    {
+      "path": "data/source/oldtown/51/geometry.bin",
+      "sha256": "sha256:3a4fff2dccdbc66b9a5234d829b3fe2e0da656644e020c5006779579f99cb672"
+    },
+    {
+      "path": "data/source/oldtown/51/node.json",
+      "sha256": "sha256:9e6c77d38b68ad620d08c2a5cf54292bc15ad2a0eb21ecb7a718552d21ace2a5"
+    },
+    {
+      "path": "data/source/oldtown/51/shared.json",
+      "sha256": "sha256:774b56bcd715b8eca10ce2721cd670f9da59923d9696adedb287b5f8775495eb"
+    },
+    {
+      "path": "data/source/oldtown/513/geometry.bin",
+      "sha256": "sha256:8407bdaa81de850b5b5b9dbec65948a643a074ab366b6b42e9542e1eb6bfaf7f"
+    },
+    {
+      "path": "data/source/oldtown/513/node.json",
+      "sha256": "sha256:32341dd9c75e6d3aa5c6c75b99fdd49f5d16e4233093f839f5586e2a717d7e12"
+    },
+    {
+      "path": "data/source/oldtown/513/shared.json",
+      "sha256": "sha256:bf11bb502e853bb9ebf4f7c316fc5be0193c0ad8b85367906a56b5883cc74a31"
+    },
+    {
+      "path": "data/source/oldtown/513/texture.jpg",
+      "sha256": "sha256:576d09261d7c86aa5818056b0e157dcf1d1f63340d1c6d091a7b3e5b6af24214"
+    },
+    {
+      "path": "data/source/oldtown/52/geometry.bin",
+      "sha256": "sha256:17690c05d35bcce3ceaa46920bf98c542cc285b3c2e89bef86bc157b16bb5f0e"
+    },
+    {
+      "path": "data/source/oldtown/52/node.json",
+      "sha256": "sha256:eff2043da9d881b581aa0eebb39966f8a4701d811d6d3570b651eb4db2ba6318"
+    },
+    {
+      "path": "data/source/oldtown/52/shared.json",
+      "sha256": "sha256:97448f7755337bb78b9e70584cdce116cb274b37676204e562c1b87fef82aff6"
+    },
+    {
+      "path": "data/source/oldtown/53/geometry.bin",
+      "sha256": "sha256:394d115af872d6f2a1fd1cfc3a389de13aa02bb16e0e0a7cb05d1f72b0844a52"
+    },
+    {
+      "path": "data/source/oldtown/53/node.json",
+      "sha256": "sha256:1f69c8122e12b6be51c9834f279a0d7ccc1e5454e9a07625368ba3dc2afa3573"
+    },
+    {
+      "path": "data/source/oldtown/53/shared.json",
+      "sha256": "sha256:5ab15b83aaaf2dd42d7f1249e85e1a45d589a52969e693644dcc3fa54594ca34"
+    },
+    {
+      "path": "data/source/oldtown/54/geometry.bin",
+      "sha256": "sha256:52618b8d9d0863332a94bdb825a931972eb47b47db8db0232f05efc97f34ff0d"
+    },
+    {
+      "path": "data/source/oldtown/54/node.json",
+      "sha256": "sha256:5c441fadcc1fcb97ff22b16e52dadc20dfa355e9e54c843ee8761e2add35e494"
+    },
+    {
+      "path": "data/source/oldtown/54/shared.json",
+      "sha256": "sha256:591f29e961c58526bb34db568d80fc067d2e60d0f0e75a3c3c1ab4018c360585"
+    },
+    {
+      "path": "data/source/oldtown/54/texture.jpg",
+      "sha256": "sha256:0478ee81bc08446d9988ba6e2eff204b9104a206f110f8e23a2b1bd4eba154ee"
+    },
+    {
+      "path": "data/source/oldtown/5497/geometry.bin",
+      "sha256": "sha256:929458991abf1fd1a8fb0f013ff920fe512cfb47afd7b01760ae8b5870a757d4"
+    },
+    {
+      "path": "data/source/oldtown/5497/node.json",
+      "sha256": "sha256:851c71c467752316ba57cff899e26413933c327cece031f8a98d2e392d83c459"
+    },
+    {
+      "path": "data/source/oldtown/5497/shared.json",
+      "sha256": "sha256:cac0eb4b48627effe6c56094ed87703521b5e805b21191653772a4577260a314"
+    },
+    {
+      "path": "data/source/oldtown/5497/texture.jpg",
+      "sha256": "sha256:386ac0a74e94be4512580b95536f3b6f5b04f8cae3acbc009c4b3a5c1d2da2df"
+    },
+    {
+      "path": "data/source/oldtown/5597/geometry.bin",
+      "sha256": "sha256:36a68a28b7e885546c2464862bc1bee33e909058e4e1098ab25b30c6e1435ed6"
+    },
+    {
+      "path": "data/source/oldtown/5597/node.json",
+      "sha256": "sha256:e4eb2469fbc864a3bac9f6b48fc4d24c60200ef17015bff357c71a9969ad50b0"
+    },
+    {
+      "path": "data/source/oldtown/5597/shared.json",
+      "sha256": "sha256:f620ce08294ad441fe676f96a05ad3331e27e0d5c4937b2ce9df3d4799e468fb"
+    },
+    {
+      "path": "data/source/oldtown/5597/texture.jpg",
+      "sha256": "sha256:0aad205c2d7e5769ea856c0c4e434ffd213c6f62af487dc2a1bc5504a69b28ac"
+    },
+    {
+      "path": "data/source/oldtown/5620/geometry.bin",
+      "sha256": "sha256:9c9184e625ef7aad0e3703689a3efc96e0904d05bd9ef4df00f001939306bb70"
+    },
+    {
+      "path": "data/source/oldtown/5620/node.json",
+      "sha256": "sha256:0ff2884028a39d50df3acad17886b537ae345e9acddd9cac1f11540426fbd1f4"
+    },
+    {
+      "path": "data/source/oldtown/5620/shared.json",
+      "sha256": "sha256:ecb02fb6b6bdd07666955ee74c186567ca917cff6af223a64acacafdf8aa9dde"
+    },
+    {
+      "path": "data/source/oldtown/5620/texture.jpg",
+      "sha256": "sha256:c189174eed8548c5583fbb1b14e1754a3b2c91c68c214f9d24b8ffaabe7c085a"
+    },
+    {
+      "path": "data/source/oldtown/5638/geometry.bin",
+      "sha256": "sha256:9afda65a589b8becc1c8e0ce67cc695650463ff75d78b33ed4a6f34b7131d62e"
+    },
+    {
+      "path": "data/source/oldtown/5638/node.json",
+      "sha256": "sha256:317dd9a7bda0a3e9980f7afba187914afb80e7fb28d7e5cd27b92daf731a3a5d"
+    },
+    {
+      "path": "data/source/oldtown/5638/shared.json",
+      "sha256": "sha256:d1f8af781ccc1ce8c7350aa9f85e79c65d967f342af16af7a430dec0b186b489"
+    },
+    {
+      "path": "data/source/oldtown/5638/texture.jpg",
+      "sha256": "sha256:a22d233e4da7286d29536b783aa59dd034b1fdc4313abea868c9138ef91d7ee0"
+    },
+    {
+      "path": "data/source/oldtown/5770/geometry.bin",
+      "sha256": "sha256:715d42be70513ca5a6a9a2007e5dee388b9c7f223c4b638e34e750b799861550"
+    },
+    {
+      "path": "data/source/oldtown/5770/node.json",
+      "sha256": "sha256:dc886b02391f9f9efc632c01627ee035a0bcff69631da7107657a813bc794ac5"
+    },
+    {
+      "path": "data/source/oldtown/5770/shared.json",
+      "sha256": "sha256:ebf3db018ed2c1982827b6b42fc5f57295af6918b07dd2a3af40b790d72bcfff"
+    },
+    {
+      "path": "data/source/oldtown/5770/texture.jpg",
+      "sha256": "sha256:819f2024a88b50d36a51d115f06b479b559e68fe8e57f65ee7fc009c50d6df3c"
+    },
+    {
+      "path": "data/source/oldtown/5780/geometry.bin",
+      "sha256": "sha256:f332e750553481aa02c910410a1144d10049a3577f73a85a253ee1112cf11d81"
+    },
+    {
+      "path": "data/source/oldtown/5780/node.json",
+      "sha256": "sha256:522c93fab270a8fda0556ec58c7bdd1b30d926c16ba56b0b9c2f5993fac2d2d9"
+    },
+    {
+      "path": "data/source/oldtown/5780/shared.json",
+      "sha256": "sha256:514d763024c5ba43e77d180dd1f90df31c16315094d0a49e684a1251522bb593"
+    },
+    {
+      "path": "data/source/oldtown/5780/texture.jpg",
+      "sha256": "sha256:357170695565af53ef8cf7db7b41cad501d8114c5c66d9b117ccd5d96614627b"
+    },
+    {
+      "path": "data/source/oldtown/5853/geometry.bin",
+      "sha256": "sha256:de22037be147be9c8b4edc6ef90b7874fbeaa282c406dfa15781637580b6a0c7"
+    },
+    {
+      "path": "data/source/oldtown/5853/node.json",
+      "sha256": "sha256:8bab9475fb8c5928715f60bfb9e1d299623c5940fb36116bf8b97ec35b97fed6"
+    },
+    {
+      "path": "data/source/oldtown/5853/shared.json",
+      "sha256": "sha256:2d458abf7676c2df83f28f42be938528aa896dee62e62c73e32a1c8db5ba7c81"
+    },
+    {
+      "path": "data/source/oldtown/5853/texture.jpg",
+      "sha256": "sha256:cc7756aadcd127f19f5458ef09f4ed194ce40700a442727fd727652012c0998d"
+    },
+    {
+      "path": "data/source/oldtown/5862/geometry.bin",
+      "sha256": "sha256:459971e99ce0f09b0849470506e61206b0887199231b4d1bd127f556969da0ec"
+    },
+    {
+      "path": "data/source/oldtown/5862/node.json",
+      "sha256": "sha256:eae2574887e8cff09fa71dd25d9a92319ff1ed4b152ff302d3a0a21faf1f7032"
+    },
+    {
+      "path": "data/source/oldtown/5862/shared.json",
+      "sha256": "sha256:36e652ecb42f272cbdb92523d5e68d339eaf56b8b20f0b7548879477e873cbbd"
+    },
+    {
+      "path": "data/source/oldtown/5862/texture.jpg",
+      "sha256": "sha256:cc7756aadcd127f19f5458ef09f4ed194ce40700a442727fd727652012c0998d"
+    },
+    {
+      "path": "data/source/oldtown/5872/geometry.bin",
+      "sha256": "sha256:5257613799c13591a18824792c5d56c881a34ae65bdca8fa98f633554b715665"
+    },
+    {
+      "path": "data/source/oldtown/5872/node.json",
+      "sha256": "sha256:fe26643bb0073d6e3ff61d4f0b8f75bbba9d0209d1393465e487c74719a3a5f9"
+    },
+    {
+      "path": "data/source/oldtown/5872/shared.json",
+      "sha256": "sha256:b0c967d2a1422c55989c472a342501854211c3e8b97f6da90790f508b59ef5a2"
+    },
+    {
+      "path": "data/source/oldtown/5872/texture.jpg",
+      "sha256": "sha256:97c3de148b6d92f8f3b521ebd656c1775cb8e2f9fc1a18ef47cf8c7c9f726923"
+    },
+    {
+      "path": "data/source/oldtown/5930/geometry.bin",
+      "sha256": "sha256:eea882def872be57c0ec1d1a0d8c9805e93347c9a5335953a2f069d8e010b491"
+    },
+    {
+      "path": "data/source/oldtown/5930/node.json",
+      "sha256": "sha256:161802725abaa4f7ad8fb0d51b309e08cd0d78be5e7881fcad5f96f892d16012"
+    },
+    {
+      "path": "data/source/oldtown/5930/shared.json",
+      "sha256": "sha256:e344f9fa59e1d341751b74cfd133282bb2787c9c9076d40e2af5b884832fe906"
+    },
+    {
+      "path": "data/source/oldtown/5930/texture.jpg",
+      "sha256": "sha256:db5f3573605e60b83f9cf6fae08ccd69c63b8bbea41d406e2e6a272912c3338f"
+    },
+    {
+      "path": "data/source/oldtown/5962/geometry.bin",
+      "sha256": "sha256:9bcb0206fa244020b754478226b53775603e9a057f542186d91380912aafab11"
+    },
+    {
+      "path": "data/source/oldtown/5962/node.json",
+      "sha256": "sha256:a2c31f249a24552e95344a8bfb9c1ca9e35e106a5f83398c14339620512f62b0"
+    },
+    {
+      "path": "data/source/oldtown/5962/shared.json",
+      "sha256": "sha256:6418a650246c6fe5b33c4ef725a45d842e228d079690a8c840acf7d1521898fa"
+    },
+    {
+      "path": "data/source/oldtown/5962/texture.jpg",
+      "sha256": "sha256:53da1160cd3d7d365f26a823425c8f6a184d45a6dd8e31466179a41629ed0d9f"
+    },
+    {
+      "path": "data/source/oldtown/5998/geometry.bin",
+      "sha256": "sha256:434bcab4684ff9290cf436998c43f5623b9022ddefb7e7df12f5779515277107"
+    },
+    {
+      "path": "data/source/oldtown/5998/node.json",
+      "sha256": "sha256:acdf110040b8d6991bad9acca2450835f84bc73d1288fd0072a08abf46e56c0b"
+    },
+    {
+      "path": "data/source/oldtown/5998/shared.json",
+      "sha256": "sha256:a4dadefdc2452a98e4d60d026f2624bd64f05d2954cf29f2cf8d40541463c0c5"
+    },
+    {
+      "path": "data/source/oldtown/5998/texture.jpg",
+      "sha256": "sha256:71e7180654277227f0326cf6215aec404639a49a48cf761f7d113c151e74fd68"
+    },
+    {
+      "path": "data/source/oldtown/6/geometry.bin",
+      "sha256": "sha256:5d87fde233a030054ba74f76ff1a8229f38590cb118447774180a06b7aabcc4d"
+    },
+    {
+      "path": "data/source/oldtown/6/node.json",
+      "sha256": "sha256:8ee985fa1025e0161b29069681741772289b010d4e00de417ab1c03f510b1156"
+    },
+    {
+      "path": "data/source/oldtown/6/shared.json",
+      "sha256": "sha256:baeb9f80ed28cb0449c1ef4da387ce00fa9c3f415de0f2bd76712e609b007dc2"
+    },
+    {
+      "path": "data/source/oldtown/6160/geometry.bin",
+      "sha256": "sha256:4743800222cb7e6e4bfe431f1154a2c15d33e515e8bd32aa688d61edcb9e5def"
+    },
+    {
+      "path": "data/source/oldtown/6160/node.json",
+      "sha256": "sha256:d5779ae981f0c0662a5591755e4f25221d2cf5cc18b1b9c623e716e3c627e3ae"
+    },
+    {
+      "path": "data/source/oldtown/6160/shared.json",
+      "sha256": "sha256:eadba1417d1d64e4df5cd51311c9875eaeea4e84e7d402143e0f71b76e0a2ac1"
+    },
+    {
+      "path": "data/source/oldtown/6160/texture.jpg",
+      "sha256": "sha256:2584243fef7bcca503f51491e191c2069d9f57bd672647374e1f4af5050ff08f"
+    },
+    {
+      "path": "data/source/oldtown/6172/geometry.bin",
+      "sha256": "sha256:e3dcd5f0abaa178e3106a993d1e41c68d07ae050bf0377eb97685b10eb7bd735"
+    },
+    {
+      "path": "data/source/oldtown/6172/node.json",
+      "sha256": "sha256:72d1561b8ff3835eeb115356f96ce6af50c48c9581718cc7d018726ba598bf93"
+    },
+    {
+      "path": "data/source/oldtown/6172/shared.json",
+      "sha256": "sha256:e965d72aa270a64c4ad9c80ed20f407826bdb32c7ff8d35baba1fadc9fd0c432"
+    },
+    {
+      "path": "data/source/oldtown/6172/texture.jpg",
+      "sha256": "sha256:865248e46eda0f78fdde404f4d46eb2cbf2302d6802f86c8cbeecddb396ca82f"
+    },
+    {
+      "path": "data/source/oldtown/6185/geometry.bin",
+      "sha256": "sha256:5a360369bcc929ad208dfbb3967f974544927197464ed9b677a80f68f23dead5"
+    },
+    {
+      "path": "data/source/oldtown/6185/node.json",
+      "sha256": "sha256:01149dc950042a55cc6f126123cb7dbc46b92f2a37fc7a0c7e5b64a1a8173479"
+    },
+    {
+      "path": "data/source/oldtown/6185/shared.json",
+      "sha256": "sha256:cf6bcb9b15abdefe135cfddaa32fd6aa3847c5319384a459e82fb00f5733b520"
+    },
+    {
+      "path": "data/source/oldtown/6185/texture.jpg",
+      "sha256": "sha256:cc7756aadcd127f19f5458ef09f4ed194ce40700a442727fd727652012c0998d"
+    },
+    {
+      "path": "data/source/oldtown/6195/geometry.bin",
+      "sha256": "sha256:9004809268109d99f7b9e1dd318bb09e4d6220b9d23d99fe4e04131bfc675bbc"
+    },
+    {
+      "path": "data/source/oldtown/6195/node.json",
+      "sha256": "sha256:98212172f39e5c8f83fc90a3cb2c54c524150e816ec5001ff562c7efc2b98159"
+    },
+    {
+      "path": "data/source/oldtown/6195/shared.json",
+      "sha256": "sha256:ceb1b0a398c8f1514434e1ba39c158490f89a2daf22835f09f0e44f56d1775cd"
+    },
+    {
+      "path": "data/source/oldtown/6195/texture.jpg",
+      "sha256": "sha256:70c7300f014f20547bbd9d96719f74975c812123a767229d8d7e8ed8cd36d933"
+    },
+    {
+      "path": "data/source/oldtown/6354/geometry.bin",
+      "sha256": "sha256:c0f4ba080552ad8127f0020e5ee8bf1b4bc23dd5e11a7cea49407a29cb94bd8f"
+    },
+    {
+      "path": "data/source/oldtown/6354/node.json",
+      "sha256": "sha256:a50ad0bd3a8bb327fc76d84afe317695e9bf4a80329ff078484f045ae1e90c50"
+    },
+    {
+      "path": "data/source/oldtown/6354/shared.json",
+      "sha256": "sha256:1cffd78ab67b026f2e0f3a413f3166b26e6cda3e4cda521d307750c424d151ac"
+    },
+    {
+      "path": "data/source/oldtown/6354/texture.jpg",
+      "sha256": "sha256:c4942b0ace89fd0d924ecf4962e4496c3fa7e5d8105df1d91a3f087e6f35791d"
+    },
+    {
+      "path": "data/source/oldtown/6420/geometry.bin",
+      "sha256": "sha256:3da54845f4ffe75a820e9ab2370ad8a1a905956a630c199e6d3c6cb613ab514b"
+    },
+    {
+      "path": "data/source/oldtown/6420/node.json",
+      "sha256": "sha256:6c6a35d2c5871bc91dcf9a4405862709d47d42e4736f6696bff4b890f3eb469f"
+    },
+    {
+      "path": "data/source/oldtown/6420/shared.json",
+      "sha256": "sha256:bff5a0636aba0a170baf6a4557416ac2b7a6077e0b6fa05e37fedfad2d6788d8"
+    },
+    {
+      "path": "data/source/oldtown/6420/texture.jpg",
+      "sha256": "sha256:a9c0ef9e2f37493615f9ceba9e090d78fb734d6c9eca855f0f74ee2e33f46272"
+    },
+    {
+      "path": "data/source/oldtown/6452/geometry.bin",
+      "sha256": "sha256:edb98f00211e6446881a4b7ab769cecdc7d33015ebc395296a41fa40d030e0cb"
+    },
+    {
+      "path": "data/source/oldtown/6452/node.json",
+      "sha256": "sha256:7ebc08e237705ced775ce5a669b1feaab1291e7b61feadaf21fd23d092be4e3d"
+    },
+    {
+      "path": "data/source/oldtown/6452/shared.json",
+      "sha256": "sha256:86c5ab497d257c692ddd0c2c385175502d0134c71312732371a777268b3eed54"
+    },
+    {
+      "path": "data/source/oldtown/6452/texture.jpg",
+      "sha256": "sha256:01615585840a43e7c4212588e781e7ba8a836cfcfec1f5152d082a0c5f88a06f"
+    },
+    {
+      "path": "data/source/oldtown/6587/geometry.bin",
+      "sha256": "sha256:6c01e31116c23f2681887d6fa44fd49702f4bfaf5bfc7db7601f099c453ea605"
+    },
+    {
+      "path": "data/source/oldtown/6587/node.json",
+      "sha256": "sha256:a222eb1d13402971d1c28d5160a743b8c2849e25e5d529ac37402f3458a3946b"
+    },
+    {
+      "path": "data/source/oldtown/6587/shared.json",
+      "sha256": "sha256:5429626daf1fe221adeaabdc7e97cf3d61219ab075231d77b0a9181d04d9cf50"
+    },
+    {
+      "path": "data/source/oldtown/6587/texture.jpg",
+      "sha256": "sha256:3713663bcb89b53ec8039bee9ea170ae92309c31a2feea67fac06bb6e240b36a"
+    },
+    {
+      "path": "data/source/oldtown/6838/geometry.bin",
+      "sha256": "sha256:66d52ef9b808eda3e00b2a9340d82ec37b9597f5263f8f69b4d002693a224119"
+    },
+    {
+      "path": "data/source/oldtown/6838/node.json",
+      "sha256": "sha256:fb82332f6d59959efccaa0f651972b22fa60c5db69686feaed74949f5e9e3972"
+    },
+    {
+      "path": "data/source/oldtown/6838/shared.json",
+      "sha256": "sha256:372c86ead0875b68d1943fd233395bd7398e9e842903637f4c5857df761d3fe3"
+    },
+    {
+      "path": "data/source/oldtown/6838/texture.jpg",
+      "sha256": "sha256:b7ec2edb0378002e418fcfb83f5b173aee5768aec9082289475d220279496a27"
+    },
+    {
+      "path": "data/source/oldtown/6915/geometry.bin",
+      "sha256": "sha256:f1224bf567a67e1e65c5404cbd961271d28290ee0627f5ed0333c6d2796eb650"
+    },
+    {
+      "path": "data/source/oldtown/6915/node.json",
+      "sha256": "sha256:a63ac6db001ec813a75e0a646136b2790ba1e8721991fcfdaac10b7b928cf537"
+    },
+    {
+      "path": "data/source/oldtown/6915/shared.json",
+      "sha256": "sha256:3e978273a2b3254811123e032442fe706644a3397d11d3feb2eb17c312923ab3"
+    },
+    {
+      "path": "data/source/oldtown/6915/texture.jpg",
+      "sha256": "sha256:1939ea9d5946a1c96b8233493c565f6d489c9967f6aa7b4cf499ca86d629c4a4"
+    },
+    {
+      "path": "data/source/oldtown/698/geometry.bin",
+      "sha256": "sha256:363dc2f14f65747aaa7527a2830f1c43c22da8ef2a2c1741237a58e3149cfc70"
+    },
+    {
+      "path": "data/source/oldtown/698/node.json",
+      "sha256": "sha256:5ce831a7851ea2f769ee3b7ac05484a820632ba45b47afcd6b5a227c21afcf68"
+    },
+    {
+      "path": "data/source/oldtown/698/shared.json",
+      "sha256": "sha256:8cc35cd6978d94c1875b07be59cec8214197b945b601958fc475f493274dbc48"
+    },
+    {
+      "path": "data/source/oldtown/698/texture.jpg",
+      "sha256": "sha256:fd10100b67ab7ee7ba67cac7a3970153afe922651c2174e88bcc2745f5fc9a15"
+    },
+    {
+      "path": "data/source/oldtown/7/geometry.bin",
+      "sha256": "sha256:c63255df463e409b21c436cf74c9df40ac56ab1a5b2822084e58652fc6196c25"
+    },
+    {
+      "path": "data/source/oldtown/7/node.json",
+      "sha256": "sha256:27425f483c910c78a09f1cd5380104abe53b6f233f80dfdb6475bf4d6048acb7"
+    },
+    {
+      "path": "data/source/oldtown/7/shared.json",
+      "sha256": "sha256:9bea61907e36e0af5c5c21b41b7c0d2b9bf0aba32d297d950f497efe0d819ae8"
+    },
+    {
+      "path": "data/source/oldtown/7130/geometry.bin",
+      "sha256": "sha256:10d9ed2b068a8bc671aa7a8674fba8711c8a67f46c272175f370f4c0643193fe"
+    },
+    {
+      "path": "data/source/oldtown/7130/node.json",
+      "sha256": "sha256:a17e7eec17ca22d8ef61eac9eddb53c8bc5ccbd01ce9791e835b1178ab229fff"
+    },
+    {
+      "path": "data/source/oldtown/7130/shared.json",
+      "sha256": "sha256:f23c18997c439a2e47ad93e1c3d24e13bb3facd332e7326f5c3f0d8dd2f26edb"
+    },
+    {
+      "path": "data/source/oldtown/7130/texture.jpg",
+      "sha256": "sha256:3a32394b0c091a9c0bd7daa5a43a9ce2686e37e85cbb964385bcd48cc1d152b9"
+    },
+    {
+      "path": "data/source/oldtown/7169/geometry.bin",
+      "sha256": "sha256:d34faa9775543f444e25f67f1da8416802445f87914db486c07e06e7eea8d1f6"
+    },
+    {
+      "path": "data/source/oldtown/7169/node.json",
+      "sha256": "sha256:e0120af0b30d735cd7b7b069d0b29ea64e48ad11da0fd035e17623e646973514"
+    },
+    {
+      "path": "data/source/oldtown/7169/shared.json",
+      "sha256": "sha256:c7448c8cb0f499352b0fa67868b489b90e384ce9e89d9a2472a634ea8b62def0"
+    },
+    {
+      "path": "data/source/oldtown/7169/texture.jpg",
+      "sha256": "sha256:dfc376428cb426c5b98389b3396b4d7552888e62661f6c4c6871c603392b04f9"
+    },
+    {
+      "path": "data/source/oldtown/7246/geometry.bin",
+      "sha256": "sha256:274df338f1f871f79168ee6a4cd68906d6bfe3bb0930ba18ca1318a406d8f926"
+    },
+    {
+      "path": "data/source/oldtown/7246/node.json",
+      "sha256": "sha256:a35c0db8492c2f58c0cd544628a9d3044e743aa784a22d007aeaaa64e259aa91"
+    },
+    {
+      "path": "data/source/oldtown/7246/shared.json",
+      "sha256": "sha256:47462fd3ab5229fed34eb0a8cea0a491889bc4ef31c5f7fd7e9d91340f2539d0"
+    },
+    {
+      "path": "data/source/oldtown/7246/texture.jpg",
+      "sha256": "sha256:47569dc2d5e17337ccdfd8167e5847d0c9b9ab83ba638a02f5618c42005cb8fe"
+    },
+    {
+      "path": "data/source/oldtown/7358/geometry.bin",
+      "sha256": "sha256:0e255b194eb53a9abb28fb3faead50dbc676f16abc82e264c7af65e0bc5a9ef4"
+    },
+    {
+      "path": "data/source/oldtown/7358/node.json",
+      "sha256": "sha256:dc77044027c3726449cb3cbb62d8ed99619469d57a9fccf658a677b5cc91fef9"
+    },
+    {
+      "path": "data/source/oldtown/7358/shared.json",
+      "sha256": "sha256:79737d7ab4d7265cc1045b2e81c8805f8cdd780835e6832a17d042ed7f04dc87"
+    },
+    {
+      "path": "data/source/oldtown/7358/texture.jpg",
+      "sha256": "sha256:959296274878650126d88dbc32c7c3c974ffa019dda1acbe894e11bbb64b27dd"
+    },
+    {
+      "path": "data/source/oldtown/7396/geometry.bin",
+      "sha256": "sha256:4e408ec5e939b0573a33ceb57aaa781630f5e6da2c6408579308e435350ecb72"
+    },
+    {
+      "path": "data/source/oldtown/7396/node.json",
+      "sha256": "sha256:0646f238398a597283270ed36286c0cf003e3e0a8e31caaa15f2f7f6502e80b6"
+    },
+    {
+      "path": "data/source/oldtown/7396/shared.json",
+      "sha256": "sha256:fd1f2754eaa468d6f06398b8a1baca111438c3785997cea87152e07277d09b95"
+    },
+    {
+      "path": "data/source/oldtown/7396/texture.jpg",
+      "sha256": "sha256:d0ea39757eb76662afc42d6b948d9de772905e0848e80d5e14c3042c96ab9152"
+    },
+    {
+      "path": "data/source/oldtown/7427/geometry.bin",
+      "sha256": "sha256:a8e4faff6f2cb47d4bcee88199c56ab957024c770af65dbb65913ec7ed33c6f0"
+    },
+    {
+      "path": "data/source/oldtown/7427/node.json",
+      "sha256": "sha256:007374b83fa16f2d316d24075338c3e7aaf5dc6130e6f72ab55283d0069ee1ac"
+    },
+    {
+      "path": "data/source/oldtown/7427/shared.json",
+      "sha256": "sha256:6c7372bfe9bff73614916a9c8b2a9207ba4c9025c670ca704f27b113140ebcfb"
+    },
+    {
+      "path": "data/source/oldtown/7427/texture.jpg",
+      "sha256": "sha256:0e919279e0d70a898fab5bcd4f30b0b91eb175a42313164459aa360b572e6e57"
+    },
+    {
+      "path": "data/source/oldtown/7507/geometry.bin",
+      "sha256": "sha256:8fc6ce019a355ce61db58940ccac85f473babf21c3cc4bc03ea2852f329320a1"
+    },
+    {
+      "path": "data/source/oldtown/7507/node.json",
+      "sha256": "sha256:64b18d81aee7fa007fab92416bc2f188a1b996c128704c00a041a1dfc5d1cda3"
+    },
+    {
+      "path": "data/source/oldtown/7507/shared.json",
+      "sha256": "sha256:0dfb3fc9a46c5108e480357fbd95dc003caef0e63896a62e1491601fd6968354"
+    },
+    {
+      "path": "data/source/oldtown/7507/texture.jpg",
+      "sha256": "sha256:b0df1309c0b9d25ac2e88266b0c69d62fca41bfce224cbdbb14575975e903c0e"
+    },
+    {
+      "path": "data/source/oldtown/7602/geometry.bin",
+      "sha256": "sha256:7f7fe20cceec9f9db9e23b1bb7387876ff200befa95eeaba835d2f2fe6522893"
+    },
+    {
+      "path": "data/source/oldtown/7602/node.json",
+      "sha256": "sha256:825a9d219fe979937c48e0a3b49014f71994a44eef826160e253e4bdf4ef2d20"
+    },
+    {
+      "path": "data/source/oldtown/7602/shared.json",
+      "sha256": "sha256:9b6298fb5e211b2939098dbb6e38fb85b72465d00531c63929f0d72b13a0f316"
+    },
+    {
+      "path": "data/source/oldtown/7602/texture.jpg",
+      "sha256": "sha256:86f7b2f9355d6fa8012100009eee6b7a67d6e446261bd7cc1c2ec5d6ccec2bf5"
+    },
+    {
+      "path": "data/source/oldtown/7631/geometry.bin",
+      "sha256": "sha256:6c9e9397a7072e5e297216dbc4ca5be479e4b6228d36103870e0e34ec30925e8"
+    },
+    {
+      "path": "data/source/oldtown/7631/node.json",
+      "sha256": "sha256:dd9cf532cb2aa69031b0a06109b738de3d9d2b39860466c940f336616d7e808a"
+    },
+    {
+      "path": "data/source/oldtown/7631/shared.json",
+      "sha256": "sha256:7847bf0038789f4cf114062f37a49876fe7376223950ce0533908a0b89fbf9f2"
+    },
+    {
+      "path": "data/source/oldtown/7631/texture.jpg",
+      "sha256": "sha256:def3ced4653b60221d13fb313924cc7631f0fbdabdf190b90c24e8f12b1e437c"
+    },
+    {
+      "path": "data/source/oldtown/7660/geometry.bin",
+      "sha256": "sha256:5f1c965ca926bb5d87b097b79c00553011206fe019de261882965e67aaaa1a05"
+    },
+    {
+      "path": "data/source/oldtown/7660/node.json",
+      "sha256": "sha256:0c954696ed02260e7acd8a992e297303e94f986c333348c872a776bc4f11cc08"
+    },
+    {
+      "path": "data/source/oldtown/7660/shared.json",
+      "sha256": "sha256:2e87e07a5e008f44e8e3ddfb29f6ba89c4d0f919408835d1674522b3d94f4b1f"
+    },
+    {
+      "path": "data/source/oldtown/7660/texture.jpg",
+      "sha256": "sha256:9618acbd80a5b5563f0c218bce99b5d0eaa8243ac43d9fb6020fd32cdff1916e"
+    },
+    {
+      "path": "data/source/oldtown/7906/geometry.bin",
+      "sha256": "sha256:7fdcbbc2e2cd7095d90c677bd3abcb86b91b2642b01c777be90adf28837cad0e"
+    },
+    {
+      "path": "data/source/oldtown/7906/node.json",
+      "sha256": "sha256:023be980621b7707df8d399274c409951545e55fb60b8302a18e5eda52c584d4"
+    },
+    {
+      "path": "data/source/oldtown/7906/shared.json",
+      "sha256": "sha256:dc1c26f5b442d192e9001f72662c0b5045931c45b3b18bc3e3ab9b657ea80330"
+    },
+    {
+      "path": "data/source/oldtown/7906/texture.jpg",
+      "sha256": "sha256:d7788dc335cec04a3b74f5ba58dfa7866a9a00e3127f0dd2f8c1dd2569df9325"
+    },
+    {
+      "path": "data/source/oldtown/7924/geometry.bin",
+      "sha256": "sha256:dd2735ec0670ee0e9a6159de4c9c67dd024e3fd9e377377d0a6810a27a97afc3"
+    },
+    {
+      "path": "data/source/oldtown/7924/node.json",
+      "sha256": "sha256:7dbdb8b50d42b600b13e4795eaa3e728f2a9eba7a16911b4937e8eb35e1cdb88"
+    },
+    {
+      "path": "data/source/oldtown/7924/shared.json",
+      "sha256": "sha256:3e5aeab03ac6a0d39d0d2e8240fa29b20e073f89d8db9277398789240ed1c833"
+    },
+    {
+      "path": "data/source/oldtown/7924/texture.jpg",
+      "sha256": "sha256:cc35f1ae0fa7fd3b988656ad2f32620eea3eb6310d40620df4c737227c1c8ed4"
+    },
+    {
+      "path": "data/source/oldtown/7938/geometry.bin",
+      "sha256": "sha256:1c14dd17efbeb8e6421419ef88c436e98b5a444efb21328bc917aa1282c699fe"
+    },
+    {
+      "path": "data/source/oldtown/7938/node.json",
+      "sha256": "sha256:86c2393f9d8c4d3f4336fdada2989c8317d49ccec4cb150dd1495ead6765435f"
+    },
+    {
+      "path": "data/source/oldtown/7938/shared.json",
+      "sha256": "sha256:6e53619901f514b5b620f2ffe9325630f47535401fbfd21ae255a3e63873a039"
+    },
+    {
+      "path": "data/source/oldtown/7938/texture.jpg",
+      "sha256": "sha256:6e9b687f5cfa26d625f4ae8c8326bbbac255259696aeb6435192264bffdc8cc9"
+    },
+    {
+      "path": "data/source/oldtown/8/geometry.bin",
+      "sha256": "sha256:dcde1b68316cff60717d9a2a1e5ed3908dcf2e043cc7eeddbfabb66abf975dea"
+    },
+    {
+      "path": "data/source/oldtown/8/node.json",
+      "sha256": "sha256:9a07dfbc725aea238562d67fe30c5bc36867d5d8163552cb1256f2a93d206055"
+    },
+    {
+      "path": "data/source/oldtown/8/shared.json",
+      "sha256": "sha256:407e76888bae6641156580a11f9932a6cdd53665872f75ea29e52a678c45288e"
+    },
+    {
+      "path": "data/source/oldtown/8011/geometry.bin",
+      "sha256": "sha256:887b4717811c4345ec628706d8e0543eb1044dcb124abde0c36fe128b622353f"
+    },
+    {
+      "path": "data/source/oldtown/8011/node.json",
+      "sha256": "sha256:e6a6e57386ab316a896d522d5a68d3ac9fca9e1cda187af6ca6ee1d9d464defa"
+    },
+    {
+      "path": "data/source/oldtown/8011/shared.json",
+      "sha256": "sha256:08cc09dfbbd89ed9adda17e748b628a81a7a72d780d9f14c49e1dfd4a76d2274"
+    },
+    {
+      "path": "data/source/oldtown/8011/texture.jpg",
+      "sha256": "sha256:9f568e76e2869da9f7102fb164bf070cadd7ca1637634ce26e7096211139c7dd"
+    },
+    {
+      "path": "data/source/oldtown/8253/geometry.bin",
+      "sha256": "sha256:eae395afbbfbe43660222b583fa05f25242099230a37190f86850a7b8bb6301c"
+    },
+    {
+      "path": "data/source/oldtown/8253/node.json",
+      "sha256": "sha256:f20b9e89228d647402147d830aaefbcbc2eef95139797efdc00ee8525e1206f7"
+    },
+    {
+      "path": "data/source/oldtown/8253/shared.json",
+      "sha256": "sha256:882c50c7bec1d5fb8be7b541ff2fd8cb4a9aba0904ccb665e0804d0f38ac3ce4"
+    },
+    {
+      "path": "data/source/oldtown/8253/texture.jpg",
+      "sha256": "sha256:4007732a6425bee4b418cee9647ee1d5d53d2857ee67300a0d02705b8dced294"
+    },
+    {
+      "path": "data/source/oldtown/836/geometry.bin",
+      "sha256": "sha256:615176b2d1281a060c521ee601ee52e31287e83d888aa501e14acaf594aaa71b"
+    },
+    {
+      "path": "data/source/oldtown/836/node.json",
+      "sha256": "sha256:2fc3d41a2e38eb6c271805313d0c91e56e0c7dec7950048321a73b68eed3c574"
+    },
+    {
+      "path": "data/source/oldtown/836/shared.json",
+      "sha256": "sha256:6c40bd849135decfef98cf51e7928757c46c550c4537a002c458736651aa813c"
+    },
+    {
+      "path": "data/source/oldtown/836/texture.jpg",
+      "sha256": "sha256:39c3106b8fde2f0b33b54b5d8d2863b7e376abcd8490f80988bc82c13f19fd2d"
+    },
+    {
+      "path": "data/source/oldtown/8459/geometry.bin",
+      "sha256": "sha256:d63b2d3798a7f9389fb9326964947cd5b96c6eed275126cb0c4fd65fe419f85b"
+    },
+    {
+      "path": "data/source/oldtown/8459/node.json",
+      "sha256": "sha256:b7edbdb59b7b71317719b7ac37257a697dd811bbbb8c890630d53924f5c9b2e5"
+    },
+    {
+      "path": "data/source/oldtown/8459/shared.json",
+      "sha256": "sha256:ad55531a5d9244b724748ce8c121561338fd222535737cd92c24d623bb105a3d"
+    },
+    {
+      "path": "data/source/oldtown/8459/texture.jpg",
+      "sha256": "sha256:3e77b116a29045650fc6b7bba7e58e2e2e6836007960e88d57fd5d65e87e93f7"
+    },
+    {
+      "path": "data/source/oldtown/8482/geometry.bin",
+      "sha256": "sha256:f39068d40db5453996064a45a5c76d56cdcef70a78948dfc56b947169700f419"
+    },
+    {
+      "path": "data/source/oldtown/8482/node.json",
+      "sha256": "sha256:07eea5e2461b0de0aac05c74d956ac8585ce88ce1d72796e3361fcfaf2b5fbf8"
+    },
+    {
+      "path": "data/source/oldtown/8482/shared.json",
+      "sha256": "sha256:6d5bc02d402f73e84c3e40145fe1ac1bae8b9258d546647475064eabc6730e27"
+    },
+    {
+      "path": "data/source/oldtown/8482/texture.jpg",
+      "sha256": "sha256:aeab514f7434106dd48207ac954758dbc4e57028d5056e31526c0a2911012c25"
+    },
+    {
+      "path": "data/source/oldtown/8540/geometry.bin",
+      "sha256": "sha256:3c139459863b675fe84243ec1fee03a6fdf6cfceea858758418ab24d1390d514"
+    },
+    {
+      "path": "data/source/oldtown/8540/node.json",
+      "sha256": "sha256:a14cbbca70be0fad698051e1bd0a437ea867333b9ef996584c410b6094ed2d5d"
+    },
+    {
+      "path": "data/source/oldtown/8540/shared.json",
+      "sha256": "sha256:1671185171b405b71ba2da71f318cfb6de82afcb579d67a5287dafa6b672599a"
+    },
+    {
+      "path": "data/source/oldtown/8540/texture.jpg",
+      "sha256": "sha256:3fb9be19f2dea4929e3ef791cd2be834d8b9b88d86220a369962fb57baa2c433"
+    },
+    {
+      "path": "data/source/oldtown/8560/geometry.bin",
+      "sha256": "sha256:cdc05147ac909d57d94c7f16b423b55ab032e2a89198a6ff4556cdb4dce790e6"
+    },
+    {
+      "path": "data/source/oldtown/8560/node.json",
+      "sha256": "sha256:7c72a3d257cba451e37c98fa1bb1bb1791043754309b1714c1196a64b7829876"
+    },
+    {
+      "path": "data/source/oldtown/8560/shared.json",
+      "sha256": "sha256:5bd88074587104e2ce96d4f1a255cb55f79cc0db07967598bc178cec2dfe0953"
+    },
+    {
+      "path": "data/source/oldtown/8560/texture.jpg",
+      "sha256": "sha256:d9927b1c2b61b321f22a1d987d15584314d8c216ffdc4b07e003196db81d7d8d"
+    },
+    {
+      "path": "data/source/oldtown/860/geometry.bin",
+      "sha256": "sha256:4c7cb2d773f4886194e930487ea857e06fbb51a3869f25a03c213c373f559df4"
+    },
+    {
+      "path": "data/source/oldtown/860/node.json",
+      "sha256": "sha256:d212ce6ace42ff8b09aefb123398ae41621eaf7cc5a2faee52a6f47fb9d7f930"
+    },
+    {
+      "path": "data/source/oldtown/860/shared.json",
+      "sha256": "sha256:3a20b209eb64ce0b112a5d5970bcd7b9d1752aab9f13df42ffff3978c1a64ea5"
+    },
+    {
+      "path": "data/source/oldtown/860/texture.jpg",
+      "sha256": "sha256:02612bed3a18355321cf08b29761366bb3d8b3c9461f7dcf8494eb6472bf4490"
+    },
+    {
+      "path": "data/source/oldtown/8601/geometry.bin",
+      "sha256": "sha256:d07cf53b1d5a4a41d28c056024a82ebc368ae3bf8beca5ae2a8fd96f16824d38"
+    },
+    {
+      "path": "data/source/oldtown/8601/node.json",
+      "sha256": "sha256:ece654ec8f51c88feb282c01dc153c3f08de38d57878066f44abae3036142f83"
+    },
+    {
+      "path": "data/source/oldtown/8601/shared.json",
+      "sha256": "sha256:71e0ad9b8af5936063854e4f4695edd7b5d9550eb8335a96074cb8eb92c437a1"
+    },
+    {
+      "path": "data/source/oldtown/8601/texture.jpg",
+      "sha256": "sha256:71419acb29c2e411f2db9a2417468989ab1f1d5368e037bec9f3eb3365f97f2b"
+    },
+    {
+      "path": "data/source/oldtown/8676/geometry.bin",
+      "sha256": "sha256:b2540813bef2ef376da71abf1e80b3e3e45e61efe32440d3bd71d7e5ef413d8e"
+    },
+    {
+      "path": "data/source/oldtown/8676/node.json",
+      "sha256": "sha256:6edafd8593d550119809963bbce39228d7c0fdb8ef6ccfd331ccdf35b928396c"
+    },
+    {
+      "path": "data/source/oldtown/8676/shared.json",
+      "sha256": "sha256:0a0e343190e4db9ecf4373e367d89f69f2c2d8f577c909482281e50bf6b70f34"
+    },
+    {
+      "path": "data/source/oldtown/8676/texture.jpg",
+      "sha256": "sha256:bbf2ca4e9b6e3b39bce195ff19476bb24e11d109d726ed6cea4615f10a960006"
+    },
+    {
+      "path": "data/source/oldtown/8713/geometry.bin",
+      "sha256": "sha256:55e84a3777b875cb990bdf7a1df425c7429fdc1134649b26c5e6fbadbe942578"
+    },
+    {
+      "path": "data/source/oldtown/8713/node.json",
+      "sha256": "sha256:f9d90d972b8963193311fbdf629a98c5ce530e16306a59fef3f2b81114c4697b"
+    },
+    {
+      "path": "data/source/oldtown/8713/shared.json",
+      "sha256": "sha256:375e5049c71a85684170243b3c7c9934f5edd1ddb3f423c60ee1c615e21ccc87"
+    },
+    {
+      "path": "data/source/oldtown/8713/texture.jpg",
+      "sha256": "sha256:1e60223110fdeb54a01f34de1f70e04a85dfe7b290e165286975e23719f66c16"
+    },
+    {
+      "path": "data/source/oldtown/872/geometry.bin",
+      "sha256": "sha256:e083f7e18b38845f1dac898a1daec3d73b0c08d9a52702a433d56a04c5bb3d90"
+    },
+    {
+      "path": "data/source/oldtown/872/node.json",
+      "sha256": "sha256:e9ce70e4c5b1555fd1a74729a306b793420895073b917efd9c068e15b6198584"
+    },
+    {
+      "path": "data/source/oldtown/872/shared.json",
+      "sha256": "sha256:83a6e4507b9fa8369fb0d2447df0fe7be1c6dc29702ee47facab128376f57e73"
+    },
+    {
+      "path": "data/source/oldtown/872/texture.jpg",
+      "sha256": "sha256:c6e92f927c148c2d44773289537adb18b69998eb1ed38e26718f97587b37a927"
+    },
+    {
+      "path": "data/source/oldtown/8755/geometry.bin",
+      "sha256": "sha256:78d78d89af575e9cfbf6c21d66d9bc9654b174c23dd89222052ee9d38e025f21"
+    },
+    {
+      "path": "data/source/oldtown/8755/node.json",
+      "sha256": "sha256:a6aa56c718e47fe012167634ede4e85d922181e45924b829583de60b73fb3894"
+    },
+    {
+      "path": "data/source/oldtown/8755/shared.json",
+      "sha256": "sha256:80a8010434876272dbac336357f5a07d45667ae8af58997aca5d9a1719acc069"
+    },
+    {
+      "path": "data/source/oldtown/8755/texture.jpg",
+      "sha256": "sha256:c472b9362c5811213ccc7454e62450eb5bcdb244a850be8d02633ac84824d414"
+    },
+    {
+      "path": "data/source/oldtown/8884/geometry.bin",
+      "sha256": "sha256:109b705d630a13d93040b3cfef03e815d55c05b2dd52229024e7903a6a11fc6f"
+    },
+    {
+      "path": "data/source/oldtown/8884/node.json",
+      "sha256": "sha256:8c6ce3ada1c435aba8829a499f276336ddd13d99e5dc34a3ca279d468d49329a"
+    },
+    {
+      "path": "data/source/oldtown/8884/shared.json",
+      "sha256": "sha256:cb03e512ee501b3cd223de60413747e2b5f60737b1aa4385e7f70b6d2fe98e38"
+    },
+    {
+      "path": "data/source/oldtown/8884/texture.jpg",
+      "sha256": "sha256:e833c3c98151be32549ac12a6d25d1fd8d04ee93ba3e45b8d928caf686243603"
+    },
+    {
+      "path": "data/source/oldtown/8898/geometry.bin",
+      "sha256": "sha256:36fbdd8b446bb34586f2e2f8d50083f444839bf29a0368b7e19e661165087e67"
+    },
+    {
+      "path": "data/source/oldtown/8898/node.json",
+      "sha256": "sha256:e9ab469b72e5973ec5ca8150729d461a8fc74d90a27b7870dcf398ec64bbaeaf"
+    },
+    {
+      "path": "data/source/oldtown/8898/shared.json",
+      "sha256": "sha256:4bf779fb3e3caa70a1da53937cab724cb4fbd883ad3a2a2c34ae8b5da8b0005a"
+    },
+    {
+      "path": "data/source/oldtown/8898/texture.jpg",
+      "sha256": "sha256:d6b8dd6e78a16d920f2f8c5593bce99b157495fc6eb6cd13878bf4e1717edd2f"
+    },
+    {
+      "path": "data/source/oldtown/8930/geometry.bin",
+      "sha256": "sha256:16fda81a6d35e7ba26a997883a7a4afa3f2257217e00538a29e3e18ec96002db"
+    },
+    {
+      "path": "data/source/oldtown/8930/node.json",
+      "sha256": "sha256:7e1de8790fca04a01bc30856646b68337ed952a9f5836396f2cb45e0d10eba8f"
+    },
+    {
+      "path": "data/source/oldtown/8930/shared.json",
+      "sha256": "sha256:69c2390761b4b8b7cdef9aaa958dace70c15024a38ab4e106f655693aa9e5172"
+    },
+    {
+      "path": "data/source/oldtown/8930/texture.jpg",
+      "sha256": "sha256:657e3ced6013e4a69cd9e24a1940e8b3d2f064e3f7f8f77ff5d0a8d03632a5ad"
+    },
+    {
+      "path": "data/source/oldtown/8939/geometry.bin",
+      "sha256": "sha256:7bea133b2c215ecca95643384d881b67470c3f7aff09ce9798cecf15f782c1de"
+    },
+    {
+      "path": "data/source/oldtown/8939/node.json",
+      "sha256": "sha256:5f7ad087279c07f75bd210073b48c955e41eccafe6613bbb182fa3d392b2b904"
+    },
+    {
+      "path": "data/source/oldtown/8939/shared.json",
+      "sha256": "sha256:1eac5e1f068dcd6607a2482eb3685d9ae0e092b66ea994f69098fa3ece55bb1f"
+    },
+    {
+      "path": "data/source/oldtown/8939/texture.jpg",
+      "sha256": "sha256:a01435a36583dd88bac87c58aabb11e5b7ed49329dfd440daac0fd53d6fb7cf4"
+    },
+    {
+      "path": "data/source/oldtown/8948/geometry.bin",
+      "sha256": "sha256:7abe6e0f4bd80fa27472b2b2b42af4d6b00be01dbcf879d15cbea926981ef61d"
+    },
+    {
+      "path": "data/source/oldtown/8948/node.json",
+      "sha256": "sha256:84510c3132090a22944c400b988f1cb8857822f3d1d629f7b65208c41b016eec"
+    },
+    {
+      "path": "data/source/oldtown/8948/shared.json",
+      "sha256": "sha256:efbdac744b5187f6577d0fcfea322942922fae9a3c8ba7df5e9005835f6daa09"
+    },
+    {
+      "path": "data/source/oldtown/8948/texture.jpg",
+      "sha256": "sha256:6c8319cfb3f6dec98ab0bfb0a2858b0a5a61fa31e44dc80bda68ef9e14eabd00"
+    },
+    {
+      "path": "data/source/oldtown/8957/geometry.bin",
+      "sha256": "sha256:c58da69996d3a88892759d24934736cc0063e76bc0b22a1a38413bc73751b13a"
+    },
+    {
+      "path": "data/source/oldtown/8957/node.json",
+      "sha256": "sha256:5e3216c5a3df12b0f5cc17b05b3e3cb549d4ee7b6be2f93a8ff354159f54f235"
+    },
+    {
+      "path": "data/source/oldtown/8957/shared.json",
+      "sha256": "sha256:22bd368c122ff53da28fa46b3e29d9467db836918e84d9dd44250b0d31f0c095"
+    },
+    {
+      "path": "data/source/oldtown/8957/texture.jpg",
+      "sha256": "sha256:5b73c780a71120de08d2272f8c4d0a6c0633096741a47314dac53e046376de96"
+    },
+    {
+      "path": "data/source/oldtown/8966/geometry.bin",
+      "sha256": "sha256:ce6d31304042bfda2d5660c65467fb00ced6c0a3c017cd16ed1a73bc61bd4ba8"
+    },
+    {
+      "path": "data/source/oldtown/8966/node.json",
+      "sha256": "sha256:c2e2d7dc674e831457809703243c1e99276935b05a2d9500bb67ae8f878cebbc"
+    },
+    {
+      "path": "data/source/oldtown/8966/shared.json",
+      "sha256": "sha256:e8c5f7a12a1038bafac59c39602089c077ce533bd0b4304d4c45b74239d5de42"
+    },
+    {
+      "path": "data/source/oldtown/8966/texture.jpg",
+      "sha256": "sha256:9e8ff1912cd70329620ec32aabb5b8923b1123624a26ee26d8049d53b526aea3"
+    },
+    {
+      "path": "data/source/oldtown/8975/geometry.bin",
+      "sha256": "sha256:b302a272fa006a8667e68e9c2fc68540e751a4f89d68c97afa0c9143bdea10ff"
+    },
+    {
+      "path": "data/source/oldtown/8975/node.json",
+      "sha256": "sha256:61b3d4b07ad4ddb9bc2a13b94f9b31384571ea1d8ce11882cc316454d934f8bd"
+    },
+    {
+      "path": "data/source/oldtown/8975/shared.json",
+      "sha256": "sha256:1527f00aa1aea9ed1bc0126acb6c67a4459a70fd55f9576f17a0a1dc48c9d12b"
+    },
+    {
+      "path": "data/source/oldtown/8975/texture.jpg",
+      "sha256": "sha256:e681a04cf2af454f1be9e0b9a113caec83e95445dff3fe6a97a2a7d216f1368f"
+    },
+    {
+      "path": "data/source/oldtown/8996/geometry.bin",
+      "sha256": "sha256:a747ee64565f6a9874a36daa5c7bab0f0d31edf873c61e63d94fb851598309f8"
+    },
+    {
+      "path": "data/source/oldtown/8996/node.json",
+      "sha256": "sha256:59ba5dd6dab1994909968b37243613cc4ab6ef325eb3d5c5c4bd940c78a96cd8"
+    },
+    {
+      "path": "data/source/oldtown/8996/shared.json",
+      "sha256": "sha256:5907c8f07683ee4ea5ccf5edf820a772b25c5b7e666747ffab2833456ab339a5"
+    },
+    {
+      "path": "data/source/oldtown/8996/texture.jpg",
+      "sha256": "sha256:eface6be623fdfe5b517e87968732c0edfaef21a820089bd2d48ecb82dbf1bae"
+    },
+    {
+      "path": "data/source/oldtown/9/geometry.bin",
+      "sha256": "sha256:73a694129030b169d00e902866ebdcb396d50c77665d32a2345edf28b1251d50"
+    },
+    {
+      "path": "data/source/oldtown/9/node.json",
+      "sha256": "sha256:160b24e25541b9f5a36b9c4fd616528e07d93a86972e382a63f3186b44e169d1"
+    },
+    {
+      "path": "data/source/oldtown/9/shared.json",
+      "sha256": "sha256:0751cf504f7b318367f0aa1abb1e3795a9136678636adbf5821514cf2bddd5f4"
+    },
+    {
+      "path": "data/source/oldtown/9035/geometry.bin",
+      "sha256": "sha256:35fa5cc81a56d87108c007ac08978fe591ad7c899fbc7c8c705d4736bfd20e61"
+    },
+    {
+      "path": "data/source/oldtown/9035/node.json",
+      "sha256": "sha256:6c8dbb260c9a8388e3757d0eaa8cb8c4504e7cb306ceb41fbee1592318e0d849"
+    },
+    {
+      "path": "data/source/oldtown/9035/shared.json",
+      "sha256": "sha256:36654f1018d695a21757ef667b9dab7a8416f0ea1b219422a71bce4a0b6ad5c6"
+    },
+    {
+      "path": "data/source/oldtown/9035/texture.jpg",
+      "sha256": "sha256:a680716891f2c7cfebcc849074a24e268750333daa6366c945c128f417e3118b"
+    },
+    {
+      "path": "data/source/oldtown/9044/geometry.bin",
+      "sha256": "sha256:ac5e8dca427a790115c5928cb2b8da08181d7ebeb6c189a01c58a89285800f60"
+    },
+    {
+      "path": "data/source/oldtown/9044/node.json",
+      "sha256": "sha256:7901c47303abb27d7401d7c0b4a82a2d8f20d7979d819f479466fd59befb3535"
+    },
+    {
+      "path": "data/source/oldtown/9044/shared.json",
+      "sha256": "sha256:a8fed111736c29ad2edbbff4e39e330f313d4f7b9c459beff6c3308ebb1e1fc5"
+    },
+    {
+      "path": "data/source/oldtown/9044/texture.jpg",
+      "sha256": "sha256:a527dad76029d8449cd112408bde118504e72e0ed2d4f7dac01179a6ef728847"
+    },
+    {
+      "path": "data/source/oldtown/9062/geometry.bin",
+      "sha256": "sha256:1f1cf3bc423583ea8b0672722251a6fe5905ed3cbc035b59329c1774abf40873"
+    },
+    {
+      "path": "data/source/oldtown/9062/node.json",
+      "sha256": "sha256:400d16a88bb3b776ba1c1b6779754372344f7d5afe9b4c450fd3b8daa3ccf2f5"
+    },
+    {
+      "path": "data/source/oldtown/9062/shared.json",
+      "sha256": "sha256:8b7919df083a5f1c1c9fd9d1e57145247720325b5978256ea7f69a896df4163f"
+    },
+    {
+      "path": "data/source/oldtown/9062/texture.jpg",
+      "sha256": "sha256:43a8920327b849bbd0be3072c1be08f945b5966576c6e205a66f084941a6a53a"
+    },
+    {
+      "path": "data/source/oldtown/9085/geometry.bin",
+      "sha256": "sha256:58c4ca9408ddb155c5a888e7685f16e5f42624ddfa8a93c8412e7fa02dfd0b6c"
+    },
+    {
+      "path": "data/source/oldtown/9085/node.json",
+      "sha256": "sha256:ddaff2b61f96c65f21948acf860bfcb786b5d59198678e4fcaa33f04168e3911"
+    },
+    {
+      "path": "data/source/oldtown/9085/shared.json",
+      "sha256": "sha256:d8a930860e3bedddabc01954291548aec19fd5b090ca459da7c60b101b62dd09"
+    },
+    {
+      "path": "data/source/oldtown/9085/texture.jpg",
+      "sha256": "sha256:416989e8cf54c16fdf8a307d4ed3d7e725e8d09d71c6e4d20ec4c609c960760d"
+    },
+    {
+      "path": "data/source/oldtown/9117/geometry.bin",
+      "sha256": "sha256:66817ed6c4ec4209f163020471a6f3718787a76c3d7424e38e8f62a8d828104f"
+    },
+    {
+      "path": "data/source/oldtown/9117/node.json",
+      "sha256": "sha256:61f36d93cea34c95a4b8a4bb0aee03910f42e91e48b5843fbcc73ac3ec80d454"
+    },
+    {
+      "path": "data/source/oldtown/9117/shared.json",
+      "sha256": "sha256:8a101de484c87472c685e44d3f5f484a29a1971e0d3691222dcab11ced304d56"
+    },
+    {
+      "path": "data/source/oldtown/9117/texture.jpg",
+      "sha256": "sha256:6c14f269875b009f63325160f19926197d99d87ba8e31477e7cac965722bc118"
+    },
+    {
+      "path": "data/source/oldtown/9127/geometry.bin",
+      "sha256": "sha256:2e10b8a66b3d0e7b2053a19a95ba24a3ef74e19cfbc46924719041b605119bc8"
+    },
+    {
+      "path": "data/source/oldtown/9127/node.json",
+      "sha256": "sha256:79d982f13b628655eabdc5d30a5f1b57bc3245d7ed3dfe6360756b76cbb4770d"
+    },
+    {
+      "path": "data/source/oldtown/9127/shared.json",
+      "sha256": "sha256:422ea04a95367b768990bac355bbbc62ad79ea6bb0a40868976ec0e7533df3cc"
+    },
+    {
+      "path": "data/source/oldtown/9127/texture.jpg",
+      "sha256": "sha256:360a4053cff3d506256dc59465813ea4529a99229fd80aaebe4c200f37058011"
+    },
+    {
+      "path": "data/source/oldtown/9144/geometry.bin",
+      "sha256": "sha256:d098891de38e9af3704cf39da3ff717a4ae3e0e4d2fdf04898789e8b237956cc"
+    },
+    {
+      "path": "data/source/oldtown/9144/node.json",
+      "sha256": "sha256:6df5b3a3c04b192fbed405aaa17965fcde38b78c0063b57260f780128f1a5809"
+    },
+    {
+      "path": "data/source/oldtown/9144/shared.json",
+      "sha256": "sha256:a3870686757ce765af8f2bc6f8c6603189daf48de2b46f304610e9e06a616bc1"
+    },
+    {
+      "path": "data/source/oldtown/9144/texture.jpg",
+      "sha256": "sha256:adedc5cee763a2348fdac988d3ec5e9cd801cd3f2593a43fcf8c679970092350"
+    },
+    {
+      "path": "data/source/oldtown/9154/geometry.bin",
+      "sha256": "sha256:f33c56a6727b58de38f340943761b9ce508954ba6afc4dcbb3df091d744c28e3"
+    },
+    {
+      "path": "data/source/oldtown/9154/node.json",
+      "sha256": "sha256:d6f614a62b6d8cb3b7db42bc7cbcaff12426976a0b555eb59d02389c4b22fc6f"
+    },
+    {
+      "path": "data/source/oldtown/9154/shared.json",
+      "sha256": "sha256:3ed0d82538e1b5e0f0de0748c55868f8bc6b513a13be8bd29ca742b46a45195e"
+    },
+    {
+      "path": "data/source/oldtown/9154/texture.jpg",
+      "sha256": "sha256:ecb1fb298541a7b27f3bcb8b914520e297e6e6605281a52a1ac8dd5ce9bc8e0c"
+    },
+    {
+      "path": "data/source/oldtown/9183/geometry.bin",
+      "sha256": "sha256:606a190f04ba0643e801a7776f2345e31e915c89a0c123ae3cb62445c95a7f19"
+    },
+    {
+      "path": "data/source/oldtown/9183/node.json",
+      "sha256": "sha256:536846261d4c8b6a3476badd23ac83e4b8aead79c162f0c7d64e801faf17641b"
+    },
+    {
+      "path": "data/source/oldtown/9183/shared.json",
+      "sha256": "sha256:9fecd6697eaa7639df467e988330b76e064d225720d0c7972f0528222f3aa728"
+    },
+    {
+      "path": "data/source/oldtown/9183/texture.jpg",
+      "sha256": "sha256:48c9a13f704cdd5494241281fabca00a48dd0f1f63028dec86bf22411d518547"
+    },
+    {
+      "path": "data/source/oldtown/9193/geometry.bin",
+      "sha256": "sha256:0673c7255946461e2d4d9d44549ed07c70ff558e9afb8f926e9c1ab34f4439f5"
+    },
+    {
+      "path": "data/source/oldtown/9193/node.json",
+      "sha256": "sha256:af1a437b738a4334f633cee52206251c46a1b88ad11518e26eea61c0c8878438"
+    },
+    {
+      "path": "data/source/oldtown/9193/shared.json",
+      "sha256": "sha256:59a5e4901889b91713cc3a8eed0cb081c7e4d152089f3f1c11c9e7f6ee13f923"
+    },
+    {
+      "path": "data/source/oldtown/9193/texture.jpg",
+      "sha256": "sha256:ddc43daf1045067ed498dee91b550434f5ef6e0cf95362f9da3c90fa74687335"
+    },
+    {
+      "path": "data/source/oldtown/9202/geometry.bin",
+      "sha256": "sha256:ed15fb19bf9449b9132a22ef93eb29241e20f00ccb06601ba12cf5e31b680546"
+    },
+    {
+      "path": "data/source/oldtown/9202/node.json",
+      "sha256": "sha256:4d71ee80f5ae4efdaaec075989e6e72c91074fd39c746b0f0319b41dc2353fad"
+    },
+    {
+      "path": "data/source/oldtown/9202/shared.json",
+      "sha256": "sha256:1f7964b9b98647c2cb2cfac7a0ce947a4b33beca797c04c3cc58d0c6adc6af97"
+    },
+    {
+      "path": "data/source/oldtown/9202/texture.jpg",
+      "sha256": "sha256:a4bc72116ddf19e35c830d8c8ff9a8061ff82a726881eb9c3d989e07fc4b4d06"
+    },
+    {
+      "path": "data/source/oldtown/9237/geometry.bin",
+      "sha256": "sha256:56110eda2acb38e87f810fac8f6808b5c7c3ae9065a13214f6f14601ae55b1c0"
+    },
+    {
+      "path": "data/source/oldtown/9237/node.json",
+      "sha256": "sha256:9c8d5d8eb8ae3ac498e962d14c442363aac38aaff07779945d72859a9fdfbe28"
+    },
+    {
+      "path": "data/source/oldtown/9237/shared.json",
+      "sha256": "sha256:6267c34075c98987a5a276e027d4074484a6b4f895bd5bae44aaaaddaa21f561"
+    },
+    {
+      "path": "data/source/oldtown/9237/texture.jpg",
+      "sha256": "sha256:23f756257a243698925ac452ce1930f084727915d8136771c2a9a52d4a1c4f2d"
+    },
+    {
+      "path": "data/source/oldtown/9257/geometry.bin",
+      "sha256": "sha256:018f6e2279ddaf916b3c9a987b03df857d75ee62c2ad42d47ffbe47ae571943e"
+    },
+    {
+      "path": "data/source/oldtown/9257/node.json",
+      "sha256": "sha256:4552e5bb710e5121003ce1a7257b585dba5f09e8812e1f5c640da0013558098b"
+    },
+    {
+      "path": "data/source/oldtown/9257/shared.json",
+      "sha256": "sha256:e12345ac7fcd34663930f2aada60d2f2eb875c58744361312d74bf052082ae7a"
+    },
+    {
+      "path": "data/source/oldtown/9257/texture.jpg",
+      "sha256": "sha256:d68daaed3a0766faf329d2dd28d412c08b181f20f368663adfda0caf528ea142"
+    },
+    {
+      "path": "data/source/oldtown/9269/geometry.bin",
+      "sha256": "sha256:d32ce0592ab1abd00c80f877da49ba829aaa6c3ef682771bb8ce6267ec88dd6e"
+    },
+    {
+      "path": "data/source/oldtown/9269/node.json",
+      "sha256": "sha256:ccee7b38e2c01b0f74083ad612c54b6d74f7fdf42e6395dd47aa1f46801564bf"
+    },
+    {
+      "path": "data/source/oldtown/9269/shared.json",
+      "sha256": "sha256:ef50166c499abbb2b3f20a23415d9cb72930b88e4bbfa9b724262b7ec452069d"
+    },
+    {
+      "path": "data/source/oldtown/9269/texture.jpg",
+      "sha256": "sha256:bfbdebab3922c0b559d2cb59f14316b310d785349f19aa5093f96d730c0cec20"
+    },
+    {
+      "path": "data/source/oldtown/9293/geometry.bin",
+      "sha256": "sha256:0b6c0a05d17f5f088cb216de2ced27be3152959f294a682d6a657e68db6bf28c"
+    },
+    {
+      "path": "data/source/oldtown/9293/node.json",
+      "sha256": "sha256:719353a3ce7aaa5c032c65bb495e56d92b8fa37224e5dbfbd06b4769f4cbe2ba"
+    },
+    {
+      "path": "data/source/oldtown/9293/shared.json",
+      "sha256": "sha256:dad51e14c12718bbb7ae135592ec448a132bc9b06aa051194af745ce73b8f783"
+    },
+    {
+      "path": "data/source/oldtown/9293/texture.jpg",
+      "sha256": "sha256:e38ac5b4d549725031ca3449290031946e509539463816edfa7a355b52d5e664"
+    },
+    {
+      "path": "data/source/oldtown/9317/geometry.bin",
+      "sha256": "sha256:b7a9a5f853ebabf579c2ae2393ca89135dd956cc64214b981256a1966b9b16bc"
+    },
+    {
+      "path": "data/source/oldtown/9317/node.json",
+      "sha256": "sha256:19e12d136ad1cdb7ca3e94c60c63865edaabb920b18f13f136a37fff690b835a"
+    },
+    {
+      "path": "data/source/oldtown/9317/shared.json",
+      "sha256": "sha256:e237396f831f54a6f58264cbfd770536e5f7964bc532be8aded1cf21ebdabae0"
+    },
+    {
+      "path": "data/source/oldtown/9317/texture.jpg",
+      "sha256": "sha256:2b7e33bf7c4ae27d53582380466aed5c27994b3bba6a1a9c7c52bc689191c906"
+    },
+    {
+      "path": "data/source/oldtown/9337/geometry.bin",
+      "sha256": "sha256:05801f826b905a9f503bc9659e8b5fb315ed25a715c86a1892ffa3b366621c59"
+    },
+    {
+      "path": "data/source/oldtown/9337/node.json",
+      "sha256": "sha256:d9268e1b951daf4b45af14ccdaec3b96a5f339447e6d6a22e202b57342658507"
+    },
+    {
+      "path": "data/source/oldtown/9337/shared.json",
+      "sha256": "sha256:79928bd334daa22fa9f8a0142de3b6699fbf7bc2bbc9f93a61c1f93cf61116c4"
+    },
+    {
+      "path": "data/source/oldtown/9337/texture.jpg",
+      "sha256": "sha256:98926deaf9e5ed0405af452c6405a6357cf2cd9d58a7d5753d00ecd7f6376523"
+    },
+    {
+      "path": "data/source/oldtown/9358/geometry.bin",
+      "sha256": "sha256:74f480f75ce4e186231730dd922858b49a87b7eb59b5b734e754ff959fadb6dc"
+    },
+    {
+      "path": "data/source/oldtown/9358/node.json",
+      "sha256": "sha256:cef492be7a7b5158e258b7bf4293fd96bb230ea4b0bf699c6826e63e6fe43e4f"
+    },
+    {
+      "path": "data/source/oldtown/9358/shared.json",
+      "sha256": "sha256:e7f6bb5df4766e78f27ff21f41c511218949424a66ba4f81ddb2e268c7e1f501"
+    },
+    {
+      "path": "data/source/oldtown/9358/texture.jpg",
+      "sha256": "sha256:819c3b24e246484aa5a330bbbf606b4a16b42c6a1d930b259c853513ab5fd1a6"
+    },
+    {
+      "path": "data/source/oldtown/9371/geometry.bin",
+      "sha256": "sha256:8ef452f01bfbd5a8695004b2e1d56f8974f81b5a41a246b490279e374b20af0a"
+    },
+    {
+      "path": "data/source/oldtown/9371/node.json",
+      "sha256": "sha256:aa5febb26433735d3be2334df0cd076fc9d707fefe972186a9ba955802902f36"
+    },
+    {
+      "path": "data/source/oldtown/9371/shared.json",
+      "sha256": "sha256:cc3c1b57a822549320397f061740da6612da26ffce52c8bd5334c69fc4fe0f9c"
+    },
+    {
+      "path": "data/source/oldtown/9371/texture.jpg",
+      "sha256": "sha256:950ac07d40c10b9516c995e9181a244617e46b2235a56c5ce42f58809a428813"
+    },
+    {
+      "path": "data/source/oldtown/9389/geometry.bin",
+      "sha256": "sha256:9c667476b8dce15d77a2d90acbc42b15d7af856547abe599a7d4787a6148f9c1"
+    },
+    {
+      "path": "data/source/oldtown/9389/node.json",
+      "sha256": "sha256:e5143074b8b6fee02ef686f5c3eea0cb0a25b56d5bb0b82ac01e8e8a812f337b"
+    },
+    {
+      "path": "data/source/oldtown/9389/shared.json",
+      "sha256": "sha256:eb17b3cb3be8b3b2df47cdd78de4cfca27cd8c56af230ce88e0bf180bd5b6701"
+    },
+    {
+      "path": "data/source/oldtown/9389/texture.jpg",
+      "sha256": "sha256:ee397d8ab3e3b05caba2a6ea6eaeb512046eb567f07f7fec1c91f83e44a086c4"
+    },
+    {
+      "path": "data/source/oldtown/9403/geometry.bin",
+      "sha256": "sha256:c37dc60b586ebe9e1a76dadc8bcfe7f0e0056c79c3e17aacd62db372cb0f1d33"
+    },
+    {
+      "path": "data/source/oldtown/9403/node.json",
+      "sha256": "sha256:1222decea772f1ca8169a8ffb1b522a95e1ed2ab5de006190cc5a4bc9e5e9f35"
+    },
+    {
+      "path": "data/source/oldtown/9403/shared.json",
+      "sha256": "sha256:d5012ee4f3b87968d87e19ad61556dd80d966cbf67b67a864fd850da7cd89c7e"
+    },
+    {
+      "path": "data/source/oldtown/9403/texture.jpg",
+      "sha256": "sha256:5e6863b7098fe3da121aa2f8e6d603ad5272ea7408f0420a47049f36a449726e"
+    },
+    {
+      "path": "data/source/oldtown/9421/geometry.bin",
+      "sha256": "sha256:7c09a4acf31b2e7293acb1da49232e6bda22d8b6ccc83643b96caec2bc580c11"
+    },
+    {
+      "path": "data/source/oldtown/9421/node.json",
+      "sha256": "sha256:9370f9f4d3661d4fde97b6d382471777498f3fcb62d4117f692d9270b326af77"
+    },
+    {
+      "path": "data/source/oldtown/9421/shared.json",
+      "sha256": "sha256:8fff37948ff38a67a0664729832102a22bca1bab4f07e346cbb52db66dcba53c"
+    },
+    {
+      "path": "data/source/oldtown/9421/texture.jpg",
+      "sha256": "sha256:7c020660a358771525ec05063a0ecef978df88a4ee553198348ac64a634a9eef"
+    },
+    {
+      "path": "data/source/oldtown/9444/geometry.bin",
+      "sha256": "sha256:279e3d067da9aed8d7177f7f39c723427e65712e3094562ef495477eb35fc737"
+    },
+    {
+      "path": "data/source/oldtown/9444/node.json",
+      "sha256": "sha256:6f29bcf3016e447cc6ba4676da9f239e79ace7a859c892f1650d4df962b0a6cb"
+    },
+    {
+      "path": "data/source/oldtown/9444/shared.json",
+      "sha256": "sha256:bdfbf6c2d8eb40356dae75f9cb86bbe5700fb09be4b71d95009d64d9ae80bbde"
+    },
+    {
+      "path": "data/source/oldtown/9444/texture.jpg",
+      "sha256": "sha256:a57a5266d84ce0bedea7ac3f3b460aba9cf4e4449def50c901c0f46f2db23c6a"
+    },
+    {
+      "path": "data/source/oldtown/9459/geometry.bin",
+      "sha256": "sha256:b0cf11a87de1641aa93857fe3edf02297af80adeb0897c90d25c05ff1aa46c84"
+    },
+    {
+      "path": "data/source/oldtown/9459/node.json",
+      "sha256": "sha256:3653ac19228221cf1d9a84537398c2587277af484f5642acc9b96a03dc74761a"
+    },
+    {
+      "path": "data/source/oldtown/9459/shared.json",
+      "sha256": "sha256:bd7bcd13a306084aaf0eee9386b54dd86523a38065441b4cf9bec10558ab7b5b"
+    },
+    {
+      "path": "data/source/oldtown/9459/texture.jpg",
+      "sha256": "sha256:bd36a42b7ebf593f97ed59e44bfc9159f1bf30da3782a034c964f0600132c58a"
+    },
+    {
+      "path": "data/source/oldtown/9483/geometry.bin",
+      "sha256": "sha256:e712ab21d6257db867ec9870788f631313c8f50378f4211770de8470ddae5fed"
+    },
+    {
+      "path": "data/source/oldtown/9483/node.json",
+      "sha256": "sha256:5db7908e6524934aa4dc020e2c92c353a697b37499ac0472ca00dbbb8ca6c198"
+    },
+    {
+      "path": "data/source/oldtown/9483/shared.json",
+      "sha256": "sha256:259e14fe1604d182a452e78a40f84924d49cf5176cfd5958501a646fe9594281"
+    },
+    {
+      "path": "data/source/oldtown/9483/texture.jpg",
+      "sha256": "sha256:d6022abf2c67baa2c4666f14abb31b9c7b78e9ffe85ba2063c4a7bc4d0cfff46"
+    },
+    {
+      "path": "data/source/oldtown/9508/geometry.bin",
+      "sha256": "sha256:e4ee50d6e9b2a5c34352ea25988427155ccf8ca6eaa6db47e2afb0a4a9bb0b3f"
+    },
+    {
+      "path": "data/source/oldtown/9508/node.json",
+      "sha256": "sha256:0a5c91cb8280018b64e4c3ae3b01b88fc282124361d5644eb23de151cf33a635"
+    },
+    {
+      "path": "data/source/oldtown/9508/shared.json",
+      "sha256": "sha256:a516c35ca22d4fff8b16c3c0c723fb2bfb6b96f6343c03a6cbc813182d73508f"
+    },
+    {
+      "path": "data/source/oldtown/9508/texture.jpg",
+      "sha256": "sha256:b02908bab1021f6c53a10d5deb624de7a51ad4c1742725e197d1cec2030f4752"
+    },
+    {
+      "path": "data/source/oldtown/9517/geometry.bin",
+      "sha256": "sha256:699455f63863abb72e372f87624a3c4b790dda9ca84aee9c3fc85d81ec1c0615"
+    },
+    {
+      "path": "data/source/oldtown/9517/node.json",
+      "sha256": "sha256:7b5b0145fdcbf3096b2cb29ca52a8de091e57c9b71b47c88ab3a2e70fc3a5367"
+    },
+    {
+      "path": "data/source/oldtown/9517/shared.json",
+      "sha256": "sha256:907fa4ca483346cf7295389982dfbaf2dd1fac248ca43e39e2ddaaac0a807f4a"
+    },
+    {
+      "path": "data/source/oldtown/9517/texture.jpg",
+      "sha256": "sha256:218097b03408377edeb3cd905bd0cc694bb3481d6e93461d0ac25e0cfc611273"
+    },
+    {
+      "path": "data/source/oldtown/9527/geometry.bin",
+      "sha256": "sha256:9b9989fdc85e356b92d8f56367a12a579d258a82a5fe0f6dd74a26984f9c37bc"
+    },
+    {
+      "path": "data/source/oldtown/9527/node.json",
+      "sha256": "sha256:b3e835cb45bbf28c7336d3210d64ad17d26909cabc922eac5f50817d506a87ad"
+    },
+    {
+      "path": "data/source/oldtown/9527/shared.json",
+      "sha256": "sha256:082903e012322a88ecd860637ebd3c1f54d077fde84270e7f7f8580bed83c986"
+    },
+    {
+      "path": "data/source/oldtown/9527/texture.jpg",
+      "sha256": "sha256:a01435a36583dd88bac87c58aabb11e5b7ed49329dfd440daac0fd53d6fb7cf4"
+    },
+    {
+      "path": "data/source/oldtown/9536/geometry.bin",
+      "sha256": "sha256:053a3c2f05770d1933e47418c20c6c0fc4787c0222df6ffd3af1a19ed5dacd08"
+    },
+    {
+      "path": "data/source/oldtown/9536/node.json",
+      "sha256": "sha256:ba8364b85597351cfb503fe31d71d5865d5bd9cd81b7f90b85634913bd33e7d7"
+    },
+    {
+      "path": "data/source/oldtown/9536/shared.json",
+      "sha256": "sha256:707d63b865241763437e929d7df9bdc5d9fcee43d142405ecd6530408be7d29c"
+    },
+    {
+      "path": "data/source/oldtown/9536/texture.jpg",
+      "sha256": "sha256:5149ee536b6111654c148757bfe8a2242541e0fee7207e6802e19250ec1aed11"
+    },
+    {
+      "path": "data/source/oldtown/9548/geometry.bin",
+      "sha256": "sha256:f70f6b19a7fc000630f464d4a23d4741d5e1abed3dbdbb10485bf6eefe8e47d4"
+    },
+    {
+      "path": "data/source/oldtown/9548/node.json",
+      "sha256": "sha256:810a5ee1c83bdce23ae6447b709be4396198925a92279eadf603b7d2b7b4d465"
+    },
+    {
+      "path": "data/source/oldtown/9548/shared.json",
+      "sha256": "sha256:1866b361e0b43fb83ce3f8fd4ed138979ad67f6b3f6a9791b2c584f269e7e56d"
+    },
+    {
+      "path": "data/source/oldtown/9548/texture.jpg",
+      "sha256": "sha256:7c7870a1a7bb890d973c9067e841bdce4530140d2a2fc7df0ff9f77ccd4ed630"
+    },
+    {
+      "path": "data/source/oldtown/9557/geometry.bin",
+      "sha256": "sha256:19d56c17ee39753671c8713d2f23a4f20f13e9fd39d5ca81fad3cb5dd2b71562"
+    },
+    {
+      "path": "data/source/oldtown/9557/node.json",
+      "sha256": "sha256:1cd218236d7b5f6db2be072ccca2a5dde21579fa4873fba05113b80a69b10377"
+    },
+    {
+      "path": "data/source/oldtown/9557/shared.json",
+      "sha256": "sha256:adf92ee25896eaf0756fd655243c2bbdaddeaf5708f2c838a3109d5fcc1f3a81"
+    },
+    {
+      "path": "data/source/oldtown/9557/texture.jpg",
+      "sha256": "sha256:69df4d9b8cdb55684f6b80549b9ffbe804f67cdbf4c0b3b5a897d4548e0b132a"
+    },
+    {
+      "path": "data/source/oldtown/9567/geometry.bin",
+      "sha256": "sha256:48ae4a34de32341559bd5fdca576b87238cf00a9740389dd146e635449d6683c"
+    },
+    {
+      "path": "data/source/oldtown/9567/node.json",
+      "sha256": "sha256:48649a7c06300d3511d57c19a645afc8d5ab69249a37cf776f44818f0a90dfc0"
+    },
+    {
+      "path": "data/source/oldtown/9567/shared.json",
+      "sha256": "sha256:b68b8a28e7132ddabea30513a4ba9a34b25ae3d25d4d57944f307ea9bf4886c0"
+    },
+    {
+      "path": "data/source/oldtown/9567/texture.jpg",
+      "sha256": "sha256:17023340fc09f1f4cbeb168556d363db601ef8022d7220974ea6083e0794d915"
+    },
+    {
+      "path": "data/source/oldtown/9577/geometry.bin",
+      "sha256": "sha256:5701f84875bad7d7c54919a1316e26ea8ebe1ae832db6d33e04dea2f7639794c"
+    },
+    {
+      "path": "data/source/oldtown/9577/node.json",
+      "sha256": "sha256:231b59730d10f34ee6e80d83ca4bcdaa6191c7156d5d4ede6fdbc3b037ddf2bf"
+    },
+    {
+      "path": "data/source/oldtown/9577/shared.json",
+      "sha256": "sha256:ef5e1d41e75af367492da7842d8f91561dee00f6fb866d110c98b79eac4323e4"
+    },
+    {
+      "path": "data/source/oldtown/9577/texture.jpg",
+      "sha256": "sha256:dceb2de44aa6e00b5eac92d6f0401edf1d3d35bf7018bea31425af2c546556cb"
+    },
+    {
+      "path": "data/source/oldtown/9592/geometry.bin",
+      "sha256": "sha256:39335e6a9f5fb1eec764694c5a16d692256e00beb75c635019e912eeaa9d4d46"
+    },
+    {
+      "path": "data/source/oldtown/9592/node.json",
+      "sha256": "sha256:8fb35d23ddb1f2ca677dff5506b2a67243c94b14d9ac6ec510c64af343e5659f"
+    },
+    {
+      "path": "data/source/oldtown/9592/shared.json",
+      "sha256": "sha256:e7054257bc83eee5049641bd592fefd6e2c92a80f587ab8b30130cbb9c9ac959"
+    },
+    {
+      "path": "data/source/oldtown/9592/texture.jpg",
+      "sha256": "sha256:6ac373e26ba55ac570b98f4ab03dea4bfe55f1707f204e17dc95213e7ea84692"
+    },
+    {
+      "path": "data/source/oldtown/9604/geometry.bin",
+      "sha256": "sha256:8910a69c8d731d468e6929b47a830e808043d87e9c593f4da1be71d113f00d8f"
+    },
+    {
+      "path": "data/source/oldtown/9604/node.json",
+      "sha256": "sha256:e4d56596fd11c76028b0674432595068348826ecb2c7e42425c17a98db58cd1b"
+    },
+    {
+      "path": "data/source/oldtown/9604/shared.json",
+      "sha256": "sha256:e61f0d0db296ef8f2679d24fa05ee2ef55a1ef389c4f8b5f95f5b89a51d1e87f"
+    },
+    {
+      "path": "data/source/oldtown/9604/texture.jpg",
+      "sha256": "sha256:b52dcd8c6a64358011ed6d9f5d4d51f73920b66228a3806c0f2b1fab06526549"
+    },
+    {
+      "path": "data/source/oldtown/9614/geometry.bin",
+      "sha256": "sha256:e1df328e556b95ff644bf56dbbcad4e1ceffbdf4dd890d6dd1d4aebc9a36224e"
+    },
+    {
+      "path": "data/source/oldtown/9614/node.json",
+      "sha256": "sha256:5513e7d0345d74bde5389ee57e0ff57d734d21a6ac5c52d30f367e008c321742"
+    },
+    {
+      "path": "data/source/oldtown/9614/shared.json",
+      "sha256": "sha256:e620fe6941fccb7091d15d5432d995a087ccee2bea80011f41fbd7a9af52720b"
+    },
+    {
+      "path": "data/source/oldtown/9614/texture.jpg",
+      "sha256": "sha256:3e8798205a3b35127e6fa9aac9fab0bf9dd75057736b2250537baac0672b6017"
+    },
+    {
+      "path": "data/source/oldtown/9623/geometry.bin",
+      "sha256": "sha256:bbf06591d79d5754f9482efa767b287bfcedc5b21600e15956a9b149de3445db"
+    },
+    {
+      "path": "data/source/oldtown/9623/node.json",
+      "sha256": "sha256:7d84713b0b66be739f74785d7bd20ec6d43cdba10c346361a708d730942f8ca5"
+    },
+    {
+      "path": "data/source/oldtown/9623/shared.json",
+      "sha256": "sha256:c0c95f6f8bf73f95126a966cc9b38924a3b65e0e266c65077b9fdf4486dbac36"
+    },
+    {
+      "path": "data/source/oldtown/9623/texture.jpg",
+      "sha256": "sha256:d0fd4307616f6d9799803228bf51e1bd84d6f3fd910c4585391be4545f1b339e"
+    },
+    {
+      "path": "data/source/oldtown/9632/geometry.bin",
+      "sha256": "sha256:318fb70512ff85d3a39f8dad24d55e90fc8d4037ee96e0d77b1d792805df338b"
+    },
+    {
+      "path": "data/source/oldtown/9632/node.json",
+      "sha256": "sha256:9107d086d72cc93b503c2727a01f9e49348cf322da3ee04e7209a8895c7a5b35"
+    },
+    {
+      "path": "data/source/oldtown/9632/shared.json",
+      "sha256": "sha256:95a04b527513335f27bf510ac677039f23f28c42cad184cfb9b508922483f9f3"
+    },
+    {
+      "path": "data/source/oldtown/9632/texture.jpg",
+      "sha256": "sha256:abb225aef0be2e5409158d62ccb3d6e186f8039651310a34709b291ee048879f"
+    },
+    {
+      "path": "data/source/oldtown/9642/geometry.bin",
+      "sha256": "sha256:85b952aca1aad81b45cd1d50cb8ef80a7402a48e62053b96f7c676e192412db8"
+    },
+    {
+      "path": "data/source/oldtown/9642/node.json",
+      "sha256": "sha256:ee232af9abba66aae38b11b9cee70c97ae83eb2aef9af690fbebd5a8e054cc6e"
+    },
+    {
+      "path": "data/source/oldtown/9642/shared.json",
+      "sha256": "sha256:fd88c8de189cc59a781e49d2ab274caf9e48919f1f8993719164b46119c288fe"
+    },
+    {
+      "path": "data/source/oldtown/9642/texture.jpg",
+      "sha256": "sha256:cc92f7310c0aa58c276dc2e94daf8c244a33ca785a830ae4d95be068e9e3c556"
+    },
+    {
+      "path": "data/source/oldtown/9652/geometry.bin",
+      "sha256": "sha256:b66f125740b7e68e621fb4acae547cabce2bc49ca7777b920fbbf94f87b0faff"
+    },
+    {
+      "path": "data/source/oldtown/9652/node.json",
+      "sha256": "sha256:181579e1c939f0e1f25e9cd55e71e693acd0c66b38f041e478f6b20269cc34f3"
+    },
+    {
+      "path": "data/source/oldtown/9652/shared.json",
+      "sha256": "sha256:b8f9ffd920af6a7ba3368fad6fe72dc6dfacfc82ef1980e8e5061eca22f4af87"
+    },
+    {
+      "path": "data/source/oldtown/9652/texture.jpg",
+      "sha256": "sha256:0bb5a17aa9efbeaf59ee5051888e7eb7eb924bb2e7fcaadc927e60f5cbf79a24"
+    },
+    {
+      "path": "data/source/oldtown/9662/geometry.bin",
+      "sha256": "sha256:b933cc325a3e407b97092f2e0166d3ae0540c6a5a0dfe4e01b8bb5eda9a2cef9"
+    },
+    {
+      "path": "data/source/oldtown/9662/node.json",
+      "sha256": "sha256:f8b5c34befe77c8a39ffbfdcbcd987c74f1e62c37cfac80717ba2651c1dbed37"
+    },
+    {
+      "path": "data/source/oldtown/9662/shared.json",
+      "sha256": "sha256:7a7652f2101de25fe0055db3a28b20184fc34772d7969615d526751cb7cf83b0"
+    },
+    {
+      "path": "data/source/oldtown/9662/texture.jpg",
+      "sha256": "sha256:19f867b1373559f30a7dae7447bf0c721638d5425ebde74f4f3c9f90930cdb77"
+    },
+    {
+      "path": "data/source/oldtown/9672/geometry.bin",
+      "sha256": "sha256:6916b8eeef3674027b4a810e1c9f55a85751c363d40802e8939fce80da7a6994"
+    },
+    {
+      "path": "data/source/oldtown/9672/node.json",
+      "sha256": "sha256:e19b0ef18fd18b2f73524a253dfd3da2935b1c6344952c9d636f0f9a84d29db0"
+    },
+    {
+      "path": "data/source/oldtown/9672/shared.json",
+      "sha256": "sha256:4dce5471595fcc671af47e1c794320fc446f9bcffa4ccf37ff452654d04c3aa2"
+    },
+    {
+      "path": "data/source/oldtown/9672/texture.jpg",
+      "sha256": "sha256:cb4e50cbb41ada0c6a31a35b564b85b574371300ef7cb3e2c26f19603338cf6a"
+    },
+    {
+      "path": "data/source/oldtown/9687/geometry.bin",
+      "sha256": "sha256:0f5508cc9a86760d7553c18bd874024ac6a1b6faa156a66e1f70a5b50cdc9b82"
+    },
+    {
+      "path": "data/source/oldtown/9687/node.json",
+      "sha256": "sha256:dc9cbd349b416eaf5e2ebe4333119fef37eba94050a6130bd62b3158b5c7c615"
+    },
+    {
+      "path": "data/source/oldtown/9687/shared.json",
+      "sha256": "sha256:6cb3404c1d656c5b8d664b6b46e2b029aed8297d1f2cd6b476da60845d5f6f24"
+    },
+    {
+      "path": "data/source/oldtown/9687/texture.jpg",
+      "sha256": "sha256:86bbd63094e62e336f7174a577fa0a0cdf12de9a6e0f0579e59ad9da8428783a"
+    },
+    {
+      "path": "data/source/oldtown/9696/geometry.bin",
+      "sha256": "sha256:a9953a8f62f2a463e6ff28d266135c408efeb1a5111553d635af66b9ce54d017"
+    },
+    {
+      "path": "data/source/oldtown/9696/node.json",
+      "sha256": "sha256:5baea0e66ef3720bd4245fb316e48d1c36b91cdead5fd23b12d8aa80d8d6aefd"
+    },
+    {
+      "path": "data/source/oldtown/9696/shared.json",
+      "sha256": "sha256:efe5bc022db9eecd44774fb235577e444aee038e07af8e3020c6332e1a2029cd"
+    },
+    {
+      "path": "data/source/oldtown/9696/texture.jpg",
+      "sha256": "sha256:f69551ef5f26303446d84bb8bf3c0641a13167001a4ed4fa4b2677cf52c3eba6"
+    },
+    {
+      "path": "data/source/oldtown/9709/geometry.bin",
+      "sha256": "sha256:8622a96549795afe83dc83f2f7206b80fbe6be42b3d2b1f5155ac34cafa3dee8"
+    },
+    {
+      "path": "data/source/oldtown/9709/node.json",
+      "sha256": "sha256:efe1c9cdd43b52fbb0db87620a260c7e64dbe314dbdb82c648159117ef158209"
+    },
+    {
+      "path": "data/source/oldtown/9709/shared.json",
+      "sha256": "sha256:092f521dbd78b7e1d3decd7f7cd93fd0325b6036fa822b321733cfdd769f4f01"
+    },
+    {
+      "path": "data/source/oldtown/9709/texture.jpg",
+      "sha256": "sha256:fabb59c23e51323f460718c09cd0de898c83adc6862373972c218b43452e02bf"
+    },
+    {
+      "path": "data/source/oldtown/9718/geometry.bin",
+      "sha256": "sha256:b79b1dd35e2e299ae17ba618dfef34723bbee3f9dabfbacaf254e96d9af63bdc"
+    },
+    {
+      "path": "data/source/oldtown/9718/node.json",
+      "sha256": "sha256:9efd6a2980f43cbeab7ea0f200dc6552df71ecba24cda43a1b43597188338cb4"
+    },
+    {
+      "path": "data/source/oldtown/9718/shared.json",
+      "sha256": "sha256:fcb97784af2a2eb7ccbbc81d6e5636963f1c128e6598f4e3dea21718e3b5eaba"
+    },
+    {
+      "path": "data/source/oldtown/9718/texture.jpg",
+      "sha256": "sha256:8c14486ef10b0a7edad8ebdb4979ffded82b590361407cc0f072fb7a275cce64"
+    },
+    {
+      "path": "data/source/oldtown/9728/geometry.bin",
+      "sha256": "sha256:e6e7dabf1a0b2932a361618dc4e80abc29d1d6f8566e33ea0555f4dfbff315c9"
+    },
+    {
+      "path": "data/source/oldtown/9728/node.json",
+      "sha256": "sha256:4ff68d31ad945c8447e21cb80b5004d24c3829738ee348c14009151d7decaab5"
+    },
+    {
+      "path": "data/source/oldtown/9728/shared.json",
+      "sha256": "sha256:1732363b403c6dbfabf577d966e5f46444b5ac0b5f602843c64e407aa3968f62"
+    },
+    {
+      "path": "data/source/oldtown/9728/texture.jpg",
+      "sha256": "sha256:5e245fffb38f2ee10bbf9b7d3bb9d45095d3c81ac4b0df9b3fd4cdff187c3f43"
+    },
+    {
+      "path": "data/source/oldtown/9738/geometry.bin",
+      "sha256": "sha256:80d01634ad66c12e545e3915d4fe8204b530927a3149e1d0c0e8b61e2d757987"
+    },
+    {
+      "path": "data/source/oldtown/9738/node.json",
+      "sha256": "sha256:0f917182fc3c3f962d4c0c61dbc878b20567cdb3417c44aa45e6c5c88aee52d6"
+    },
+    {
+      "path": "data/source/oldtown/9738/shared.json",
+      "sha256": "sha256:e1cd13dbd1bbed7b501ee8b1525ffbf83eb6af6415fdfdeb40536271d9ef4e4f"
+    },
+    {
+      "path": "data/source/oldtown/9738/texture.jpg",
+      "sha256": "sha256:6c065941413502d889024c21f4db03c9ba59957d2578fe79c0c4e1e9d13f9a48"
+    },
+    {
+      "path": "data/source/oldtown/9753/geometry.bin",
+      "sha256": "sha256:a3814d4ec60fc98d78e28a9f15a2277fae4715908744efc0fd008aba9e6152d2"
+    },
+    {
+      "path": "data/source/oldtown/9753/node.json",
+      "sha256": "sha256:15f8d52b5159f00b191d2ce2ca22e4d9cb7e0473a4ad0143c20389be7879e4cd"
+    },
+    {
+      "path": "data/source/oldtown/9753/shared.json",
+      "sha256": "sha256:dbba67bc6fb8ec6a0553d1e2f1b0262c91a7bd202dab0e9b2dbec4b263fe6392"
+    },
+    {
+      "path": "data/source/oldtown/9753/texture.jpg",
+      "sha256": "sha256:8598d70c5229456578395959f4d7a176e72973a34c3a9a98df97309fcb17f9de"
+    },
+    {
+      "path": "data/source/oldtown/9763/geometry.bin",
+      "sha256": "sha256:cb3342c5e883a7ee098de6703259f6bafa0c4cc92876bd9ce89c2def70484ec2"
+    },
+    {
+      "path": "data/source/oldtown/9763/node.json",
+      "sha256": "sha256:6bc2c9dde53d1b696766ce155216e53d1c4dc826bc12bb1ce96487ea2756d19f"
+    },
+    {
+      "path": "data/source/oldtown/9763/shared.json",
+      "sha256": "sha256:9b83d94895dccad16996f1e0cd1f67ef029a244e97ddd532aeb5b6d3ad697546"
+    },
+    {
+      "path": "data/source/oldtown/9763/texture.jpg",
+      "sha256": "sha256:c1f34bd12dee052d21f7b1e0aef04c3e1967295c65105fb8533e39de510ea729"
+    },
+    {
+      "path": "data/source/oldtown/9775/geometry.bin",
+      "sha256": "sha256:7efb6b765e7019d9a7c25a63dc723dcfa9a0f84dbebe3d52d7f0d69d9c961a7b"
+    },
+    {
+      "path": "data/source/oldtown/9775/node.json",
+      "sha256": "sha256:645fe5312bc4bd8920b4e5784b964cc21e5d0278835874c26d8072e237398e70"
+    },
+    {
+      "path": "data/source/oldtown/9775/shared.json",
+      "sha256": "sha256:acf9b6b6dacf9c896fc0cb2caa38fe4d241c743706d4be6bc87430ba94271898"
+    },
+    {
+      "path": "data/source/oldtown/9775/texture.jpg",
+      "sha256": "sha256:1213a1ab25e32eefdcf0894a1410cf2f74a3b362978a58ad48e2a1654bae8092"
+    },
+    {
+      "path": "data/source/oldtown/978/geometry.bin",
+      "sha256": "sha256:74d3e4a55b20bbd599768f67b434378a7355cd5cd3f815e316b663bbccc176a3"
+    },
+    {
+      "path": "data/source/oldtown/978/node.json",
+      "sha256": "sha256:57dfbf29f8ff13bd39ca21da42a52015869f18da22ca4f0e0c214c55467a32d0"
+    },
+    {
+      "path": "data/source/oldtown/978/shared.json",
+      "sha256": "sha256:93fee0728e56b3aacec684efe8fcf7a17e3db12b3b29c57a16e57ce67a8e0ec3"
+    },
+    {
+      "path": "data/source/oldtown/978/texture.jpg",
+      "sha256": "sha256:e1bd14e547624f27c667d37e1d6fa06322d61d4032cc862f0a1cc01669a1aea2"
+    },
+    {
+      "path": "data/source/oldtown/9787/geometry.bin",
+      "sha256": "sha256:9471ff94d41d7e0e92bc93ccb9ca3468335b52d8f6200bae78ac4f05ba353552"
+    },
+    {
+      "path": "data/source/oldtown/9787/node.json",
+      "sha256": "sha256:0ddbf0cc58b718135a492843c4cd8474ebee04d85c47c7745a570fdad45688fd"
+    },
+    {
+      "path": "data/source/oldtown/9787/shared.json",
+      "sha256": "sha256:16bb98e72cdd808d03239cb080839cd8cba0c1f81f7d5e1e65004869826b9779"
+    },
+    {
+      "path": "data/source/oldtown/9787/texture.jpg",
+      "sha256": "sha256:907e5ff55e342002a6d49c3a98d9dccf704478a33cf68f30c7c26b6b538673a1"
+    },
+    {
+      "path": "data/source/oldtown/9801/geometry.bin",
+      "sha256": "sha256:8840e4ab234c3f405f50be73541b3414a753deb2d3974ed66d55aaa9c289df28"
+    },
+    {
+      "path": "data/source/oldtown/9801/node.json",
+      "sha256": "sha256:f0618ff3799e04172e6b15780a6e86fff3fb8ffe2aeac71238af4cae5bc9a9c3"
+    },
+    {
+      "path": "data/source/oldtown/9801/shared.json",
+      "sha256": "sha256:47dc8880a95648a3ead0bb4f4fda17626eba3fa8e8715b99ca1bf247331f7841"
+    },
+    {
+      "path": "data/source/oldtown/9801/texture.jpg",
+      "sha256": "sha256:494bfbd3e0ab13dc8b7a13576ae45e042110a0df0f146ec588678f57dc65007e"
+    },
+    {
+      "path": "data/source/oldtown/9817/geometry.bin",
+      "sha256": "sha256:f9ede94b737ea006987000e6da829872686cae59099febee8b4b921288cfbb5a"
+    },
+    {
+      "path": "data/source/oldtown/9817/node.json",
+      "sha256": "sha256:1067b1d6fdfc1f0118bbe1609af59249a72bd390a1001177843a1e3259487ee4"
+    },
+    {
+      "path": "data/source/oldtown/9817/shared.json",
+      "sha256": "sha256:5cd0d573859a7f250d0d650db4e165f57b40303680e91a1e1f4fc4bd116023a1"
+    },
+    {
+      "path": "data/source/oldtown/9817/texture.jpg",
+      "sha256": "sha256:eaf3c8d88e40a170d9d192a1fb4b2120953eb4940685f0c6b162226da233652c"
+    },
+    {
+      "path": "data/source/oldtown/9829/geometry.bin",
+      "sha256": "sha256:6e37ac8c7f8159d18486cd00d8b56c1bc07ccf2a97c0a726cb1ba21f594b9fd3"
+    },
+    {
+      "path": "data/source/oldtown/9829/node.json",
+      "sha256": "sha256:b4cb9dec41e1685bfe290acf942b152f1147af5dd209aa1c8c445ddd80dc7844"
+    },
+    {
+      "path": "data/source/oldtown/9829/shared.json",
+      "sha256": "sha256:9ec3a7bbc103e291ffeb791c2f8e662d2f99c1bcee00bd9aa52fdec246881e2b"
+    },
+    {
+      "path": "data/source/oldtown/9829/texture.jpg",
+      "sha256": "sha256:2fee02d02a016c458e352c2a0d187b1db51342dd68d2b5632cbdbf4e3f3c5039"
+    },
+    {
+      "path": "data/source/oldtown/9838/geometry.bin",
+      "sha256": "sha256:9f7be37cb9b8d4cf836c1e08e1b673c3a0fa3ac650ec975514fca5ed16c2d34b"
+    },
+    {
+      "path": "data/source/oldtown/9838/node.json",
+      "sha256": "sha256:7c7136b1ab2eb4eb7012b8530368e73318d8f912eab9c535668562e0d9357d4f"
+    },
+    {
+      "path": "data/source/oldtown/9838/shared.json",
+      "sha256": "sha256:9b73846a113fc39477608b0ee67d46e2428ea020e45988f0f12cff5db011ef95"
+    },
+    {
+      "path": "data/source/oldtown/9838/texture.jpg",
+      "sha256": "sha256:ae4ccdc60bd24d822ae1e19077747a96f85763c6dbd921cb11da352110da4563"
+    },
+    {
+      "path": "data/source/oldtown/9847/geometry.bin",
+      "sha256": "sha256:0b57e48d1131b700d672e7e4fbcc66344f1c99132294b4d0c7135442b56739d9"
+    },
+    {
+      "path": "data/source/oldtown/9847/node.json",
+      "sha256": "sha256:179c6b27466eefebdbed0d35640433c17e707a1d78b60e05dfa04cb430907865"
+    },
+    {
+      "path": "data/source/oldtown/9847/shared.json",
+      "sha256": "sha256:004c9e9a9bd721bd726c2b1bc5caeaef310c09a8169d52efc1254447197ab5c4"
+    },
+    {
+      "path": "data/source/oldtown/9847/texture.jpg",
+      "sha256": "sha256:ef68cf0b8308828c31595bbf85586c29507414a15923d73e3f0e6968ccccb735"
+    },
+    {
+      "path": "data/source/oldtown/root.json",
+      "sha256": "sha256:2c6f6300717a85d632b23b793e209eb51d624228a77059173f87ddd0cfb33d95"
+    },
+    {
+      "path": "data/source/oldtown/selection.json",
+      "sha256": "sha256:f2effac3ec8b178e61ab37439a299293a09d1d1cf8c351b2b3ecd39011c5b777"
+    },
+    {
+      "path": "data/source/oldtown-layer.json",
+      "sha256": "sha256:b77c1b56d3cc08a3920e4b63cd17163d7d0a93b01eb1d3819be8259ee7097a92"
+    },
+    {
+      "path": "data/source/oldtown-root.json",
+      "sha256": "sha256:2c6f6300717a85d632b23b793e209eb51d624228a77059173f87ddd0cfb33d95"
+    },
+    {
+      "path": "data/source/orthophoto-request.json",
+      "sha256": "sha256:1076520d8a5df17596d78fc44b6de4bcdb9d09739f43c13a4292d0525be790c2"
+    },
+    {
+      "path": "data/source/orthophoto.jpg",
+      "sha256": "sha256:29c2b10ed23dd941571ea950d43206a21a231d50273984fd746a784cadb85f6b"
+    },
+    {
+      "path": "data/source/places-nominatim.json",
+      "sha256": "sha256:a940c87457c9fb5ff095c19a8a5a1826768765a871d244674218e0057fbaebe7"
+    },
+    {
+      "path": "data/source/places-query.txt",
+      "sha256": "sha256:07d7ef8c32c4f7d2dcd2feff1bff03fe9a70073406645e2b00b478519caba55b"
+    },
+    {
+      "path": "data/source/tallinn-app-config.json",
+      "sha256": "sha256:529c18a86e9e24102887d8778faa49c0df1b65dcbc9af9abb58df903adc2e1b8"
+    },
+    {
+      "path": "data/source/tallinn-lod2.zip",
+      "sha256": "sha256:b934df03f3add22acd7a43e8dc1b49a48764b6a42ca51f594b36a99622faeb0e"
+    },
+    {
+      "path": "data/source/tallinn-scene.json",
+      "sha256": "sha256:4377b54e406a8f6b51973611c9eec9c765e5621bb3b725479a35f9b6511911d1"
+    },
+    {
+      "path": "data/source/wms-capabilities.xml",
+      "sha256": "sha256:5cdde88aed1754ab64593e4a25ec5486de921c6d115f6e488197120a34b962e7"
+    },
+    {
+      "path": "index.html",
+      "sha256": "sha256:86449c0538612b4227c3b697a8a5bd93df8911a161bdca68235b38c3b1425f46"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "sha256:ce3270c47b046cb61989536203be1037c558afdfce3a327a7fd639a2a7ccb568"
+    },
+    {
+      "path": "package.json",
+      "sha256": "sha256:443712e33af09e186931aa3c17c162f5eb7c46648fef4ac5108511c2c383f1fd"
+    },
+    {
+      "path": "pipeline.py",
+      "sha256": "sha256:4d77381554b068d2a8acddc12083956faa473478257604bf57453778e8b0dc01"
+    },
+    {
+      "path": "requirements.lock",
+      "sha256": "sha256:5cbc66b5ffe6323066edca1acf5cc0c3e87fbe70d505fca2d7692118cd303bb2"
+    },
+    {
+      "path": "src/AtlasScene.js",
+      "sha256": "sha256:e90195d5f678e81e1d94431da8f298b2fb49d5a89e1e439175aebe5d572b1654"
+    },
+    {
+      "path": "src/InstrumentPanels.jsx",
+      "sha256": "sha256:071155d36d00ad0e762b69ebe0ea9a608915fc8f21270e1ec5df4f0230486fae"
+    },
+    {
+      "path": "src/main.jsx",
+      "sha256": "sha256:1637c0fe606711088f2b7f8d24dd9a1049088e0c1d3050a9311d03c424608cb2"
+    },
+    {
+      "path": "src/section.worker.js",
+      "sha256": "sha256:5d8cde79b77881bea704c0be0d73f61d551c8e44e11eec429fc880597049979d"
+    },
+    {
+      "path": "src/solar.js",
+      "sha256": "sha256:cfac5d8f656f6936e921c1a169b5a06cd7547d173d8eb52aff652380c8f50294"
+    },
+    {
+      "path": "src/styles.css",
+      "sha256": "sha256:d9dd32836a4c535385c2a03ee82734013798e397c539cc99e371b30f5dbe84ec"
+    },
+    {
+      "path": "src/survey-tools.js",
+      "sha256": "sha256:47f7d5adde8531e5b280cf3617ef3f1d8649940a6a3129f385bcc10fdc6e83cb"
+    },
+    {
+      "path": "tests/survey-tools.test.js",
+      "sha256": "sha256:8a3694b8f55b6bbc65ca8b6817a0ef4bb8ccc14c5dfece2fbb2dc4bc73a8841c"
+    },
+    {
+      "path": "vite.config.js",
+      "sha256": "sha256:5d35ea20445b6161103cc1d95a606a76e84f03f329a4b6b0c373d7023326fb90"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "data/derived/ept/ept-data/0-0-0-0.laz",
+      "sha256": "sha256:1d5e2f3d1b489bd2ca2569129b30e34c24009f10df10eaa1bf336d32a1f954b9"
+    },
+    {
+      "path": "data/derived/ept/ept-hierarchy/0-0-0-0.json",
+      "sha256": "sha256:4b894c39e18fa64a022a09a8a0520e3d13b15c33350157890f8ba3db2a2de6ff"
+    },
+    {
+      "path": "data/derived/ept/ept.json",
+      "sha256": "sha256:342351b33987a840f07d15095c33e9324585e8281dd124cf04fa7f5b1ce09191"
+    },
+    {
+      "path": "data/derived/orthophoto.tif",
+      "sha256": "sha256:605d18e333e3efff4f1c24c3d9c16657a3aea0cebfffb32d496dc3f39682f369"
+    },
+    {
+      "path": "data/derived/places.geojson",
+      "sha256": "sha256:1d8f6f7a50ae9e985b5460e2219d9f65057a82698bebd9f0b3a2d22212a62977"
+    },
+    {
+      "path": "data/derived/survey-extents.geojson",
+      "sha256": "sha256:5caeb2ad8d0e66088fbdd56ae1c841b8f7316d646d96d1eaef69200589f022de"
+    },
+    {
+      "path": "data/derived/survey.gpkg",
+      "sha256": "sha256:fb1af27bf4136185ed669cf3e5b8ba8efc74b71ef077b6be76df47b34cf734f5"
+    },
+    {
+      "path": "data/derived/terrain.tif",
+      "sha256": "sha256:dc698f838df6d9eb07f24773934c3feca7f535ee65e67736a6afaaf7fb0a6ef3"
+    },
+    {
+      "path": "data/derived/toompea-sampled.laz",
+      "sha256": "sha256:1d5e2f3d1b489bd2ca2569129b30e34c24009f10df10eaa1bf336d32a1f954b9"
+    },
+    {
+      "path": "project.qgz",
+      "sha256": "sha256:9a3118045c277420a745c38bc5d5452db0ce8f09ce9a99577a958cd0a6da403d"
+    },
+    {
+      "path": "public/data/atlas.json",
+      "sha256": "sha256:1319f813246b1e6710aedbc156150a147103b4cf54dbf60c5a662327d96a47cc"
+    },
+    {
+      "path": "public/data/building-colors.bin",
+      "sha256": "sha256:9d438ab9a1827316ef505caf1f2f037de9da76b40814dcd8300f4a34453641d2"
+    },
+    {
+      "path": "public/data/building-nodes.json",
+      "sha256": "sha256:41b5a9858d682b3bf4b65fc1bad14975ba9b1370b6a4923bc6ba03caa39bb9bb"
+    },
+    {
+      "path": "public/data/buildings.bin",
+      "sha256": "sha256:5443327d989eac910bbd7c9e74658c88bb022773c49e3f5dd9ed55578301816b"
+    },
+    {
+      "path": "public/data/orthophoto.jpg",
+      "sha256": "sha256:29c2b10ed23dd941571ea950d43206a21a231d50273984fd746a784cadb85f6b"
+    },
+    {
+      "path": "public/data/overview.jpg",
+      "sha256": "sha256:b7811e4e46243a829ccc1d40efed8c696dc8a4bbf3adeab84319635987e2475a"
+    },
+    {
+      "path": "public/data/pikk-hermann-flag.bin",
+      "sha256": "sha256:bed78dd1f3936413a544f38adcd68b0ff708f2fab2d26a053fa5225b56b73732"
+    },
+    {
+      "path": "public/data/places.json",
+      "sha256": "sha256:62dfeaa7c4505f65fc234aea4aa7d3affdcf94c0735ab76cc7a442aa9ae9cdc2"
+    },
+    {
+      "path": "public/data/point-classes.bin",
+      "sha256": "sha256:f1ae355ade308b0f0940b6b31c406aad9eb261378813e49d6f145e617fc5d1ad"
+    },
+    {
+      "path": "public/data/point-colors.bin",
+      "sha256": "sha256:5a65167e9d96fc7a77ab0aa30c3aafbc646f4bce3172aff3ab67344e9ec37f70"
+    },
+    {
+      "path": "public/data/points.bin",
+      "sha256": "sha256:da0ccbda7f818062a373c6947caa17182c8c2b11d5614ccdb7663c93c7b579c8"
+    },
+    {
+      "path": "public/data/terrain.bin",
+      "sha256": "sha256:6c782fa63106adceb6229fc93cc9da8c727cf147d5ff53a66ad9feb0031f7e6a"
+    }
+  ],
+  "validation_report": {
+    "path": "validation/latest-report.json"
+  }
+}

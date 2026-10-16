@@ -2,6 +2,8 @@
 
 A source-backed Three.js explorer of Toompea hill, Tallinn. The application renders actual City of Tallinn survey meshes, high-density 2023 airborne LiDAR returns, a ground surface derived from those returns, and national aerial photography. There is no generated landmark geometry.
 
+[![Preview of the Toompea Digital Atlas, showing surveyed architecture and explorer controls](docs/toompea-preview.png)](https://jaakla.github.io/openmapstack-samples/toompea-3d/)
+
 ## Run the explorer
 
 ```bash
@@ -89,7 +91,9 @@ The calculation checks use analytic unit fixtures rather than invented geographi
 
 The flag is rendered in every mode, including point cloud, elevation, overhead views and cross sections, and remains independent of the source layer and label toggles. City I3S node `2873` contains the actual folded cloth triangles; the compiler copies those positions and their original texture V coordinates into `public/data/pikk-hermann-flag.bin`. Equal horizontal blue–black–white bands use the State Chancellery reference colors `#0072CE`, `#000000`, `#FFFFFF`, with sRGB national hues, subtle fixed world-space fold shading and no scene tone mapping. The source geometry and sampled photographic colors are retained unchanged.
 
-The flag always uses the surveyed folded 3D mesh, including overhead views; it never switches to a screen-facing sprite. Uniform display magnification about the existing hoist vertex keeps the cloth readable at distant zooms (24 pixel 3D bounding extent). Its shape, proportions and world orientation remain fixed. This magnification and subtle world-space fill shading are presentation effects, not measured dimensions, wind or night illumination. Source architecture drawing omits only the original gray cloth faces, while the immutable source geometry and analysis arrays remain complete. The flag remains exempt from layer switches and section clipping. The [official reference](https://www.riigikantselei.ee/et/eestilipp) defines the national bands; its linked SVG is retained at `data/source/estonian-flag-reference-2022.svg`.
+The flag always uses the surveyed folded 3D mesh, including overhead views; it never switches to a screen-facing sprite. Uniform display magnification about the existing hoist vertex keeps the cloth readable at distant zooms (24 pixel 3D bounding extent). A gentle shader ripple gives the cloth a little movement: vertices within 0.16 m of the pole stay pinned, and displacement grows toward the free edge to at most 8% of the source cloth's horizontal reach, with a much smaller vertical flutter. The display animation is capped at 24 frames per second, stops for reduced-motion preferences, and pauses in hidden tabs. Its settings are recorded in `presentation.landmark_flag.animation` in `project.yaml`.
+
+The wind ripple, magnification and subtle world-space fill shading are illustrative presentation effects, not measured dimensions, observed wind or night illumination. Source buffers, measurement geometry and section inputs remain unchanged. Source architecture drawing omits only the original gray cloth faces, while the immutable source geometry and analysis arrays remain complete. The flag remains exempt from layer switches and section clipping. The [official reference](https://www.riigikantselei.ee/et/eestilipp) defines the national bands; its linked SVG is retained at `data/source/estonian-flag-reference-2022.svg`.
 
 The sun-study local time is selected with a full-day slider (00:00–23:59, one-minute steps). The visible time and accessible slider value stay in Tallinn civil time; the date picker and EET/EEST handling are unchanged.
 

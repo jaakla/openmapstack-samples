@@ -6,6 +6,8 @@ Source-backed geospatial applications built with [OpenMapStack](https://github.c
 
 Explore surveyed architecture, airborne LiDAR, terrain, cross sections, measurements, and sun studies of Toompea hill in Tallinn.
 
+[![Preview of the Toompea Digital Atlas, showing surveyed architecture and explorer controls](toompea-3d/docs/toompea-preview.png)](https://jaakla.github.io/openmapstack-samples/toompea-3d/)
+
 - [Open the live atlas](https://jaakla.github.io/openmapstack-samples/toompea-3d/)
 - [Project documentation and source evidence](toompea-3d/README.md)
 

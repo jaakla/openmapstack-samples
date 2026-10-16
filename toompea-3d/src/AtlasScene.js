@@ -24,8 +24,9 @@ export class AtlasScene {
     this.pointerDown=e=>{this.down=[e.clientX,e.clientY];};this.pointerUp=e=>{if(e.button===0&&['inspect','measure'].includes(this.tool)&&this.down&&Math.hypot(e.clientX-this.down[0],e.clientY-this.down[1])<5){if(this.tool==='measure'){const hit=this.pick(e);if(hit)this.addEndpoint(hit);}else this.inspect(e);}};this.renderer.domElement.addEventListener('pointerdown',this.pointerDown);this.renderer.domElement.addEventListener('pointerup',this.pointerUp);
     this.renderer.domElement.addEventListener('webglcontextlost',e=>{e.preventDefault();onError(new Error('The graphics context was interrupted. Reload the atlas to restore the measured scene.'));},{signal:this.abort.signal});
     this.load(onProgress).then(()=>{if(!this.disposed){this.ready=true;this.dirty=true;this.setState(this.state || config.default_controls);onReady();}}).catch(e=>{if(e.name!=='AbortError')onError(e);});
+    this.reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
     this.clock=new THREE.Clock();this.animate=()=>{if(this.disposed)return;this.frame=requestAnimationFrame(this.animate);if(this.transition){const p=Math.min((performance.now()-this.transition.time)/1100,1),s=1-(1-p)**3;this.camera.position.lerpVectors(this.transition.from,this.transition.to,s);this.controls.target.lerpVectors(this.transition.targetFrom,this.transition.targetTo,s);this.camera.zoom=THREE.MathUtils.lerp(this.transition.zoomFrom,this.transition.zoomTo,s);this.camera.updateProjectionMatrix();if(p===1)this.transition=null;}
-      const changed=this.controls.update();if(changed||this.dirty||this.transition){this.camera.updateMatrixWorld();this.updateAnchors();this.renderView();this.onScale?.(100*this.container.clientHeight/(1080/this.camera.zoom));this.dirty=false;}};this.animate();
+      const changed=this.controls.update(),windChanged=this.updateFlagWind(performance.now());if(changed||this.dirty||this.transition||windChanged){this.camera.updateMatrixWorld();this.updateAnchors();this.renderView();this.onScale?.(100*this.container.clientHeight/(1080/this.camera.zoom));this.dirty=false;}};this.animate();
   }
   async load(onProgress){
     const signal=this.abort.signal;onProgress('Preparing surveyed architecture…');
@@ -73,11 +74,23 @@ export class AtlasScene {
     const records=new Float32Array(buffer),positions=[],uv=[],hoist=new THREE.Vector3(...reference.position),sourceVertices=new Set();
     for(let i=0;i<records.length;i+=4){positions.push(records[i]-hoist.x,records[i+1]-hoist.y,records[i+2]-hoist.z);uv.push(0,records[i+3]);sourceVertices.add(`${records[i]},${records[i+1]},${records[i+2]}`);}
     const geometry=new THREE.BufferGeometry();geometry.setAttribute('position',new THREE.Float32BufferAttribute(positions,3));geometry.setAttribute('uv',new THREE.Float32BufferAttribute(uv,2));geometry.computeVertexNormals();geometry.computeBoundingBox();
+    // Deform only the rendered cloth; the observed buffers remain available for analysis.
+    const edge=new THREE.Vector3();for(let i=0;i<positions.length;i+=3){const p=new THREE.Vector3(positions[i],0,positions[i+2]);if(p.lengthSq()>edge.lengthSq())edge.copy(p);}
+    const wind=reference.animation,span=edge.length(),direction=new THREE.Vector3(-edge.z,0,edge.x).normalize();
+    this.flagWindStart=performance.now();this.flagWindInterval=1000/(wind?.max_fps??24);
     const colors=reference.colors.map(color=>new THREE.Color(color));
     // A fixed world-space fill reveals the recorded folds without washing out the national colors at night.
     const material=new THREE.ShaderMaterial({side:THREE.DoubleSide,toneMapped:false,depthTest:false,depthWrite:false,
-      uniforms:{blue:{value:colors[0]},black:{value:colors[1]},white:{value:colors[2]}},
-      vertexShader:`varying float flagV;varying vec3 clothNormal;void main(){flagV=uv.y;clothNormal=mat3(modelMatrix)*normal;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`,
+      uniforms:{blue:{value:colors[0]},black:{value:colors[1]},white:{value:colors[2]},windTime:{value:0},windStrength:{value:0},windSpan:{value:span},windDirection:{value:direction},windAmplitude:{value:span*(wind?.amplitude_fraction??.08)},windSpeed:{value:wind?.angular_speed_radians_per_second??2.2},pinnedRadius:{value:wind?.pinned_radius_m??.16}},
+      vertexShader:`uniform float windTime,windStrength,windSpan,windAmplitude,windSpeed,pinnedRadius;uniform vec3 windDirection;varying float flagV;varying vec3 clothNormal;void main(){
+        flagV=uv.y;clothNormal=mat3(modelMatrix)*normal;
+        float reach=length(position.xz),envelope=smoothstep(pinnedRadius,windSpan,reach);
+        float phase=reach/windSpan*6.-windTime*windSpeed;
+        float ripple=.75*sin(phase)+.25*sin(phase*1.7+position.y*1.4);
+        vec3 cloth=position+windDirection*(ripple*envelope*windAmplitude*windStrength);
+        cloth.y+=sin(phase+.8)*envelope*windAmplitude*.18*windStrength;
+        gl_Position=projectionMatrix*modelViewMatrix*vec4(cloth,1.);
+      }`,
       fragmentShader:`uniform vec3 blue;uniform vec3 black;uniform vec3 white;varying float flagV;varying vec3 clothNormal;void main(){vec3 color=flagV>2./3.?blue:flagV>1./3.?black:white;float fold=.72+.28*abs(dot(normalize(clothNormal),normalize(vec3(.45,.8,.35))));gl_FragColor=vec4(color*fold,1.);
       #include <colorspace_fragment>
       }`});
@@ -89,7 +102,14 @@ export class AtlasScene {
     this.buildings.geometry.clearGroups();let previous=0;
     for(const index of omitted){if(index>previous)this.buildings.geometry.addGroup(previous,index-previous,0);previous=index+3;}
     if(previous<source.count)this.buildings.geometry.addGroup(previous,source.count-previous,0);
-    this.renderer.domElement.setAttribute('aria-description','Pikk Hermann carries a folded 3D Estonian blue, black and white flag. Its surveyed cloth stays in world orientation, with display magnification at distant zooms.');
+    this.renderer.domElement.setAttribute('aria-description','Pikk Hermann carries a folded 3D Estonian blue, black and white flag. Gentle wind ripples and distant-view magnification are illustrative display effects on the surveyed cloth. Wind animation is disabled when reduced motion is preferred.');
+  }
+  updateFlagWind(now){
+    if(!this.flag)return false;
+    const uniforms=this.flag.material.uniforms,moving=this.config.landmark_flag.animation?.enabled!==false&&!this.reducedMotion.matches&&!document.hidden;
+    if(!moving){if(uniforms.windStrength.value===0)return false;uniforms.windStrength.value=0;return true;}
+    if(now-(this.flagWindFrame??-Infinity)<this.flagWindInterval)return false;
+    this.flagWindFrame=now;uniforms.windTime.value=(now-this.flagWindStart)/1000;uniforms.windStrength.value=1;return true;
   }
   setState(state){this.dirty=true;this.state=state;const mode=state.mode;this.scene.background.set(mode==='cloud'?'#242b2b':'#e6e2da');if(this.buildings)this.buildings.visible=mode==='model'&&state.buildings;if(this.terrain){this.terrain.visible=state.terrain&&mode!=='cloud';this.terrain.material=mode==='elevation'?this.elevationMaterial:this.terrainMaterial;}
     for(const [name,points] of Object.entries(this.pointGroups)){points.visible=mode==='cloud'?(name==='vegetation'?state.vegetation:name==='ground'?state.terrain:name==='buildings'?state.buildings:true):(name==='vegetation'&&state.vegetation&&mode==='model');points.material.size=mode==='cloud'?1.1:1.6;}
@@ -100,7 +120,7 @@ export class AtlasScene {
   setAnchors(places,elements){this.dirty=true;this.anchors=places.map((p,i)=>({pos:new THREE.Vector3(...p.position),el:elements[i],id:p.id})).filter(a=>a.el);}
   updateAnchors(){const w=this.container.clientWidth,h=this.container.clientHeight;
     if(this.flag){
-      // Uniform magnification preserves the surveyed 3D shape and world orientation, including in nadir views.
+      // Uniform magnification keeps the world-oriented cloth readable, including in nadir views.
       const pixelsPerMetre=h*this.camera.zoom/1080;
       this.flag.scale.setScalar(Math.max(1,(this.config.landmark_flag.minimum_display_extent_px??24)/(this.flagExtent*pixelsPerMetre)));
     }

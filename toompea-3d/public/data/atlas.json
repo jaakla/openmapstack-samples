@@ -1,6 +1,6 @@
 {
   "title": "Toompea Digital Atlas",
-  "run_id": "run-20261016-075851",
+  "run_id": "run-20261016-094305",
   "status": "warning",
   "origin_3301": [
     542000,
@@ -466,6 +466,14 @@
     "visibility": "World-oriented surveyed 3D cloth in all modes and lighting settings; independent of layers and clipping. Uniform display magnification at distant zooms is an annotation, not a measured dimension.",
     "minimum_display_extent_px": 24,
     "shading": "Fixed world-space fill on the source triangle normals; preserve national hues and distinguish observed folds",
+    "animation": {
+      "enabled": true,
+      "amplitude_fraction": 0.08,
+      "angular_speed_radians_per_second": 2.2,
+      "max_fps": 24,
+      "pinned_radius_m": 0.16,
+      "basis": "User-requested illustrative wind ripple on the display mesh only, anchored at the pole. Not observed wind or altered survey geometry. Disabled for reduced-motion preferences and paused while the page is hidden."
+    },
     "position": [
       -180.6999969482422,
       92.0999984741211,
@@ -474,6 +482,6 @@
     "survey_node": "2873",
     "survey_triangles": 77,
     "vertical_datum": "EGM96",
-    "geometry": "Source cloth triangles with original V coordinates for equal horizontal bands; world-oriented 3D display magnified uniformly about the surveyed hoist at distant zooms."
+    "geometry": "Source cloth triangles with original V coordinates for equal horizontal bands; world-oriented 3D display magnified uniformly about the surveyed hoist at distant zooms. User-requested shader wind is illustrative and leaves source and analysis geometry unchanged."
   }
 }

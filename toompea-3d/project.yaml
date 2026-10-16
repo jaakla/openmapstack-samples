@@ -5,7 +5,7 @@ project:
   question: Build a museum-grade interactive 3D explorer of Tallinn Toompea strictly
     grounded in measured source data.
   created_at: '2026-10-15T17:26:15.600352+00:00'
-  updated_at: '2026-10-16T07:59:19.483220+00:00'
+  updated_at: '2026-10-16T09:43:32.481957+00:00'
   status: warning
   publication:
     updated_at: '2026-10-07T00:00:00Z'
@@ -604,6 +604,15 @@ presentation:
     minimum_display_extent_px: 24
     shading: Fixed world-space fill on the source triangle normals; preserve national
       hues and distinguish observed folds
+    animation:
+      enabled: true
+      amplitude_fraction: 0.08
+      angular_speed_radians_per_second: 2.2
+      max_fps: 24
+      pinned_radius_m: 0.16
+      basis: User-requested illustrative wind ripple on the display mesh only, anchored
+        at the pole. Not observed wind or altered survey geometry. Disabled for reduced-motion
+        preferences and paused while the page is hidden.
   map_effects:
     vignette_strength: 0.22
     vignette_basis: Warm, elliptical edge shading applied to the WebGL map and exported
@@ -651,15 +660,15 @@ warnings:
     and require source verification for precision or redistribution claims.
 runs:
   latest:
-    id: run-20261016-075851
-    run_id: run-20261016-075851
+    id: run-20261016-094305
+    run_id: run-20261016-094305
     environment: *id001
-    started_at: '2026-10-16T07:58:51.426918+00:00'
-    completed_at: '2026-10-16T07:59:19.483220+00:00'
+    started_at: '2026-10-16T09:43:05.023531+00:00'
+    completed_at: '2026-10-16T09:43:32.481957+00:00'
     status: warning
-    inputs_hash: sha256:a854f21a76f1072ae6c9df772a2907cd8731b5b1d1a3496183d2e92c3dd2f618
-    outputs_hash: sha256:ca6bf1027eb1234c72634cd1ee493e1e40c39fb6192fc6cb2e4c50b7734ab958
+    inputs_hash: sha256:fd5006f91c766f08766389fb545c328cd1fbc962697094459d30ccc8d295eddf
+    outputs_hash: sha256:9f8d674221898186de2a4d611b478b7f39ce44fe2bb40390f751759941d6ec42
     validation_report:
       path: validation/latest-report.json
     record:
-      path: runs/run-20261016-075851.json
+      path: runs/run-20261016-094305.json

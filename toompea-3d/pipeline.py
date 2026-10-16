@@ -203,7 +203,7 @@ def main():
     config['map_effects']=manifest['presentation']['map_effects']
     flag=np.fromfile(OUT/'pikk-hermann-flag.bin',dtype='<f4').reshape(-1,4)
     tops=flag[flag[:,3]>.999,:3];anchor=tops[np.argmin(np.hypot(tops[:,0]+180.610,tops[:,2]-179.791))]
-    config['landmark_flag']={**manifest['presentation']['landmark_flag'],'position':anchor.astype('float64').tolist(),'survey_node':'2873','survey_triangles':len(flag)//3,'vertical_datum':'EGM96','geometry':'Source cloth triangles with original V coordinates for equal horizontal bands; world-oriented 3D display magnified uniformly about the surveyed hoist at distant zooms.'}
+    config['landmark_flag']={**manifest['presentation']['landmark_flag'],'position':anchor.astype('float64').tolist(),'survey_node':'2873','survey_triangles':len(flag)//3,'vertical_datum':'EGM96','geometry':'Source cloth triangles with original V coordinates for equal horizontal bands; world-oriented 3D display magnified uniformly about the surveyed hoist at distant zooms. User-requested shader wind is illustrative and leaves source and analysis geometry unchanged.'}
     config['pipeline'].append('PROJ origin and meridian convergence → client SunCalc 2.1.1 solar studies; user-selected metric measurements and triangle-plane sections remain exploratory')
     savejson(OUT/'atlas.json',config)
     # Inputs include every retained source and all executable dependencies.

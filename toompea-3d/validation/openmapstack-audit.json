@@ -1,6 +1,6 @@
 {
   "schema": "openmapstack-validation-result/v1",
-  "project_file": "/home/jaak/codeman-cases/tartu-3d/project.yaml",
+  "project_file": "/home/jaak/codeman-cases/openmapstack-samples/toompea-3d/project.yaml",
   "status": "warning",
   "counts": {
     "passed": 43,
@@ -51,7 +51,7 @@
     {
       "id": "source.license",
       "status": "passed",
-      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents \u00b7 2025-01-01",
+      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents · 2025-01-01",
       "path": "sources.lidar_588541.license"
     },
     {
@@ -72,7 +72,7 @@
     {
       "id": "source.license",
       "status": "passed",
-      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents \u00b7 2025-01-01",
+      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents · 2025-01-01",
       "path": "sources.lidar_589541.license"
     },
     {
@@ -93,7 +93,7 @@
     {
       "id": "source.license",
       "status": "passed",
-      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents \u00b7 2025-01-01",
+      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents · 2025-01-01",
       "path": "sources.lidar_588542.license"
     },
     {
@@ -114,7 +114,7 @@
     {
       "id": "source.license",
       "status": "passed",
-      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents \u00b7 2025-01-01",
+      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents · 2025-01-01",
       "path": "sources.lidar_589542.license"
     },
     {
@@ -135,7 +135,7 @@
     {
       "id": "source.license",
       "status": "passed",
-      "message": "license recorded as Tallinn\u2019s Open Spatial Data \u00b7 Simple Licence Agreement",
+      "message": "license recorded as Tallinn’s Open Spatial Data · Simple Licence Agreement",
       "path": "sources.city_model.license"
     },
     {
@@ -156,7 +156,7 @@
     {
       "id": "source.license",
       "status": "passed",
-      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents \u00b7 2025-01-01",
+      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents · 2025-01-01",
       "path": "sources.national_lod2.license"
     },
     {
@@ -177,7 +177,7 @@
     {
       "id": "source.license",
       "status": "passed",
-      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents \u00b7 2025-01-01",
+      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents · 2025-01-01",
       "path": "sources.orthophoto.license"
     },
     {
@@ -288,8 +288,8 @@
     {
       "id": "runs.latest",
       "status": "passed",
-      "message": "run-20261016-075851 resolves and matches report status/hashes",
-      "path": "runs/run-20261016-075851.json"
+      "message": "run-20261016-094305 resolves and matches report status/hashes",
+      "path": "runs/run-20261016-094305.json"
     },
     {
       "id": "runs.sample_isolation",
