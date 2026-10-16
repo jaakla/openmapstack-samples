@@ -1,0 +1,18 @@
+{
+  "url": "https://kaart.maaamet.ee/wms/fotokaart?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=EESTIFOTO&STYLES=&SRS=EPSG%3A3301&BBOX=541450%2C6588400%2C542650%2C6589600&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fjpeg",
+  "headers": {
+    "Date": "Thu, 15 Oct 2026 17:21:08 GMT",
+    "Server": "Apache",
+    "Cache-Control": "public, must-revalidate",
+    "Content-Type": "image/jpeg",
+    "Access-Control-Allow-Origin": "*",
+    "Connection": "close",
+    "Transfer-Encoding": "chunked"
+  },
+  "bbox_3301": [
+    541450,
+    6588400,
+    542650,
+    6589600
+  ]
+}

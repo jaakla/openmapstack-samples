@@ -1,0 +1,80 @@
+{
+  "run_id": "run-20261015-185638",
+  "flag_checks": [
+    {
+      "view": "close-orbit",
+      "flag_rendered": "passed",
+      "exact_national_bands": "not evaluated under landmark label overlay",
+      "blue_pixels": 88
+    },
+    {
+      "view": "close",
+      "flag_rendered": "passed",
+      "exact_national_bands": "not evaluated under landmark label overlay",
+      "blue_pixels": 84
+    },
+    {
+      "view": "cloud",
+      "flag_rendered": "passed",
+      "exact_national_bands": "passed",
+      "blue_pixels": 105
+    },
+    {
+      "view": "elevation",
+      "flag_rendered": "passed",
+      "exact_national_bands": "passed",
+      "blue_pixels": 84
+    },
+    {
+      "view": "layers-off",
+      "flag_rendered": "passed",
+      "exact_national_bands": "passed",
+      "blue_pixels": 110
+    },
+    {
+      "view": "model-return",
+      "flag_rendered": "passed",
+      "exact_national_bands": "passed",
+      "blue_pixels": 105
+    },
+    {
+      "view": "model",
+      "flag_rendered": "passed",
+      "exact_national_bands": "passed",
+      "blue_pixels": 79
+    },
+    {
+      "view": "night",
+      "flag_rendered": "passed",
+      "exact_national_bands": "passed",
+      "blue_pixels": 104
+    },
+    {
+      "view": "no-labels",
+      "flag_rendered": "passed",
+      "exact_national_bands": "passed",
+      "blue_pixels": 84
+    },
+    {
+      "view": "overhead",
+      "flag_rendered": "passed",
+      "exact_national_bands": "passed",
+      "blue_pixels": 84
+    },
+    {
+      "view": "section",
+      "flag_rendered": "passed",
+      "exact_national_bands": "passed",
+      "blue_pixels": 105
+    }
+  ],
+  "browser_errors": 0,
+  "tools_browser_checks": [
+    "Minute slider: Home 00:00, End 23:59, ArrowRight one-minute steps; accessible local time and mobile 14:15 display",
+    "Sun date/time, solar altitude and shadows",
+    "Genuine 3D surface measurement",
+    "Worker cross-section profile and point-cloud slab",
+    "Mobile toolbar and no horizontal overflow"
+  ],
+  "calculation_tests": 11
+}

@@ -1,0 +1,1 @@
+[out:json][timeout:60];nwr(59.432,24.730,59.442,24.750)[name][historic];out center tags;out count;

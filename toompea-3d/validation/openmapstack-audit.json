@@ -1,0 +1,301 @@
+{
+  "schema": "openmapstack-validation-result/v1",
+  "project_file": "/home/jaak/codeman-cases/tartu-3d/project.yaml",
+  "status": "warning",
+  "counts": {
+    "passed": 43,
+    "warning": 1,
+    "not_testable": 0,
+    "failed": 0
+  },
+  "checks": [
+    {
+      "id": "manifest.json_schema",
+      "status": "passed",
+      "message": "project.yaml conforms to the packaged OpenMapStack v1 JSON Schema",
+      "path": "project.yaml"
+    },
+    {
+      "id": "manifest.schema",
+      "status": "passed",
+      "message": "schema is openmapstack-project/v1",
+      "path": "schema"
+    },
+    {
+      "id": "manifest.project",
+      "status": "passed",
+      "message": "project identity, timestamps, question, and status are declared",
+      "path": "project"
+    },
+    {
+      "id": "interpretation.assumptions",
+      "status": "passed",
+      "message": "7 assumptions have rationale",
+      "path": "interpretation.assumptions"
+    },
+    {
+      "id": "source.provenance",
+      "status": "passed",
+      "message": "source URL, retrieval, version, selection, and rationale are pinned",
+      "path": "sources.lidar_588541"
+    },
+    {
+      "id": "source.pin",
+      "status": "passed",
+      "message": "version identity is recorded and is not a mutable alias",
+      "path": "sources.lidar_588541.pin",
+      "details": {
+        "pin_class": "version_identity"
+      }
+    },
+    {
+      "id": "source.license",
+      "status": "passed",
+      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents \u00b7 2025-01-01",
+      "path": "sources.lidar_588541.license"
+    },
+    {
+      "id": "source.provenance",
+      "status": "passed",
+      "message": "source URL, retrieval, version, selection, and rationale are pinned",
+      "path": "sources.lidar_589541"
+    },
+    {
+      "id": "source.pin",
+      "status": "passed",
+      "message": "version identity is recorded and is not a mutable alias",
+      "path": "sources.lidar_589541.pin",
+      "details": {
+        "pin_class": "version_identity"
+      }
+    },
+    {
+      "id": "source.license",
+      "status": "passed",
+      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents \u00b7 2025-01-01",
+      "path": "sources.lidar_589541.license"
+    },
+    {
+      "id": "source.provenance",
+      "status": "passed",
+      "message": "source URL, retrieval, version, selection, and rationale are pinned",
+      "path": "sources.lidar_588542"
+    },
+    {
+      "id": "source.pin",
+      "status": "passed",
+      "message": "version identity is recorded and is not a mutable alias",
+      "path": "sources.lidar_588542.pin",
+      "details": {
+        "pin_class": "version_identity"
+      }
+    },
+    {
+      "id": "source.license",
+      "status": "passed",
+      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents \u00b7 2025-01-01",
+      "path": "sources.lidar_588542.license"
+    },
+    {
+      "id": "source.provenance",
+      "status": "passed",
+      "message": "source URL, retrieval, version, selection, and rationale are pinned",
+      "path": "sources.lidar_589542"
+    },
+    {
+      "id": "source.pin",
+      "status": "passed",
+      "message": "version identity is recorded and is not a mutable alias",
+      "path": "sources.lidar_589542.pin",
+      "details": {
+        "pin_class": "version_identity"
+      }
+    },
+    {
+      "id": "source.license",
+      "status": "passed",
+      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents \u00b7 2025-01-01",
+      "path": "sources.lidar_589542.license"
+    },
+    {
+      "id": "source.provenance",
+      "status": "passed",
+      "message": "source URL, retrieval, version, selection, and rationale are pinned",
+      "path": "sources.city_model"
+    },
+    {
+      "id": "source.pin",
+      "status": "passed",
+      "message": "version identity is recorded and is not a mutable alias",
+      "path": "sources.city_model.pin",
+      "details": {
+        "pin_class": "version_identity"
+      }
+    },
+    {
+      "id": "source.license",
+      "status": "passed",
+      "message": "license recorded as Tallinn\u2019s Open Spatial Data \u00b7 Simple Licence Agreement",
+      "path": "sources.city_model.license"
+    },
+    {
+      "id": "source.provenance",
+      "status": "passed",
+      "message": "source URL, retrieval, version, selection, and rationale are pinned",
+      "path": "sources.national_lod2"
+    },
+    {
+      "id": "source.pin",
+      "status": "passed",
+      "message": "version identity is recorded and is not a mutable alias",
+      "path": "sources.national_lod2.pin",
+      "details": {
+        "pin_class": "version_identity"
+      }
+    },
+    {
+      "id": "source.license",
+      "status": "passed",
+      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents \u00b7 2025-01-01",
+      "path": "sources.national_lod2.license"
+    },
+    {
+      "id": "source.provenance",
+      "status": "passed",
+      "message": "source URL, retrieval, version, selection, and rationale are pinned",
+      "path": "sources.orthophoto"
+    },
+    {
+      "id": "source.pin",
+      "status": "passed",
+      "message": "version identity is recorded and is not a mutable alias",
+      "path": "sources.orthophoto.pin",
+      "details": {
+        "pin_class": "version_identity"
+      }
+    },
+    {
+      "id": "source.license",
+      "status": "passed",
+      "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents \u00b7 2025-01-01",
+      "path": "sources.orthophoto.license"
+    },
+    {
+      "id": "source.provenance",
+      "status": "passed",
+      "message": "source URL, retrieval, version, selection, and rationale are pinned",
+      "path": "sources.place_labels"
+    },
+    {
+      "id": "source.pin",
+      "status": "passed",
+      "message": "version identity is recorded and is not a mutable alias",
+      "path": "sources.place_labels.pin",
+      "details": {
+        "pin_class": "version_identity"
+      }
+    },
+    {
+      "id": "source.license",
+      "status": "passed",
+      "message": "license recorded as ODbL 1.0",
+      "path": "sources.place_labels.license"
+    },
+    {
+      "id": "overrides.undocumented_files",
+      "status": "passed",
+      "message": "all override geodata files are declared",
+      "path": "data/overrides"
+    },
+    {
+      "id": "processing.crs",
+      "status": "passed",
+      "message": "analysis=EPSG:3301; storage=EPSG:4326",
+      "path": "processing"
+    },
+    {
+      "id": "processing.graph",
+      "status": "passed",
+      "message": "6 ordered steps and 6 symbols resolve",
+      "path": "processing.steps"
+    },
+    {
+      "id": "outputs.declaration",
+      "status": "passed",
+      "message": "22 outputs trace to real steps",
+      "path": "outputs"
+    },
+    {
+      "id": "presentation.declaration",
+      "status": "passed",
+      "message": "semantic presentation declares 5 layers",
+      "path": "presentation"
+    },
+    {
+      "id": "warnings.declaration",
+      "status": "passed",
+      "message": "2 unresolved warnings are documented",
+      "path": "warnings"
+    },
+    {
+      "id": "runtime.pipeline",
+      "status": "passed",
+      "message": "canonical pipeline exists: pipeline.py",
+      "path": "runtime.implementation.pipeline"
+    },
+    {
+      "id": "runtime.dependencies",
+      "status": "passed",
+      "message": "14 clean-run dependencies resolve inside the project",
+      "path": "runtime.implementation.dependencies"
+    },
+    {
+      "id": "runtime.environment",
+      "status": "passed",
+      "message": "4 runtime versions are recorded",
+      "path": "runtime.environment"
+    },
+    {
+      "id": "validation.declaration",
+      "status": "passed",
+      "message": "12 validation checks are declared",
+      "path": "validation"
+    },
+    {
+      "id": "outputs.files",
+      "status": "passed",
+      "message": "all 22 declared outputs exist",
+      "path": "outputs"
+    },
+    {
+      "id": "outputs.undeclared_derived_files",
+      "status": "passed",
+      "message": "every file under data/derived is a declared output",
+      "path": "data/derived"
+    },
+    {
+      "id": "project.readme",
+      "status": "passed",
+      "message": "README.md exists",
+      "path": "README.md"
+    },
+    {
+      "id": "validation.report",
+      "status": "warning",
+      "message": "report has 12 explicit checks; status=warning",
+      "path": "validation/latest-report.json"
+    },
+    {
+      "id": "runs.latest",
+      "status": "passed",
+      "message": "run-20261016-075851 resolves and matches report status/hashes",
+      "path": "runs/run-20261016-075851.json"
+    },
+    {
+      "id": "runs.sample_isolation",
+      "status": "passed",
+      "message": "no sampled run records",
+      "path": "runs"
+    }
+  ]
+}

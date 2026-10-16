@@ -1,0 +1,155 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 0,
+        "name": "Toompea Castle",
+        "native_name": "Toompea loss",
+        "lon": 24.7373763,
+        "lat": 59.4357444,
+        "ground_elevation": 43.81,
+        "description": "A seat of power on the limestone hill. Today, the castle is home to Estonia’s parliament.",
+        "url": "https://www.riigikogu.ee/en/visit-us/toompea-castle/",
+        "osm_id": "3502552",
+        "osm_type": "relation",
+        "source": "OpenStreetMap / Nominatim reference label",
+        "source_url": "https://www.openstreetmap.org/relation/3502552"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.7373763,
+          59.4357444,
+          43.81
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 1,
+        "name": "Alexander Nevsky Cathedral",
+        "native_name": "Aleksander Nevski katedraal",
+        "lon": 24.7393204,
+        "lat": 59.4357516,
+        "ground_elevation": 43.98,
+        "description": "The cathedral’s five domes make a distinctive silhouette on Lossi plats. Completed in 1900.",
+        "url": "https://visitestonia.com/en/tallinn-alexander-nevsky-cathedral",
+        "osm_id": "26899255",
+        "osm_type": "way",
+        "source": "OpenStreetMap / Nominatim reference label",
+        "source_url": "https://www.openstreetmap.org/way/26899255"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.7393204,
+          59.4357516,
+          43.980000000000004
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 2,
+        "name": "St Mary’s Cathedral",
+        "native_name": "Toomkirik",
+        "lon": 24.7391551,
+        "lat": 59.4370393,
+        "ground_elevation": 47.51,
+        "description": "The cathedral at the heart of Toompea. Inspect its roof surfaces and bell tower in the city survey.",
+        "url": "https://www.visittallinn.ee/eng/visitor/see-do/things-to-do/attractions-museums/177138",
+        "osm_id": "26902813",
+        "osm_type": "way",
+        "source": "OpenStreetMap / Nominatim reference label",
+        "source_url": "https://www.openstreetmap.org/way/26902813"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.7391551,
+          59.4370393,
+          47.51
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 3,
+        "name": "Patkuli viewing platform",
+        "native_name": "Patkuli vaateplatvorm",
+        "lon": 24.741016,
+        "lat": 59.4385815,
+        "ground_elevation": 46.32,
+        "description": "A vantage point above the Lower Town, overlooking the city walls and historic towers.",
+        "url": "https://www.visittallinn.ee/eng/visitor/see-do/things-to-do/attractions-museums/177799/patkuli-viewing-platform",
+        "osm_id": "60687756",
+        "osm_type": "node",
+        "source": "OpenStreetMap / Nominatim reference label",
+        "source_url": "https://www.openstreetmap.org/node/60687756"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.741016,
+          59.4385815,
+          46.32
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 4,
+        "name": "Kohtuotsa viewing platform",
+        "native_name": "Kohtuotsa vaateplatvorm",
+        "lon": 24.7422058,
+        "lat": 59.4377313,
+        "ground_elevation": 47.27,
+        "description": "Look across the Lower Town’s rooftops from the eastern edge of the hill.",
+        "url": "https://web.visittallinn.ee/eng/visitor/see-do/neighbourhoods/old-town",
+        "osm_id": "557300914",
+        "osm_type": "node",
+        "source": "OpenStreetMap / Nominatim reference label",
+        "source_url": "https://www.openstreetmap.org/node/557300914"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.7422058,
+          59.4377313,
+          47.27
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 5,
+        "name": "Pikk Hermann",
+        "native_name": "Pikk Hermann",
+        "lon": 24.7369242,
+        "lat": 59.4351548,
+        "ground_elevation": 43.5,
+        "description": "The castle’s tall tower, seen here in the City of Tallinn’s measured 3D model.",
+        "url": "https://www.riigikogu.ee/en/visit-us/toompea-castle/",
+        "osm_id": "3502550",
+        "osm_type": "relation",
+        "source": "OpenStreetMap / Nominatim reference label",
+        "source_url": "https://www.openstreetmap.org/relation/3502550"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          24.7369242,
+          59.4351548,
+          43.5
+        ]
+      }
+    }
+  ]
+}

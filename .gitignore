@@ -1,0 +1,12 @@
+node_modules/
+dist/
+_site/
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+.env
+.env.*
+!.env.example
+playwright-report/
+test-results/

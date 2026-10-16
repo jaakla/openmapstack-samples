@@ -1,0 +1,1226 @@
+<?xml version='1.0' encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE WMT_MS_Capabilities SYSTEM "http://schemas.opengis.net/wms/1.1.1/WMS_MS_Capabilities.dtd"
+ [
+ <!ELEMENT VendorSpecificCapabilities EMPTY>
+ ]>  <!-- end of DOCTYPE declaration -->
+
+<WMT_MS_Capabilities version="1.1.1" updateSequence="2018-01-19T17:00+0200">
+<Service>
+  <Name>OGC:WMS</Name>
+  <Title>Maa- ja Ruumiameti fotokaart</Title>
+  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?"/>
+  <ContactInformation>
+    <ContactPersonPrimary>
+      <ContactPerson>Digiteenuste teenistus / Digital Services Division</ContactPerson>
+      <ContactOrganization>Maa- ja Ruumiamet / Estonian Land and Spatial Development Board</ContactOrganization>
+    </ContactPersonPrimary>
+    <ContactAddress>
+        <AddressType>Postiaadress / Postal</AddressType>
+        <Address>Mustamäe tee 51</Address>
+        <City>Tallinn</City>
+        <StateOrProvince>Harju maakond</StateOrProvince>
+        <PostCode>10621</PostCode>
+        <Country>Eesti / Estonia</Country>
+    </ContactAddress>
+      <ContactVoiceTelephone>+372 665 0600</ContactVoiceTelephone>
+  <ContactElectronicMailAddress>kaardirakendus@maaruum.ee</ContactElectronicMailAddress>
+  </ContactInformation>
+  <Fees>tasuta / none</Fees>
+  <AccessConstraints>none</AccessConstraints>
+</Service>
+
+<Capability>
+  <Request>
+    <GetCapabilities>
+      <Format>application/vnd.ogc.wms_xml</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?"/></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?"/></Post>
+        </HTTP>
+      </DCPType>
+    </GetCapabilities>
+    <GetMap>
+      <Format>image/jpeg</Format>
+      <Format>image/png</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?"/></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?"/></Post>
+        </HTTP>
+      </DCPType>
+    </GetMap>
+    <GetFeatureInfo>
+      <Format>text/plain</Format>
+      <Format>application/vnd.ogc.gml</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?"/></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?"/></Post>
+        </HTTP>
+      </DCPType>
+    </GetFeatureInfo>
+    <DescribeLayer>
+      <Format>text/xml</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?"/></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?"/></Post>
+        </HTTP>
+      </DCPType>
+    </DescribeLayer>
+    <GetLegendGraphic>
+      <Format>image/png</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?"/></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?"/></Post>
+        </HTTP>
+      </DCPType>
+    </GetLegendGraphic>
+    <GetStyles>
+      <Format>text/xml</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?"/></Get>
+          <Post><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?"/></Post>
+        </HTTP>
+      </DCPType>
+    </GetStyles>
+  </Request>
+  <Exception>
+    <Format>application/vnd.ogc.se_xml</Format>
+    <Format>application/vnd.ogc.se_inimage</Format>
+    <Format>application/vnd.ogc.se_blank</Format>
+  </Exception>
+  <VendorSpecificCapabilities />
+  <UserDefinedSymbolization SupportSLD="1" UserLayer="0" UserStyle="1" RemoteWFS="0"/>
+  <Layer>
+    <Name>MA-FOTOKAART</Name>
+    <Title>Maa- ja Ruumiameti fotokaart</Title>
+    <Abstract>MA-FOTOKAART</Abstract>
+    <SRS>EPSG:3301</SRS>
+    <LatLonBoundingBox minx="20.373" miny="56.7458" maxx="29.4338" maxy="60.4349" />
+    <BoundingBox SRS="EPSG:3301"
+                minx="300000" miny="6.3e+06" maxx="800000" maxy="6.7e+06" />
+    <Attribution>
+        <Title>Maa- ja Ruumiamet / Estonian Land and Spatial Development Board</Title>
+        <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://maaaruum.ee"/>
+    </Attribution>
+    <ScaleHint min="0" max="1234.78454986335" />
+    <Layer queryable="0" opaque="1" cascaded="0">
+        <Name>EESTIFOTO</Name>
+        <Title>Ortofoto</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="16.588" miny="55.7695" maxx="33.2439" maxy="61.2421" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="100000" miny="6.21e+06" maxx="1e+06" maxy="6.79e+06" />
+        <ScaleHint min="0" max="11225.3140896668" />
+    </Layer>
+    <Layer>
+    <Title>Maakatte kõrgusmudel (Digital Surface Model - DSM)</Title>
+    <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>nDSM</Name>
+        <Title>Maakatte kõrgusmudel</Title>
+        <Abstract>Normaliseeritud maakatte kõrgusmudel. Piksli suurus 1m, maapind nullkõrgusega (nDSM). Alusandmed 2020-2023.</Abstract>
+        <KeywordList>
+          <Keyword>maakattemudel</Keyword>
+          <Keyword>nDSM</Keyword>
+          <Keyword>DSM</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.5928" miny="57.4533" maxx="28.2755" maxy="59.8517" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="365000" miny="6.375e+06" maxx="740000" maxy="6.635e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="92" height="185">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=nDSM&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="8.98399304309669" />
+    </Layer>
+    <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>nDSM_info</Name>
+        <Title>Maakatte kõrgusmudeli info</Title>
+        <Abstract>Normaliseeritud maakatte kõrgusmudeli info. Piksli suurus 1m, maapind nullkõrgusega (nDSM). Alusandmed 2020-2023.</Abstract>
+        <KeywordList>
+          <Keyword>maakattemudel</Keyword>
+          <Keyword>nDSM</Keyword>
+          <Keyword>DSM</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.5928" miny="57.4533" maxx="28.2755" maxy="59.8517" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="365000" miny="6.375e+06" maxx="740000" maxy="6.635e+06" />
+        <ScaleHint min="0" max="8.98399304309669" />
+    </Layer>
+    </Layer>
+    <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>vreljeef</Name>
+        <Title>Värviline reljeefvarjutus</Title>
+        <Abstract>Alusandmed 2021-2024</Abstract>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="20.373" miny="56.7458" maxx="29.4338" maxy="60.4349" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="300000" miny="6.3e+06" maxx="800000" maxy="6.7e+06" />
+        <ScaleHint min="0" max="22450.6281793337" />
+    </Layer>
+    <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>reljeef</Name>
+        <Title>Reljeefvarjutus</Title>
+        <Abstract>Alusandmed 2021-2024</Abstract>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="20.059" miny="57.4533" maxx="28.2983" maxy="60.0312" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="280000" miny="6.375e+06" maxx="740000" maxy="6.655e+06" />
+        <ScaleHint min="0" max="22450.6281793337" />
+    </Layer>
+    <Layer>
+      <Name>HYBRID</Name>
+      <Title>Hübriidkaart</Title>
+      <Abstract>HYBRID</Abstract>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="268" height="625">
+             <Format>PNG</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYBRID&amp;format=PNG&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_mask_1</Name>
+        <Title>mask (1:500 000)</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="187.088568161114" max="1496.70854528891" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_mask_2</Name>
+        <Title>mask</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="112.253140896668" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>CORINE_JOGI_KANAL</Name>
+        <Title>vooluveekogu (1:300 000)</Title>
+        <Abstract>Jõed, kanalid, Corine</Abstract>
+        <KeywordList>
+          <Keyword>jõgi</Keyword>
+          <Keyword> jõed</Keyword>
+          <Keyword> vooluveekogu</Keyword>
+          <Keyword> kanal</Keyword>
+          <Keyword> corine</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="112.253140896668" max="187.088568161114" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_vooluveed_300T</Name>
+        <Title>vooluveekogu (1:75 000)</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="28.0632852241671" max="112.253140896668" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_vooluveed_KKR_1</Name>
+        <Title>vooluveekogu (1:24 000)</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="8.98025127173347" max="28.0632852241671" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_vooluveed_10T</Name>
+        <Title>vooluveekogu</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="122" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_vooluveed_10T&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="8.98025127173347" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>COR_VEEKOGU</Name>
+        <Title>meri/seisuveekogu/lai jõgi (1:300 000)</Title>
+        <Abstract>Seisuveekogud, laiad jõed, Corine</Abstract>
+        <KeywordList>
+          <Keyword>jõgi</Keyword>
+          <Keyword> jõed</Keyword>
+          <Keyword> seisuveekogu</Keyword>
+          <Keyword> corine</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="112.253140896668" max="187.088568161114" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>COR_RANNAJARV</Name>
+        <Title>rannajärv (1:300 000)</Title>
+        <Abstract>Rannajärved, Corine</Abstract>
+        <KeywordList>
+          <Keyword>rannajärv</Keyword>
+          <Keyword> seisuveekogu</Keyword>
+          <Keyword> corine</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="112.253140896668" max="187.088568161114" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_seisuvveed_300T</Name>
+        <Title>seisuveekogu (1:75 000)</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="28.0632852241671" max="112.253140896668" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_seisuveed_KKR</Name>
+        <Title>seisuveekogu (1:24 000)</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="8.98025127173347" max="28.0632852241671" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>HYB_seisuveed</Name>
+        <Title>seisuveekogu</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="123" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_seisuveed&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="8.98025127173347" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>HYB_kolvikud_vooluveed</Name>
+        <Title>vooluveekogu (pindobjekt)</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="149" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_kolvikud_vooluveed&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="28.0632852241671" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_rajad</Name>
+        <Title>rada</Title>
+        <Abstract>Rajad Eesti topograafia andmekogust (ETAK).</Abstract>
+        <KeywordList>
+          <Keyword>teerada</Keyword>
+          <Keyword> rada</Keyword>
+          <Keyword> rajad</Keyword>
+          <Keyword> etak</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="4.49012563586673" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>kergliiklustee</Name>
+        <Title>kergliiklustee</Title>
+        <Abstract>Kergliiklusteed ETAK-ist.</Abstract>
+        <KeywordList>
+          <Keyword>tee</Keyword>
+          <Keyword> kergliiklustee</Keyword>
+          <Keyword> etak</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="119" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=kergliiklustee&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="4.49012563586673" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_tanavad_10T_01</Name>
+        <Title>tänav</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="160" height="45">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_tanavad_10T_01&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="18.7088568161114" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_tanavad_jaotus_1</Name>
+        <Title>jaotustänav</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="109" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_tanavad_jaotus_1&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="56.1265704483342" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_tanavad_pohi_1</Name>
+        <Title>põhitänav</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="98" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_tanavad_pohi_1&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="112.253140896668" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_kv_harjutusala</Name>
+        <Title>kaitseväe harjutusväljad</Title>
+        <Abstract>Eesti kaitseväe harjutusväljad</Abstract>
+        <KeywordList>
+          <Keyword>kaitsevägi</Keyword>
+          <Keyword> harjutusväli</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="201" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_kv_harjutusala&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="44.9012563586673" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_halduspiirid_4m</Name>
+        <Title>halduspiir (1:600 000)</Title>
+        <Abstract>Halduspiirid (1:600 000).</Abstract>
+        <KeywordList>
+          <Keyword>riigipiir</Keyword>
+          <Keyword> kontrolljoon</Keyword>
+          <Keyword> maakond</Keyword>
+          <Keyword> maakonnapiir</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="224.506281793337" max="22450.6281793337" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_halduspiirid_3m</Name>
+        <Title>halduspiir (1:420 000)</Title>
+        <Abstract>Halduspiirid (1:420 000)</Abstract>
+        <KeywordList>
+          <Keyword>riigipiir</Keyword>
+          <Keyword> kontrolljoon</Keyword>
+          <Keyword> maakond</Keyword>
+          <Keyword> maakonnapiir</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="157.154397255336" max="224.506281793337" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_halduspiir_2</Name>
+        <Title>halduspiir (1:50 000)</Title>
+        <Abstract>Halduspiirid (1:50 000).</Abstract>
+        <KeywordList>
+          <Keyword>omavalitsus</Keyword>
+          <Keyword> vald</Keyword>
+          <Keyword> kontrolljoon</Keyword>
+          <Keyword> vallapiir</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="18.7088568161114" max="157.154397255336" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_halduspiir_1</Name>
+        <Title>halduspiir (1:24 000)</Title>
+        <Abstract>Halduspiirid.</Abstract>
+        <KeywordList>
+          <Keyword>riigipiir</Keyword>
+          <Keyword> omavalitsus</Keyword>
+          <Keyword> vald</Keyword>
+          <Keyword> kontrolljoon</Keyword>
+          <Keyword>vallapiir</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="8.98025127173347" max="18.7088568161114" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_halduspiir_0</Name>
+        <Title>halduspiir</Title>
+        <Abstract>Halduspiirid.</Abstract>
+        <KeywordList>
+          <Keyword>riigipiir</Keyword>
+          <Keyword> omavalitsus</Keyword>
+          <Keyword> vald</Keyword>
+          <Keyword> kontrolljoon</Keyword>
+          <Keyword>vallapiir</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="114" height="65">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_halduspiir_0&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="8.98025127173347" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_kylajoon</Name>
+        <Title>külade lahkmejooned</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="260" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_kylajoon&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="37.4177136322228" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_kontrolljoon</Name>
+        <Title>Eesti-Vene kontrolljoon</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="173" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_kontrolljoon&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>HYB_mnt_muu</Name>
+        <Title>muu tee (1:24 000)</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="122" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_mnt_muu&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="8.98025127173347" max="18.7088568161114" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>HYB_tee_muu</Name>
+        <Title>muu tee</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="88" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_tee_muu&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="8.98025127173347" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>HYB_ramp_yhendus</Name>
+        <Title>ühendustee/ramp</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="144" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_ramp_yhendus&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="56.1265704483342" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>HYB_korvalmnt</Name>
+        <Title>kõrvalmaantee</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="129" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_korvalmnt&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="112.253140896668" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>HYB_tugimnt</Name>
+        <Title>tugimaantee</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="114" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_tugimnt&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="748.354272644456" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>HYB_pohimnt</Name>
+        <Title>põhimaantee</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="118" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_pohimnt&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="2245.06281793337" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_tanavad_suunad</Name>
+        <Title>ühesuunaline tänav</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="1.87088568161114" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_mnt_nimed_asulates</Name>
+        <Title>tänavanimi maanteel</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="56.1265704483342" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_korvalmnt_nr</Name>
+        <Title>kõrvalmaantee number</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="18.7088568161114" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_tugimnt_nr</Name>
+        <Title>tugimaantee number</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="224.506281793337" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_pohimnt_nr</Name>
+        <Title>põhimaantee number</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="2245.06281793337" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_raudtee_esmane</Name>
+        <Title>raudtee (1:24 000)</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="86" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_raudtee_esmane&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="8.98025127173347" max="2245.06281793337" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>HYB_roobasteed</Name>
+        <Title>raudtee/trammitee</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="200" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_roobasteed&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="8.98025127173347" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_maakonna_nimi</Name>
+        <Title>maakonna nimi</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="157.154397255336" max="374.177136322228" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_vallanimi</Name>
+        <Title>omavalitsuse nimi</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="28.0632852241671" max="157.154397255336" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>vetenimed_1</Name>
+        <Title>veekogu nimi (1:150 000)</Title>
+        <Abstract>Suuremate Eesti veekogude nimed.</Abstract>
+        <KeywordList>
+          <Keyword>vetenimed</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="56.1265704483342" max="1496.70854528891" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>loodusnimed_1</Name>
+        <Title>loodusnimed (1:150 000)</Title>
+        <Abstract>Suuremate Eesti saarte ja poolsaarte nimed.</Abstract>
+        <KeywordList>
+          <Keyword>loodusnimed</Keyword>
+          <Keyword> saar</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="56.1265704483342" max="1496.70854528891" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>loodusnimed50T_1</Name>
+        <Title>loodusnimed (1:12 000)</Title>
+        <Abstract>Loodusnimed (1:50 000).</Abstract>
+        <KeywordList>
+          <Keyword>loodusnimi</Keyword>
+          <Keyword> loodusnimed</Keyword>
+          <Keyword> põhikaart</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="4.49012563586673" max="56.1265704483342" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>vetenimed50T_1</Name>
+        <Title>veekogu nimi (1:12 000)</Title>
+        <Abstract>Veekogude ja märgalade nimed (1:50 000).</Abstract>
+        <KeywordList>
+          <Keyword>vetenimed</Keyword>
+          <Keyword> nimi</Keyword>
+          <Keyword> põhikaart</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="4.49012563586673" max="56.1265704483342" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_loodusnimed10T_1</Name>
+        <Title>loodusobjekti nimi</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="4.49012563586673" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_muudnimed10T_1</Name>
+        <Title>muu nimi</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="4.49012563586673" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_vetenimed10T_1</Name>
+        <Title>veekogu/märgala nimi</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="4.49012563586673" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>talunimi</Name>
+        <Title>talu nimi</Title>
+        <Abstract>Talunimed, Aadressiandmete süsteem (ADS).</Abstract>
+        <KeywordList>
+          <Keyword>talunimed</Keyword>
+          <Keyword> nimi</Keyword>
+          <Keyword> talud</Keyword>
+          <Keyword> ads</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="8.98025127173347" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>kylanimed</Name>
+        <Title>asustusüksuse nimi</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="112.253140896668" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_alevik1</Name>
+        <Title>alevik</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="748.354272644456" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_alev1</Name>
+        <Title>alev</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="748.354272644456" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_linnad_points</Name>
+        <Title>linn (punktobjekt)</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="2245.06281793337" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>linnaosad_1</Name>
+        <Title>linnaosa nimi</Title>
+        <Abstract>Linnaosade nimed.</Abstract>
+        <KeywordList>
+          <Keyword>linnaosa</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="37.4177136322228" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_linnAnno_1</Name>
+        <Title>linn (pindobjekt)</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>HYB_hoone</Name>
+        <Title>hoone</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="193" height="105">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_hoone&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="4.49012563586673" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>HYB_rajatis</Name>
+        <Title>rajatis</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="113" height="65">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_rajatis&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="4.49012563586673" />
+      </Layer>
+      <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>HYB_mahoone</Name>
+        <Title>maa-alune hoone</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="268" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_mahoone&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="4.49012563586673" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_hoone_nr</Name>
+        <Title>hoone nr</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="20.373" miny="56.7458" maxx="29.4338" maxy="60.4349" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="300000" miny="6.3e+06" maxx="800000" maxy="6.7e+06" />
+        <ScaleHint min="0" max="1.87462745297436" />
+      </Layer>
+    </Layer>
+    <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_teenimedeta</Name>
+        <Title>Lülitab välja hübriidkaardi tänavanimed</Title>
+        <SRS>EPSG:3301</SRS>
+        <!-- WARNING: Optional LatLonBoundingBox could not be established for this layer.  Consider setting the EXTENT in the LAYER object, or wms_extent metadata. Also check that your data exists in the DATA statement -->
+    </Layer>
+    <Layer>
+      <Name>HYB_TEENIMED</Name>
+      <Title>Teede nimed</Title>
+      <Abstract>HYB_TEENIMED</Abstract>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="40" height="5">
+             <Format>PNG</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=HYB_TEENIMED&amp;format=PNG&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_rajad_nimed</Name>
+        <Title>Raja nimi</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="4.49012563586673" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_kergliiklustee_nimed</Name>
+        <Title>Kergliiklustee nimi</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="4.49012563586673" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_tanavad_10T_02</Name>
+        <Title>Tänava nimi</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="8.98025127173347" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_tanavad_jaotus_nimed</Name>
+        <Title>Jaotustänava nimi</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="11.2253140896668" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_tanavad_pohi_nimed</Name>
+        <Title>Põhitänava nimi</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="18.7088568161114" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_tee_muu_nimed</Name>
+        <Title>Muu tee nimi</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="8.98025127173347" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>HYB_mnt_nimed</Name>
+        <Title>Tänavanimi maanteel</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="56.1265704483342" />
+      </Layer>
+    </Layer>
+    <Layer>
+    <Title>Tänavate Info</Title>
+    <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>HYB_tanavad_10T_i</Name>
+        <Title>tänava info</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="5.61265704483342" />
+    </Layer>
+    <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>HYB_tanavad_jaotus_i</Name>
+        <Title>jaotustänava info</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="18.7088568161114" />
+    </Layer>
+    <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>HYB_tanavad_pohi_i</Name>
+        <Title>põhitänava info</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="21.3974" miny="57.3112" maxx="28.5544" maxy="60.076" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="355000" miny="6.36e+06" maxx="754000" maxy="6.66e+06" />
+        <ScaleHint min="0" max="56.1265704483342" />
+    </Layer>
+    </Layer>
+    <Layer>
+      <Name>korgusandmed</Name>
+      <Title>Kõrgusandmed</Title>
+      <Abstract>korgusandmed</Abstract>
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="148" height="105">
+             <Format>PNG</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=korgusandmed&amp;format=PNG&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>ssj</Name>
+        <Title>Samasügavusjoon - Isobath</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="20.373" miny="56.7458" maxx="29.4338" maxy="60.4349" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="300000" miny="6.3e+06" maxx="800000" maxy="6.7e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="148" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=ssj&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="8.98025127173347" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>sygavuspunkt</Name>
+        <Title>Sügavuspunkt - Depth point</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="20.373" miny="56.7458" maxx="29.4338" maxy="60.4349" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="300000" miny="6.3e+06" maxx="800000" maxy="6.7e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="124" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=sygavuspunkt&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="4.49012563586673" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>skj_pool</Name>
+        <Title>Samakõrgusjoon, poolhorisontaal - Semi-contour line</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="20.373" miny="56.7458" maxx="29.4338" maxy="60.4349" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="300000" miny="6.3e+06" maxx="800000" maxy="6.7e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="128" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=skj_pool&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="4.49012563586673" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>skj_tais</Name>
+        <Title>Samakõrgusjoon, täishorisontaal - Contour line</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="20.373" miny="56.7458" maxx="29.4338" maxy="60.4349" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="300000" miny="6.3e+06" maxx="800000" maxy="6.7e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="124" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=skj_tais&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="8.98025127173347" />
+      </Layer>
+      <Layer queryable="0" opaque="0" cascaded="0">
+        <Name>korguspunkt</Name>
+        <Title>Kõrguspunkt - Elevation point</Title>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="20.373" miny="56.7458" maxx="29.4338" maxy="60.4349" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="300000" miny="6.3e+06" maxx="800000" maxy="6.7e+06" />
+        <Style>
+          <Name>default</Name>
+          <Title>default</Title>
+          <LegendURL width="113" height="25">
+             <Format>image/png</Format>
+             <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:type="simple" xlink:href="https://kaart.maaamet.ee/wms/fotokaart?version=1.1.1&amp;service=WMS&amp;request=GetLegendGraphic&amp;layer=korguspunkt&amp;format=image/png&amp;STYLE=default"/>
+          </LegendURL>
+        </Style>
+        <ScaleHint min="0" max="4.49012563586673" />
+      </Layer>
+    </Layer>
+    <Layer>
+    <Title>Kaardilehed</Title>
+    <Layer queryable="1" opaque="0" cascaded="0">
+        <Name>metainfo</Name>
+        <Title>Metainfo</Title>
+        <Abstract>Metainfo ortofotode ja põhikaardi kohta (kartogrammid, kaardistuse aasta ja ülelennu aeg).</Abstract>
+        <KeywordList>
+          <Keyword>metainfo</Keyword>
+        </KeywordList>
+        <SRS>EPSG:3301</SRS>
+        <LatLonBoundingBox minx="20.373" miny="56.7458" maxx="29.4338" maxy="60.4349" />
+        <BoundingBox SRS="EPSG:3301"
+                    minx="300000" miny="6.3e+06" maxx="800000" maxy="6.7e+06" />
+        <ScaleHint min="0" max="112.256882668032" />
+    </Layer>
+    </Layer>
+  </Layer>
+</Capability>
+</WMT_MS_Capabilities>

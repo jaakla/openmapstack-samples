@@ -1,0 +1,479 @@
+{
+  "title": "Toompea Digital Atlas",
+  "run_id": "run-20261016-075851",
+  "status": "warning",
+  "origin_3301": [
+    542000,
+    6589000
+  ],
+  "bbox_3301": [
+    541450,
+    6588400,
+    542650,
+    6589600
+  ],
+  "grid_size": 601,
+  "grid_resolution_m": 2,
+  "building_quantization_m": 0.025,
+  "stats": {
+    "source_points": 111552608,
+    "aoi_valid_returns": 41387733,
+    "rendered_points": 2069367,
+    "aoi_returns_per_m2": 28.74,
+    "ground_returns": 17310404,
+    "vegetation_returns": 7727263,
+    "classification_counts": {
+      "1": 6053305,
+      "2": 17310404,
+      "5": 7727263,
+      "6": 10284208,
+      "9": 12553
+    },
+    "interpolated_ground_cells": 97612,
+    "terrain_cells": 361201,
+    "ground_min": 3.49,
+    "ground_max": 49.5,
+    "mesh_nodes": 195,
+    "building_triangles": 1506527,
+    "building_vertices": 4519581
+  },
+  "default_controls": {
+    "mode": "model",
+    "buildings": true,
+    "terrain": true,
+    "vegetation": true,
+    "labels": true,
+    "sunlight": 65,
+    "lighting": "solar",
+    "sunDate": "2026-10-15",
+    "sunTime": "13:00",
+    "sunShadows": true
+  },
+  "sources": {
+    "lidar_588541": {
+      "role": "authoritative_input",
+      "provider": "Maa- ja Ruumiamet",
+      "dataset": "Low-altitude airborne laser scanning · 588541",
+      "source_url": "https://geoportaal.maaamet.ee/index.php?lang_id=2&plugin_act=otsing&kaardiruut=588541&andmetyyp=lidar_laz_madal&dl=1&f=588541_2023_madal.laz&page_id=664",
+      "access": {
+        "method": "https",
+        "retrieved_at": "2026-10-15T17:18:27.241556+00:00",
+        "downloaded_at": "2026-10-15T17:18:27.241556+00:00",
+        "file": {
+          "name": "data/source/588541_2023_madal.laz",
+          "format": "laz",
+          "size_bytes": 315497830
+        }
+      },
+      "version": {
+        "identifier": "2023_madal"
+      },
+      "selection": {
+        "bbox": [
+          24.73,
+          59.432,
+          24.75,
+          59.442
+        ]
+      },
+      "license": {
+        "name": "Maa- ja Ruumiameti avaandmete litsents · 2025-01-01",
+        "url": "https://geoportaal.maaruum.ee/avaandmete-litsents"
+      },
+      "schema": {
+        "crs": "EPSG:3301 + EPSG:9663 (EH2000)",
+        "key": "source feature or return index",
+        "columns": [
+          "geometry",
+          "source_id"
+        ]
+      },
+      "rationale": "Measured national/city source, retained immutably; no inferred replacement geometry."
+    },
+    "lidar_589541": {
+      "role": "authoritative_input",
+      "provider": "Maa- ja Ruumiamet",
+      "dataset": "Low-altitude airborne laser scanning · 589541",
+      "source_url": "https://geoportaal.maaamet.ee/index.php?lang_id=2&plugin_act=otsing&kaardiruut=589541&andmetyyp=lidar_laz_madal&dl=1&f=589541_2023_madal.laz&page_id=664",
+      "access": {
+        "method": "https",
+        "retrieved_at": "2026-10-15T17:18:27.379557+00:00",
+        "downloaded_at": "2026-10-15T17:18:27.379557+00:00",
+        "file": {
+          "name": "data/source/589541_2023_madal.laz",
+          "format": "laz",
+          "size_bytes": 272660250
+        }
+      },
+      "version": {
+        "identifier": "2023_madal"
+      },
+      "selection": {
+        "bbox": [
+          24.73,
+          59.432,
+          24.75,
+          59.442
+        ]
+      },
+      "license": {
+        "name": "Maa- ja Ruumiameti avaandmete litsents · 2025-01-01",
+        "url": "https://geoportaal.maaruum.ee/avaandmete-litsents"
+      },
+      "schema": {
+        "crs": "EPSG:3301 + EPSG:9663 (EH2000)",
+        "key": "source feature or return index",
+        "columns": [
+          "geometry",
+          "source_id"
+        ]
+      },
+      "rationale": "Measured national/city source, retained immutably; no inferred replacement geometry."
+    },
+    "lidar_588542": {
+      "role": "authoritative_input",
+      "provider": "Maa- ja Ruumiamet",
+      "dataset": "Low-altitude airborne laser scanning · 588542",
+      "source_url": "https://geoportaal.maaamet.ee/index.php?lang_id=2&plugin_act=otsing&kaardiruut=588542&andmetyyp=lidar_laz_madal&dl=1&f=588542_2023_madal.laz&page_id=664",
+      "access": {
+        "method": "https",
+        "retrieved_at": "2026-10-15T17:18:27.200556+00:00",
+        "downloaded_at": "2026-10-15T17:18:27.200556+00:00",
+        "file": {
+          "name": "data/source/588542_2023_madal.laz",
+          "format": "laz",
+          "size_bytes": 295718139
+        }
+      },
+      "version": {
+        "identifier": "2023_madal"
+      },
+      "selection": {
+        "bbox": [
+          24.73,
+          59.432,
+          24.75,
+          59.442
+        ]
+      },
+      "license": {
+        "name": "Maa- ja Ruumiameti avaandmete litsents · 2025-01-01",
+        "url": "https://geoportaal.maaruum.ee/avaandmete-litsents"
+      },
+      "schema": {
+        "crs": "EPSG:3301 + EPSG:9663 (EH2000)",
+        "key": "source feature or return index",
+        "columns": [
+          "geometry",
+          "source_id"
+        ]
+      },
+      "rationale": "Measured national/city source, retained immutably; no inferred replacement geometry."
+    },
+    "lidar_589542": {
+      "role": "authoritative_input",
+      "provider": "Maa- ja Ruumiamet",
+      "dataset": "Low-altitude airborne laser scanning · 589542",
+      "source_url": "https://geoportaal.maaamet.ee/index.php?lang_id=2&plugin_act=otsing&kaardiruut=589542&andmetyyp=lidar_laz_madal&dl=1&f=589542_2023_madal.laz&page_id=664",
+      "access": {
+        "method": "https",
+        "retrieved_at": "2026-10-15T17:18:25.547551+00:00",
+        "downloaded_at": "2026-10-15T17:18:25.547551+00:00",
+        "file": {
+          "name": "data/source/589542_2023_madal.laz",
+          "format": "laz",
+          "size_bytes": 269525097
+        }
+      },
+      "version": {
+        "identifier": "2023_madal"
+      },
+      "selection": {
+        "bbox": [
+          24.73,
+          59.432,
+          24.75,
+          59.442
+        ]
+      },
+      "license": {
+        "name": "Maa- ja Ruumiameti avaandmete litsents · 2025-01-01",
+        "url": "https://geoportaal.maaruum.ee/avaandmete-litsents"
+      },
+      "schema": {
+        "crs": "EPSG:3301 + EPSG:9663 (EH2000)",
+        "key": "source feature or return index",
+        "columns": [
+          "geometry",
+          "source_id"
+        ]
+      },
+      "rationale": "Measured national/city source, retained immutably; no inferred replacement geometry."
+    },
+    "city_model": {
+      "role": "authoritative_input",
+      "provider": "City of Tallinn",
+      "dataset": "Old Town LoD3 city survey",
+      "source_url": "https://tiles.arcgis.com/tiles/FwX2qF9JecNSRnwr/arcgis/rest/services/Tallinn_vanalinn_2020/SceneServer/layers/0",
+      "access": {
+        "method": "https",
+        "retrieved_at": "2026-10-15T17:26:15.600352+00:00",
+        "downloaded_at": "2026-10-15T17:26:15.600352+00:00",
+        "file": {
+          "name": "data/source/oldtown",
+          "format": "",
+          "size_bytes": 193178519
+        }
+      },
+      "version": {
+        "identifier": "084A2D09-8129-499F-B2A0-2CF2007210FE · 2020 archive"
+      },
+      "selection": {
+        "bbox": [
+          24.73,
+          59.432,
+          24.75,
+          59.442
+        ],
+        "completeness": {
+          "matched": 198,
+          "returned": 198,
+          "page_size": 198,
+          "pages": 1
+        },
+        "filter": "Spatial overlap of every root-child bounding sphere with EPSG:3301 AOI; root tree retained."
+      },
+      "license": {
+        "name": "Tallinn’s Open Spatial Data · Simple Licence Agreement",
+        "url": "https://www.tallinn.ee/et/media/307955",
+        "confirmation": {
+          "status": "confirmed_by_project_owner",
+          "confirmed_by": "Jaak Laineste",
+          "confirmed_at": "2026-10-16T07:54:14.785097+00:00",
+          "basis": "Project owner confirms redistribution under Tallinn’s published open spatial data terms, with source, dataset, disclosure date and license attribution.",
+          "evidence_url": "https://www.tallinn.ee/et/media/307955"
+        }
+      },
+      "schema": {
+        "crs": "EPSG:4326 + EPSG:5773 (EGM96)",
+        "key": "source feature or return index",
+        "columns": [
+          "geometry",
+          "source_id"
+        ]
+      },
+      "rationale": "Measured national/city source, retained immutably; no inferred replacement geometry."
+    },
+    "national_lod2": {
+      "role": "reference",
+      "provider": "Maa- ja Ruumiamet",
+      "dataset": "National LoD2 Tallinn building survey",
+      "source_url": "https://geoportaal.maaamet.ee/est/Ruumiandmed/Geo3D/Laadi-3D-andmed-alla-p833.html",
+      "access": {
+        "method": "https",
+        "retrieved_at": "2026-10-15T17:17:44.662419+00:00",
+        "downloaded_at": "2026-10-15T17:17:44.662419+00:00",
+        "file": {
+          "name": "data/source/tallinn-lod2.zip",
+          "format": "zip",
+          "size_bytes": 33043369
+        }
+      },
+      "version": {
+        "identifier": "2026-10-12T23:55:12Z snapshot; per-building ALS epochs vary"
+      },
+      "selection": {
+        "bbox": [
+          24.73,
+          59.432,
+          24.75,
+          59.442
+        ]
+      },
+      "license": {
+        "name": "Maa- ja Ruumiameti avaandmete litsents · 2025-01-01",
+        "url": "https://geoportaal.maaruum.ee/avaandmete-litsents"
+      },
+      "schema": {
+        "crs": "EPSG:3301 (northing,easting,height CityGML axis order)",
+        "key": "source feature or return index",
+        "columns": [
+          "geometry",
+          "source_id"
+        ]
+      },
+      "rationale": "Measured national/city source, retained immutably; no inferred replacement geometry."
+    },
+    "orthophoto": {
+      "role": "context",
+      "provider": "Maa- ja Ruumiamet",
+      "dataset": "EESTIFOTO aerial photography",
+      "source_url": "https://kaart.maaamet.ee/wms/fotokaart?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=EESTIFOTO&STYLES=&SRS=EPSG%3A3301&BBOX=541450%2C6588400%2C542650%2C6589600&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fjpeg",
+      "access": {
+        "method": "https",
+        "retrieved_at": "2026-10-15T17:21:09.027118+00:00",
+        "downloaded_at": "2026-10-15T17:21:09.027118+00:00",
+        "file": {
+          "name": "data/source/orthophoto.jpg",
+          "format": "jpg",
+          "size_bytes": 1327918
+        }
+      },
+      "version": {
+        "identifier": "2026-10-15 immutable WMS snapshot; flight epoch not supplied in image response"
+      },
+      "selection": {
+        "bbox": [
+          24.73,
+          59.432,
+          24.75,
+          59.442
+        ]
+      },
+      "license": {
+        "name": "Maa- ja Ruumiameti avaandmete litsents · 2025-01-01",
+        "url": "https://geoportaal.maaruum.ee/avaandmete-litsents"
+      },
+      "schema": {
+        "crs": "EPSG:3301",
+        "key": "source feature or return index",
+        "columns": [
+          "geometry",
+          "source_id"
+        ]
+      },
+      "rationale": "Measured national/city source, retained immutably; no inferred replacement geometry."
+    },
+    "place_labels": {
+      "role": "context",
+      "provider": "OpenStreetMap contributors / Nominatim",
+      "dataset": "Six selected place lookups",
+      "source_url": "https://nominatim.openstreetmap.org/search",
+      "access": {
+        "method": "https",
+        "retrieved_at": "2026-10-15T17:22:32.613381+00:00",
+        "downloaded_at": "2026-10-15T17:22:32.613381+00:00",
+        "file": {
+          "name": "data/source/places-nominatim.json",
+          "format": "json",
+          "size_bytes": 5417
+        }
+      },
+      "version": {
+        "identifier": "2026-10-15 response snapshot"
+      },
+      "selection": {
+        "bbox": [
+          24.73,
+          59.432,
+          24.75,
+          59.442
+        ]
+      },
+      "license": {
+        "name": "ODbL 1.0",
+        "url": "https://www.openstreetmap.org/copyright"
+      },
+      "schema": {
+        "crs": "EPSG:4326",
+        "key": "source feature or return index",
+        "columns": [
+          "geometry",
+          "source_id"
+        ]
+      },
+      "rationale": "Measured national/city source, retained immutably; no inferred replacement geometry."
+    }
+  },
+  "warnings": [
+    "City model EGM96 and LiDAR EH2000 heights are preserved as published. No unsupported datum correction; sub-metre alignment is not certified.",
+    "QGIS audit companion shows mesh bounding hulls and source point cloud. The Three.js textured 3D view has no exact QGIS 2D equivalent."
+  ],
+  "pipeline": [
+    "2023 low-altitude LAZ → AOI crop → class 2 ground minima → 2 m grid; nearest-cell gap fill",
+    "Recorded LAS RGB + deterministic every-20th source return → GPU point cloud",
+    "2020 city I3S root-child surfaces → EPSG:3301 → 2.5 cm quantization; atlas colors sampled at vertices",
+    "WMS orthophoto → immutable georeferenced photograph snapshot",
+    "PROJ origin and meridian convergence → client SunCalc 2.1.1 solar studies; user-selected metric measurements and triangle-plane sections remain exploratory"
+  ],
+  "note": "No generated, inferred, or manually drawn landmark geometry. Lighting and a small neutral material lift are illustrative; source epochs differ.",
+  "solar_reference": {
+    "latitude": 59.43675069763789,
+    "longitude": 24.740141530978274,
+    "grid_convergence_degrees": 0.6322110273306057,
+    "origin": "Published EPSG:3301 scene origin"
+  },
+  "project": {
+    "id": "toompea-digital-atlas",
+    "title": "Toompea Digital Atlas",
+    "updated_at": "2026-10-07T00:00:00Z",
+    "status": "published",
+    "author": {
+      "name": "Jaak Laineste",
+      "email": "jaak@goplex.ee"
+    },
+    "generated_with": {
+      "tool": "OpenMapStack",
+      "url": "https://github.com/jaakla/openmapstack-skills"
+    }
+  },
+  "instruments": {
+    "measurement": {
+      "basis": "Straight Euclidean chord and horizontal separation in EPSG:3301",
+      "mode": "exploratory_user_requested",
+      "mixed_vertical_datums": "Withhold 3D distance and height difference; horizontal separation remains available",
+      "export": "toompea-exploratory-measurement/v1"
+    },
+    "cross_section": {
+      "basis": "Actual source triangle intersections with a user-controlled vertical plane; no inferred interiors",
+      "defaults": {
+        "enabled": false,
+        "bearing": 90,
+        "offset": 0,
+        "slab": false,
+        "width": 4,
+        "flip": false
+      },
+      "profile_axes": "Grid station / source height; separate EH2000 terrain and EGM96 architecture",
+      "export": "CSV of source intersection endpoints"
+    },
+    "sun_study": {
+      "algorithm": "SunCalc 2.1.1 · Meeus astronomical algorithms",
+      "time_zone": "Europe/Tallinn",
+      "true_north_correction": "PROJ meridian convergence at the source coordinate origin",
+      "shadows": "Directional shadow map of observed architecture and terrain; LiDAR foliage does not cast shadows",
+      "materials": "Neutral study surfaces prevent baked photographic shadows from being mistaken for calculated shading"
+    }
+  },
+  "map_effects": {
+    "vignette_strength": 0.22,
+    "vignette_basis": "Warm, elliptical edge shading applied to the WebGL map and exported scene image; UI overlays remain clear."
+  },
+  "landmark_flag": {
+    "name": "Estonian national flag · Pikk Hermann",
+    "colors": [
+      "#0072CE",
+      "#000000",
+      "#FFFFFF"
+    ],
+    "height_width_ratio": [
+      7,
+      11
+    ],
+    "reference_url": "https://www.riigikantselei.ee/et/eestilipp",
+    "reference_asset_url": "https://www.riigikantselei.ee/sites/default/files/2022-04/Eesti%20lipp_06.04.2022.svg",
+    "reference_snapshot": "data/source/estonian-flag-reference-2022.svg",
+    "visibility": "World-oriented surveyed 3D cloth in all modes and lighting settings; independent of layers and clipping. Uniform display magnification at distant zooms is an annotation, not a measured dimension.",
+    "minimum_display_extent_px": 24,
+    "shading": "Fixed world-space fill on the source triangle normals; preserve national hues and distinguish observed folds",
+    "position": [
+      -180.6999969482422,
+      92.0999984741211,
+      179.39999389648438
+    ],
+    "survey_node": "2873",
+    "survey_triangles": 77,
+    "vertical_datum": "EGM96",
+    "geometry": "Source cloth triangles with original V coordinates for equal horizontal bands; world-oriented 3D display magnified uniformly about the surveyed hoist at distant zooms."
+  }
+}

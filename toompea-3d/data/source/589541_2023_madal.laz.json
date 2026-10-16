@@ -1,0 +1,18 @@
+{
+  "url": "https://geoportaal.maaamet.ee/index.php?lang_id=2&plugin_act=otsing&kaardiruut=589541&andmetyyp=lidar_laz_madal&dl=1&f=589541_2023_madal.laz&page_id=664",
+  "headers": {
+    "date": "Thu, 15 Oct 2026 17:18:22 GMT",
+    "server": "Apache",
+    "x-frame-options": "SAMEORIGIN",
+    "x-robots-tag": "index, nofollow",
+    "content-disposition": "inline; filename=589541_2023_madal.laz",
+    "content-length": "272660250",
+    "accept-ranges": "bytes",
+    "last-modified": "Thu, 09 Apr 2026 20:35:11 GMT",
+    "etag": "\"bedaa1a17f2a66abee45624560b7fddf-5\"",
+    "set-cookie": "Geoportaal=deleted; expires=Thu, 01-Jan-1970 00:00:01 GMT; Max-Age=0; path=/; domain=geoportaal.maaamet.ee; secure; HttpOnly; SameSite=Lax;HttpOnly;Secure",
+    "x-xss-protection": "1; mode=block",
+    "content-type": "application/octet-stream"
+  },
+  "bytes": 272660250
+}

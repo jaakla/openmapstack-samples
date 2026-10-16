@@ -1,0 +1,665 @@
+schema: openmapstack-project/v1
+project:
+  id: toompea-digital-atlas
+  title: Toompea Digital Atlas
+  question: Build a museum-grade interactive 3D explorer of Tallinn Toompea strictly
+    grounded in measured source data.
+  created_at: '2026-10-15T17:26:15.600352+00:00'
+  updated_at: '2026-10-16T07:59:19.483220+00:00'
+  status: warning
+  publication:
+    updated_at: '2026-10-07T00:00:00Z'
+    status: published
+    author:
+      name: Jaak Laineste
+      email: jaak@goplex.ee
+    generated_with:
+      tool: OpenMapStack
+      url: https://github.com/jaakla/openmapstack-skills
+interpretation:
+  objective: Three.js source-backed 3D explorer with a deterministic GIS audit project.
+  assumptions:
+  - id: A1
+    statement: AOI is a cartographic rectangular crop in EPSG:3301, not a legal definition
+      of Toompea hill.
+    rationale: A bounded viewer needs a reproducible extent.
+  - id: A2
+    statement: 2 m terrain is the minimum of class-2 points in each cell, with nearest-cell
+      interpolation in unobserved cells.
+    rationale: Ground interpolation is an explicit derived surface, not a measured
+      facade.
+  - id: A3
+    statement: Every twentieth valid source return is displayed. Raw high-density
+      tiles are retained.
+    rationale: Bound browser memory while preserving reproducibility.
+  - id: A4
+    statement: City EGM96 and LiDAR EH2000 elevations remain uncorrected; no survey-grade
+      vertical alignment claim.
+    rationale: No verified vertical-grid transformation was available.
+  - id: A5
+    statement: Survey-view lighting, sky brightness and material colors are illustrative;
+      source dates differ. Sun-study direction follows the explicitly selected astronomical
+      date/time.
+    rationale: Scene appearance is not a claim of a simultaneous calibrated capture.
+  - id: A6
+    statement: User-requested interactive measurements and sections are computed in
+      the browser over the published metric geometry, explicitly exploratory, and
+      exportable with source run identity. They do not alter canonical geodata.
+    rationale: The user explicitly requested free-form distance measurement and 3D
+      cross sections; browser selections are live observations rather than published
+      GIS findings.
+  - id: A7
+    statement: Solar direction is astronomical for the selected Tallinn local date/time;
+      sky brightness, neutral materials and shadow softness are presentation models,
+      not measured weather, irradiance or certified insolation.
+    rationale: Date/time sun shading must distinguish calculated solar geometry from
+      atmospheric and source-model limitations.
+sources:
+  lidar_588541:
+    role: authoritative_input
+    provider: Maa- ja Ruumiamet
+    dataset: Low-altitude airborne laser scanning · 588541
+    source_url: https://geoportaal.maaamet.ee/index.php?lang_id=2&plugin_act=otsing&kaardiruut=588541&andmetyyp=lidar_laz_madal&dl=1&f=588541_2023_madal.laz&page_id=664
+    access:
+      method: https
+      retrieved_at: '2026-10-15T17:18:27.241556+00:00'
+      downloaded_at: '2026-10-15T17:18:27.241556+00:00'
+      file:
+        name: data/source/588541_2023_madal.laz
+        format: laz
+        size_bytes: 315497830
+    version:
+      identifier: 2023_madal
+    selection:
+      bbox:
+      - 24.73
+      - 59.432
+      - 24.75
+      - 59.442
+    license:
+      name: Maa- ja Ruumiameti avaandmete litsents · 2025-01-01
+      url: https://geoportaal.maaruum.ee/avaandmete-litsents
+    schema:
+      crs: EPSG:3301 + EPSG:9663 (EH2000)
+      key: source feature or return index
+      columns:
+      - geometry
+      - source_id
+    rationale: Measured national/city source, retained immutably; no inferred replacement
+      geometry.
+  lidar_589541:
+    role: authoritative_input
+    provider: Maa- ja Ruumiamet
+    dataset: Low-altitude airborne laser scanning · 589541
+    source_url: https://geoportaal.maaamet.ee/index.php?lang_id=2&plugin_act=otsing&kaardiruut=589541&andmetyyp=lidar_laz_madal&dl=1&f=589541_2023_madal.laz&page_id=664
+    access:
+      method: https
+      retrieved_at: '2026-10-15T17:18:27.379557+00:00'
+      downloaded_at: '2026-10-15T17:18:27.379557+00:00'
+      file:
+        name: data/source/589541_2023_madal.laz
+        format: laz
+        size_bytes: 272660250
+    version:
+      identifier: 2023_madal
+    selection:
+      bbox:
+      - 24.73
+      - 59.432
+      - 24.75
+      - 59.442
+    license:
+      name: Maa- ja Ruumiameti avaandmete litsents · 2025-01-01
+      url: https://geoportaal.maaruum.ee/avaandmete-litsents
+    schema:
+      crs: EPSG:3301 + EPSG:9663 (EH2000)
+      key: source feature or return index
+      columns:
+      - geometry
+      - source_id
+    rationale: Measured national/city source, retained immutably; no inferred replacement
+      geometry.
+  lidar_588542:
+    role: authoritative_input
+    provider: Maa- ja Ruumiamet
+    dataset: Low-altitude airborne laser scanning · 588542
+    source_url: https://geoportaal.maaamet.ee/index.php?lang_id=2&plugin_act=otsing&kaardiruut=588542&andmetyyp=lidar_laz_madal&dl=1&f=588542_2023_madal.laz&page_id=664
+    access:
+      method: https
+      retrieved_at: '2026-10-15T17:18:27.200556+00:00'
+      downloaded_at: '2026-10-15T17:18:27.200556+00:00'
+      file:
+        name: data/source/588542_2023_madal.laz
+        format: laz
+        size_bytes: 295718139
+    version:
+      identifier: 2023_madal
+    selection:
+      bbox:
+      - 24.73
+      - 59.432
+      - 24.75
+      - 59.442
+    license:
+      name: Maa- ja Ruumiameti avaandmete litsents · 2025-01-01
+      url: https://geoportaal.maaruum.ee/avaandmete-litsents
+    schema:
+      crs: EPSG:3301 + EPSG:9663 (EH2000)
+      key: source feature or return index
+      columns:
+      - geometry
+      - source_id
+    rationale: Measured national/city source, retained immutably; no inferred replacement
+      geometry.
+  lidar_589542:
+    role: authoritative_input
+    provider: Maa- ja Ruumiamet
+    dataset: Low-altitude airborne laser scanning · 589542
+    source_url: https://geoportaal.maaamet.ee/index.php?lang_id=2&plugin_act=otsing&kaardiruut=589542&andmetyyp=lidar_laz_madal&dl=1&f=589542_2023_madal.laz&page_id=664
+    access:
+      method: https
+      retrieved_at: '2026-10-15T17:18:25.547551+00:00'
+      downloaded_at: '2026-10-15T17:18:25.547551+00:00'
+      file:
+        name: data/source/589542_2023_madal.laz
+        format: laz
+        size_bytes: 269525097
+    version:
+      identifier: 2023_madal
+    selection:
+      bbox:
+      - 24.73
+      - 59.432
+      - 24.75
+      - 59.442
+    license:
+      name: Maa- ja Ruumiameti avaandmete litsents · 2025-01-01
+      url: https://geoportaal.maaruum.ee/avaandmete-litsents
+    schema:
+      crs: EPSG:3301 + EPSG:9663 (EH2000)
+      key: source feature or return index
+      columns:
+      - geometry
+      - source_id
+    rationale: Measured national/city source, retained immutably; no inferred replacement
+      geometry.
+  city_model:
+    role: authoritative_input
+    provider: City of Tallinn
+    dataset: Old Town LoD3 city survey
+    source_url: https://tiles.arcgis.com/tiles/FwX2qF9JecNSRnwr/arcgis/rest/services/Tallinn_vanalinn_2020/SceneServer/layers/0
+    access:
+      method: https
+      retrieved_at: '2026-10-15T17:26:15.600352+00:00'
+      downloaded_at: '2026-10-15T17:26:15.600352+00:00'
+      file:
+        name: data/source/oldtown
+        format: ''
+        size_bytes: 193178519
+    version:
+      identifier: 084A2D09-8129-499F-B2A0-2CF2007210FE · 2020 archive
+    selection:
+      bbox:
+      - 24.73
+      - 59.432
+      - 24.75
+      - 59.442
+      completeness:
+        matched: 198
+        returned: 198
+        page_size: 198
+        pages: 1
+      filter: Spatial overlap of every root-child bounding sphere with EPSG:3301 AOI;
+        root tree retained.
+    license:
+      name: Tallinn’s Open Spatial Data · Simple Licence Agreement
+      url: https://www.tallinn.ee/et/media/307955
+      confirmation:
+        status: confirmed_by_project_owner
+        confirmed_by: Jaak Laineste
+        confirmed_at: '2026-10-16T07:54:14.785097+00:00'
+        basis: Project owner confirms redistribution under Tallinn’s published open
+          spatial data terms, with source, dataset, disclosure date and license attribution.
+        evidence_url: https://www.tallinn.ee/et/media/307955
+    schema:
+      crs: EPSG:4326 + EPSG:5773 (EGM96)
+      key: source feature or return index
+      columns:
+      - geometry
+      - source_id
+    rationale: Measured national/city source, retained immutably; no inferred replacement
+      geometry.
+  national_lod2:
+    role: reference
+    provider: Maa- ja Ruumiamet
+    dataset: National LoD2 Tallinn building survey
+    source_url: https://geoportaal.maaamet.ee/est/Ruumiandmed/Geo3D/Laadi-3D-andmed-alla-p833.html
+    access:
+      method: https
+      retrieved_at: '2026-10-15T17:17:44.662419+00:00'
+      downloaded_at: '2026-10-15T17:17:44.662419+00:00'
+      file:
+        name: data/source/tallinn-lod2.zip
+        format: zip
+        size_bytes: 33043369
+    version:
+      identifier: 2026-10-12T23:55:12Z snapshot; per-building ALS epochs vary
+    selection:
+      bbox:
+      - 24.73
+      - 59.432
+      - 24.75
+      - 59.442
+    license:
+      name: Maa- ja Ruumiameti avaandmete litsents · 2025-01-01
+      url: https://geoportaal.maaruum.ee/avaandmete-litsents
+    schema:
+      crs: EPSG:3301 (northing,easting,height CityGML axis order)
+      key: source feature or return index
+      columns:
+      - geometry
+      - source_id
+    rationale: Measured national/city source, retained immutably; no inferred replacement
+      geometry.
+  orthophoto:
+    role: context
+    provider: Maa- ja Ruumiamet
+    dataset: EESTIFOTO aerial photography
+    source_url: https://kaart.maaamet.ee/wms/fotokaart?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=EESTIFOTO&STYLES=&SRS=EPSG%3A3301&BBOX=541450%2C6588400%2C542650%2C6589600&WIDTH=2048&HEIGHT=2048&FORMAT=image%2Fjpeg
+    access:
+      method: https
+      retrieved_at: '2026-10-15T17:21:09.027118+00:00'
+      downloaded_at: '2026-10-15T17:21:09.027118+00:00'
+      file:
+        name: data/source/orthophoto.jpg
+        format: jpg
+        size_bytes: 1327918
+    version:
+      identifier: 2026-10-15 immutable WMS snapshot; flight epoch not supplied in
+        image response
+    selection:
+      bbox:
+      - 24.73
+      - 59.432
+      - 24.75
+      - 59.442
+    license:
+      name: Maa- ja Ruumiameti avaandmete litsents · 2025-01-01
+      url: https://geoportaal.maaruum.ee/avaandmete-litsents
+    schema:
+      crs: EPSG:3301
+      key: source feature or return index
+      columns:
+      - geometry
+      - source_id
+    rationale: Measured national/city source, retained immutably; no inferred replacement
+      geometry.
+  place_labels:
+    role: context
+    provider: OpenStreetMap contributors / Nominatim
+    dataset: Six selected place lookups
+    source_url: https://nominatim.openstreetmap.org/search
+    access:
+      method: https
+      retrieved_at: '2026-10-15T17:22:32.613381+00:00'
+      downloaded_at: '2026-10-15T17:22:32.613381+00:00'
+      file:
+        name: data/source/places-nominatim.json
+        format: json
+        size_bytes: 5417
+    version:
+      identifier: 2026-10-15 response snapshot
+    selection:
+      bbox:
+      - 24.73
+      - 59.432
+      - 24.75
+      - 59.442
+    license:
+      name: ODbL 1.0
+      url: https://www.openstreetmap.org/copyright
+    schema:
+      crs: EPSG:4326
+      key: source feature or return index
+      columns:
+      - geometry
+      - source_id
+    rationale: Measured national/city source, retained immutably; no inferred replacement
+      geometry.
+overrides: []
+processing:
+  analysis_crs: EPSG:3301
+  storage_crs: EPSG:4326
+  steps:
+  - id: lidar
+    operation: crop_classify_grid_sample
+    inputs:
+    - lidar_588541
+    - lidar_589541
+    - lidar_588542
+    - lidar_589542
+    output: lidar_product
+    crs: EPSG:3301
+    parameters:
+      bbox:
+      - 541450
+      - 6588400
+      - 542650
+      - 6589600
+      grid_resolution_m: 2
+      point_stride: 20
+      ground_class: 2
+  - id: city
+    operation: decode_i3s_transform_quantize
+    inputs:
+    - city_model
+    output: city_product
+    crs: EPSG:3301
+    parameters:
+      quantization_m: 0.025
+      lod: all intersecting root-child geometry; do not render children simultaneously
+  - id: labels
+    operation: transform_selected_reference_labels
+    inputs:
+    - place_labels
+    - lidar_product
+    output: label_product
+    crs: EPSG:3301
+  - id: photography
+    operation: georeference_immutable_wms_snapshot
+    inputs:
+    - orthophoto
+    output: photo_product
+    crs: EPSG:3301
+  - id: desktop
+    operation: write_gpkg_and_qgis
+    inputs:
+    - city_product
+    - label_product
+    - lidar_product
+    - photo_product
+    output: desktop_product
+    crs: EPSG:3301
+  - id: publish
+    operation: write_view_config_and_provenance
+    inputs:
+    - desktop_product
+    output: atlas_product
+    crs: EPSG:3301
+outputs:
+  terrain:
+    path: public/data/terrain.bin
+    format: Float32 grid
+    generated_by: lidar
+  terrain_cog:
+    path: data/derived/terrain.tif
+    format: COG
+    generated_by: lidar
+  point_positions:
+    path: public/data/points.bin
+    format: Float32 positions
+    generated_by: lidar
+  point_colors:
+    path: public/data/point-colors.bin
+    format: UInt8 RGB
+    generated_by: lidar
+  point_classes:
+    path: public/data/point-classes.bin
+    format: UInt8 LAS classes
+    generated_by: lidar
+  sampled_laz:
+    path: data/derived/toompea-sampled.laz
+    format: LAZ
+    generated_by: lidar
+  building_positions:
+    path: public/data/buildings.bin
+    format: Int16 positions; scale 0.025 m
+    generated_by: city
+  building_colors:
+    path: public/data/building-colors.bin
+    format: UInt8 RGB
+    generated_by: city
+  building_nodes:
+    path: public/data/building-nodes.json
+    format: JSON
+    generated_by: city
+  survey_extents:
+    path: data/derived/survey-extents.geojson
+    format: GeoJSON
+    generated_by: city
+  places:
+    path: public/data/places.json
+    format: JSON
+    generated_by: labels
+  places_geojson:
+    path: data/derived/places.geojson
+    format: GeoJSON
+    generated_by: labels
+  orthophoto_image:
+    path: public/data/orthophoto.jpg
+    format: JPEG
+    generated_by: photography
+  orthophoto_cog:
+    path: data/derived/orthophoto.tif
+    format: COG
+    generated_by: photography
+  overview:
+    path: public/data/overview.jpg
+    format: JPEG
+    generated_by: photography
+  desktop_geodata:
+    path: data/derived/survey.gpkg
+    format: GeoPackage
+    generated_by: desktop
+  qgis:
+    path: project.qgz
+    format: QGIS
+    generated_by: desktop
+  atlas_config:
+    path: public/data/atlas.json
+    format: JSON
+    generated_by: publish
+  ept:
+    path: data/derived/ept/ept.json
+    format: EPT
+    generated_by: lidar
+  ept_hierarchy:
+    path: data/derived/ept/ept-hierarchy/0-0-0-0.json
+    format: EPT
+    generated_by: lidar
+  ept_points:
+    path: data/derived/ept/ept-data/0-0-0-0.laz
+    format: EPT
+    generated_by: lidar
+  landmark_flag:
+    path: public/data/pikk-hermann-flag.bin
+    format: Float32 local XYZ and source texture V; surveyed cloth triangles
+    generated_by: city
+validation:
+  required:
+  - crs_known
+  - row_count_gt_zero
+  - geometry_finite
+  - source_result_complete
+  - overrides_applied
+  - manifest_graph_resolves
+  - vertical_alignment
+  - qgis_project_static_valid
+  - qgis_style_parity
+  - manifest_report_parity
+  - interactive_tool_calculations
+  - solar_reference_metric_alignment
+  domain_checks: []
+presentation:
+  intent: heritage_exploration
+  primary_view: threejs_3d
+  layout:
+    type: map_with_sidebar
+    sidebar:
+      organization: tabs
+      section_state: collapsible
+  controls:
+    reconfigurable: true
+    canonical_reset: true
+    off_canonical_labelling: required
+    defaults:
+      mode: model
+      buildings: true
+      terrain: true
+      vegetation: true
+      labels: true
+      sunlight: 65
+      lighting: solar
+      sunDate: '2026-10-15'
+      sunTime: '13:00'
+      sunShadows: true
+  map:
+    implementation: Three.js, explicitly requested by user
+    interaction:
+      feature_select: true
+      zoom_to_selection: true
+    basemap:
+      id: national-orthophoto
+      kind: raster-wms
+      url: https://kaart.maaamet.ee/wms/fotokaart
+      attribution: Maa- ja Ruumiamet · aerial photography snapshot 2026-10-15
+      default_visible: true
+    layer_groups:
+    - id: survey
+      title: Surveyed architecture
+    - id: ground
+      title: Ground & photography
+    - id: returns
+      title: Airborne LiDAR
+    - id: reference
+      title: Place labels
+    layers:
+    - source: terrain_cog
+      group: ground
+      semantic_role: secondary_result
+      geometry: raster
+    - source: orthophoto_image
+      group: ground
+      semantic_role: context
+      geometry: raster
+    - source: building_positions
+      group: survey
+      semantic_role: primary_result
+      geometry: polygon
+    - source: point_positions
+      group: returns
+      semantic_role: source
+      geometry: point
+    - source: places
+      group: reference
+      semantic_role: context
+      geometry: point
+  provenance_ui:
+    feature_source_on_click: true
+    show_source_timestamp: true
+    show_assumptions: true
+  instruments:
+    measurement:
+      basis: Straight Euclidean chord and horizontal separation in EPSG:3301
+      mode: exploratory_user_requested
+      mixed_vertical_datums: Withhold 3D distance and height difference; horizontal
+        separation remains available
+      export: toompea-exploratory-measurement/v1
+    cross_section:
+      basis: Actual source triangle intersections with a user-controlled vertical
+        plane; no inferred interiors
+      defaults:
+        enabled: false
+        bearing: 90
+        offset: 0
+        slab: false
+        width: 4
+        flip: false
+      profile_axes: Grid station / source height; separate EH2000 terrain and EGM96
+        architecture
+      export: CSV of source intersection endpoints
+    sun_study:
+      algorithm: SunCalc 2.1.1 · Meeus astronomical algorithms
+      time_zone: Europe/Tallinn
+      true_north_correction: PROJ meridian convergence at the source coordinate origin
+      shadows: Directional shadow map of observed architecture and terrain; LiDAR
+        foliage does not cast shadows
+      materials: Neutral study surfaces prevent baked photographic shadows from being
+        mistaken for calculated shading
+  landmark_flag:
+    name: Estonian national flag · Pikk Hermann
+    colors:
+    - '#0072CE'
+    - '#000000'
+    - '#FFFFFF'
+    height_width_ratio:
+    - 7
+    - 11
+    reference_url: https://www.riigikantselei.ee/et/eestilipp
+    reference_asset_url: https://www.riigikantselei.ee/sites/default/files/2022-04/Eesti%20lipp_06.04.2022.svg
+    reference_snapshot: data/source/estonian-flag-reference-2022.svg
+    visibility: World-oriented surveyed 3D cloth in all modes and lighting settings;
+      independent of layers and clipping. Uniform display magnification at distant
+      zooms is an annotation, not a measured dimension.
+    minimum_display_extent_px: 24
+    shading: Fixed world-space fill on the source triangle normals; preserve national
+      hues and distinguish observed folds
+  map_effects:
+    vignette_strength: 0.22
+    vignette_basis: Warm, elliptical edge shading applied to the WebGL map and exported
+      scene image; UI overlays remain clear.
+runtime:
+  implementation:
+    preferred_engine: numpy-laspy-i3s
+    pipeline: pipeline.py
+    dependencies:
+    - requirements.lock
+    - package.json
+    - package-lock.json
+    - index.html
+    - vite.config.js
+    - src/AtlasScene.js
+    - src/main.jsx
+    - src/styles.css
+    - src/InstrumentPanels.jsx
+    - src/survey-tools.js
+    - src/solar.js
+    - src/section.worker.js
+    - tests/survey-tools.test.js
+    - .gitattributes
+    command:
+    - .venv/bin/python
+    - pipeline.py
+  environment: &id001
+    python: 3.13.15
+    qgis: 3.40.15-Bratislava
+    gdal: 3.12.2
+    node: 24.19.0
+warnings:
+- id: vertical-datum
+  severity: medium
+  statement: Vertical datums differ; engineering alignment is not certified.
+  issue: vertical-datum
+  mitigation: Keep source limitations visible in the atlas; preserve original data
+    and require source verification for precision or redistribution claims.
+- id: model-lod
+  severity: medium
+  statement: 2020 city snapshot and 2023 LiDAR do not assert present-day condition.
+    Texture color is vertex-sampled at root-child LOD.
+  issue: model-lod
+  mitigation: Keep source limitations visible in the atlas; preserve original data
+    and require source verification for precision or redistribution claims.
+runs:
+  latest:
+    id: run-20261016-075851
+    run_id: run-20261016-075851
+    environment: *id001
+    started_at: '2026-10-16T07:58:51.426918+00:00'
+    completed_at: '2026-10-16T07:59:19.483220+00:00'
+    status: warning
+    inputs_hash: sha256:a854f21a76f1072ae6c9df772a2907cd8731b5b1d1a3496183d2e92c3dd2f618
+    outputs_hash: sha256:ca6bf1027eb1234c72634cd1ee493e1e40c39fb6192fc6cb2e4c50b7734ab958
+    validation_report:
+      path: validation/latest-report.json
+    record:
+      path: runs/run-20261016-075851.json

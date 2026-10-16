@@ -1,0 +1,164 @@
+[
+  {
+    "query": "Toompea Castle Tallinn",
+    "url": "https://nominatim.openstreetmap.org/search?q=Toompea+Castle+Tallinn&format=json&limit=1",
+    "results": [
+      {
+        "place_id": 430683421,
+        "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+        "osm_type": "relation",
+        "osm_id": 3502552,
+        "lat": "59.4357444",
+        "lon": "24.7373763",
+        "class": "historic",
+        "type": "castle",
+        "place_rank": 30,
+        "importance": 0.4668490071334186,
+        "addresstype": "historic",
+        "name": "Toompea loss",
+        "display_name": "Toompea loss, 1a, Lossi plats, Toompea, Vanalinn, Kesklinna linnaosa, Tallinn, Harju maakond, 15165, Eesti",
+        "boundingbox": [
+          "59.4351062",
+          "59.4363977",
+          "24.7365891",
+          "24.7381969"
+        ]
+      }
+    ]
+  },
+  {
+    "query": "Alexander Nevsky Cathedral Tallinn",
+    "url": "https://nominatim.openstreetmap.org/search?q=Alexander+Nevsky+Cathedral+Tallinn&format=json&limit=1",
+    "results": [
+      {
+        "place_id": 169405223,
+        "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+        "osm_type": "way",
+        "osm_id": 26899255,
+        "lat": "59.4357516",
+        "lon": "24.7393204",
+        "class": "amenity",
+        "type": "place_of_worship",
+        "place_rank": 30,
+        "importance": 0.4504652744324435,
+        "addresstype": "amenity",
+        "name": "Aleksander Nevski katedraal",
+        "display_name": "Aleksander Nevski katedraal, 10, Lossi plats, Toompea, Vanalinn, Kesklinna linnaosa, Tallinn, Harju maakond, 10130, Eesti",
+        "boundingbox": [
+          "59.4355553",
+          "59.4359145",
+          "24.7388435",
+          "24.7397909"
+        ]
+      }
+    ]
+  },
+  {
+    "query": "St Mary Cathedral Tallinn",
+    "url": "https://nominatim.openstreetmap.org/search?q=St+Mary+Cathedral+Tallinn&format=json&limit=1",
+    "results": [
+      {
+        "place_id": 170249324,
+        "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+        "osm_type": "way",
+        "osm_id": 26902813,
+        "lat": "59.4370393",
+        "lon": "24.7391551",
+        "class": "amenity",
+        "type": "place_of_worship",
+        "place_rank": 30,
+        "importance": 0.44678935115471147,
+        "addresstype": "amenity",
+        "name": "Toomkirik",
+        "display_name": "Toomkirik, 6, Toom-Kooli, Toompea, Vanalinn, Kesklinna linnaosa, Tallinn, Harju maakond, 10130, Eesti",
+        "boundingbox": [
+          "59.4368513",
+          "59.4372649",
+          "24.7386360",
+          "24.7396852"
+        ]
+      }
+    ]
+  },
+  {
+    "query": "Patkuli viewing platform Tallinn",
+    "url": "https://nominatim.openstreetmap.org/search?q=Patkuli+viewing+platform+Tallinn&format=json&limit=1",
+    "results": [
+      {
+        "place_id": 170358004,
+        "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+        "osm_type": "node",
+        "osm_id": 60687756,
+        "lat": "59.4385815",
+        "lon": "24.7410160",
+        "class": "tourism",
+        "type": "viewpoint",
+        "place_rank": 30,
+        "importance": 7.582894636449253e-05,
+        "addresstype": "tourism",
+        "name": "Patkuli vaateplatvorm",
+        "display_name": "Patkuli vaateplatvorm, Patkuli trepp, Vanalinn, Kesklinna linnaosa, Tallinn, Harju maakond, 15161, Eesti",
+        "boundingbox": [
+          "59.4385315",
+          "59.4386315",
+          "24.7409660",
+          "24.7410660"
+        ]
+      }
+    ]
+  },
+  {
+    "query": "Kohtuotsa Tallinn",
+    "url": "https://nominatim.openstreetmap.org/search?q=Kohtuotsa+Tallinn&format=json&limit=1",
+    "results": [
+      {
+        "place_id": 171115022,
+        "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+        "osm_type": "node",
+        "osm_id": 557300914,
+        "lat": "59.4377313",
+        "lon": "24.7422058",
+        "class": "tourism",
+        "type": "viewpoint",
+        "place_rank": 30,
+        "importance": 7.582894636449253e-05,
+        "addresstype": "tourism",
+        "name": "Kohtuotsa vaateplatvorm",
+        "display_name": "Kohtuotsa vaateplatvorm, Pikk jalg, All-linn, Vanalinn, Kesklinna linnaosa, Tallinn, Harju maakond, 15193, Eesti",
+        "boundingbox": [
+          "59.4376813",
+          "59.4377813",
+          "24.7421558",
+          "24.7422558"
+        ]
+      }
+    ]
+  },
+  {
+    "query": "Pikk Hermann Tallinn",
+    "url": "https://nominatim.openstreetmap.org/search?q=Pikk+Hermann+Tallinn&format=json&limit=1",
+    "results": [
+      {
+        "place_id": 170252241,
+        "licence": "Data \u00a9 OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+        "osm_type": "relation",
+        "osm_id": 3502550,
+        "lat": "59.4351548",
+        "lon": "24.7369242",
+        "class": "man_made",
+        "type": "tower",
+        "place_rank": 30,
+        "importance": 0.4479209652121003,
+        "addresstype": "man_made",
+        "name": "Pikk Hermann",
+        "display_name": "Pikk Hermann, Lossihoov, Toompea, Vanalinn, Kesklinna linnaosa, Tallinn, Harju maakond, 15165, Eesti",
+        "boundingbox": [
+          "59.4351062",
+          "59.4352016",
+          "24.7368299",
+          "24.7370186"
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,2 @@
+*.bin binary
+data/source/*.laz filter=lfs diff=lfs merge=lfs -text

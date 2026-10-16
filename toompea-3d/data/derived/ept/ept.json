@@ -1,0 +1,86 @@
+{
+  "bounds": [
+    541450,
+    6588400,
+    -5,
+    542650,
+    6589600,
+    1195
+  ],
+  "boundsConforming": [
+    541450.0,
+    6588400.0,
+    3.67,
+    542650.0,
+    6589600.0,
+    130.36
+  ],
+  "dataType": "laszip",
+  "hierarchyType": "json",
+  "points": 2069367,
+  "schema": [
+    {
+      "name": "X",
+      "type": "signed",
+      "size": 4,
+      "scale": 0.01,
+      "offset": 542000.0
+    },
+    {
+      "name": "Y",
+      "type": "signed",
+      "size": 4,
+      "scale": 0.01,
+      "offset": 6589000.0
+    },
+    {
+      "name": "Z",
+      "type": "signed",
+      "size": 4,
+      "scale": 0.01,
+      "offset": 0.0
+    },
+    {
+      "name": "Intensity",
+      "type": "unsigned",
+      "size": 2
+    },
+    {
+      "name": "ReturnNumber",
+      "type": "unsigned",
+      "size": 1
+    },
+    {
+      "name": "NumberOfReturns",
+      "type": "unsigned",
+      "size": 1
+    },
+    {
+      "name": "Classification",
+      "type": "unsigned",
+      "size": 1
+    },
+    {
+      "name": "Red",
+      "type": "unsigned",
+      "size": 2
+    },
+    {
+      "name": "Green",
+      "type": "unsigned",
+      "size": 2
+    },
+    {
+      "name": "Blue",
+      "type": "unsigned",
+      "size": 2
+    }
+  ],
+  "span": 128,
+  "srs": {
+    "authority": "EPSG",
+    "horizontal": "3301",
+    "wkt": "PROJCRS[\"Estonian Coordinate System of 1997\",BASEGEOGCRS[\"EST97\",DATUM[\"Estonia 1997\",ELLIPSOID[\"GRS 1980\",6378137,298.257222101,LENGTHUNIT[\"metre\",1]]],PRIMEM[\"Greenwich\",0,ANGLEUNIT[\"degree\",0.0174532925199433]],ID[\"EPSG\",4180]],CONVERSION[\"Estonian National Grid\",METHOD[\"Lambert Conic Conformal (2SP)\",ID[\"EPSG\",9802]],PARAMETER[\"Latitude of false origin\",57.5175539305556,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8821]],PARAMETER[\"Longitude of false origin\",24,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8822]],PARAMETER[\"Latitude of 1st standard parallel\",59.3333333333333,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8823]],PARAMETER[\"Latitude of 2nd standard parallel\",58,ANGLEUNIT[\"degree\",0.0174532925199433],ID[\"EPSG\",8824]],PARAMETER[\"Easting at false origin\",500000,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8826]],PARAMETER[\"Northing at false origin\",6375000,LENGTHUNIT[\"metre\",1],ID[\"EPSG\",8827]]],CS[Cartesian,2],AXIS[\"northing (X)\",north,ORDER[1],LENGTHUNIT[\"metre\",1]],AXIS[\"easting (Y)\",east,ORDER[2],LENGTHUNIT[\"metre\",1]],USAGE[SCOPE[\"Topographic mapping (large scale).\"],AREA[\"Estonia - onshore and offshore.\"],BBOX[57.52,20.37,60,28.2]],ID[\"EPSG\",3301]]"
+  },
+  "version": "1.1.0"
+}
