@@ -36,6 +36,23 @@ export function lineOfSight(grid, observer, target) {
   let nx = sx ? ((col + (sx > 0 ? 1 : 0)) * r - ox) / dx : Infinity;
   let ny = sy ? ((row + (sy > 0 ? 1 : 0)) * r - oy) / dy : Infinity;
   let unknown = false;
+  // Closed cells include their edges/corners, even when the ray touches them
+  // only at t=0 or t=1. Inspect the full Cartesian set at BOTH endpoints before
+  // the traversal's early exit; direction must not change which solids count.
+  for (const [x, y, z] of [observer, target]) {
+    const cx = Math.floor(x / r), cy = Math.floor(y / r);
+    const firstX = Number.isInteger(x / r) ? cx - 1 : cx;
+    const firstY = Number.isInteger(y / r) ? cy - 1 : cy;
+    for (let yy = firstY; yy <= cy; yy++) for (let xx = firstX; xx <= cx; xx++) {
+      if (xx < 0 || yy < 0 || xx >= grid.width || yy >= grid.height) {
+        unknown = true;
+        continue;
+      }
+      const raw = grid.dsm[yy * grid.width + xx];
+      if (raw === 65535) unknown = true;
+      else if (grid.zOrigin + raw * grid.zScale >= z - 1e-7) return false;
+    }
+  }
   const alignedX = dx === 0 && Number.isInteger(ox / r);
   const alignedY = dy === 0 && Number.isInteger(oy / r);
   // Grid traversal checks every crossed cell at the lowest ray altitude within it.

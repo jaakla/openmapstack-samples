@@ -20,6 +20,52 @@ function fixture(size = 12) {
     dsm: new Uint16Array(size * size),
   };
 }
+test("QA endpoint-corner repro blocks both directions and cannot classify RED", () => {
+  const g = fixture(4); g.dsm[1 * 4 + 2] = 10;
+  const observer = [0.5, 0.5, 3], target = [2, 2, 2];
+  assert.equal(lineOfSight(g, observer, target), false);
+  assert.equal(lineOfSight(g, target, observer), false);
+  assert.equal(classifyTarget(g, target, [{id:"QA",position:observer}], []).zone, ZONE.GREEN);
+});
+
+// Independent oracle: intersect the entire closed segment with each cell's
+// closed XY AABB, then compare its lowest Z in that interval to the solid.
+function closedSolidOracle(g, a, b) {
+  for (let row = 0; row < g.height; row++) for (let col = 0; col < g.width; col++) {
+    let enter = 0, exit = 1;
+    for (const [axis, coordinate] of [[0,col], [1,row]]) {
+      const lo = coordinate*g.resolution, hi = lo+g.resolution, delta = b[axis]-a[axis];
+      if (delta === 0) {
+        if (a[axis] < lo || a[axis] > hi) { enter = 2; break; }
+      } else {
+        const t0=(lo-a[axis])/delta, t1=(hi-a[axis])/delta;
+        enter=Math.max(enter,Math.min(t0,t1)); exit=Math.min(exit,Math.max(t0,t1));
+      }
+    }
+    const z = Math.min(a[2]+(b[2]-a[2])*enter,a[2]+(b[2]-a[2])*exit);
+    if (enter <= exit && z <= g.zOrigin + g.dsm[row*g.width+col]*g.zScale + 1e-7) return false;
+  }
+  return true;
+}
+
+test("endpoint faces, four corner cells, grazing heights and reciprocity match AABB oracle", () => {
+  const points = [[0.5,0.5,3],[2,2,2],[2,1.5,2],[1.5,2,2],[2,2,10],[2,2,10.1],[3.5,3.5,3]];
+  for (const [col,row] of [[1,1],[2,1],[1,2],[2,2]]) {
+    const g=fixture(4);g.dsm[row*4+col]=10;
+    for (const a of points) for (const b of points) {
+      const expected=closedSolidOracle(g,a,b);
+      assert.equal(lineOfSight(g,a,b),expected,JSON.stringify({col,row,a,b}));
+      assert.equal(lineOfSight(g,b,a),expected,JSON.stringify({col,row,a:b,b:a}));
+    }
+  }
+});
+
+test("endpoint-only NoData stays unknown and a known touching solid takes precedence", () => {
+  const g=fixture(4),a=[0.5,0.5,3],b=[2,2,2];g.dsm[1*4+2]=65535;
+  assert.equal(lineOfSight(g,a,b),null);assert.equal(lineOfSight(g,b,a),null);
+  g.dsm[2*4+1]=10;
+  assert.equal(lineOfSight(g,a,b),false);assert.equal(lineOfSight(g,b,a),false);
+});
 test("flat ground, vertical ray and LOS symmetry", () => {
   const g = fixture();
   assert.equal(lineOfSight(g, [0.5, 0.5, 3], [10.5, 10.5, 2]), true);
