@@ -395,6 +395,14 @@ sources:
       sha256: sha256:3a424766d0ec8e863ac90c106b082e8a8791b3a77efee54ceddb1716bc6ab51e
       request_spec: '[out:json][timeout:60][date:"2026-10-16T00:00:00Z"];way["highway"](60.161,24.928,60.175,24.957)->.w;(.w;>;);out
         meta;'
+      archive:
+        path: data/archive/osm-20261016.json.gz
+        compression: gzip
+        sha256: sha256:0d5d7de3372002b7fe7356bffcd902265f2454f81dd2700a0eb182a772e37b02
+        size_bytes: 880448
+      reproduction: Restore the committed original response archive; source_url and
+        request_spec retain discovery query provenance, not a byte-stable live download
+        promise.
     version:
       identifier: '2026-10-16T00:00:00Z'
       sha256: sha256:3a424766d0ec8e863ac90c106b082e8a8791b3a77efee54ceddb1716bc6ab51e
@@ -429,6 +437,15 @@ sources:
         format: geojson
         size_bytes: 6301
       sha256: sha256:253b2918d6c2dbf9e4c203f8a6db0a1e7b46e251faf39c1f96425dbfbb839e13
+      archive:
+        path: data/archive/tile-index.geojson.gz
+        compression: gzip
+        sha256: sha256:b4d703d297e626a69810005d996fafea27a5f1b2d365461def736742c3d8c028
+        size_bytes: 979
+      reproduction: Restore the committed original response archive; source_url and
+        request_spec retain discovery query provenance, not a byte-stable live download
+        promise.
+      request_spec: https://kartta.hel.fi/ws/geoserver/avoindata/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=avoindata%3AKarttalehtijako_05x05_km&srsName=EPSG%3A3067&bbox=385200%2C6671300%2C386500%2C6672500%2CEPSG%3A3067&outputFormat=application%2Fjson
     version:
       identifier: 2026-10-17 snapshot
       sha256: sha256:253b2918d6c2dbf9e4c203f8a6db0a1e7b46e251faf39c1f96425dbfbb839e13
@@ -2142,6 +2159,7 @@ validation:
   - qgis_project_static_valid
   - qgis_layers_valid
   - manifest_report_parity
+  - archived_sources_reproducible
   domain_checks: []
 presentation:
   intent: educational_visibility_simulation
@@ -2237,6 +2255,7 @@ runtime:
     - tests
     - index.html
     - vite.config.js
+    - data/archive
   environment: &id001
     python: 3.14.4
     gdal: 3.12.2

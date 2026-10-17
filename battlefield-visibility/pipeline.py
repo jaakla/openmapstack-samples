@@ -15,7 +15,7 @@ from openmapstack.integrity import (
     declared_output_paths,
     file_inventory,
 )
-from acquire import digest, main as acquire
+from acquire import digest, verify_archive, main as acquire
 
 ROOT = Path(__file__).resolve().parent
 os.chdir(ROOT)
@@ -540,6 +540,7 @@ def main():
     for sidecar in D.glob("*.tif.aux.xml"):
         sidecar.unlink()
     for entry in lock["files"]:
+        verify_archive(entry)
         path = ROOT / entry["path"]
         if not path.exists():
             raise FileNotFoundError(str(path) + ": run python acquire.py first")
@@ -691,9 +692,15 @@ def main():
         bytes=payload,
     )
     result = subprocess.run(["npm", "test"], check=False)
-    check(
-        "analytic_los_tests", result.returncode == 0, "Analytic fixtures via npm test"
+    acquisition_tests = subprocess.run(
+        [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_acquire.py"],
+        check=False,
     )
+    check(
+        "analytic_los_tests", result.returncode == 0, "Analytic/product fixtures via npm test"
+    )
+    check("archived_sources_reproducible", acquisition_tests.returncode == 0,
+          "Offline fresh-clone archive restoration and strict corruption rejection via unittest")
     check(
         "qgis_project_static_valid",
         Path("project.qgz").is_file(),

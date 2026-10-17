@@ -75,14 +75,29 @@ node scripts/verify-products.mjs
 npm run build
 ```
 
-`acquire.py` consumes the committed lock on a fresh clone, downloads only missing
-files, and checks their bytes. No key or account is needed for the selected
-sources. A network failure, changed checksum or missing source is an explicit
-error; no synthetic terrain/network fallback exists. The first lock-generation
-branch is historical discovery, not a refresh mechanism. Preserve the committed
-lock for reproduction. The pipeline places its own temporary files under ignored
-`.cache/`, which also avoids host `/tmp` quota issues. If the host has exhausted
-file watchers, `CHOKIDAR_USEPOLLING=true npm run dev` is a local workaround.
+`acquire.py` always consumes the committed lock. On a fresh clone it restores
+**the exact original WFS and Overpass responses** from committed gzip archives in
+`data/archive/` and downloads other missing files from their recorded fixed URLs.
+The small archives are part of the Git revision, outside the browser payload. Both
+the compressed archive SHA-256 and restored original response SHA-256 are verified,
+even when a raw copy is cached. Original query URLs, parameters, data cutoff,
+retrieval timestamps, licensing and the original wrappers are preserved unchanged.
+Reproduction never re-queries the live WFS/Overpass wrappers: service timestamps
+make a new response a different byte snapshot even with the same features.
+
+**Fresh acquisition of a new version** is a separate reviewed operation: query the
+upstream services, retain and archive the complete new responses, review the source
+selection/licenses, update the explicit lock/manifest, then regenerate the run.
+`acquire.py` does not regenerate a missing lock or silently refresh sources. It
+never strips wrapper fields or bypasses a checksum. An unavailable fixed download,
+missing archive, changed checksum or corrupt cached source is an explicit error;
+there is no synthetic terrain/network fallback. No key or account is needed for
+the selected inputs. See [archive provenance](data/archive/README.md).
+
+The pipeline and tests place their temporary files under ignored `.cache/`. Keep
+`TMPDIR` and tool caches inside the worktree when running on a space-constrained
+host. If file watchers are exhausted, `CHOKIDAR_USEPOLLING=true npm run dev` is a
+local workaround.
 
 Each full run verifies immutable inputs, processes every ordered manifest stage,
 runs the analytic/product tests, reloads and checks all QGIS layers, and writes
@@ -151,7 +166,9 @@ are needed in the browser. The 182.29 MB source tank is compacted to about 7.71 
   Drawn paths include all crossed source vertices; sparse samples are not joined
   with chords through city blocks. Short visibility windows can be missed.
 - **LOS/zones:** conservative supercover traversal tests every crossed 1 m DSM
-  cell at the lowest ray altitude within it; grazing rays block. The green target
+  cell at the lowest ray altitude within it; all cells touching either endpoint
+  are included, even a face/corner touched only at t=0 or t=1. Grazing rays block
+  consistently in either direction. The green target
   is 2 m AGL. Zone targets are sampled on a 20 m grid, not continuous coverage of
   every location within a colored square. Exact tapped-position status is computed
   separately. Current LOS from any sensor is RED; future sampled probability above
@@ -171,7 +188,8 @@ are needed in the browser. The 182.29 MB source tank is compacted to about 7.71 
 ## Verification
 
 `npm test` covers analytic flat ground, a one-cell ridge, grazing/corner rays,
-vertical rays, LOS reciprocity, NoData, out-of-bounds inputs, class precedence,
+vertical rays, endpoint-only faces/corners against an independent segment/AABB
+oracle, LOS reciprocity, NoData, out-of-bounds inputs, class precedence,
 scenario-probability thresholds, route reversal/corners, AGL forecasts and their
 current-position anchoring. Product checks verify grid dimensions, DSM ≥ DTM,
 source-edge identifiers, exact default snapshot reproduction, self-contained GLBs
@@ -180,7 +198,7 @@ and absence of external decoders. The run inventory verifies all declared output
 Browser QA uses Playwright Chromium because the Browser plugin is unavailable.
 The checked flows are initial load → meaningful 3D scene → height change → live
 play/pause → exact t=0 reset → sources → tap relocation → layer/count controls and
-model focus. Desktop 1536×1024 and mobile 390×844 are checked for overflow, errors,
+model focus. Desktop 1536×1024 and mobile 320×700 / 390×844 are checked for overflow, errors,
 readable controls and working interactions. Physical mid-range-phone/GPU and iOS
 Safari performance remain unmeasured; viewport emulation does not establish that.
 Temporary QA scripts/screenshots are ignored under `.cache/`, not shipped assets.

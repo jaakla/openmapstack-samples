@@ -119,7 +119,13 @@
       "license_url": "https://www.openstreetmap.org/copyright",
       "sha256": "sha256:3a424766d0ec8e863ac90c106b082e8a8791b3a77efee54ceddb1716bc6ab51e",
       "size_bytes": 8711545,
-      "retrieved_at": "2026-10-17T11:25:51.337355+00:00"
+      "retrieved_at": "2026-10-17T11:25:51.337355+00:00",
+      "archive": {
+        "path": "data/archive/osm-20261016.json.gz",
+        "compression": "gzip",
+        "sha256": "sha256:0d5d7de3372002b7fe7356bffcd902265f2454f81dd2700a0eb182a772e37b02",
+        "size_bytes": 880448
+      }
     },
     {
       "id": "tile_index",
@@ -131,7 +137,13 @@
       "license_url": "https://creativecommons.org/licenses/by/4.0/",
       "sha256": "sha256:253b2918d6c2dbf9e4c203f8a6db0a1e7b46e251faf39c1f96425dbfbb839e13",
       "size_bytes": 6301,
-      "retrieved_at": "2026-10-17T11:25:06.397468+00:00"
+      "retrieved_at": "2026-10-17T11:25:06.397468+00:00",
+      "archive": {
+        "path": "data/archive/tile-index.geojson.gz",
+        "compression": "gzip",
+        "sha256": "sha256:b4d703d297e626a69810005d996fafea27a5f1b2d365461def736742c3d8c028",
+        "size_bytes": 979
+      }
     },
     {
       "id": "lidar_spec",
