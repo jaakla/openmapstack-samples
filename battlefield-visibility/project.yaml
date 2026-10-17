@@ -5,7 +5,7 @@ project:
   question: Explore dynamic geometric visibility of simulated UAVs over measured downtown
     Helsinki geometry.
   created_at: '2026-10-17T11:30:00Z'
-  updated_at: '2026-10-17T14:15:43.639559+00:00'
+  updated_at: '2026-10-17T14:46:14.731893+00:00'
   status: validated
 interpretation:
   objective: Reproducible open-data educational 3D simulation, independent of toompea-3d.
@@ -1549,15 +1549,15 @@ runtime:
     node: 24.19.0
 runs:
   latest:
-    id: run-20261017-141424
-    run_id: run-20261017-141424
-    started_at: '2026-10-17T14:14:24.688764+00:00'
-    completed_at: '2026-10-17T14:15:43.639559+00:00'
+    id: run-20261017-144455
+    run_id: run-20261017-144455
+    started_at: '2026-10-17T14:44:55.034097+00:00'
+    completed_at: '2026-10-17T14:46:14.731893+00:00'
     status: passed
-    inputs_hash: sha256:ce524ea1d981f228c63bb5a9f3c2310144444115bfd6f7f3a9c0cd57e6a29a26
-    outputs_hash: sha256:9e83e2f3cf4cbef0dce75e42d88464f217bc4790c3d7e3789d78f777885ffa2a
+    inputs_hash: sha256:a0addb035436c439dcc5c244969cd1c4e3a198ba612c808c2981c67be863cdee
+    outputs_hash: sha256:0af506f6e4a30868eaa93429f6960e117218179e157477adc56eea5233121897
     environment: *id002
     validation_report:
       path: validation/latest-report.json
     record:
-      path: runs/run-20261017-141424.json
+      path: runs/run-20261017-144455.json

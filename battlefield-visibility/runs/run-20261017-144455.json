@@ -1,0 +1,392 @@
+{
+  "id": "run-20261017-144455",
+  "run_id": "run-20261017-144455",
+  "started_at": "2026-10-17T14:44:55.034097+00:00",
+  "completed_at": "2026-10-17T14:46:14.731893+00:00",
+  "status": "passed",
+  "inputs_hash": "sha256:a0addb035436c439dcc5c244969cd1c4e3a198ba612c808c2981c67be863cdee",
+  "outputs_hash": "sha256:0af506f6e4a30868eaa93429f6960e117218179e157477adc56eea5233121897",
+  "environment": {
+    "python": "3.14.4",
+    "gdal": "3.12.2",
+    "qgis": "3.40.15-Bratislava",
+    "numpy": "2.5.4",
+    "laspy": "2.6.1",
+    "scipy": "1.17.0",
+    "node": "24.19.0"
+  },
+  "validation_report": {
+    "path": "validation/latest-report.json"
+  },
+  "inputs": [
+    {
+      "path": ".npmrc",
+      "sha256": "sha256:c5eba148604b2ef29ecec1fffdff39c87ad13c75e6171453f2b304d85274ccc1"
+    },
+    {
+      "path": "acquire.py",
+      "sha256": "sha256:15fe1d7aa756672d0bdcc6bfc8ddb9b0c338962c3eb1f0478f37e8c64f7f9be6"
+    },
+    {
+      "path": "building_mesh.py",
+      "sha256": "sha256:38fac673c84f6bed988587f866a178e9d017b31c988c874cc2ce5e7e46d7c5d2"
+    },
+    {
+      "path": "data/archive/README.md",
+      "sha256": "sha256:4269c94aef335c0af277d93776027fb654771143465a7507d25a20afe93828b0"
+    },
+    {
+      "path": "data/archive/osm-20261016.json.gz",
+      "sha256": "sha256:0d5d7de3372002b7fe7356bffcd902265f2454f81dd2700a0eb182a772e37b02"
+    },
+    {
+      "path": "data/archive/tile-index.geojson.gz",
+      "sha256": "sha256:b4d703d297e626a69810005d996fafea27a5f1b2d365461def736742c3d8c028"
+    },
+    {
+      "path": "data/archive/tileset-lod2.json.gz",
+      "sha256": "sha256:c2cbcca8dfc0c611dc21966d8c58a990ea3d2c0c67a1fdceced54070ab7737b4"
+    },
+    {
+      "path": "data/overrides/scenario.geojson",
+      "sha256": "sha256:1bda11fb61e2dd5fd92b91b6171e5f965066c2355e9b14d6c6634f9bd6535eeb"
+    },
+    {
+      "path": "data/source/2021_Laserpisteet_kuvaus.pdf",
+      "sha256": "sha256:64e1c5899f786a9c2f8abcdfa3337fe8ce3bfe069b536b82fc0a89ed89b0783f"
+    },
+    {
+      "path": "data/source/672496a_2021.laz",
+      "sha256": "sha256:c3f432db37a8f0829394b103872f7cd1c94ecb4f6748290526e98981b1e4b6a7"
+    },
+    {
+      "path": "data/source/672496b_2021.laz",
+      "sha256": "sha256:d04b3af89703b699d14a7928f77553ba7065d4134521841fbcf59b4bb043e5c6"
+    },
+    {
+      "path": "data/source/672496c_2021.laz",
+      "sha256": "sha256:3ab5b8e9b6805b32aa6af9318f3b6cb8af07a94c085c35fd4dc8564d63047e5d"
+    },
+    {
+      "path": "data/source/672496d_2021.laz",
+      "sha256": "sha256:84bf231f20dc32a745d77b2a38cb7c80960b78dbc7c03b9c7016232b727ba37b"
+    },
+    {
+      "path": "data/source/672497a_2021.laz",
+      "sha256": "sha256:b6f48acf80ad338149a6cc0714712466cde5ea2191a6a76ce5680f338adb8cf9"
+    },
+    {
+      "path": "data/source/672497b_2021.laz",
+      "sha256": "sha256:655a547aab69983968f7ead59feb4df55075f4cb6b2f5d02e6a22243204848f6"
+    },
+    {
+      "path": "data/source/673496a_2021.laz",
+      "sha256": "sha256:a36061ce3284e76c82ab273854c3d0646b99d5962423569551db1838a4cbcdf5"
+    },
+    {
+      "path": "data/source/673496c_2021.laz",
+      "sha256": "sha256:3c34d4eb214ae2bb2b6e03c3bf441e216886d14a8e150b5c3f0bc32806167be8"
+    },
+    {
+      "path": "data/source/673497a_2021.laz",
+      "sha256": "sha256:7023e6d0c5aee868aee5e3566859e9e63d7b9df33886aa6375c5f27b6dd39152"
+    },
+    {
+      "path": "data/source/README.md",
+      "sha256": "sha256:c9c59af7ecde3dac1f6420a6eeea798948424ff4441666e0d5c7590276544c38"
+    },
+    {
+      "path": "data/source/lod2/37306-5429.b3dm",
+      "sha256": "sha256:2d47deb82aca486c0f811fc2e9cb3bed8d71ce7f138a0955e6012d7d41270ec3"
+    },
+    {
+      "path": "data/source/lod2/37306-5430.b3dm",
+      "sha256": "sha256:b743ea9d7e0843125bfafe5a6bcb5025507d6c607dfed701d4426df0cb4daf85"
+    },
+    {
+      "path": "data/source/lod2/37306-5431.b3dm",
+      "sha256": "sha256:0c0108a68091fd214157f4163dab6760b1314d75fa4a56a0ad18037c19e13ec2"
+    },
+    {
+      "path": "data/source/lod2/37307-5429.b3dm",
+      "sha256": "sha256:3b430d3d1907a49aaa9be044a08e6f30268c7147b0f52364cce4df6ee68a7a14"
+    },
+    {
+      "path": "data/source/lod2/37307-5430.b3dm",
+      "sha256": "sha256:8d3dc91a5aa0da5d454ab40bad432cf0e4be5806470115ce9793972ed235f2c2"
+    },
+    {
+      "path": "data/source/lod2/37307-5431.b3dm",
+      "sha256": "sha256:e43929cb59b3370bca877f6cb9e0a99e95dda603d9ea0bbf4a2fd9b1cfbe4d7e"
+    },
+    {
+      "path": "data/source/lod2/37308-5429.b3dm",
+      "sha256": "sha256:50dafb1a4f8c8e1785d1132e8590804f11984d7be81ea97d8dadcfea261b39d7"
+    },
+    {
+      "path": "data/source/lod2/37308-5430.b3dm",
+      "sha256": "sha256:8fdcbd49b7feca8a0dc57a0f24afcd0c9dbe670d248b608e224e8127a8084e64"
+    },
+    {
+      "path": "data/source/lod2/37308-5431.b3dm",
+      "sha256": "sha256:ec805cba8d2b6996baede96704c49db1f8f98f317faff161ab10d98d28d59e20"
+    },
+    {
+      "path": "data/source/lod2/37309-5429.b3dm",
+      "sha256": "sha256:418eda501f35daa9c11ecf0913a58fe7d86db90173ae0ca2275fa7fd7208d061"
+    },
+    {
+      "path": "data/source/lod2/37309-5430.b3dm",
+      "sha256": "sha256:2a34d978dffdfe9d90236afc7ceba2cba9180eec2dddcf7ce00aeffa0c6ccb70"
+    },
+    {
+      "path": "data/source/lod2/37309-5431.b3dm",
+      "sha256": "sha256:fc35e6d47441c3b59fc6b473f159234e47b7b4e94f843abab897417a7279c618"
+    },
+    {
+      "path": "data/source/lod2/37310-5429.b3dm",
+      "sha256": "sha256:10878b4b3c2666dc77c22a70225fab18c75a7d8417db3371b87d73753b163149"
+    },
+    {
+      "path": "data/source/lod2/37310-5430.b3dm",
+      "sha256": "sha256:11fcb264b71d891969ea1c2b1e7e56a9225ab653e5eba1b909cc8b1034886eea"
+    },
+    {
+      "path": "data/source/lod2/37310-5431.b3dm",
+      "sha256": "sha256:89547cd19690f472922a6a5e06d8ae7e5e66eb5c82a3a027c1b4af36ea442449"
+    },
+    {
+      "path": "data/source/lod2/tileset.json",
+      "sha256": "sha256:059578f562215babc3052e28b9c2c3ec1a18105909f929c36d36f73debac872d"
+    },
+    {
+      "path": "data/source/orthophoto-2021.jpg",
+      "sha256": "sha256:a9b6f928bd82a322fcdbcf73550c42161235db03bfbc30b145cd0377e2e0d393"
+    },
+    {
+      "path": "data/source/osm-20261016.json",
+      "sha256": "sha256:3a424766d0ec8e863ac90c106b082e8a8791b3a77efee54ceddb1716bc6ab51e"
+    },
+    {
+      "path": "data/source/quadcopter.glb",
+      "sha256": "sha256:0d38b6f44eef969fe17f0c8a54d6747b7a0efb8a3b2e9ab875221d182a6dfb12"
+    },
+    {
+      "path": "data/source/tile-index.geojson",
+      "sha256": "sha256:253b2918d6c2dbf9e4c203f8a6db0a1e7b46e251faf39c1f96425dbfbb839e13"
+    },
+    {
+      "path": "index.html",
+      "sha256": "sha256:7f2f5996f84c410ca9072a5d02e37f18770ed39b15e18151005e2187c35919bf"
+    },
+    {
+      "path": "licenses/OpenMap.txt",
+      "sha256": "sha256:a95cb9f7d5faf96d32164671e606e9bb24cb6aad1c4db8f2b7cb010d2de8eb51"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "sha256:a85e82ff747c6c0d1408c39ce19afebf43cb53c9d168f6f4f851b6e7533a93a2"
+    },
+    {
+      "path": "package.json",
+      "sha256": "sha256:f73d407aeda1a03aedcd09d09d81060ba5bc2072663873851f19cbca02c9fefd"
+    },
+    {
+      "path": "pipeline.py",
+      "sha256": "sha256:c9260e24b047c4c97a4464a5ca9a7fcb0b1c90e1682a17756bd2052dd4e5d417"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "sha256:76eb8f25a686d946d6274a9abbcd9742c0e6cca38a82b8e2cee8c6adb9cb4056"
+    },
+    {
+      "path": "scripts/canonical.mjs",
+      "sha256": "sha256:4aac3a7844e343a4fbceb3f165f80e918682c9a54dfdcabd9d2f761f59416bda"
+    },
+    {
+      "path": "sources.lock.json",
+      "sha256": "sha256:db1976f571bab9d93464d61f79958b38d74c76b8d683b3b5b6651263757dcf86"
+    },
+    {
+      "path": "src/Controls.jsx",
+      "sha256": "sha256:69f69ecc2363adcaf68027c2f04e85a1fa4d8468ed16d8b8c174ece222467276"
+    },
+    {
+      "path": "src/Provenance.jsx",
+      "sha256": "sha256:ceb0fc5746342520fd5cd33a67f45e6434518e564dede494652cce9b115e5f10"
+    },
+    {
+      "path": "src/buildings.js",
+      "sha256": "sha256:46bb70930b1793bd4f75381442d4c884f2519765468c780a862754cc61bedc36"
+    },
+    {
+      "path": "src/calculate.js",
+      "sha256": "sha256:4b555a3920e52de7129c824d5eba77b1694fa1496e876713004200df5c84f002"
+    },
+    {
+      "path": "src/camera.js",
+      "sha256": "sha256:26d895f8df621f70cb220bd5f3844c74366cdb6b95b5b9e1cb3bab6e5ccc78c3"
+    },
+    {
+      "path": "src/coordinates.js",
+      "sha256": "sha256:78ac16e43b88dd72cb962fc377db227d6c1f173eae4a6482643b4792998bb232"
+    },
+    {
+      "path": "src/main.jsx",
+      "sha256": "sha256:f2eb3f2cee6f38195a071a8dbc5a31ba31a350b7cdc40770af85b34e92291d93"
+    },
+    {
+      "path": "src/scene.js",
+      "sha256": "sha256:1dbfe222802cf601579c3de8e03d9aadbea4bf3379664952e726ac48ee8ea18a"
+    },
+    {
+      "path": "src/simulation.js",
+      "sha256": "sha256:926c1677fae93c1ed6e53b76039e49e515c7c09022fc2097369f8d7896043a63"
+    },
+    {
+      "path": "src/styles.css",
+      "sha256": "sha256:38fff4aeb3ce76ad54e78ed00de1b73d213cd0386fbc58cdc8f1aa952936d11a"
+    },
+    {
+      "path": "src/visibility.js",
+      "sha256": "sha256:3037e17148fdaf7af5d0813c3d8c157463ad249bd3d7baca589aecb28733835b"
+    },
+    {
+      "path": "src/zones.worker.js",
+      "sha256": "sha256:d2de56bffb9b1172541e32d7a0289488c79b44717bcce00c0806ab027b879a2b"
+    },
+    {
+      "path": "tests/archives.test.js",
+      "sha256": "sha256:4c410b20a1d6203b670f63ed6c5d5a44951bbad0f06e6f9c034b22410ca9d015"
+    },
+    {
+      "path": "tests/camera.test.js",
+      "sha256": "sha256:6ae84cd9d597fc4e6dbe2d753033527d1ff3498cca884d15b28ff5f0e01844fe"
+    },
+    {
+      "path": "tests/presentation.test.js",
+      "sha256": "sha256:5ddc347bfd14be49d74764fab384d8433cb6bcf66602f29593da1a86150903f3"
+    },
+    {
+      "path": "tests/products.test.js",
+      "sha256": "sha256:f560102d59741a3501e229fcba1f4f896e50d8a02468792785a8a5f6d25958a3"
+    },
+    {
+      "path": "tests/test_acquire.py",
+      "sha256": "sha256:3052fba72dc48a7acf72d2b63e9d9ffe9b7185b5244388acab8550a3c9138913"
+    },
+    {
+      "path": "tests/test_building_mesh.py",
+      "sha256": "sha256:95dd2018b5998351c2f0aa8cad9cd8b642e7be0e7780e324561b3d01c50ab39d"
+    },
+    {
+      "path": "tests/visibility.test.js",
+      "sha256": "sha256:4d0b251c7c109b72cad3bbe1bd7eb6eb6ec9b94c7e5f0c51b28d2da493e868ac"
+    },
+    {
+      "path": "vite.config.js",
+      "sha256": "sha256:21eba396999afe6e4fa3dbd7ac6908caa56aa3e4109ee755dfffaba5be9b2d96"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "data/derived/buildings.tif",
+      "sha256": "sha256:ceb0469568e22b42b8a8d7a4636b754802242986e25ed99b97fa1b6147f83840"
+    },
+    {
+      "path": "data/derived/default-zones.bin",
+      "sha256": "sha256:7432b6e97ddf3a90c5550c67b33003c4e668d3ad7be4eb204fdf88c8a21646eb"
+    },
+    {
+      "path": "data/derived/default-zones.tif",
+      "sha256": "sha256:11aefee5d9b6c67e987fa419840591e112929f58c01fd7121b4478a185ee9023"
+    },
+    {
+      "path": "data/derived/dsm.tif",
+      "sha256": "sha256:f992663df9f336dfa69c8bea8e138dc105068682f88a5390f0734a07fa681b00"
+    },
+    {
+      "path": "data/derived/dtm.tif",
+      "sha256": "sha256:ce0a3eb2087df3a66ab9c8dd885ef9146bed295ec50e25a614b7b4f199114f5b"
+    },
+    {
+      "path": "data/derived/lod2-roofs.gpkg",
+      "sha256": "sha256:56d041fd463d5bb6781f38d7cac7aef39ba72d38bebff2a03b8668d15957c189"
+    },
+    {
+      "path": "data/derived/network.gpkg",
+      "sha256": "sha256:5a068a352b0982ba843f87870826771b0ea32fb8a8aee0d86d898c33b0cc990b"
+    },
+    {
+      "path": "data/derived/orthophoto.tif",
+      "sha256": "sha256:0d864ff60ec552d2ecad335092cb73258c9b06cb4e58f04d5b7b6e4b142e28b5"
+    },
+    {
+      "path": "data/derived/vegetation.tif",
+      "sha256": "sha256:7f2f1d10363104a214bd7330dd3fa3195726e07af2a1a40fb80c2f349c680649"
+    },
+    {
+      "path": "project.qgz",
+      "sha256": "sha256:8220655d74a39dfe2b5baf117107f7830da01246153b8af37b625ed31955769a"
+    },
+    {
+      "path": "public/data/basemap.jpg",
+      "sha256": "sha256:a9b6f928bd82a322fcdbcf73550c42161235db03bfbc30b145cd0377e2e0d393"
+    },
+    {
+      "path": "public/data/building-mesh.json",
+      "sha256": "sha256:87fe66b72418d747107071e7615e1f1046d932b4f8347c5bf85efce8147458a4"
+    },
+    {
+      "path": "public/data/buildings.glb",
+      "sha256": "sha256:b7f2283c9e8365cc33eddb78dc223a0423f723b4cc157f136b72efa0e8d20738"
+    },
+    {
+      "path": "public/data/default-snapshot.json",
+      "sha256": "sha256:a43a2caaaeb3abb3af94abb035143864b3708ac5fa4c0ecc20ee10b34d98f060"
+    },
+    {
+      "path": "public/data/dsm.bin",
+      "sha256": "sha256:6021700c96f6b03c9de1f2c0a7db3e3296a28cc86ff4c8fade2fae9fb4c93dc2"
+    },
+    {
+      "path": "public/data/dtm.bin",
+      "sha256": "sha256:030bce4c2a96c8f3d5954c04e17db120ed4e3e57ba3eba7e7cff723b904b5ff0"
+    },
+    {
+      "path": "public/data/provenance.json",
+      "sha256": "sha256:0cbc3e498b795138a89e0bcd0f7ca3dea64e37916617bc65b17584af0861c7ec"
+    },
+    {
+      "path": "public/data/roads.json",
+      "sha256": "sha256:d45004bb9e1edc4c83e8c238f53e13f487de26808eb279b581427aaa9d7e9d03"
+    },
+    {
+      "path": "public/data/scenario.json",
+      "sha256": "sha256:81a8179076134e03a29472556bde236632e548419c11a382c7de62b094b38648"
+    },
+    {
+      "path": "public/data/scene.json",
+      "sha256": "sha256:86317f2a6ce25f586e7e1405d9f7658e96c819acea779dd32c53a88b02e6cb91"
+    },
+    {
+      "path": "public/data/vegetation.bin",
+      "sha256": "sha256:bd5843960c1b052827ea84e2d2f31db9d322b33b22d9930e82faa039de32d7bb"
+    },
+    {
+      "path": "public/licenses/coordinates.txt",
+      "sha256": "sha256:12f07985186f1d6750f7069d186bdea2e762c10635836fa69a4f86dba7b1042f"
+    },
+    {
+      "path": "public/models/ATTRIBUTION.txt",
+      "sha256": "sha256:194554e03d721168a37fe63000ab63cd86afc7f21254431ba87c9fbe61129ccf"
+    },
+    {
+      "path": "public/models/uav.glb",
+      "sha256": "sha256:0d38b6f44eef969fe17f0c8a54d6747b7a0efb8a3b2e9ab875221d182a6dfb12"
+    }
+  ],
+  "record": {
+    "path": "runs/run-20261017-144455.json"
+  }
+}
