@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import { Controls, LayerControls, Legend } from "./Controls.jsx";
 import Provenance from "./Provenance.jsx";
+import TrackedUavs from "./TrackedUavs.jsx";
 import "./styles.css";
 import { formatMGRS, parseMGRS, exportSnapshot } from "./coordinates.js";
 
@@ -86,7 +87,7 @@ function App() {
       type: "module",
     });
     worker.current = w;
-    w.postMessage({ type: "init", grid: data.grid, scenario: data.scenario });
+    w.postMessage({ type: "init", grid: data.grid, scenario: data.scenario, origin: data.config.origin });
     const view = new data.VisibilityScene(host.current, data, (position) => {
       moveTarget(position);
     });
@@ -249,41 +250,8 @@ function App() {
                       setExploratory(true);
                     }}
                   />
-                  <details open>
-                    <summary>Tracked UAVs</summary>
-                    {snapshot?.sensors.length ? (
-                      snapshot.sensors.map((sensor) => (
-                        <button
-                          className="track"
-                          key={sensor.id}
-                          onClick={() =>
-                            scene.current?.focusVector("uav", sensor.id)
-                          }
-                        >
-                          <span>
-                            <i className="affiliation hostile" />
-                            <strong>{sensor.id}</strong>
-                            <small>{settings.uavHeight} m AGL</small>
-                          </span>
-                          <code>
-                            {formatMGRS(data.config.origin, sensor.position)}
-                          </code>
-                          <small>
-                            {busy
-                              ? "Updating…"
-                              : ZONES[
-                                  snapshot.sightlines.find(
-                                    (s) => s.id === sensor.id,
-                                  )?.zone ?? 0
-                                ]}{" "}
-                            · own-position LOS
-                          </small>
-                        </button>
-                      ))
-                    ) : (
-                      <p className="note">No active UAVs</p>
-                    )}
-                  </details>
+                  <TrackedUavs snapshot={snapshot} busy={busy}
+                    onFocus={(id) => scene.current?.focusVector("uav", id)} />
                   <Legend />
                 </>
               )

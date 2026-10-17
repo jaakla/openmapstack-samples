@@ -65,6 +65,54 @@ contains no raw XY position arrays. Optional secondary EPSG:3067 readout is off
 by default and resets off. Project GIS outputs retain their declared metric CRS.
 All sensors, lines, paths, zones and status share a timestamped worker snapshot.
 
+## Relative UAV contact reports
+
+**Tracked UAVs** shows quantities derived from **SIMULATED tracks** relative to
+the current own position, plus an expandable radio-style report with a **Copy
+report line** button and selectable text. This is illustrative contact-report
+wording, not a certified NATO/SALUTE message format. Each card and report use one
+worker snapshot; the shared simulation timestamp remains visible while updating.
+Playback, AGL changes, target relocation and reset update the report with LOS.
+
+- **North / angles:** bearing and ground course are clockwise from **EPSG:3067
+  grid north (ETRS-TM35FIN / UTM zone 35N)**, matching the MGRS grid. One turn is
+  **6400 mil = 360°**. Course describes movement along the sourced ground track;
+  body heading, own orientation and clock directions are not inferred.
+- **Convergence:** γ is the signed clockwise bearing of grid north from true
+  north. The card also shows **local true bearing = grid bearing + γ**, wrapped
+  to [0°,360°). γ is evaluated at OWN by symmetrically differentiating a meridian
+  through the GRS80 Transverse Mercator projection, using pinned Proj4js. Its
+  sign follows [PROJ's convergence derivative](https://github.com/OSGeo/PROJ/blob/master/src/factors.cpp)
+  and is checked against independent `pyproj.Proj('EPSG:3067').get_factors()`
+  references. Published OWN has γ ≈ **−1.77985°**. The true value is the local
+  orientation of the straight grid sightline, not an ellipsoidal geodesic azimuth.
+  **Magnetic north is unavailable; declination is not modelled.**
+- **Ranges / height:** horizontal range is `hypot(ΔE,ΔN)` in projected metres;
+  slant range is `hypot(horizontal range,Δh)`. Distances are metres below 1 km,
+  kilometres from 1 km. Δh is UAV N2000 height minus **own DTM + 2 m**, the same
+  observer height as LOS. UAV AGL is measured above its own sampled DTM, so it is
+  generally different from Δh. Horizontal range is not terrain-following distance;
+  no grid-scale, height-scale, curvature or geoid-to-ellipsoid correction is made.
+- **Elevation:** signed `atan2(Δh,horizontal range)`, positive above OWN,
+  negative below, displayed in degrees and 6400-turn mils. Bearing is undefined
+  directly overhead/underfoot; elevation is undefined at complete coincidence.
+- **Motion:** ground velocity comes from the scenario speed and current source
+  route segment, independent of playback acceleration. At a corner/reversal the
+  course uses the outgoing segment. Ground speed is `hypot(vE,vN)`; a stationary
+  UAV has no course. Own position stays fixed between user relocations.
+- **Closing / opening:** the signed **horizontal** range derivative is
+  `(ΔE*vE + ΔN*vN)/horizontal range`; negative means closing, positive opening.
+  It is not a slant-range derivative: no vertical velocity is modelled. At zero
+  horizontal separation it is undefined. Values rounding to zero at 0.1 m/s
+  display STEADY. Unknown inputs remain unknown rather than becoming zero.
+- **LOS:** individual worker classifications map to VISIBLE NOW, LIKELY VISIBLE
+  ≤5 MIN (the existing uncalibrated scenario threshold), MASKED and UNKNOWN.
+  Each contact includes the UAV's MGRS. MASKED does not establish safety.
+
+The pure calculations and report formatting live in `src/contact.js`; convergence
+is in `src/coordinates.js`. The worker and canonical snapshot call the same code.
+Closest-approach estimates are optional in the owner request and are not included.
+
 ## Recompile the GIS project
 
 Raw input is about **840 MB**, excluded by `data/source/*` in this project's

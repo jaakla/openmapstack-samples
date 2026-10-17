@@ -314,6 +314,111 @@ select {
   margin-bottom: 8px;
   color: #d1dfdc;
 }
+.contact-card {
+  min-width: 0;
+  border-top: 1px solid var(--rule);
+  margin-top: 14px;
+  padding-top: 4px;
+}
+.contact-card .track {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+.contact-reference,
+.contact-true {
+  font: 10px/1.65 var(--mono);
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+.contact-reference {
+  color: #becda8;
+}
+.contact-reference-details,
+.contact-report {
+  padding: 0;
+  margin: 8px 0 0;
+  border: 0;
+  background: transparent;
+}
+.contact-reference-details summary,
+.contact-report summary {
+  font-size: 11px;
+  font-weight: 500;
+  color: #b9cbc3;
+  padding: 7px 0;
+}
+.contact-reference-details[open] > summary,
+.contact-report[open] > summary {
+  margin-bottom: 8px;
+}
+.contact-reference-details p {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.contact-los {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font: 10px/1.5 var(--mono);
+  margin: 8px 0 12px;
+}
+.contact-los-1 { color: var(--green); }
+.contact-los-2 { color: var(--yellow); }
+.contact-los-3 { color: var(--red); }
+.contact-dot {
+  width: 5px;
+  height: 5px;
+  flex-shrink: 0;
+  background: currentColor;
+}
+.contact-readings {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 8px;
+  margin: 0 0 12px;
+}
+.contact-readings > div { min-width: 0; }
+.contact-readings dt {
+  font-size: 10px;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.contact-readings dd {
+  font: 11px/1.5 var(--mono);
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.contact-wide {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.contact-wide dd { text-align: right; }
+.contact-report textarea {
+  width: 100%;
+  min-width: 0;
+  resize: vertical;
+  color: #d8e3d7;
+  background: #0d191f;
+  border: 1px solid #40575d;
+  border-radius: 2px;
+  padding: 9px;
+  font: 10px/1.65 var(--mono);
+}
+.contact-report button {
+  margin-top: 7px;
+  width: 100%;
+}
+.copy-result {
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--accent);
+  margin-top: 7px;
+}
 .map {
   min-width: 0;
   display: grid;
