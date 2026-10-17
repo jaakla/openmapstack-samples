@@ -1,0 +1,71 @@
+{
+  "schema": "openmapstack-preview-evidence/v1",
+  "image": "uav-visibility-preview.png",
+  "bytes": 702825,
+  "sha256": "8ab3b68c1304206e5386b12a348f3b73237046e4180d2f1680301d4e9207d8ff",
+  "viewport": [
+    1440,
+    1000
+  ],
+  "method": "Unedited Playwright Chromium screenshot of the production Vite build, paused mid-playback using normal UI controls",
+  "applicationRun": "run-20261017-163552",
+  "settings": {
+    "uavs": 3,
+    "uavHeight": 100
+  },
+  "timeSeconds": 89.57999999999993,
+  "ownPositionMgrs": "35V LG 86190 71570",
+  "camera": "Reset view; published perspective direction with aspect fit",
+  "layers": "Published layer defaults; history, forecasts, uncertainty, LOS and affiliations enabled",
+  "zoneCounts": [
+    2390,
+    800,
+    374,
+    336
+  ],
+  "individualLosZones": [
+    {
+      "id": "UAV-1",
+      "zone": 3
+    },
+    {
+      "id": "UAV-2",
+      "zone": 2
+    },
+    {
+      "id": "UAV-3",
+      "zone": 2
+    }
+  ],
+  "traces": [
+    {
+      "id": "UAV-1",
+      "points": 55
+    },
+    {
+      "id": "UAV-2",
+      "points": 76
+    },
+    {
+      "id": "UAV-3",
+      "points": 61
+    }
+  ],
+  "forecastHypotheses": [
+    {
+      "id": "UAV-1",
+      "paths": 3
+    },
+    {
+      "id": "UAV-2",
+      "paths": 3
+    },
+    {
+      "id": "UAV-3",
+      "paths": 3
+    }
+  ],
+  "simulationLabel": "SIMULATED · NOT OPERATIONAL remains visible",
+  "pixelEditing": "none",
+  "sourceEvidence": "Recalculation with the shipped DTM/DSM, sourced routes and exact captured simulation time reproduces all UAV MGRS positions and LOS states"
+}

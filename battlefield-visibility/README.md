@@ -1,5 +1,9 @@
 # UAV visibility
 
+[![UAV visibility: three simulated UAVs, sightlines and forecasts over Helsinki](docs/uav-visibility-preview.png)](https://jaakla.github.io/openmapstack-samples/battlefield-visibility/)
+
+[Open the live demo](https://jaakla.github.io/openmapstack-samples/battlefield-visibility/)
+
 An independent, reproducible [OpenMapStack](https://github.com/jaakla/openmapstack-skills)
 demo for [issue #1](https://github.com/jaakla/openmapstack-samples/issues/1).
 All UAVs, their movement, forecasts, and zone results are **SIMULATED**.
@@ -27,10 +31,9 @@ npm run dev
 npm run build -- --base=/openmapstack-samples/battlefield-visibility/
 ```
 
-The production path is reserved by the shared Pages workflow. This PR does not
-publish it. PR CI builds/tests both demos and assembles one Pages artifact;
-the deployment job only runs on `main`, after owner approval/merge.
-The root page is a gallery linking both independent demos.
+The shared Pages workflow publishes the demo under `battlefield-visibility/`.
+PR CI builds/tests both demos and assembles one Pages artifact; pushes to `main`
+deploy it. The root page is a gallery linking both independent demos.
 
 Orbit with one finger or mouse drag; pan with two fingers/right drag; pinch or
 scroll to zoom. Tap the ground or enter a full **MGRS** reference such as
@@ -374,9 +377,9 @@ visibility predicate is changed by the rendering fixes.
 and OpenMapStack attribution. The pipeline emits it in `provenance.json`; the
 independent Vite `publicationAttribution` plugin mirrors the Toompea pattern,
 emitting a visible project/source footer, generator/author/date/status meta tags,
-and the `project-metadata` JSON block in HTML. Publication metadata does not run a
-deployment. The author requested published status; merge/deployment remain outside
-this change. The map hint was removed; gestures are documented under Layers → Map help.
+and the `project-metadata` JSON block in HTML. Publication metadata describes the
+published project; the shared Pages workflow handles deployment from `main`.
+Gestures are documented under Layers → Map help.
 
 [Final browser/frame-diff evidence](docs/final-qa.md) includes autoplay, reduced
 motion, visibility suspension, canonical export, persistent rendering and updated

@@ -3,19 +3,53 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Explore two reproducible OpenMapStack applications: Toompea Digital Atlas and UAV visibility over downtown Helsinki.">
+    <meta name="author" content="Jaak Laineste">
+    <meta name="generator" content="OpenMapStack">
+    <meta name="dcterms.modified" content="2026-10-17T00:00:00Z">
+    <meta name="publication-status" content="published">
+    <meta name="theme-color" content="#f4f6f5">
     <link rel="icon" href="data:,">
     <title>OpenMapStack samples</title>
+    <script id="project-metadata" type="application/json">{"title":"OpenMapStack samples","updated_at":"2026-10-17T00:00:00Z","status":"published","author":{"name":"Jaak Laineste","email":"jaak@goplex.ee"},"generated_with":{"tool":"OpenMapStack","url":"https://github.com/jaakla/openmapstack-skills"}}</script>
     <style>
-      *{box-sizing:border-box}body{margin:0;font:16px/1.6 system-ui,sans-serif;color:#122943;background:#f3f6f9}main{max-width:900px;margin:12vh auto;padding:28px}h1{font-size:clamp(30px,5vw,48px);line-height:1.1;letter-spacing:-1px}p{color:#52677e}article{margin:28px 0;background:white;padding:26px;border:1px solid #dce4ec;border-radius:8px}h2{margin:0 0 8px;font-size:23px}a{color:#0564d1;text-underline-offset:4px}small{display:block;color:#5f7084}article p{margin:8px 0 16px}
+      :root{font-family:Inter,"Segoe UI",system-ui,sans-serif;color:#1b3028;background:#f4f6f5;font-synthesis:none}
+      *{box-sizing:border-box}body{margin:0;min-height:100vh;display:flex;flex-direction:column}a{color:inherit;text-underline-offset:4px}a:focus-visible{outline:3px solid #477b62;outline-offset:5px;border-radius:3px}
+      main{width:min(1280px,calc(100% - 80px));margin:64px auto 52px;flex:1}.intro{margin-bottom:38px}h1{font-size:clamp(36px,4.2vw,54px);line-height:1.08;letter-spacing:-1.8px;margin:0 0 18px;font-weight:650}.intro p{font-size:17px;line-height:1.7;max-width:720px;margin:0;color:#5c6c64}
+      .gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}.card{min-width:0;background:#fff;border:1px solid #d4ddd7;border-radius:12px;overflow:hidden;box-shadow:0 8px 28px #1c322508}.preview{display:block;background:#e5e9e5;line-height:0;border-bottom:1px solid #d4ddd7}.preview img{display:block;width:100%;height:auto;aspect-ratio:36/25;object-fit:contain}.card-body{padding:26px 28px 28px}.card h2{font-size:26px;line-height:1.2;letter-spacing:-.6px;margin:0 0 10px;font-weight:620}.card p{font-size:14px;line-height:1.65;color:#5c6c64;margin:0 0 23px}.open{display:inline-flex;align-items:center;gap:25px;min-height:42px;padding:10px 16px;color:#fff;background:#284d3b;border:1px solid #284d3b;border-radius:5px;text-decoration:none;font-size:13px;font-weight:600}.open:hover{background:#193b2a}.open svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6}
+      .publication-credit{padding:22px max(40px,calc((100% - 1280px)/2));background:#eaf0eb;border-top:1px solid #d4ddd7;color:#53665a;font-size:11px;line-height:1.7}.publication-line{display:flex;justify-content:space-between;gap:12px 25px;flex-wrap:wrap}.publication-status{font-size:10px;font-variant-numeric:tabular-nums}.publication-sources{margin:12px 0 0;color:#697b70;font-size:10px}.publication-credit a:hover{color:#1b3028}
+      @media(max-width:800px){main{width:calc(100% - 40px);margin:40px auto 36px}.gallery{grid-template-columns:1fr;gap:24px}.intro{margin-bottom:28px}.intro p{font-size:16px}.card-body{padding:23px}.publication-credit{padding:20px}.publication-line{column-gap:20px;row-gap:6px}}
+      @media(max-width:380px){main{width:calc(100% - 32px);margin-top:32px}h1{font-size:36px;letter-spacing:-1.2px}.intro p{font-size:15px}.card-body{padding:20px}.card h2{font-size:22px}.card p{font-size:13px}.publication-line{display:grid;gap:7px}.publication-credit{padding:20px 16px}}
     </style>
   </head>
   <body>
     <main>
-      <h1>OpenMapStack samples</h1>
-      <p>Measured places. Reproducible projects. Interactive views over real open geodata.</p>
-      <article><h2>Toompea Digital Atlas</h2><small>Tallinn, Estonia · heritage exploration</small><p>Explore surveyed architecture, airborne LiDAR, terrain and photography in 3D.</p><a href="./toompea-3d/">Open the Toompea Digital Atlas →</a></article>
-      <article><h2>UAV visibility</h2><small>Helsinki, Finland · simulated visibility</small><p>Explore moving UAV simulations, five-minute forecasts and geometric visibility over measured LiDAR surfaces. Simulated; not operational intelligence.</p><a href="./battlefield-visibility/">Open UAV visibility →</a></article>
-      <a href="https://github.com/jaakla/openmapstack-samples">Source projects, data provenance & methods</a>
+      <header class="intro">
+        <h1>OpenMapStack samples</h1>
+        <p>Measured places. Reproducible projects.<br>Interactive views over real open geodata.</p>
+      </header>
+      <section class="gallery" aria-label="Explore the demos">
+        <article class="card" aria-labelledby="toompea-title">
+          <a class="preview" href="./toompea-3d/" aria-label="Preview and open Toompea Digital Atlas"><img src="./gallery/toompea-preview.png" width="1440" height="1000" alt="Toompea Digital Atlas showing surveyed Tallinn architecture, LiDAR and exploration controls."></a>
+          <div class="card-body">
+            <h2 id="toompea-title">Toompea Digital Atlas</h2>
+            <p>Explore Tallinn’s surveyed old town in 3D.</p>
+            <a class="open" href="./toompea-3d/" aria-label="Open Toompea Digital Atlas">Open <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8 3l5 5-5 5"/></svg></a>
+          </div>
+        </article>
+        <article class="card" aria-labelledby="uav-title">
+          <a class="preview" href="./battlefield-visibility/" aria-label="Preview and open UAV visibility"><img src="./gallery/uav-visibility-preview.png" width="1440" height="1000" alt="UAV visibility showing three simulated UAVs, coloured sightlines, tracks and visibility zones over Helsinki."></a>
+          <div class="card-body">
+            <h2 id="uav-title">UAV visibility</h2>
+            <p>Simulated UAV tracks, forecasts and visibility.</p>
+            <a class="open" href="./battlefield-visibility/" aria-label="Open UAV visibility">Open <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h10M8 3l5 5-5 5"/></svg></a>
+          </div>
+        </article>
+      </section>
     </main>
+    <footer id="project-attribution" class="publication-credit" aria-label="Project and data attribution">
+      <div class="publication-line"><span><a href="mailto:jaak@goplex.ee">Jaak Laineste</a> · jaak@goplex.ee</span><span class="publication-status">Published · Updated <time datetime="2026-10-17T00:00:00Z">2026-10-17</time></span><span>Generated with <a href="https://github.com/jaakla/openmapstack-skills">OpenMapStack</a></span></div>
+      <p class="publication-sources">City of Tallinn · Maa- ja Ruumiamet · City of Helsinki · OpenStreetMap contributors · Innerscene. <a href="https://github.com/jaakla/openmapstack-samples">Source projects, data provenance &amp; licences</a></p>
+    </footer>
   </body>
 </html>
