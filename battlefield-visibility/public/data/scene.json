@@ -1,0 +1,39 @@
+{
+  "grid": {
+    "width": 1300,
+    "height": 1200,
+    "resolution": 1,
+    "zOrigin": -10,
+    "zScale": 0.1
+  },
+  "origin": [
+    385200,
+    6671300
+  ],
+  "displayGrid": {
+    "width": 650,
+    "height": 600
+  },
+  "defaults": {
+    "uavHeight": 50,
+    "tankHeight": 3,
+    "tanks": 1,
+    "uavs": 1
+  },
+  "layers": {
+    "red": true,
+    "yellow": true,
+    "green": true,
+    "buildings": true,
+    "vegetation": true,
+    "roads": true,
+    "predictions": true
+  },
+  "playback": {
+    "playing": false,
+    "speed": 1,
+    "time": 0
+  },
+  "runId": "run-20261017-114219",
+  "status": "SIMULATED"
+}

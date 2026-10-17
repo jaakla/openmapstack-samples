@@ -1,0 +1,209 @@
+{
+  "runId": "run-20261017-114219",
+  "sources": [
+    {
+      "id": "lidar_672496a",
+      "title": "lidar_672496a",
+      "url": "https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=672496a&y=2021",
+      "version": "2021 flights 11\u201315 June",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T11:24:59.364592+00:00"
+    },
+    {
+      "id": "lidar_672496b",
+      "title": "lidar_672496b",
+      "url": "https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=672496b&y=2021",
+      "version": "2021 flights 11\u201315 June",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T11:24:59.362523+00:00"
+    },
+    {
+      "id": "lidar_672496c",
+      "title": "lidar_672496c",
+      "url": "https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=672496c&y=2021",
+      "version": "2021 flights 11\u201315 June",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T11:25:00.113358+00:00"
+    },
+    {
+      "id": "lidar_672496d",
+      "title": "lidar_672496d",
+      "url": "https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=672496d&y=2021",
+      "version": "2021 flights 11\u201315 June",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T11:25:02.142631+00:00"
+    },
+    {
+      "id": "lidar_672497a",
+      "title": "lidar_672497a",
+      "url": "https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=672497a&y=2021",
+      "version": "2021 flights 11\u201315 June",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T11:25:03.380644+00:00"
+    },
+    {
+      "id": "lidar_672497b",
+      "title": "lidar_672497b",
+      "url": "https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=672497b&y=2021",
+      "version": "2021 flights 11\u201315 June",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T11:25:03.538036+00:00"
+    },
+    {
+      "id": "lidar_673496a",
+      "title": "lidar_673496a",
+      "url": "https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=673496a&y=2021",
+      "version": "2021 flights 11\u201315 June",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T11:25:05.945365+00:00"
+    },
+    {
+      "id": "lidar_673496c",
+      "title": "lidar_673496c",
+      "url": "https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=673496c&y=2021",
+      "version": "2021 flights 11\u201315 June",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T11:25:06.362231+00:00"
+    },
+    {
+      "id": "lidar_673497a",
+      "title": "lidar_673497a",
+      "url": "https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=673497a&y=2021",
+      "version": "2021 flights 11\u201315 June",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T11:25:07.144931+00:00"
+    },
+    {
+      "id": "osm",
+      "title": "osm",
+      "url": "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A60%5D%5Bdate%3A%222026-10-16T00%3A00%3A00Z%22%5D%3Bway%5B%22highway%22%5D%2860.161%2C24.928%2C60.175%2C24.957%29-%3E.w%3B%28.w%3B%3E%3B%29%3Bout%20meta%3B",
+      "version": "2026-10-16T00:00:00Z",
+      "license": "ODbL 1.0",
+      "retrievedAt": "2026-10-17T11:25:51.337355+00:00"
+    },
+    {
+      "id": "tile_index",
+      "title": "tile_index",
+      "url": "https://kartta.hel.fi/ws/geoserver/avoindata/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=avoindata%3AKarttalehtijako_05x05_km&srsName=EPSG%3A3067&bbox=385200%2C6671300%2C386500%2C6672500%2CEPSG%3A3067&outputFormat=application%2Fjson",
+      "version": "2026-10-17 snapshot",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T11:25:06.397468+00:00"
+    },
+    {
+      "id": "uav",
+      "title": "Quadcopter with flight electronics \u00b7 Innerscene",
+      "url": "https://www.innerscene.com/tools/library/3d-parts/quadcopter-with-flight-electronics-a25968c1",
+      "version": "quadcopter-with-flight-electronics-a25968c1",
+      "license": "CC0 1.0",
+      "retrievedAt": "2026-10-17T11:25:07.733974+00:00"
+    },
+    {
+      "id": "tank",
+      "title": "Tank \u00b7 dannzjs \u00b7 Abrams M1A2 SEPv3 (modified)",
+      "url": "https://sketchfab.com/3d-models/abrams-m1a2-sepv3-eb6f5560198740269507e9948376414c",
+      "version": "b51a51a5b58962f4d07931e1871cbc6effd27c3e",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T11:24:55.520443+00:00"
+    },
+    {
+      "id": "orthophoto",
+      "title": "orthophoto",
+      "url": "https://kartta.hel.fi/ws/geoserver/avoindata/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=avoindata%3AOrtoilmakuva_2021_5cm&STYLES=&SRS=EPSG%3A3067&BBOX=385200%2C6671300%2C386500%2C6672500&WIDTH=1300&HEIGHT=1200&FORMAT=image%2Fjpeg",
+      "version": "2021 orthophoto; immutable 2026-10-17 WMS snapshot",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T11:27:33.473600+00:00"
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "A1",
+      "statement": "AOI is the chosen EPSG:3067 rectangle [385200,6671300,386500,6672500], 1.3 \u00d7 1.2 km. Vertical heights retain Helsinki N2000.",
+      "rationale": "A metric local analysis with explicit XY reprojection from EPSG:3879."
+    },
+    {
+      "id": "A2",
+      "statement": "City flights 11\u201315 June 2021, nominal nadir density 40 points/m\u00b2. Data do not assert present-day conditions.",
+      "rationale": "Epoch pinned to an explicitly open CC BY 4.0 survey."
+    },
+    {
+      "id": "A3",
+      "statement": "DTM: mean class 2 ground and class 8 keypoints per 1 m cell; GDAL inverse-distance FillNodata up to 60 m. Beyond that remains unknown.",
+      "rationale": "Ground below buildings must be interpolated; no invented replacement city geometry."
+    },
+    {
+      "id": "A4",
+      "statement": "Obstruction DSM: DTM plus maximum class 6 buildings, class 17 bridge deck, and classes 3/4/5 vegetation only at least 2 m above DTM. Unknown classes are excluded.",
+      "rationale": "Measured 2.5D opaque canopy/roof columns; no windows, underpasses or canopy permeability."
+    },
+    {
+      "id": "A5",
+      "statement": "DTM quantization 0.1 m rounded, DSM quantization 0.1 m rounded up. Unknown values are 65535. Source units are metres.",
+      "rationale": "Compact browser payload with conservative obstruction rounding."
+    },
+    {
+      "id": "A6",
+      "statement": "SIMULATED tank follows source OSM surface motor-road nodes at 4 m/s; UAV follows the same sourced route shapes at 8 m/s, 50 m AGL by default. Neither represents a real force.",
+      "rationale": "User-requested illustrative simulation; not operational intelligence."
+    },
+    {
+      "id": "A7",
+      "statement": "Five minute prediction samples each 60 s under three equal speed hypotheses 0.8/1.0/1.2. Yellow means \u22650.25 of hypotheses find any sampled visibility for at least one vector.",
+      "rationale": "Uncalibrated scenario weights; brief visibility between samples can be missed."
+    },
+    {
+      "id": "A8",
+      "statement": "Target is 2 m AGL; zone display samples at 20 m spacing. LOS traverses every crossed 1 m DSM cell. Missing/obstructed targets stay unknown.",
+      "rationale": "Coarse target sampling bounds CPU cost; GREEN does not establish safety."
+    },
+    {
+      "id": "A9",
+      "statement": "Browser computation is exploratory over published rasters. Vectors, paths, readout and overlay share one timestamped worker snapshot. Reset returns to t=0 and manifest defaults.",
+      "rationale": "Avoid misleading correspondence between current movement and an older zone result."
+    },
+    {
+      "id": "A10",
+      "statement": "Vegetation is treated as opaque for the June 2021 epoch; seasonality and classification errors change actual visibility. Earth curvature/refraction and sensor detection physics are omitted.",
+      "rationale": "The model estimates geometric line of sight only, at neighbourhood scale."
+    },
+    {
+      "id": "A11",
+      "statement": "Buildings are measured 2 m roof columns for display; vegetation is a deterministic subsample of actual returns. Models are magnified 2.4\u00d7 tank / 9\u00d7 UAV for legibility.",
+      "rationale": "Display simplification and annotation sizes do not change 1 m obstruction calculations."
+    },
+    {
+      "id": "A12",
+      "statement": "Surface OSM graph excludes tunnels, bridges, nonzero layer, private/no motor access and non-motor road types; oneway tags are respected in route construction. Reversal at route ends is a simulated turn.",
+      "rationale": "A simplified street-following demonstration, not a routable operational movement planner."
+    }
+  ],
+  "statistics": {
+    "points_in_aoi": 94152925,
+    "classes": {
+      "1": 286387,
+      "2": 35422452,
+      "3": 3488137,
+      "4": 2638992,
+      "5": 18150918,
+      "6": 33761730,
+      "8": 337972,
+      "9": 817,
+      "17": 65520
+    },
+    "ground_cells_measured": 773479,
+    "ground_coverage_fraction": 0.9842903846153847,
+    "building_cells": 726733,
+    "high_vegetation_cells": 736009,
+    "vegetation_display_points": 60398,
+    "road_segments": 2992,
+    "route_lengths_m": [
+      2422.649625643213,
+      1830.5669630394534,
+      2200.3339152514154
+    ],
+    "routes_valid": true
+  },
+  "attribution": "\u00a9 Helsingin kaupunkimittauspalvelut 2021, CC BY 4.0 (modified). \u00a9 OpenStreetMap contributors, ODbL 1.0. Models: models/ATTRIBUTION.txt.",
+  "research": "https://github.com/jaakla/openmapstack-samples/issues/1#issuecomment-6233311665",
+  "analysisCRS": "EPSG:3067",
+  "verticalDatum": "N2000"
+}

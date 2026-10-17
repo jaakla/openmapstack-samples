@@ -1,0 +1,122 @@
+{
+  "run_id": "run-20261017-114219",
+  "status": "passed",
+  "inputs_hash": "sha256:8b2b5247ce3c0a4852a04b4c755b9191e5b82b656e620c4a442ed9cd3fa4f6e8",
+  "outputs_hash": "sha256:019d398e89f2e72b73e074c178474691fe8c312df13762ff2f797927fce0c6a5",
+  "checks": [
+    {
+      "id": "source_hashes_match",
+      "status": "passed",
+      "message": "Verified 55 immutable files"
+    },
+    {
+      "id": "source_result_complete",
+      "status": "passed",
+      "message": "9/9 tile index features, complete LAZ files; Overpass body has no error remark"
+    },
+    {
+      "id": "crs_known",
+      "status": "passed",
+      "message": "PROJ XY 3879 -> 3067; N2000 Z unchanged"
+    },
+    {
+      "id": "geometry_valid",
+      "status": "passed",
+      "message": "GeoPackage street geometries valid"
+    },
+    {
+      "id": "row_count_gt_zero",
+      "status": "passed",
+      "message": "Measured point and road counts",
+      "statistics": {
+        "points_in_aoi": 94152925,
+        "classes": {
+          "1": 286387,
+          "2": 35422452,
+          "3": 3488137,
+          "4": 2638992,
+          "5": 18150918,
+          "6": 33761730,
+          "8": 337972,
+          "9": 817,
+          "17": 65520
+        },
+        "ground_cells_measured": 773479,
+        "ground_coverage_fraction": 0.9842903846153847,
+        "building_cells": 726733,
+        "high_vegetation_cells": 736009,
+        "vegetation_display_points": 60398,
+        "road_segments": 2992,
+        "route_lengths_m": [
+          2422.649625643213,
+          1830.5669630394534,
+          2200.3339152514154
+        ],
+        "routes_valid": true
+      }
+    },
+    {
+      "id": "obstruction_includes_buildings_and_vegetation",
+      "status": "passed",
+      "message": "Class 6 roofs plus class 3/4/5 vegetation \u22652m AGL present"
+    },
+    {
+      "id": "dtm_coverage",
+      "status": "passed",
+      "message": "At least 95% valid ground; remaining cells explicitly unknown",
+      "value": 0.9842903846153847
+    },
+    {
+      "id": "street_routes_follow_source",
+      "status": "passed",
+      "message": "All route segments resolve to retained directed OSM edges"
+    },
+    {
+      "id": "overrides_applied",
+      "status": "passed",
+      "message": "Scenario anchor IDs, versions and source coordinates matched",
+      "results": [
+        {
+          "id": "SCENARIO-1",
+          "status": "applied"
+        }
+      ]
+    },
+    {
+      "id": "manifest_graph_resolves",
+      "status": "passed",
+      "message": "Ordered symbols and output producers resolve"
+    },
+    {
+      "id": "view_controls_match_pipeline",
+      "status": "passed",
+      "message": "Defaults copied from manifest; baseline uses same worker computation"
+    },
+    {
+      "id": "payload_lt_20mb",
+      "status": "passed",
+      "message": "All browser data and model bytes before compression, excluding JS/CSS",
+      "bytes": 17021023
+    },
+    {
+      "id": "analytic_los_tests",
+      "status": "passed",
+      "message": "Analytic fixtures via npm test"
+    },
+    {
+      "id": "qgis_project_static_valid",
+      "status": "passed",
+      "message": "QGIS companion written with relative sources"
+    },
+    {
+      "id": "qgis_layers_valid",
+      "status": "passed",
+      "message": "Every layer isValid() after artifact reload"
+    },
+    {
+      "id": "manifest_report_parity",
+      "status": "passed",
+      "message": "Every required check appears exactly once"
+    }
+  ]
+}

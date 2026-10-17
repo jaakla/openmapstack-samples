@@ -648,6 +648,18 @@
       "sha256": "sha256:07dd57120c5dbab4dbab20ee56b26331100a3a07363678b3afeb533f8c15db4f",
       "size_bytes": 982126,
       "retrieved_at": "2026-10-17T11:25:15.039142+00:00"
+    },
+    {
+      "id": "orthophoto",
+      "path": "data/source/orthophoto-2021.jpg",
+      "url": "https://kartta.hel.fi/ws/geoserver/avoindata/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=avoindata%3AOrtoilmakuva_2021_5cm&STYLES=&SRS=EPSG%3A3067&BBOX=385200%2C6671300%2C386500%2C6672500&WIDTH=1300&HEIGHT=1200&FORMAT=image%2Fjpeg",
+      "provider": "City of Helsinki",
+      "version": "2021 orthophoto; immutable 2026-10-17 WMS snapshot",
+      "license": "CC BY 4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "sha256": "sha256:a9b6f928bd82a322fcdbcf73550c42161235db03bfbc30b145cd0377e2e0d393",
+      "size_bytes": 351552,
+      "retrieved_at": "2026-10-17T11:27:33.473600+00:00"
     }
   ],
   "osm_query": "[out:json][timeout:60][date:\"2026-10-16T00:00:00Z\"];way[\"highway\"](60.161,24.928,60.175,24.957)->.w;(.w;>;);out meta;",
