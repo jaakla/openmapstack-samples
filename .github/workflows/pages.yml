@@ -3,6 +3,8 @@ name: Deploy GitHub Pages
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -25,9 +27,9 @@ jobs:
         with:
           node-version: '24'
           cache: npm
-          cache-dependency-path: toompea-3d/package-lock.json
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
+          cache-dependency-path: |
+            toompea-3d/package-lock.json
+            battlefield-visibility/package-lock.json
       - name: Install dependencies
         working-directory: toompea-3d
         run: npm ci
@@ -37,10 +39,23 @@ jobs:
       - name: Build the atlas at its public URL
         working-directory: toompea-3d
         run: npm run build -- --base=/openmapstack-samples/toompea-3d/
+      - name: Install Helsinki visibility dependencies
+        working-directory: battlefield-visibility
+        run: npm ci
+      - name: Test Helsinki visibility and published products
+        working-directory: battlefield-visibility
+        run: npm test
+      - name: Verify Helsinki run artifacts
+        working-directory: battlefield-visibility
+        run: node scripts/verify-products.mjs
+      - name: Build Helsinki visibility at its public URL
+        working-directory: battlefield-visibility
+        run: npm run build -- --base=/openmapstack-samples/battlefield-visibility/
       - name: Assemble the site
         run: |
-          mkdir -p _site/toompea-3d
+          mkdir -p _site/toompea-3d _site/battlefield-visibility
           cp -a toompea-3d/dist/. _site/toompea-3d/
+          cp -a battlefield-visibility/dist/. _site/battlefield-visibility/
           cp index.html _site/index.html
           touch _site/.nojekyll
       - name: Upload the prepared static site
@@ -49,6 +64,7 @@ jobs:
           path: _site
 
   deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     permissions:
@@ -56,8 +72,10 @@ jobs:
       id-token: write
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}toompea-3d/
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Publish to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
