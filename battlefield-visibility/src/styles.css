@@ -389,7 +389,9 @@ a {
   .map {
     order: 0;
     height: 68dvh;
-    min-height: 470px;
+    /* Reserve separate vertical bands for the title, snapshot, five camera
+       controls, and the tallest position readout, including at 320 px. */
+    min-height: 640px;
   }
   aside {
     order: 1;
@@ -416,7 +418,7 @@ a {
   }
   .map-tools {
     right: 12px;
-    top: 100px;
+    top: 170px;
     flex-direction: column;
   }
   .map-tools button {
@@ -431,13 +433,14 @@ a {
     font-size: 12px;
   }
   .snapshot {
-    top: 16px;
+    top: 100px;
+    left: 12px;
     right: 12px;
     bottom: auto;
     background: #ffffffdd;
     padding: 6px 8px;
     font-size: 9px;
-    max-width: 130px;
+    max-width: none;
   }
   .snapshot p {
     display: none;
