@@ -42,7 +42,7 @@ The **Scenario / Layers / Sources** tabs contain collapsible sections. Configure
 10–150 m UAV AGL, 0–3 UAVs and playback speed; toggle analysis, LOS vectors, traces,
 forecasts, uncertainty, affiliation labels and source context. Reset restores the
 manifest's defaults, layer visibility, target, playback and exact t=0 snapshot.
-Changed analytical controls, relocated targets and playback label the scenario
+Changed analytical controls, layer switches, relocated targets and playback label the scenario
 exploratory. Source versions, retrieval dates, licensing and assumptions are visible.
 
 The dark C2-style interface uses monospace telemetry and APP-6-inspired **red
@@ -279,3 +279,6 @@ hierarchy, restrained borders, map overlays and mobile map-first stacking. All
 geographic geometry and imagery in the implementation come from pinned sources;
 the concept image is never a map asset. Concept legend wording is corrected to
 the owner's RED=visible semantics; controls retain the published 10–150 m range.
+
+Iteration 2 [browser/visual QA and screenshots](docs/iteration-2-qa.md) document the
+production-path checks, mobile layout and deliberate design/source differences.

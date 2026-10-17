@@ -226,7 +226,13 @@ function App() {
               tab === "sources" ? (
                 <Provenance config={data.provenance} />
               ) : tab === "layers" ? (
-                <LayerControls layers={layers} setLayers={setLayers} />
+                <LayerControls
+                  layers={layers}
+                  setLayers={(value) => {
+                    setLayers(value);
+                    setExploratory(true);
+                  }}
+                />
               ) : (
                 <>
                   <Controls
