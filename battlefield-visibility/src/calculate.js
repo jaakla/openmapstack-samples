@@ -1,0 +1,19 @@
+import {height, classifyTarget} from './visibility.js';
+import {activeVectors, sensorAt, predict} from './simulation.js';
+
+export function calculateZones(grid, scenario, settings, time, target) {
+  const vectors = activeVectors(scenario, settings);
+  const sensors = vectors.map(v => sensorAt(grid, scenario, v, time, settings));
+  const futures = predict(grid, scenario, vectors, time, settings);
+  const spacing = scenario.zoneSpacingM, cols = Math.floor(grid.width * grid.resolution / spacing);
+  const rows = Math.floor(grid.height * grid.resolution / spacing), zones = new Uint8Array(cols * rows);
+  const statusAt = ([x,y]) => {
+    const z = height(grid, grid.dtm, x, y), obstruction = height(grid, grid.dsm, x, y);
+    return !Number.isFinite(z) || !Number.isFinite(obstruction) || obstruction >= z+2 ?
+      {zone:0,visibleTo:[],probability:0} : classifyTarget(grid,[x,y,z+2],sensors,futures,scenario.probabilityThreshold);
+  };
+  for (let row = 0; row < rows; row++) for (let col = 0; col < cols; col++) {
+    zones[row*cols+col] = statusAt([(col+.5)*spacing,(row+.5)*spacing]).zone;
+  }
+  return {time,sensors,futures,zones,cols,rows,spacing,target,status:statusAt(target)};
+}
