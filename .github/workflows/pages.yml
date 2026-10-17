@@ -53,10 +53,12 @@ jobs:
         run: npm run build -- --base=/openmapstack-samples/battlefield-visibility/
       - name: Assemble the site
         run: |
-          mkdir -p _site/toompea-3d _site/battlefield-visibility
+          mkdir -p _site/toompea-3d _site/battlefield-visibility _site/gallery
           cp -a toompea-3d/dist/. _site/toompea-3d/
           cp -a battlefield-visibility/dist/. _site/battlefield-visibility/
           cp index.html _site/index.html
+          cp toompea-3d/docs/toompea-preview.png _site/gallery/toompea-preview.png
+          cp battlefield-visibility/docs/uav-visibility-preview.png _site/gallery/uav-visibility-preview.png
           touch _site/.nojekyll
       - name: Upload the prepared static site
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
