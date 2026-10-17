@@ -2,10 +2,10 @@ schema: openmapstack-project/v1
 project:
   id: helsinki-battlefield-visibility
   title: Helsinki visibility · simulated scenario
-  question: Explore dynamic geometric visibility of simulated tank/UAV vectors over
-    measured downtown Helsinki geometry.
+  question: Explore dynamic geometric visibility of simulated UAVs over measured downtown
+    Helsinki geometry.
   created_at: '2026-10-17T11:30:00Z'
-  updated_at: '2026-10-17T12:54:22.540135+00:00'
+  updated_at: '2026-10-17T14:15:43.639559+00:00'
   status: validated
 interpretation:
   objective: Reproducible open-data educational 3D simulation, independent of toompea-3d.
@@ -34,9 +34,8 @@ interpretation:
       Unknown values are 65535. Source units are metres.
     rationale: Compact browser payload with conservative obstruction rounding.
   - id: A6
-    statement: SIMULATED tank follows source OSM surface motor-road nodes at 4 m/s;
-      UAV follows the same sourced route shapes at 8 m/s, 50 m AGL by default. Neither
-      represents a real force.
+    statement: SIMULATED UAVs follow sourced OSM route shapes at 8 m/s, 50 m AGL by
+      default. They do not represent observed flights or forces.
     rationale: User-requested illustrative simulation; not operational intelligence.
   - id: A7
     statement: Five minute prediction samples each 60 s under three equal speed hypotheses
@@ -61,9 +60,9 @@ interpretation:
     rationale: The model estimates geometric line of sight only, at neighbourhood
       scale.
   - id: A11
-    statement: Buildings are measured 2 m roof columns for display; vegetation is
-      a deterministic subsample of actual returns. Models are magnified 2.4× tank
-      / 9× UAV for legibility.
+    statement: Building rendering is a replaceable source-backed mesh layer, separate
+      from the unchanged 1 m LiDAR DSM. Vegetation is a deterministic subsample of
+      measured returns; UAV props are magnified 9× for legibility.
     rationale: Display simplification and annotation sizes do not change 1 m obstruction
       calculations.
   - id: A12
@@ -72,6 +71,26 @@ interpretation:
       Reversal at route ends is a simulated turn.
     rationale: A simplified street-following demonstration, not a routable operational
       movement planner.
+  - id: A13
+    statement: MGRS is a one-metre display reference in WGS84; internal metric analysis
+      remains EPSG:3067/N2000. Entered references select the grid-square centre; the
+      ETRS89/WGS84 display approximation is not survey positioning.
+    rationale: Separate coordinate notation from analysis and disclose datum/display
+      precision.
+  - id: A14
+    statement: Past traces cover elapsed simulation time up to 120 s. Future route
+      and terminal speed envelope use 0.8/1.0/1.2 speed scenarios over 300 s. The
+      16 m wide visual ribbon is an annotation of along-route terminal uncertainty,
+      not a lateral accuracy bound.
+    rationale: Distinct past/future styles, real source vertices and explicit scenario
+      uncertainty.
+  - id: A15
+    statement: Official Helsinki untextured LoD2, tilesetVersion 291269823412, HTTP
+      export 2026-05-11; acquisition epoch is unknown for this continuously maintained
+      model. 15 leaf b3dm tiles are decoded, reprojected, triangle-clipped and quantized
+      to 2 cm for display. LiDAR DSM remains the sole obstruction input.
+    rationale: Real roofs and source IDs with explicit display-versus-analysis provenance;
+      epoch differences are measured, not fitted away.
 sources:
   lidar_672496a:
     role: authoritative_input
@@ -539,1400 +558,6 @@ sources:
       - geometry
     rationale: Research-verified open source; byte-pinned in sources.lock.json. City
       2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/scene.gltf
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:24:55.520443+00:00'
-      downloaded_at: '2026-10-17T11:24:55.520443+00:00'
-      file:
-        name: data/source/tank/scene.gltf
-        format: gltf
-        size_bytes: 55912
-      sha256: sha256:e74ccfac17950b1607574b05d7602c8269e93c5dba406af8d4f4f3310b3df6be
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:e74ccfac17950b1607574b05d7602c8269e93c5dba406af8d4f4f3310b3df6be
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_license:
-    role: context
-    provider: dannzjs
-    dataset: tank_license
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/license.txt
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:07.213669+00:00'
-      downloaded_at: '2026-10-17T11:25:07.213669+00:00'
-      file:
-        name: data/source/tank/license.txt
-        format: txt
-        size_bytes: 684
-      sha256: sha256:7931a6d1f2afcf6d9203e624f945c058ee2216daeb569f9d6c3d371566ec08dd
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:7931a6d1f2afcf6d9203e624f945c058ee2216daeb569f9d6c3d371566ec08dd
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_scene_bin:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_scene.bin
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/scene.bin
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:07.300686+00:00'
-      downloaded_at: '2026-10-17T11:25:07.300686+00:00'
-      file:
-        name: data/source/tank/scene.bin
-        format: bin
-        size_bytes: 13537136
-      sha256: sha256:d47ec05177672c53f189106cabd76f862d82c11b238806d6b65dfcf4e6c78a6d
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:d47ec05177672c53f189106cabd76f862d82c11b238806d6b65dfcf4e6c78a6d
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_DMachWheels_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/DMachWheels_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/DMachWheels_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:07.734419+00:00'
-      downloaded_at: '2026-10-17T11:25:07.734419+00:00'
-      file:
-        name: data/source/tank/textures/DMachWheels_baseColor.png
-        format: png
-        size_bytes: 4401215
-      sha256: sha256:4393cd6f2b952a19edfe0678bb1386871acf8b5fbdc43e736c6507c7eed62fc6
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:4393cd6f2b952a19edfe0678bb1386871acf8b5fbdc43e736c6507c7eed62fc6
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_DMachWheels_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/DMachWheels_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/DMachWheels_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:08.084609+00:00'
-      downloaded_at: '2026-10-17T11:25:08.084609+00:00'
-      file:
-        name: data/source/tank/textures/DMachWheels_metallicRoughness.png
-        format: png
-        size_bytes: 2923614
-      sha256: sha256:1cfe8d8996b48d209919e95235d69b6199baf134914a22457ab350b3772b386b
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:1cfe8d8996b48d209919e95235d69b6199baf134914a22457ab350b3772b386b
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_DMainMetal_Guns_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/DMainMetal_Guns_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/DMainMetal_Guns_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:07.951682+00:00'
-      downloaded_at: '2026-10-17T11:25:07.951682+00:00'
-      file:
-        name: data/source/tank/textures/DMainMetal_Guns_baseColor.png
-        format: png
-        size_bytes: 605
-      sha256: sha256:af438be07200006367d4ac1167da36be6230f19a7132c6fbb4845091271802af
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:af438be07200006367d4ac1167da36be6230f19a7132c6fbb4845091271802af
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_DMainMetal_Guns_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/DMainMetal_Guns_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/DMainMetal_Guns_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:08.157078+00:00'
-      downloaded_at: '2026-10-17T11:25:08.157078+00:00'
-      file:
-        name: data/source/tank/textures/DMainMetal_Guns_metallicRoughness.png
-        format: png
-        size_bytes: 605
-      sha256: sha256:376162d30626bee58c88d7f9ca41f591fe1bad970f505b84e913f3aa6f44e7e7
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:376162d30626bee58c88d7f9ca41f591fe1bad970f505b84e913f3aa6f44e7e7
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_DMainMetal_Props_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/DMainMetal_Props_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/DMainMetal_Props_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:08.402366+00:00'
-      downloaded_at: '2026-10-17T11:25:08.402366+00:00'
-      file:
-        name: data/source/tank/textures/DMainMetal_Props_baseColor.png
-        format: png
-        size_bytes: 1537541
-      sha256: sha256:dd628054dedff966622351649f54e5ef445847a8aea9b0c28075e43d7f9eb013
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:dd628054dedff966622351649f54e5ef445847a8aea9b0c28075e43d7f9eb013
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_DMainMetal_Props_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/DMainMetal_Props_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/DMainMetal_Props_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:08.445936+00:00'
-      downloaded_at: '2026-10-17T11:25:08.445936+00:00'
-      file:
-        name: data/source/tank/textures/DMainMetal_Props_metallicRoughness.png
-        format: png
-        size_bytes: 570043
-      sha256: sha256:0c1e9cc11ee2da8d79e4e4cf0c3f61b36fc9fa957b3afaa0ff92912f5d0ef9bb
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:0c1e9cc11ee2da8d79e4e4cf0c3f61b36fc9fa957b3afaa0ff92912f5d0ef9bb
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_DMainMetal_Shield_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/DMainMetal_Shield_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/DMainMetal_Shield_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:08.734451+00:00'
-      downloaded_at: '2026-10-17T11:25:08.734451+00:00'
-      file:
-        name: data/source/tank/textures/DMainMetal_Shield_baseColor.png
-        format: png
-        size_bytes: 882312
-      sha256: sha256:6e48d5ccba4060d3d2996feccbe6c59bd2fc1d24d76e5b45ff4e4576bbaf3205
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:6e48d5ccba4060d3d2996feccbe6c59bd2fc1d24d76e5b45ff4e4576bbaf3205
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_DMainMetal_Shield_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/DMainMetal_Shield_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/DMainMetal_Shield_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:08.769475+00:00'
-      downloaded_at: '2026-10-17T11:25:08.769475+00:00'
-      file:
-        name: data/source/tank/textures/DMainMetal_Shield_metallicRoughness.png
-        format: png
-        size_bytes: 1560125
-      sha256: sha256:398ba1fc7a69e57b9e565f63d5b066916992d0420fdb99b33ffba83e80ca6475
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:398ba1fc7a69e57b9e565f63d5b066916992d0420fdb99b33ffba83e80ca6475
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_material_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/material_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/material_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:09.196743+00:00'
-      downloaded_at: '2026-10-17T11:25:09.196743+00:00'
-      file:
-        name: data/source/tank/textures/material_baseColor.png
-        format: png
-        size_bytes: 4811697
-      sha256: sha256:5ff844f97789a94abbd8ee4872ac91a6e16eabc25f3a8d4d97259848087e8d82
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:5ff844f97789a94abbd8ee4872ac91a6e16eabc25f3a8d4d97259848087e8d82
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_material_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/material_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/material_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:09.209486+00:00'
-      downloaded_at: '2026-10-17T11:25:09.209486+00:00'
-      file:
-        name: data/source/tank/textures/material_metallicRoughness.png
-        format: png
-        size_bytes: 4918371
-      sha256: sha256:15fdca3ab991b38cb1953e5f87d4beb7faa375fca359a35636d16ca50d72a319
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:15fdca3ab991b38cb1953e5f87d4beb7faa375fca359a35636d16ca50d72a319
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_Light_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/Light_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/Light_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:09.509752+00:00'
-      downloaded_at: '2026-10-17T11:25:09.509752+00:00'
-      file:
-        name: data/source/tank/textures/Light_baseColor.png
-        format: png
-        size_bytes: 943346
-      sha256: sha256:2e94fdbbc12f51709cd96e00cf35f9312c2288a54e5795e08c960989b991e6c4
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:2e94fdbbc12f51709cd96e00cf35f9312c2288a54e5795e08c960989b991e6c4
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_Light_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/Light_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/Light_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:09.524314+00:00'
-      downloaded_at: '2026-10-17T11:25:09.524314+00:00'
-      file:
-        name: data/source/tank/textures/Light_metallicRoughness.png
-        format: png
-        size_bytes: 1651939
-      sha256: sha256:c816f5fece664bf888a77063e3ec3b4d0bcf058fb0a3180cd999921469872b5d
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:c816f5fece664bf888a77063e3ec3b4d0bcf058fb0a3180cd999921469872b5d
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MachWheels_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MachWheels_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MachWheels_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:10.293126+00:00'
-      downloaded_at: '2026-10-17T11:25:10.293126+00:00'
-      file:
-        name: data/source/tank/textures/MachWheels_baseColor.png
-        format: png
-        size_bytes: 15325798
-      sha256: sha256:919f9a008c6a7f2b4f9deba5c5b60d2f4f2ea40d45aaf15442436158cb2785c5
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:919f9a008c6a7f2b4f9deba5c5b60d2f4f2ea40d45aaf15442436158cb2785c5
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MachWheels_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MachWheels_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MachWheels_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:10.177164+00:00'
-      downloaded_at: '2026-10-17T11:25:10.177164+00:00'
-      file:
-        name: data/source/tank/textures/MachWheels_metallicRoughness.png
-        format: png
-        size_bytes: 10830985
-      sha256: sha256:078f7ed347771777694aa9270ae4934736e0eb955054954720322ea1e471079a
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:078f7ed347771777694aa9270ae4934736e0eb955054954720322ea1e471079a
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MainMetal_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MainMetal_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MainMetal_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:10.275615+00:00'
-      downloaded_at: '2026-10-17T11:25:10.275615+00:00'
-      file:
-        name: data/source/tank/textures/MainMetal_baseColor.png
-        format: png
-        size_bytes: 17541079
-      sha256: sha256:eb7830fa1e9e35a7e8ba37650670db4d78d4919d5861a8a82ffbfd6658f16bc9
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:eb7830fa1e9e35a7e8ba37650670db4d78d4919d5861a8a82ffbfd6658f16bc9
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MainMetal_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MainMetal_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MainMetal_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:10.729648+00:00'
-      downloaded_at: '2026-10-17T11:25:10.729648+00:00'
-      file:
-        name: data/source/tank/textures/MainMetal_metallicRoughness.png
-        format: png
-        size_bytes: 6292176
-      sha256: sha256:fea5a98cb968fb621907ca7c57d0547168b2dec9cc06da511c95a130a470bdf6
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:fea5a98cb968fb621907ca7c57d0547168b2dec9cc06da511c95a130a470bdf6
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MainMetal_Armor_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MainMetal_Armor_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MainMetal_Armor_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:10.615389+00:00'
-      downloaded_at: '2026-10-17T11:25:10.615389+00:00'
-      file:
-        name: data/source/tank/textures/MainMetal_Armor_baseColor.png
-        format: png
-        size_bytes: 1951886
-      sha256: sha256:1d557a97b0d8cb04d46f7b24662ded8b28dd4d1162f0c8fb6ec1b4ea05df8459
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:1d557a97b0d8cb04d46f7b24662ded8b28dd4d1162f0c8fb6ec1b4ea05df8459
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MainMetal_Armor_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MainMetal_Armor_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MainMetal_Armor_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:10.966196+00:00'
-      downloaded_at: '2026-10-17T11:25:10.966196+00:00'
-      file:
-        name: data/source/tank/textures/MainMetal_Armor_metallicRoughness.png
-        format: png
-        size_bytes: 1823992
-      sha256: sha256:c280c1d91bda947beceeacdf9e01f889bf4c2d79a5d676431f72648168119014
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:c280c1d91bda947beceeacdf9e01f889bf4c2d79a5d676431f72648168119014
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MainMetal_Guns_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MainMetal_Guns_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MainMetal_Guns_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:11.097362+00:00'
-      downloaded_at: '2026-10-17T11:25:11.097362+00:00'
-      file:
-        name: data/source/tank/textures/MainMetal_Guns_baseColor.png
-        format: png
-        size_bytes: 3123503
-      sha256: sha256:a6069a24433e5860171395e1a81bac69aa736d9526eda0afed7357c9c7b60d99
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:a6069a24433e5860171395e1a81bac69aa736d9526eda0afed7357c9c7b60d99
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MainMetal_Guns_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MainMetal_Guns_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MainMetal_Guns_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:11.254946+00:00'
-      downloaded_at: '2026-10-17T11:25:11.254946+00:00'
-      file:
-        name: data/source/tank/textures/MainMetal_Guns_metallicRoughness.png
-        format: png
-        size_bytes: 920193
-      sha256: sha256:35eaaeaf24eb463ecfb29d3fec7c3307d57c3c6a715bf903655b492c532f9969
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:35eaaeaf24eb463ecfb29d3fec7c3307d57c3c6a715bf903655b492c532f9969
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MainMetal_LH_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MainMetal_LH_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MainMetal_LH_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:11.582348+00:00'
-      downloaded_at: '2026-10-17T11:25:11.582348+00:00'
-      file:
-        name: data/source/tank/textures/MainMetal_LH_baseColor.png
-        format: png
-        size_bytes: 4833160
-      sha256: sha256:dadd5a701ab2cf0cbf396a6bd63d5366a846934e92b6f26350a3eb02d6421aba
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:dadd5a701ab2cf0cbf396a6bd63d5366a846934e92b6f26350a3eb02d6421aba
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MainMetal_LH_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MainMetal_LH_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MainMetal_LH_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:11.587539+00:00'
-      downloaded_at: '2026-10-17T11:25:11.587539+00:00'
-      file:
-        name: data/source/tank/textures/MainMetal_LH_metallicRoughness.png
-        format: png
-        size_bytes: 3191559
-      sha256: sha256:6807c71d036a44fc9565993a78e0e213adb02199b13d929c155e7ab901ad8e32
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:6807c71d036a44fc9565993a78e0e213adb02199b13d929c155e7ab901ad8e32
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MainMetal_Props_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MainMetal_Props_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MainMetal_Props_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:11.889426+00:00'
-      downloaded_at: '2026-10-17T11:25:11.889426+00:00'
-      file:
-        name: data/source/tank/textures/MainMetal_Props_baseColor.png
-        format: png
-        size_bytes: 1983081
-      sha256: sha256:7c4888da6ad5c7d2119066e281174e682f4fcd08f501687d25236ee190b99a43
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:7c4888da6ad5c7d2119066e281174e682f4fcd08f501687d25236ee190b99a43
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MainMetal_Props_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MainMetal_Props_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MainMetal_Props_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:11.845348+00:00'
-      downloaded_at: '2026-10-17T11:25:11.845348+00:00'
-      file:
-        name: data/source/tank/textures/MainMetal_Props_metallicRoughness.png
-        format: png
-        size_bytes: 558484
-      sha256: sha256:094a5f13c02b430301ba3dc0b41e90654b4281ea713ff3ed17f2f1a79eb766b0
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:094a5f13c02b430301ba3dc0b41e90654b4281ea713ff3ed17f2f1a79eb766b0
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MainMetal_ROT_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MainMetal_ROT_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MainMetal_ROT_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:12.560798+00:00'
-      downloaded_at: '2026-10-17T11:25:12.560798+00:00'
-      file:
-        name: data/source/tank/textures/MainMetal_ROT_baseColor.png
-        format: png
-        size_bytes: 11796792
-      sha256: sha256:115c46ce1551161d30beb927898bbac017959241ff82e6d4179a76f5f1770c50
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:115c46ce1551161d30beb927898bbac017959241ff82e6d4179a76f5f1770c50
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MainMetal_ROT_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MainMetal_ROT_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MainMetal_ROT_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:12.232384+00:00'
-      downloaded_at: '2026-10-17T11:25:12.232384+00:00'
-      file:
-        name: data/source/tank/textures/MainMetal_ROT_metallicRoughness.png
-        format: png
-        size_bytes: 3104909
-      sha256: sha256:e359ffa726beb5abef93c0c736ff265f712e4f000d1d5fb9ebe368aad68aa7c9
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:e359ffa726beb5abef93c0c736ff265f712e4f000d1d5fb9ebe368aad68aa7c9
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MainMetal_Shield_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MainMetal_Shield_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MainMetal_Shield_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:13.096851+00:00'
-      downloaded_at: '2026-10-17T11:25:13.096851+00:00'
-      file:
-        name: data/source/tank/textures/MainMetal_Shield_baseColor.png
-        format: png
-        size_bytes: 16833273
-      sha256: sha256:64f982c23ca96c0d20046bbc9833aba34aaf7abaeac16a6017c516c61753f12b
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:64f982c23ca96c0d20046bbc9833aba34aaf7abaeac16a6017c516c61753f12b
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MainMetal_Shield_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MainMetal_Shield_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MainMetal_Shield_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:12.909592+00:00'
-      downloaded_at: '2026-10-17T11:25:12.909592+00:00'
-      file:
-        name: data/source/tank/textures/MainMetal_Shield_metallicRoughness.png
-        format: png
-        size_bytes: 3629838
-      sha256: sha256:306bfd6a97e60c4b4c0c67726dd5166a9f925e7b774f003b96966ff1a45d6bf4
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:306bfd6a97e60c4b4c0c67726dd5166a9f925e7b774f003b96966ff1a45d6bf4
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MetalWheels_Gear_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MetalWheels_Gear_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MetalWheels_Gear_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:13.245620+00:00'
-      downloaded_at: '2026-10-17T11:25:13.245620+00:00'
-      file:
-        name: data/source/tank/textures/MetalWheels_Gear_baseColor.png
-        format: png
-        size_bytes: 2490318
-      sha256: sha256:90051f3e6a8f2a68c73b6b67e9639c341c48c94b1de5ad4293e3afc92d19ccd8
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:90051f3e6a8f2a68c73b6b67e9639c341c48c94b1de5ad4293e3afc92d19ccd8
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_MetalWheels_Gear_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/MetalWheels_Gear_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/MetalWheels_Gear_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:13.400706+00:00'
-      downloaded_at: '2026-10-17T11:25:13.400706+00:00'
-      file:
-        name: data/source/tank/textures/MetalWheels_Gear_metallicRoughness.png
-        format: png
-        size_bytes: 1790519
-      sha256: sha256:3217f4aaff64d7e0e06c85374dffe973babec643d032a8ffb643d300b63a106f
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:3217f4aaff64d7e0e06c85374dffe973babec643d032a8ffb643d300b63a106f
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_Radiator_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/Radiator_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/Radiator_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:13.937761+00:00'
-      downloaded_at: '2026-10-17T11:25:13.937761+00:00'
-      file:
-        name: data/source/tank/textures/Radiator_baseColor.png
-        format: png
-        size_bytes: 12077455
-      sha256: sha256:e7112c738dd37d45cf91f141207162e396c64642fda772c52c8eda6eb94c7dfd
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:e7112c738dd37d45cf91f141207162e396c64642fda772c52c8eda6eb94c7dfd
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_Radiator_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/Radiator_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/Radiator_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:14.110568+00:00'
-      downloaded_at: '2026-10-17T11:25:14.110568+00:00'
-      file:
-        name: data/source/tank/textures/Radiator_metallicRoughness.png
-        format: png
-        size_bytes: 13679290
-      sha256: sha256:c4874b8ebef40383ba3e8af302096124d4e1db529a533368d67345eb74511d1f
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:c4874b8ebef40383ba3e8af302096124d4e1db529a533368d67345eb74511d1f
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_Rubber_Props_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/Rubber_Props_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/Rubber_Props_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:14.257918+00:00'
-      downloaded_at: '2026-10-17T11:25:14.257918+00:00'
-      file:
-        name: data/source/tank/textures/Rubber_Props_baseColor.png
-        format: png
-        size_bytes: 2859324
-      sha256: sha256:698ca95cf3c1f7b7a8871ccb89248fc8cc64d4713662caac6f9d4d89bde84b47
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:698ca95cf3c1f7b7a8871ccb89248fc8cc64d4713662caac6f9d4d89bde84b47
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_Rubber_Props_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/Rubber_Props_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/Rubber_Props_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:14.436326+00:00'
-      downloaded_at: '2026-10-17T11:25:14.436326+00:00'
-      file:
-        name: data/source/tank/textures/Rubber_Props_metallicRoughness.png
-        format: png
-        size_bytes: 1245595
-      sha256: sha256:9bb4bf8d546aadcd868cfbbde18f14822ef689b02990a027dcfa296504199615
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:9bb4bf8d546aadcd868cfbbde18f14822ef689b02990a027dcfa296504199615
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_Rubber_W_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/Rubber_W_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/Rubber_W_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:14.585579+00:00'
-      downloaded_at: '2026-10-17T11:25:14.585579+00:00'
-      file:
-        name: data/source/tank/textures/Rubber_W_baseColor.png
-        format: png
-        size_bytes: 2161365
-      sha256: sha256:b19ee5af4d4b61b0d799eb0b5fee2b376cc1ab6956d3dece83ce561274523212
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:b19ee5af4d4b61b0d799eb0b5fee2b376cc1ab6956d3dece83ce561274523212
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_Rubber_W_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/Rubber_W_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/Rubber_W_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:14.741217+00:00'
-      downloaded_at: '2026-10-17T11:25:14.741217+00:00'
-      file:
-        name: data/source/tank/textures/Rubber_W_metallicRoughness.png
-        format: png
-        size_bytes: 1375825
-      sha256: sha256:3f289be048ce9fa5d1f0a55507cc0d715430c93b459f0d3fab3d0fac276995f4
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:3f289be048ce9fa5d1f0a55507cc0d715430c93b459f0d3fab3d0fac276995f4
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_Rubber_Wheels_baseColor_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/Rubber_Wheels_baseColor.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/Rubber_Wheels_baseColor.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:14.911714+00:00'
-      downloaded_at: '2026-10-17T11:25:14.911714+00:00'
-      file:
-        name: data/source/tank/textures/Rubber_Wheels_baseColor.png
-        format: png
-        size_bytes: 2097733
-      sha256: sha256:68db0f3aedabb06a341b7647c9db910bca62cd0503e83b238d760131bbf6dab8
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:68db0f3aedabb06a341b7647c9db910bca62cd0503e83b238d760131bbf6dab8
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
-  tank_textures_Rubber_Wheels_metallicRoughness_png:
-    role: context
-    provider: dannzjs / licensed mirror
-    dataset: tank_textures/Rubber_Wheels_metallicRoughness.png
-    source_url: https://raw.githubusercontent.com/DhruvBhargava007/Morv_AI/b51a51a5b58962f4d07931e1871cbc6effd27c3e/frontend/public/models/abrams_m1a2_sepv3/textures/Rubber_Wheels_metallicRoughness.png
-    access:
-      method: https
-      retrieved_at: '2026-10-17T11:25:15.039142+00:00'
-      downloaded_at: '2026-10-17T11:25:15.039142+00:00'
-      file:
-        name: data/source/tank/textures/Rubber_Wheels_metallicRoughness.png
-        format: png
-        size_bytes: 982126
-      sha256: sha256:07dd57120c5dbab4dbab20ee56b26331100a3a07363678b3afeb533f8c15db4f
-    version:
-      identifier: b51a51a5b58962f4d07931e1871cbc6effd27c3e
-      sha256: sha256:07dd57120c5dbab4dbab20ee56b26331100a3a07363678b3afeb533f8c15db4f
-    license:
-      name: CC BY 4.0
-      url: https://creativecommons.org/licenses/by/4.0/
-    selection:
-      bbox:
-      - 24.930777
-      - 60.162441
-      - 24.954861
-      - 60.173572
-    schema:
-      crs: not georeferenced; simulation display prop/reference
-      key: source identifier / LAS point index
-      columns:
-      - source_id
-      - geometry
-    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
-      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
   orthophoto:
     role: context
     provider: City of Helsinki
@@ -1967,6 +592,548 @@ sources:
       - geometry
     rationale: Research-verified open source; byte-pinned in sources.lock.json. City
       2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
+  lod2_tileset:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_tileset
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/tileset.json
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:059578f562215babc3052e28b9c2c3ec1a18105909f929c36d36f73debac872d
+    access:
+      method: https
+      file:
+        name: data/source/lod2/tileset.json
+        format: json
+        size_bytes: 1021461
+      sha256: sha256:059578f562215babc3052e28b9c2c3ec1a18105909f929c36d36f73debac872d
+      retrieved_at: '2026-10-17T13:39:58.825745+00:00'
+      downloaded_at: '2026-10-17T13:39:58.825745+00:00'
+      archive:
+        path: data/archive/tileset-lod2.json.gz
+        compression: gzip
+        sha256: sha256:c2cbcca8dfc0c611dc21966d8c58a990ea3d2c0c67a1fdceced54070ab7737b4
+        size_bytes: 59853
+      reproduction: Restore byte-identical archived manifest; fresh acquisition is
+        a separately reviewed version.
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: &id001
+      - 385200
+      - 6671300
+      - 386500
+      - 6672500
+      crs: EPSG:3067
+      completeness:
+        matched: 15
+        returned: 15
+        pages: 1
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37306_5429:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37306_5429
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37306/5429.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:2d47deb82aca486c0f811fc2e9cb3bed8d71ce7f138a0955e6012d7d41270ec3
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37306-5429.b3dm
+        format: b3dm
+        size_bytes: 1604168
+      sha256: sha256:2d47deb82aca486c0f811fc2e9cb3bed8d71ce7f138a0955e6012d7d41270ec3
+      retrieved_at: '2026-10-17T13:39:58.874008+00:00'
+      downloaded_at: '2026-10-17T13:39:58.874008+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37306_5430:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37306_5430
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37306/5430.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:b743ea9d7e0843125bfafe5a6bcb5025507d6c607dfed701d4426df0cb4daf85
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37306-5430.b3dm
+        format: b3dm
+        size_bytes: 1670688
+      sha256: sha256:b743ea9d7e0843125bfafe5a6bcb5025507d6c607dfed701d4426df0cb4daf85
+      retrieved_at: '2026-10-17T13:39:59.009312+00:00'
+      downloaded_at: '2026-10-17T13:39:59.009312+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37306_5431:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37306_5431
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37306/5431.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:0c0108a68091fd214157f4163dab6760b1314d75fa4a56a0ad18037c19e13ec2
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37306-5431.b3dm
+        format: b3dm
+        size_bytes: 1481160
+      sha256: sha256:0c0108a68091fd214157f4163dab6760b1314d75fa4a56a0ad18037c19e13ec2
+      retrieved_at: '2026-10-17T13:39:59.000657+00:00'
+      downloaded_at: '2026-10-17T13:39:59.000657+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37307_5429:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37307_5429
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37307/5429.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:3b430d3d1907a49aaa9be044a08e6f30268c7147b0f52364cce4df6ee68a7a14
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37307-5429.b3dm
+        format: b3dm
+        size_bytes: 250584
+      sha256: sha256:3b430d3d1907a49aaa9be044a08e6f30268c7147b0f52364cce4df6ee68a7a14
+      retrieved_at: '2026-10-17T13:39:58.917236+00:00'
+      downloaded_at: '2026-10-17T13:39:58.917236+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37307_5430:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37307_5430
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37307/5430.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:8d3dc91a5aa0da5d454ab40bad432cf0e4be5806470115ce9793972ed235f2c2
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37307-5430.b3dm
+        format: b3dm
+        size_bytes: 1716912
+      sha256: sha256:8d3dc91a5aa0da5d454ab40bad432cf0e4be5806470115ce9793972ed235f2c2
+      retrieved_at: '2026-10-17T13:39:59.009768+00:00'
+      downloaded_at: '2026-10-17T13:39:59.009768+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37307_5431:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37307_5431
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37307/5431.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:e43929cb59b3370bca877f6cb9e0a99e95dda603d9ea0bbf4a2fd9b1cfbe4d7e
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37307-5431.b3dm
+        format: b3dm
+        size_bytes: 3183384
+      sha256: sha256:e43929cb59b3370bca877f6cb9e0a99e95dda603d9ea0bbf4a2fd9b1cfbe4d7e
+      retrieved_at: '2026-10-17T13:39:59.272046+00:00'
+      downloaded_at: '2026-10-17T13:39:59.272046+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37308_5429:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37308_5429
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37308/5429.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:50dafb1a4f8c8e1785d1132e8590804f11984d7be81ea97d8dadcfea261b39d7
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37308-5429.b3dm
+        format: b3dm
+        size_bytes: 210464
+      sha256: sha256:50dafb1a4f8c8e1785d1132e8590804f11984d7be81ea97d8dadcfea261b39d7
+      retrieved_at: '2026-10-17T13:39:59.042914+00:00'
+      downloaded_at: '2026-10-17T13:39:59.042914+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37308_5430:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37308_5430
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37308/5430.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:8fdcbd49b7feca8a0dc57a0f24afcd0c9dbe670d248b608e224e8127a8084e64
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37308-5430.b3dm
+        format: b3dm
+        size_bytes: 1740840
+      sha256: sha256:8fdcbd49b7feca8a0dc57a0f24afcd0c9dbe670d248b608e224e8127a8084e64
+      retrieved_at: '2026-10-17T13:39:59.189939+00:00'
+      downloaded_at: '2026-10-17T13:39:59.189939+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37308_5431:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37308_5431
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37308/5431.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:ec805cba8d2b6996baede96704c49db1f8f98f317faff161ab10d98d28d59e20
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37308-5431.b3dm
+        format: b3dm
+        size_bytes: 2619360
+      sha256: sha256:ec805cba8d2b6996baede96704c49db1f8f98f317faff161ab10d98d28d59e20
+      retrieved_at: '2026-10-17T13:39:59.280224+00:00'
+      downloaded_at: '2026-10-17T13:39:59.280224+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37309_5429:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37309_5429
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37309/5429.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:418eda501f35daa9c11ecf0913a58fe7d86db90173ae0ca2275fa7fd7208d061
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37309-5429.b3dm
+        format: b3dm
+        size_bytes: 573760
+      sha256: sha256:418eda501f35daa9c11ecf0913a58fe7d86db90173ae0ca2275fa7fd7208d061
+      retrieved_at: '2026-10-17T13:39:59.487610+00:00'
+      downloaded_at: '2026-10-17T13:39:59.487610+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37309_5430:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37309_5430
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37309/5430.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:2a34d978dffdfe9d90236afc7ceba2cba9180eec2dddcf7ce00aeffa0c6ccb70
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37309-5430.b3dm
+        format: b3dm
+        size_bytes: 1919304
+      sha256: sha256:2a34d978dffdfe9d90236afc7ceba2cba9180eec2dddcf7ce00aeffa0c6ccb70
+      retrieved_at: '2026-10-17T13:40:00.111822+00:00'
+      downloaded_at: '2026-10-17T13:40:00.111822+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37309_5431:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37309_5431
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37309/5431.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:fc35e6d47441c3b59fc6b473f159234e47b7b4e94f843abab897417a7279c618
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37309-5431.b3dm
+        format: b3dm
+        size_bytes: 2421224
+      sha256: sha256:fc35e6d47441c3b59fc6b473f159234e47b7b4e94f843abab897417a7279c618
+      retrieved_at: '2026-10-17T13:39:59.645365+00:00'
+      downloaded_at: '2026-10-17T13:39:59.645365+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37310_5429:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37310_5429
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37310/5429.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:10878b4b3c2666dc77c22a70225fab18c75a7d8417db3371b87d73753b163149
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37310-5429.b3dm
+        format: b3dm
+        size_bytes: 1833016
+      sha256: sha256:10878b4b3c2666dc77c22a70225fab18c75a7d8417db3371b87d73753b163149
+      retrieved_at: '2026-10-17T13:39:59.899034+00:00'
+      downloaded_at: '2026-10-17T13:39:59.899034+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37310_5430:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37310_5430
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37310/5430.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:11fcb264b71d891969ea1c2b1e7e56a9225ab653e5eba1b909cc8b1034886eea
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37310-5430.b3dm
+        format: b3dm
+        size_bytes: 1463488
+      sha256: sha256:11fcb264b71d891969ea1c2b1e7e56a9225ab653e5eba1b909cc8b1034886eea
+      retrieved_at: '2026-10-17T13:40:00.153847+00:00'
+      downloaded_at: '2026-10-17T13:40:00.153847+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37310_5431:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37310_5431
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37310/5431.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:89547cd19690f472922a6a5e06d8ae7e5e66eb5c82a3a027c1b4af36ea442449
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37310-5431.b3dm
+        format: b3dm
+        size_bytes: 1193760
+      sha256: sha256:89547cd19690f472922a6a5e06d8ae7e5e66eb5c82a3a027c1b4af36ea442449
+      retrieved_at: '2026-10-17T13:40:00.149755+00:00'
+      downloaded_at: '2026-10-17T13:40:00.149755+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
 overrides:
 - id: SCENARIO-1
   action: add_scenario
@@ -2007,6 +1174,28 @@ processing:
     - lidar_673497a
     output: surfaces
     crs: EPSG:3067
+  - id: building_mesh
+    operation: decode_official_b3dm_node_axis_rtc_ecef_clip_quantize_glb
+    inputs:
+    - surfaces
+    - lod2_tileset
+    - lod2_37306_5429
+    - lod2_37306_5430
+    - lod2_37306_5431
+    - lod2_37307_5429
+    - lod2_37307_5430
+    - lod2_37307_5431
+    - lod2_37308_5429
+    - lod2_37308_5430
+    - lod2_37308_5431
+    - lod2_37309_5429
+    - lod2_37309_5430
+    - lod2_37309_5431
+    - lod2_37310_5429
+    - lod2_37310_5430
+    - lod2_37310_5431
+    output: building_geometry
+    crs: EPSG:3067 / N2000, local GLB east-up-south
   - id: network
     operation: filter_source_topology_and_derive_simulation_routes
     inputs:
@@ -2021,9 +1210,8 @@ processing:
     output: basemap
     crs: EPSG:3067
   - id: models
-    operation: simplify_licensed_gltf_and_resize_textures
+    operation: copy_licensed_original_uav_glb
     inputs:
-    - tank
     - uav
     output: props
     crs: non-geographic simulation props
@@ -2034,6 +1222,7 @@ processing:
     - street_scenario
     - basemap
     - props
+    - building_geometry
     output: web_products
     crs: EPSG:3067
   - id: baseline
@@ -2048,6 +1237,7 @@ processing:
     - street_scenario
     - basemap
     - default_visibility
+    - building_geometry
     output: desktop_project
     crs: EPSG:3067
 outputs:
@@ -2075,10 +1265,6 @@ outputs:
     path: public/data/dsm.bin
     format: UInt16 little endian
     generated_by: lidar
-  buildings_web:
-    path: public/data/buildings.bin
-    format: UInt16 2m roof grid
-    generated_by: lidar
   vegetation_web:
     path: public/data/vegetation.bin
     format: Float32 scene XYZ
@@ -2103,10 +1289,6 @@ outputs:
     path: data/derived/orthophoto.tif
     format: COG
     generated_by: photography
-  tank_model:
-    path: public/models/tank.glb
-    format: glTF2
-    generated_by: models
   uav_model:
     path: public/models/uav.glb
     format: glTF2
@@ -2141,6 +1323,22 @@ outputs:
     generated_by: baseline
     role: exploratory_companion
     note: SIMULATED published t=0 snapshot, not observed enemy intelligence.
+  coordinate_licenses:
+    path: public/licenses/coordinates.txt
+    format: Text licenses and inherited notices
+    generated_by: models
+  building_mesh:
+    path: public/data/buildings.glb
+    format: glTF 2 GLB, KHR_mesh_quantization, local metric frame
+    generated_by: building_mesh
+  building_mesh_metadata:
+    path: public/data/building-mesh.json
+    format: JSON source IDs, bounds, alignment and completeness
+    generated_by: building_mesh
+  building_roofs:
+    path: data/derived/lod2-roofs.gpkg
+    format: GeoPackage PolygonZ source roof surfaces
+    generated_by: building_mesh
 validation:
   required:
   - source_hashes_match
@@ -2160,6 +1358,12 @@ validation:
   - qgis_layers_valid
   - manifest_report_parity
   - archived_sources_reproducible
+  - uav_only_scenario
+  - presentation_contract
+  - lod2_source_complete
+  - lod2_alignment
+  - lod2_mesh_valid
+  - lod2_conversion_fixtures
   domain_checks: []
 presentation:
   intent: educational_visibility_simulation
@@ -2169,14 +1373,31 @@ presentation:
     sidebar:
       organization: tabs
       section_state: collapsible
+      tabs:
+      - id: scenario
+        title: Scenario
+        sections:
+        - scenario_controls
+        - playback
+        - tracks
+        - legend
+      - id: layers
+        title: Layers
+        sections:
+        - layer_controls
+        - legend
+      - id: sources
+        title: Sources
+        sections:
+        - provenance
+        - assumptions
+        - validation
   controls:
     reconfigurable: true
     canonical_reset: true
     off_canonical_labelling: required
     defaults:
       uavHeight: 50
-      tankHeight: 3
-      tanks: 1
       uavs: 1
     zoneSpacingM: 20
     probabilityThreshold: 0.25
@@ -2188,6 +1409,13 @@ presentation:
       vegetation: true
       roads: true
       predictions: true
+      traces: true
+      los: true
+      uncertainty: true
+      affiliations: true
+      ground: true
+      obstructions: true
+      scenario: true
     playback_defaults:
       playing: false
       speed: 1
@@ -2217,26 +1445,72 @@ presentation:
       group: ground
       semantic_role: context
       geometry: raster
+    - source: roads
+      group: ground
+      semantic_role: context
+      geometry: line
     - source: buildings_cog
       group: obstructions
       semantic_role: constraint
       geometry: raster
+      note: Analysis-only LiDAR roof raster, retained in QGIS; web building display
+        uses independent official LoD2 geometry.
+    - source: building_roofs
+      group: obstructions
+      semantic_role: source
+      geometry: polygon
+      web_geometry: building_mesh
+      note: Official LoD2 source context only; analysis remains LiDAR DSM
     - source: vegetation_cog
       group: obstructions
       semantic_role: constraint
       geometry: raster
     - source: scenario
       group: scenario
-      semantic_role: user_override
+      semantic_role: hypothetical
       geometry: point
     - source: default_zones_cog
       group: scenario
-      semantic_role: user_override
+      semantic_role: primary_result
       geometry: raster
   provenance_ui:
     feature_source_on_click: true
     show_source_timestamp: true
     show_assumptions: true
+  legend:
+    visible: true
+    mode: semantic
+  coordinates:
+    display: MGRS
+    accuracy_digits: 5
+    internal: EPSG:3067
+    secondary: EPSG:3067 optional
+    datum_note: ETRS89 to WGS84 display approximation; 1 m grid, not survey accuracy
+  tracks:
+    past_seconds: 120
+    past_style: faint dotted
+    future_seconds: 300
+    future_style: amber dashed
+    uncertainty: speed hypotheses 0.8/1.0/1.2; sampled envelope, not calibrated probability
+  theme:
+    name: tactical_dark
+    affiliation_note: APP-6-inspired only; not certified symbology
+    uav:
+      semantic_role: hypothetical
+      affiliation: hostile
+      frame: diamond
+      colour: '#ff7074'
+    own_position:
+      semantic_role: selected_feature
+      affiliation: friendly
+      frame: rectangle
+      colour: '#75baff'
+    readout_font: monospace
+    result_statuses:
+      RED: Current geometric visibility
+      YELLOW: At least 0.25 of speed scenarios visible within 300 s
+      GREEN: No visibility in the sampled scenario; not a safety claim
+      UNKNOWN: Missing coverage or obstructed target
 runtime:
   implementation:
     preferred_engine: numpy-laspy-gdal-pyqgis
@@ -2259,7 +1533,12 @@ runtime:
     - index.html
     - vite.config.js
     - data/archive
-  environment: &id001
+    - tests/presentation.test.js
+    - building_mesh.py
+    - licenses
+    - tests/test_building_mesh.py
+    - .npmrc
+  environment: &id002
     python: 3.14.4
     gdal: 3.12.2
     qgis: 3.40.15-Bratislava
@@ -2269,15 +1548,15 @@ runtime:
     node: 24.19.0
 runs:
   latest:
-    id: run-20261017-125313
-    run_id: run-20261017-125313
-    started_at: '2026-10-17T12:53:13.887792+00:00'
-    completed_at: '2026-10-17T12:54:22.540135+00:00'
+    id: run-20261017-141424
+    run_id: run-20261017-141424
+    started_at: '2026-10-17T14:14:24.688764+00:00'
+    completed_at: '2026-10-17T14:15:43.639559+00:00'
     status: passed
-    inputs_hash: sha256:6e32c45aab279934dd6b14d5c4f377a60cace93637bd42f2f89a3c19c8b8a451
-    outputs_hash: sha256:e92ce3b17a93fa4ad30641ddae0c218ced421598fd9540c02e9880295f19c55f
-    environment: *id001
+    inputs_hash: sha256:ce524ea1d981f228c63bb5a9f3c2310144444115bfd6f7f3a9c0cd57e6a29a26
+    outputs_hash: sha256:9e83e2f3cf4cbef0dce75e42d88464f217bc4790c3d7e3789d78f777885ffa2a
+    environment: *id002
     validation_report:
       path: validation/latest-report.json
     record:
-      path: runs/run-20261017-125313.json
+      path: runs/run-20261017-141424.json

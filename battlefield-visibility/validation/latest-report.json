@@ -1,13 +1,13 @@
 {
-  "run_id": "run-20261017-125313",
+  "run_id": "run-20261017-141424",
   "status": "passed",
-  "inputs_hash": "sha256:6e32c45aab279934dd6b14d5c4f377a60cace93637bd42f2f89a3c19c8b8a451",
-  "outputs_hash": "sha256:e92ce3b17a93fa4ad30641ddae0c218ced421598fd9540c02e9880295f19c55f",
+  "inputs_hash": "sha256:ce524ea1d981f228c63bb5a9f3c2310144444115bfd6f7f3a9c0cd57e6a29a26",
+  "outputs_hash": "sha256:9e83e2f3cf4cbef0dce75e42d88464f217bc4790c3d7e3789d78f777885ffa2a",
   "checks": [
     {
       "id": "source_hashes_match",
       "status": "passed",
-      "message": "Verified 55 immutable files"
+      "message": "Verified 30 immutable files"
     },
     {
       "id": "source_result_complete",
@@ -93,10 +93,48 @@
       "message": "Defaults copied from manifest; baseline uses same worker computation"
     },
     {
+      "id": "lod2_source_complete",
+      "status": "passed",
+      "message": "Selected official leaf tiles all present; source building IDs retained",
+      "value": 802
+    },
+    {
+      "id": "lod2_alignment",
+      "status": "passed",
+      "message": "N2000 roof alignment checked against 2021 LiDAR without fitting; different epochs",
+      "statistics": {
+        "samples": 50376,
+        "medianRoofMinus2021DSM": -0.18133370205759825,
+        "medianAbsoluteDifference": 0.31066551012918353,
+        "p95AbsoluteDifference": 4.100999391482522,
+        "note": "Independent epochs and roof details differ; no vertical fitting or DSM modification."
+      }
+    },
+    {
+      "id": "lod2_mesh_valid",
+      "status": "passed",
+      "message": "True triangle clipping to projected AOI, quantized local-frame GLB, source roofs retained"
+    },
+    {
+      "id": "uav_only_scenario",
+      "status": "passed",
+      "message": "Only UAVs contribute to current and forecast danger zones"
+    },
+    {
+      "id": "presentation_contract",
+      "status": "passed",
+      "message": "MGRS readouts, semantic roles, three collapsible tabs, legend and canonical reset"
+    },
+    {
       "id": "payload_lt_20mb",
       "status": "passed",
       "message": "All browser data and model bytes before compression, excluding JS/CSS",
-      "bytes": 17021023
+      "bytes": 14823893
+    },
+    {
+      "id": "lod2_conversion_fixtures",
+      "status": "passed",
+      "message": "Closed 3D clipping, vertical walls, node/axis transforms and compact GLB fixtures"
     },
     {
       "id": "analytic_los_tests",

@@ -5278,13 +5278,6 @@
   },
   "vectors": [
     {
-      "id": "TANK-1",
-      "type": "tank",
-      "route": "route-1",
-      "speedMps": 4,
-      "offsetM": 0
-    },
-    {
       "id": "UAV-1",
       "type": "uav",
       "route": "route-1",
@@ -5292,25 +5285,11 @@
       "offsetM": 250
     },
     {
-      "id": "TANK-2",
-      "type": "tank",
-      "route": "route-2",
-      "speedMps": 4,
-      "offsetM": 0
-    },
-    {
       "id": "UAV-2",
       "type": "uav",
       "route": "route-2",
       "speedMps": 8,
       "offsetM": 250
-    },
-    {
-      "id": "TANK-3",
-      "type": "tank",
-      "route": "route-3",
-      "speedMps": 4,
-      "offsetM": 0
     },
     {
       "id": "UAV-3",

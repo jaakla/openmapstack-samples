@@ -1,5 +1,5 @@
 {
-  "runId": "run-20261017-125313",
+  "runId": "run-20261017-141424",
   "sources": [
     {
       "id": "lidar_672496a",
@@ -98,20 +98,140 @@
       "retrievedAt": "2026-10-17T11:25:07.733974+00:00"
     },
     {
-      "id": "tank",
-      "title": "Tank \u00b7 dannzjs \u00b7 Abrams M1A2 SEPv3 (modified)",
-      "url": "https://sketchfab.com/3d-models/abrams-m1a2-sepv3-eb6f5560198740269507e9948376414c",
-      "version": "b51a51a5b58962f4d07931e1871cbc6effd27c3e",
-      "license": "CC BY 4.0",
-      "retrievedAt": "2026-10-17T11:24:55.520443+00:00"
-    },
-    {
       "id": "orthophoto",
       "title": "orthophoto",
       "url": "https://kartta.hel.fi/ws/geoserver/avoindata/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=avoindata%3AOrtoilmakuva_2021_5cm&STYLES=&SRS=EPSG%3A3067&BBOX=385200%2C6671300%2C386500%2C6672500&WIDTH=1300&HEIGHT=1200&FORMAT=image%2Fjpeg",
       "version": "2021 orthophoto; immutable 2026-10-17 WMS snapshot",
       "license": "CC BY 4.0",
       "retrievedAt": "2026-10-17T11:27:33.473600+00:00"
+    },
+    {
+      "id": "lod2_tileset",
+      "title": "Official untextured LoD2 building model \u00b7 lod2_tileset",
+      "url": "https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/tileset.json",
+      "version": "official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11; acquisition epoch unknown",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T13:39:58.825745+00:00"
+    },
+    {
+      "id": "lod2_37306_5429",
+      "title": "Official untextured LoD2 building model \u00b7 lod2_37306_5429",
+      "url": "https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37306/5429.b3dm",
+      "version": "official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11; acquisition epoch unknown",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T13:39:58.874008+00:00"
+    },
+    {
+      "id": "lod2_37306_5430",
+      "title": "Official untextured LoD2 building model \u00b7 lod2_37306_5430",
+      "url": "https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37306/5430.b3dm",
+      "version": "official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11; acquisition epoch unknown",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T13:39:59.009312+00:00"
+    },
+    {
+      "id": "lod2_37306_5431",
+      "title": "Official untextured LoD2 building model \u00b7 lod2_37306_5431",
+      "url": "https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37306/5431.b3dm",
+      "version": "official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11; acquisition epoch unknown",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T13:39:59.000657+00:00"
+    },
+    {
+      "id": "lod2_37307_5429",
+      "title": "Official untextured LoD2 building model \u00b7 lod2_37307_5429",
+      "url": "https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37307/5429.b3dm",
+      "version": "official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11; acquisition epoch unknown",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T13:39:58.917236+00:00"
+    },
+    {
+      "id": "lod2_37307_5430",
+      "title": "Official untextured LoD2 building model \u00b7 lod2_37307_5430",
+      "url": "https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37307/5430.b3dm",
+      "version": "official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11; acquisition epoch unknown",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T13:39:59.009768+00:00"
+    },
+    {
+      "id": "lod2_37307_5431",
+      "title": "Official untextured LoD2 building model \u00b7 lod2_37307_5431",
+      "url": "https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37307/5431.b3dm",
+      "version": "official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11; acquisition epoch unknown",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T13:39:59.272046+00:00"
+    },
+    {
+      "id": "lod2_37308_5429",
+      "title": "Official untextured LoD2 building model \u00b7 lod2_37308_5429",
+      "url": "https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37308/5429.b3dm",
+      "version": "official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11; acquisition epoch unknown",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T13:39:59.042914+00:00"
+    },
+    {
+      "id": "lod2_37308_5430",
+      "title": "Official untextured LoD2 building model \u00b7 lod2_37308_5430",
+      "url": "https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37308/5430.b3dm",
+      "version": "official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11; acquisition epoch unknown",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T13:39:59.189939+00:00"
+    },
+    {
+      "id": "lod2_37308_5431",
+      "title": "Official untextured LoD2 building model \u00b7 lod2_37308_5431",
+      "url": "https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37308/5431.b3dm",
+      "version": "official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11; acquisition epoch unknown",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T13:39:59.280224+00:00"
+    },
+    {
+      "id": "lod2_37309_5429",
+      "title": "Official untextured LoD2 building model \u00b7 lod2_37309_5429",
+      "url": "https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37309/5429.b3dm",
+      "version": "official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11; acquisition epoch unknown",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T13:39:59.487610+00:00"
+    },
+    {
+      "id": "lod2_37309_5430",
+      "title": "Official untextured LoD2 building model \u00b7 lod2_37309_5430",
+      "url": "https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37309/5430.b3dm",
+      "version": "official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11; acquisition epoch unknown",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T13:40:00.111822+00:00"
+    },
+    {
+      "id": "lod2_37309_5431",
+      "title": "Official untextured LoD2 building model \u00b7 lod2_37309_5431",
+      "url": "https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37309/5431.b3dm",
+      "version": "official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11; acquisition epoch unknown",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T13:39:59.645365+00:00"
+    },
+    {
+      "id": "lod2_37310_5429",
+      "title": "Official untextured LoD2 building model \u00b7 lod2_37310_5429",
+      "url": "https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37310/5429.b3dm",
+      "version": "official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11; acquisition epoch unknown",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T13:39:59.899034+00:00"
+    },
+    {
+      "id": "lod2_37310_5430",
+      "title": "Official untextured LoD2 building model \u00b7 lod2_37310_5430",
+      "url": "https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37310/5430.b3dm",
+      "version": "official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11; acquisition epoch unknown",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T13:40:00.153847+00:00"
+    },
+    {
+      "id": "lod2_37310_5431",
+      "title": "Official untextured LoD2 building model \u00b7 lod2_37310_5431",
+      "url": "https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37310/5431.b3dm",
+      "version": "official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11; acquisition epoch unknown",
+      "license": "CC BY 4.0",
+      "retrievedAt": "2026-10-17T13:40:00.149755+00:00"
     }
   ],
   "assumptions": [
@@ -142,7 +262,7 @@
     },
     {
       "id": "A6",
-      "statement": "SIMULATED tank follows source OSM surface motor-road nodes at 4 m/s; UAV follows the same sourced route shapes at 8 m/s, 50 m AGL by default. Neither represents a real force.",
+      "statement": "SIMULATED UAVs follow sourced OSM route shapes at 8 m/s, 50 m AGL by default. They do not represent observed flights or forces.",
       "rationale": "User-requested illustrative simulation; not operational intelligence."
     },
     {
@@ -167,13 +287,28 @@
     },
     {
       "id": "A11",
-      "statement": "Buildings are measured 2 m roof columns for display; vegetation is a deterministic subsample of actual returns. Models are magnified 2.4\u00d7 tank / 9\u00d7 UAV for legibility.",
+      "statement": "Building rendering is a replaceable source-backed mesh layer, separate from the unchanged 1 m LiDAR DSM. Vegetation is a deterministic subsample of measured returns; UAV props are magnified 9\u00d7 for legibility.",
       "rationale": "Display simplification and annotation sizes do not change 1 m obstruction calculations."
     },
     {
       "id": "A12",
       "statement": "Surface OSM graph excludes tunnels, bridges, nonzero layer, private/no motor access and non-motor road types; oneway tags are respected in route construction. Reversal at route ends is a simulated turn.",
       "rationale": "A simplified street-following demonstration, not a routable operational movement planner."
+    },
+    {
+      "id": "A13",
+      "statement": "MGRS is a one-metre display reference in WGS84; internal metric analysis remains EPSG:3067/N2000. Entered references select the grid-square centre; the ETRS89/WGS84 display approximation is not survey positioning.",
+      "rationale": "Separate coordinate notation from analysis and disclose datum/display precision."
+    },
+    {
+      "id": "A14",
+      "statement": "Past traces cover elapsed simulation time up to 120 s. Future route and terminal speed envelope use 0.8/1.0/1.2 speed scenarios over 300 s. The 16 m wide visual ribbon is an annotation of along-route terminal uncertainty, not a lateral accuracy bound.",
+      "rationale": "Distinct past/future styles, real source vertices and explicit scenario uncertainty."
+    },
+    {
+      "id": "A15",
+      "statement": "Official Helsinki untextured LoD2, tilesetVersion 291269823412, HTTP export 2026-05-11; acquisition epoch is unknown for this continuously maintained model. 15 leaf b3dm tiles are decoded, reprojected, triangle-clipped and quantized to 2 cm for display. LiDAR DSM remains the sole obstruction input.",
+      "rationale": "Real roofs and source IDs with explicit display-versus-analysis provenance; epoch differences are measured, not fitted away."
     }
   ],
   "statistics": {
@@ -204,6 +339,44 @@
   },
   "attribution": "\u00a9 Helsingin kaupunkimittauspalvelut 2021, CC BY 4.0 (modified). \u00a9 OpenStreetMap contributors, ODbL 1.0. Models: models/ATTRIBUTION.txt.",
   "research": "https://github.com/jaakla/openmapstack-samples/issues/1#issuecomment-6233311665",
+  "iteration2Research": "https://github.com/jaakla/openmapstack-samples/issues/1#issuecomment-6234522031",
+  "buildingMesh": {
+    "source": "City of Helsinki official untextured LoD2",
+    "sourceTilesetVersion": "291269823412",
+    "acquisitionEpoch": "unknown; continuously maintained model; HTTP export 2026-05-11",
+    "licence": "CC BY 4.0",
+    "sourceDocumentation": "https://www.hel.fi/en/decision-making/information-on-helsinki/maps-and-geospatial-data/helsinki-3d",
+    "tilesMatched": 15,
+    "tilesReturned": 15,
+    "buildingCount": 802,
+    "inputTriangles": 244013,
+    "clippedTriangles": 173456,
+    "publishedTriangles": 172639,
+    "quantizationCollapsed": 813,
+    "quantizationMetres": 0.02,
+    "boundsEPSG3067N2000": [
+      [
+        385200.0,
+        6671300.0,
+        -2.1145006008446217
+      ],
+      [
+        386500.0,
+        6672500.0,
+        72.94000353757292
+      ]
+    ],
+    "roofFaces": 55175,
+    "alignment": {
+      "samples": 50376,
+      "medianRoofMinus2021DSM": -0.18133370205759825,
+      "medianAbsoluteDifference": 0.31066551012918353,
+      "p95AbsoluteDifference": 4.100999391482522,
+      "note": "Independent epochs and roof details differ; no vertical fitting or DSM modification."
+    },
+    "renderingVersusAnalysis": "This mesh is display context; the 2021 LiDAR DSM alone determines LOS.",
+    "glbBytes": 6234632
+  },
   "analysisCRS": "EPSG:3067",
   "verticalDatum": "N2000"
 }

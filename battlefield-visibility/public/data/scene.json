@@ -10,14 +10,28 @@
     385200,
     6671300
   ],
-  "displayGrid": {
-    "width": 650,
-    "height": 600
+  "buildingMesh": {
+    "path": "data/buildings.glb",
+    "source": "lod2_tileset",
+    "metadata": "data/building-mesh.json",
+    "analysis": false
+  },
+  "coordinates": {
+    "display": "MGRS",
+    "accuracy_digits": 5,
+    "internal": "EPSG:3067",
+    "secondary": "EPSG:3067 optional",
+    "datum_note": "ETRS89 to WGS84 display approximation; 1 m grid, not survey accuracy"
+  },
+  "tracks": {
+    "past_seconds": 120,
+    "past_style": "faint dotted",
+    "future_seconds": 300,
+    "future_style": "amber dashed",
+    "uncertainty": "speed hypotheses 0.8/1.0/1.2; sampled envelope, not calibrated probability"
   },
   "defaults": {
     "uavHeight": 50,
-    "tankHeight": 3,
-    "tanks": 1,
     "uavs": 1
   },
   "layers": {
@@ -27,13 +41,20 @@
     "buildings": true,
     "vegetation": true,
     "roads": true,
-    "predictions": true
+    "predictions": true,
+    "traces": true,
+    "los": true,
+    "uncertainty": true,
+    "affiliations": true,
+    "ground": true,
+    "obstructions": true,
+    "scenario": true
   },
   "playback": {
     "playing": false,
     "speed": 1,
     "time": 0
   },
-  "runId": "run-20261017-125313",
+  "runId": "run-20261017-141424",
   "status": "SIMULATED"
 }
