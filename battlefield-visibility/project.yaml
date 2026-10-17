@@ -91,6 +91,14 @@ interpretation:
       to 2 cm for display. LiDAR DSM remains the sole obstruction input.
     rationale: Real roofs and source IDs with explicit display-versus-analysis provenance;
       epoch differences are measured, not fitted away.
+  - id: A16
+    statement: Relative UAV contacts use EPSG:3067 grid north, 6400 mil per turn and
+      N2000 height above stationary OWN at DTM + 2 m. Local true bearing is grid
+      bearing plus meridian convergence at OWN. Range rate is horizontal, negative
+      closing; course is the outgoing ground-track segment, not body heading.
+      Magnetic declination and vertical velocity are not modelled.
+    rationale: Explicit reference frames and signed simulated quantities; no inferred
+      own orientation or clock directions. All contact fields share the LOS snapshot.
 sources:
   lidar_672496a:
     role: authoritative_input
@@ -1364,6 +1372,7 @@ validation:
   - lod2_alignment
   - lod2_mesh_valid
   - lod2_conversion_fixtures
+  - relative_contact_reports
   domain_checks: []
 presentation:
   intent: educational_visibility_simulation
@@ -1492,6 +1501,15 @@ presentation:
     future_seconds: 300
     future_style: amber dashed
     uncertainty: speed hypotheses 0.8/1.0/1.2; sampled envelope, not calibrated probability
+  contact_report:
+    basis: derived from SIMULATED tracks; same worker snapshot as LOS
+    north_reference: EPSG:3067 grid north / UTM 35N
+    angular_unit: 6400 mil per turn and degrees
+    convergence: signed clockwise grid north from true north; true = grid + convergence at OWN
+    own_height_agl_m: 2
+    range_rate: horizontal range derivative; stationary own; negative closing, positive opening
+    course: ground track of outgoing source route segment; not body heading
+    magnetic_reference: unavailable; declination not modelled
   theme:
     name: tactical_dark
     affiliation_note: APP-6-inspired only; not certified symbology
@@ -1535,6 +1553,7 @@ runtime:
     - data/archive
     - tests/presentation.test.js
     - tests/camera.test.js
+    - tests/contact.test.js
     - building_mesh.py
     - licenses
     - tests/test_building_mesh.py

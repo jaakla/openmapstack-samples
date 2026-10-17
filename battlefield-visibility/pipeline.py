@@ -810,6 +810,30 @@ def main():
         result.returncode == 0,
         "Analytic/product fixtures via npm test",
     )
+    contacts = baseline["contacts"]
+    contact_rules = project["presentation"]["contact_report"]
+    check(
+        "relative_contact_reports",
+        result.returncode == 0
+        and len(contacts) == project["presentation"]["controls"]["defaults"]["uavs"]
+        and contact_rules["own_height_agl_m"] == 2
+        and contact_rules["north_reference"] == "EPSG:3067 grid north / UTM 35N"
+        and all(
+            c["timeSeconds"] == baseline["time"]
+            and c["zone"] == next(s["zone"] for s in baseline["sightlines"] if s["id"] == c["id"])
+            and (
+                c["bearingGridDeg"] is None and c["bearingGridMils"] is None
+                or c["bearingGridDeg"] is not None
+                and 0 <= c["bearingGridDeg"] < 360
+                and abs(c["bearingGridMils"] - c["bearingGridDeg"] * 6400 / 360) < 1e-9
+            )
+            and (c["slantRangeM"] is None or c["slantRangeM"] >= c["horizontalRangeM"])
+            and c["mgrs"].startswith("35V LG ")
+            and c["line"].startswith("CONTACT — SIMULATED")
+            for c in contacts
+        ),
+        "Pure analytic contact/convergence/sign fixtures and canonical reports agree with worker time, LOS, MGRS and manifest reference frames",
+    )
     check(
         "archived_sources_reproducible",
         acquisition_tests.returncode == 0,

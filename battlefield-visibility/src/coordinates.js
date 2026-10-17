@@ -3,6 +3,18 @@ import mgrs from "geographiclib-mgrs";
 
 // ETRS89 / TM35FIN, GRS80. Presentation conversion only; LOS stays in EPSG:3067.
 const TM35 = "+proj=utm +zone=35 +ellps=GRS80 +units=m +no_defs";
+const GRS80 = "+proj=longlat +ellps=GRS80 +units=degrees +no_defs";
+
+// Signed clockwise bearing of grid north from true north. Differentiate the
+// projected meridian symmetrically (~2.2m span), avoiding a spherical TM shortcut.
+// Therefore local true azimuth = grid azimuth + convergence.
+export function gridConvergenceDegrees(eastingNorthing) {
+  if (eastingNorthing?.length !== 2 || !eastingNorthing.every(Number.isFinite)) return null;
+  const [lon, lat] = proj4(TM35, GRS80, eastingNorthing);
+  const south = proj4(GRS80, TM35, [lon, lat - 0.00001]);
+  const north = proj4(GRS80, TM35, [lon, lat + 0.00001]);
+  return -Math.atan2(north[0] - south[0], north[1] - south[1]) * 180 / Math.PI;
+}
 export function formatMGRS(origin, position) {
   if (!position?.slice(0, 2).every(Number.isFinite)) return "MGRS unavailable";
   const xy = [origin[0] + position[0], origin[1] + position[1]];

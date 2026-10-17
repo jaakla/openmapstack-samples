@@ -11,10 +11,11 @@ export function routePosition(route, distance) {
   if (!total) throw new Error("Zero-length route");
   // Ping-pong avoids a fabricated jump from the last street node back to the first.
   let d = ((distance % (2 * total)) + 2 * total) % (2 * total);
-  const reverse = d > total;
+  const reverse = d >= total;
   if (reverse) d = 2 * total - d;
   for (let i = 0; i < lengths.length; i++) {
-    if (d <= lengths[i] || i === lengths.length - 1) {
+    if (!lengths[i]) continue;
+    if (d < lengths[i] || (reverse && d === lengths[i]) || i === lengths.length - 1) {
       const a = route[i],
         b = route[i + 1],
         t = lengths[i] ? d / lengths[i] : 0;
@@ -46,6 +47,10 @@ export function sensorAt(
     id: vector.id,
     type: vector.type,
     heading: p.heading,
+    groundVelocity: [Math.sin(p.heading), Math.cos(p.heading)].map(
+      (component) => component * vector.speedMps * speedFactor,
+    ),
+    agl,
     position: [p.x, p.y, height(grid, grid.dtm, p.x, p.y) + agl],
   };
 }

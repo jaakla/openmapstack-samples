@@ -15,7 +15,7 @@ const grid = {
   dtm: array("public/data/dtm.bin"),
   dsm: array("public/data/dsm.bin"),
 };
-const r = calculateZones(grid, scenario, config.defaults, 0, scenario.target),
+const r = calculateZones(grid, scenario, config.defaults, 0, scenario.target, config.origin),
   counts = [0, 0, 0, 0];
 for (const z of r.zones) counts[z]++;
 fs.writeFileSync("data/derived/default-zones.bin", r.zones);
@@ -31,6 +31,7 @@ fs.writeFileSync(
       mgrs: formatMGRS(config.origin, s.position),
     })),
     sightlines: r.sightlines,
+    contacts: r.contacts,
     cols: r.cols,
     rows: r.rows,
     spacing: r.spacing,

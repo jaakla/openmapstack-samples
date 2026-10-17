@@ -48,6 +48,7 @@ test(
         config.defaults,
         0,
         scenario.target,
+        config.origin,
       ),
       counts = [0, 0, 0, 0];
     assert.ok(scenario.vectors.every((v) => v.type === "uav"));
@@ -56,6 +57,7 @@ test(
     for (const z of result.zones) counts[z]++;
     assert.deepEqual(counts, baseline.counts);
     assert.deepEqual(result.status, baseline.status);
+    assert.deepEqual(result.contacts, baseline.contacts);
     assert.deepEqual(
       Buffer.from(result.zones),
       fs.readFileSync("data/derived/default-zones.bin"),

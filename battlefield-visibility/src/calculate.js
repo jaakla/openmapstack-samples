@@ -1,7 +1,9 @@
 import { height, classifyTarget } from "./visibility.js";
 import { activeVectors, sensorAt, predict, pastTraces } from "./simulation.js";
+import { formatMGRS, gridConvergenceDegrees } from "./coordinates.js";
+import { relativeContact, formatContactLine } from "./contact.js";
 
-export function calculateZones(grid, scenario, settings, time, target) {
+export function calculateZones(grid, scenario, settings, time, target, origin) {
   const vectors = activeVectors(scenario, settings);
   const sensors = vectors.map((v) =>
     sensorAt(grid, scenario, v, time, settings),
@@ -33,19 +35,31 @@ export function calculateZones(grid, scenario, settings, time, target) {
         (row + 0.5) * spacing,
       ]).zone;
     }
+  const sightlines = sensors.map((sensor) => ({
+    id: sensor.id,
+    ...statusAt(target, [sensor], futures.filter((f) => f.id === sensor.id)),
+  }));
+  const convergenceDegrees = origin ? gridConvergenceDegrees([
+    origin[0] + target[0], origin[1] + target[1],
+  ]) : null;
+  const ownPosition = [...target, height(grid, grid.dtm, ...target) + 2];
+  const contacts = sensors.map((sensor) => {
+    const contact = {
+      id: sensor.id, timeSeconds: time,
+      mgrs: origin ? formatMGRS(origin, sensor.position) : null,
+      zone: sightlines.find((s) => s.id === sensor.id).zone,
+      ...relativeContact({ ownPosition, position: sensor.position,
+        groundVelocity: sensor.groundVelocity, agl: sensor.agl, convergenceDegrees }),
+    };
+    return { ...contact, line: formatContactLine(contact) };
+  });
   return {
     time,
     sensors,
     futures,
     traces: pastTraces(grid, scenario, vectors, time, settings),
-    sightlines: sensors.map((sensor) => ({
-      id: sensor.id,
-      ...statusAt(
-        target,
-        [sensor],
-        futures.filter((f) => f.id === sensor.id),
-      ),
-    })),
+    sightlines,
+    contacts,
     zones,
     cols,
     rows,
