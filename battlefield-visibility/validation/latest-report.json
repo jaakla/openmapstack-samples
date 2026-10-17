@@ -1,8 +1,8 @@
 {
-  "run_id": "run-20261017-114219",
+  "run_id": "run-20261017-123657",
   "status": "passed",
-  "inputs_hash": "sha256:8b2b5247ce3c0a4852a04b4c755b9191e5b82b656e620c4a442ed9cd3fa4f6e8",
-  "outputs_hash": "sha256:019d398e89f2e72b73e074c178474691fe8c312df13762ff2f797927fce0c6a5",
+  "inputs_hash": "sha256:71f177225c0fc8a5e8e4bbc75001f1b6bcf0c804eafa07180dc43157fa872c0f",
+  "outputs_hash": "sha256:3e8b36569227905ea7a51600e039b5a728ab6b9cf5d8ea2298776d086942d934",
   "checks": [
     {
       "id": "source_hashes_match",
@@ -101,7 +101,12 @@
     {
       "id": "analytic_los_tests",
       "status": "passed",
-      "message": "Analytic fixtures via npm test"
+      "message": "Analytic/product fixtures via npm test"
+    },
+    {
+      "id": "archived_sources_reproducible",
+      "status": "passed",
+      "message": "Offline fresh-clone archive restoration and strict corruption rejection via unittest"
     },
     {
       "id": "qgis_project_static_valid",

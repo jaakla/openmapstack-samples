@@ -2,6 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import { calculateZones } from "../src/calculate.js";
+import { height, lineOfSight } from "../src/visibility.js";
 const read = (p) => JSON.parse(fs.readFileSync(p, "utf8"));
 const exists = fs.existsSync("public/data/scene.json");
 test(
@@ -50,6 +51,13 @@ test(
         scenario.target,
       ),
       counts = [0, 0, 0, 0];
+    // QA's measured-data repro: this ground cell is clear, but a closed solid
+    // touches the endpoint to its west. It must block TANK-1 in either direction.
+    const qaX = 385450 - config.origin[0], qaY = 6671610 - config.origin[1];
+    const qaTarget = [qaX, qaY, height(grid, grid.dtm, qaX, qaY) + 2];
+    const tank = baseline.sensors.find(sensor => sensor.id === "TANK-1").position;
+    assert.equal(lineOfSight(grid, tank, qaTarget), false);
+    assert.equal(lineOfSight(grid, qaTarget, tank), false);
     for (const z of result.zones) counts[z]++;
     assert.deepEqual(counts, baseline.counts);
     assert.deepEqual(result.status, baseline.status);

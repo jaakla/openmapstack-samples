@@ -695,6 +695,7 @@ def main():
     acquisition_tests = subprocess.run(
         [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_acquire.py"],
         check=False,
+        env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
     )
     check(
         "analytic_los_tests", result.returncode == 0, "Analytic/product fixtures via npm test"

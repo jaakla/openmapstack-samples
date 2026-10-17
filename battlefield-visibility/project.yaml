@@ -5,7 +5,7 @@ project:
   question: Explore dynamic geometric visibility of simulated tank/UAV vectors over
     measured downtown Helsinki geometry.
   created_at: '2026-10-17T11:30:00Z'
-  updated_at: '2026-10-17T11:43:31.582631+00:00'
+  updated_at: '2026-10-17T12:38:10.517718+00:00'
   status: validated
 interpretation:
   objective: Reproducible open-data educational 3D simulation, independent of toompea-3d.
@@ -2252,7 +2252,10 @@ runtime:
     - package-lock.json
     - src
     - scripts/canonical.mjs
-    - tests
+    - tests/archives.test.js
+    - tests/products.test.js
+    - tests/test_acquire.py
+    - tests/visibility.test.js
     - index.html
     - vite.config.js
     - data/archive
@@ -2266,15 +2269,15 @@ runtime:
     node: 24.19.0
 runs:
   latest:
-    id: run-20261017-114219
-    run_id: run-20261017-114219
-    started_at: '2026-10-17T11:42:19.578713+00:00'
-    completed_at: '2026-10-17T11:43:31.582631+00:00'
+    id: run-20261017-123657
+    run_id: run-20261017-123657
+    started_at: '2026-10-17T12:36:57.624672+00:00'
+    completed_at: '2026-10-17T12:38:10.517718+00:00'
     status: passed
-    inputs_hash: sha256:8b2b5247ce3c0a4852a04b4c755b9191e5b82b656e620c4a442ed9cd3fa4f6e8
-    outputs_hash: sha256:019d398e89f2e72b73e074c178474691fe8c312df13762ff2f797927fce0c6a5
+    inputs_hash: sha256:71f177225c0fc8a5e8e4bbc75001f1b6bcf0c804eafa07180dc43157fa872c0f
+    outputs_hash: sha256:3e8b36569227905ea7a51600e039b5a728ab6b9cf5d8ea2298776d086942d934
     environment: *id001
     validation_report:
       path: validation/latest-report.json
     record:
-      path: runs/run-20261017-114219.json
+      path: runs/run-20261017-123657.json
