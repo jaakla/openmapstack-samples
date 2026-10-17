@@ -11,15 +11,17 @@ Explore surveyed architecture, airborne LiDAR, terrain, cross sections, measurem
 - [Open the live atlas](https://jaakla.github.io/openmapstack-samples/toompea-3d/)
 - [Project documentation and source evidence](toompea-3d/README.md)
 
-The `Deploy GitHub Pages` workflow tests and builds the prepared browser assets on every push to `main`, then publishes the atlas under `toompea-3d/`. The site root is a gallery linking the independent Toompea and Helsinki demos.
+## UAV visibility
 
-The original large LAZ survey files use Git LFS. Normal Pages builds skip those objects; full GIS recompilation requires `git lfs pull` and the numerical/desktop dependencies documented in the project.
+Explore simulated hostile UAVs over downtown Helsinki using 2021 city LiDAR, including vegetation, and official LoD2 buildings. Live RED/YELLOW/GREEN line-of-sight zones for a 2 m observer, a five-minute forecast, and MGRS contact reports describe the simulated situation.
 
-## Helsinki visibility
+[![Preview of UAV visibility, showing simulated UAV contacts and line-of-sight zones over downtown Helsinki](battlefield-visibility/docs/final-desktop.png)](https://jaakla.github.io/openmapstack-samples/battlefield-visibility/)
 
-A simulated UAV visibility study over measured downtown Helsinki LiDAR.
+- [Open the live demo](https://jaakla.github.io/openmapstack-samples/battlefield-visibility/)
+- [Project documentation and source evidence](battlefield-visibility/README.md)
 
-- [Project, sources, reproduction and limitations](battlefield-visibility/README.md)
-- Published under `battlefield-visibility/` when approved and merged; this change does not deploy it.
+## Publishing
 
-The shared Pages workflow tests and builds both demos on PRs; deployment is restricted to `main`.
+The shared `Deploy GitHub Pages` workflow tests and builds both demos on pull requests and pushes to `main`. Pushes to `main` publish the prepared browser assets under `toompea-3d/` and `battlefield-visibility/`; the [site root](https://jaakla.github.io/openmapstack-samples/) is a gallery linking both independent demos.
+
+Normal Pages builds use committed browser assets and skip raw Git LFS downloads. Toompea's original large LAZ survey files use Git LFS; full GIS recompilation requires `git lfs pull` and the numerical/desktop dependencies documented in that project. UAV visibility's raw acquisitions are excluded from normal git; its project documentation describes acquisition and full recompilation.
