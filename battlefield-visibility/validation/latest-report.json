@@ -1,8 +1,8 @@
 {
-  "run_id": "run-20261017-144455",
+  "run_id": "run-20261017-150924",
   "status": "passed",
-  "inputs_hash": "sha256:a0addb035436c439dcc5c244969cd1c4e3a198ba612c808c2981c67be863cdee",
-  "outputs_hash": "sha256:0af506f6e4a30868eaa93429f6960e117218179e157477adc56eea5233121897",
+  "inputs_hash": "sha256:5054b143ec7b3982db4f9b804c7405d1e0499770bc7d57a424351d9311e0a45d",
+  "outputs_hash": "sha256:af65fc405d9deb81620d9e3f6335384c81fde5a15796a0689af2fd788acbb481",
   "checks": [
     {
       "id": "source_hashes_match",
@@ -129,7 +129,7 @@
       "id": "payload_lt_20mb",
       "status": "passed",
       "message": "All browser data and model bytes before compression, excluding JS/CSS",
-      "bytes": 14823893
+      "bytes": 14825394
     },
     {
       "id": "lod2_conversion_fixtures",
@@ -140,6 +140,11 @@
       "id": "analytic_los_tests",
       "status": "passed",
       "message": "Analytic/product fixtures via npm test"
+    },
+    {
+      "id": "relative_contact_reports",
+      "status": "passed",
+      "message": "Pure analytic contact/convergence/sign fixtures and canonical reports agree with worker time, LOS, MGRS and manifest reference frames"
     },
     {
       "id": "archived_sources_reproducible",

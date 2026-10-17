@@ -5,7 +5,7 @@ project:
   question: Explore dynamic geometric visibility of simulated UAVs over measured downtown
     Helsinki geometry.
   created_at: '2026-10-17T11:30:00Z'
-  updated_at: '2026-10-17T14:46:14.731893+00:00'
+  updated_at: '2026-10-17T15:10:43.853978+00:00'
   status: validated
 interpretation:
   objective: Reproducible open-data educational 3D simulation, independent of toompea-3d.
@@ -93,10 +93,10 @@ interpretation:
       epoch differences are measured, not fitted away.
   - id: A16
     statement: Relative UAV contacts use EPSG:3067 grid north, 6400 mil per turn and
-      N2000 height above stationary OWN at DTM + 2 m. Local true bearing is grid
-      bearing plus meridian convergence at OWN. Range rate is horizontal, negative
-      closing; course is the outgoing ground-track segment, not body heading.
-      Magnetic declination and vertical velocity are not modelled.
+      N2000 height above stationary OWN at DTM + 2 m. Local true bearing is grid bearing
+      plus meridian convergence at OWN. Range rate is horizontal, negative closing;
+      course is the outgoing ground-track segment, not body heading. Magnetic declination
+      and vertical velocity are not modelled.
     rationale: Explicit reference frames and signed simulated quantities; no inferred
       own orientation or clock directions. All contact fields share the LOS snapshot.
 sources:
@@ -1505,9 +1505,11 @@ presentation:
     basis: derived from SIMULATED tracks; same worker snapshot as LOS
     north_reference: EPSG:3067 grid north / UTM 35N
     angular_unit: 6400 mil per turn and degrees
-    convergence: signed clockwise grid north from true north; true = grid + convergence at OWN
+    convergence: signed clockwise grid north from true north; true = grid + convergence
+      at OWN
     own_height_agl_m: 2
-    range_rate: horizontal range derivative; stationary own; negative closing, positive opening
+    range_rate: horizontal range derivative; stationary own; negative closing, positive
+      opening
     course: ground track of outgoing source route segment; not body heading
     magnetic_reference: unavailable; declination not modelled
   theme:
@@ -1568,15 +1570,15 @@ runtime:
     node: 24.19.0
 runs:
   latest:
-    id: run-20261017-144455
-    run_id: run-20261017-144455
-    started_at: '2026-10-17T14:44:55.034097+00:00'
-    completed_at: '2026-10-17T14:46:14.731893+00:00'
+    id: run-20261017-150924
+    run_id: run-20261017-150924
+    started_at: '2026-10-17T15:09:24.231961+00:00'
+    completed_at: '2026-10-17T15:10:43.853978+00:00'
     status: passed
-    inputs_hash: sha256:a0addb035436c439dcc5c244969cd1c4e3a198ba612c808c2981c67be863cdee
-    outputs_hash: sha256:0af506f6e4a30868eaa93429f6960e117218179e157477adc56eea5233121897
+    inputs_hash: sha256:5054b143ec7b3982db4f9b804c7405d1e0499770bc7d57a424351d9311e0a45d
+    outputs_hash: sha256:af65fc405d9deb81620d9e3f6335384c81fde5a15796a0689af2fd788acbb481
     environment: *id002
     validation_report:
       path: validation/latest-report.json
     record:
-      path: runs/run-20261017-144455.json
+      path: runs/run-20261017-150924.json

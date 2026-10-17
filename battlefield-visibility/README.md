@@ -316,6 +316,10 @@ handling, per-UAV LOS versus aggregate status, history, and MGRS-only user expor
 Camera projection regressions cover the QA 320px clipping case, the unchanged
 desktop view, near-camera depth, all AOI corners, zero through three UAVs and
 maximum configured altitude at each of the three tested canvas sizes.
+Eight relative-contact tests cover cardinal/diagonal bearings, 6400 mils,
+independent PROJ convergence references and signs, signed height/elevation,
+slant/ground range, course/turns, closing/opening/tangent motion, stationary and
+undefined cases, report text/units/LOS and shared worker snapshot inputs.
 Product checks verify grid dimensions, DSM ≥ DTM,
 source-edge identifiers, exact default snapshot reproduction, self-contained GLBs
 and absence of external decoders. The run inventory verifies all declared outputs. Python tests cover closed 3D
@@ -330,6 +334,8 @@ readable controls and working interactions. Physical mid-range-phone/GPU and iOS
 Safari performance remain unmeasured; viewport emulation does not establish that.
 Temporary QA scripts are ignored under `.cache/`. Requested review screenshots
 are committed under `docs/` and linked in the PR; they are not browser payload.
+The [Iteration 3 QA record](docs/iteration-3-qa.md) covers the relative-contact
+workflow, copy and clipboard-denied fallback, production-path playback and reset.
 
 The generated concept guides dark palette, monospace readouts, tab/section
 hierarchy, restrained borders, map overlays and mobile map-first stacking. All

@@ -1,5 +1,5 @@
 {
-  "runId": "run-20261017-144455",
+  "runId": "run-20261017-150924",
   "sources": [
     {
       "id": "lidar_672496a",
@@ -309,6 +309,11 @@
       "id": "A15",
       "statement": "Official Helsinki untextured LoD2, tilesetVersion 291269823412, HTTP export 2026-05-11; acquisition epoch is unknown for this continuously maintained model. 15 leaf b3dm tiles are decoded, reprojected, triangle-clipped and quantized to 2 cm for display. LiDAR DSM remains the sole obstruction input.",
       "rationale": "Real roofs and source IDs with explicit display-versus-analysis provenance; epoch differences are measured, not fitted away."
+    },
+    {
+      "id": "A16",
+      "statement": "Relative UAV contacts use EPSG:3067 grid north, 6400 mil per turn and N2000 height above stationary OWN at DTM + 2 m. Local true bearing is grid bearing plus meridian convergence at OWN. Range rate is horizontal, negative closing; course is the outgoing ground-track segment, not body heading. Magnetic declination and vertical velocity are not modelled.",
+      "rationale": "Explicit reference frames and signed simulated quantities; no inferred own orientation or clock directions. All contact fields share the LOS snapshot."
     }
   ],
   "statistics": {
