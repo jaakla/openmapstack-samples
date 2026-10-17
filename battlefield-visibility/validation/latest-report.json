@@ -1,8 +1,8 @@
 {
-  "run_id": "run-20261017-150924",
+  "run_id": "run-20261017-163552",
   "status": "passed",
-  "inputs_hash": "sha256:5054b143ec7b3982db4f9b804c7405d1e0499770bc7d57a424351d9311e0a45d",
-  "outputs_hash": "sha256:af65fc405d9deb81620d9e3f6335384c81fde5a15796a0689af2fd788acbb481",
+  "inputs_hash": "sha256:79080abd883b28ed5e6fb8f264859ad75032ba44e1e67d422e616cd37b00123d",
+  "outputs_hash": "sha256:e99d1bd3f8066e4faeb86e094d2a72eade405aba22c017dc48e2ec554fd5b712",
   "checks": [
     {
       "id": "source_hashes_match",
@@ -129,7 +129,7 @@
       "id": "payload_lt_20mb",
       "status": "passed",
       "message": "All browser data and model bytes before compression, excluding JS/CSS",
-      "bytes": 14825394
+      "bytes": 14825791
     },
     {
       "id": "lod2_conversion_fixtures",
@@ -150,6 +150,11 @@
       "id": "archived_sources_reproducible",
       "status": "passed",
       "message": "Offline fresh-clone archive restoration and strict corruption rejection via unittest"
+    },
+    {
+      "id": "publication_contract",
+      "status": "passed",
+      "message": "Publication attribution and accessible autoplay policy are declared; metadata escaping, hidden clock and persistent-buffer fixtures pass"
     },
     {
       "id": "qgis_project_static_valid",

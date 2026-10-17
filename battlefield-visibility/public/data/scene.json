@@ -51,10 +51,10 @@
     "scenario": true
   },
   "playback": {
-    "playing": false,
+    "playing": true,
     "speed": 1,
     "time": 0
   },
-  "runId": "run-20261017-150924",
+  "runId": "run-20261017-163552",
   "status": "SIMULATED"
 }

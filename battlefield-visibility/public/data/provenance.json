@@ -1,5 +1,19 @@
 {
-  "runId": "run-20261017-150924",
+  "runId": "run-20261017-163552",
+  "project": {
+    "id": "helsinki-battlefield-visibility",
+    "title": "UAV visibility \u00b7 simulated scenario",
+    "updated_at": "2026-10-17T00:00:00Z",
+    "status": "published",
+    "author": {
+      "name": "Jaak Laineste",
+      "email": "jaak@goplex.ee"
+    },
+    "generated_with": {
+      "tool": "OpenMapStack",
+      "url": "https://github.com/jaakla/openmapstack-skills"
+    }
+  },
   "sources": [
     {
       "id": "lidar_672496a",
