@@ -1,4 +1,5 @@
 """Offline fresh-clone restoration and strict corruption rejection."""
+
 import copy
 import gzip
 import json
@@ -19,8 +20,16 @@ class ArchivedSources(unittest.TestCase):
         self.temp = tempfile.TemporaryDirectory(dir=local_temp)
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
-        self.entries = [e for e in json.loads((self.project / "sources.lock.json").read_text())["files"] if e.get("archive")]
-        self.assertEqual({e["id"] for e in self.entries}, {"osm", "tile_index"})
+        self.entries = [
+            e
+            for e in json.loads((self.project / "sources.lock.json").read_text())[
+                "files"
+            ]
+            if e.get("archive")
+        ]
+        self.assertEqual(
+            {e["id"] for e in self.entries}, {"osm", "tile_index", "lod2_tileset"}
+        )
         for e in self.entries:
             dest = self.root / e["archive"]["path"]
             dest.parent.mkdir(parents=True, exist_ok=True)
@@ -28,7 +37,13 @@ class ArchivedSources(unittest.TestCase):
         self.root_patch = patch.object(acquire, "ROOT", self.root)
         self.root_patch.start()
         self.addCleanup(self.root_patch.stop)
-        network = patch.object(acquire.urllib.request, "urlopen", side_effect=AssertionError("Archived snapshots must not query live wrappers"))
+        network = patch.object(
+            acquire.urllib.request,
+            "urlopen",
+            side_effect=AssertionError(
+                "Archived snapshots must not query live wrappers"
+            ),
+        )
         self.urlopen = network.start()
         self.addCleanup(network.stop)
 

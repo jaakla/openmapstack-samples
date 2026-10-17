@@ -4,3 +4,4 @@ data/source/*
 .cache/
 dist/
 node_modules/
+__pycache__/

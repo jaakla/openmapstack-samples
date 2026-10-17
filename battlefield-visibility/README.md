@@ -2,7 +2,7 @@
 
 An independent, reproducible [OpenMapStack](https://github.com/jaakla/openmapstack-skills)
 demo for [issue #1](https://github.com/jaakla/openmapstack-samples/issues/1).
-All vehicles, their movement, forecasts, and zone results are **SIMULATED**.
+All UAVs, their movement, forecasts, and zone results are **SIMULATED**.
 This is an exploratory geometric visibility model, **not operational intelligence**.
 GREEN means no visibility found under the sampled model; it does not establish safety.
 
@@ -33,18 +33,36 @@ the deployment job only runs on `main`, after owner approval/merge.
 The root page is a gallery linking both independent demos.
 
 Orbit with one finger or mouse drag; pan with two fingers/right drag; pinch or
-scroll to zoom. Tap the ground or enter EPSG:3067 easting/northing to move the
-2 m AGL green target. **Find tank / Find UAV** inspect the licensed models.
-The Simulation tab exposes heights, 0–3 vectors of each type, playback/speed,
-layer toggles and reset. Sources exposes source versions, dates and assumptions.
-Reset restores the manifest's defaults, layers, playback, target and t=0.
-The displayed sensors, predicted paths, zones and target status share one
-worker snapshot; its simulation timestamp and computation duration remain visible.
+scroll to zoom. Tap the ground or enter a full **MGRS** reference such as
+`35V LG 85200 71300` to move own position (2 m AGL). A reference selects the
+centre of its one-metre square. Invalid/outside-area references leave the target
+unchanged and show an error. **Find UAV** or a tracked UAV row focuses the model.
+
+The **Scenario / Layers / Sources** tabs contain collapsible sections. Configure
+10–150 m UAV AGL, 0–3 UAVs and playback speed; toggle analysis, LOS vectors, traces,
+forecasts, uncertainty, affiliation labels and source context. Reset restores the
+manifest's defaults, layer visibility, target, playback and exact t=0 snapshot.
+Changed analytical controls, relocated targets and playback label the scenario
+exploratory. Source versions, retrieval dates, licensing and assumptions are visible.
+
+The dark C2-style interface uses monospace telemetry and APP-6-inspired **red
+diamond hostile UAVs / blue rectangle own position**. These are simulation
+annotations, not certified military symbols. Affiliation is independent of LOS:
+red = visible now; yellow = sampled forecast visibility within five minutes;
+green = no sampled visibility; grey = unknown. Each drone has its own coloured
+3D vector to own position, even if another drone makes the aggregate status RED.
+A legend explains symbols, statuses, dotted history, dashed future and speed envelope.
+
+Positions on the map, tracked UAV rows, tap readouts and **Export snapshot** use
+MGRS. The user export contains MGRS own/drone locations and per-drone status; it
+contains no raw XY position arrays. Optional secondary EPSG:3067 readout is off
+by default and resets off. Project GIS outputs retain their declared metric CRS.
+All sensors, lines, paths, zones and status share a timestamped worker snapshot.
 
 ## Recompile the GIS project
 
-Raw input is about **952 MB**, excluded by `data/source/*` in this project's
-`.gitignore`. Do not add the LAZ files, original tank textures or source bundles
+Raw input is about **840 MB**, excluded by `data/source/*` in this project's
+`.gitignore`. Do not add the LAZ files or original source bundles
 to normal git. Keep `sources.lock.json`, which records each exact URL, retrieval
 time, byte size, license and SHA-256. If maintaining a long-lived archive, mirror
 those exact bytes in an external archive or Git LFS and preserve the same hashes.
@@ -54,18 +72,14 @@ acquisition rather than silently changing the project.
 The tested runtime is Python 3.14.4, GDAL 3.12.2 / PROJ via pyproj 3.7.2,
 QGIS 3.40.15-Bratislava, NumPy 2.5.4, laspy 2.6.1 / lazrs 0.8.1, and OpenMapStack
 CLI 0.1.0. `requirements.txt` pins the Python processing libraries; npm's lockfile
-pins the frontend and glTF Transform 4.3.0. Use a GDAL/PROJ/QGIS system or
+pins the frontend, Proj4js 2.22.0 and geographiclib-mgrs 1.0.5. Use a GDAL/PROJ/QGIS system or
 conda-forge environment whose Python can import `osgeo` and `qgis.core` before
 creating the venv. A standalone pip-only GDAL/QGIS installation is not assumed.
 QGIS is required for this project's declared desktop output.
 
-Dependency audit (2026-10-17): the pinned glTF Transform 4.3.0 development toolchain
-has four high-severity npm findings through `sharp` and `micromatch`/`braces`.
-Testing the latest compatible CLI 4.5.1 removed the `sharp` finding but left three
-high findings; npm then proposed a breaking downgrade to CLI 2.0.5. Because that
-update does not clear the advisories, the tested 4.3.0 lockfile is retained.
-`npm audit --omit=dev` reports zero vulnerabilities. These tools process the pinned
-local model during acquisition/build; they are not included in the browser bundle.
+Dependency audit (2026-10-17): the unused model optimizer and its dependencies
+were removed. `npm audit` and `npm audit --omit=dev` both report zero vulnerabilities.
+The original CC0 UAV GLB is copied unchanged; no model optimizer is required.
 
 ```sh
 # Substitute the Python executable belonging to your GIS runtime.
@@ -84,13 +98,13 @@ npm run build
 ```
 
 `acquire.py` always consumes the committed lock. On a fresh clone it restores
-**the exact original WFS and Overpass responses** from committed gzip archives in
+**the exact original WFS, Overpass and LoD2 tileset responses** from committed gzip archives in
 `data/archive/` and downloads other missing files from their recorded fixed URLs.
 The small archives are part of the Git revision, outside the browser payload. Both
 the compressed archive SHA-256 and restored original response SHA-256 are verified,
 even when a raw copy is cached. Original query URLs, parameters, data cutoff,
 retrieval timestamps, licensing and the original wrappers are preserved unchanged.
-Reproduction never re-queries the live WFS/Overpass wrappers: service timestamps
+Reproduction never re-queries the live WFS/Overpass/tileset wrappers: service timestamps
 make a new response a different byte snapshot even with the same features.
 
 **Fresh acquisition of a new version** is a separate reviewed operation: query the
@@ -130,15 +144,49 @@ records selections, schema, rationale and licenses, and the view surfaces them.
 | [City tile index](https://kartta.hel.fi/ws/geoserver/avoindata/wfs) | `avoindata:Karttalehtijako_05x05_km`, AOI query; 9 matched / 9 returned | CC BY 4.0; City of Helsinki |
 | [City orthophoto](https://kartta.hel.fi/ws/geoserver/avoindata/wms) | Advertised `avoindata:Ortoilmakuva_2021_5cm`; 1300×1200 EPSG:3067 GetMap, checksum-pinned snapshot retrieved 2026-10-17 | CC BY 4.0; City of Helsinki; georeferenced/reprojected snapshot |
 | [OpenStreetMap](https://www.openstreetmap.org/copyright) | Overpass historical query cutoff `2026-10-16T00:00:00Z`, buffered bbox `(60.161,24.928,60.175,24.957)`, saved topology and versions | ODbL 1.0; © OpenStreetMap contributors. The derived `network.gpkg`, `roads.json`, scenario route database and copied node anchors retain ODbL. |
-| [Tank by dannzjs](https://sketchfab.com/3d-models/abrams-m1a2-sepv3-eb6f5560198740269507e9948376414c) | Source title “Abrams M1A2 SEPv3”; licensed mirror commit `b51a51a5b58962f4d07931e1871cbc6effd27c3e`; source glTF extras and license retained | CC BY 4.0; dannzjs. Simplified, 256 px WebP textures, repackaged GLB; generic tank label does not certify vehicle identification. |
+| [Official Helsinki LoD2](https://www.hel.fi/en/decision-making/information-on-helsinki/maps-and-geospatial-data/helsinki-3d) | Official untextured tileset `16fc3fd5-df6d-4f48-bfd5-9aeee430a02f`, version `291269823412`; 15 selected leaf b3dm tiles; HTTP export 11 May 2026; actual acquisition epoch unknown | City of Helsinki, CC BY 4.0. Modified: decoding, reprojection, clipping, 2 cm quantization, tactical materials. Display only. |
 | [Quadcopter with flight electronics](https://www.innerscene.com/tools/library/3d-parts/quadcopter-with-flight-electronics-a25968c1) | Innerscene model `a25968c1`, original 274,220-byte GLB, SHA-256 `0d38b6f44eef969fe17f0c8a54d6747b7a0efb8a3b2e9ab875221d182a6dfb12` | CC0 1.0; Innerscene; original geometry unchanged. |
 
 Full model credits accompany the actual files in
 [public/models/ATTRIBUTION.txt](public/models/ATTRIBUTION.txt).
 The 2023+ city scan is not substituted: the official city metadata says it is
-no longer open data. NLS's restricted 5 p product is not used. Both selected
-models are self-contained glTF 2; no decoder downloads or model-service API calls
-are needed in the browser. The 182.29 MB source tank is compacted to about 7.71 MB.
+no longer open data. NLS's restricted 5 p product is not used. The UAV model and LoD2 mesh are self-contained glTF 2; no decoder downloads or model-service API
+calls are needed in the browser. Proj4js and GeographicLib-based MGRS ship MIT license texts, retaining Beckman and
+Karney notices. Proj4js also retains transitive legacy OpenMap notices. All are
+shipped in `public/licenses/coordinates.txt` and linked from Sources. QA's independent
+GeographicLib C++ 2.7 metre-boundary reference is a regression fixture. The display approximation between ETRS89 and WGS84 does
+not imply survey accuracy or alter analytical geometry.
+
+### Official building conversion
+
+QA's [Iteration 2 source handoff](https://github.com/jaakla/openmapstack-samples/issues/1#issuecomment-6234522031)
+was read before acquisition. The official viewer's configuration identifies the
+[untextured tileset](https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/tileset.json).
+The archived manifest selects all 15 AOI-intersecting leaf tiles:
+`15/{37306..37310}/{5429..5431}.b3dm`. They total **23,882,112 bytes**;
+raw tiles are ignored, strictly checksum-verified and never browser downloads.
+A long-lived reproduction after an upstream update requires an external archive
+or LFS mirror of those exact bytes; checksum failure never triggers a silent refresh.
+
+`building_mesh.py`, called by `pipeline.py`, decodes glTF node matrices, Y-up to
+Z-up, RTC translation and tile transforms in the OGC order. ECEF XY is reprojected
+to EPSG:3067; numeric elevations retain the city's documented N2000 convention,
+without a fitted vertical offset. Actual triangles are clipped at the projected
+AOI boundaries, including crossing walls, with source-plane Z interpolation.
+The resulting GLB uses 2 cm position quantization and compact normals, removes
+collapsed/duplicate faces and needs no decoder. Roof shapes and source building IDs
+are retained; **802 IDs / 172,639 triangles / 6,234,632 bytes** in this snapshot.
+The Khronos validator reports zero errors, warnings, infos or hints.
+
+`public/data/building-mesh.json` records selection completeness, source IDs,
+bounds and alignment against the independent 2021 class-6 roof raster. For
+50,376 roof samples: median mesh-minus-LiDAR **−0.18 m**, median absolute difference
+**0.31 m**, p95 absolute difference **4.10 m**. Separate source epochs and roof
+modelling explain remaining differences; the model is continuously maintained and
+11 May 2026 is an export date, not a verified acquisition epoch. No visual mesh
+enters LOS: the **original 1 m LiDAR building+vegetation DSM remains unchanged**.
+QGIS additionally receives source roof PolygonZ surfaces with city IDs.
+The OSM extrusion fallback is unnecessary; no assumed levels or roof heights are used.
 
 ## Method and limits
 
@@ -153,19 +201,22 @@ are needed in the browser. The 182.29 MB source tank is compacted to about 7.71 
   Other classifications are excluded. This is an opaque 2.5D column model: no
   windows, underpasses, interiors or calibrated canopy transmission.
 - **Quantization/display:** DTM rounded to 0.1 m, DSM rounded upward to 0.1 m;
-  `65535` is NoData. Rendering uses a coarser 2 m measured roof-column mesh, a 4 m
-  terrain mesh and a deterministic sample of real vegetation returns. Walls
-  smaller than 1 m are omitted from the display to reduce draw cost; the 1 m DSM
-  remains unchanged. Props are visibly magnified (tank 2.4×, UAV 9×) for legibility;
-  their display meshes never obstruct the analytical rays.
-- **Movement:** three hypothetical anchor points in `data/overrides/scenario.geojson`
-  copy actual OSM node IDs, versions and coordinates. The pipeline verifies them
-  before applying the scenario. Tank routes use source nodes/edges from the surface
-  motor-road graph, excluding bridges, tunnels, nonzero layers and prohibited/private
-  motor access. Initial directed paths respect `oneway`; reversal at path ends is
-  an illustrative simulated turn, not legal/feasible routing guidance. UAVs follow
-  the sourced route shapes as an explicit scenario pattern. Defaults: one tank at
-  4 m/s, sensor 3 m AGL; one UAV at 8 m/s, sensor 50 m AGL.
+  `65535` is NoData. A 4 m terrain mesh and deterministic real vegetation returns
+  provide context. Buildings use an independent source-backed GLB layer contract
+  (`src/buildings.js`): local east, N2000 up, negative north. Replacing that layer
+  never changes the LiDAR DSM. UAV props are magnified 9× for legibility and never
+  obstruct analytical rays.
+- **Movement:** three hypothetical anchors in `data/overrides/scenario.geojson`
+  copy actual OSM node IDs, versions and coordinates, verified before application.
+  UAVs follow those sourced route shapes as an explicit illustration at 8 m/s,
+  default 50 m AGL. The retained graph excludes tunnels, bridges, nonzero layers,
+  prohibited/private motor access and non-motor road types; initial paths respect
+  `oneway`. Route-end reversal is simulated, not flight or routing guidance.
+- **History/uncertainty:** faint dotted traces cover at most the preceding 120 s,
+  beginning at simulation t=0. Amber dashed routes cover the next 300 s and retain
+  all crossed source vertices. A translucent terminal ribbon spans travel between
+  the 0.8× and 1.2× speed hypotheses. Its 16 m display width is an annotation,
+  not lateral location uncertainty, sensor coverage or a probability contour.
 - **Prediction:** five-minute horizon, samples at +60/120/180/240/300 seconds, three
   equally weighted future speed hypotheses 0.8/1.0/1.2 starting from the current
   position. A hypothesis counts once if any sampled future position can see the
@@ -180,7 +231,7 @@ are needed in the browser. The 182.29 MB source tank is compacted to about 7.71 
   crossing products within eight relative floating-point epsilons include both
   side cells at interior corners. This conservative numerical tolerance does not
   snap geometry by a fixed spatial distance. A canonical endpoint order makes
-  both directions execute identical arithmetic. The green target
+  both directions execute identical arithmetic. Own position
   is 2 m AGL. Zone targets are sampled on a 20 m grid, not continuous coverage of
   every location within a colored square. Exact tapped-position status is computed
   separately. Current LOS from any sensor is RED; future sampled probability above
@@ -206,9 +257,13 @@ lattice cases (seed 12345) against an exact BigInt rational segment/AABB oracle 
 both directions. These include NoData and endpoint/interior touches. Tests also
 cover out-of-bounds inputs, class precedence,
 scenario-probability thresholds, route reversal/corners, AGL forecasts and their
-current-position anchoring. Product checks verify grid dimensions, DSM ≥ DTM,
+current-position anchoring. Additional tests cover MGRS reference/round-trip/error
+handling, per-UAV LOS versus aggregate status, history, and MGRS-only user exports.
+Product checks verify grid dimensions, DSM ≥ DTM,
 source-edge identifiers, exact default snapshot reproduction, self-contained GLBs
-and absence of external decoders. The run inventory verifies all declared outputs.
+and absence of external decoders. The run inventory verifies all declared outputs. Python tests cover closed 3D
+triangle clipping, vertical walls, transform order, quantization/duplicate removal,
+and offline strict archive restoration. Product tests run the Khronos GLB validator.
 
 Browser QA uses Playwright Chromium because the Browser plugin is unavailable.
 The checked flows are initial load → meaningful 3D scene → height change → live
@@ -216,9 +271,11 @@ play/pause → exact t=0 reset → sources → tap relocation → layer/count co
 model focus. Desktop 1536×1024 and mobile 320×700 / 390×844 are checked for overflow, errors,
 readable controls and working interactions. Physical mid-range-phone/GPU and iOS
 Safari performance remain unmeasured; viewport emulation does not establish that.
-Temporary QA scripts/screenshots are ignored under `.cache/`, not shipped assets.
+Temporary QA scripts are ignored under `.cache/`. Requested review screenshots
+are committed under `docs/` and linked in the PR; they are not browser payload.
 
-The generated visual concept was used for layout, typography, colors, sidebar,
-map/readout and phone adaptation. Final source geometry intentionally uses measured
-LiDAR columns/returns instead of the concept's illustrative photographic city mesh.
-Model-focus buttons and explicit UNKNOWN/pending feedback support the real workflow.
+The generated concept guides dark palette, monospace readouts, tab/section
+hierarchy, restrained borders, map overlays and mobile map-first stacking. All
+geographic geometry and imagery in the implementation come from pinned sources;
+the concept image is never a map asset. Concept legend wording is corrected to
+the owner's RED=visible semantics; controls retain the published 10–150 m range.

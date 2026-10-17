@@ -16,6 +16,7 @@ from openmapstack.integrity import (
     file_inventory,
 )
 from acquire import digest, verify_archive, main as acquire
+from building_mesh import build as build_buildings
 
 ROOT = Path(__file__).resolve().parent
 os.chdir(ROOT)
@@ -24,6 +25,8 @@ gdal.SetConfigOption("GDAL_PAM_ENABLED", "NO")
 TEMP = ROOT / ".cache" / "pipeline-temp"
 TEMP.mkdir(parents=True, exist_ok=True)
 os.environ.setdefault("TMPDIR", str(TEMP))
+os.environ.setdefault("npm_config_cache", str(ROOT / ".cache/npm"))
+os.environ["XDG_CACHE_HOME"] = str(ROOT / ".cache/xdg")
 P = ROOT / "public/data"
 D = ROOT / "data/derived"
 
@@ -142,9 +145,6 @@ def lidar(project):
 
     quantize(dtm).tofile(P / "dtm.bin")
     quantize(dsm, True).tofile(P / "dsm.bin")
-    quantize(np.max(roofs.reshape(h // 2, 2, w // 2, 2), axis=(1, 3)), True).tofile(
-        P / "buildings.bin"
-    )
     vp = np.concatenate(vegetation)
     vp = vp[
         vp[:, 1]
@@ -287,16 +287,15 @@ def network(project, dtm):
             "lengthM": distances[end],
             "note": "Hypothetical traversal of sourced OSM nodes; reversal is a simulated turn.",
         }
-        for kind, speed in [("tank", 4), ("uav", 8)]:
-            vectors.append(
-                {
-                    "id": ("TANK" if kind == "tank" else "UAV") + "-" + str(k + 1),
-                    "type": kind,
-                    "route": route_id,
-                    "speedMps": speed,
-                    "offsetM": 0 if kind == "tank" else min(250, distances[end] * 0.3),
-                }
-            )
+        vectors.append(
+            {
+                "id": "UAV-" + str(k + 1),
+                "type": "uav",
+                "route": route_id,
+                "speedMps": 8,
+                "offsetM": min(250, distances[end] * 0.3),
+            }
+        )
     scenario = {
         "status": "SIMULATED",
         "routes": routes,
@@ -364,36 +363,52 @@ def photography(project):
 
 
 def models():
-    subprocess.run(
-        [
-            "node_modules/.bin/gltf-transform",
-            "optimize",
-            "data/source/tank/scene.gltf",
-            "public/models/tank.glb",
-            "--compress",
-            "false",
-            "--texture-compress",
-            "webp",
-            "--texture-size",
-            "256",
-            "--simplify-ratio",
-            ".1",
-            "--simplify-error",
-            ".005",
-            "--instance",
-            "false",
-        ],
-        check=True,
-    )
     shutil.copyfile("data/source/quadcopter.glb", "public/models/uav.glb")
     Path("public/models/ATTRIBUTION.txt").write_text(
-        Path("data/source/tank/license.txt").read_text()
-        + "\nModifications: glTF Transform 4.3.0 simplification and 256px WebP textures, converted to GLB.\nQuadcopter with flight electronics by Innerscene, CC0 1.0.\nhttps://www.innerscene.com/tools/library/3d-parts/quadcopter-with-flight-electronics-a25968c1\nhttps://creativecommons.org/publicdomain/zero/1.0/\nModels displayed at annotated magnified scale, never used in LOS.\n"
+        "Quadcopter with flight electronics by Innerscene, CC0 1.0.\n"
+        "https://www.innerscene.com/tools/library/3d-parts/quadcopter-with-flight-electronics-a25968c1\n"
+        "https://creativecommons.org/publicdomain/zero/1.0/\n"
+        "Original model unchanged; displayed at annotated 9x scale, never used in LOS.\n"
+    )
+    legacy_mgrs = Path(
+        subprocess.check_output(
+            [
+                "node",
+                "-e",
+                "process.stdout.write(require.resolve('mgrs/package.json',{paths:[require.resolve('proj4')]}))",
+            ],
+            text=True,
+        )
+    ).parent
+    license_dir = ROOT / "public/licenses"
+    license_dir.mkdir(exist_ok=True)
+    (license_dir / "coordinates.txt").write_text(
+        "Coordinate display libraries (pinned by package-lock.json)\n\n"
+        "Proj4js 2.22.0 — https://github.com/proj4js/proj4js\n"
+        + Path("node_modules/proj4/LICENSE.md").read_text()
+        + "\n\n"
+        "Proj4js transitive legacy mgrs notices — https://github.com/proj4js/mgrs\n"
+        + (legacy_mgrs / "license.md").read_text()
+        + "\n\n"
+        + "Licensed under"
+        + (legacy_mgrs / "readme.md")
+        .read_text()
+        .split("Licensed under", 1)[1]
+        .split("# references:", 1)[0]
+        + "\n\ngeographiclib-mgrs 1.0.5 — https://github.com/spatialillusions/geographiclib-mgrs\n"
+        + Path("node_modules/geographiclib-mgrs/LICENSE").read_text()
+        + "\n"
+        + Path("node_modules/geographiclib-mgrs/ORIGINAL_LICENSE").read_text()
+        + "\n\n"
+        + Path("licenses/OpenMap.txt").read_text()
     )
 
 
 def desktop(project):
     os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
+    runtime_dir = ROOT / ".cache/qt-runtime"
+    runtime_dir.mkdir(mode=0o700, exist_ok=True)
+    os.environ["XDG_RUNTIME_DIR"] = str(runtime_dir)
     from qgis.core import (
         QgsApplication,
         QgsProject,
@@ -422,7 +437,12 @@ def desktop(project):
         ("SIMULATED source-node anchors", "data/overrides/scenario.geojson", "points"),
         ("OSM streets", "data/derived/network.gpkg|layername=streets", "vector"),
         ("High vegetation", "data/derived/vegetation.tif", "raster"),
-        ("Buildings", "data/derived/buildings.tif", "raster"),
+        (
+            "Official LoD2 roofs · display context",
+            "data/derived/lod2-roofs.gpkg|layername=roof_surfaces",
+            "roofs",
+        ),
+        ("LiDAR buildings · analysis", "data/derived/buildings.tif", "raster"),
         ("2021 photography", "data/derived/orthophoto.tif", "photo"),
         ("Ground DTM", "data/derived/dtm.tif", "ground"),
     ]
@@ -437,7 +457,7 @@ def desktop(project):
     for title, path, kind in defs:
         layer = (
             QgsVectorLayer(path, title, "ogr")
-            if kind in ["vector", "points"]
+            if kind in ["vector", "points", "roofs"]
             else QgsRasterLayer(path, title)
         )
         if not layer.isValid():
@@ -446,6 +466,14 @@ def desktop(project):
             layer.renderer().setSymbol(
                 QgsLineSymbol.createSimple(
                     {"line_color": "110,128,148", "line_width": "0.3"}
+                )
+            )
+        if kind == "roofs":
+            from qgis.core import QgsFillSymbol
+
+            layer.renderer().setSymbol(
+                QgsFillSymbol.createSimple(
+                    {"color": "145,158,150", "outline_style": "no"}
                 )
             )
         if kind == "raster":
@@ -496,7 +524,7 @@ def desktop(project):
             "scenario"
             if kind in ["zones", "points"]
             else "obstructions"
-            if kind == "raster"
+            if kind in ["raster", "roofs"]
             else "ground"
         ].addLayer(layer)
     q.viewSettings().setDefaultViewExtent(
@@ -548,6 +576,7 @@ def main():
             raise ValueError("Changed source bytes: " + str(path))
     check("source_hashes_match", True, f"Verified {len(lock['files'])} immutable files")
     grid, dtm, stats = lidar(project)
+    building_stats = build_buildings(project, ROOT)
     ns = network(project, dtm)
     photography(project)
     models()
@@ -557,7 +586,14 @@ def main():
         {
             "grid": grid,
             "origin": bbox[:2],
-            "displayGrid": {"width": grid["width"] // 2, "height": grid["height"] // 2},
+            "buildingMesh": {
+                "path": "data/buildings.glb",
+                "source": "lod2_tileset",
+                "metadata": "data/building-mesh.json",
+                "analysis": False,
+            },
+            "coordinates": project["presentation"]["coordinates"],
+            "tracks": project["presentation"]["tracks"],
             "defaults": project["presentation"]["controls"]["defaults"],
             "layers": project["presentation"]["controls"]["layer_defaults"],
             "playback": project["presentation"]["controls"]["playback_defaults"],
@@ -567,13 +603,10 @@ def main():
     )
     sources = []
     for key, s in project["sources"].items():
-        if key.startswith("tank_") or key == "lidar_spec":
+        if key == "lidar_spec":
             continue
         title = s["dataset"]
         url = s["source_url"]
-        if key == "tank":
-            title = "Tank · dannzjs · Abrams M1A2 SEPv3 (modified)"
-            url = "https://sketchfab.com/3d-models/abrams-m1a2-sepv3-eb6f5560198740269507e9948376414c"
         if key == "uav":
             title = "Quadcopter with flight electronics · Innerscene"
             url = "https://www.innerscene.com/tools/library/3d-parts/quadcopter-with-flight-electronics-a25968c1"
@@ -596,6 +629,10 @@ def main():
             "statistics": {**stats, **ns},
             "attribution": "© Helsingin kaupunkimittauspalvelut 2021, CC BY 4.0 (modified). © OpenStreetMap contributors, ODbL 1.0. Models: models/ATTRIBUTION.txt.",
             "research": lock["research"],
+            "iteration2Research": lock["iteration2_research"],
+            "buildingMesh": {
+                k: v for k, v in building_stats.items() if k != "cityBuildingIds"
+            },
             "analysisCRS": "EPSG:3067",
             "verticalDatum": "N2000",
         },
@@ -684,6 +721,49 @@ def main():
         == project["presentation"]["controls"]["defaults"],
         "Defaults copied from manifest; baseline uses same worker computation",
     )
+    scenario = json.loads((P / "scenario.json").read_text())
+    check(
+        "lod2_source_complete",
+        building_stats["tilesMatched"] == building_stats["tilesReturned"] == 15
+        and building_stats["buildingCount"] > 0,
+        "Selected official leaf tiles all present; source building IDs retained",
+        value=building_stats["buildingCount"],
+    )
+    check(
+        "lod2_alignment",
+        building_stats["alignment"]["samples"] > 1000
+        and building_stats["alignment"]["medianAbsoluteDifference"] < 2,
+        "N2000 roof alignment checked against 2021 LiDAR without fitting; different epochs",
+        statistics=building_stats["alignment"],
+    )
+    check(
+        "lod2_mesh_valid",
+        building_stats["publishedTriangles"] > 1000
+        and all(
+            bbox[i] - 1e-7
+            <= building_stats["boundsEPSG3067N2000"][0][i]
+            <= building_stats["boundsEPSG3067N2000"][1][i]
+            <= bbox[i + 2] + 1e-7
+            for i in [0, 1]
+        ),
+        "True triangle clipping to projected AOI, quantized local-frame GLB, source roofs retained",
+    )
+    check(
+        "uav_only_scenario",
+        len(scenario["vectors"]) == 3
+        and all(v["type"] == "uav" for v in scenario["vectors"])
+        and set(project["presentation"]["controls"]["defaults"])
+        == {"uavs", "uavHeight"},
+        "Only UAVs contribute to current and forecast danger zones",
+    )
+    check(
+        "presentation_contract",
+        project["presentation"]["coordinates"]["display"] == "MGRS"
+        and len(project["presentation"]["layout"]["sidebar"]["tabs"]) == 3
+        and project["presentation"]["legend"]["visible"]
+        and project["presentation"]["controls"]["canonical_reset"],
+        "MGRS readouts, semantic roles, three collapsible tabs, legend and canonical reset",
+    )
     payload = sum(p.stat().st_size for p in (ROOT / "public").rglob("*") if p.is_file())
     check(
         "payload_lt_20mb",
@@ -693,15 +773,48 @@ def main():
     )
     result = subprocess.run(["npm", "test"], check=False)
     acquisition_tests = subprocess.run(
-        [sys.executable, "-m", "unittest", "discover", "-s", "tests", "-p", "test_acquire.py"],
+        [
+            sys.executable,
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_acquire.py",
+        ],
+        check=False,
+        env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
+    )
+    mesh_tests = subprocess.run(
+        [
+            sys.executable,
+            "-m",
+            "unittest",
+            "discover",
+            "-s",
+            "tests",
+            "-p",
+            "test_building_mesh.py",
+        ],
         check=False,
         env={**os.environ, "PYTHONDONTWRITEBYTECODE": "1"},
     )
     check(
-        "analytic_los_tests", result.returncode == 0, "Analytic/product fixtures via npm test"
+        "lod2_conversion_fixtures",
+        mesh_tests.returncode == 0,
+        "Closed 3D clipping, vertical walls, node/axis transforms and compact GLB fixtures",
     )
-    check("archived_sources_reproducible", acquisition_tests.returncode == 0,
-          "Offline fresh-clone archive restoration and strict corruption rejection via unittest")
+    check(
+        "analytic_los_tests",
+        result.returncode == 0,
+        "Analytic/product fixtures via npm test",
+    )
+    check(
+        "archived_sources_reproducible",
+        acquisition_tests.returncode == 0,
+        "Offline fresh-clone archive restoration and strict corruption rejection via unittest",
+    )
     check(
         "qgis_project_static_valid",
         Path("project.qgz").is_file(),

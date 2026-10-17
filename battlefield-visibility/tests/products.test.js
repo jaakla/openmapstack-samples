@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
+import validator from "gltf-validator";
 import { calculateZones } from "../src/calculate.js";
 import { height, lineOfSight } from "../src/visibility.js";
 const read = (p) => JSON.parse(fs.readFileSync(p, "utf8"));
@@ -29,8 +30,6 @@ test(
         assert.ok(grid.dsm[i] >= grid.dtm[i] || grid.dsm[i] === 65535);
     assert.deepEqual(config.defaults, {
       uavHeight: 50,
-      tankHeight: 3,
-      tanks: 1,
       uavs: 1,
     });
     for (const r of Object.values(scenario.routes)) {
@@ -51,13 +50,9 @@ test(
         scenario.target,
       ),
       counts = [0, 0, 0, 0];
-    // QA's measured-data repro: this ground cell is clear, but a closed solid
-    // touches the endpoint to its west. It must block TANK-1 in either direction.
-    const qaX = 385450 - config.origin[0], qaY = 6671610 - config.origin[1];
-    const qaTarget = [qaX, qaY, height(grid, grid.dtm, qaX, qaY) + 2];
-    const tank = baseline.sensors.find(sensor => sensor.id === "TANK-1").position;
-    assert.equal(lineOfSight(grid, tank, qaTarget), false);
-    assert.equal(lineOfSight(grid, qaTarget, tank), false);
+    assert.ok(scenario.vectors.every((v) => v.type === "uav"));
+    assert.equal(scenario.vectors.length, 3);
+    assert.equal(fs.existsSync("public/models/tank.glb"), false);
     for (const z of result.zones) counts[z]++;
     assert.deepEqual(counts, baseline.counts);
     assert.deepEqual(result.status, baseline.status);
@@ -68,10 +63,41 @@ test(
   },
 );
 test(
+  "official LoD2 GLB validates without issues and preserves source/analysis separation",
+  { skip: !exists },
+  async () => {
+    const bytes = fs.readFileSync("public/data/buildings.glb");
+    const result = await validator.validateBytes(new Uint8Array(bytes));
+    assert.equal(result.issues.numErrors, 0, JSON.stringify(result.issues));
+    assert.equal(result.issues.numWarnings, 0, JSON.stringify(result.issues));
+    assert.equal(result.issues.numInfos, 0, JSON.stringify(result.issues));
+    assert.equal(result.issues.numHints, 0, JSON.stringify(result.issues));
+    const metadata = read("public/data/building-mesh.json"),
+      config = read("public/data/scene.json");
+    assert.equal(metadata.tilesMatched, 15);
+    assert.equal(metadata.tilesReturned, 15);
+    assert.equal(
+      metadata.buildingCount,
+      new Set(metadata.cityBuildingIds).size,
+    );
+    assert.ok(metadata.publishedTriangles > 100000);
+    assert.equal(metadata.glbBytes, bytes.length);
+    assert.ok(metadata.alignment.medianAbsoluteDifference < 2);
+    assert.equal(config.buildingMesh.analysis, false);
+    assert.deepEqual(
+      metadata.boundsEPSG3067N2000.map((b) => b.slice(0, 2)),
+      [
+        [385200, 6671300],
+        [386500, 6672500],
+      ],
+    );
+  },
+);
+test(
   "models are self-contained glTF 2 with no external dependencies",
   { skip: !exists },
   () => {
-    for (const file of ["public/models/tank.glb", "public/models/uav.glb"]) {
+    for (const file of ["public/models/uav.glb"]) {
       const b = fs.readFileSync(file);
       assert.equal(b.toString("ascii", 0, 4), "glTF");
       assert.equal(b.readUInt32LE(4), 2);
