@@ -1,0 +1,444 @@
+{
+  "id": "run-20261017-125313",
+  "run_id": "run-20261017-125313",
+  "started_at": "2026-10-17T12:53:13.887792+00:00",
+  "completed_at": "2026-10-17T12:54:22.540135+00:00",
+  "status": "passed",
+  "inputs_hash": "sha256:6e32c45aab279934dd6b14d5c4f377a60cace93637bd42f2f89a3c19c8b8a451",
+  "outputs_hash": "sha256:e92ce3b17a93fa4ad30641ddae0c218ced421598fd9540c02e9880295f19c55f",
+  "environment": {
+    "python": "3.14.4",
+    "gdal": "3.12.2",
+    "qgis": "3.40.15-Bratislava",
+    "numpy": "2.5.4",
+    "laspy": "2.6.1",
+    "scipy": "1.17.0",
+    "node": "24.19.0"
+  },
+  "validation_report": {
+    "path": "validation/latest-report.json"
+  },
+  "inputs": [
+    {
+      "path": "acquire.py",
+      "sha256": "sha256:15fe1d7aa756672d0bdcc6bfc8ddb9b0c338962c3eb1f0478f37e8c64f7f9be6"
+    },
+    {
+      "path": "data/archive/README.md",
+      "sha256": "sha256:4991defe24cd5e681106e266008022f24f84101b97b286a570e1ebd5a184f5a8"
+    },
+    {
+      "path": "data/archive/osm-20261016.json.gz",
+      "sha256": "sha256:0d5d7de3372002b7fe7356bffcd902265f2454f81dd2700a0eb182a772e37b02"
+    },
+    {
+      "path": "data/archive/tile-index.geojson.gz",
+      "sha256": "sha256:b4d703d297e626a69810005d996fafea27a5f1b2d365461def736742c3d8c028"
+    },
+    {
+      "path": "data/overrides/scenario.geojson",
+      "sha256": "sha256:1bda11fb61e2dd5fd92b91b6171e5f965066c2355e9b14d6c6634f9bd6535eeb"
+    },
+    {
+      "path": "data/source/2021_Laserpisteet_kuvaus.pdf",
+      "sha256": "sha256:64e1c5899f786a9c2f8abcdfa3337fe8ce3bfe069b536b82fc0a89ed89b0783f"
+    },
+    {
+      "path": "data/source/672496a_2021.laz",
+      "sha256": "sha256:c3f432db37a8f0829394b103872f7cd1c94ecb4f6748290526e98981b1e4b6a7"
+    },
+    {
+      "path": "data/source/672496b_2021.laz",
+      "sha256": "sha256:d04b3af89703b699d14a7928f77553ba7065d4134521841fbcf59b4bb043e5c6"
+    },
+    {
+      "path": "data/source/672496c_2021.laz",
+      "sha256": "sha256:3ab5b8e9b6805b32aa6af9318f3b6cb8af07a94c085c35fd4dc8564d63047e5d"
+    },
+    {
+      "path": "data/source/672496d_2021.laz",
+      "sha256": "sha256:84bf231f20dc32a745d77b2a38cb7c80960b78dbc7c03b9c7016232b727ba37b"
+    },
+    {
+      "path": "data/source/672497a_2021.laz",
+      "sha256": "sha256:b6f48acf80ad338149a6cc0714712466cde5ea2191a6a76ce5680f338adb8cf9"
+    },
+    {
+      "path": "data/source/672497b_2021.laz",
+      "sha256": "sha256:655a547aab69983968f7ead59feb4df55075f4cb6b2f5d02e6a22243204848f6"
+    },
+    {
+      "path": "data/source/673496a_2021.laz",
+      "sha256": "sha256:a36061ce3284e76c82ab273854c3d0646b99d5962423569551db1838a4cbcdf5"
+    },
+    {
+      "path": "data/source/673496c_2021.laz",
+      "sha256": "sha256:3c34d4eb214ae2bb2b6e03c3bf441e216886d14a8e150b5c3f0bc32806167be8"
+    },
+    {
+      "path": "data/source/673497a_2021.laz",
+      "sha256": "sha256:7023e6d0c5aee868aee5e3566859e9e63d7b9df33886aa6375c5f27b6dd39152"
+    },
+    {
+      "path": "data/source/README.md",
+      "sha256": "sha256:c9c59af7ecde3dac1f6420a6eeea798948424ff4441666e0d5c7590276544c38"
+    },
+    {
+      "path": "data/source/orthophoto-2021.jpg",
+      "sha256": "sha256:a9b6f928bd82a322fcdbcf73550c42161235db03bfbc30b145cd0377e2e0d393"
+    },
+    {
+      "path": "data/source/osm-20261016.json",
+      "sha256": "sha256:3a424766d0ec8e863ac90c106b082e8a8791b3a77efee54ceddb1716bc6ab51e"
+    },
+    {
+      "path": "data/source/quadcopter.glb",
+      "sha256": "sha256:0d38b6f44eef969fe17f0c8a54d6747b7a0efb8a3b2e9ab875221d182a6dfb12"
+    },
+    {
+      "path": "data/source/tank/license.txt",
+      "sha256": "sha256:7931a6d1f2afcf6d9203e624f945c058ee2216daeb569f9d6c3d371566ec08dd"
+    },
+    {
+      "path": "data/source/tank/scene.bin",
+      "sha256": "sha256:d47ec05177672c53f189106cabd76f862d82c11b238806d6b65dfcf4e6c78a6d"
+    },
+    {
+      "path": "data/source/tank/scene.gltf",
+      "sha256": "sha256:e74ccfac17950b1607574b05d7602c8269e93c5dba406af8d4f4f3310b3df6be"
+    },
+    {
+      "path": "data/source/tank/textures/DMachWheels_baseColor.png",
+      "sha256": "sha256:4393cd6f2b952a19edfe0678bb1386871acf8b5fbdc43e736c6507c7eed62fc6"
+    },
+    {
+      "path": "data/source/tank/textures/DMachWheels_metallicRoughness.png",
+      "sha256": "sha256:1cfe8d8996b48d209919e95235d69b6199baf134914a22457ab350b3772b386b"
+    },
+    {
+      "path": "data/source/tank/textures/DMainMetal_Guns_baseColor.png",
+      "sha256": "sha256:af438be07200006367d4ac1167da36be6230f19a7132c6fbb4845091271802af"
+    },
+    {
+      "path": "data/source/tank/textures/DMainMetal_Guns_metallicRoughness.png",
+      "sha256": "sha256:376162d30626bee58c88d7f9ca41f591fe1bad970f505b84e913f3aa6f44e7e7"
+    },
+    {
+      "path": "data/source/tank/textures/DMainMetal_Props_baseColor.png",
+      "sha256": "sha256:dd628054dedff966622351649f54e5ef445847a8aea9b0c28075e43d7f9eb013"
+    },
+    {
+      "path": "data/source/tank/textures/DMainMetal_Props_metallicRoughness.png",
+      "sha256": "sha256:0c1e9cc11ee2da8d79e4e4cf0c3f61b36fc9fa957b3afaa0ff92912f5d0ef9bb"
+    },
+    {
+      "path": "data/source/tank/textures/DMainMetal_Shield_baseColor.png",
+      "sha256": "sha256:6e48d5ccba4060d3d2996feccbe6c59bd2fc1d24d76e5b45ff4e4576bbaf3205"
+    },
+    {
+      "path": "data/source/tank/textures/DMainMetal_Shield_metallicRoughness.png",
+      "sha256": "sha256:398ba1fc7a69e57b9e565f63d5b066916992d0420fdb99b33ffba83e80ca6475"
+    },
+    {
+      "path": "data/source/tank/textures/Light_baseColor.png",
+      "sha256": "sha256:2e94fdbbc12f51709cd96e00cf35f9312c2288a54e5795e08c960989b991e6c4"
+    },
+    {
+      "path": "data/source/tank/textures/Light_metallicRoughness.png",
+      "sha256": "sha256:c816f5fece664bf888a77063e3ec3b4d0bcf058fb0a3180cd999921469872b5d"
+    },
+    {
+      "path": "data/source/tank/textures/MachWheels_baseColor.png",
+      "sha256": "sha256:919f9a008c6a7f2b4f9deba5c5b60d2f4f2ea40d45aaf15442436158cb2785c5"
+    },
+    {
+      "path": "data/source/tank/textures/MachWheels_metallicRoughness.png",
+      "sha256": "sha256:078f7ed347771777694aa9270ae4934736e0eb955054954720322ea1e471079a"
+    },
+    {
+      "path": "data/source/tank/textures/MainMetal_Armor_baseColor.png",
+      "sha256": "sha256:1d557a97b0d8cb04d46f7b24662ded8b28dd4d1162f0c8fb6ec1b4ea05df8459"
+    },
+    {
+      "path": "data/source/tank/textures/MainMetal_Armor_metallicRoughness.png",
+      "sha256": "sha256:c280c1d91bda947beceeacdf9e01f889bf4c2d79a5d676431f72648168119014"
+    },
+    {
+      "path": "data/source/tank/textures/MainMetal_Guns_baseColor.png",
+      "sha256": "sha256:a6069a24433e5860171395e1a81bac69aa736d9526eda0afed7357c9c7b60d99"
+    },
+    {
+      "path": "data/source/tank/textures/MainMetal_Guns_metallicRoughness.png",
+      "sha256": "sha256:35eaaeaf24eb463ecfb29d3fec7c3307d57c3c6a715bf903655b492c532f9969"
+    },
+    {
+      "path": "data/source/tank/textures/MainMetal_LH_baseColor.png",
+      "sha256": "sha256:dadd5a701ab2cf0cbf396a6bd63d5366a846934e92b6f26350a3eb02d6421aba"
+    },
+    {
+      "path": "data/source/tank/textures/MainMetal_LH_metallicRoughness.png",
+      "sha256": "sha256:6807c71d036a44fc9565993a78e0e213adb02199b13d929c155e7ab901ad8e32"
+    },
+    {
+      "path": "data/source/tank/textures/MainMetal_Props_baseColor.png",
+      "sha256": "sha256:7c4888da6ad5c7d2119066e281174e682f4fcd08f501687d25236ee190b99a43"
+    },
+    {
+      "path": "data/source/tank/textures/MainMetal_Props_metallicRoughness.png",
+      "sha256": "sha256:094a5f13c02b430301ba3dc0b41e90654b4281ea713ff3ed17f2f1a79eb766b0"
+    },
+    {
+      "path": "data/source/tank/textures/MainMetal_ROT_baseColor.png",
+      "sha256": "sha256:115c46ce1551161d30beb927898bbac017959241ff82e6d4179a76f5f1770c50"
+    },
+    {
+      "path": "data/source/tank/textures/MainMetal_ROT_metallicRoughness.png",
+      "sha256": "sha256:e359ffa726beb5abef93c0c736ff265f712e4f000d1d5fb9ebe368aad68aa7c9"
+    },
+    {
+      "path": "data/source/tank/textures/MainMetal_Shield_baseColor.png",
+      "sha256": "sha256:64f982c23ca96c0d20046bbc9833aba34aaf7abaeac16a6017c516c61753f12b"
+    },
+    {
+      "path": "data/source/tank/textures/MainMetal_Shield_metallicRoughness.png",
+      "sha256": "sha256:306bfd6a97e60c4b4c0c67726dd5166a9f925e7b774f003b96966ff1a45d6bf4"
+    },
+    {
+      "path": "data/source/tank/textures/MainMetal_baseColor.png",
+      "sha256": "sha256:eb7830fa1e9e35a7e8ba37650670db4d78d4919d5861a8a82ffbfd6658f16bc9"
+    },
+    {
+      "path": "data/source/tank/textures/MainMetal_metallicRoughness.png",
+      "sha256": "sha256:fea5a98cb968fb621907ca7c57d0547168b2dec9cc06da511c95a130a470bdf6"
+    },
+    {
+      "path": "data/source/tank/textures/MetalWheels_Gear_baseColor.png",
+      "sha256": "sha256:90051f3e6a8f2a68c73b6b67e9639c341c48c94b1de5ad4293e3afc92d19ccd8"
+    },
+    {
+      "path": "data/source/tank/textures/MetalWheels_Gear_metallicRoughness.png",
+      "sha256": "sha256:3217f4aaff64d7e0e06c85374dffe973babec643d032a8ffb643d300b63a106f"
+    },
+    {
+      "path": "data/source/tank/textures/Radiator_baseColor.png",
+      "sha256": "sha256:e7112c738dd37d45cf91f141207162e396c64642fda772c52c8eda6eb94c7dfd"
+    },
+    {
+      "path": "data/source/tank/textures/Radiator_metallicRoughness.png",
+      "sha256": "sha256:c4874b8ebef40383ba3e8af302096124d4e1db529a533368d67345eb74511d1f"
+    },
+    {
+      "path": "data/source/tank/textures/Rubber_Props_baseColor.png",
+      "sha256": "sha256:698ca95cf3c1f7b7a8871ccb89248fc8cc64d4713662caac6f9d4d89bde84b47"
+    },
+    {
+      "path": "data/source/tank/textures/Rubber_Props_metallicRoughness.png",
+      "sha256": "sha256:9bb4bf8d546aadcd868cfbbde18f14822ef689b02990a027dcfa296504199615"
+    },
+    {
+      "path": "data/source/tank/textures/Rubber_W_baseColor.png",
+      "sha256": "sha256:b19ee5af4d4b61b0d799eb0b5fee2b376cc1ab6956d3dece83ce561274523212"
+    },
+    {
+      "path": "data/source/tank/textures/Rubber_W_metallicRoughness.png",
+      "sha256": "sha256:3f289be048ce9fa5d1f0a55507cc0d715430c93b459f0d3fab3d0fac276995f4"
+    },
+    {
+      "path": "data/source/tank/textures/Rubber_Wheels_baseColor.png",
+      "sha256": "sha256:68db0f3aedabb06a341b7647c9db910bca62cd0503e83b238d760131bbf6dab8"
+    },
+    {
+      "path": "data/source/tank/textures/Rubber_Wheels_metallicRoughness.png",
+      "sha256": "sha256:07dd57120c5dbab4dbab20ee56b26331100a3a07363678b3afeb533f8c15db4f"
+    },
+    {
+      "path": "data/source/tank/textures/material_baseColor.png",
+      "sha256": "sha256:5ff844f97789a94abbd8ee4872ac91a6e16eabc25f3a8d4d97259848087e8d82"
+    },
+    {
+      "path": "data/source/tank/textures/material_metallicRoughness.png",
+      "sha256": "sha256:15fdca3ab991b38cb1953e5f87d4beb7faa375fca359a35636d16ca50d72a319"
+    },
+    {
+      "path": "data/source/tile-index.geojson",
+      "sha256": "sha256:253b2918d6c2dbf9e4c203f8a6db0a1e7b46e251faf39c1f96425dbfbb839e13"
+    },
+    {
+      "path": "index.html",
+      "sha256": "sha256:7f2f5996f84c410ca9072a5d02e37f18770ed39b15e18151005e2187c35919bf"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "sha256:2b33e266c2b31565b9ccd794a493ad74aa6451d6f86a1a4ebce863164b104627"
+    },
+    {
+      "path": "package.json",
+      "sha256": "sha256:f017c94f9a425be2df662922a856943fdd5e69933672e366af5c065f74acc5ce"
+    },
+    {
+      "path": "pipeline.py",
+      "sha256": "sha256:399696ad7952fe78dc036f375b1999e5d2718c398f1d0746fd7e87857870b775"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "sha256:76eb8f25a686d946d6274a9abbcd9742c0e6cca38a82b8e2cee8c6adb9cb4056"
+    },
+    {
+      "path": "scripts/canonical.mjs",
+      "sha256": "sha256:ffcd6462a7d25bf8cba95bc6e15d36ef857129158b16928d31b2a4c8a3bc5e47"
+    },
+    {
+      "path": "sources.lock.json",
+      "sha256": "sha256:4d134c65108bfede61ac1c16f3f69f92f479b829b7fa877f32eb62658795b2ec"
+    },
+    {
+      "path": "src/Controls.jsx",
+      "sha256": "sha256:e0aa198a3ac8e2f314b3191db5d01f15859d661dd71cde1201661fbc35263df0"
+    },
+    {
+      "path": "src/Provenance.jsx",
+      "sha256": "sha256:07e778755a45a25f0a85c8669366a6794535725f805ef96f2699b7d9b696069b"
+    },
+    {
+      "path": "src/calculate.js",
+      "sha256": "sha256:5bdb0d69c8b79786ed3bda88811bf435371aaa3fe8857eb1d105bb969d765174"
+    },
+    {
+      "path": "src/main.jsx",
+      "sha256": "sha256:ab0dfe755d57fff6b9e282dd9c34921b9e8c21807efa8c1ba1f21a3fc462ef30"
+    },
+    {
+      "path": "src/scene.js",
+      "sha256": "sha256:eb0f6f71a4dc4464a7c22b2a68273c0fff17c5191ab1c1e65f7a1a05f113b168"
+    },
+    {
+      "path": "src/simulation.js",
+      "sha256": "sha256:407da56bad65a0c4b9247c73c8eba4c5a0da4dd66a99b299a9f3f1304561e606"
+    },
+    {
+      "path": "src/styles.css",
+      "sha256": "sha256:b8f6dd4494544b10850753c8ade2ca50c9df6a60b566811484078d7a898d603c"
+    },
+    {
+      "path": "src/visibility.js",
+      "sha256": "sha256:3037e17148fdaf7af5d0813c3d8c157463ad249bd3d7baca589aecb28733835b"
+    },
+    {
+      "path": "src/zones.worker.js",
+      "sha256": "sha256:d2de56bffb9b1172541e32d7a0289488c79b44717bcce00c0806ab027b879a2b"
+    },
+    {
+      "path": "tests/archives.test.js",
+      "sha256": "sha256:82a3e50d0551986b688d389def2df3e40b5ea8669f651b8de03588152b04ae45"
+    },
+    {
+      "path": "tests/products.test.js",
+      "sha256": "sha256:da561a4af3739799e99a529b84ce463145b1cfe67702cf3eecf3a5ce607d5dd8"
+    },
+    {
+      "path": "tests/test_acquire.py",
+      "sha256": "sha256:74af52ecf37609b88df4bfbe4e79210287a7333d884904c8435894da8b22ea3d"
+    },
+    {
+      "path": "tests/visibility.test.js",
+      "sha256": "sha256:11df3814fbc66cd16f54dd9e371aed100f3bcb4746522bd2fb6e33a818fc6e28"
+    },
+    {
+      "path": "vite.config.js",
+      "sha256": "sha256:21eba396999afe6e4fa3dbd7ac6908caa56aa3e4109ee755dfffaba5be9b2d96"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "data/derived/buildings.tif",
+      "sha256": "sha256:ceb0469568e22b42b8a8d7a4636b754802242986e25ed99b97fa1b6147f83840"
+    },
+    {
+      "path": "data/derived/default-zones.bin",
+      "sha256": "sha256:7e8a82b516d198468cc9050ec3f0d2b845bd22c9a8797655968fa047baabf19a"
+    },
+    {
+      "path": "data/derived/default-zones.tif",
+      "sha256": "sha256:036d3df1a8d9f3a5395b3680ab086966496f2e6d261309d6d6f5e866473614c5"
+    },
+    {
+      "path": "data/derived/dsm.tif",
+      "sha256": "sha256:f992663df9f336dfa69c8bea8e138dc105068682f88a5390f0734a07fa681b00"
+    },
+    {
+      "path": "data/derived/dtm.tif",
+      "sha256": "sha256:ce0a3eb2087df3a66ab9c8dd885ef9146bed295ec50e25a614b7b4f199114f5b"
+    },
+    {
+      "path": "data/derived/network.gpkg",
+      "sha256": "sha256:7150aa404fe653037f1216967cc50f7ada65d7c602d6e4e58202f23c408f4eba"
+    },
+    {
+      "path": "data/derived/orthophoto.tif",
+      "sha256": "sha256:0d864ff60ec552d2ecad335092cb73258c9b06cb4e58f04d5b7b6e4b142e28b5"
+    },
+    {
+      "path": "data/derived/vegetation.tif",
+      "sha256": "sha256:7f2f1d10363104a214bd7330dd3fa3195726e07af2a1a40fb80c2f349c680649"
+    },
+    {
+      "path": "project.qgz",
+      "sha256": "sha256:efedd8657a1d9341bf5a81d39faf40120f56c77f9e82ff8f15920149162a6c9f"
+    },
+    {
+      "path": "public/data/basemap.jpg",
+      "sha256": "sha256:a9b6f928bd82a322fcdbcf73550c42161235db03bfbc30b145cd0377e2e0d393"
+    },
+    {
+      "path": "public/data/buildings.bin",
+      "sha256": "sha256:16e45f6ad000a51c273c894af9057060aa84b70bf1001b2807149f3b3c1005e6"
+    },
+    {
+      "path": "public/data/default-snapshot.json",
+      "sha256": "sha256:6e7dfc6324e725cfa960a0394ee665abe4bd07d76d24d65c8288e8af3bf41957"
+    },
+    {
+      "path": "public/data/dsm.bin",
+      "sha256": "sha256:6021700c96f6b03c9de1f2c0a7db3e3296a28cc86ff4c8fade2fae9fb4c93dc2"
+    },
+    {
+      "path": "public/data/dtm.bin",
+      "sha256": "sha256:030bce4c2a96c8f3d5954c04e17db120ed4e3e57ba3eba7e7cff723b904b5ff0"
+    },
+    {
+      "path": "public/data/provenance.json",
+      "sha256": "sha256:d3d8d9a96b33538605c0caded1dbfd9ab7e5e119fd45b25250719537bdc261a8"
+    },
+    {
+      "path": "public/data/roads.json",
+      "sha256": "sha256:d45004bb9e1edc4c83e8c238f53e13f487de26808eb279b581427aaa9d7e9d03"
+    },
+    {
+      "path": "public/data/scenario.json",
+      "sha256": "sha256:3c92c7480c77f7a69b25c024760bbee90f7ae7b7380a11510ff219cf22aaf6e7"
+    },
+    {
+      "path": "public/data/scene.json",
+      "sha256": "sha256:3082fdbf97040b29e667a422ca8471bc9e4764709f4041ed977341aff6d148d6"
+    },
+    {
+      "path": "public/data/vegetation.bin",
+      "sha256": "sha256:bd5843960c1b052827ea84e2d2f31db9d322b33b22d9930e82faa039de32d7bb"
+    },
+    {
+      "path": "public/models/ATTRIBUTION.txt",
+      "sha256": "sha256:b125e9f35f67816b2554be702ecde4a782977925448694625c32fad924fb1388"
+    },
+    {
+      "path": "public/models/tank.glb",
+      "sha256": "sha256:28c9940aeee2bfabde13c5805f1b673af30a6df0e0bd668941d86153d7cb3ada"
+    },
+    {
+      "path": "public/models/uav.glb",
+      "sha256": "sha256:0d38b6f44eef969fe17f0c8a54d6747b7a0efb8a3b2e9ab875221d182a6dfb12"
+    }
+  ],
+  "record": {
+    "path": "runs/run-20261017-125313.json"
+  }
+}
