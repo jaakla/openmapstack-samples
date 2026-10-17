@@ -1,5 +1,7 @@
 # UAV visibility
 
+[![UAV visibility: three simulated UAVs, sightlines and forecasts over Helsinki](docs/uav-visibility-preview.png)](https://jaakla.github.io/openmapstack-samples/battlefield-visibility/)
+
 [Open the live demo](https://jaakla.github.io/openmapstack-samples/battlefield-visibility/)
 
 An independent, reproducible [OpenMapStack](https://github.com/jaakla/openmapstack-skills)

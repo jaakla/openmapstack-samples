@@ -15,7 +15,7 @@ Explore surveyed architecture, airborne LiDAR, terrain, cross sections, measurem
 
 Explore simulated hostile UAVs over downtown Helsinki using 2021 city LiDAR, including vegetation, and official LoD2 buildings. Live RED/YELLOW/GREEN line-of-sight zones for a 2 m observer, a five-minute forecast, and MGRS contact reports describe the simulated situation.
 
-[![Preview of UAV visibility, showing simulated UAV contacts and line-of-sight zones over downtown Helsinki](battlefield-visibility/docs/final-desktop.png)](https://jaakla.github.io/openmapstack-samples/battlefield-visibility/)
+[![Preview of UAV visibility, showing simulated UAV contacts and line-of-sight zones over downtown Helsinki](battlefield-visibility/docs/uav-visibility-preview.png)](https://jaakla.github.io/openmapstack-samples/battlefield-visibility/)
 
 - [Open the live demo](https://jaakla.github.io/openmapstack-samples/battlefield-visibility/)
 - [Project documentation and source evidence](battlefield-visibility/README.md)
