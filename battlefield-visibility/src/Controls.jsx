@@ -32,6 +32,122 @@ export function Range({
     </label>
   );
 }
+export function Legend() {
+  return (
+    <details className="legend" open>
+      <summary>Legend</summary>
+      <div>
+        <i className="affiliation hostile" />
+        Hostile UAV · simulated
+      </div>
+      <div>
+        <i className="affiliation friendly" />
+        Friendly · own position
+      </div>
+      <div>
+        <i className="line red" />
+        RED · visible now
+      </div>
+      <div>
+        <i className="line yellow" />
+        YELLOW · forecast within 5 min
+      </div>
+      <div>
+        <i className="line green" />
+        GREEN · sampled LOS blocked
+      </div>
+      <div>
+        <i className="line unknown" />
+        UNKNOWN · missing / obstructed
+      </div>
+      <div>
+        <i className="line past" />
+        Past trace · last 2 min
+      </div>
+      <div>
+        <i className="line future" />
+        Future route · 5 min
+      </div>
+      <div>
+        <i className="envelope" />
+        Terminal speed envelope · ±20%
+      </div>
+      <p className="note">
+        Affiliation symbols are APP-6-inspired, not certified. LOS colours
+        describe geometry. GREEN does not establish safety.
+      </p>
+    </details>
+  );
+}
+export function LayerControls({ layers, setLayers }) {
+  return (
+    <>
+      <details open>
+        <summary>Layer groups</summary>
+        {[
+          ["ground", "Ground & photography"],
+          ["obstructions", "Buildings & vegetation"],
+          ["scenario", "Simulated UAVs & results"],
+        ].map(([key, label]) => (
+          <label className="toggle" key={key}>
+            <input
+              type="checkbox"
+              checked={layers[key] !== false}
+              onChange={(e) =>
+                setLayers({ ...layers, [key]: e.target.checked })
+              }
+            />
+            {label}
+          </label>
+        ))}
+      </details>
+      <details open>
+        <summary>Analysis & scenario</summary>
+        {[
+          ["red", "Direct visibility zones"],
+          ["yellow", "Forecast visibility zones"],
+          ["green", "No sampled visibility zones"],
+          ["los", "Drone → own position LOS"],
+          ["traces", "Dotted past traces"],
+          ["predictions", "Dashed future routes"],
+          ["uncertainty", "Terminal speed envelope"],
+          ["affiliations", "Affiliation symbols & labels"],
+        ].map(([key, label]) => (
+          <label className="toggle" key={key}>
+            <input
+              type="checkbox"
+              checked={layers[key] !== false}
+              onChange={(e) =>
+                setLayers({ ...layers, [key]: e.target.checked })
+              }
+            />
+            {label}
+          </label>
+        ))}
+      </details>
+      <details open>
+        <summary>Source context</summary>
+        {[
+          ["buildings", "Building meshes · display only"],
+          ["vegetation", "Measured vegetation"],
+          ["roads", "Sourced OSM routes"],
+        ].map(([key, label]) => (
+          <label className="toggle" key={key}>
+            <input
+              type="checkbox"
+              checked={layers[key] !== false}
+              onChange={(e) =>
+                setLayers({ ...layers, [key]: e.target.checked })
+              }
+            />
+            {label}
+          </label>
+        ))}
+      </details>
+      <Legend />
+    </>
+  );
+}
 export function Controls({
   settings,
   change,
@@ -39,14 +155,11 @@ export function Controls({
   setPlaying,
   speed,
   setSpeed,
-  reset,
-  layers,
-  setLayers,
 }) {
   return (
     <>
       <details open>
-        <summary>Scenario</summary>
+        <summary>Drone scenario</summary>
         <Range
           label="UAV height (AGL)"
           min={10}
@@ -54,28 +167,18 @@ export function Controls({
           value={settings.uavHeight}
           onChange={(v) => change("uavHeight", v)}
         />
-        <Range
-          label="Tank sensor height"
-          min={1}
-          max={8}
-          step={0.5}
-          value={settings.tankHeight}
-          onChange={(v) => change("tankHeight", v)}
-        />
-        {["tanks", "uavs"].map((key) => (
-          <label className="count" key={key}>
-            Number of {key === "uavs" ? "UAVs" : "tanks"}
-            <select
-              aria-label={`Number of ${key}`}
-              value={settings[key]}
-              onChange={(e) => change(key, Number(e.target.value))}
-            >
-              {[0, 1, 2, 3].map((n) => (
-                <option key={n}>{n}</option>
-              ))}
-            </select>
-          </label>
-        ))}
+        <label className="count">
+          UAV count
+          <select
+            aria-label="Number of UAVs"
+            value={settings.uavs}
+            onChange={(e) => change("uavs", Number(e.target.value))}
+          >
+            {[0, 1, 2, 3].map((n) => (
+              <option key={n}>{n}</option>
+            ))}
+          </select>
+        </label>
       </details>
       <details open>
         <summary>Playback</summary>
@@ -86,6 +189,7 @@ export function Controls({
           <label>
             Speed
             <select
+              aria-label="Playback speed"
               value={speed}
               onChange={(e) => setSpeed(Number(e.target.value))}
             >
@@ -97,34 +201,11 @@ export function Controls({
             </select>
           </label>
         </div>
+        <p className="note">
+          Simulated flights over sourced route shapes. Forecast weights are
+          uncalibrated scenarios.
+        </p>
       </details>
-      <details open>
-        <summary>Layers</summary>
-        {[
-          ["red", "Direct visibility (current)"],
-          ["yellow", "Forecast visibility (5 min)"],
-          ["green", "Low visibility (occluded)"],
-          ["buildings", "Measured buildings"],
-          ["vegetation", "High vegetation"],
-          ["roads", "OSM streets"],
-          ["predictions", "Predicted paths"],
-        ].map(([key, label]) => (
-          <label className="toggle" key={key}>
-            <input
-              type="checkbox"
-              checked={layers[key]}
-              onChange={(e) =>
-                setLayers({ ...layers, [key]: e.target.checked })
-              }
-            />
-            <i className={key} />
-            {label}
-          </label>
-        ))}
-      </details>
-      <button className="reset" onClick={reset}>
-        Reset defaults
-      </button>
     </>
   );
 }

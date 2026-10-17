@@ -2,6 +2,8 @@ import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { height } from "./visibility.js";
+import { loadBuildingLayer } from "./buildings.js";
+import { formatMGRS } from "./coordinates.js";
 
 const ZONE_COLORS = [null, "#60a86a", "#f5c744", "#ef5456"];
 export class VisibilityScene {
@@ -20,13 +22,13 @@ export class VisibilityScene {
       powerPreference: "low-power",
     }));
     renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
-    renderer.setClearColor("#e7eef4");
+    renderer.setClearColor("#0d171b");
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     host.appendChild(renderer.domElement);
     this.world = new THREE.Scene();
-    this.world.fog = new THREE.Fog("#e7eef4", 2500, 6500);
+    this.world.fog = new THREE.Fog("#0d171b", 2500, 6500);
     this.camera = new THREE.PerspectiveCamera(42, 1, 1, 12000);
     this.controls = new OrbitControls(this.camera, renderer.domElement);
     this.controls.addEventListener("change", () => {
@@ -39,8 +41,8 @@ export class VisibilityScene {
     this.controls.dampingFactor = 0.1;
     this.controls.touches.ONE = THREE.TOUCH.ROTATE;
     this.controls.touches.TWO = THREE.TOUCH.DOLLY_PAN;
-    this.world.add(new THREE.HemisphereLight("#ffffff", "#8a9d80", 2.6));
-    const sun = new THREE.DirectionalLight("#ffffff", 2.1);
+    this.world.add(new THREE.HemisphereLight("#ffffff", "#45544b", 2.1));
+    const sun = new THREE.DirectionalLight("#e7ede2", 2.0);
     sun.position.set(-500, 1200, 600);
     this.world.add(sun);
     this.resetCamera();
@@ -50,13 +52,14 @@ export class VisibilityScene {
       vegetation: new THREE.Group(),
       roads: new THREE.Group(),
       predictions: new THREE.Group(),
+      traces: new THREE.Group(),
+      uncertainty: new THREE.Group(),
+      los: new THREE.Group(),
+      affiliations: new THREE.Group(),
       vectors: new THREE.Group(),
     };
     Object.values(this.groups).forEach((g) => this.world.add(g));
-    this.marker = new THREE.Mesh(
-      new THREE.SphereGeometry(4, 16, 12),
-      new THREE.MeshBasicMaterial({ color: "#0670ed", depthTest: false }),
-    );
+    this.marker = this.label("OWN", "friendly");
     this.marker.renderOrder = 10;
     this.world.add(this.marker);
     this.loadAssets().catch((error) => {
@@ -154,7 +157,7 @@ export class VisibilityScene {
       new THREE.MeshStandardMaterial({
         map: texture,
         roughness: 1,
-        color: "#e8edf0",
+        color: "#a8b5b0",
         side: THREE.DoubleSide,
       }),
     );
@@ -163,8 +166,7 @@ export class VisibilityScene {
   buildBuildings() {
     this.buildingGroup = new THREE.Group();
     this.world.add(this.buildingGroup);
-    // Renderer geometry is constructed only from published measured DSM cells.
-    // A coarser 2 m display surface has no role in 1 m LOS calculations.
+    // Independent source-backed building GLB can be replaced without touching LOS.
   }
   async loadAssets() {
     const base = import.meta.env.BASE_URL;
@@ -173,90 +175,14 @@ export class VisibilityScene {
       if (!r.ok) throw new Error(`${path}: ${r.status}`);
       return r;
     };
-    const [buildingBuffer, vegetationBuffer, roads, tank, uav] =
-      await Promise.all([
-        checked("data/buildings.bin").then((r) => r.arrayBuffer()),
-        checked("data/vegetation.bin").then((r) => r.arrayBuffer()),
-        checked("data/roads.json").then((r) => r.json()),
-        new GLTFLoader().loadAsync(base + "models/tank.glb"),
-        new GLTFLoader().loadAsync(base + "models/uav.glb"),
-      ]);
+    const [buildings, vegetationBuffer, roads, uav] = await Promise.all([
+      loadBuildingLayer(this.config.buildingMesh, base),
+      checked("data/vegetation.bin").then((r) => r.arrayBuffer()),
+      checked("data/roads.json").then((r) => r.json()),
+      new GLTFLoader().loadAsync(base + "models/uav.glb"),
+    ]);
     if (this.disposed) return;
-    const b = new Uint16Array(buildingBuffer),
-      step = 2,
-      w = this.config.displayGrid.width;
-    const positions = [];
-    const quad = (a, b, c, d) =>
-      positions.push(...a, ...b, ...c, ...b, ...d, ...c);
-    for (let row = 0; row < this.config.displayGrid.height; row++)
-      for (let col = 0; col < w; col++) {
-        const raw = b[row * w + col];
-        if (raw === 65535 || raw === 0) continue;
-        const x = col * step,
-          y = row * step,
-          z = this.grid.zOrigin + raw * this.grid.zScale;
-        quad(
-          [x, z, -y],
-          [x + step, z, -y],
-          [x, z, -y - step],
-          [x + step, z, -y - step],
-        );
-        for (const [dx, dy] of [
-          [-1, 0],
-          [1, 0],
-          [0, -1],
-          [0, 1],
-        ]) {
-          const cc = col + dx,
-            rr = row + dy,
-            v =
-              cc < 0 ||
-              rr < 0 ||
-              cc >= w ||
-              rr >= this.config.displayGrid.height
-                ? 0
-                : b[rr * w + cc];
-          const ground = this.elevation(x + 0.5, y + 0.5);
-          const lower =
-            v && v !== 65535
-              ? this.grid.zOrigin + v * this.grid.zScale
-              : ground;
-          if (!Number.isFinite(lower) || lower >= z || z - lower < 1) continue;
-          if (dx) {
-            const xx = x + (dx > 0 ? step : 0);
-            quad(
-              [xx, z, -y],
-              [xx, z, -y - step],
-              [xx, lower, -y],
-              [xx, lower, -y - step],
-            );
-          } else {
-            const yy = -y - (dy > 0 ? step : 0);
-            quad(
-              [x, z, yy],
-              [x + step, z, yy],
-              [x, lower, yy],
-              [x + step, lower, yy],
-            );
-          }
-        }
-      }
-    const geom = new THREE.BufferGeometry();
-    geom.setAttribute(
-      "position",
-      new THREE.Float32BufferAttribute(positions, 3),
-    );
-    geom.computeVertexNormals();
-    this.buildingGroup.add(
-      new THREE.Mesh(
-        geom,
-        new THREE.MeshStandardMaterial({
-          color: "#e6e9eb",
-          roughness: 0.95,
-          side: THREE.DoubleSide,
-        }),
-      ),
-    );
+    this.buildingGroup.add(buildings);
     const vp = new Float32Array(vegetationBuffer),
       vg = new THREE.BufferGeometry();
     vg.setAttribute("position", new THREE.BufferAttribute(vp, 3));
@@ -289,7 +215,6 @@ export class VisibilityScene {
         );
     }
     this.models = {
-      tank: this.prepareModel(tank.scene, 7),
       uav: this.prepareModel(uav.scene, 1.2),
     };
     if (this.latestSnapshot) this.updateSnapshot(this.latestSnapshot);
@@ -379,66 +304,172 @@ export class VisibilityScene {
       }),
     );
     this.zoneMesh.renderOrder = 1;
+    this.zoneMesh.visible = this.layers.scenario !== false;
     this.world.add(this.zoneMesh);
-    this.clear(this.groups.predictions);
-    for (const future of result.futures)
-      future.paths.forEach((hypothesis, i) => {
-        const current = result.sensors.find((s) => s.id === future.id).position;
+    for (const key of [
+      "predictions",
+      "traces",
+      "uncertainty",
+      "los",
+      "affiliations",
+    ])
+      this.clear(this.groups[key]);
+    const drawPath = (path, group, color, dashSize, gapSize, opacity) => {
+      let points = [];
+      const flush = () => {
+        if (points.length < 2) {
+          points = [];
+          return;
+        }
         const line = new THREE.Line(
-          new THREE.BufferGeometry().setFromPoints(
-            [current, ...hypothesis]
-              .filter((p) => p.every(Number.isFinite))
-              .map((p) => this.point(p)),
-          ),
+          new THREE.BufferGeometry().setFromPoints(points),
           new THREE.LineDashedMaterial({
-            color: i === 1 ? "#d98d10" : "#e6bd64",
-            dashSize: 9,
-            gapSize: 6,
+            color,
+            dashSize,
+            gapSize,
             transparent: true,
-            opacity: i === 1 ? 1 : 0.45,
+            opacity,
           }),
         );
         line.computeLineDistances();
-        this.groups.predictions.add(line);
-      });
+        this.groups[group].add(line);
+        points = [];
+      };
+      for (const p of path) {
+        if (p.every(Number.isFinite)) points.push(this.point(p));
+        else flush(); // Never draw a fabricated chord across missing terrain.
+      }
+      flush();
+    };
+    for (const trace of result.traces)
+      drawPath(trace.path, "traces", "#d2e1dc", 1.3, 7, 0.35);
+    for (const future of result.futures) {
+      future.paths.forEach((path, i) =>
+        drawPath(
+          path,
+          "predictions",
+          i === 1 ? "#f1c45b" : "#bd9747",
+          12,
+          7,
+          i === 1 ? 1 : 0.28,
+        ),
+      );
+      // Terminal along-route range from the 0.8x/1.2x speed hypotheses.
+      // Band width is a display annotation, not lateral positional uncertainty.
+      const vertices = [];
+      for (let i = 1; i < future.uncertaintyPath.length; i++) {
+        const a = this.point(future.uncertaintyPath[i - 1]),
+          b = this.point(future.uncertaintyPath[i]);
+        if (![a.x, a.y, a.z, b.x, b.y, b.z].every(Number.isFinite)) continue;
+        const side = new THREE.Vector3(b.z - a.z, 0, a.x - b.x)
+          .normalize()
+          .multiplyScalar(8);
+        const corners = [
+          a.clone().add(side),
+          a.clone().sub(side),
+          b.clone().add(side),
+          b.clone().sub(side),
+        ];
+        for (const j of [0, 1, 2, 1, 3, 2])
+          vertices.push(...corners[j].toArray());
+      }
+      const band = new THREE.BufferGeometry();
+      band.setAttribute(
+        "position",
+        new THREE.Float32BufferAttribute(vertices, 3),
+      );
+      this.groups.uncertainty.add(
+        new THREE.Mesh(
+          band,
+          new THREE.MeshBasicMaterial({
+            color: "#f1c45b",
+            transparent: true,
+            opacity: 0.22,
+            depthWrite: false,
+            side: THREE.DoubleSide,
+          }),
+        ),
+      );
+    }
+    const tz = this.elevation(...result.target);
+    for (const status of result.sightlines) {
+      const sensor = result.sensors.find((s) => s.id === status.id);
+      if (!Number.isFinite(tz) || !sensor.position.every(Number.isFinite))
+        continue;
+      const line = new THREE.Line(
+        new THREE.BufferGeometry().setFromPoints([
+          this.point(sensor.position),
+          this.point([...result.target, tz + 2]),
+        ]),
+        new THREE.LineDashedMaterial({
+          color: ZONE_COLORS[status.zone] ?? "#84949a",
+          dashSize: status.zone === 3 ? 100000 : 7,
+          gapSize: status.zone === 3 ? 0 : 4,
+          depthTest: false,
+          transparent: true,
+          opacity: 0.95,
+        }),
+      );
+      line.computeLineDistances();
+      line.renderOrder = 4;
+      line.userData = { id: status.id, zone: status.zone };
+      this.groups.los.add(line);
+    }
     // Model clones share geometry/materials; remove without disposing shared originals.
     this.groups.vectors.clear();
     if (this.models)
       for (const sensor of result.sensors) {
         if (!sensor.position.every(Number.isFinite)) continue;
-        const model = this.models[sensor.type].clone(true),
-          ground = this.elevation(sensor.position[0], sensor.position[1]);
+        const model = this.models.uav.clone(true);
         model.position.copy(
           this.point([
             sensor.position[0],
             sensor.position[1],
-            sensor.type === "tank" ? ground : sensor.position[2],
+            sensor.position[2],
           ]),
         );
         model.rotation.y = sensor.heading;
         this.groups.vectors.add(model);
         // Distant-zoom display magnification is explicitly an annotation, not dimensions.
-        model.userData.magnify = sensor.type === "uav" ? 9 : 2.4;
-        const sprite = this.label(sensor.id);
+        model.userData.magnify = 9;
+        const sprite = this.label(
+          sensor.id,
+          "hostile",
+          formatMGRS(this.config.origin, sensor.position),
+        );
         sprite.position.copy(this.point(sensor.position));
         sprite.position.y += 20;
-        this.groups.predictions.add(sprite);
+        this.groups.affiliations.add(sprite);
       }
-    const tz = this.elevation(...result.target);
-    this.marker.visible = Number.isFinite(tz);
+    this.marker.visible =
+      Number.isFinite(tz) &&
+      this.layers.affiliations !== false &&
+      this.layers.scenario !== false;
     this.marker.position.copy(this.point([...result.target, tz + 3]));
   }
-  label(text) {
+  label(text, affiliation, coordinate = "") {
     const canvas = document.createElement("canvas");
-    canvas.width = 256;
-    canvas.height = 64;
+    canvas.width = 512;
+    canvas.height = 100;
     const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "#ffffffeb";
-    ctx.fillRect(0, 0, 256, 64);
-    ctx.fillStyle = "#81242e";
-    ctx.font = "bold 32px sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText(text, 128, 43);
+    ctx.fillStyle = "#0d171be8";
+    ctx.fillRect(0, 0, 512, 100);
+    ctx.strokeStyle = affiliation === "hostile" ? "#ff7074" : "#75baff";
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    if (affiliation === "hostile") {
+      ctx.moveTo(30, 12);
+      ctx.lineTo(49, 35);
+      ctx.lineTo(30, 58);
+      ctx.lineTo(11, 35);
+      ctx.closePath();
+    } else ctx.rect(10, 17, 40, 30);
+    ctx.stroke();
+    ctx.fillStyle = "#e4ece7";
+    ctx.font = "bold 30px monospace";
+    ctx.fillText(text, 66, 44);
+    ctx.font = "23px monospace";
+    ctx.fillText(coordinate, 12, 83);
     const texture = new THREE.CanvasTexture(canvas);
     const sprite = new THREE.Sprite(
       new THREE.SpriteMaterial({
@@ -447,16 +478,36 @@ export class VisibilityScene {
         sizeAttenuation: false,
       }),
     );
-    sprite.scale.set(0.08, 0.02, 1);
+    sprite.scale.set(0.18, 0.035, 1);
     sprite.renderOrder = 5;
     return sprite;
   }
   setLayers(layers) {
     this.layers = layers;
-    this.buildingGroup.visible = layers.buildings !== false;
+    this.terrain.visible = layers.ground !== false;
+    this.buildingGroup.visible =
+      layers.buildings !== false && layers.obstructions !== false;
     if (this.groups)
-      for (const key of ["vegetation", "roads", "predictions"])
-        this.groups[key].visible = layers[key] !== false;
+      for (const key of [
+        "vegetation",
+        "roads",
+        "predictions",
+        "traces",
+        "uncertainty",
+        "los",
+        "affiliations",
+      ])
+        this.groups[key].visible =
+          layers[key] !== false &&
+          layers[
+            key === "vegetation"
+              ? "obstructions"
+              : key === "roads"
+                ? "ground"
+                : "scenario"
+          ] !== false;
+    this.groups.vectors.visible = layers.scenario !== false;
+    this.marker.visible = layers.affiliations !== false;
     if (this.latestSnapshot) this.updateSnapshot(this.latestSnapshot);
   }
   resetCamera() {
@@ -474,8 +525,10 @@ export class VisibilityScene {
       .add(this.controls.target);
     this.controls.update();
   }
-  focusVector(type) {
-    const sensor = this.latestSnapshot?.sensors.find((s) => s.type === type);
+  focusVector(type, id) {
+    const sensor = this.latestSnapshot?.sensors.find(
+      (s) => s.type === type && (!id || s.id === id),
+    );
     if (!sensor || !sensor.position.every(Number.isFinite)) return;
     const p = this.point(sensor.position);
     this.controls.target.copy(p);

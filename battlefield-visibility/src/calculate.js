@@ -1,5 +1,5 @@
 import { height, classifyTarget } from "./visibility.js";
-import { activeVectors, sensorAt, predict } from "./simulation.js";
+import { activeVectors, sensorAt, predict, pastTraces } from "./simulation.js";
 
 export function calculateZones(grid, scenario, settings, time, target) {
   const vectors = activeVectors(scenario, settings);
@@ -11,7 +11,7 @@ export function calculateZones(grid, scenario, settings, time, target) {
     cols = Math.floor((grid.width * grid.resolution) / spacing);
   const rows = Math.floor((grid.height * grid.resolution) / spacing),
     zones = new Uint8Array(cols * rows);
-  const statusAt = ([x, y]) => {
+  const statusAt = ([x, y], current = sensors, forecast = futures) => {
     const z = height(grid, grid.dtm, x, y),
       obstruction = height(grid, grid.dsm, x, y);
     return !Number.isFinite(z) ||
@@ -21,8 +21,8 @@ export function calculateZones(grid, scenario, settings, time, target) {
       : classifyTarget(
           grid,
           [x, y, z + 2],
-          sensors,
-          futures,
+          current,
+          forecast,
           scenario.probabilityThreshold,
         );
   };
@@ -37,6 +37,15 @@ export function calculateZones(grid, scenario, settings, time, target) {
     time,
     sensors,
     futures,
+    traces: pastTraces(grid, scenario, vectors, time, settings),
+    sightlines: sensors.map((sensor) => ({
+      id: sensor.id,
+      ...statusAt(
+        target,
+        [sensor],
+        futures.filter((f) => f.id === sensor.id),
+      ),
+    })),
     zones,
     cols,
     rows,

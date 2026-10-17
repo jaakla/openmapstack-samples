@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import { formatMGRS } from "../src/coordinates.js";
 import { calculateZones } from "../src/calculate.js";
 const read = (p) => JSON.parse(fs.readFileSync(p, "utf8"));
 const config = read("public/data/scene.json"),
@@ -24,7 +25,12 @@ fs.writeFileSync(
     time: 0,
     counts,
     status: r.status,
-    sensors: r.sensors,
+    targetMGRS: formatMGRS(config.origin, scenario.target),
+    sensors: r.sensors.map((s) => ({
+      ...s,
+      mgrs: formatMGRS(config.origin, s.position),
+    })),
+    sightlines: r.sightlines,
     cols: r.cols,
     rows: r.rows,
     spacing: r.spacing,

@@ -17,7 +17,7 @@ The original large LAZ survey files use Git LFS. Normal Pages builds skip those 
 
 ## Helsinki visibility
 
-A simulated tank/UAV visibility study over measured downtown Helsinki LiDAR.
+A simulated UAV visibility study over measured downtown Helsinki LiDAR.
 
 - [Project, sources, reproduction and limitations](battlefield-visibility/README.md)
 - Published under `battlefield-visibility/` when approved and merged; this change does not deploy it.

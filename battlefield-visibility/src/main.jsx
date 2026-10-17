@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { Controls } from "./Controls.jsx";
+import { Controls, LayerControls, Legend } from "./Controls.jsx";
 import Provenance from "./Provenance.jsx";
 import "./styles.css";
+import { formatMGRS, parseMGRS, exportSnapshot } from "./coordinates.js";
 
 const ZONES = ["UNKNOWN", "GREEN", "YELLOW", "RED"];
 async function load() {
@@ -37,7 +38,7 @@ async function load() {
 function App() {
   const [data, setData] = useState(null),
     [error, setError] = useState(""),
-    [tab, setTab] = useState("simulation");
+    [tab, setTab] = useState("scenario");
   const [settings, setSettings] = useState(null),
     [playing, setPlaying] = useState(false),
     [speed, setSpeed] = useState(1);
@@ -46,6 +47,9 @@ function App() {
     [busy, setBusy] = useState(true);
   const [target, setTarget] = useState(null),
     [exploratory, setExploratory] = useState(false);
+  const [mgrsInput, setMgrsInput] = useState(""),
+    [coordinateError, setCoordinateError] = useState(""),
+    [secondary, setSecondary] = useState(false);
   const host = useRef(null),
     scene = useRef(null),
     worker = useRef(null),
@@ -83,10 +87,7 @@ function App() {
     worker.current = w;
     w.postMessage({ type: "init", grid: data.grid, scenario: data.scenario });
     const view = new data.VisibilityScene(host.current, data, (position) => {
-      setTarget(position);
-      setBusy(true);
-      setExploratory(true);
-      generation.current++;
+      moveTarget(position);
     });
     scene.current = view;
     const sceneError = (e) => setError(e.detail);
@@ -144,6 +145,36 @@ function App() {
   useEffect(() => {
     scene.current?.setLayers(layers);
   }, [layers, data]);
+  useEffect(() => {
+    if (data && target) setMgrsInput(formatMGRS(data.config.origin, target));
+  }, [data, target]);
+  function moveTarget(position) {
+    setTarget(position);
+    setBusy(true);
+    setExploratory(true);
+    setCoordinateError("");
+    generation.current++;
+  }
+  function applyCoordinate(e) {
+    e.preventDefault();
+    try {
+      moveTarget(parseMGRS(data.config.origin, mgrsInput, data.grid));
+    } catch (error) {
+      setCoordinateError(error.message);
+    }
+  }
+  function downloadSnapshot() {
+    const blob = new Blob(
+      [JSON.stringify(exportSnapshot(data.config, snapshot), null, 2) + "\n"],
+      { type: "application/json" },
+    );
+    const url = URL.createObjectURL(blob),
+      a = document.createElement("a");
+    a.href = url;
+    a.download = "helsinki-uav-snapshot.json";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
   function change(key, value) {
     setBusy(true);
     setSettings((s) => ({ ...s, [key]: value }));
@@ -159,10 +190,13 @@ function App() {
     setPlaying(data.config.playback.playing);
     setLayers({ ...data.config.layers });
     setExploratory(false);
+    setCoordinateError("");
+    setSecondary(false);
     generation.current++;
     scene.current?.resetCamera();
   }
   const ready = data && settings;
+  const zone = snapshot && !busy ? ZONES[snapshot.status.zone] : "COMPUTING";
   return (
     <>
       <header>
@@ -172,157 +206,194 @@ function App() {
       <main>
         <aside>
           <nav aria-label="Workspace">
-            <button
-              className={tab === "simulation" ? "active" : ""}
-              onClick={() => setTab("simulation")}
-            >
-              Simulation
-            </button>
-            <button
-              className={tab === "sources" ? "active" : ""}
-              onClick={() => setTab("sources")}
-            >
-              Sources
-            </button>
-          </nav>
-          {ready &&
-            (tab === "simulation" ? (
-              <Controls
-                {...{
-                  settings,
-                  change,
-                  playing,
-                  setPlaying: (value) => {
-                    setPlaying(value);
-                    if (value) setExploratory(true);
-                  },
-                  speed,
-                  setSpeed,
-                  reset,
-                  layers,
-                  setLayers,
-                }}
-              />
-            ) : (
-              <Provenance config={data.provenance} />
+            {["scenario", "layers", "sources"].map((id) => (
+              <button
+                key={id}
+                className={tab === id ? "active" : ""}
+                aria-pressed={tab === id}
+                onClick={() => setTab(id)}
+              >
+                {id[0].toUpperCase() + id.slice(1)}
+              </button>
             ))}
-          {!ready && (
-            <p className="loading">Loading measured source products…</p>
-          )}
+          </nav>
+          <div className="sidebar-content">
+            {ready ? (
+              tab === "sources" ? (
+                <Provenance config={data.provenance} />
+              ) : tab === "layers" ? (
+                <LayerControls layers={layers} setLayers={setLayers} />
+              ) : (
+                <>
+                  <Controls
+                    settings={settings}
+                    change={change}
+                    playing={playing}
+                    setPlaying={(value) => {
+                      setPlaying(value);
+                      if (value) setExploratory(true);
+                    }}
+                    speed={speed}
+                    setSpeed={(value) => {
+                      setSpeed(value);
+                      setExploratory(true);
+                    }}
+                  />
+                  <details open>
+                    <summary>Tracked UAVs</summary>
+                    {snapshot?.sensors.length ? (
+                      snapshot.sensors.map((sensor) => (
+                        <button
+                          className="track"
+                          key={sensor.id}
+                          onClick={() =>
+                            scene.current?.focusVector("uav", sensor.id)
+                          }
+                        >
+                          <span>
+                            <i className="affiliation hostile" />
+                            <strong>{sensor.id}</strong>
+                            <small>{settings.uavHeight} m AGL</small>
+                          </span>
+                          <code>
+                            {formatMGRS(data.config.origin, sensor.position)}
+                          </code>
+                          <small>
+                            {busy
+                              ? "Updating…"
+                              : ZONES[
+                                  snapshot.sightlines.find(
+                                    (s) => s.id === sensor.id,
+                                  )?.zone ?? 0
+                                ]}{" "}
+                            · own-position LOS
+                          </small>
+                        </button>
+                      ))
+                    ) : (
+                      <p className="note">No active UAVs</p>
+                    )}
+                  </details>
+                  <Legend />
+                </>
+              )
+            ) : (
+              <p className="loading">Loading measured source products…</p>
+            )}
+          </div>
+          <button className="reset" disabled={!ready} onClick={reset}>
+            Reset defaults
+          </button>
         </aside>
         <section className="map" aria-label="Interactive 3D visibility scene">
-          <div className="canvas" ref={host} />
-          <div className="map-title">
-            <h2>Downtown Helsinki</h2>
-            <p>EPSG:3067 · 5 minute forecast</p>
-            <small>
-              {exploratory ? "Exploratory scenario" : "Published defaults"} ·{" "}
-              {playing ? "Playing" : "Paused"}
-            </small>
-          </div>
-          <div className="map-tools">
-            <button onClick={() => scene.current?.focusVector("tank")}>
-              Find tank
-            </button>
-            <button onClick={() => scene.current?.focusVector("uav")}>
-              Find UAV
-            </button>
-            <button onClick={() => scene.current?.resetCamera()}>
-              Reset view
-            </button>
-            <button
-              aria-label="Zoom in"
-              onClick={() => scene.current?.zoom(0.8)}
-            >
-              +
-            </button>
-            <button
-              aria-label="Zoom out"
-              onClick={() => scene.current?.zoom(1.25)}
-            >
-              −
-            </button>
-          </div>
-          {error && (
-            <div className="error" role="alert">
-              Could not load the demo: {error}
+          <div className="map-stage">
+            <div className="canvas" ref={host} />
+            <div className="map-title">
+              <h2>Downtown Helsinki</h2>
+              <small>
+                {exploratory ? "Exploratory scenario" : "Published defaults"} ·{" "}
+                {playing ? "Playing" : "Paused"}
+              </small>
             </div>
-          )}
-          <div className="position" aria-live="polite">
-            <strong>
-              Your position ·{" "}
-              {snapshot && !busy ? ZONES[snapshot.status.zone] : "Computing"}
-            </strong>
+            <div className="snapshot">
+              <strong>t = {snapshot?.time.toFixed(1) ?? "0.0"} s</strong>
+              <small>
+                {busy ? "Computing…" : "1 m LOS surface · 5 min forecast"}
+              </small>
+            </div>
+            <div className="map-tools">
+              <button onClick={() => scene.current?.focusVector("uav")}>
+                Find UAV
+              </button>
+              <button onClick={() => scene.current?.resetCamera()}>
+                Reset view
+              </button>
+              <button
+                aria-label="Zoom in"
+                onClick={() => scene.current?.zoom(0.8)}
+              >
+                +
+              </button>
+              <button
+                aria-label="Zoom out"
+                onClick={() => scene.current?.zoom(1.25)}
+              >
+                −
+              </button>
+            </div>
+            {error && (
+              <div className="error" role="alert">
+                Could not load the demo: {error}
+              </div>
+            )}
+            <div className="map-hint">
+              Drag orbit · two fingers pan / pinch · tap ground to relocate
+            </div>
+            <footer>
+              © Helsingin kaupunkimittauspalvelut 2021 · CC BY 4.0 (modified) ·
+              © OpenStreetMap contributors ·{" "}
+              <a href={`${import.meta.env.BASE_URL}models/ATTRIBUTION.txt`}>
+                LoD2 © City of Helsinki · CC BY 4.0 · Credits
+              </a>
+            </footer>
+          </div>
+          <div
+            className={`position status-${zone.toLowerCase()}`}
+            aria-live="polite"
+          >
+            <div className="position-heading">
+              <strong>
+                <i className="affiliation friendly" />
+                OWN POSITION · {zone}
+              </strong>
+              <button disabled={!snapshot || busy} onClick={downloadSnapshot}>
+                Export snapshot
+              </button>
+            </div>
             <p>
               {busy
                 ? "Updating visibility for the selected position…"
                 : snapshot?.status.visibleTo.length
                   ? `Visible to ${snapshot.status.visibleTo.join(", ")}`
                   : snapshot?.status.zone === 2
-                    ? `Forecast visibility ≥25% in the sampled scenario`
+                    ? "Forecast visibility ≥25% in the sampled scenario"
                     : snapshot?.status.zone === 1
                       ? "No visibility found in the sampled scenario"
                       : "Unknown, obstructed or outside measured coverage"}
             </p>
-            <small>Tap ground to move · target 2 m AGL</small>
-            {target && (
-              <div className="coordinates">
-                <label>
-                  E
-                  <input
-                    aria-label="Your easting"
-                    type="number"
-                    step="1"
-                    value={Math.round(data.config.origin[0] + target[0])}
-                    onChange={(e) => {
-                      setTarget([
-                        Number(e.target.value) - data.config.origin[0],
-                        target[1],
-                      ]);
-                      generation.current++;
-                      setExploratory(true);
-                    }}
-                  />
-                </label>
-                <label>
-                  N
-                  <input
-                    aria-label="Your northing"
-                    type="number"
-                    step="1"
-                    value={Math.round(data.config.origin[1] + target[1])}
-                    onChange={(e) => {
-                      setTarget([
-                        target[0],
-                        Number(e.target.value) - data.config.origin[1],
-                      ]);
-                      generation.current++;
-                      setExploratory(true);
-                    }}
-                  />
-                </label>
-              </div>
+            <form className="coordinates" onSubmit={applyCoordinate}>
+              <label htmlFor="mgrs">MGRS</label>
+              <input
+                id="mgrs"
+                aria-label="Own position MGRS"
+                value={mgrsInput}
+                onChange={(e) => setMgrsInput(e.target.value)}
+                spellCheck={false}
+              />
+              <button disabled={!ready} type="submit">
+                Set position
+              </button>
+            </form>
+            {coordinateError && (
+              <p className="coordinate-error" role="alert">
+                {coordinateError}
+              </p>
+            )}
+            <label className="secondary">
+              <input
+                type="checkbox"
+                checked={secondary}
+                onChange={(e) => setSecondary(e.target.checked)}
+              />
+              Show secondary EPSG:3067 coordinates
+            </label>
+            {secondary && target && (
+              <code className="secondary-readout">
+                E {Math.round(data.config.origin[0] + target[0])} · N{" "}
+                {Math.round(data.config.origin[1] + target[1])} · N2000 heights
+              </code>
             )}
           </div>
-          <div className="snapshot">
-            <strong>{busy ? "Computing…" : "Zone snapshot"}</strong>
-            <br />
-            {snapshot && (
-              <>
-                t = {snapshot.time.toFixed(1)} s · {snapshot.durationMs} ms
-                <br />
-                20 m target grid · 1 m LOS surface
-              </>
-            )}
-            <p>Drag orbit · two fingers pan / pinch zoom</p>
-          </div>
-          <footer>
-            © Helsingin kaupunkimittauspalvelut 2021 · CC BY 4.0 (modified) · ©
-            OpenStreetMap contributors ·{" "}
-            <a href={`${import.meta.env.BASE_URL}models/ATTRIBUTION.txt`}>
-              Models & credits
-            </a>
-          </footer>
         </section>
       </main>
     </>

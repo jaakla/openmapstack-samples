@@ -11,23 +11,54 @@ export default function Provenance({ config }) {
         <a href={`${import.meta.env.BASE_URL}data/provenance.json`} download>
           Download provenance & assumptions
         </a>
+        <p>
+          <a href={`${import.meta.env.BASE_URL}licenses/coordinates.txt`}>
+            Coordinate library licenses & notices
+          </a>
+        </p>
+        <p>
+          Display: MGRS, one-metre squares. Analysis: EPSG:3067 / N2000.
+          Building meshes are source context; the LiDAR DSM alone determines
+          obstruction.
+        </p>
       </details>
       <details open>
         <summary>Sources & licenses</summary>
-        {config.sources.map((s) => (
-          <p key={s.id}>
-            <a href={s.url} target="_blank" rel="noreferrer">
-              {s.title}
-            </a>
-            <br />
-            <small>
-              {s.version} · retrieved {s.retrievedAt.slice(0, 10)}
+        {config.sources
+          .filter((s) => !s.id.startsWith("lod2_") || s.id === "lod2_tileset")
+          .map((s) => (
+            <p key={s.id}>
+              <a href={s.url} target="_blank" rel="noreferrer">
+                {s.title}
+              </a>
               <br />
-              {s.license}
-            </small>
-          </p>
-        ))}
+              <small>
+                {s.version} · retrieved {s.retrievedAt.slice(0, 10)}
+                <br />
+                {s.license}
+              </small>
+            </p>
+          ))}
       </details>
+      {config.buildingMesh && (
+        <details>
+          <summary>Official LoD2 building inventory</summary>
+          <p>
+            {config.buildingMesh.buildingCount} source building IDs ·{" "}
+            {config.buildingMesh.tilesReturned}/
+            {config.buildingMesh.tilesMatched} tiles ·{" "}
+            {config.buildingMesh.publishedTriangles.toLocaleString()} triangles
+          </p>
+          <p>
+            Continuously maintained city model. Acquisition epoch unknown; HTTP
+            export 11 May 2026. Rendered roofs differ from the 2021 analysis
+            surface.
+          </p>
+          <a href={`${import.meta.env.BASE_URL}data/building-mesh.json`}>
+            Source IDs, bounds & alignment report
+          </a>
+        </details>
+      )}
       <details open>
         <summary>Assumptions & limits</summary>
         {config.assumptions.map((a) => (

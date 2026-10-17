@@ -41,7 +41,7 @@ export function sensorAt(
     route.coordinates,
     vector.offsetM + time * vector.speedMps * speedFactor,
   );
-  const agl = vector.type === "uav" ? settings.uavHeight : settings.tankHeight;
+  const agl = settings.uavHeight;
   return {
     id: vector.id,
     type: vector.type,
@@ -54,8 +54,7 @@ export function predict(grid, scenario, vectors, time, settings) {
   return vectors.map((vector) => {
     const route = scenario.routes[vector.route].coordinates;
     const start = vector.offsetM + time * vector.speedMps;
-    const agl =
-      vector.type === "uav" ? settings.uavHeight : settings.tankHeight;
+    const agl = settings.uavHeight;
     return {
       id: vector.id,
       hypotheses: [0.8, 1, 1.2].map((factor) =>
@@ -76,6 +75,11 @@ export function predict(grid, scenario, vectors, time, settings) {
           ([x, y]) => [x, y, height(grid, grid.dtm, x, y) + agl],
         ),
       ),
+      uncertaintyPath: routeTrace(
+        route,
+        start + 300 * vector.speedMps * 0.8,
+        start + 300 * vector.speedMps * 1.2,
+      ).map(([x, y]) => [x, y, height(grid, grid.dtm, x, y) + agl]),
     };
   });
 }
@@ -116,8 +120,22 @@ export function routeTrace(route, start, end) {
 
 export function activeVectors(scenario, settings) {
   return scenario.vectors.filter(
-    (v) =>
-      Number(v.id.split("-")[1]) <=
-      (v.type === "uav" ? settings.uavs : settings.tanks),
+    (v) => v.type === "uav" && Number(v.id.split("-")[1]) <= settings.uavs,
   );
+}
+
+// History starts at scenario t=0; it never invents a pre-simulation flight.
+export function pastTraces(grid, scenario, vectors, time, settings) {
+  return vectors.map((v) => ({
+    id: v.id,
+    path: routeTrace(
+      scenario.routes[v.route].coordinates,
+      v.offsetM + Math.max(0, time - 120) * v.speedMps,
+      v.offsetM + time * v.speedMps,
+    ).map(([x, y]) => [
+      x,
+      y,
+      height(grid, grid.dtm, x, y) + settings.uavHeight,
+    ]),
+  }));
 }

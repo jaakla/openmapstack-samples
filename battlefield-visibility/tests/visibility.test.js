@@ -178,11 +178,11 @@ test("rays along grid boundaries test both touching cells", () => {
 test("RED takes precedence; YELLOW threshold is speed-hypothesis event probability", () => {
   const g = fixture();
   for (let y = 0; y < 12; y++) g.dsm[y * 12 + 5] = 10;
-  const current = [{ id: "TANK-1", position: [1.5, 6.5, 3] }],
+  const current = [{ id: "UAV-1", position: [1.5, 6.5, 3] }],
     target = [10.5, 6.5, 2];
   const futures = [
     {
-      id: "TANK-1",
+      id: "UAV-1",
       hypotheses: [[[1.5, 6.5, 3]], [[9.5, 6.5, 3]], [[1.5, 6.5, 3]]],
     },
   ];
@@ -260,7 +260,7 @@ test("prediction is deterministic, five minutes long, with AGL height", () => {
       offsetM: 0,
       speedMps: 1,
     },
-    settings = { uavHeight: 50, tankHeight: 3 };
+    settings = { uavHeight: 50 };
   const p = predict(g, scenario, [v], 0, settings);
   assert.equal(p[0].hypotheses.length, 3);
   assert.equal(p[0].hypotheses[1].length, 5);
