@@ -1,0 +1,175 @@
+{
+  "run_id": "run-20261017-163552",
+  "status": "passed",
+  "inputs_hash": "sha256:79080abd883b28ed5e6fb8f264859ad75032ba44e1e67d422e616cd37b00123d",
+  "outputs_hash": "sha256:e99d1bd3f8066e4faeb86e094d2a72eade405aba22c017dc48e2ec554fd5b712",
+  "checks": [
+    {
+      "id": "source_hashes_match",
+      "status": "passed",
+      "message": "Verified 30 immutable files"
+    },
+    {
+      "id": "source_result_complete",
+      "status": "passed",
+      "message": "9/9 tile index features, complete LAZ files; Overpass body has no error remark"
+    },
+    {
+      "id": "crs_known",
+      "status": "passed",
+      "message": "PROJ XY 3879 -> 3067; N2000 Z unchanged"
+    },
+    {
+      "id": "geometry_valid",
+      "status": "passed",
+      "message": "GeoPackage street geometries valid"
+    },
+    {
+      "id": "row_count_gt_zero",
+      "status": "passed",
+      "message": "Measured point and road counts",
+      "statistics": {
+        "points_in_aoi": 94152925,
+        "classes": {
+          "1": 286387,
+          "2": 35422452,
+          "3": 3488137,
+          "4": 2638992,
+          "5": 18150918,
+          "6": 33761730,
+          "8": 337972,
+          "9": 817,
+          "17": 65520
+        },
+        "ground_cells_measured": 773479,
+        "ground_coverage_fraction": 0.9842903846153847,
+        "building_cells": 726733,
+        "high_vegetation_cells": 736009,
+        "vegetation_display_points": 60398,
+        "road_segments": 2992,
+        "route_lengths_m": [
+          2422.649625643213,
+          1830.5669630394534,
+          2200.3339152514154
+        ],
+        "routes_valid": true
+      }
+    },
+    {
+      "id": "obstruction_includes_buildings_and_vegetation",
+      "status": "passed",
+      "message": "Class 6 roofs plus class 3/4/5 vegetation \u22652m AGL present"
+    },
+    {
+      "id": "dtm_coverage",
+      "status": "passed",
+      "message": "At least 95% valid ground; remaining cells explicitly unknown",
+      "value": 0.9842903846153847
+    },
+    {
+      "id": "street_routes_follow_source",
+      "status": "passed",
+      "message": "All route segments resolve to retained directed OSM edges"
+    },
+    {
+      "id": "overrides_applied",
+      "status": "passed",
+      "message": "Scenario anchor IDs, versions and source coordinates matched",
+      "results": [
+        {
+          "id": "SCENARIO-1",
+          "status": "applied"
+        }
+      ]
+    },
+    {
+      "id": "manifest_graph_resolves",
+      "status": "passed",
+      "message": "Ordered symbols and output producers resolve"
+    },
+    {
+      "id": "view_controls_match_pipeline",
+      "status": "passed",
+      "message": "Defaults copied from manifest; baseline uses same worker computation"
+    },
+    {
+      "id": "lod2_source_complete",
+      "status": "passed",
+      "message": "Selected official leaf tiles all present; source building IDs retained",
+      "value": 802
+    },
+    {
+      "id": "lod2_alignment",
+      "status": "passed",
+      "message": "N2000 roof alignment checked against 2021 LiDAR without fitting; different epochs",
+      "statistics": {
+        "samples": 50376,
+        "medianRoofMinus2021DSM": -0.18133370205759825,
+        "medianAbsoluteDifference": 0.31066551012918353,
+        "p95AbsoluteDifference": 4.100999391482522,
+        "note": "Independent epochs and roof details differ; no vertical fitting or DSM modification."
+      }
+    },
+    {
+      "id": "lod2_mesh_valid",
+      "status": "passed",
+      "message": "True triangle clipping to projected AOI, quantized local-frame GLB, source roofs retained"
+    },
+    {
+      "id": "uav_only_scenario",
+      "status": "passed",
+      "message": "Only UAVs contribute to current and forecast danger zones"
+    },
+    {
+      "id": "presentation_contract",
+      "status": "passed",
+      "message": "MGRS readouts, semantic roles, three collapsible tabs, legend and canonical reset"
+    },
+    {
+      "id": "payload_lt_20mb",
+      "status": "passed",
+      "message": "All browser data and model bytes before compression, excluding JS/CSS",
+      "bytes": 14825791
+    },
+    {
+      "id": "lod2_conversion_fixtures",
+      "status": "passed",
+      "message": "Closed 3D clipping, vertical walls, node/axis transforms and compact GLB fixtures"
+    },
+    {
+      "id": "analytic_los_tests",
+      "status": "passed",
+      "message": "Analytic/product fixtures via npm test"
+    },
+    {
+      "id": "relative_contact_reports",
+      "status": "passed",
+      "message": "Pure analytic contact/convergence/sign fixtures and canonical reports agree with worker time, LOS, MGRS and manifest reference frames"
+    },
+    {
+      "id": "archived_sources_reproducible",
+      "status": "passed",
+      "message": "Offline fresh-clone archive restoration and strict corruption rejection via unittest"
+    },
+    {
+      "id": "publication_contract",
+      "status": "passed",
+      "message": "Publication attribution and accessible autoplay policy are declared; metadata escaping, hidden clock and persistent-buffer fixtures pass"
+    },
+    {
+      "id": "qgis_project_static_valid",
+      "status": "passed",
+      "message": "QGIS companion written with relative sources"
+    },
+    {
+      "id": "qgis_layers_valid",
+      "status": "passed",
+      "message": "Every layer isValid() after artifact reload"
+    },
+    {
+      "id": "manifest_report_parity",
+      "status": "passed",
+      "message": "Every required check appears exactly once"
+    }
+  ]
+}

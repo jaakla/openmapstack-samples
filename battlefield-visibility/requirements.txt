@@ -1,0 +1,8 @@
+# Use system Python with GDAL/PROJ/QGIS from conda-forge or the documented image.
+laspy==2.6.1
+lazrs==0.8.1
+numpy==2.5.4
+scipy==1.17.0
+pyproj==3.7.2
+PyYAML==6.0.3
+jsonschema==4.26.0

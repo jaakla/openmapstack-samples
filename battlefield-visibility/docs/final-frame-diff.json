@@ -1,0 +1,46 @@
+[
+  {
+    "viewport": [
+      390,
+      844
+    ],
+    "active_frames": 14,
+    "distinct_snapshots": 5,
+    "active_changed_fraction_min": 0.0,
+    "active_changed_fraction_max": 0.009722803148408685,
+    "static_pixels_changed_max": {
+      "header": 0,
+      "copy": 0,
+      "credit": 0
+    },
+    "identical_snapshot_pixels_changed": [
+      0,
+      0,
+      0
+    ],
+    "resource_identities_stable": true,
+    "busy_blinks": 0
+  },
+  {
+    "viewport": [
+      1536,
+      1024
+    ],
+    "active_frames": 14,
+    "distinct_snapshots": 6,
+    "active_changed_fraction_min": 0.0,
+    "active_changed_fraction_max": 0.007640838623046875,
+    "static_pixels_changed_max": {
+      "header": 0,
+      "copy": 0,
+      "credit": 0
+    },
+    "identical_snapshot_pixels_changed": [
+      0,
+      0,
+      0
+    ],
+    "resource_identities_stable": true,
+    "busy_blinks": 0
+  }
+]

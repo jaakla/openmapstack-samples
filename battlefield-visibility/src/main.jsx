@@ -1,0 +1,403 @@
+import React, { useEffect, useRef, useState } from "react";
+import { createRoot } from "react-dom/client";
+import { Controls, LayerControls, Legend } from "./Controls.jsx";
+import Provenance from "./Provenance.jsx";
+import TrackedUavs from "./TrackedUavs.jsx";
+import "./styles.css";
+import { formatMGRS, parseMGRS, exportSnapshot } from "./coordinates.js";
+import { advanceTime, autoplayAllowed } from "./playback.js";
+
+const ZONES = ["UNKNOWN", "GREEN", "YELLOW", "RED"];
+async function load() {
+  const base = import.meta.env.BASE_URL;
+  const get = async (path) => {
+    const response = await fetch(`${base}${path}`);
+    if (!response.ok) throw new Error(`${path}: HTTP ${response.status}`);
+    return response;
+  };
+  const config = await (await get("data/scene.json")).json();
+  const [dtm, dsm, scenario, provenance, { VisibilityScene }] =
+    await Promise.all([
+      get("data/dtm.bin").then((r) => r.arrayBuffer()),
+      get("data/dsm.bin").then((r) => r.arrayBuffer()),
+      get("data/scenario.json").then((r) => r.json()),
+      get("data/provenance.json").then((r) => r.json()),
+      import("./scene.js"),
+    ]);
+  return {
+    config,
+    grid: {
+      ...config.grid,
+      dtm: new Uint16Array(dtm),
+      dsm: new Uint16Array(dsm),
+    },
+    scenario,
+    provenance,
+    VisibilityScene,
+  };
+}
+
+function App() {
+  const [data, setData] = useState(null),
+    [error, setError] = useState(""),
+    [tab, setTab] = useState("scenario");
+  const [settings, setSettings] = useState(null),
+    [playing, setPlaying] = useState(false),
+    [speed, setSpeed] = useState(1);
+  const [reducedMotion, setReducedMotion] = useState(
+    () => matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
+  const [hidden, setHidden] = useState(() => document.hidden);
+  const [layers, setLayers] = useState({}),
+    [snapshot, setSnapshot] = useState(null),
+    [busy, setBusy] = useState(true);
+  const [target, setTarget] = useState(null),
+    [exploratory, setExploratory] = useState(false);
+  const [mgrsInput, setMgrsInput] = useState(""),
+    [coordinateError, setCoordinateError] = useState(""),
+    [secondary, setSecondary] = useState(false);
+  const host = useRef(null),
+    panel = useRef(null),
+    scene = useRef(null),
+    worker = useRef(null),
+    generation = useRef(0),
+    time = useRef(0),
+    state = useRef({});
+  state.current = { settings, playing, speed, target, hidden };
+  useEffect(() => {
+    const preference = matchMedia("(prefers-reduced-motion: reduce)");
+    const changeMotion = () => {
+      setReducedMotion(preference.matches);
+      if (preference.matches) setPlaying(false);
+    };
+    preference.addEventListener("change", changeMotion);
+    return () => preference.removeEventListener("change", changeMotion);
+  }, []);
+  useEffect(() => {
+    let live = true;
+    load()
+      .then((d) => {
+        if (live) {
+          setData(d);
+          setSettings(d.config.defaults);
+          setLayers(d.config.layers);
+          setPlaying(autoplayAllowed(d.config.playback, matchMedia("(prefers-reduced-motion: reduce)").matches));
+          setSpeed(d.config.playback.speed);
+          setTarget(d.scenario.target);
+        }
+      })
+      .catch((e) => setError(String(e)));
+    return () => {
+      live = false;
+    };
+  }, []);
+  useEffect(() => {
+    if (!data) return;
+    let stopped = false,
+      inFlight = false,
+      lastWall = performance.now(),
+      lastSent = -Infinity,
+      acceptedGeneration = -Infinity;
+    const w = new Worker(new URL("./zones.worker.js", import.meta.url), {
+      type: "module",
+    });
+    worker.current = w;
+    w.postMessage({ type: "init", grid: data.grid, scenario: data.scenario, origin: data.config.origin });
+    const view = new data.VisibilityScene(host.current, data, (position) => {
+      moveTarget(position);
+    });
+    scene.current = view;
+    const sceneError = (e) => setError(e.detail);
+    host.current.addEventListener("scene-error", sceneError);
+    w.onmessage = ({ data: result }) => {
+      inFlight = false;
+      if (result.error) {
+        setBusy(false);
+        setError(result.error);
+        return;
+      }
+      if (result.generation !== generation.current) return;
+      acceptedGeneration = result.generation;
+      setBusy(false);
+      setSnapshot(result);
+      view.updateSnapshot(result);
+    };
+    w.onerror = (e) => setError(`Visibility worker: ${e.message}`);
+    const visibilityChanged = () => {
+      lastWall = performance.now();
+      setHidden(document.hidden);
+    };
+    document.addEventListener("visibilitychange", visibilityChanged);
+    const tick = () => {
+      if (stopped) return;
+      const now = performance.now(),
+        dt = Math.min((now - lastWall) / 1000, 0.2);
+      lastWall = now;
+      const s = state.current;
+      // First/reset request is exactly t=0. Start advancing only once it is shown.
+      if (acceptedGeneration === generation.current)
+        time.current = advanceTime(time.current, dt, { ...s, hidden: document.hidden });
+      if (
+        !inFlight &&
+        s.settings &&
+        s.target &&
+        (generation.current !== lastSent ||
+          (s.playing && !document.hidden && now - view.lastUpdate > 1200))
+      ) {
+        inFlight = true;
+        lastSent = generation.current;
+        view.lastUpdate = now;
+        w.postMessage({
+          settings: s.settings,
+          target: s.target,
+          time: time.current,
+          generation: generation.current,
+        });
+      }
+      view.render();
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    return () => {
+      stopped = true;
+      document.removeEventListener("visibilitychange", visibilityChanged);
+      w.terminate();
+      host.current?.removeEventListener("scene-error", sceneError);
+      view.dispose();
+      scene.current = null;
+    };
+  }, [data]);
+  useEffect(() => {
+    scene.current?.setLayers(layers);
+  }, [layers, data]);
+  useEffect(() => {
+    panel.current?.scrollTo(0, 0);
+  }, [tab]);
+  useEffect(() => {
+    if (data && target) setMgrsInput(formatMGRS(data.config.origin, target));
+  }, [data, target]);
+  function moveTarget(position) {
+    setTarget(position);
+    setBusy(true);
+    setExploratory(true);
+    setCoordinateError("");
+    generation.current++;
+  }
+  function applyCoordinate(e) {
+    e.preventDefault();
+    try {
+      moveTarget(parseMGRS(data.config.origin, mgrsInput, data.grid));
+    } catch (error) {
+      setCoordinateError(error.message);
+    }
+  }
+  function downloadSnapshot() {
+    const blob = new Blob(
+      [JSON.stringify(exportSnapshot(data.config, snapshot), null, 2) + "\n"],
+      { type: "application/json" },
+    );
+    const url = URL.createObjectURL(blob),
+      a = document.createElement("a");
+    a.href = url;
+    a.download = "uav-snapshot.json";
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  function change(key, value) {
+    setBusy(true);
+    setSettings((s) => ({ ...s, [key]: value }));
+    setExploratory(true);
+    generation.current++;
+  }
+  function reset({ autoplay = true } = {}) {
+    setBusy(true);
+    time.current = 0;
+    setSettings({ ...data.config.defaults });
+    setTarget([...data.scenario.target]);
+    setSpeed(data.config.playback.speed);
+    setPlaying(autoplay && autoplayAllowed(data.config.playback, reducedMotion));
+    setLayers({ ...data.config.layers });
+    setExploratory(false);
+    setCoordinateError("");
+    setSecondary(false);
+    generation.current++;
+    scene.current?.resetCamera({ waitForSnapshot: true });
+  }
+  const ready = data && settings;
+  const zone = snapshot && !busy ? ZONES[snapshot.status.zone] : "COMPUTING";
+  return (
+    <>
+      <header>
+        <h1>UAV visibility</h1>
+        <span>SIMULATED · NOT OPERATIONAL</span>
+      </header>
+      <main>
+        <aside>
+          <nav aria-label="Workspace">
+            {["scenario", "layers", "sources"].map((id) => (
+              <button
+                key={id}
+                className={tab === id ? "active" : ""}
+                aria-pressed={tab === id}
+                onClick={() => setTab(id)}
+              >
+                {id[0].toUpperCase() + id.slice(1)}
+              </button>
+            ))}
+          </nav>
+          <div className="sidebar-content" ref={panel}>
+            {ready ? (
+              tab === "sources" ? (
+                <Provenance config={data.provenance} />
+              ) : tab === "layers" ? (
+                <LayerControls
+                  layers={layers}
+                  setLayers={(value) => {
+                    setLayers(value);
+                    setExploratory(true);
+                  }}
+                />
+              ) : (
+                <>
+                  <Controls
+                    settings={settings}
+                    change={change}
+                    playing={playing}
+                    setPlaying={(value) => {
+                      setPlaying(value);
+                      if (value) setExploratory(true);
+                    }}
+                    speed={speed}
+                    setSpeed={(value) => {
+                      setSpeed(value);
+                      setExploratory(true);
+                    }}
+                    motionNote={reducedMotion ? "Reduced motion: autoplay paused. Play starts the simulation." : hidden ? "Playback paused while this tab is hidden." : "Autoplay from t=0; hidden tabs pause playback."}
+                    viewBaseline={() => reset({ autoplay: false })}
+                    baselineUrl={`${import.meta.env.BASE_URL}data/default-snapshot.json`}
+                  />
+                  <TrackedUavs snapshot={snapshot} busy={busy}
+                    onFocus={(id) => scene.current?.focusVector("uav", id)} />
+                  <Legend />
+                </>
+              )
+            ) : (
+              <p className="loading">Loading measured source products…</p>
+            )}
+          </div>
+          <button className="reset" disabled={!ready} onClick={() => reset()}>
+            Reset defaults
+          </button>
+        </aside>
+        <section className="map" aria-label="Interactive 3D visibility scene">
+          <div className="map-stage">
+            <div className="canvas" ref={host} />
+            <div className="map-title">
+              <h2>Downtown Helsinki</h2>
+              <small>
+                {exploratory ? "Exploratory scenario" : playing ? "Defaults · running from t=0" : "Published defaults"}
+                {(hidden || !playing) ? " · Paused" : ""}
+              </small>
+            </div>
+            <div className="snapshot">
+              <strong>t = {snapshot?.time.toFixed(1) ?? "0.0"} s</strong>
+              <small>
+                {busy ? "Computing selection…" : "1 m LOS surface · 5 min forecast"}
+              </small>
+            </div>
+            <div className="map-tools">
+              <button onClick={() => scene.current?.focusVector("uav")}>
+                Find UAV
+              </button>
+              <button onClick={() => scene.current?.resetCamera()}>
+                Reset view
+              </button>
+              <button
+                aria-label="Zoom in"
+                onClick={() => scene.current?.zoom(0.8)}
+              >
+                +
+              </button>
+              <button
+                aria-label="Zoom out"
+                onClick={() => scene.current?.zoom(1.25)}
+              >
+                −
+              </button>
+            </div>
+            {error && (
+              <div className="error" role="alert">
+                Could not load the demo: {error}
+              </div>
+            )}
+            <footer>
+              © Helsingin kaupunkimittauspalvelut 2021 · CC BY 4.0 (modified) ·
+              © OpenStreetMap contributors ·{" "}
+              <a href={`${import.meta.env.BASE_URL}models/ATTRIBUTION.txt`}>
+                LoD2 © City of Helsinki · CC BY 4.0 · Credits
+              </a>
+            </footer>
+          </div>
+          <div
+            className={`position status-${zone.toLowerCase()}`}
+            aria-live="polite"
+          >
+            <div className="position-heading">
+              <strong>
+                <i className="affiliation friendly" />
+                OWN POSITION · {zone}
+              </strong>
+              <button disabled={!snapshot || busy} onClick={downloadSnapshot}>
+                Export snapshot
+              </button>
+            </div>
+            <p>
+              {busy
+                ? "Updating visibility for the selected position…"
+                : snapshot?.status.visibleTo.length
+                  ? `Visible to ${snapshot.status.visibleTo.join(", ")}`
+                  : snapshot?.status.zone === 2
+                    ? "Forecast visibility ≥25% in the sampled scenario"
+                    : snapshot?.status.zone === 1
+                      ? "No visibility found in the sampled scenario"
+                      : "Unknown, obstructed or outside measured coverage"}
+            </p>
+            <form className="coordinates" onSubmit={applyCoordinate}>
+              <label htmlFor="mgrs">MGRS</label>
+              <input
+                id="mgrs"
+                aria-label="Own position MGRS"
+                value={mgrsInput}
+                onChange={(e) => setMgrsInput(e.target.value)}
+                spellCheck={false}
+              />
+              <button disabled={!ready} type="submit">
+                Set position
+              </button>
+            </form>
+            {coordinateError && (
+              <p className="coordinate-error" role="alert">
+                {coordinateError}
+              </p>
+            )}
+            <label className="secondary">
+              <input
+                type="checkbox"
+                checked={secondary}
+                onChange={(e) => setSecondary(e.target.checked)}
+              />
+              Show secondary EPSG:3067 coordinates
+            </label>
+            {secondary && target && (
+              <code className="secondary-readout">
+                E {Math.round(data.config.origin[0] + target[0])} · N{" "}
+                {Math.round(data.config.origin[1] + target[1])} · N2000 heights
+              </code>
+            )}
+          </div>
+        </section>
+      </main>
+    </>
+  );
+}
+createRoot(document.getElementById("root")).render(<App />);

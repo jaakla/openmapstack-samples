@@ -1,0 +1,4 @@
+Quadcopter with flight electronics by Innerscene, CC0 1.0.
+https://www.innerscene.com/tools/library/3d-parts/quadcopter-with-flight-electronics-a25968c1
+https://creativecommons.org/publicdomain/zero/1.0/
+Original model unchanged; displayed at annotated 9x scale, never used in LOS.

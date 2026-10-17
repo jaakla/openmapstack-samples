@@ -1,0 +1,1596 @@
+schema: openmapstack-project/v1
+project:
+  id: helsinki-battlefield-visibility
+  title: UAV visibility · simulated scenario
+  question: Explore dynamic geometric visibility of simulated UAVs over measured downtown
+    Helsinki geometry.
+  created_at: '2026-10-17T11:30:00Z'
+  updated_at: '2026-10-17T16:37:10.756033+00:00'
+  status: validated
+  publication:
+    updated_at: '2026-10-17T00:00:00Z'
+    status: published
+    author:
+      name: Jaak Laineste
+      email: jaak@goplex.ee
+    generated_with:
+      tool: OpenMapStack
+      url: https://github.com/jaakla/openmapstack-skills
+interpretation:
+  objective: Reproducible open-data educational 3D simulation, independent of toompea-3d.
+  assumptions:
+  - id: A1
+    statement: AOI is the chosen EPSG:3067 rectangle [385200,6671300,386500,6672500],
+      1.3 × 1.2 km. Vertical heights retain Helsinki N2000.
+    rationale: A metric local analysis with explicit XY reprojection from EPSG:3879.
+  - id: A2
+    statement: City flights 11–15 June 2021, nominal nadir density 40 points/m². Data
+      do not assert present-day conditions.
+    rationale: Epoch pinned to an explicitly open CC BY 4.0 survey.
+  - id: A3
+    statement: 'DTM: mean class 2 ground and class 8 keypoints per 1 m cell; GDAL
+      inverse-distance FillNodata up to 60 m. Beyond that remains unknown.'
+    rationale: Ground below buildings must be interpolated; no invented replacement
+      city geometry.
+  - id: A4
+    statement: 'Obstruction DSM: DTM plus maximum class 6 buildings, class 17 bridge
+      deck, and classes 3/4/5 vegetation only at least 2 m above DTM. Unknown classes
+      are excluded.'
+    rationale: Measured 2.5D opaque canopy/roof columns; no windows, underpasses or
+      canopy permeability.
+  - id: A5
+    statement: DTM quantization 0.1 m rounded, DSM quantization 0.1 m rounded up.
+      Unknown values are 65535. Source units are metres.
+    rationale: Compact browser payload with conservative obstruction rounding.
+  - id: A6
+    statement: SIMULATED UAVs follow sourced OSM route shapes at 8 m/s, 50 m AGL by
+      default. They do not represent observed flights or forces.
+    rationale: User-requested illustrative simulation; not operational intelligence.
+  - id: A7
+    statement: Five minute prediction samples each 60 s under three equal speed hypotheses
+      0.8/1.0/1.2. Yellow means ≥0.25 of hypotheses find any sampled visibility for
+      at least one vector.
+    rationale: Uncalibrated scenario weights; brief visibility between samples can
+      be missed.
+  - id: A8
+    statement: Target is 2 m AGL; zone display samples at 20 m spacing. LOS traverses
+      every crossed 1 m DSM cell. Missing/obstructed targets stay unknown.
+    rationale: Coarse target sampling bounds CPU cost; GREEN does not establish safety.
+  - id: A9
+    statement: Browser computation is exploratory over published rasters. Vectors,
+      paths, readout and overlay share one timestamped worker snapshot. Reset returns
+      to t=0 and manifest defaults.
+    rationale: Avoid misleading correspondence between current movement and an older
+      zone result.
+  - id: A10
+    statement: Vegetation is treated as opaque for the June 2021 epoch; seasonality
+      and classification errors change actual visibility. Earth curvature/refraction
+      and sensor detection physics are omitted.
+    rationale: The model estimates geometric line of sight only, at neighbourhood
+      scale.
+  - id: A11
+    statement: Building rendering is a replaceable source-backed mesh layer, separate
+      from the unchanged 1 m LiDAR DSM. Vegetation is a deterministic subsample of
+      measured returns; UAV props are magnified 9× for legibility.
+    rationale: Display simplification and annotation sizes do not change 1 m obstruction
+      calculations.
+  - id: A12
+    statement: Surface OSM graph excludes tunnels, bridges, nonzero layer, private/no
+      motor access and non-motor road types; oneway tags are respected in route construction.
+      Reversal at route ends is a simulated turn.
+    rationale: A simplified street-following demonstration, not a routable operational
+      movement planner.
+  - id: A13
+    statement: MGRS is a one-metre display reference in WGS84; internal metric analysis
+      remains EPSG:3067/N2000. Entered references select the grid-square centre; the
+      ETRS89/WGS84 display approximation is not survey positioning.
+    rationale: Separate coordinate notation from analysis and disclose datum/display
+      precision.
+  - id: A14
+    statement: Past traces cover elapsed simulation time up to 120 s. Future route
+      and terminal speed envelope use 0.8/1.0/1.2 speed scenarios over 300 s. The
+      16 m wide visual ribbon is an annotation of along-route terminal uncertainty,
+      not a lateral accuracy bound.
+    rationale: Distinct past/future styles, real source vertices and explicit scenario
+      uncertainty.
+  - id: A15
+    statement: Official Helsinki untextured LoD2, tilesetVersion 291269823412, HTTP
+      export 2026-05-11; acquisition epoch is unknown for this continuously maintained
+      model. 15 leaf b3dm tiles are decoded, reprojected, triangle-clipped and quantized
+      to 2 cm for display. LiDAR DSM remains the sole obstruction input.
+    rationale: Real roofs and source IDs with explicit display-versus-analysis provenance;
+      epoch differences are measured, not fitted away.
+  - id: A16
+    statement: Relative UAV contacts use EPSG:3067 grid north, 6400 mil per turn and
+      N2000 height above stationary OWN at DTM + 2 m. Local true bearing is grid bearing
+      plus meridian convergence at OWN. Range rate is horizontal, negative closing;
+      course is the outgoing ground-track segment, not body heading. Magnetic declination
+      and vertical velocity are not modelled.
+    rationale: Explicit reference frames and signed simulated quantities; no inferred
+      own orientation or clock directions. All contact fields share the LOS snapshot.
+sources:
+  lidar_672496a:
+    role: authoritative_input
+    provider: City of Helsinki
+    dataset: lidar_672496a
+    source_url: https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=672496a&y=2021
+    access:
+      method: https
+      retrieved_at: '2026-10-17T11:24:59.364592+00:00'
+      downloaded_at: '2026-10-17T11:24:59.364592+00:00'
+      file:
+        name: data/source/672496a_2021.laz
+        format: laz
+        size_bytes: 93108364
+      sha256: sha256:c3f432db37a8f0829394b103872f7cd1c94ecb4f6748290526e98981b1e4b6a7
+    version:
+      identifier: 2021 flights 11–15 June
+      sha256: sha256:c3f432db37a8f0829394b103872f7cd1c94ecb4f6748290526e98981b1e4b6a7
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    selection:
+      bbox:
+      - 24.930777
+      - 60.162441
+      - 24.954861
+      - 60.173572
+    schema:
+      crs: EPSG:3879 / N2000
+      key: source identifier / LAS point index
+      columns:
+      - source_id
+      - geometry
+    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
+      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
+  lidar_672496b:
+    role: authoritative_input
+    provider: City of Helsinki
+    dataset: lidar_672496b
+    source_url: https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=672496b&y=2021
+    access:
+      method: https
+      retrieved_at: '2026-10-17T11:24:59.362523+00:00'
+      downloaded_at: '2026-10-17T11:24:59.362523+00:00'
+      file:
+        name: data/source/672496b_2021.laz
+        format: laz
+        size_bytes: 90744988
+      sha256: sha256:d04b3af89703b699d14a7928f77553ba7065d4134521841fbcf59b4bb043e5c6
+    version:
+      identifier: 2021 flights 11–15 June
+      sha256: sha256:d04b3af89703b699d14a7928f77553ba7065d4134521841fbcf59b4bb043e5c6
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    selection:
+      bbox:
+      - 24.930777
+      - 60.162441
+      - 24.954861
+      - 60.173572
+    schema:
+      crs: EPSG:3879 / N2000
+      key: source identifier / LAS point index
+      columns:
+      - source_id
+      - geometry
+    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
+      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
+  lidar_672496c:
+    role: authoritative_input
+    provider: City of Helsinki
+    dataset: lidar_672496c
+    source_url: https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=672496c&y=2021
+    access:
+      method: https
+      retrieved_at: '2026-10-17T11:25:00.113358+00:00'
+      downloaded_at: '2026-10-17T11:25:00.113358+00:00'
+      file:
+        name: data/source/672496c_2021.laz
+        format: laz
+        size_bytes: 93928115
+      sha256: sha256:3ab5b8e9b6805b32aa6af9318f3b6cb8af07a94c085c35fd4dc8564d63047e5d
+    version:
+      identifier: 2021 flights 11–15 June
+      sha256: sha256:3ab5b8e9b6805b32aa6af9318f3b6cb8af07a94c085c35fd4dc8564d63047e5d
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    selection:
+      bbox:
+      - 24.930777
+      - 60.162441
+      - 24.954861
+      - 60.173572
+    schema:
+      crs: EPSG:3879 / N2000
+      key: source identifier / LAS point index
+      columns:
+      - source_id
+      - geometry
+    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
+      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
+  lidar_672496d:
+    role: authoritative_input
+    provider: City of Helsinki
+    dataset: lidar_672496d
+    source_url: https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=672496d&y=2021
+    access:
+      method: https
+      retrieved_at: '2026-10-17T11:25:02.142631+00:00'
+      downloaded_at: '2026-10-17T11:25:02.142631+00:00'
+      file:
+        name: data/source/672496d_2021.laz
+        format: laz
+        size_bytes: 91975201
+      sha256: sha256:84bf231f20dc32a745d77b2a38cb7c80960b78dbc7c03b9c7016232b727ba37b
+    version:
+      identifier: 2021 flights 11–15 June
+      sha256: sha256:84bf231f20dc32a745d77b2a38cb7c80960b78dbc7c03b9c7016232b727ba37b
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    selection:
+      bbox:
+      - 24.930777
+      - 60.162441
+      - 24.954861
+      - 60.173572
+    schema:
+      crs: EPSG:3879 / N2000
+      key: source identifier / LAS point index
+      columns:
+      - source_id
+      - geometry
+    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
+      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
+  lidar_672497a:
+    role: authoritative_input
+    provider: City of Helsinki
+    dataset: lidar_672497a
+    source_url: https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=672497a&y=2021
+    access:
+      method: https
+      retrieved_at: '2026-10-17T11:25:03.380644+00:00'
+      downloaded_at: '2026-10-17T11:25:03.380644+00:00'
+      file:
+        name: data/source/672497a_2021.laz
+        format: laz
+        size_bytes: 89601398
+      sha256: sha256:b6f48acf80ad338149a6cc0714712466cde5ea2191a6a76ce5680f338adb8cf9
+    version:
+      identifier: 2021 flights 11–15 June
+      sha256: sha256:b6f48acf80ad338149a6cc0714712466cde5ea2191a6a76ce5680f338adb8cf9
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    selection:
+      bbox:
+      - 24.930777
+      - 60.162441
+      - 24.954861
+      - 60.173572
+    schema:
+      crs: EPSG:3879 / N2000
+      key: source identifier / LAS point index
+      columns:
+      - source_id
+      - geometry
+    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
+      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
+  lidar_672497b:
+    role: authoritative_input
+    provider: City of Helsinki
+    dataset: lidar_672497b
+    source_url: https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=672497b&y=2021
+    access:
+      method: https
+      retrieved_at: '2026-10-17T11:25:03.538036+00:00'
+      downloaded_at: '2026-10-17T11:25:03.538036+00:00'
+      file:
+        name: data/source/672497b_2021.laz
+        format: laz
+        size_bytes: 83558708
+      sha256: sha256:655a547aab69983968f7ead59feb4df55075f4cb6b2f5d02e6a22243204848f6
+    version:
+      identifier: 2021 flights 11–15 June
+      sha256: sha256:655a547aab69983968f7ead59feb4df55075f4cb6b2f5d02e6a22243204848f6
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    selection:
+      bbox:
+      - 24.930777
+      - 60.162441
+      - 24.954861
+      - 60.173572
+    schema:
+      crs: EPSG:3879 / N2000
+      key: source identifier / LAS point index
+      columns:
+      - source_id
+      - geometry
+    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
+      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
+  lidar_673496a:
+    role: authoritative_input
+    provider: City of Helsinki
+    dataset: lidar_673496a
+    source_url: https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=673496a&y=2021
+    access:
+      method: https
+      retrieved_at: '2026-10-17T11:25:05.945365+00:00'
+      downloaded_at: '2026-10-17T11:25:05.945365+00:00'
+      file:
+        name: data/source/673496a_2021.laz
+        format: laz
+        size_bytes: 90497418
+      sha256: sha256:a36061ce3284e76c82ab273854c3d0646b99d5962423569551db1838a4cbcdf5
+    version:
+      identifier: 2021 flights 11–15 June
+      sha256: sha256:a36061ce3284e76c82ab273854c3d0646b99d5962423569551db1838a4cbcdf5
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    selection:
+      bbox:
+      - 24.930777
+      - 60.162441
+      - 24.954861
+      - 60.173572
+    schema:
+      crs: EPSG:3879 / N2000
+      key: source identifier / LAS point index
+      columns:
+      - source_id
+      - geometry
+    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
+      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
+  lidar_673496c:
+    role: authoritative_input
+    provider: City of Helsinki
+    dataset: lidar_673496c
+    source_url: https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=673496c&y=2021
+    access:
+      method: https
+      retrieved_at: '2026-10-17T11:25:06.362231+00:00'
+      downloaded_at: '2026-10-17T11:25:06.362231+00:00'
+      file:
+        name: data/source/673496c_2021.laz
+        format: laz
+        size_bytes: 79412672
+      sha256: sha256:3c34d4eb214ae2bb2b6e03c3bf441e216886d14a8e150b5c3f0bc32806167be8
+    version:
+      identifier: 2021 flights 11–15 June
+      sha256: sha256:3c34d4eb214ae2bb2b6e03c3bf441e216886d14a8e150b5c3f0bc32806167be8
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    selection:
+      bbox:
+      - 24.930777
+      - 60.162441
+      - 24.954861
+      - 60.173572
+    schema:
+      crs: EPSG:3879 / N2000
+      key: source identifier / LAS point index
+      columns:
+      - source_id
+      - geometry
+    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
+      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
+  lidar_673497a:
+    role: authoritative_input
+    provider: City of Helsinki
+    dataset: lidar_673497a
+    source_url: https://ptp.hel.fi/DataHandlers/Lidar_kaikki/Default.ashx?q=673497a&y=2021
+    access:
+      method: https
+      retrieved_at: '2026-10-17T11:25:07.144931+00:00'
+      downloaded_at: '2026-10-17T11:25:07.144931+00:00'
+      file:
+        name: data/source/673497a_2021.laz
+        format: laz
+        size_bytes: 93337853
+      sha256: sha256:7023e6d0c5aee868aee5e3566859e9e63d7b9df33886aa6375c5f27b6dd39152
+    version:
+      identifier: 2021 flights 11–15 June
+      sha256: sha256:7023e6d0c5aee868aee5e3566859e9e63d7b9df33886aa6375c5f27b6dd39152
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    selection:
+      bbox:
+      - 24.930777
+      - 60.162441
+      - 24.954861
+      - 60.173572
+    schema:
+      crs: EPSG:3879 / N2000
+      key: source identifier / LAS point index
+      columns:
+      - source_id
+      - geometry
+    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
+      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
+  osm:
+    role: authoritative_input
+    provider: OpenStreetMap contributors
+    dataset: osm
+    source_url: https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A60%5D%5Bdate%3A%222026-10-16T00%3A00%3A00Z%22%5D%3Bway%5B%22highway%22%5D%2860.161%2C24.928%2C60.175%2C24.957%29-%3E.w%3B%28.w%3B%3E%3B%29%3Bout%20meta%3B
+    access:
+      method: https
+      retrieved_at: '2026-10-17T11:25:51.337355+00:00'
+      downloaded_at: '2026-10-17T11:25:51.337355+00:00'
+      file:
+        name: data/source/osm-20261016.json
+        format: json
+        size_bytes: 8711545
+      sha256: sha256:3a424766d0ec8e863ac90c106b082e8a8791b3a77efee54ceddb1716bc6ab51e
+      request_spec: '[out:json][timeout:60][date:"2026-10-16T00:00:00Z"];way["highway"](60.161,24.928,60.175,24.957)->.w;(.w;>;);out
+        meta;'
+      archive:
+        path: data/archive/osm-20261016.json.gz
+        compression: gzip
+        sha256: sha256:0d5d7de3372002b7fe7356bffcd902265f2454f81dd2700a0eb182a772e37b02
+        size_bytes: 880448
+      reproduction: Restore the committed original response archive; source_url and
+        request_spec retain discovery query provenance, not a byte-stable live download
+        promise.
+    version:
+      identifier: '2026-10-16T00:00:00Z'
+      sha256: sha256:3a424766d0ec8e863ac90c106b082e8a8791b3a77efee54ceddb1716bc6ab51e
+    license:
+      name: ODbL 1.0
+      url: https://www.openstreetmap.org/copyright
+    selection:
+      bbox:
+      - 24.930777
+      - 60.162441
+      - 24.954861
+      - 60.173572
+    schema:
+      crs: EPSG:4326
+      key: source identifier / LAS point index
+      columns:
+      - source_id
+      - geometry
+    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
+      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
+  tile_index:
+    role: authoritative_input
+    provider: City of Helsinki
+    dataset: tile_index
+    source_url: https://kartta.hel.fi/ws/geoserver/avoindata/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=avoindata%3AKarttalehtijako_05x05_km&srsName=EPSG%3A3067&bbox=385200%2C6671300%2C386500%2C6672500%2CEPSG%3A3067&outputFormat=application%2Fjson
+    access:
+      method: https
+      retrieved_at: '2026-10-17T11:25:06.397468+00:00'
+      downloaded_at: '2026-10-17T11:25:06.397468+00:00'
+      file:
+        name: data/source/tile-index.geojson
+        format: geojson
+        size_bytes: 6301
+      sha256: sha256:253b2918d6c2dbf9e4c203f8a6db0a1e7b46e251faf39c1f96425dbfbb839e13
+      archive:
+        path: data/archive/tile-index.geojson.gz
+        compression: gzip
+        sha256: sha256:b4d703d297e626a69810005d996fafea27a5f1b2d365461def736742c3d8c028
+        size_bytes: 979
+      reproduction: Restore the committed original response archive; source_url and
+        request_spec retain discovery query provenance, not a byte-stable live download
+        promise.
+      request_spec: https://kartta.hel.fi/ws/geoserver/avoindata/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=avoindata%3AKarttalehtijako_05x05_km&srsName=EPSG%3A3067&bbox=385200%2C6671300%2C386500%2C6672500%2CEPSG%3A3067&outputFormat=application%2Fjson
+    version:
+      identifier: 2026-10-17 snapshot
+      sha256: sha256:253b2918d6c2dbf9e4c203f8a6db0a1e7b46e251faf39c1f96425dbfbb839e13
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    selection:
+      bbox:
+      - 24.930777
+      - 60.162441
+      - 24.954861
+      - 60.173572
+      completeness:
+        matched: 9
+        returned: 9
+        page_size: 1000
+        pages: 1
+    schema:
+      crs: EPSG:3067
+      key: source identifier / LAS point index
+      columns:
+      - source_id
+      - geometry
+    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
+      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
+  lidar_spec:
+    role: authoritative_input
+    provider: City of Helsinki
+    dataset: lidar_spec
+    source_url: https://kartta.hel.fi/avoindata/dokumentit/2021_Laserpisteet_kuvaus.pdf
+    access:
+      method: https
+      retrieved_at: '2026-10-17T11:25:07.189344+00:00'
+      downloaded_at: '2026-10-17T11:25:07.189344+00:00'
+      file:
+        name: data/source/2021_Laserpisteet_kuvaus.pdf
+        format: pdf
+        size_bytes: 27245
+      sha256: sha256:64e1c5899f786a9c2f8abcdfa3337fe8ce3bfe069b536b82fc0a89ed89b0783f
+    version:
+      identifier: 2022-11-11 specification for 2021 data
+      sha256: sha256:64e1c5899f786a9c2f8abcdfa3337fe8ce3bfe069b536b82fc0a89ed89b0783f
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    selection:
+      bbox:
+      - 24.930777
+      - 60.162441
+      - 24.954861
+      - 60.173572
+    schema:
+      crs: EPSG:3879 / N2000
+      key: source identifier / LAS point index
+      columns:
+      - source_id
+      - geometry
+    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
+      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
+  uav:
+    role: context
+    provider: Innerscene
+    dataset: uav
+    source_url: https://www.innerscene.com/api/library/quadcopter-with-flight-electronics-a25968c1/download
+    access:
+      method: https
+      retrieved_at: '2026-10-17T11:25:07.733974+00:00'
+      downloaded_at: '2026-10-17T11:25:07.733974+00:00'
+      file:
+        name: data/source/quadcopter.glb
+        format: glb
+        size_bytes: 274220
+      sha256: sha256:0d38b6f44eef969fe17f0c8a54d6747b7a0efb8a3b2e9ab875221d182a6dfb12
+    version:
+      identifier: quadcopter-with-flight-electronics-a25968c1
+      sha256: sha256:0d38b6f44eef969fe17f0c8a54d6747b7a0efb8a3b2e9ab875221d182a6dfb12
+    license:
+      name: CC0 1.0
+      url: https://creativecommons.org/publicdomain/zero/1.0/
+    selection:
+      bbox:
+      - 24.930777
+      - 60.162441
+      - 24.954861
+      - 60.173572
+    schema:
+      crs: not georeferenced; simulation display prop/reference
+      key: source identifier / LAS point index
+      columns:
+      - source_id
+      - geometry
+    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
+      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
+  orthophoto:
+    role: context
+    provider: City of Helsinki
+    dataset: orthophoto
+    source_url: https://kartta.hel.fi/ws/geoserver/avoindata/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&LAYERS=avoindata%3AOrtoilmakuva_2021_5cm&STYLES=&SRS=EPSG%3A3067&BBOX=385200%2C6671300%2C386500%2C6672500&WIDTH=1300&HEIGHT=1200&FORMAT=image%2Fjpeg
+    access:
+      method: https
+      retrieved_at: '2026-10-17T11:27:33.473600+00:00'
+      downloaded_at: '2026-10-17T11:27:33.473600+00:00'
+      file:
+        name: data/source/orthophoto-2021.jpg
+        format: jpg
+        size_bytes: 351552
+      sha256: sha256:a9b6f928bd82a322fcdbcf73550c42161235db03bfbc30b145cd0377e2e0d393
+    version:
+      identifier: 2021 orthophoto; immutable 2026-10-17 WMS snapshot
+      sha256: sha256:a9b6f928bd82a322fcdbcf73550c42161235db03bfbc30b145cd0377e2e0d393
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    selection:
+      bbox:
+      - 24.930777
+      - 60.162441
+      - 24.954861
+      - 60.173572
+    schema:
+      crs: EPSG:3067
+      key: source identifier / LAS point index
+      columns:
+      - source_id
+      - geometry
+    rationale: Research-verified open source; byte-pinned in sources.lock.json. City
+      2021 avoids non-open 2023+ LiDAR; model props never enter obstruction calculations.
+  lod2_tileset:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_tileset
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/tileset.json
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:059578f562215babc3052e28b9c2c3ec1a18105909f929c36d36f73debac872d
+    access:
+      method: https
+      file:
+        name: data/source/lod2/tileset.json
+        format: json
+        size_bytes: 1021461
+      sha256: sha256:059578f562215babc3052e28b9c2c3ec1a18105909f929c36d36f73debac872d
+      retrieved_at: '2026-10-17T13:39:58.825745+00:00'
+      downloaded_at: '2026-10-17T13:39:58.825745+00:00'
+      archive:
+        path: data/archive/tileset-lod2.json.gz
+        compression: gzip
+        sha256: sha256:c2cbcca8dfc0c611dc21966d8c58a990ea3d2c0c67a1fdceced54070ab7737b4
+        size_bytes: 59853
+      reproduction: Restore byte-identical archived manifest; fresh acquisition is
+        a separately reviewed version.
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: &id001
+      - 385200
+      - 6671300
+      - 386500
+      - 6672500
+      crs: EPSG:3067
+      completeness:
+        matched: 15
+        returned: 15
+        pages: 1
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37306_5429:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37306_5429
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37306/5429.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:2d47deb82aca486c0f811fc2e9cb3bed8d71ce7f138a0955e6012d7d41270ec3
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37306-5429.b3dm
+        format: b3dm
+        size_bytes: 1604168
+      sha256: sha256:2d47deb82aca486c0f811fc2e9cb3bed8d71ce7f138a0955e6012d7d41270ec3
+      retrieved_at: '2026-10-17T13:39:58.874008+00:00'
+      downloaded_at: '2026-10-17T13:39:58.874008+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37306_5430:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37306_5430
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37306/5430.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:b743ea9d7e0843125bfafe5a6bcb5025507d6c607dfed701d4426df0cb4daf85
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37306-5430.b3dm
+        format: b3dm
+        size_bytes: 1670688
+      sha256: sha256:b743ea9d7e0843125bfafe5a6bcb5025507d6c607dfed701d4426df0cb4daf85
+      retrieved_at: '2026-10-17T13:39:59.009312+00:00'
+      downloaded_at: '2026-10-17T13:39:59.009312+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37306_5431:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37306_5431
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37306/5431.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:0c0108a68091fd214157f4163dab6760b1314d75fa4a56a0ad18037c19e13ec2
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37306-5431.b3dm
+        format: b3dm
+        size_bytes: 1481160
+      sha256: sha256:0c0108a68091fd214157f4163dab6760b1314d75fa4a56a0ad18037c19e13ec2
+      retrieved_at: '2026-10-17T13:39:59.000657+00:00'
+      downloaded_at: '2026-10-17T13:39:59.000657+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37307_5429:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37307_5429
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37307/5429.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:3b430d3d1907a49aaa9be044a08e6f30268c7147b0f52364cce4df6ee68a7a14
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37307-5429.b3dm
+        format: b3dm
+        size_bytes: 250584
+      sha256: sha256:3b430d3d1907a49aaa9be044a08e6f30268c7147b0f52364cce4df6ee68a7a14
+      retrieved_at: '2026-10-17T13:39:58.917236+00:00'
+      downloaded_at: '2026-10-17T13:39:58.917236+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37307_5430:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37307_5430
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37307/5430.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:8d3dc91a5aa0da5d454ab40bad432cf0e4be5806470115ce9793972ed235f2c2
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37307-5430.b3dm
+        format: b3dm
+        size_bytes: 1716912
+      sha256: sha256:8d3dc91a5aa0da5d454ab40bad432cf0e4be5806470115ce9793972ed235f2c2
+      retrieved_at: '2026-10-17T13:39:59.009768+00:00'
+      downloaded_at: '2026-10-17T13:39:59.009768+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37307_5431:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37307_5431
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37307/5431.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:e43929cb59b3370bca877f6cb9e0a99e95dda603d9ea0bbf4a2fd9b1cfbe4d7e
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37307-5431.b3dm
+        format: b3dm
+        size_bytes: 3183384
+      sha256: sha256:e43929cb59b3370bca877f6cb9e0a99e95dda603d9ea0bbf4a2fd9b1cfbe4d7e
+      retrieved_at: '2026-10-17T13:39:59.272046+00:00'
+      downloaded_at: '2026-10-17T13:39:59.272046+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37308_5429:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37308_5429
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37308/5429.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:50dafb1a4f8c8e1785d1132e8590804f11984d7be81ea97d8dadcfea261b39d7
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37308-5429.b3dm
+        format: b3dm
+        size_bytes: 210464
+      sha256: sha256:50dafb1a4f8c8e1785d1132e8590804f11984d7be81ea97d8dadcfea261b39d7
+      retrieved_at: '2026-10-17T13:39:59.042914+00:00'
+      downloaded_at: '2026-10-17T13:39:59.042914+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37308_5430:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37308_5430
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37308/5430.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:8fdcbd49b7feca8a0dc57a0f24afcd0c9dbe670d248b608e224e8127a8084e64
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37308-5430.b3dm
+        format: b3dm
+        size_bytes: 1740840
+      sha256: sha256:8fdcbd49b7feca8a0dc57a0f24afcd0c9dbe670d248b608e224e8127a8084e64
+      retrieved_at: '2026-10-17T13:39:59.189939+00:00'
+      downloaded_at: '2026-10-17T13:39:59.189939+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37308_5431:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37308_5431
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37308/5431.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:ec805cba8d2b6996baede96704c49db1f8f98f317faff161ab10d98d28d59e20
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37308-5431.b3dm
+        format: b3dm
+        size_bytes: 2619360
+      sha256: sha256:ec805cba8d2b6996baede96704c49db1f8f98f317faff161ab10d98d28d59e20
+      retrieved_at: '2026-10-17T13:39:59.280224+00:00'
+      downloaded_at: '2026-10-17T13:39:59.280224+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37309_5429:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37309_5429
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37309/5429.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:418eda501f35daa9c11ecf0913a58fe7d86db90173ae0ca2275fa7fd7208d061
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37309-5429.b3dm
+        format: b3dm
+        size_bytes: 573760
+      sha256: sha256:418eda501f35daa9c11ecf0913a58fe7d86db90173ae0ca2275fa7fd7208d061
+      retrieved_at: '2026-10-17T13:39:59.487610+00:00'
+      downloaded_at: '2026-10-17T13:39:59.487610+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37309_5430:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37309_5430
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37309/5430.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:2a34d978dffdfe9d90236afc7ceba2cba9180eec2dddcf7ce00aeffa0c6ccb70
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37309-5430.b3dm
+        format: b3dm
+        size_bytes: 1919304
+      sha256: sha256:2a34d978dffdfe9d90236afc7ceba2cba9180eec2dddcf7ce00aeffa0c6ccb70
+      retrieved_at: '2026-10-17T13:40:00.111822+00:00'
+      downloaded_at: '2026-10-17T13:40:00.111822+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37309_5431:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37309_5431
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37309/5431.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:fc35e6d47441c3b59fc6b473f159234e47b7b4e94f843abab897417a7279c618
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37309-5431.b3dm
+        format: b3dm
+        size_bytes: 2421224
+      sha256: sha256:fc35e6d47441c3b59fc6b473f159234e47b7b4e94f843abab897417a7279c618
+      retrieved_at: '2026-10-17T13:39:59.645365+00:00'
+      downloaded_at: '2026-10-17T13:39:59.645365+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37310_5429:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37310_5429
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37310/5429.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:10878b4b3c2666dc77c22a70225fab18c75a7d8417db3371b87d73753b163149
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37310-5429.b3dm
+        format: b3dm
+        size_bytes: 1833016
+      sha256: sha256:10878b4b3c2666dc77c22a70225fab18c75a7d8417db3371b87d73753b163149
+      retrieved_at: '2026-10-17T13:39:59.899034+00:00'
+      downloaded_at: '2026-10-17T13:39:59.899034+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37310_5430:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37310_5430
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37310/5430.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:11fcb264b71d891969ea1c2b1e7e56a9225ab653e5eba1b909cc8b1034886eea
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37310-5430.b3dm
+        format: b3dm
+        size_bytes: 1463488
+      sha256: sha256:11fcb264b71d891969ea1c2b1e7e56a9225ab653e5eba1b909cc8b1034886eea
+      retrieved_at: '2026-10-17T13:40:00.153847+00:00'
+      downloaded_at: '2026-10-17T13:40:00.153847+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+  lod2_37310_5431:
+    provider: City of Helsinki
+    dataset: Official untextured LoD2 building model · lod2_37310_5431
+    source_url: https://kartta.hel.fi/3d/datasource-data/16fc3fd5-df6d-4f48-bfd5-9aeee430a02f/15/37310/5431.b3dm
+    role: context
+    version:
+      identifier: official untextured LoD2 tileset 291269823412; HTTP export 2026-05-11;
+        acquisition epoch unknown
+      sha256: sha256:89547cd19690f472922a6a5e06d8ae7e5e66eb5c82a3a027c1b4af36ea442449
+    access:
+      method: https
+      file:
+        name: data/source/lod2/37310-5431.b3dm
+        format: b3dm
+        size_bytes: 1193760
+      sha256: sha256:89547cd19690f472922a6a5e06d8ae7e5e66eb5c82a3a027c1b4af36ea442449
+      retrieved_at: '2026-10-17T13:40:00.149755+00:00'
+      downloaded_at: '2026-10-17T13:40:00.149755+00:00'
+    license:
+      name: CC BY 4.0
+      url: https://creativecommons.org/licenses/by/4.0/
+    schema:
+      crs: Delivered ECEF RTC / glTF Y-up; source EPSG:3879 / N2000
+      key: BATCHID / city building ID
+      columns:
+      - id
+      - geometry
+    selection:
+      bbox: *id001
+      crs: EPSG:3067
+      completeness: {}
+    rationale: 'Reviewed issue #1 Iteration 2 research; official LoD2 roofs for display
+      only, never replacing LiDAR DSM.'
+overrides:
+- id: SCENARIO-1
+  action: add_scenario
+  layer: simulated_anchors
+  geometry_file:
+    path: data/overrides/scenario.geojson
+  geometry_origin: scenario
+  rationale: Hypothetical force/target anchors copied from actual OSM nodes, explicitly
+    simulated.
+  evidence:
+  - type: issue
+    value: https://github.com/jaakla/openmapstack-samples/issues/1#issuecomment-6233311665
+  created_at: '2026-10-17T11:30:00Z'
+  created_by: scenario
+processing:
+  analysis_crs: EPSG:3067
+  storage_crs: EPSG:3067
+  bbox:
+  - 385200
+  - 6671300
+  - 386500
+  - 6672500
+  resolution_m: 1
+  max_ground_fill_m: 60
+  vegetation_min_agl_m: 2
+  steps:
+  - id: lidar
+    operation: stream_reproject_classify_grid
+    inputs:
+    - lidar_672496a
+    - lidar_672496b
+    - lidar_672496c
+    - lidar_672496d
+    - lidar_672497a
+    - lidar_672497b
+    - lidar_673496a
+    - lidar_673496c
+    - lidar_673497a
+    output: surfaces
+    crs: EPSG:3067
+  - id: building_mesh
+    operation: decode_official_b3dm_node_axis_rtc_ecef_clip_quantize_glb
+    inputs:
+    - surfaces
+    - lod2_tileset
+    - lod2_37306_5429
+    - lod2_37306_5430
+    - lod2_37306_5431
+    - lod2_37307_5429
+    - lod2_37307_5430
+    - lod2_37307_5431
+    - lod2_37308_5429
+    - lod2_37308_5430
+    - lod2_37308_5431
+    - lod2_37309_5429
+    - lod2_37309_5430
+    - lod2_37309_5431
+    - lod2_37310_5429
+    - lod2_37310_5430
+    - lod2_37310_5431
+    output: building_geometry
+    crs: EPSG:3067 / N2000, local GLB east-up-south
+  - id: network
+    operation: filter_source_topology_and_derive_simulation_routes
+    inputs:
+    - osm
+    - tile_index
+    - surfaces
+    output: street_scenario
+    crs: EPSG:3067
+  - id: photography
+    operation: georeference_pinned_2021_wms_snapshot
+    input: orthophoto
+    output: basemap
+    crs: EPSG:3067
+  - id: models
+    operation: copy_licensed_original_uav_glb
+    inputs:
+    - uav
+    output: props
+    crs: non-geographic simulation props
+  - id: publish
+    operation: write_config_and_provenance
+    inputs:
+    - surfaces
+    - street_scenario
+    - basemap
+    - props
+    - building_geometry
+    output: web_products
+    crs: EPSG:3067
+  - id: baseline
+    operation: shared_node_browser_visibility_engine_at_defaults
+    input: web_products
+    output: default_visibility
+    crs: EPSG:3067
+  - id: desktop
+    operation: write_qgis_with_validated_relative_layers
+    inputs:
+    - surfaces
+    - street_scenario
+    - basemap
+    - default_visibility
+    - building_geometry
+    output: desktop_project
+    crs: EPSG:3067
+outputs:
+  dtm:
+    path: data/derived/dtm.tif
+    format: COG
+    generated_by: lidar
+  dsm:
+    path: data/derived/dsm.tif
+    format: COG
+    generated_by: lidar
+  buildings_cog:
+    path: data/derived/buildings.tif
+    format: COG
+    generated_by: lidar
+  vegetation_cog:
+    path: data/derived/vegetation.tif
+    format: COG
+    generated_by: lidar
+  dtm_web:
+    path: public/data/dtm.bin
+    format: UInt16 little endian
+    generated_by: lidar
+  dsm_web:
+    path: public/data/dsm.bin
+    format: UInt16 little endian
+    generated_by: lidar
+  vegetation_web:
+    path: public/data/vegetation.bin
+    format: Float32 scene XYZ
+    generated_by: lidar
+  roads:
+    path: public/data/roads.json
+    format: JSON source-node polylines
+    generated_by: network
+  scenario:
+    path: public/data/scenario.json
+    format: JSON hypothetical scenario
+    generated_by: network
+  geodata:
+    path: data/derived/network.gpkg
+    format: GeoPackage
+    generated_by: network
+  photo:
+    path: public/data/basemap.jpg
+    format: JPEG
+    generated_by: photography
+  photo_cog:
+    path: data/derived/orthophoto.tif
+    format: COG
+    generated_by: photography
+  uav_model:
+    path: public/models/uav.glb
+    format: glTF2
+    generated_by: models
+  attribution:
+    path: public/models/ATTRIBUTION.txt
+    format: text
+    generated_by: models
+  scene:
+    path: public/data/scene.json
+    format: JSON
+    generated_by: publish
+  provenance:
+    path: public/data/provenance.json
+    format: JSON
+    generated_by: publish
+  default_zones:
+    path: data/derived/default-zones.bin
+    format: UInt8 zone grid
+    generated_by: baseline
+  default_snapshot:
+    path: public/data/default-snapshot.json
+    format: JSON
+    generated_by: baseline
+  qgis:
+    path: project.qgz
+    format: QGIS
+    generated_by: desktop
+  default_zones_cog:
+    path: data/derived/default-zones.tif
+    format: COG
+    generated_by: baseline
+    role: exploratory_companion
+    note: SIMULATED published t=0 snapshot, not observed enemy intelligence.
+  coordinate_licenses:
+    path: public/licenses/coordinates.txt
+    format: Text licenses and inherited notices
+    generated_by: models
+  building_mesh:
+    path: public/data/buildings.glb
+    format: glTF 2 GLB, KHR_mesh_quantization, local metric frame
+    generated_by: building_mesh
+  building_mesh_metadata:
+    path: public/data/building-mesh.json
+    format: JSON source IDs, bounds, alignment and completeness
+    generated_by: building_mesh
+  building_roofs:
+    path: data/derived/lod2-roofs.gpkg
+    format: GeoPackage PolygonZ source roof surfaces
+    generated_by: building_mesh
+validation:
+  required:
+  - source_hashes_match
+  - source_result_complete
+  - crs_known
+  - geometry_valid
+  - row_count_gt_zero
+  - obstruction_includes_buildings_and_vegetation
+  - dtm_coverage
+  - street_routes_follow_source
+  - overrides_applied
+  - manifest_graph_resolves
+  - view_controls_match_pipeline
+  - payload_lt_20mb
+  - analytic_los_tests
+  - qgis_project_static_valid
+  - qgis_layers_valid
+  - manifest_report_parity
+  - archived_sources_reproducible
+  - uav_only_scenario
+  - presentation_contract
+  - lod2_source_complete
+  - lod2_alignment
+  - lod2_mesh_valid
+  - lod2_conversion_fixtures
+  - relative_contact_reports
+  - publication_contract
+  domain_checks: []
+presentation:
+  intent: educational_visibility_simulation
+  primary_view: threejs_3d
+  layout:
+    type: map_with_sidebar
+    sidebar:
+      organization: tabs
+      section_state: collapsible
+      tabs:
+      - id: scenario
+        title: Scenario
+        sections:
+        - scenario_controls
+        - playback
+        - tracks
+        - legend
+      - id: layers
+        title: Layers
+        sections:
+        - layer_controls
+        - legend
+      - id: sources
+        title: Sources
+        sections:
+        - provenance
+        - assumptions
+        - validation
+  controls:
+    reconfigurable: true
+    canonical_reset: true
+    off_canonical_labelling: required
+    defaults:
+      uavHeight: 50
+      uavs: 1
+    zoneSpacingM: 20
+    probabilityThreshold: 0.25
+    layer_defaults:
+      red: true
+      yellow: true
+      green: true
+      buildings: true
+      vegetation: true
+      roads: true
+      predictions: true
+      traces: true
+      los: true
+      uncertainty: true
+      affiliations: true
+      ground: true
+      obstructions: true
+      scenario: true
+    playback_defaults:
+      playing: true
+      speed: 1
+      time: 0
+  map:
+    implementation: 'Three.js explicitly requested by issue #1'
+    basemap:
+      id: helsinki-2021-orthophoto
+      kind: raster-wms
+      url: data/basemap.jpg
+      attribution: © Helsingin kaupunkimittauspalvelut 2021 · CC BY 4.0 · modified
+      default_visible: true
+      note: Offline byte-pinned WMS image; actual remote request in source lock.
+    layer_groups:
+    - id: ground
+      title: Ground & photography
+    - id: obstructions
+      title: Buildings & vegetation
+    - id: scenario
+      title: SIMULATED vectors & zones
+    layers:
+    - source: dtm
+      group: ground
+      semantic_role: source
+      geometry: raster
+    - source: photo_cog
+      group: ground
+      semantic_role: context
+      geometry: raster
+    - source: roads
+      group: ground
+      semantic_role: context
+      geometry: line
+    - source: buildings_cog
+      group: obstructions
+      semantic_role: constraint
+      geometry: raster
+      note: Analysis-only LiDAR roof raster, retained in QGIS; web building display
+        uses independent official LoD2 geometry.
+    - source: building_roofs
+      group: obstructions
+      semantic_role: source
+      geometry: polygon
+      web_geometry: building_mesh
+      note: Official LoD2 source context only; analysis remains LiDAR DSM
+    - source: vegetation_cog
+      group: obstructions
+      semantic_role: constraint
+      geometry: raster
+    - source: scenario
+      group: scenario
+      semantic_role: hypothetical
+      geometry: point
+    - source: default_zones_cog
+      group: scenario
+      semantic_role: primary_result
+      geometry: raster
+  provenance_ui:
+    feature_source_on_click: true
+    show_source_timestamp: true
+    show_assumptions: true
+  legend:
+    visible: true
+    mode: semantic
+  coordinates:
+    display: MGRS
+    accuracy_digits: 5
+    internal: EPSG:3067
+    secondary: EPSG:3067 optional
+    datum_note: ETRS89 to WGS84 display approximation; 1 m grid, not survey accuracy
+  tracks:
+    past_seconds: 120
+    past_style: faint dotted
+    future_seconds: 300
+    future_style: amber dashed
+    uncertainty: speed hypotheses 0.8/1.0/1.2; sampled envelope, not calibrated probability
+  contact_report:
+    basis: derived from SIMULATED tracks; same worker snapshot as LOS
+    north_reference: EPSG:3067 grid north / UTM 35N
+    angular_unit: 6400 mil per turn and degrees
+    convergence: signed clockwise grid north from true north; true = grid + convergence
+      at OWN
+    own_height_agl_m: 2
+    range_rate: horizontal range derivative; stationary own; negative closing, positive
+      opening
+    course: ground track of outgoing source route segment; not body heading
+    magnetic_reference: unavailable; declination not modelled
+  theme:
+    name: tactical_dark
+    affiliation_note: APP-6-inspired only; not certified symbology
+    uav:
+      semantic_role: hypothetical
+      affiliation: hostile
+      frame: diamond
+      colour: '#ff7074'
+    own_position:
+      semantic_role: selected_feature
+      affiliation: friendly
+      frame: rectangle
+      colour: '#75baff'
+    readout_font: monospace
+    result_statuses:
+      RED: Current geometric visibility
+      YELLOW: At least 0.25 of speed scenarios visible within 300 s
+      GREEN: No visibility in the sampled scenario; not a safety claim
+      UNKNOWN: Missing coverage or obstructed target
+runtime:
+  implementation:
+    preferred_engine: numpy-laspy-gdal-pyqgis
+    pipeline: pipeline.py
+    command:
+    - .venv/bin/python
+    - pipeline.py
+    dependencies:
+    - requirements.txt
+    - sources.lock.json
+    - acquire.py
+    - package.json
+    - package-lock.json
+    - src
+    - scripts/canonical.mjs
+    - tests/archives.test.js
+    - tests/products.test.js
+    - tests/test_acquire.py
+    - tests/visibility.test.js
+    - index.html
+    - vite.config.js
+    - data/archive
+    - tests/presentation.test.js
+    - tests/camera.test.js
+    - tests/contact.test.js
+    - building_mesh.py
+    - licenses
+    - tests/test_building_mesh.py
+    - .npmrc
+    - publication.js
+    - tests/playback-publication.test.js
+  environment: &id002
+    python: 3.14.4
+    gdal: 3.12.2
+    qgis: 3.40.15-Bratislava
+    numpy: 2.5.4
+    laspy: 2.6.1
+    scipy: 1.17.0
+    node: 24.19.0
+runs:
+  latest:
+    id: run-20261017-163552
+    run_id: run-20261017-163552
+    started_at: '2026-10-17T16:35:52.210930+00:00'
+    completed_at: '2026-10-17T16:37:10.756033+00:00'
+    status: passed
+    inputs_hash: sha256:79080abd883b28ed5e6fb8f264859ad75032ba44e1e67d422e616cd37b00123d
+    outputs_hash: sha256:e99d1bd3f8066e4faeb86e094d2a72eade405aba22c017dc48e2ec554fd5b712
+    environment: *id002
+    validation_report:
+      path: validation/latest-report.json
+    record:
+      path: runs/run-20261017-163552.json

@@ -1,0 +1,60 @@
+{
+  "grid": {
+    "width": 1300,
+    "height": 1200,
+    "resolution": 1,
+    "zOrigin": -10,
+    "zScale": 0.1
+  },
+  "origin": [
+    385200,
+    6671300
+  ],
+  "buildingMesh": {
+    "path": "data/buildings.glb",
+    "source": "lod2_tileset",
+    "metadata": "data/building-mesh.json",
+    "analysis": false
+  },
+  "coordinates": {
+    "display": "MGRS",
+    "accuracy_digits": 5,
+    "internal": "EPSG:3067",
+    "secondary": "EPSG:3067 optional",
+    "datum_note": "ETRS89 to WGS84 display approximation; 1 m grid, not survey accuracy"
+  },
+  "tracks": {
+    "past_seconds": 120,
+    "past_style": "faint dotted",
+    "future_seconds": 300,
+    "future_style": "amber dashed",
+    "uncertainty": "speed hypotheses 0.8/1.0/1.2; sampled envelope, not calibrated probability"
+  },
+  "defaults": {
+    "uavHeight": 50,
+    "uavs": 1
+  },
+  "layers": {
+    "red": true,
+    "yellow": true,
+    "green": true,
+    "buildings": true,
+    "vegetation": true,
+    "roads": true,
+    "predictions": true,
+    "traces": true,
+    "los": true,
+    "uncertainty": true,
+    "affiliations": true,
+    "ground": true,
+    "obstructions": true,
+    "scenario": true
+  },
+  "playback": {
+    "playing": true,
+    "speed": 1,
+    "time": 0
+  },
+  "runId": "run-20261017-163552",
+  "status": "SIMULATED"
+}
