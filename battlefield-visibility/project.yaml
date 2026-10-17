@@ -1,12 +1,21 @@
 schema: openmapstack-project/v1
 project:
   id: helsinki-battlefield-visibility
-  title: Helsinki visibility · simulated scenario
+  title: UAV visibility · simulated scenario
   question: Explore dynamic geometric visibility of simulated UAVs over measured downtown
     Helsinki geometry.
   created_at: '2026-10-17T11:30:00Z'
-  updated_at: '2026-10-17T15:10:43.853978+00:00'
+  updated_at: '2026-10-17T16:37:10.756033+00:00'
   status: validated
+  publication:
+    updated_at: '2026-10-17T00:00:00Z'
+    status: published
+    author:
+      name: Jaak Laineste
+      email: jaak@goplex.ee
+    generated_with:
+      tool: OpenMapStack
+      url: https://github.com/jaakla/openmapstack-skills
 interpretation:
   objective: Reproducible open-data educational 3D simulation, independent of toompea-3d.
   assumptions:
@@ -1373,6 +1382,7 @@ validation:
   - lod2_mesh_valid
   - lod2_conversion_fixtures
   - relative_contact_reports
+  - publication_contract
   domain_checks: []
 presentation:
   intent: educational_visibility_simulation
@@ -1426,7 +1436,7 @@ presentation:
       obstructions: true
       scenario: true
     playback_defaults:
-      playing: false
+      playing: true
       speed: 1
       time: 0
   map:
@@ -1560,6 +1570,8 @@ runtime:
     - licenses
     - tests/test_building_mesh.py
     - .npmrc
+    - publication.js
+    - tests/playback-publication.test.js
   environment: &id002
     python: 3.14.4
     gdal: 3.12.2
@@ -1570,15 +1582,15 @@ runtime:
     node: 24.19.0
 runs:
   latest:
-    id: run-20261017-150924
-    run_id: run-20261017-150924
-    started_at: '2026-10-17T15:09:24.231961+00:00'
-    completed_at: '2026-10-17T15:10:43.853978+00:00'
+    id: run-20261017-163552
+    run_id: run-20261017-163552
+    started_at: '2026-10-17T16:35:52.210930+00:00'
+    completed_at: '2026-10-17T16:37:10.756033+00:00'
     status: passed
-    inputs_hash: sha256:5054b143ec7b3982db4f9b804c7405d1e0499770bc7d57a424351d9311e0a45d
-    outputs_hash: sha256:af65fc405d9deb81620d9e3f6335384c81fde5a15796a0689af2fd788acbb481
+    inputs_hash: sha256:79080abd883b28ed5e6fb8f264859ad75032ba44e1e67d422e616cd37b00123d
+    outputs_hash: sha256:e99d1bd3f8066e4faeb86e094d2a72eade405aba22c017dc48e2ec554fd5b712
     environment: *id002
     validation_report:
       path: validation/latest-report.json
     record:
-      path: runs/run-20261017-150924.json
+      path: runs/run-20261017-163552.json

@@ -1,4 +1,4 @@
-# Helsinki visibility
+# UAV visibility
 
 An independent, reproducible [OpenMapStack](https://github.com/jaakla/openmapstack-skills)
 demo for [issue #1](https://github.com/jaakla/openmapstack-samples/issues/1).
@@ -41,7 +41,12 @@ unchanged and show an error. **Find UAV** or a tracked UAV row focuses the model
 The **Scenario / Layers / Sources** tabs contain collapsible sections. Configure
 10–150 m UAV AGL, 0–3 UAVs and playback speed; toggle analysis, LOS vectors, traces,
 forecasts, uncertainty, affiliation labels and source context. Reset restores the
-manifest's defaults, layer visibility, target, playback and exact t=0 snapshot.
+manifest's defaults, layer visibility and target, then starts playback from t=0.
+Reduced-motion preferences keep load/reset paused and show a note; Play remains
+available. Hidden tabs suspend the clock and periodic worker requests. **View
+published t=0** restores and pauses the exact canonical snapshot; **Export t=0
+JSON** always downloads its counts, contacts and MGRS references, independent of
+the live state. The running default view explicitly says it starts from t=0.
 Initial load and **Reset view** fit own position and every active UAV to the
 canvas aspect ratio with pixel padding for markers and map overlays. The published
 view direction and desktop distance are retained wherever they already fit.
@@ -49,7 +54,9 @@ Resizing refits this framing until you orbit, zoom or focus a UAV; **Reset view*
 restores it. **Reset defaults** waits for the restored worker snapshot before its
 final fit, so a previous exploratory target/count cannot determine the framing.
 Changed analytical controls, layer switches, relocated targets and playback label the scenario
-exploratory. Source versions, retrieval dates, licensing and assumptions are visible.
+exploratory. Automatic default playback is labelled running from t=0, with the
+current snapshot time shown separately. Source versions, retrieval dates, licensing
+and assumptions are visible.
 
 The dark C2-style interface uses monospace telemetry and APP-6-inspired **red
 diamond hostile UAVs / blue rectangle own position**. These are simulation
@@ -345,3 +352,32 @@ the owner's RED=visible semantics; controls retain the published 10–150 m rang
 
 Iteration 2 [browser/visual QA and screenshots](docs/iteration-2-qa.md) document the
 production-path checks, mobile layout and deliberate design/source differences.
+
+## Playback rendering and publication
+
+Periodic worker requests keep the last complete snapshot visible; COMPUTING is
+reserved for changed selections. Cards retain their React identity, and controls
+stay enabled during routine playback. The scene retains the zone mesh, UAVs, LOS
+lines, label canvases/textures and keyed track/envelope objects. Same-size buffers
+are updated in place; resized path geometry is disposed and replaced atomically.
+Zones use RGBA visibility, front faces, depth bias and no depth writes. Forecast,
+history, envelope, LOS and labels have explicit draw order; transparent annotations
+do not write depth. Label placement retains the previous valid offset and snaps
+text to pixels; numeric readouts use tabular digits and stable dimensions.
+
+Movement and classifications still advance at the worker snapshot cadence, about
+1.2 wall-clock seconds. These are intentional data changes; display interpolation
+would mix readout/LOS timestamps and can cut route corners. No source geometry or
+visibility predicate is changed by the rendering fixes.
+
+`project.publication` carries the owner's author/contact, publication date/status
+and OpenMapStack attribution. The pipeline emits it in `provenance.json`; the
+independent Vite `publicationAttribution` plugin mirrors the Toompea pattern,
+emitting a visible project/source footer, generator/author/date/status meta tags,
+and the `project-metadata` JSON block in HTML. Publication metadata does not run a
+deployment. The author requested published status; merge/deployment remain outside
+this change. The map hint was removed; gestures are documented under Layers → Map help.
+
+[Final browser/frame-diff evidence](docs/final-qa.md) includes autoplay, reduced
+motion, visibility suspension, canonical export, persistent rendering and updated
+phone/desktop screenshots. The earlier iteration QA files remain historical records.

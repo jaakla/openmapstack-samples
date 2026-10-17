@@ -431,7 +431,7 @@ def desktop(project):
     q.clear()
     q.setCrs(QgsCoordinateReferenceSystem("EPSG:3067"))
     q.setFilePathStorage(Qgis.FilePathType.Relative)
-    q.setTitle("Helsinki visibility · published geometry")
+    q.setTitle("UAV visibility · published geometry")
     defs = [
         ("SIMULATED default zones · t=0", "data/derived/default-zones.tif", "zones"),
         ("SIMULATED source-node anchors", "data/overrides/scenario.geojson", "points"),
@@ -624,6 +624,7 @@ def main():
         P / "provenance.json",
         {
             "runId": runid,
+            "project": {"id": project["project"]["id"], "title": project["project"]["title"], **project["project"]["publication"]},
             "sources": sources,
             "assumptions": project["interpretation"]["assumptions"],
             "statistics": {**stats, **ns},
@@ -838,6 +839,16 @@ def main():
         "archived_sources_reproducible",
         acquisition_tests.returncode == 0,
         "Offline fresh-clone archive restoration and strict corruption rejection via unittest",
+    )
+    publication = project["project"]["publication"]
+    check(
+        "publication_contract",
+        publication["status"] == "published"
+        and publication["author"] == {"name": "Jaak Laineste", "email": "jaak@goplex.ee"}
+        and publication["generated_with"] == {"tool": "OpenMapStack", "url": "https://github.com/jaakla/openmapstack-skills"}
+        and project["presentation"]["controls"]["playback_defaults"]["playing"]
+        and result.returncode == 0,
+        "Publication attribution and accessible autoplay policy are declared; metadata escaping, hidden clock and persistent-buffer fixtures pass",
     )
     check(
         "qgis_project_static_valid",

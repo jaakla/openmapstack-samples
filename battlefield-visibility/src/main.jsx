@@ -5,6 +5,7 @@ import Provenance from "./Provenance.jsx";
 import TrackedUavs from "./TrackedUavs.jsx";
 import "./styles.css";
 import { formatMGRS, parseMGRS, exportSnapshot } from "./coordinates.js";
+import { advanceTime, autoplayAllowed } from "./playback.js";
 
 const ZONES = ["UNKNOWN", "GREEN", "YELLOW", "RED"];
 async function load() {
@@ -43,6 +44,10 @@ function App() {
   const [settings, setSettings] = useState(null),
     [playing, setPlaying] = useState(false),
     [speed, setSpeed] = useState(1);
+  const [reducedMotion, setReducedMotion] = useState(
+    () => matchMedia("(prefers-reduced-motion: reduce)").matches,
+  );
+  const [hidden, setHidden] = useState(() => document.hidden);
   const [layers, setLayers] = useState({}),
     [snapshot, setSnapshot] = useState(null),
     [busy, setBusy] = useState(true);
@@ -58,7 +63,16 @@ function App() {
     generation = useRef(0),
     time = useRef(0),
     state = useRef({});
-  state.current = { settings, playing, speed, target };
+  state.current = { settings, playing, speed, target, hidden };
+  useEffect(() => {
+    const preference = matchMedia("(prefers-reduced-motion: reduce)");
+    const changeMotion = () => {
+      setReducedMotion(preference.matches);
+      if (preference.matches) setPlaying(false);
+    };
+    preference.addEventListener("change", changeMotion);
+    return () => preference.removeEventListener("change", changeMotion);
+  }, []);
   useEffect(() => {
     let live = true;
     load()
@@ -67,7 +81,7 @@ function App() {
           setData(d);
           setSettings(d.config.defaults);
           setLayers(d.config.layers);
-          setPlaying(d.config.playback.playing);
+          setPlaying(autoplayAllowed(d.config.playback, matchMedia("(prefers-reduced-motion: reduce)").matches));
           setSpeed(d.config.playback.speed);
           setTarget(d.scenario.target);
         }
@@ -82,7 +96,8 @@ function App() {
     let stopped = false,
       inFlight = false,
       lastWall = performance.now(),
-      lastSent = -Infinity;
+      lastSent = -Infinity,
+      acceptedGeneration = -Infinity;
     const w = new Worker(new URL("./zones.worker.js", import.meta.url), {
       type: "module",
     });
@@ -102,29 +117,36 @@ function App() {
         return;
       }
       if (result.generation !== generation.current) return;
+      acceptedGeneration = result.generation;
       setBusy(false);
       setSnapshot(result);
       view.updateSnapshot(result);
     };
     w.onerror = (e) => setError(`Visibility worker: ${e.message}`);
+    const visibilityChanged = () => {
+      lastWall = performance.now();
+      setHidden(document.hidden);
+    };
+    document.addEventListener("visibilitychange", visibilityChanged);
     const tick = () => {
       if (stopped) return;
       const now = performance.now(),
         dt = Math.min((now - lastWall) / 1000, 0.2);
       lastWall = now;
       const s = state.current;
-      if (s.playing && !document.hidden) time.current += dt * s.speed;
+      // First/reset request is exactly t=0. Start advancing only once it is shown.
+      if (acceptedGeneration === generation.current)
+        time.current = advanceTime(time.current, dt, { ...s, hidden: document.hidden });
       if (
         !inFlight &&
         s.settings &&
         s.target &&
         (generation.current !== lastSent ||
-          (s.playing && now - view.lastUpdate > 1200))
+          (s.playing && !document.hidden && now - view.lastUpdate > 1200))
       ) {
         inFlight = true;
         lastSent = generation.current;
         view.lastUpdate = now;
-        setBusy(true);
         w.postMessage({
           settings: s.settings,
           target: s.target,
@@ -138,6 +160,7 @@ function App() {
     requestAnimationFrame(tick);
     return () => {
       stopped = true;
+      document.removeEventListener("visibilitychange", visibilityChanged);
       w.terminate();
       host.current?.removeEventListener("scene-error", sceneError);
       view.dispose();
@@ -176,7 +199,7 @@ function App() {
     const url = URL.createObjectURL(blob),
       a = document.createElement("a");
     a.href = url;
-    a.download = "helsinki-uav-snapshot.json";
+    a.download = "uav-snapshot.json";
     a.click();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
   }
@@ -186,13 +209,13 @@ function App() {
     setExploratory(true);
     generation.current++;
   }
-  function reset() {
+  function reset({ autoplay = true } = {}) {
     setBusy(true);
     time.current = 0;
     setSettings({ ...data.config.defaults });
     setTarget([...data.scenario.target]);
     setSpeed(data.config.playback.speed);
-    setPlaying(data.config.playback.playing);
+    setPlaying(autoplay && autoplayAllowed(data.config.playback, reducedMotion));
     setLayers({ ...data.config.layers });
     setExploratory(false);
     setCoordinateError("");
@@ -205,7 +228,7 @@ function App() {
   return (
     <>
       <header>
-        <h1>Helsinki visibility</h1>
+        <h1>UAV visibility</h1>
         <span>SIMULATED · NOT OPERATIONAL</span>
       </header>
       <main>
@@ -249,6 +272,9 @@ function App() {
                       setSpeed(value);
                       setExploratory(true);
                     }}
+                    motionNote={reducedMotion ? "Reduced motion: autoplay paused. Play starts the simulation." : hidden ? "Playback paused while this tab is hidden." : "Autoplay from t=0; hidden tabs pause playback."}
+                    viewBaseline={() => reset({ autoplay: false })}
+                    baselineUrl={`${import.meta.env.BASE_URL}data/default-snapshot.json`}
                   />
                   <TrackedUavs snapshot={snapshot} busy={busy}
                     onFocus={(id) => scene.current?.focusVector("uav", id)} />
@@ -259,7 +285,7 @@ function App() {
               <p className="loading">Loading measured source products…</p>
             )}
           </div>
-          <button className="reset" disabled={!ready} onClick={reset}>
+          <button className="reset" disabled={!ready} onClick={() => reset()}>
             Reset defaults
           </button>
         </aside>
@@ -269,14 +295,14 @@ function App() {
             <div className="map-title">
               <h2>Downtown Helsinki</h2>
               <small>
-                {exploratory ? "Exploratory scenario" : "Published defaults"} ·{" "}
-                {playing ? "Playing" : "Paused"}
+                {exploratory ? "Exploratory scenario" : playing ? "Defaults · running from t=0" : "Published defaults"}
+                {(hidden || !playing) ? " · Paused" : ""}
               </small>
             </div>
             <div className="snapshot">
               <strong>t = {snapshot?.time.toFixed(1) ?? "0.0"} s</strong>
               <small>
-                {busy ? "Computing…" : "1 m LOS surface · 5 min forecast"}
+                {busy ? "Computing selection…" : "1 m LOS surface · 5 min forecast"}
               </small>
             </div>
             <div className="map-tools">
@@ -304,9 +330,6 @@ function App() {
                 Could not load the demo: {error}
               </div>
             )}
-            <div className="map-hint">
-              Drag orbit · two fingers pan / pinch · tap ground to relocate
-            </div>
             <footer>
               © Helsingin kaupunkimittauspalvelut 2021 · CC BY 4.0 (modified) ·
               © OpenStreetMap contributors ·{" "}

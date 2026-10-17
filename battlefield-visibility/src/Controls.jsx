@@ -82,6 +82,12 @@ export function Legend() {
 export function LayerControls({ layers, setLayers }) {
   return (
     <>
+      <details>
+        <summary>Map help</summary>
+        <p className="note">Orbit with mouse drag or one finger. Pan with two fingers
+          or right drag; pinch or scroll to zoom. Tap ground to relocate OWN.
+          Reset view fits OWN and active UAVs.</p>
+      </details>
       <details open>
         <summary>Layer groups</summary>
         {[
@@ -155,6 +161,9 @@ export function Controls({
   setPlaying,
   speed,
   setSpeed,
+  motionNote,
+  viewBaseline,
+  baselineUrl,
 }) {
   return (
     <>
@@ -205,6 +214,11 @@ export function Controls({
           Simulated flights over sourced route shapes. Forecast weights are
           uncalibrated scenarios.
         </p>
+        <p className="note motion-note">{motionNote}</p>
+        <div className="baseline-actions">
+          <button onClick={viewBaseline}>View published t=0</button>
+          <a href={baselineUrl} download>Export t=0 JSON</a>
+        </div>
       </details>
     </>
   );
