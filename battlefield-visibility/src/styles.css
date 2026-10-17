@@ -255,14 +255,14 @@ select {
 }
 .line.yellow {
   color: var(--yellow);
-  border-top-style: dashed;
+  border-top-style: solid;
 }
 .line.green {
   color: var(--green);
 }
 .line.unknown {
   color: #84949a;
-  border-top-style: dashed;
+  border-top-style: solid;
 }
 .line.past {
   color: #a2b2b2;

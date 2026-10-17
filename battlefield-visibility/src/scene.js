@@ -1,11 +1,15 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { Line2 } from "three/addons/lines/Line2.js";
+import { LineGeometry } from "three/addons/lines/LineGeometry.js";
+import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { height } from "./visibility.js";
 import { loadBuildingLayer } from "./buildings.js";
 import { formatMGRS } from "./coordinates.js";
 
 const ZONE_COLORS = [null, "#60a86a", "#f5c744", "#ef5456"];
+const LOS_COLORS = ["#84949a", "#a8cc78", "#f1c45b", "#ff7074"];
 export class VisibilityScene {
   constructor(host, data, onPosition) {
     this.host = host;
@@ -24,7 +28,7 @@ export class VisibilityScene {
     renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
     renderer.setClearColor("#0d171b");
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1;
+    renderer.toneMappingExposure = 0.9;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     host.appendChild(renderer.domElement);
     this.world = new THREE.Scene();
@@ -41,8 +45,8 @@ export class VisibilityScene {
     this.controls.dampingFactor = 0.1;
     this.controls.touches.ONE = THREE.TOUCH.ROTATE;
     this.controls.touches.TWO = THREE.TOUCH.DOLLY_PAN;
-    this.world.add(new THREE.HemisphereLight("#ffffff", "#45544b", 2.1));
-    const sun = new THREE.DirectionalLight("#e7ede2", 2.0);
+    this.world.add(new THREE.HemisphereLight("#ffffff", "#45544b", 1.3));
+    const sun = new THREE.DirectionalLight("#e7ede2", 1.6);
     sun.position.set(-500, 1200, 600);
     this.world.add(sun);
     this.resetCamera();
@@ -95,6 +99,12 @@ export class VisibilityScene {
       renderer.setSize(w, h, false);
       this.camera.aspect = w / h;
       this.camera.updateProjectionMatrix();
+      for (const group of [
+        this.groups.predictions,
+        this.groups.traces,
+        this.groups.los,
+      ])
+        for (const line of group.children) line.material?.resolution?.set(w, h);
       this.needsRender = true;
     });
     this.resize.observe(host);
@@ -109,6 +119,16 @@ export class VisibilityScene {
   }
   point([x, y, z]) {
     return new THREE.Vector3(x, z, -y);
+  }
+  pathLine(points, options) {
+    const geometry = new LineGeometry().setPositions(
+      points.flatMap((p) => p.toArray()),
+    );
+    const material = new LineMaterial(options);
+    material.resolution.set(this.host.clientWidth, this.host.clientHeight);
+    const line = new Line2(geometry, material);
+    line.computeLineDistances();
+    return line;
   }
   buildTerrain() {
     const { grid } = this,
@@ -198,22 +218,25 @@ export class VisibilityScene {
         }),
       ),
     );
+    const roadSegments = [];
     for (const road of roads) {
-      const p = road.coordinates
-        .map(([x, y]) => this.point([x, y, this.elevation(x, y) + 0.5]))
-        .filter((p) => Number.isFinite(p.y));
-      if (p.length > 1)
-        this.groups.roads.add(
-          new THREE.Line(
-            new THREE.BufferGeometry().setFromPoints(p),
-            new THREE.LineBasicMaterial({
-              color: "#6e8094",
-              transparent: true,
-              opacity: 0.5,
-            }),
-          ),
-        );
+      const p = road.coordinates.map(([x, y]) =>
+        this.point([x, y, this.elevation(x, y) + 0.5]),
+      );
+      for (let i = 1; i < p.length; i++)
+        if (Number.isFinite(p[i - 1].y) && Number.isFinite(p[i].y))
+          roadSegments.push(p[i - 1], p[i]);
     }
+    this.groups.roads.add(
+      new THREE.LineSegments(
+        new THREE.BufferGeometry().setFromPoints(roadSegments),
+        new THREE.LineBasicMaterial({
+          color: "#6e8094",
+          transparent: true,
+          opacity: 0.5,
+        }),
+      ),
+    );
     this.models = {
       uav: this.prepareModel(uav.scene, 1.2),
     };
@@ -321,17 +344,15 @@ export class VisibilityScene {
           points = [];
           return;
         }
-        const line = new THREE.Line(
-          new THREE.BufferGeometry().setFromPoints(points),
-          new THREE.LineDashedMaterial({
-            color,
-            dashSize,
-            gapSize,
-            transparent: true,
-            opacity,
-          }),
-        );
-        line.computeLineDistances();
+        const line = this.pathLine(points, {
+          color,
+          linewidth: group === "traces" ? 1.5 : 2.2,
+          dashed: true,
+          dashSize,
+          gapSize,
+          transparent: true,
+          opacity,
+        });
         this.groups[group].add(line);
         points = [];
       };
@@ -396,21 +417,19 @@ export class VisibilityScene {
       const sensor = result.sensors.find((s) => s.id === status.id);
       if (!Number.isFinite(tz) || !sensor.position.every(Number.isFinite))
         continue;
-      const line = new THREE.Line(
-        new THREE.BufferGeometry().setFromPoints([
-          this.point(sensor.position),
-          this.point([...result.target, tz + 2]),
-        ]),
-        new THREE.LineDashedMaterial({
-          color: ZONE_COLORS[status.zone] ?? "#84949a",
+      const line = this.pathLine(
+        [this.point(sensor.position), this.point([...result.target, tz + 2])],
+        {
+          color: LOS_COLORS[status.zone],
+          linewidth: 3,
+          dashed: false,
           dashSize: status.zone === 3 ? 100000 : 7,
           gapSize: status.zone === 3 ? 0 : 4,
           depthTest: false,
           transparent: true,
           opacity: 0.95,
-        }),
+        },
       );
-      line.computeLineDistances();
       line.renderOrder = 4;
       line.userData = { id: status.id, zone: status.zone };
       this.groups.los.add(line);
@@ -439,6 +458,22 @@ export class VisibilityScene {
         );
         sprite.position.copy(this.point(sensor.position));
         sprite.position.y += 20;
+        sprite.userData.anchor = this.point(sensor.position);
+        const leader = new THREE.Line(
+          new THREE.BufferGeometry().setFromPoints([
+            sprite.userData.anchor,
+            sprite.position,
+          ]),
+          new THREE.LineBasicMaterial({
+            color: "#d0dfdc",
+            transparent: true,
+            opacity: 0.65,
+            depthTest: false,
+          }),
+        );
+        leader.renderOrder = 3;
+        sprite.userData.leader = leader;
+        this.groups.affiliations.add(leader);
         this.groups.affiliations.add(sprite);
       }
     this.marker.visible =
@@ -449,11 +484,11 @@ export class VisibilityScene {
   }
   label(text, affiliation, coordinate = "") {
     const canvas = document.createElement("canvas");
-    canvas.width = 512;
-    canvas.height = 100;
+    canvas.width = affiliation === "friendly" ? 192 : 512;
+    canvas.height = affiliation === "friendly" ? 64 : 100;
     const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "#0d171be8";
-    ctx.fillRect(0, 0, 512, 100);
+    ctx.fillStyle = "#0d171bf5";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.strokeStyle = affiliation === "hostile" ? "#ff7074" : "#75baff";
     ctx.lineWidth = 5;
     ctx.beginPath();
@@ -468,7 +503,7 @@ export class VisibilityScene {
     ctx.fillStyle = "#e4ece7";
     ctx.font = "bold 30px monospace";
     ctx.fillText(text, 66, 44);
-    ctx.font = "23px monospace";
+    ctx.font = "28px monospace";
     ctx.fillText(coordinate, 12, 83);
     const texture = new THREE.CanvasTexture(canvas);
     const sprite = new THREE.Sprite(
@@ -478,7 +513,11 @@ export class VisibilityScene {
         sizeAttenuation: false,
       }),
     );
-    sprite.scale.set(0.18, 0.035, 1);
+    sprite.scale.set(
+      affiliation === "friendly" ? 0.12 : 0.26,
+      affiliation === "friendly" ? 0.045 : 0.065,
+      1,
+    );
     sprite.renderOrder = 5;
     return sprite;
   }
@@ -541,7 +580,92 @@ export class VisibilityScene {
     this.needsRender = false;
     for (const model of this.groups.vectors.children)
       model.scale.setScalar(model.userData.magnify ?? 1);
+    this.arrangeLabels();
     this.renderer.render(this.world, this.camera);
+  }
+  arrangeLabels() {
+    const width = this.host.clientWidth,
+      height = this.host.clientHeight;
+    const units =
+      (2 * Math.tan(THREE.MathUtils.degToRad(this.camera.fov / 2))) / height;
+    this.marker.scale.set(80 * units, 27 * units, 1);
+    const own = this.marker.position.clone().project(this.camera);
+    const occupied =
+      this.marker.visible && Math.abs(own.x) < 1 && Math.abs(own.y) < 1
+        ? [
+            {
+              x: ((own.x + 1) * width) / 2 - 44,
+              y: ((1 - own.y) * height) / 2 - 18,
+              w: 88,
+              h: 36,
+            },
+          ]
+        : [];
+    const labelWidth = width < 500 ? 180 : 210,
+      labelHeight = labelWidth / 5.12;
+    const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+    for (const sprite of this.groups.affiliations.children.filter(
+      (o) => o.isSprite,
+    )) {
+      const anchor = sprite.userData.anchor;
+      const projected = anchor.clone().project(this.camera);
+      sprite.visible =
+        projected.z > -1 &&
+        projected.z < 1 &&
+        Math.abs(projected.x) < 1.3 &&
+        Math.abs(projected.y) < 1.3;
+      const leader = sprite.userData.leader;
+      leader.visible = sprite.visible;
+      if (!sprite.visible) continue;
+      const px = clamp(
+        ((projected.x + 1) * width) / 2,
+        labelWidth / 2 + 8,
+        width - labelWidth / 2 - 8,
+      );
+      const py = ((1 - projected.y) * height) / 2 - 25;
+      let selected;
+      for (const offset of [0, -50, 50, -100, 100, -150, 150, -200, 200]) {
+        const y = clamp(
+          py + offset,
+          135 + labelHeight / 2,
+          height - 55 - labelHeight / 2,
+        );
+        const rect = {
+          x: px - labelWidth / 2 - 3,
+          y: y - labelHeight / 2 - 3,
+          w: labelWidth + 6,
+          h: labelHeight + 6,
+        };
+        if (!selected) selected = { y, rect };
+        if (
+          !occupied.some(
+            (r) =>
+              rect.x < r.x + r.w &&
+              rect.x + rect.w > r.x &&
+              rect.y < r.y + r.h &&
+              rect.y + rect.h > r.y,
+          )
+        ) {
+          selected = { y, rect };
+          break;
+        }
+      }
+      occupied.push(selected.rect);
+      sprite.scale.set(labelWidth * units, labelHeight * units, 1);
+      sprite.position
+        .set((px / width) * 2 - 1, 1 - (selected.y / height) * 2, projected.z)
+        .unproject(this.camera);
+      const position = leader.geometry.getAttribute("position");
+      position.setXYZ(0, anchor.x, anchor.y, anchor.z);
+      position.setXYZ(
+        1,
+        sprite.position.x,
+        sprite.position.y,
+        sprite.position.z,
+      );
+      position.needsUpdate = true;
+      leader.geometry.computeBoundingSphere();
+    }
   }
   dispose() {
     this.disposed = true;

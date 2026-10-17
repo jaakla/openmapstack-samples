@@ -51,6 +51,7 @@ function App() {
     [coordinateError, setCoordinateError] = useState(""),
     [secondary, setSecondary] = useState(false);
   const host = useRef(null),
+    panel = useRef(null),
     scene = useRef(null),
     worker = useRef(null),
     generation = useRef(0),
@@ -146,6 +147,9 @@ function App() {
     scene.current?.setLayers(layers);
   }, [layers, data]);
   useEffect(() => {
+    panel.current?.scrollTo(0, 0);
+  }, [tab]);
+  useEffect(() => {
     if (data && target) setMgrsInput(formatMGRS(data.config.origin, target));
   }, [data, target]);
   function moveTarget(position) {
@@ -217,7 +221,7 @@ function App() {
               </button>
             ))}
           </nav>
-          <div className="sidebar-content">
+          <div className="sidebar-content" ref={panel}>
             {ready ? (
               tab === "sources" ? (
                 <Provenance config={data.provenance} />
