@@ -17,6 +17,13 @@ export function height(grid, values, x, y) {
 
 export function lineOfSight(grid, observer, target) {
   if (![...observer, ...target].every(Number.isFinite)) return null;
+  // A segment has no direction. Use one arithmetic order for both callers so
+  // floating-point rounding (including height interpolation) is reciprocal.
+  if (observer[0] > target[0] ||
+      (observer[0] === target[0] && (observer[1] > target[1] ||
+       (observer[1] === target[1] && observer[2] > target[2])))) {
+    [observer, target] = [target, observer];
+  }
   const [ox, oy, oz] = observer,
     [tx, ty, tz] = target;
   const start = cell(grid, ox, oy),
@@ -31,10 +38,6 @@ export function lineOfSight(grid, observer, target) {
     t = 0;
   const sx = Math.sign(dx),
     sy = Math.sign(dy);
-  const dtx = sx ? r / Math.abs(dx) : Infinity,
-    dty = sy ? r / Math.abs(dy) : Infinity;
-  let nx = sx ? ((col + (sx > 0 ? 1 : 0)) * r - ox) / dx : Infinity;
-  let ny = sy ? ((row + (sy > 0 ? 1 : 0)) * r - oy) / dy : Infinity;
   let unknown = false;
   // Closed cells include their edges/corners, even when the ray touches them
   // only at t=0 or t=1. Inspect the full Cartesian set at BOTH endpoints before
@@ -57,6 +60,11 @@ export function lineOfSight(grid, observer, target) {
   const alignedY = dy === 0 && Number.isInteger(oy / r);
   // Grid traversal checks every crossed cell at the lowest ray altitude within it.
   for (let n = 0; n <= grid.width + grid.height; n++) {
+    // Recompute from integer cell boundaries, never accumulate crossing times.
+    const distanceX = sx ? Math.abs((col + (sx > 0 ? 1 : 0)) * r - ox) : Infinity;
+    const distanceY = sy ? Math.abs((row + (sy > 0 ? 1 : 0)) * r - oy) : Infinity;
+    const nx = sx ? distanceX / Math.abs(dx) : Infinity;
+    const ny = sy ? distanceY / Math.abs(dy) : Infinity;
     const i = row * grid.width + col,
       exit = Math.min(nx, ny, 1);
     const raw = grid.dsm[i];
@@ -87,9 +95,16 @@ export function lineOfSight(grid, observer, target) {
       }
     }
     if (exit >= 1) return unknown ? null : true;
-    const crossX = nx <= ny,
-      crossY = ny <= nx;
-    // At exact corners also test the two edge-touching cells (supercover).
+    // Compare crossing products, avoiding division/accumulation-induced missed
+    // ties. A few relative ulps conservatively include numerically inseparable
+    // corners; this is not a distance-based snap of the measured geometry.
+    const px = distanceX * Math.abs(dy), py = distanceY * Math.abs(dx);
+    const corner = sx !== 0 && sy !== 0 &&
+      Math.abs(px - py) <= 8 * Number.EPSILON * Math.max(px, py);
+    const crossX = corner || nx < ny,
+      crossY = corner || ny < nx;
+    // Include BOTH side cells at a simultaneous crossing. For a numerical tie,
+    // use the lowest height across the tiny interval between the two crossings.
     if (crossX && crossY) {
       for (const j of [
         row * grid.width + col + sx,
@@ -98,18 +113,16 @@ export function lineOfSight(grid, observer, target) {
         if (grid.dsm[j] === 65535) unknown = true;
         else if (
           grid.zOrigin + grid.dsm[j] * grid.zScale >=
-          oz + dz * exit - 1e-7
+          Math.min(oz + dz * nx, oz + dz * ny) - 1e-7
         )
           return false;
       }
     }
     if (crossX) {
       col += sx;
-      nx += dtx;
     }
     if (crossY) {
       row += sy;
-      ny += dty;
     }
     t = exit;
   }

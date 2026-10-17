@@ -59,6 +59,14 @@ conda-forge environment whose Python can import `osgeo` and `qgis.core` before
 creating the venv. A standalone pip-only GDAL/QGIS installation is not assumed.
 QGIS is required for this project's declared desktop output.
 
+Dependency audit (2026-10-17): the pinned glTF Transform 4.3.0 development toolchain
+has four high-severity npm findings through `sharp` and `micromatch`/`braces`.
+Testing the latest compatible CLI 4.5.1 removed the `sharp` finding but left three
+high findings; npm then proposed a breaking downgrade to CLI 2.0.5. Because that
+update does not clear the advisories, the tested 4.3.0 lockfile is retained.
+`npm audit --omit=dev` reports zero vulnerabilities. These tools process the pinned
+local model during acquisition/build; they are not included in the browser bundle.
+
 ```sh
 # Substitute the Python executable belonging to your GIS runtime.
 uv venv --python /usr/bin/python3 --system-site-packages .venv
@@ -168,7 +176,11 @@ are needed in the browser. The 182.29 MB source tank is compacted to about 7.71 
 - **LOS/zones:** conservative supercover traversal tests every crossed 1 m DSM
   cell at the lowest ray altitude within it; all cells touching either endpoint
   are included, even a face/corner touched only at t=0 or t=1. Grazing rays block
-  consistently in either direction. The green target
+  consistently in either direction. Crossings are computed from cell boundaries;
+  crossing products within eight relative floating-point epsilons include both
+  side cells at interior corners. This conservative numerical tolerance does not
+  snap geometry by a fixed spatial distance. A canonical endpoint order makes
+  both directions execute identical arithmetic. The green target
   is 2 m AGL. Zone targets are sampled on a 20 m grid, not continuous coverage of
   every location within a colored square. Exact tapped-position status is computed
   separately. Current LOS from any sensor is RED; future sampled probability above
@@ -189,7 +201,10 @@ are needed in the browser. The 182.29 MB source tank is compacted to about 7.71 
 
 `npm test` covers analytic flat ground, a one-cell ridge, grazing/corner rays,
 vertical rays, endpoint-only faces/corners against an independent segment/AABB
-oracle, LOS reciprocity, NoData, out-of-bounds inputs, class precedence,
+oracle, the interior t=1/3 corner regression, and 200,000 sparse 16×16 half-metre
+lattice cases (seed 12345) against an exact BigInt rational segment/AABB oracle in
+both directions. These include NoData and endpoint/interior touches. Tests also
+cover out-of-bounds inputs, class precedence,
 scenario-probability thresholds, route reversal/corners, AGL forecasts and their
 current-position anchoring. Product checks verify grid dimensions, DSM ≥ DTM,
 source-edge identifiers, exact default snapshot reproduction, self-contained GLBs

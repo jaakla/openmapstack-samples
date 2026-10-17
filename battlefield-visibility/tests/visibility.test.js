@@ -28,6 +28,78 @@ test("QA endpoint-corner repro blocks both directions and cannot classify RED", 
   assert.equal(classifyTarget(g, target, [{id:"QA",position:observer}], []).zone, ZONE.GREEN);
 });
 
+test("QA interior corner at t=1/3 blocks both directions", () => {
+  const g = fixture(10); g.dsm[3 * 10 + 1] = 10;
+  const a = [0.5, 0.5, 3], b = [5, 8, 2];
+  assert.equal(lineOfSight(g, a, b), false);
+  assert.equal(lineOfSight(g, b, a), false);
+  // The same corner must carry NoData, and a ray above the solid must clear it.
+  g.dsm[3 * 10 + 1] = 65535;
+  assert.equal(lineOfSight(g, a, b), null);
+  assert.equal(lineOfSight(g, b, a), null);
+  g.dsm[3 * 10 + 1] = 2;
+  assert.equal(lineOfSight(g, a, b), true);
+  assert.equal(lineOfSight(g, b, a), true);
+});
+
+// Independent exact segment/AABB oracle for half-metre lattice fixtures. Scale
+// coordinates to integers and use BigInt rational interval endpoints throughout:
+// no floating-point division, tie tolerance, DDA traversal, or LOS helper reuse.
+function exactLatticeOracle(g, a, b, solids) {
+  const start = a.map(x => BigInt(x * 2)), end = b.map(x => BigInt(x * 2));
+  const delta = end.map((x, axis) => x - start[axis]);
+  const compare = (a, b) => a[0] * b[1] - b[0] * a[1];
+  let unknown = false;
+  for (const i of solids) {
+    let enter = [0n, 1n], exit = [1n, 1n];
+    for (const [axis, coordinate] of [[0, i % g.width], [1, Math.floor(i / g.width)]]) {
+      const lo = BigInt(coordinate * 2), hi = lo + 2n, d = delta[axis];
+      if (d === 0n) {
+        if (start[axis] < lo || start[axis] > hi) { enter = [2n, 1n]; break; }
+      } else {
+        const lower = d > 0n ? [lo - start[axis], d] : [start[axis] - hi, -d];
+        const upper = d > 0n ? [hi - start[axis], d] : [start[axis] - lo, -d];
+        if (compare(lower, enter) > 0n) enter = lower;
+        if (compare(upper, exit) < 0n) exit = upper;
+      }
+    }
+    if (compare(enter, exit) > 0n) continue;
+    if (g.dsm[i] === 65535) { unknown = true; continue; }
+    const [num, den] = delta[2] >= 0n ? enter : exit;
+    if (start[2] * den + delta[2] * num <= BigInt(g.dsm[i] * 2) * den) return false;
+  }
+  return unknown ? null : true;
+}
+
+test("200k seeded sparse 16x16 rays match exact AABB oracle and reciprocity", () => {
+  let seed = 12345;
+  const random = n => {
+    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+    return Math.floor(seed / 2 ** 32 * n);
+  };
+  const g = fixture(16);
+  for (let trial = 0; trial < 200000; trial++) {
+    g.dsm.fill(0);
+    const solids = new Set();
+    const count = 1 + random(6);
+    for (let j = 0; j < count; j++) {
+      const i = random(256); solids.add(i);
+      g.dsm[i] = random(13) === 0 ? 65535 : 1 + random(20);
+    }
+    // Interior XY avoids outside-coverage ambiguity; endpoints include faces,
+    // corners, identical XY, and both ascending and descending half-metre Z.
+    // All Z > 0, so omitted zero-height ground cells provably cannot intersect.
+    const point = () => [0.5 + random(31) / 2, 0.5 + random(31) / 2, 2 + random(37) / 2];
+    const a = point(), b = point();
+    const expected = exactLatticeOracle(g, a, b, solids);
+    const forward = lineOfSight(g, a, b), reverse = lineOfSight(g, b, a);
+    if (forward !== expected || reverse !== expected) {
+      assert.fail(JSON.stringify({seed:12345, trial, a, b, expected, forward, reverse,
+        solids:[...solids].map(i => [i % 16, Math.floor(i / 16), g.dsm[i]])}));
+    }
+  }
+});
+
 // Independent oracle: intersect the entire closed segment with each cell's
 // closed XY AABB, then compare its lowest Z in that interval to the solid.
 function closedSolidOracle(g, a, b) {
