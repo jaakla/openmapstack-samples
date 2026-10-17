@@ -1534,6 +1534,7 @@ runtime:
     - vite.config.js
     - data/archive
     - tests/presentation.test.js
+    - tests/camera.test.js
     - building_mesh.py
     - licenses
     - tests/test_building_mesh.py

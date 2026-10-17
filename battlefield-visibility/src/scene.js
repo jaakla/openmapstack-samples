@@ -7,6 +7,7 @@ import { LineMaterial } from "three/addons/lines/LineMaterial.js";
 import { height } from "./visibility.js";
 import { loadBuildingLayer } from "./buildings.js";
 import { formatMGRS } from "./coordinates.js";
+import { fitCamera, OWN_PADDING, UAV_PADDING } from "./camera.js";
 
 const ZONE_COLORS = [null, "#60a86a", "#f5c744", "#ef5456"];
 const LOS_COLORS = ["#84949a", "#a8cc78", "#f1c45b", "#ff7074"];
@@ -38,6 +39,9 @@ export class VisibilityScene {
     this.controls.addEventListener("change", () => {
       this.needsRender = true;
     });
+    this.controls.addEventListener("start", () => {
+      this.autoFrame = false;
+    });
     this.controls.maxPolarAngle = Math.PI * 0.48;
     this.controls.minDistance = 60;
     this.controls.maxDistance = 3400;
@@ -49,7 +53,7 @@ export class VisibilityScene {
     const sun = new THREE.DirectionalLight("#e7ede2", 1.6);
     sun.position.set(-500, 1200, 600);
     this.world.add(sun);
-    this.resetCamera();
+    this.resetCamera({ waitForSnapshot: true });
     this.buildTerrain();
     this.buildBuildings();
     this.groups = {
@@ -99,6 +103,7 @@ export class VisibilityScene {
       renderer.setSize(w, h, false);
       this.camera.aspect = w / h;
       this.camera.updateProjectionMatrix();
+      if (this.autoFrame) this.fitCamera();
       for (const group of [
         this.groups.predictions,
         this.groups.traces,
@@ -274,7 +279,12 @@ export class VisibilityScene {
   }
   updateSnapshot(result) {
     this.needsRender = true;
+    const isNewSnapshot = result !== this.latestSnapshot;
     this.latestSnapshot = result;
+    if (this.fitNextSnapshot && isNewSnapshot) {
+      this.fitNextSnapshot = false;
+      this.fitCamera();
+    }
     if (this.zoneMesh) {
       this.world.remove(this.zoneMesh);
       this.zoneMesh.geometry.dispose();
@@ -549,15 +559,39 @@ export class VisibilityScene {
     this.marker.visible = layers.affiliations !== false;
     if (this.latestSnapshot) this.updateSnapshot(this.latestSnapshot);
   }
-  resetCamera() {
+  resetCamera({ waitForSnapshot = false } = {}) {
     this.needsRender = true;
-    const w = this.grid.width,
-      h = this.grid.height;
-    this.controls.target.set(w * 0.5, 12, -h * 0.5);
-    this.camera.position.set(w * 0.5 - 650, 1050, -h * 0.5 + 1000);
+    this.autoFrame = true;
+    this.fitNextSnapshot = waitForSnapshot || !this.latestSnapshot;
+    // Drain residual orbit/pan damping before restoring the published direction.
+    this.controls.enableDamping = false;
     this.controls.update();
+    this.controls.enableDamping = true;
+    this.fitCamera();
+  }
+  fitCamera() {
+    const width = this.host.clientWidth, height = this.host.clientHeight;
+    if (!width || !height) return;
+    const w = this.grid.width * this.grid.resolution,
+      h = this.grid.height * this.grid.resolution;
+    const snapshot = this.latestSnapshot;
+    const target = snapshot?.target ?? this.data.scenario.target;
+    const elevation = this.elevation(...target);
+    const subjects = [
+      { point: this.point([...target, elevation + 3]), padding: OWN_PADDING },
+      ...(snapshot?.sensors ?? [])
+        .filter((s) => s.position.every(Number.isFinite))
+        .map((s) => ({ point: this.point(s.position), padding: UAV_PADDING })),
+    ].filter((s) => s.point.toArray().every(Number.isFinite));
+    this.controls.target.set(w * 0.5, 12, -h * 0.5);
+    const distance = fitCamera(this.camera, this.controls.target,
+      new THREE.Vector3(-650, 1038, 1000), subjects, width, height);
+    this.controls.maxDistance = Math.max(3400, distance * 1.05);
+    this.controls.update();
+    this.needsRender = true;
   }
   zoom(factor) {
+    this.autoFrame = false;
     this.camera.position
       .sub(this.controls.target)
       .multiplyScalar(factor)
@@ -569,6 +603,7 @@ export class VisibilityScene {
       (s) => s.type === type && (!id || s.id === id),
     );
     if (!sensor || !sensor.position.every(Number.isFinite)) return;
+    this.autoFrame = false;
     const p = this.point(sensor.position);
     this.controls.target.copy(p);
     this.camera.position.copy(p).add(new THREE.Vector3(-10, 100, 15));

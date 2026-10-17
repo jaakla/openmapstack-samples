@@ -42,6 +42,12 @@ The **Scenario / Layers / Sources** tabs contain collapsible sections. Configure
 10–150 m UAV AGL, 0–3 UAVs and playback speed; toggle analysis, LOS vectors, traces,
 forecasts, uncertainty, affiliation labels and source context. Reset restores the
 manifest's defaults, layer visibility, target, playback and exact t=0 snapshot.
+Initial load and **Reset view** fit own position and every active UAV to the
+canvas aspect ratio with pixel padding for markers and map overlays. The published
+view direction and desktop distance are retained wherever they already fit.
+Resizing refits this framing until you orbit, zoom or focus a UAV; **Reset view**
+restores it. **Reset defaults** waits for the restored worker snapshot before its
+final fit, so a previous exploratory target/count cannot determine the framing.
 Changed analytical controls, layer switches, relocated targets and playback label the scenario
 exploratory. Source versions, retrieval dates, licensing and assumptions are visible.
 
@@ -259,6 +265,9 @@ cover out-of-bounds inputs, class precedence,
 scenario-probability thresholds, route reversal/corners, AGL forecasts and their
 current-position anchoring. Additional tests cover MGRS reference/round-trip/error
 handling, per-UAV LOS versus aggregate status, history, and MGRS-only user exports.
+Camera projection regressions cover the QA 320px clipping case, the unchanged
+desktop view, near-camera depth, all AOI corners, zero through three UAVs and
+maximum configured altitude at each of the three tested canvas sizes.
 Product checks verify grid dimensions, DSM ≥ DTM,
 source-edge identifiers, exact default snapshot reproduction, self-contained GLBs
 and absence of external decoders. The run inventory verifies all declared outputs. Python tests cover closed 3D

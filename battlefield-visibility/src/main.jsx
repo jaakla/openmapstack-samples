@@ -197,7 +197,7 @@ function App() {
     setCoordinateError("");
     setSecondary(false);
     generation.current++;
-    scene.current?.resetCamera();
+    scene.current?.resetCamera({ waitForSnapshot: true });
   }
   const ready = data && settings;
   const zone = snapshot && !busy ? ZONES[snapshot.status.zone] : "COMPUTING";
