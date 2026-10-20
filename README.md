@@ -20,10 +20,6 @@ Explore simulated hostile UAVs over downtown Helsinki using 2021 city LiDAR, inc
 - [Open the live demo](https://jaakla.github.io/openmapstack-samples/battlefield-visibility/)
 - [Project documentation and source evidence](battlefield-visibility/README.md)
 
-## External Cloudflare demos
-
-These independently hosted demos open on Cloudflare; the gallery uses local screenshots captured from the live sites on 2026-10-20.
-
 ### Tartu bridge analysis
 
 Compare proposed Emajõgi crossings and their impact on walking and cycling accessibility.
