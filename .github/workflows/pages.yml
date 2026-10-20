@@ -57,6 +57,7 @@ jobs:
           cp -a toompea-3d/dist/. _site/toompea-3d/
           cp -a battlefield-visibility/dist/. _site/battlefield-visibility/
           cp index.html _site/index.html
+          cp -a gallery/. _site/gallery/
           cp toompea-3d/docs/toompea-preview.png _site/gallery/toompea-preview.png
           cp battlefield-visibility/docs/uav-visibility-preview.png _site/gallery/uav-visibility-preview.png
           touch _site/.nojekyll
