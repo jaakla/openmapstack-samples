@@ -37,3 +37,7 @@ Explore a kriged temperature surface, census block groups, model settings and he
 The shared `Deploy GitHub Pages` workflow tests and builds both demos on pull requests and pushes to `main`. Pushes to `main` publish the prepared browser assets under `toompea-3d/` and `battlefield-visibility/`; the [site root](https://jaakla.github.io/openmapstack-samples/) is a gallery linking both local demos and the external Cloudflare demos.
 
 Normal Pages builds use committed browser assets and skip raw Git LFS downloads. Toompea's original large LAZ survey files use Git LFS; full GIS recompilation requires `git lfs pull` and the numerical/desktop dependencies documented in that project. UAV visibility's raw acquisitions are excluded from normal git; its project documentation describes acquisition and full recompilation.
+
+## Web analytics
+
+Cloudflare Web Analytics is installed on the GitHub Pages gallery, Toompea atlas and UAV demo. All three use the `jaakla.github.io` site in the Cloudflare Web Analytics dashboard; filter by URL path to distinguish them. The beacon token in the HTML is a public tracking identifier, not an API credential. The separately hosted Cloudflare demos need their own snippets.
