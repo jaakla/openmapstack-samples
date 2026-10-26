@@ -284,7 +284,9 @@ test.describe("Solarman production validation", () => {
       "1 complete hour",
     );
     await expect(
-      page.getByText(/Only 1 of 5 candidate hours were compared/),
+      page.getByText(
+        /Only 1 of 6 hours in the overlapping date window were compared/,
+      ),
     ).toBeVisible();
     await page
       .getByLabel("Maximum interpolation span", { exact: true })
@@ -631,6 +633,117 @@ test("storage sizes automatically, accepts AC current limits and exports the con
     page.getByLabel("Enable battery storage", { exact: true }),
   ).not.toBeChecked();
   await expect(page.getByTestId("storage-results")).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+
+test("independent inverter and grid limits clip PV, cap net exports, and survive scenario round trips", async ({
+  page,
+}) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.goto("/");
+  await settled(page);
+  await expect(page.getByLabel("DC capacity", { exact: true })).toHaveValue(
+    "20",
+  );
+  await expect(
+    page.getByLabel("Inverter AC output limit", { exact: true }),
+  ).toHaveValue("");
+  await page.getByLabel("Inverter AC output limit", { exact: true }).fill("15");
+  await settled(page);
+  await page.getByLabel("Grid export limit", { exact: true }).fill("5");
+  await settled(page);
+  await expect(page.getByTestId("inverter-clipping")).not.toContainText("—");
+  await expect(page.getByTestId("grid-curtailment")).not.toHaveText("0 kWh/yr");
+  const menuDownload = async (name) => {
+    const [download] = await Promise.all([
+      page.waitForEvent("download"),
+      (async () => {
+        await page
+          .getByRole("button", { name: "More scenario export options" })
+          .click();
+        await page.getByRole("menuitem", { name }).click();
+      })(),
+    ]);
+    return fs.readFileSync(await download.path(), "utf8");
+  };
+  const csv = await menuDownload("Hourly energy CSV");
+  const [columns, ...lines] = csv
+    .trim()
+    .split(/\r?\n/)
+    .map((line) => line.split(","));
+  const rows = lines.map((line) =>
+    Object.fromEntries(
+      columns.map((key, i) => [key, line[i] ? JSON.parse(line[i]) : null]),
+    ),
+  );
+  expect(
+    Math.max(...rows.map((row) => row.shadedKwh ?? 0)),
+  ).toBeLessThanOrEqual(15 + 1e-9);
+  expect(
+    Math.max(...rows.map((row) => row.exportKwh ?? 0)),
+  ).toBeLessThanOrEqual(5 + 1e-9);
+  expect(rows.some((row) => row.shadedInverterClippingKwh > 0)).toBe(true);
+  expect(rows.some((row) => row.curtailedKwh > 0)).toBe(true);
+  for (const row of rows.filter((row) => row.pvGeneratedKwh !== null))
+    expect(
+      Math.abs(row.shadedKwh - row.pvGeneratedKwh - row.curtailedKwh),
+    ).toBeLessThan(1e-8);
+  const scenario = JSON.parse(await menuDownload("Scenario GeoJSON"));
+  expect(scenario.features[0].properties.inverterAcKw).toBe(15);
+  expect(scenario.features[0].properties.gridExportLimitKw).toBe(5);
+  await page.getByLabel("Grid export limit", { exact: true }).fill("0");
+  await settled(page);
+  await expect(page.getByTestId("exportKwh")).toHaveText("0 kWh");
+  await expect(page.getByTestId("selfConsumedKwh")).not.toHaveText("0 kWh");
+  await page.getByLabel("Enable battery storage", { exact: true }).check();
+  await settled(page);
+  await expect(
+    page.getByLabel("Battery inverter arrangement", { exact: true }),
+  ).toHaveValue("shared");
+  await page
+    .getByLabel("Battery inverter arrangement", { exact: true })
+    .selectOption("separate");
+  await settled(page);
+  const separate = JSON.parse(await menuDownload("Scenario GeoJSON"));
+  expect(separate.features[0].properties.storage.inverterConnection).toBe(
+    "separate",
+  );
+  await page.locator("[data-oms-reset]").first().click();
+  await settled(page);
+  await expect(
+    page.getByLabel("Inverter AC output limit", { exact: true }),
+  ).toHaveValue("");
+  await page
+    .getByLabel("Import scenario GeoJSON", { exact: true })
+    .setInputFiles({
+      name: "synthetic-power-limits.geojson",
+      mimeType: "application/geo+json",
+      buffer: Buffer.from(JSON.stringify(scenario)),
+    });
+  await settled(page);
+  await expect(
+    page.getByLabel("Inverter AC output limit", { exact: true }),
+  ).toHaveValue("15");
+  await expect(
+    page.getByLabel("Grid export limit", { exact: true }),
+  ).toHaveValue("5");
+  scenario.features[0].properties.inverterAcKw = null;
+  scenario.features[0].properties.gridExportLimitKw = null;
+  await page
+    .getByLabel("Import scenario GeoJSON", { exact: true })
+    .setInputFiles({
+      name: "synthetic-unspecified-limits.geojson",
+      mimeType: "application/geo+json",
+      buffer: Buffer.from(JSON.stringify(scenario)),
+    });
+  await settled(page);
+  await expect(
+    page.getByLabel("Inverter AC output limit", { exact: true }),
+  ).toHaveValue("");
+  await expect(
+    page.getByLabel("Grid export limit", { exact: true }),
+  ).toHaveValue("");
   expect(errors).toEqual([]);
 });
 

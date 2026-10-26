@@ -66,6 +66,23 @@ export default function StoragePanel({
       {storage.enabled ? (
         <>
           <label className="field">
+            <span>Battery inverter arrangement</span>
+            <select
+              aria-label="Battery inverter arrangement"
+              value={storage.inverterConnection ?? "shared"}
+              onChange={(e) => update("inverterConnection")(e.target.value)}
+            >
+              <option value="shared">Shared PV and battery inverter</option>
+              <option value="separate">Separate battery inverter</option>
+            </select>
+          </label>
+          <p className="field-help">
+            A shared arrangement caps combined PV and battery AC supply at the
+            inverter limit above. This approximation does not recover DC energy
+            clipped before the PV inverter or simulate a full hybrid inverter.
+            Both arrangements share the site’s grid export limit.
+          </p>
+          <label className="field">
             <span>Battery sizing</span>
             <select
               aria-label="Battery sizing"

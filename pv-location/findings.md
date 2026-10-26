@@ -4,13 +4,15 @@ project_id: tartu-pv-location
 question: Estimate hypothetical PV production, local shadow losses and historical
   energy value with local consumption and optional storage; select bounded Estonian
   contexts and export a reviewable scenario PDF.
-run_id: run-20261026-154345
+run_id: run-20261026-160522
 scope: one hypothetical 20 kWp array within the retained manifest AOI, complete UTC
   years 2024 and 2025
 validation:
   status: warning
   checks:
   - id: source_hashes_match
+    status: passed
+  - id: canonical_power_limits_explicit
     status: passed
   - id: canonical_consumption_is_public_estimate
     status: passed
@@ -29,6 +31,8 @@ validation:
   - id: price_coverage_2024
     status: passed
   - id: energy_ordering_2024
+    status: passed
+  - id: inverter_power_balance_2024
     status: passed
   - id: finite_summary_2024
     status: passed
@@ -54,11 +58,15 @@ validation:
     status: passed
   - id: storage_monthly_parity_2024
     status: passed
+  - id: grid_export_limit_2024
+    status: passed
   - id: hourly_coverage_2025
     status: passed
   - id: price_coverage_2025
     status: passed
   - id: energy_ordering_2025
+    status: passed
+  - id: inverter_power_balance_2025
     status: passed
   - id: finite_summary_2025
     status: passed
@@ -84,6 +92,8 @@ validation:
     status: passed
   - id: storage_monthly_parity_2025
     status: passed
+  - id: grid_export_limit_2025
+    status: passed
   - id: owner_15min_field_validation
     status: not_testable
   - id: aerial_pv_detection_validation
@@ -95,7 +105,7 @@ validation:
   - id: hosted_table_matches_canonical
     status: passed
 validation_report: validation/latest-report.json
-context_sha256: sha256:bab01ba9bfa9b64189dd456809d45cf797ee4155b1bbb174476f65264b10eb05
+context_sha256: sha256:cb3fbb43581030c48d797697b5dd2f5af3239ef280d7de3785c5b60185840dd3
 assumptions:
 - id: hypothetical
   statement: The initial 30 × 12 m, 20 kWp array is a hypothetical planning scenario,
@@ -107,6 +117,16 @@ assumptions:
     are WGS84 longitude, latitude.
   rationale: Estonia's projected CRS supports metre-based calculations without Web
     Mercator area distortion.
+- id: electrical_limits
+  statement: PV capacity is DC kWp. The inverter AC ceiling and independent net grid-export
+    ceiling are explicit nullable settings; the hypothetical baseline leaves both
+    null, meaning unspecified and unlimited in this model. A zero grid limit forbids
+    export.
+  rationale: Equipment and connection limits are not inferred from uploaded measurements.
+    Inverter clipping uses hourly mean potential generation; grid curtailment follows
+    local demand and optional storage. A shared battery connection respects the same
+    AC output budget; a separate connection uses its own battery power limit. Neither
+    topology recovers clipped PV.
 - id: weather
   statement: Hourly ERA5 weather is a grid estimate shared across this bounded pilot;
     it is not site-measured irradiance.
@@ -238,10 +258,10 @@ warnings:
 - id: MARKET
   severity: medium
   issue: market
-  statement: Energy value uses explicit consumption and price assumptions; optional
-    storage is a separate historical dispatch comparison. Figures exclude taxes, unentered
-    grid charges, curtailment and financing. The default import adder is zero, and
-    2025 quarter-hour prices are averaged hourly.
+  statement: Energy value uses explicit consumption, inverter and net-export limits;
+    optional storage is a separate historical dispatch comparison. Figures exclude
+    taxes, unentered grid charges, dynamic operator curtailment and financing. The
+    default import adder is zero, and 2025 quarter-hour prices are averaged hourly.
   mitigation: Inspect source provenance and methodology before using the planning
     estimate.
 - id: LICENSE
@@ -277,15 +297,18 @@ warnings:
 findings:
 - id: season_2024
   statement: '2024: clear-sky estimate 31780.8 kWh; weather-adjusted shadow-free 19890.7
-    kWh; locally shaded 19234.4 kWh. Local shadow loss 656.3 kWh (3.30%). If all generation
-    were exported, wholesale revenue after margin would be 1136.90 EUR; the corresponding
-    all-export shadow loss would be 58.44 EUR. With the declared day/night consumption
-    assumption, demand is 5124.0 kWh, self-consumed PV 2438.2 kWh, surplus export
-    16796.2 kWh and grid import 2685.8 kWh. Surplus sales are 943.98 EUR and avoided
-    import cost 205.11 EUR, giving net PV benefit 1149.09 EUR. Local shadows reduce
-    this combined value by 58.72 EUR versus shadow-free weather. Storage is explicitly
-    disabled; the configured capacity would be 40 kWh. The separate storage table
-    retains the same imports, exports and benefit with zero dispatch.'
+    kWh; locally shaded 19234.4 kWh. Local shadow loss 656.3 kWh (3.30%). The inverter
+    ceiling removes 0.0 kWh; the no-storage net-export ceiling curtails 0.0 kWh, leaving
+    19234.4 kWh generated for on-site use or export. If all available AC generation
+    were exported without a net-grid ceiling, wholesale revenue after margin would
+    be 1136.90 EUR; the corresponding all-export shadow loss would be 58.44 EUR. With
+    the declared day/night consumption assumption, demand is 5124.0 kWh, self-consumed
+    PV 2438.2 kWh, surplus export 16796.2 kWh and grid import 2685.8 kWh. Surplus
+    sales are 943.98 EUR and avoided import cost 205.11 EUR, giving net PV benefit
+    1149.09 EUR. Local shadows reduce this combined value by 58.72 EUR versus shadow-free
+    weather. Storage is explicitly disabled; the configured capacity would be 40 kWh.
+    The separate storage table retains the same imports, exports and benefit with
+    zero dispatch.'
   evidence:
   - seasonal_summary
   - planning_scenario
@@ -296,17 +319,26 @@ findings:
     demand in Europe/Tallinn; daytime is 07:00–23:00. The import adder is 0 EUR/MWh;
     charges are included only when explicitly represented in that adder. Independently
     verified field calibration is not established.
+  - 'Inverter AC ceiling: unspecified (unlimited in this model); net grid-export ceiling:
+    unspecified (unlimited in this model). Clipping uses hourly mean modeled generation;
+    grid curtailment follows demand and optional storage at quarter-hour resolution.
+    The battery inverter connection is shared; shared mode applies the configured
+    common AC budget without recovering clipped PV. Unspecified equipment is not inferred
+    from private uploads.'
 - id: season_2025
   statement: '2025: clear-sky estimate 31969.9 kWh; weather-adjusted shadow-free 18647.6
-    kWh; locally shaded 18012.8 kWh. Local shadow loss 634.8 kWh (3.40%). If all generation
-    were exported, wholesale revenue after margin would be 759.04 EUR; the corresponding
-    all-export shadow loss would be 49.67 EUR. With the declared day/night consumption
-    assumption, demand is 5110.0 kWh, self-consumed PV 2417.1 kWh, surplus export
-    15595.7 kWh and grid import 2692.9 kWh. Surplus sales are 595.91 EUR and avoided
-    import cost 175.22 EUR, giving net PV benefit 771.13 EUR. Local shadows reduce
-    this combined value by 49.93 EUR versus shadow-free weather. Storage is explicitly
-    disabled; the configured capacity would be 40 kWh. The separate storage table
-    retains the same imports, exports and benefit with zero dispatch.'
+    kWh; locally shaded 18012.8 kWh. Local shadow loss 634.8 kWh (3.40%). The inverter
+    ceiling removes 0.0 kWh; the no-storage net-export ceiling curtails 0.0 kWh, leaving
+    18012.8 kWh generated for on-site use or export. If all available AC generation
+    were exported without a net-grid ceiling, wholesale revenue after margin would
+    be 759.04 EUR; the corresponding all-export shadow loss would be 49.67 EUR. With
+    the declared day/night consumption assumption, demand is 5110.0 kWh, self-consumed
+    PV 2417.1 kWh, surplus export 15595.7 kWh and grid import 2692.9 kWh. Surplus
+    sales are 595.91 EUR and avoided import cost 175.22 EUR, giving net PV benefit
+    771.13 EUR. Local shadows reduce this combined value by 49.93 EUR versus shadow-free
+    weather. Storage is explicitly disabled; the configured capacity would be 40 kWh.
+    The separate storage table retains the same imports, exports and benefit with
+    zero dispatch.'
   evidence:
   - seasonal_summary
   - planning_scenario
@@ -317,6 +349,12 @@ findings:
     demand in Europe/Tallinn; daytime is 07:00–23:00. The import adder is 0 EUR/MWh;
     charges are included only when explicitly represented in that adder. Independently
     verified field calibration is not established.
+  - 'Inverter AC ceiling: unspecified (unlimited in this model); net grid-export ceiling:
+    unspecified (unlimited in this model). Clipping uses hourly mean modeled generation;
+    grid curtailment follows demand and optional storage at quarter-hour resolution.
+    The battery inverter connection is shared; shared mode applies the configured
+    common AC budget without recovering clipped PV. Unspecified equipment is not inferred
+    from private uploads.'
 evidence:
   seasonal_summary:
     definition:
@@ -388,32 +426,36 @@ evidence:
         - name: clearRevenueEur
           type: number
           unit: EUR
-          description: All-generation-export comparator; use exportRevenueEur and
-            netBenefitEur for the consumption scenario.
+          description: All-available-AC-generation-export comparator before net-grid
+            limits or local demand; use exportRevenueEur and netBenefitEur for the
+            actual surplus scenario.
         - name: pricedWeatherRevenueEur
           type: number
           unit: EUR
         - name: weatherRevenueEur
           type: number
           unit: EUR
-          description: All-generation-export comparator; use exportRevenueEur and
-            netBenefitEur for the consumption scenario.
+          description: All-available-AC-generation-export comparator before net-grid
+            limits or local demand; use exportRevenueEur and netBenefitEur for the
+            actual surplus scenario.
         - name: pricedShadedRevenueEur
           type: number
           unit: EUR
         - name: shadedRevenueEur
           type: number
           unit: EUR
-          description: All-generation-export comparator; use exportRevenueEur and
-            netBenefitEur for the consumption scenario.
+          description: All-available-AC-generation-export comparator before net-grid
+            limits or local demand; use exportRevenueEur and netBenefitEur for the
+            actual surplus scenario.
         - name: pricedShadowRevenueLossEur
           type: number
           unit: EUR
         - name: shadowRevenueLossEur
           type: number
           unit: EUR
-          description: All-generation-export comparator; use exportRevenueEur and
-            netBenefitEur for the consumption scenario.
+          description: All-available-AC-generation-export comparator before net-grid
+            limits or local demand; use exportRevenueEur and netBenefitEur for the
+            actual surplus scenario.
         - name: coveredConsumptionKwh
           type: number
           unit: kWh
@@ -540,11 +582,135 @@ evidence:
         - name: selfSufficiencyPct
           type: number
           unit: '%'
+        - name: clearPreInverterKwh
+          type: number
+          unit: kWh
+          description: Modeled energy after aggregate system losses and before the
+            explicit inverter AC ceiling.
+        - name: weatherPreInverterKwh
+          type: number
+          unit: kWh
+          description: Modeled energy after aggregate system losses and before the
+            explicit inverter AC ceiling.
+        - name: shadedPreInverterKwh
+          type: number
+          unit: kWh
+          description: Modeled energy after aggregate system losses and before the
+            explicit inverter AC ceiling.
+        - name: clearInverterClippingKwh
+          type: number
+          unit: kWh
+          description: Energy excluded by the configured inverter AC ceiling at hourly
+            mean resolution.
+        - name: weatherInverterClippingKwh
+          type: number
+          unit: kWh
+          description: Energy excluded by the configured inverter AC ceiling at hourly
+            mean resolution.
+        - name: shadedInverterClippingKwh
+          type: number
+          unit: kWh
+          description: Energy excluded by the configured inverter AC ceiling at hourly
+            mean resolution.
+        - name: availablePvKwh
+          type: number
+          unit: kWh
+          description: Potential AC PV after inverter clipping and before grid curtailment.
+        - name: pvGeneratedKwh
+          type: number
+          unit: kWh
+          description: Available AC PV remaining after grid curtailment.
+        - name: curtailedKwh
+          type: number
+          unit: kWh
+          description: Available AC PV excluded by the net grid-export ceiling after
+            demand and any applicable storage.
+        - name: weatherAvailablePvKwh
+          type: number
+          unit: kWh
+          description: 'Shadow-free weather comparison: Potential AC PV after inverter
+            clipping and before grid curtailment.'
+        - name: weatherPvGeneratedKwh
+          type: number
+          unit: kWh
+          description: 'Shadow-free weather comparison: Available AC PV remaining
+            after grid curtailment.'
+        - name: weatherCurtailedKwh
+          type: number
+          unit: kWh
+          description: 'Shadow-free weather comparison: Available AC PV excluded by
+            the net grid-export ceiling after demand and any applicable storage.'
+        - name: coveredClearPreInverterKwh
+          type: number
+          unit: kWh
+          description: Known matching-interval subset without extrapolation. Modeled
+            energy after aggregate system losses and before the explicit inverter
+            AC ceiling.
+        - name: coveredWeatherPreInverterKwh
+          type: number
+          unit: kWh
+          description: Known matching-interval subset without extrapolation. Modeled
+            energy after aggregate system losses and before the explicit inverter
+            AC ceiling.
+        - name: coveredShadedPreInverterKwh
+          type: number
+          unit: kWh
+          description: Known matching-interval subset without extrapolation. Modeled
+            energy after aggregate system losses and before the explicit inverter
+            AC ceiling.
+        - name: coveredClearInverterClippingKwh
+          type: number
+          unit: kWh
+          description: Known matching-interval subset without extrapolation. Energy
+            excluded by the configured inverter AC ceiling at hourly mean resolution.
+        - name: coveredWeatherInverterClippingKwh
+          type: number
+          unit: kWh
+          description: Known matching-interval subset without extrapolation. Energy
+            excluded by the configured inverter AC ceiling at hourly mean resolution.
+        - name: coveredShadedInverterClippingKwh
+          type: number
+          unit: kWh
+          description: Known matching-interval subset without extrapolation. Energy
+            excluded by the configured inverter AC ceiling at hourly mean resolution.
+        - name: coveredAvailablePvKwh
+          type: number
+          unit: kWh
+          description: Known matching-interval subset without extrapolation. Potential
+            AC PV after inverter clipping and before grid curtailment.
+        - name: coveredPvGeneratedKwh
+          type: number
+          unit: kWh
+          description: Known matching-interval subset without extrapolation. Available
+            AC PV remaining after grid curtailment.
+        - name: coveredCurtailedKwh
+          type: number
+          unit: kWh
+          description: Known matching-interval subset without extrapolation. Available
+            AC PV excluded by the net grid-export ceiling after demand and any applicable
+            storage.
+        - name: coveredWeatherAvailablePvKwh
+          type: number
+          unit: kWh
+          description: 'Known matching-interval subset without extrapolation. Shadow-free
+            weather comparison: Potential AC PV after inverter clipping and before
+            grid curtailment.'
+        - name: coveredWeatherPvGeneratedKwh
+          type: number
+          unit: kWh
+          description: 'Known matching-interval subset without extrapolation. Shadow-free
+            weather comparison: Available AC PV remaining after grid curtailment.'
+        - name: coveredWeatherCurtailedKwh
+          type: number
+          unit: kWh
+          description: 'Known matching-interval subset without extrapolation. Shadow-free
+            weather comparison: Available AC PV excluded by the net grid-export ceiling
+            after demand and any applicable storage.'
       downloads:
       - csv
     files:
     - path: data/derived/seasonal-summary.csv
-      sha256: sha256:d69c4c9c730bbf6e92488f9013811142514fd4affde245f3b3ea4e8083ccf40b
+      sha256: sha256:d9742a1afd654170651939b47ac1b356de6dc6cb27c48b1f49362c1562405e1a
   planning_scenario:
     definition:
       path: data/derived/planning-scenario.geojson
@@ -554,7 +720,7 @@ evidence:
       crs: EPSG:4326
     files:
     - path: data/derived/planning-scenario.geojson
-      sha256: sha256:a10e3c78e6549c65d6e46d0fa300f0aca9b26574c2d06468f8969ab48d5fe420
+      sha256: sha256:79fee71bea38596e7584d910b9a47a8c148ef85d39e468b77c5704dbb87e5e91
   hourly_results:
     definition:
       path: data/derived/hourly.csv
@@ -603,23 +769,27 @@ evidence:
         - name: clearRevenueEur
           type: number
           unit: EUR
-          description: All-generation-export comparator; use exportRevenueEur and
-            netBenefitEur for the consumption scenario.
+          description: All-available-AC-generation-export comparator before net-grid
+            limits or local demand; use exportRevenueEur and netBenefitEur for the
+            actual surplus scenario.
         - name: weatherRevenueEur
           type: number
           unit: EUR
-          description: All-generation-export comparator; use exportRevenueEur and
-            netBenefitEur for the consumption scenario.
+          description: All-available-AC-generation-export comparator before net-grid
+            limits or local demand; use exportRevenueEur and netBenefitEur for the
+            actual surplus scenario.
         - name: shadedRevenueEur
           type: number
           unit: EUR
-          description: All-generation-export comparator; use exportRevenueEur and
-            netBenefitEur for the consumption scenario.
+          description: All-available-AC-generation-export comparator before net-grid
+            limits or local demand; use exportRevenueEur and netBenefitEur for the
+            actual surplus scenario.
         - name: shadowRevenueLossEur
           type: number
           unit: EUR
-          description: All-generation-export comparator; use exportRevenueEur and
-            netBenefitEur for the consumption scenario.
+          description: All-available-AC-generation-export comparator before net-grid
+            limits or local demand; use exportRevenueEur and netBenefitEur for the
+            actual surplus scenario.
         - name: coveredConsumptionKwh
           type: number
           unit: kWh
@@ -746,11 +916,102 @@ evidence:
         - name: selfSufficiencyPct
           type: number
           unit: '%'
+        - name: clearPreInverterKwh
+          type: number
+          unit: kWh
+          description: Modeled energy after aggregate system losses and before the
+            explicit inverter AC ceiling.
+        - name: weatherPreInverterKwh
+          type: number
+          unit: kWh
+          description: Modeled energy after aggregate system losses and before the
+            explicit inverter AC ceiling.
+        - name: shadedPreInverterKwh
+          type: number
+          unit: kWh
+          description: Modeled energy after aggregate system losses and before the
+            explicit inverter AC ceiling.
+        - name: clearInverterClippingKwh
+          type: number
+          unit: kWh
+          description: Energy excluded by the configured inverter AC ceiling at hourly
+            mean resolution.
+        - name: weatherInverterClippingKwh
+          type: number
+          unit: kWh
+          description: Energy excluded by the configured inverter AC ceiling at hourly
+            mean resolution.
+        - name: shadedInverterClippingKwh
+          type: number
+          unit: kWh
+          description: Energy excluded by the configured inverter AC ceiling at hourly
+            mean resolution.
+        - name: availablePvKwh
+          type: number
+          unit: kWh
+          description: Potential AC PV after inverter clipping and before grid curtailment.
+        - name: pvGeneratedKwh
+          type: number
+          unit: kWh
+          description: Available AC PV remaining after grid curtailment.
+        - name: curtailedKwh
+          type: number
+          unit: kWh
+          description: Available AC PV excluded by the net grid-export ceiling after
+            demand and any applicable storage.
+        - name: weatherAvailablePvKwh
+          type: number
+          unit: kWh
+          description: 'Shadow-free weather comparison: Potential AC PV after inverter
+            clipping and before grid curtailment.'
+        - name: weatherPvGeneratedKwh
+          type: number
+          unit: kWh
+          description: 'Shadow-free weather comparison: Available AC PV remaining
+            after grid curtailment.'
+        - name: weatherCurtailedKwh
+          type: number
+          unit: kWh
+          description: 'Shadow-free weather comparison: Available AC PV excluded by
+            the net grid-export ceiling after demand and any applicable storage.'
+        - name: coveredAvailablePvKwh
+          type: number
+          unit: kWh
+          description: Known matching-interval subset without extrapolation. Potential
+            AC PV after inverter clipping and before grid curtailment.
+        - name: coveredPvGeneratedKwh
+          type: number
+          unit: kWh
+          description: Known matching-interval subset without extrapolation. Available
+            AC PV remaining after grid curtailment.
+        - name: coveredCurtailedKwh
+          type: number
+          unit: kWh
+          description: Known matching-interval subset without extrapolation. Available
+            AC PV excluded by the net grid-export ceiling after demand and any applicable
+            storage.
+        - name: coveredWeatherAvailablePvKwh
+          type: number
+          unit: kWh
+          description: 'Known matching-interval subset without extrapolation. Shadow-free
+            weather comparison: Potential AC PV after inverter clipping and before
+            grid curtailment.'
+        - name: coveredWeatherPvGeneratedKwh
+          type: number
+          unit: kWh
+          description: 'Known matching-interval subset without extrapolation. Shadow-free
+            weather comparison: Available AC PV remaining after grid curtailment.'
+        - name: coveredWeatherCurtailedKwh
+          type: number
+          unit: kWh
+          description: 'Known matching-interval subset without extrapolation. Shadow-free
+            weather comparison: Available AC PV excluded by the net grid-export ceiling
+            after demand and any applicable storage.'
       downloads:
       - csv
     files:
     - path: data/derived/hourly.csv
-      sha256: sha256:63421e282fe8bde4c4b603afb15a8e5d8442a52a5d2e9d8211f0b830dc9c34d0
+      sha256: sha256:03a5bc27f47c7a256d217183c58bfa7cb65a580150c307e5bf885918cd974c7f
   storage_summary:
     definition:
       path: data/derived/storage-summary.csv
@@ -1121,23 +1382,62 @@ evidence:
           unit: kWh
           description: Usable stored energy attributed to PV or grid input at the
             end of the period; excludes reserve.
+        - name: availablePvKwh
+          type: number
+          unit: kWh
+          description: Potential AC PV after inverter clipping and before grid curtailment.
+        - name: pvGeneratedKwh
+          type: number
+          unit: kWh
+          description: Available AC PV remaining after grid curtailment.
+        - name: curtailedKwh
+          type: number
+          unit: kWh
+          description: Available AC PV excluded by the net grid-export ceiling after
+            demand and any applicable storage.
+        - name: noBatteryCurtailedKwh
+          type: number
+          unit: kWh
+          description: Grid-export curtailment in the matching comparison without
+            storage.
+        - name: coveredAvailablePvKwh
+          type: number
+          unit: kWh
+          description: Known matching-interval subset without extrapolation. Potential
+            AC PV after inverter clipping and before grid curtailment.
+        - name: coveredPvGeneratedKwh
+          type: number
+          unit: kWh
+          description: Known matching-interval subset without extrapolation. Available
+            AC PV remaining after grid curtailment.
+        - name: coveredCurtailedKwh
+          type: number
+          unit: kWh
+          description: Known matching-interval subset without extrapolation. Available
+            AC PV excluded by the net grid-export ceiling after demand and any applicable
+            storage.
+        - name: coveredNoBatteryCurtailedKwh
+          type: number
+          unit: kWh
+          description: Known matching-interval subset without extrapolation. Grid-export
+            curtailment in the matching comparison without storage.
         key:
         - year
       downloads:
       - csv
     files:
     - path: data/derived/storage-summary.csv
-      sha256: sha256:1131544e3f1e165bef094b3ddd6d3603a1edff97fffd7b2c82de786e6dbfa78b
+      sha256: sha256:bec2b4b93ff458f367e3f9b964110172d66b65bf9dffabfad5d323dccecc9715
 ---
 # Findings
 
 Estimate hypothetical PV production, local shadow losses and historical energy value with local consumption and optional storage; select bounded Estonian contexts and export a reviewable scenario PDF.
 
-Scope: one hypothetical 20 kWp array within the retained manifest AOI, complete UTC years 2024 and 2025. Run: `run-20261026-154345`. Validation: **warning**.
+Scope: one hypothetical 20 kWp array within the retained manifest AOI, complete UTC years 2024 and 2025. Run: `run-20261026-160522`. Validation: **warning**.
 
 ## season_2024
 
-2024: clear-sky estimate 31780.8 kWh; weather-adjusted shadow-free 19890.7 kWh; locally shaded 19234.4 kWh. Local shadow loss 656.3 kWh (3.30%). If all generation were exported, wholesale revenue after margin would be 1136.90 EUR; the corresponding all-export shadow loss would be 58.44 EUR. With the declared day/night consumption assumption, demand is 5124.0 kWh, self-consumed PV 2438.2 kWh, surplus export 16796.2 kWh and grid import 2685.8 kWh. Surplus sales are 943.98 EUR and avoided import cost 205.11 EUR, giving net PV benefit 1149.09 EUR. Local shadows reduce this combined value by 58.72 EUR versus shadow-free weather. Storage is explicitly disabled; the configured capacity would be 40 kWh. The separate storage table retains the same imports, exports and benefit with zero dispatch.
+2024: clear-sky estimate 31780.8 kWh; weather-adjusted shadow-free 19890.7 kWh; locally shaded 19234.4 kWh. Local shadow loss 656.3 kWh (3.30%). The inverter ceiling removes 0.0 kWh; the no-storage net-export ceiling curtails 0.0 kWh, leaving 19234.4 kWh generated for on-site use or export. If all available AC generation were exported without a net-grid ceiling, wholesale revenue after margin would be 1136.90 EUR; the corresponding all-export shadow loss would be 58.44 EUR. With the declared day/night consumption assumption, demand is 5124.0 kWh, self-consumed PV 2438.2 kWh, surplus export 16796.2 kWh and grid import 2685.8 kWh. Surplus sales are 943.98 EUR and avoided import cost 205.11 EUR, giving net PV benefit 1149.09 EUR. Local shadows reduce this combined value by 58.72 EUR versus shadow-free weather. Storage is explicitly disabled; the configured capacity would be 40 kWh. The separate storage table retains the same imports, exports and benefit with zero dispatch.
 
 Evidence:
 
@@ -1147,10 +1447,12 @@ Evidence:
 - [storage_summary](data/derived/storage-summary.csv)
 
 Limitation: Hypothetical array and estimated 10 kWh daytime / 4 kWh nighttime local daily demand in Europe/Tallinn; daytime is 07:00–23:00. The import adder is 0 EUR/MWh; charges are included only when explicitly represented in that adder. Independently verified field calibration is not established.
+
+Limitation: Inverter AC ceiling: unspecified (unlimited in this model); net grid-export ceiling: unspecified (unlimited in this model). Clipping uses hourly mean modeled generation; grid curtailment follows demand and optional storage at quarter-hour resolution. The battery inverter connection is shared; shared mode applies the configured common AC budget without recovering clipped PV. Unspecified equipment is not inferred from private uploads.
 
 ## season_2025
 
-2025: clear-sky estimate 31969.9 kWh; weather-adjusted shadow-free 18647.6 kWh; locally shaded 18012.8 kWh. Local shadow loss 634.8 kWh (3.40%). If all generation were exported, wholesale revenue after margin would be 759.04 EUR; the corresponding all-export shadow loss would be 49.67 EUR. With the declared day/night consumption assumption, demand is 5110.0 kWh, self-consumed PV 2417.1 kWh, surplus export 15595.7 kWh and grid import 2692.9 kWh. Surplus sales are 595.91 EUR and avoided import cost 175.22 EUR, giving net PV benefit 771.13 EUR. Local shadows reduce this combined value by 49.93 EUR versus shadow-free weather. Storage is explicitly disabled; the configured capacity would be 40 kWh. The separate storage table retains the same imports, exports and benefit with zero dispatch.
+2025: clear-sky estimate 31969.9 kWh; weather-adjusted shadow-free 18647.6 kWh; locally shaded 18012.8 kWh. Local shadow loss 634.8 kWh (3.40%). The inverter ceiling removes 0.0 kWh; the no-storage net-export ceiling curtails 0.0 kWh, leaving 18012.8 kWh generated for on-site use or export. If all available AC generation were exported without a net-grid ceiling, wholesale revenue after margin would be 759.04 EUR; the corresponding all-export shadow loss would be 49.67 EUR. With the declared day/night consumption assumption, demand is 5110.0 kWh, self-consumed PV 2417.1 kWh, surplus export 15595.7 kWh and grid import 2692.9 kWh. Surplus sales are 595.91 EUR and avoided import cost 175.22 EUR, giving net PV benefit 771.13 EUR. Local shadows reduce this combined value by 49.93 EUR versus shadow-free weather. Storage is explicitly disabled; the configured capacity would be 40 kWh. The separate storage table retains the same imports, exports and benefit with zero dispatch.
 
 Evidence:
 
@@ -1160,11 +1462,14 @@ Evidence:
 - [storage_summary](data/derived/storage-summary.csv)
 
 Limitation: Hypothetical array and estimated 10 kWh daytime / 4 kWh nighttime local daily demand in Europe/Tallinn; daytime is 07:00–23:00. The import adder is 0 EUR/MWh; charges are included only when explicitly represented in that adder. Independently verified field calibration is not established.
+
+Limitation: Inverter AC ceiling: unspecified (unlimited in this model); net grid-export ceiling: unspecified (unlimited in this model). Clipping uses hourly mean modeled generation; grid curtailment follows demand and optional storage at quarter-hour resolution. The battery inverter connection is shared; shared mode applies the configured common AC budget without recovering clipped PV. Unspecified equipment is not inferred from private uploads.
 
 ## Assumptions and limitations
 
 - The initial 30 × 12 m, 20 kWp array is a hypothetical planning scenario, not an observed PV installation or suitability recommendation. Issue #4 requests manual polygon planning; the open-surface patch was selected from the frozen DSM without inferring rights or engineering suitability.
 - All metric geometry and horizon distances use EPSG:3301; GeoJSON coordinates are WGS84 longitude, latitude. Estonia's projected CRS supports metre-based calculations without Web Mercator area distortion.
+- PV capacity is DC kWp. The inverter AC ceiling and independent net grid-export ceiling are explicit nullable settings; the hypothetical baseline leaves both null, meaning unspecified and unlimited in this model. A zero grid limit forbids export. Equipment and connection limits are not inferred from uploaded measurements. Inverter clipping uses hourly mean potential generation; grid curtailment follows local demand and optional storage. A shared battery connection respects the same AC output budget; a separate connection uses its own battery power limit. Neither topology recovers clipped PV.
 - Hourly ERA5 weather is a grid estimate shared across this bounded pilot; it is not site-measured irradiance. Site irradiance and a matching installation have not been independently verified for canonical field calibration; private browser uploads do not become retained calibration evidence.
 - The frozen 5 m DSM/DTM download is not asserted contemporaneous with either 2024 or 2025. Per-cell LiDAR acquisition dates are not exposed by the selected WCS response.
 - Local shadows use equal-weight polygon receiver samples and a 500 m DSM horizon at 2° azimuth intervals, with 2 m mounting height initially. A bounded horizon approximation captures major buildings and vegetation while remaining interactive; module electrical mismatch is outside scope.
@@ -1184,7 +1489,7 @@ Limitation: Hypothetical array and estimated 10 kWh daytime / 4 kWh nighttime lo
 - Energy is an uncalibrated planning estimate from ERA5 and a 5 m horizon model. Field accuracy has not been established against an independently verified matching installation and retained calibration inputs; private browser uploads are not canonical source evidence.
 - DSM catalog metadata describes acquisition campaigns in 2017–2020; exact cell dates are unknown. The frozen 5 m surface may differ from 2024/2025 and omits small objects, seasonal foliage and electrical mismatch.
 - The retained canonical source context is a 2 × 2 km Tartu pilot. Another selected Estonian area loads its own bounded source context and remains exploratory; missing context is not extrapolated from Tartu.
-- Energy value uses explicit consumption and price assumptions; optional storage is a separate historical dispatch comparison. Figures exclude taxes, unentered grid charges, curtailment and financing. The default import adder is zero, and 2025 quarter-hour prices are averaged hourly.
+- Energy value uses explicit consumption, inverter and net-export limits; optional storage is a separate historical dispatch comparison. Figures exclude taxes, unentered grid charges, dynamic operator curtailment and financing. The default import adder is zero, and 2025 quarter-hour prices are averaged hourly.
 - Elering price-data reuse licensing was not verified in the public API documentation; source attribution and the unresolved status are retained.
 - Aerial PV detection and installation-level government reconciliation are not evaluated; available government data are municipality aggregates.
 - The published 10 kWh day / 4 kWh night household demand is an estimate, not a measured household profile. Partial CSV imports do not establish full-year demand or savings.

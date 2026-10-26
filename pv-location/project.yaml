@@ -23,7 +23,7 @@ project:
     energy value with local consumption and optional storage; select bounded Estonian
     contexts and export a reviewable scenario PDF.
   created_at: '2026-10-26T09:40:35Z'
-  updated_at: '2026-10-26T15:43:50.338808+00:00'
+  updated_at: '2026-10-26T16:05:27.956736+00:00'
   status: warning
   aoi:
     bbox:
@@ -55,6 +55,16 @@ interpretation:
       are WGS84 longitude, latitude.
     rationale: Estonia's projected CRS supports metre-based calculations without Web
       Mercator area distortion.
+  - id: electrical_limits
+    statement: PV capacity is DC kWp. The inverter AC ceiling and independent net
+      grid-export ceiling are explicit nullable settings; the hypothetical baseline
+      leaves both null, meaning unspecified and unlimited in this model. A zero grid
+      limit forbids export.
+    rationale: Equipment and connection limits are not inferred from uploaded measurements.
+      Inverter clipping uses hourly mean potential generation; grid curtailment follows
+      local demand and optional storage. A shared battery connection respects the
+      same AC output budget; a separate connection uses its own battery power limit.
+      Neither topology recovers clipped PV.
   - id: weather
     statement: Hourly ERA5 weather is a grid estimate shared across this bounded pilot;
       it is not site-measured irradiance.
@@ -737,6 +747,7 @@ processing:
       fillMissingWithEstimate: false
     storage:
       enabled: false
+      inverterConnection: shared
       capacityMode: auto
       capacityKwh: 40
       powerMode: kw
@@ -752,6 +763,8 @@ processing:
       allowBatteryExport: false
       cyclingCostEurKwh: 0.02
       socSteps: 80
+    inverterAcKw: null
+    gridExportLimitKw: null
   - id: export
     operation: write_geodata_tables_and_browser_data
     input: modeled_seasons
@@ -844,32 +857,36 @@ outputs:
       - name: clearRevenueEur
         type: number
         unit: EUR
-        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
-          for the consumption scenario.
+        description: All-available-AC-generation-export comparator before net-grid
+          limits or local demand; use exportRevenueEur and netBenefitEur for the actual
+          surplus scenario.
       - name: pricedWeatherRevenueEur
         type: number
         unit: EUR
       - name: weatherRevenueEur
         type: number
         unit: EUR
-        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
-          for the consumption scenario.
+        description: All-available-AC-generation-export comparator before net-grid
+          limits or local demand; use exportRevenueEur and netBenefitEur for the actual
+          surplus scenario.
       - name: pricedShadedRevenueEur
         type: number
         unit: EUR
       - name: shadedRevenueEur
         type: number
         unit: EUR
-        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
-          for the consumption scenario.
+        description: All-available-AC-generation-export comparator before net-grid
+          limits or local demand; use exportRevenueEur and netBenefitEur for the actual
+          surplus scenario.
       - name: pricedShadowRevenueLossEur
         type: number
         unit: EUR
       - name: shadowRevenueLossEur
         type: number
         unit: EUR
-        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
-          for the consumption scenario.
+        description: All-available-AC-generation-export comparator before net-grid
+          limits or local demand; use exportRevenueEur and netBenefitEur for the actual
+          surplus scenario.
       - name: coveredConsumptionKwh
         type: number
         unit: kWh
@@ -996,6 +1013,130 @@ outputs:
       - name: selfSufficiencyPct
         type: number
         unit: '%'
+      - name: clearPreInverterKwh
+        type: number
+        unit: kWh
+        description: Modeled energy after aggregate system losses and before the explicit
+          inverter AC ceiling.
+      - name: weatherPreInverterKwh
+        type: number
+        unit: kWh
+        description: Modeled energy after aggregate system losses and before the explicit
+          inverter AC ceiling.
+      - name: shadedPreInverterKwh
+        type: number
+        unit: kWh
+        description: Modeled energy after aggregate system losses and before the explicit
+          inverter AC ceiling.
+      - name: clearInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Energy excluded by the configured inverter AC ceiling at hourly
+          mean resolution.
+      - name: weatherInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Energy excluded by the configured inverter AC ceiling at hourly
+          mean resolution.
+      - name: shadedInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Energy excluded by the configured inverter AC ceiling at hourly
+          mean resolution.
+      - name: availablePvKwh
+        type: number
+        unit: kWh
+        description: Potential AC PV after inverter clipping and before grid curtailment.
+      - name: pvGeneratedKwh
+        type: number
+        unit: kWh
+        description: Available AC PV remaining after grid curtailment.
+      - name: curtailedKwh
+        type: number
+        unit: kWh
+        description: Available AC PV excluded by the net grid-export ceiling after
+          demand and any applicable storage.
+      - name: weatherAvailablePvKwh
+        type: number
+        unit: kWh
+        description: 'Shadow-free weather comparison: Potential AC PV after inverter
+          clipping and before grid curtailment.'
+      - name: weatherPvGeneratedKwh
+        type: number
+        unit: kWh
+        description: 'Shadow-free weather comparison: Available AC PV remaining after
+          grid curtailment.'
+      - name: weatherCurtailedKwh
+        type: number
+        unit: kWh
+        description: 'Shadow-free weather comparison: Available AC PV excluded by
+          the net grid-export ceiling after demand and any applicable storage.'
+      - name: coveredClearPreInverterKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Modeled
+          energy after aggregate system losses and before the explicit inverter AC
+          ceiling.
+      - name: coveredWeatherPreInverterKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Modeled
+          energy after aggregate system losses and before the explicit inverter AC
+          ceiling.
+      - name: coveredShadedPreInverterKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Modeled
+          energy after aggregate system losses and before the explicit inverter AC
+          ceiling.
+      - name: coveredClearInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Energy
+          excluded by the configured inverter AC ceiling at hourly mean resolution.
+      - name: coveredWeatherInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Energy
+          excluded by the configured inverter AC ceiling at hourly mean resolution.
+      - name: coveredShadedInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Energy
+          excluded by the configured inverter AC ceiling at hourly mean resolution.
+      - name: coveredAvailablePvKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Potential
+          AC PV after inverter clipping and before grid curtailment.
+      - name: coveredPvGeneratedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Available
+          AC PV remaining after grid curtailment.
+      - name: coveredCurtailedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Available
+          AC PV excluded by the net grid-export ceiling after demand and any applicable
+          storage.
+      - name: coveredWeatherAvailablePvKwh
+        type: number
+        unit: kWh
+        description: 'Known matching-interval subset without extrapolation. Shadow-free
+          weather comparison: Potential AC PV after inverter clipping and before grid
+          curtailment.'
+      - name: coveredWeatherPvGeneratedKwh
+        type: number
+        unit: kWh
+        description: 'Known matching-interval subset without extrapolation. Shadow-free
+          weather comparison: Available AC PV remaining after grid curtailment.'
+      - name: coveredWeatherCurtailedKwh
+        type: number
+        unit: kWh
+        description: 'Known matching-interval subset without extrapolation. Shadow-free
+          weather comparison: Available AC PV excluded by the net grid-export ceiling
+          after demand and any applicable storage.'
     downloads:
     - csv
   hourly_results:
@@ -1045,23 +1186,27 @@ outputs:
       - name: clearRevenueEur
         type: number
         unit: EUR
-        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
-          for the consumption scenario.
+        description: All-available-AC-generation-export comparator before net-grid
+          limits or local demand; use exportRevenueEur and netBenefitEur for the actual
+          surplus scenario.
       - name: weatherRevenueEur
         type: number
         unit: EUR
-        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
-          for the consumption scenario.
+        description: All-available-AC-generation-export comparator before net-grid
+          limits or local demand; use exportRevenueEur and netBenefitEur for the actual
+          surplus scenario.
       - name: shadedRevenueEur
         type: number
         unit: EUR
-        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
-          for the consumption scenario.
+        description: All-available-AC-generation-export comparator before net-grid
+          limits or local demand; use exportRevenueEur and netBenefitEur for the actual
+          surplus scenario.
       - name: shadowRevenueLossEur
         type: number
         unit: EUR
-        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
-          for the consumption scenario.
+        description: All-available-AC-generation-export comparator before net-grid
+          limits or local demand; use exportRevenueEur and netBenefitEur for the actual
+          surplus scenario.
       - name: coveredConsumptionKwh
         type: number
         unit: kWh
@@ -1188,6 +1333,97 @@ outputs:
       - name: selfSufficiencyPct
         type: number
         unit: '%'
+      - name: clearPreInverterKwh
+        type: number
+        unit: kWh
+        description: Modeled energy after aggregate system losses and before the explicit
+          inverter AC ceiling.
+      - name: weatherPreInverterKwh
+        type: number
+        unit: kWh
+        description: Modeled energy after aggregate system losses and before the explicit
+          inverter AC ceiling.
+      - name: shadedPreInverterKwh
+        type: number
+        unit: kWh
+        description: Modeled energy after aggregate system losses and before the explicit
+          inverter AC ceiling.
+      - name: clearInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Energy excluded by the configured inverter AC ceiling at hourly
+          mean resolution.
+      - name: weatherInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Energy excluded by the configured inverter AC ceiling at hourly
+          mean resolution.
+      - name: shadedInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Energy excluded by the configured inverter AC ceiling at hourly
+          mean resolution.
+      - name: availablePvKwh
+        type: number
+        unit: kWh
+        description: Potential AC PV after inverter clipping and before grid curtailment.
+      - name: pvGeneratedKwh
+        type: number
+        unit: kWh
+        description: Available AC PV remaining after grid curtailment.
+      - name: curtailedKwh
+        type: number
+        unit: kWh
+        description: Available AC PV excluded by the net grid-export ceiling after
+          demand and any applicable storage.
+      - name: weatherAvailablePvKwh
+        type: number
+        unit: kWh
+        description: 'Shadow-free weather comparison: Potential AC PV after inverter
+          clipping and before grid curtailment.'
+      - name: weatherPvGeneratedKwh
+        type: number
+        unit: kWh
+        description: 'Shadow-free weather comparison: Available AC PV remaining after
+          grid curtailment.'
+      - name: weatherCurtailedKwh
+        type: number
+        unit: kWh
+        description: 'Shadow-free weather comparison: Available AC PV excluded by
+          the net grid-export ceiling after demand and any applicable storage.'
+      - name: coveredAvailablePvKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Potential
+          AC PV after inverter clipping and before grid curtailment.
+      - name: coveredPvGeneratedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Available
+          AC PV remaining after grid curtailment.
+      - name: coveredCurtailedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Available
+          AC PV excluded by the net grid-export ceiling after demand and any applicable
+          storage.
+      - name: coveredWeatherAvailablePvKwh
+        type: number
+        unit: kWh
+        description: 'Known matching-interval subset without extrapolation. Shadow-free
+          weather comparison: Potential AC PV after inverter clipping and before grid
+          curtailment.'
+      - name: coveredWeatherPvGeneratedKwh
+        type: number
+        unit: kWh
+        description: 'Known matching-interval subset without extrapolation. Shadow-free
+          weather comparison: Available AC PV remaining after grid curtailment.'
+      - name: coveredWeatherCurtailedKwh
+        type: number
+        unit: kWh
+        description: 'Known matching-interval subset without extrapolation. Shadow-free
+          weather comparison: Available AC PV excluded by the net grid-export ceiling
+          after demand and any applicable storage.'
     downloads:
     - csv
   monthly_results:
@@ -1262,32 +1498,36 @@ outputs:
       - name: clearRevenueEur
         type: number
         unit: EUR
-        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
-          for the consumption scenario.
+        description: All-available-AC-generation-export comparator before net-grid
+          limits or local demand; use exportRevenueEur and netBenefitEur for the actual
+          surplus scenario.
       - name: pricedWeatherRevenueEur
         type: number
         unit: EUR
       - name: weatherRevenueEur
         type: number
         unit: EUR
-        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
-          for the consumption scenario.
+        description: All-available-AC-generation-export comparator before net-grid
+          limits or local demand; use exportRevenueEur and netBenefitEur for the actual
+          surplus scenario.
       - name: pricedShadedRevenueEur
         type: number
         unit: EUR
       - name: shadedRevenueEur
         type: number
         unit: EUR
-        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
-          for the consumption scenario.
+        description: All-available-AC-generation-export comparator before net-grid
+          limits or local demand; use exportRevenueEur and netBenefitEur for the actual
+          surplus scenario.
       - name: pricedShadowRevenueLossEur
         type: number
         unit: EUR
       - name: shadowRevenueLossEur
         type: number
         unit: EUR
-        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
-          for the consumption scenario.
+        description: All-available-AC-generation-export comparator before net-grid
+          limits or local demand; use exportRevenueEur and netBenefitEur for the actual
+          surplus scenario.
       - name: coveredConsumptionKwh
         type: number
         unit: kWh
@@ -1414,6 +1654,130 @@ outputs:
       - name: selfSufficiencyPct
         type: number
         unit: '%'
+      - name: clearPreInverterKwh
+        type: number
+        unit: kWh
+        description: Modeled energy after aggregate system losses and before the explicit
+          inverter AC ceiling.
+      - name: weatherPreInverterKwh
+        type: number
+        unit: kWh
+        description: Modeled energy after aggregate system losses and before the explicit
+          inverter AC ceiling.
+      - name: shadedPreInverterKwh
+        type: number
+        unit: kWh
+        description: Modeled energy after aggregate system losses and before the explicit
+          inverter AC ceiling.
+      - name: clearInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Energy excluded by the configured inverter AC ceiling at hourly
+          mean resolution.
+      - name: weatherInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Energy excluded by the configured inverter AC ceiling at hourly
+          mean resolution.
+      - name: shadedInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Energy excluded by the configured inverter AC ceiling at hourly
+          mean resolution.
+      - name: availablePvKwh
+        type: number
+        unit: kWh
+        description: Potential AC PV after inverter clipping and before grid curtailment.
+      - name: pvGeneratedKwh
+        type: number
+        unit: kWh
+        description: Available AC PV remaining after grid curtailment.
+      - name: curtailedKwh
+        type: number
+        unit: kWh
+        description: Available AC PV excluded by the net grid-export ceiling after
+          demand and any applicable storage.
+      - name: weatherAvailablePvKwh
+        type: number
+        unit: kWh
+        description: 'Shadow-free weather comparison: Potential AC PV after inverter
+          clipping and before grid curtailment.'
+      - name: weatherPvGeneratedKwh
+        type: number
+        unit: kWh
+        description: 'Shadow-free weather comparison: Available AC PV remaining after
+          grid curtailment.'
+      - name: weatherCurtailedKwh
+        type: number
+        unit: kWh
+        description: 'Shadow-free weather comparison: Available AC PV excluded by
+          the net grid-export ceiling after demand and any applicable storage.'
+      - name: coveredClearPreInverterKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Modeled
+          energy after aggregate system losses and before the explicit inverter AC
+          ceiling.
+      - name: coveredWeatherPreInverterKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Modeled
+          energy after aggregate system losses and before the explicit inverter AC
+          ceiling.
+      - name: coveredShadedPreInverterKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Modeled
+          energy after aggregate system losses and before the explicit inverter AC
+          ceiling.
+      - name: coveredClearInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Energy
+          excluded by the configured inverter AC ceiling at hourly mean resolution.
+      - name: coveredWeatherInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Energy
+          excluded by the configured inverter AC ceiling at hourly mean resolution.
+      - name: coveredShadedInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Energy
+          excluded by the configured inverter AC ceiling at hourly mean resolution.
+      - name: coveredAvailablePvKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Potential
+          AC PV after inverter clipping and before grid curtailment.
+      - name: coveredPvGeneratedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Available
+          AC PV remaining after grid curtailment.
+      - name: coveredCurtailedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Available
+          AC PV excluded by the net grid-export ceiling after demand and any applicable
+          storage.
+      - name: coveredWeatherAvailablePvKwh
+        type: number
+        unit: kWh
+        description: 'Known matching-interval subset without extrapolation. Shadow-free
+          weather comparison: Potential AC PV after inverter clipping and before grid
+          curtailment.'
+      - name: coveredWeatherPvGeneratedKwh
+        type: number
+        unit: kWh
+        description: 'Known matching-interval subset without extrapolation. Shadow-free
+          weather comparison: Available AC PV remaining after grid curtailment.'
+      - name: coveredWeatherCurtailedKwh
+        type: number
+        unit: kWh
+        description: 'Known matching-interval subset without extrapolation. Shadow-free
+          weather comparison: Available AC PV excluded by the net grid-export ceiling
+          after demand and any applicable storage.'
     downloads:
     - csv
   findings:
@@ -1572,32 +1936,36 @@ outputs:
       - name: clearRevenueEur
         type: number
         unit: EUR
-        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
-          for the consumption scenario.
+        description: All-available-AC-generation-export comparator before net-grid
+          limits or local demand; use exportRevenueEur and netBenefitEur for the actual
+          surplus scenario.
       - name: pricedWeatherRevenueEur
         type: number
         unit: EUR
       - name: weatherRevenueEur
         type: number
         unit: EUR
-        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
-          for the consumption scenario.
+        description: All-available-AC-generation-export comparator before net-grid
+          limits or local demand; use exportRevenueEur and netBenefitEur for the actual
+          surplus scenario.
       - name: pricedShadedRevenueEur
         type: number
         unit: EUR
       - name: shadedRevenueEur
         type: number
         unit: EUR
-        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
-          for the consumption scenario.
+        description: All-available-AC-generation-export comparator before net-grid
+          limits or local demand; use exportRevenueEur and netBenefitEur for the actual
+          surplus scenario.
       - name: pricedShadowRevenueLossEur
         type: number
         unit: EUR
       - name: shadowRevenueLossEur
         type: number
         unit: EUR
-        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
-          for the consumption scenario.
+        description: All-available-AC-generation-export comparator before net-grid
+          limits or local demand; use exportRevenueEur and netBenefitEur for the actual
+          surplus scenario.
       - name: coveredConsumptionKwh
         type: number
         unit: kWh
@@ -1724,6 +2092,130 @@ outputs:
       - name: selfSufficiencyPct
         type: number
         unit: '%'
+      - name: clearPreInverterKwh
+        type: number
+        unit: kWh
+        description: Modeled energy after aggregate system losses and before the explicit
+          inverter AC ceiling.
+      - name: weatherPreInverterKwh
+        type: number
+        unit: kWh
+        description: Modeled energy after aggregate system losses and before the explicit
+          inverter AC ceiling.
+      - name: shadedPreInverterKwh
+        type: number
+        unit: kWh
+        description: Modeled energy after aggregate system losses and before the explicit
+          inverter AC ceiling.
+      - name: clearInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Energy excluded by the configured inverter AC ceiling at hourly
+          mean resolution.
+      - name: weatherInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Energy excluded by the configured inverter AC ceiling at hourly
+          mean resolution.
+      - name: shadedInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Energy excluded by the configured inverter AC ceiling at hourly
+          mean resolution.
+      - name: availablePvKwh
+        type: number
+        unit: kWh
+        description: Potential AC PV after inverter clipping and before grid curtailment.
+      - name: pvGeneratedKwh
+        type: number
+        unit: kWh
+        description: Available AC PV remaining after grid curtailment.
+      - name: curtailedKwh
+        type: number
+        unit: kWh
+        description: Available AC PV excluded by the net grid-export ceiling after
+          demand and any applicable storage.
+      - name: weatherAvailablePvKwh
+        type: number
+        unit: kWh
+        description: 'Shadow-free weather comparison: Potential AC PV after inverter
+          clipping and before grid curtailment.'
+      - name: weatherPvGeneratedKwh
+        type: number
+        unit: kWh
+        description: 'Shadow-free weather comparison: Available AC PV remaining after
+          grid curtailment.'
+      - name: weatherCurtailedKwh
+        type: number
+        unit: kWh
+        description: 'Shadow-free weather comparison: Available AC PV excluded by
+          the net grid-export ceiling after demand and any applicable storage.'
+      - name: coveredClearPreInverterKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Modeled
+          energy after aggregate system losses and before the explicit inverter AC
+          ceiling.
+      - name: coveredWeatherPreInverterKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Modeled
+          energy after aggregate system losses and before the explicit inverter AC
+          ceiling.
+      - name: coveredShadedPreInverterKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Modeled
+          energy after aggregate system losses and before the explicit inverter AC
+          ceiling.
+      - name: coveredClearInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Energy
+          excluded by the configured inverter AC ceiling at hourly mean resolution.
+      - name: coveredWeatherInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Energy
+          excluded by the configured inverter AC ceiling at hourly mean resolution.
+      - name: coveredShadedInverterClippingKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Energy
+          excluded by the configured inverter AC ceiling at hourly mean resolution.
+      - name: coveredAvailablePvKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Potential
+          AC PV after inverter clipping and before grid curtailment.
+      - name: coveredPvGeneratedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Available
+          AC PV remaining after grid curtailment.
+      - name: coveredCurtailedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Available
+          AC PV excluded by the net grid-export ceiling after demand and any applicable
+          storage.
+      - name: coveredWeatherAvailablePvKwh
+        type: number
+        unit: kWh
+        description: 'Known matching-interval subset without extrapolation. Shadow-free
+          weather comparison: Potential AC PV after inverter clipping and before grid
+          curtailment.'
+      - name: coveredWeatherPvGeneratedKwh
+        type: number
+        unit: kWh
+        description: 'Known matching-interval subset without extrapolation. Shadow-free
+          weather comparison: Available AC PV remaining after grid curtailment.'
+      - name: coveredWeatherCurtailedKwh
+        type: number
+        unit: kWh
+        description: 'Known matching-interval subset without extrapolation. Shadow-free
+          weather comparison: Available AC PV excluded by the net grid-export ceiling
+          after demand and any applicable storage.'
     downloads:
     - csv
   hosted_findings:
@@ -2110,6 +2602,44 @@ outputs:
         unit: kWh
         description: Usable stored energy attributed to PV or grid input at the end
           of the period; excludes reserve.
+      - name: availablePvKwh
+        type: number
+        unit: kWh
+        description: Potential AC PV after inverter clipping and before grid curtailment.
+      - name: pvGeneratedKwh
+        type: number
+        unit: kWh
+        description: Available AC PV remaining after grid curtailment.
+      - name: curtailedKwh
+        type: number
+        unit: kWh
+        description: Available AC PV excluded by the net grid-export ceiling after
+          demand and any applicable storage.
+      - name: noBatteryCurtailedKwh
+        type: number
+        unit: kWh
+        description: Grid-export curtailment in the matching comparison without storage.
+      - name: coveredAvailablePvKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Potential
+          AC PV after inverter clipping and before grid curtailment.
+      - name: coveredPvGeneratedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Available
+          AC PV remaining after grid curtailment.
+      - name: coveredCurtailedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Available
+          AC PV excluded by the net grid-export ceiling after demand and any applicable
+          storage.
+      - name: coveredNoBatteryCurtailedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Grid-export
+          curtailment in the matching comparison without storage.
       key:
       - year
     downloads:
@@ -2488,6 +3018,44 @@ outputs:
         unit: kWh
         description: Usable stored energy attributed to PV or grid input at the end
           of the period; excludes reserve.
+      - name: availablePvKwh
+        type: number
+        unit: kWh
+        description: Potential AC PV after inverter clipping and before grid curtailment.
+      - name: pvGeneratedKwh
+        type: number
+        unit: kWh
+        description: Available AC PV remaining after grid curtailment.
+      - name: curtailedKwh
+        type: number
+        unit: kWh
+        description: Available AC PV excluded by the net grid-export ceiling after
+          demand and any applicable storage.
+      - name: noBatteryCurtailedKwh
+        type: number
+        unit: kWh
+        description: Grid-export curtailment in the matching comparison without storage.
+      - name: coveredAvailablePvKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Potential
+          AC PV after inverter clipping and before grid curtailment.
+      - name: coveredPvGeneratedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Available
+          AC PV remaining after grid curtailment.
+      - name: coveredCurtailedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Available
+          AC PV excluded by the net grid-export ceiling after demand and any applicable
+          storage.
+      - name: coveredNoBatteryCurtailedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Grid-export
+          curtailment in the matching comparison without storage.
       key:
       - year
       - time
@@ -2864,6 +3432,44 @@ outputs:
         unit: kWh
         description: Usable stored energy attributed to PV or grid input at the end
           of the period; excludes reserve.
+      - name: availablePvKwh
+        type: number
+        unit: kWh
+        description: Potential AC PV after inverter clipping and before grid curtailment.
+      - name: pvGeneratedKwh
+        type: number
+        unit: kWh
+        description: Available AC PV remaining after grid curtailment.
+      - name: curtailedKwh
+        type: number
+        unit: kWh
+        description: Available AC PV excluded by the net grid-export ceiling after
+          demand and any applicable storage.
+      - name: noBatteryCurtailedKwh
+        type: number
+        unit: kWh
+        description: Grid-export curtailment in the matching comparison without storage.
+      - name: coveredAvailablePvKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Potential
+          AC PV after inverter clipping and before grid curtailment.
+      - name: coveredPvGeneratedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Available
+          AC PV remaining after grid curtailment.
+      - name: coveredCurtailedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Available
+          AC PV excluded by the net grid-export ceiling after demand and any applicable
+          storage.
+      - name: coveredNoBatteryCurtailedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Grid-export
+          curtailment in the matching comparison without storage.
       key:
       - year
       - month
@@ -3238,18 +3844,56 @@ outputs:
         unit: kWh
         description: Usable stored energy attributed to PV or grid input at the end
           of the period; excludes reserve.
+      - name: availablePvKwh
+        type: number
+        unit: kWh
+        description: Potential AC PV after inverter clipping and before grid curtailment.
+      - name: pvGeneratedKwh
+        type: number
+        unit: kWh
+        description: Available AC PV remaining after grid curtailment.
+      - name: curtailedKwh
+        type: number
+        unit: kWh
+        description: Available AC PV excluded by the net grid-export ceiling after
+          demand and any applicable storage.
+      - name: noBatteryCurtailedKwh
+        type: number
+        unit: kWh
+        description: Grid-export curtailment in the matching comparison without storage.
+      - name: coveredAvailablePvKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Potential
+          AC PV after inverter clipping and before grid curtailment.
+      - name: coveredPvGeneratedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Available
+          AC PV remaining after grid curtailment.
+      - name: coveredCurtailedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Available
+          AC PV excluded by the net grid-export ceiling after demand and any applicable
+          storage.
+      - name: coveredNoBatteryCurtailedKwh
+        type: number
+        unit: kWh
+        description: Known matching-interval subset without extrapolation. Grid-export
+          curtailment in the matching comparison without storage.
       key:
       - year
     downloads:
     - csv
-  bundle_assets_index_CAfolgyJ_css:
-    path: dist/assets/index-CAfolgyJ.css
-    format: CSS
+  bundle_assets_index_C8LmJc_F_js:
+    path: dist/assets/index-C8LmJc_F.js
+    format: JS
     kind: document
     generated_by: render
-  bundle_assets_index_DkNCwJFz_js:
-    path: dist/assets/index-DkNCwJFz.js
-    format: JS
+  bundle_assets_index_DVKagxky_css:
+    path: dist/assets/index-DVKagxky.css
+    format: CSS
     kind: document
     generated_by: render
   bundle_data_aerial_jpg:
@@ -3371,6 +4015,11 @@ validation:
   - storage_coverage_2025
   - storage_disabled_parity_2025
   - storage_monthly_parity_2025
+  - canonical_power_limits_explicit
+  - inverter_power_balance_2024
+  - grid_export_limit_2024
+  - inverter_power_balance_2025
+  - grid_export_limit_2025
   domain_checks: []
   expectations: []
 presentation:
@@ -3524,10 +4173,10 @@ warnings:
 - id: MARKET
   severity: medium
   issue: market
-  statement: Energy value uses explicit consumption and price assumptions; optional
-    storage is a separate historical dispatch comparison. Figures exclude taxes, unentered
-    grid charges, curtailment and financing. The default import adder is zero, and
-    2025 quarter-hour prices are averaged hourly.
+  statement: Energy value uses explicit consumption, inverter and net-export limits;
+    optional storage is a separate historical dispatch comparison. Figures exclude
+    taxes, unentered grid charges, dynamic operator curtailment and financing. The
+    default import adder is zero, and 2025 quarter-hour prices are averaged hourly.
   mitigation: Inspect source provenance and methodology before using the planning
     estimate.
 - id: LICENSE
@@ -3580,14 +4229,14 @@ runtime:
     - openmapstack @ git+https://github.com/jaakla/openmapstack-skills.git@a3df1cb8126d5222fbb27e3f1dba49aca01b6302
 runs:
   latest:
-    id: run-20261026-154345
+    id: run-20261026-160522
     status: warning
-    started_at: '2026-10-26T15:43:45.971320+00:00'
-    completed_at: '2026-10-26T15:43:50.338808+00:00'
-    inputs_hash: sha256:85f46af2c549147fcb520a35ef308efd8dd61a19f1b67146c62160eca265a111
-    outputs_hash: sha256:5accf7e82969a535a9a63f9d4dce0da7f5913a1a189d9d4b5abb44413f41b1bd
+    started_at: '2026-10-26T16:05:22.882766+00:00'
+    completed_at: '2026-10-26T16:05:27.956736+00:00'
+    inputs_hash: sha256:6f9bed4203b24fe6daffe94f21a666a0b7cdb3e06d45461fcaa36f9615a4952c
+    outputs_hash: sha256:40748b0ba21a2ecee777a1b4d0be872e33441e110bc4dc11f25649ce0c27e7d8
     record:
-      path: runs/run-20261026-154345.json
+      path: runs/run-20261026-160522.json
     validation_report:
       path: validation/latest-report.json
 views:

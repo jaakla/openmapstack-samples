@@ -14,6 +14,8 @@
           "latitude": 58.36880769486386,
           "longitude": 26.715303983655684,
           "kwp": 20,
+          "inverterAcKw": null,
+          "gridExportLimitKw": null,
           "azimuthDeg": 180,
           "tiltDeg": 35,
           "mountingHeightM": 2,
@@ -22,6 +24,7 @@
         },
         "storage": {
           "enabled": false,
+          "inverterConnection": "shared",
           "capacityMode": "auto",
           "capacityKwh": 40,
           "powerMode": "kw",

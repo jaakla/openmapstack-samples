@@ -82,6 +82,22 @@ def main():
     scenario = read("data/overrides/planning-scenario.geojson")
     feature = scenario["features"][0]
     system = feature["properties"]["system"]
+    system_keys = {"latitude", "longitude", "kwp", "inverterAcKw", "gridExportLimitKw",
+                   "azimuthDeg", "tiltDeg", "mountingHeightM", "systemLossPct",
+                   "salesMarginEurMWh", "albedo", "temperatureCoefficient",
+                   "nominalOperatingCellTemperatureC"}
+    model_step = next(step for step in project["processing"]["steps"] if step["id"] == "model")
+    power_limits_explicit = not (set(system) - system_keys) and all(
+        key in system and key in model_step and system[key] == model_step[key]
+        and (system[key] is None or (type(system[key]) in (int, float)
+             and math.isfinite(system[key]) and minimum <= system[key] <= 1e6
+             and (key != "inverterAcKw" or system[key] > 0)))
+        for key, minimum in (("inverterAcKw", 0), ("gridExportLimitKw", 0))
+    )
+    check("canonical_power_limits_explicit", power_limits_explicit,
+          reason="DC nameplate, inverter AC rating and net grid-export limit are separate settings; null leaves a ceiling unspecified and zero grid export forbids export.")
+    if not power_limits_explicit:
+        raise ValueError("Canonical power ceilings must be explicit, valid and match processing metadata")
     consumption = feature["properties"].get("consumption", {})
     estimate_keys = {"mode", "dayKwh", "nightKwh", "dayStartHour", "dayEndHour",
                      "timeZone", "importAdderEurMWh", "fillMissingWithEstimate"}
@@ -92,11 +108,12 @@ def main():
     if not public_estimate:
         raise ValueError("Private household profiles must not enter the published canonical baseline")
     storage = feature["properties"].get("storage", {})
-    storage_keys = {"enabled", "capacityMode", "capacityKwh", "powerMode", "chargePowerKw",
+    storage_keys = {"enabled", "inverterConnection", "capacityMode", "capacityKwh", "powerMode", "chargePowerKw",
                     "dischargePowerKw", "chargeCurrentA", "dischargeCurrentA", "phases",
                     "voltageV", "roundTripEfficiencyPct", "reserveSocPct", "allowGridCharging",
                     "allowBatteryExport", "cyclingCostEurKwh", "socSteps"}
-    public_storage = isinstance(storage.get("enabled"), bool) and set(storage) == storage_keys
+    public_storage = (isinstance(storage.get("enabled"), bool) and set(storage) == storage_keys
+                      and storage.get("inverterConnection") in ("shared", "separate"))
     check("canonical_storage_config_explicit", public_storage,
           reason="Every battery setting is explicit; the published baseline contains no private profile metadata.")
     if not public_storage:
@@ -159,16 +176,39 @@ def main():
               market_hours=len(prices), expected_hours=expected)
         check(f"energy_ordering_{year}", 0 <= summary["shadedKwh"] <= summary["weatherKwh"] + 1e-7,
               weather_kwh=summary["weatherKwh"], shaded_kwh=summary["shadedKwh"])
+        inverter_balanced = all(
+            abs(row[f"{branch}PreInverterKwh"] - row[f"{branch}Kwh"]
+                - row[f"{branch}InverterClippingKwh"]) < 1e-7
+            and row[f"{branch}InverterClippingKwh"] >= -1e-9
+            and (system["inverterAcKw"] is None
+                 or row[f"{branch}Kwh"] <= system["inverterAcKw"] * row["durationHours"] + 1e-7)
+            for row in result["hourly"] for branch in ("clear", "weather", "shaded")
+        ) and (system["inverterAcKw"] is None or storage["inverterConnection"] == "separate" or all(
+            row["pvKwh"] + row["dischargeKwh"] <= system["inverterAcKw"] * row["durationHours"] + 1e-7
+            for row in battery["hourly"]
+        ))
+        check(f"inverter_power_balance_{year}", inverter_balanced,
+              reason="Each branch separates pre-inverter energy, potential AC output and explicit inverter clipping; shared battery output also respects the configured AC budget.")
         check(f"finite_summary_{year}", all(not isinstance(v, (float, int)) or math.isfinite(v) for v in summary.values()))
         check(f"prices_matched_{year}", summary["pricedHours"] == expected,
               matched_hours=summary["pricedHours"])
         monthly_total = sum(row["shadedKwh"] for row in result["monthly"])
-        check(f"monthly_annual_parity_{year}", abs(monthly_total - summary["shadedKwh"]) < 1e-7,
+        solar_metrics = [f"{branch}{suffix}" for branch in ("clear", "weather", "shaded")
+                         for suffix in ("Kwh", "PreInverterKwh", "InverterClippingKwh")]
+        check(f"monthly_annual_parity_{year}", all(
+            abs(sum(row[key] for row in result["monthly"]) - summary[key]) < 1e-7
+            for key in solar_metrics),
               monthly_shaded_kwh=monthly_total, annual_shaded_kwh=summary["shadedKwh"])
         consumption_balanced = all(
             abs(row["consumptionKwh"] - row["selfConsumedKwh"] - row["importKwh"]) < 1e-7
-            and abs(row["shadedKwh"] - row["selfConsumedKwh"] - row["exportKwh"]) < 1e-7
-            and min(row["consumptionKwh"], row["selfConsumedKwh"], row["importKwh"], row["exportKwh"]) >= -1e-9
+            and abs(row["availablePvKwh"] - row["shadedKwh"]) < 1e-7
+            and abs(row["availablePvKwh"] - row["pvGeneratedKwh"] - row["curtailedKwh"]) < 1e-7
+            and abs(row["pvGeneratedKwh"] - row["selfConsumedKwh"] - row["exportKwh"]) < 1e-7
+            and abs(row["weatherAvailablePvKwh"] - row["weatherKwh"]) < 1e-7
+            and abs(row["weatherAvailablePvKwh"] - row["weatherPvGeneratedKwh"] - row["weatherCurtailedKwh"]) < 1e-7
+            and abs(row["weatherPvGeneratedKwh"] - row["weatherSelfConsumedKwh"] - row["weatherExportKwh"]) < 1e-7
+            and min(row["consumptionKwh"], row["selfConsumedKwh"], row["importKwh"], row["exportKwh"],
+                    row["pvGeneratedKwh"], row["curtailedKwh"], row["weatherCurtailedKwh"]) >= -1e-9
             for row in result["hourly"]
         )
         check(f"consumption_energy_balance_{year}", consumption_balanced,
@@ -179,14 +219,20 @@ def main():
               abs(summary["netBenefitEur"] - summary["avoidedImportCostEur"] - summary["exportRevenueEur"]) < 1e-7
               and abs(summary["netBenefitEur"] - summary["baselineImportCostEur"] + summary["netGridCostEur"]) < 1e-7)
         consumption_total = sum(row["consumptionKwh"] for row in result["monthly"])
-        check(f"consumption_monthly_parity_{year}", abs(consumption_total - summary["consumptionKwh"]) < 1e-7,
+        check(f"consumption_monthly_parity_{year}", all(
+            abs(sum(row[key] for row in result["monthly"]) - summary[key]) < 1e-7
+            for key in ("consumptionKwh", "availablePvKwh", "pvGeneratedKwh", "curtailedKwh",
+                        "weatherAvailablePvKwh", "weatherPvGeneratedKwh", "weatherCurtailedKwh")),
               monthly_consumption_kwh=consumption_total, annual_consumption_kwh=summary["consumptionKwh"])
         battery_balanced = all(
             abs(row["chargeKwh"] - row["chargePvKwh"] - row["chargeGridKwh"]) < 1e-7
             and abs(row["internalChargedKwh"] - row["chargeKwh"] + row["chargeLossKwh"]) < 1e-7
             and abs(row["internalDischargedKwh"] - row["dischargeKwh"] - row["dischargeLossKwh"]) < 1e-7
             and abs(row["socEndKwh"] - row["socStartKwh"] - row["internalChargedKwh"] + row["internalDischargedKwh"]) < 1e-7
-            and abs(row["pvKwh"] + row["importKwh"] + row["dischargeKwh"] - row["demandKwh"] - row["exportKwh"] - row["chargeKwh"]) < 1e-7
+            and abs(row["pvKwh"] + row["importKwh"] + row["dischargeKwh"] - row["demandKwh"] - row["exportKwh"] - row["chargeKwh"] - row["curtailedKwh"]) < 1e-7
+            and abs(row["availablePvKwh"] - row["pvKwh"]) < 1e-7
+            and abs(row["availablePvKwh"] - row["pvGeneratedKwh"] - row["curtailedKwh"]) < 1e-7
+            and row["curtailedKwh"] >= -1e-9
             and all(storage["reserveKwh"] - 1e-7 <= row[key] <= storage["effectiveCapacityKwh"] + 1e-7
                     for key in ("socStartKwh", "socEndKwh", "maxSocKwh"))
             and abs(row["pvSocEndKwh"] + row["gridSocEndKwh"] - row["socEndKwh"] + storage["reserveKwh"]) < 1e-7
@@ -205,11 +251,20 @@ def main():
         check(f"storage_disabled_parity_{year}", storage["enabled"] or all(
             abs(battery_summary[battery_key] - summary[base_key]) < 1e-7
             for battery_key, base_key in (("importKwh", "importKwh"), ("exportKwh", "exportKwh"),
-                                          ("netBenefitEur", "netBenefitEur"))) ,
-              reason="When disabled, storage retains the original imports, exports and household benefit.")
+                                          ("netBenefitEur", "netBenefitEur"),
+                                          ("curtailedKwh", "curtailedKwh"))) ,
+              reason="When disabled, storage retains the original imports, exports, curtailment and household benefit.")
         check(f"storage_monthly_parity_{year}", all(
             abs(sum(row[key] for row in battery["monthly"]) - battery_summary[key]) < 1e-7
-            for key in ("chargeKwh", "dischargeKwh", "lossKwh", "incrementalBenefitEur")))
+            for key in ("chargeKwh", "dischargeKwh", "lossKwh", "availablePvKwh", "pvGeneratedKwh",
+                        "curtailedKwh", "noBatteryCurtailedKwh", "incrementalBenefitEur")))
+        export_cap = system["gridExportLimitKw"]
+        check(f"grid_export_limit_{year}", export_cap is None or (
+            all(row[key] <= export_cap * row["durationHours"] + 1e-7
+                for row in result["hourly"] for key in ("exportKwh", "weatherExportKwh"))
+            and all(row["exportKwh"] <= export_cap * row["durationHours"] + 1e-7
+                    for row in battery["hourly"])),
+              reason="Actual modeled net export respects the independent grid ceiling, including combined PV and battery exports; quarter-hour engine tests check dispatch limits.")
     for key, rows in (("seasonal_summary", seasonal), ("hourly_results", hourly), ("monthly_results", monthly),
                       ("storage_summary", storage_seasonal), ("storage_hourly", storage_hourly),
                       ("storage_monthly", storage_monthly)):
@@ -372,7 +427,8 @@ def main():
             f" With {storage['effectiveCapacityKwh']:g} kWh storage enabled, modeled PV-plus-storage "
             f"benefit is {battery_summary['netBenefitEur']:.2f} EUR, an incremental "
             f"{battery_summary['incrementalBenefitEur']:.2f} EUR after cycling cost. "
-            f"Storage conversion loss is {battery_summary['lossKwh']:.1f} kWh."
+            f"Storage conversion loss is {battery_summary['lossKwh']:.1f} kWh and "
+            f"remaining grid curtailment is {battery_summary['curtailedKwh']:.1f} kWh."
             if storage["enabled"] else
             f" Storage is explicitly disabled; the configured capacity would be "
             f"{storage['effectiveCapacityKwh']:g} kWh. The separate storage table retains the "
@@ -383,7 +439,10 @@ def main():
                             f"weather-adjusted shadow-free {row['weatherKwh']:.1f} kWh; "
                             f"locally shaded {row['shadedKwh']:.1f} kWh. Local shadow loss "
                             f"{row['shadingLossKwh']:.1f} kWh ({row['shadingLossPct']:.2f}%). "
-                            f"If all generation were exported, wholesale revenue after margin would be "
+                            f"The inverter ceiling removes {row['shadedInverterClippingKwh']:.1f} kWh; "
+                            f"the no-storage net-export ceiling curtails {row['curtailedKwh']:.1f} kWh, "
+                            f"leaving {row['pvGeneratedKwh']:.1f} kWh generated for on-site use or export. "
+                            f"If all available AC generation were exported without a net-grid ceiling, wholesale revenue after margin would be "
                             f"{row['shadedRevenueEur']:.2f} EUR; the corresponding all-export shadow loss "
                             f"would be {row['shadowRevenueLossEur']:.2f} EUR. With the declared day/night "
                             f"consumption assumption, demand is {row['consumptionKwh']:.1f} kWh, "
@@ -402,6 +461,11 @@ def main():
                              f"{consumption['dayEndHour']:02d}:00. The import adder is "
                              f"{consumption['importAdderEurMWh']:g} EUR/MWh; charges are included only "
                              "when explicitly represented in that adder. Independently verified field calibration is not established.",
+                             (f"Inverter AC ceiling: {system['inverterAcKw']:g} kW; "
+                              if system["inverterAcKw"] is not None else "Inverter AC ceiling: unspecified (unlimited in this model); ")
+                             + (f"net grid-export ceiling: {system['gridExportLimitKw']:g} kW. "
+                                if system["gridExportLimitKw"] is not None else "net grid-export ceiling: unspecified (unlimited in this model). ")
+                             + f"Clipping uses hourly mean modeled generation; grid curtailment follows demand and optional storage at quarter-hour resolution. The battery inverter connection is {storage['inverterConnection']}; shared mode applies the configured common AC budget without recovering clipped PV. Unspecified equipment is not inferred from private uploads.",
                              *(["Storage dispatch uses known historical daily prices and finite state resolution. "
                                 "Every local-day or covered segment starts and ends at reserve; energy is not "
                                 "carried overnight or across unknown input gaps. This is not a live trading "

@@ -25,6 +25,16 @@ export const DEFAULT_CONSUMPTION = Object.freeze({
   fillMissingWithEstimate: false,
 });
 
+/** Null leaves export unconstrained; zero explicitly prohibits grid export. */
+export function normalizeGridExportLimitKw(value) {
+  if (value == null) return null;
+  if (!finite(value) || value < 0 || value > 1000000)
+    throw new Error(
+      "Grid export limit must be null or a nonnegative kW value at most 1000000.",
+    );
+  return value;
+}
+
 function formatter(timeZone) {
   if (!formatters.has(timeZone))
     formatters.set(
@@ -528,6 +538,9 @@ export function parseConsumptionCsv(
 }
 
 const METRICS = [
+  "availablePvKwh",
+  "pvGeneratedKwh",
+  "curtailedKwh",
   "consumptionKwh",
   "selfConsumedKwh",
   "importKwh",
@@ -539,6 +552,9 @@ const METRICS = [
   "netBenefitEur",
   "netGridCostEur",
   "weatherSelfConsumedKwh",
+  "weatherAvailablePvKwh",
+  "weatherPvGeneratedKwh",
+  "weatherCurtailedKwh",
   "weatherImportKwh",
   "weatherExportKwh",
   "weatherNetBenefitEur",
@@ -568,11 +584,8 @@ function metricSummary(rows) {
     ? (result.consumptionCoveredHours / result.consumptionExpectedHours) * 100
     : 0;
   result.selfConsumptionPct =
-    result.selfConsumedKwh != null &&
-    result.exportKwh != null &&
-    result.selfConsumedKwh + result.exportKwh > 0
-      ? (result.selfConsumedKwh / (result.selfConsumedKwh + result.exportKwh)) *
-        100
+    result.selfConsumedKwh != null && result.availablePvKwh > 0
+      ? (result.selfConsumedKwh / result.availablePvKwh) * 100
       : null;
   result.selfSufficiencyPct =
     result.selfConsumedKwh != null && result.consumptionKwh > 0
@@ -692,6 +705,11 @@ export function applyConsumption(analysis, input = DEFAULT_CONSUMPTION) {
   const config = resolver.config;
   if (!Array.isArray(analysis?.hourly) || !analysis.hourly.length)
     throw new Error("Consumption analysis needs modeled hourly PV intervals.");
+  const gridExportLimitKw = normalizeGridExportLimitKw(
+    analysis.system?.gridExportLimitKw,
+  );
+  const exportLimit =
+    gridExportLimitKw == null ? Infinity : gridExportLimitKw / 4;
   const hourly = analysis.hourly.map((row) => {
     const duration = row.durationHours ?? 1;
     const start = stamp(row.time);
@@ -720,6 +738,8 @@ export function applyConsumption(analysis, input = DEFAULT_CONSUMPTION) {
       const weatherPv = finite(row.weatherKwh)
         ? row.weatherKwh / quarterCount
         : null;
+      q.availablePvKwh = pv;
+      q.weatherAvailablePvKwh = weatherPv;
       const importPrice = finite(row.priceEurMWh)
         ? (row.priceEurMWh + config.importAdderEurMWh) / 1000
         : null;
@@ -731,7 +751,10 @@ export function applyConsumption(analysis, input = DEFAULT_CONSUMPTION) {
       if (demand != null && pv != null) {
         q.selfConsumedKwh = Math.min(demand, pv);
         q.importKwh = Math.max(0, demand - pv);
-        q.exportKwh = Math.max(0, pv - demand);
+        const surplus = Math.max(0, pv - demand);
+        q.exportKwh = Math.min(surplus, exportLimit);
+        q.curtailedKwh = Math.max(0, surplus - q.exportKwh);
+        q.pvGeneratedKwh = pv - q.curtailedKwh;
         if (importPrice != null) {
           q.avoidedImportCostEur = q.selfConsumedKwh * importPrice;
           q.exportRevenueEur = q.exportKwh * exportPrice;
@@ -744,7 +767,10 @@ export function applyConsumption(analysis, input = DEFAULT_CONSUMPTION) {
       if (demand != null && weatherPv != null) {
         q.weatherSelfConsumedKwh = Math.min(demand, weatherPv);
         q.weatherImportKwh = Math.max(0, demand - weatherPv);
-        q.weatherExportKwh = Math.max(0, weatherPv - demand);
+        const surplus = Math.max(0, weatherPv - demand);
+        q.weatherExportKwh = Math.min(surplus, exportLimit);
+        q.weatherCurtailedKwh = Math.max(0, surplus - q.weatherExportKwh);
+        q.weatherPvGeneratedKwh = weatherPv - q.weatherCurtailedKwh;
         if (importPrice != null)
           q.weatherNetBenefitEur =
             q.weatherSelfConsumedKwh * importPrice +
@@ -835,8 +861,9 @@ export function applyConsumption(analysis, input = DEFAULT_CONSUMPTION) {
       assumptions: [
         "Day/night kWh are totals for each local calendar day’s clock periods; real DST duration changes the distribution rate, not that day’s total.",
         "Each modeled PV hour is divided equally into quarters before matching consumption. Hourly meter intervals are also distributed uniformly into quarters.",
-        "All surplus PV is exported. Grid import uses modeled spot price plus import adder; export uses modeled spot price less PV sales margin. Historic CSV prices are ignored.",
-        "Net benefit is no-PV import cost minus (with-PV import cost minus surplus export revenue). Negative prices remain signed. No fixed fees, taxes, financing, storage dispatch or import/export caps are modeled.",
+        "Local demand uses PV first. Surplus export is limited by the selected net grid export kW limit in each quarter; remaining available AC PV is curtailed. Null means no specified export limit, while zero prohibits export. Hourly averages do not capture faster power peaks.",
+        "Available PV is AC energy after upstream inverter clipping and before grid curtailment. Generated PV is available PV minus grid curtailment. Self-consumption percentage uses available PV, including curtailed energy, as its denominator.",
+        "Grid import uses modeled spot price plus import adder; export uses modeled spot price less PV sales margin. Historic CSV prices are ignored. Net benefit is no-PV import cost minus (with-PV import cost minus surplus export revenue). Negative prices remain signed. No fixed fees, taxes, financing, storage dispatch or import capacity limit is modeled.",
       ],
     },
   };

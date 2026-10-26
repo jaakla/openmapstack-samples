@@ -43,6 +43,8 @@ export default function ProductionValidationPanel({
   system,
   horizon,
   busy,
+  consumption,
+  storage,
 }) {
   const [originalUpload, setUpload] = useState(null),
     [error, setError] = useState("");
@@ -91,16 +93,58 @@ export default function ProductionValidationPanel({
   const selectedModel = weather
     ? periodResult?.system === modelSystem &&
       periodResult?.horizon === horizon &&
+      periodResult?.consumption === consumption &&
       periodResult?.weather === weather
       ? periodResult.analysis
       : null
     : analysis;
+  const hasGridLimit = Number.isFinite(modelSystem.gridExportLimitKw);
+  const comparisonModel = useMemo(() => {
+    if (!selectedModel || !hasGridLimit) return selectedModel;
+    const storageRows =
+      !weather && storage?.enabled
+        ? new Map(
+            (selectedModel.storage?.hourly || []).map((row) => [row.time, row]),
+          )
+        : null;
+    return {
+      ...selectedModel,
+      hourly: selectedModel.hourly.map((row) => ({
+        ...row,
+        shadedKwh: storageRows
+          ? (storageRows.get(row.time)?.pvGeneratedKwh ?? null)
+          : (row.pvGeneratedKwh ?? null),
+      })),
+    };
+  }, [selectedModel, hasGridLimit, weather, storage?.enabled]);
+  const modelLimitations = useMemo(() => {
+    const limitations = [];
+    if (weather && storage?.enabled && hasGridLimit)
+      limitations.push(
+        "This date-specific comparison uses the configured household load without battery dispatch. Battery operation can change grid-limit curtailment; no reassuring energy band is assigned.",
+      );
+    if (
+      storage?.enabled &&
+      storage.inverterConnection !== "separate" &&
+      Number.isFinite(modelSystem.inverterAcKw)
+    )
+      limitations.push(
+        "The shared-inverter battery model does not recover DC power clipped before the PV inverter. A hybrid inverter may recover some of that energy; this is not a full Deye electrical model.",
+      );
+    return limitations;
+  }, [
+    weather,
+    storage?.enabled,
+    storage?.inverterConnection,
+    hasGridLimit,
+    modelSystem.inverterAcKw,
+  ]);
   const comparison = useMemo(
     () =>
-      upload?.valid && selectedModel && !busy
-        ? compareOwnerData(upload, selectedModel)
+      upload?.valid && comparisonModel && !busy
+        ? compareOwnerData(upload, comparisonModel)
         : null,
-    [upload, selectedModel, busy],
+    [upload, comparisonModel, busy],
   );
   const assessment = useMemo(
     () =>
@@ -110,10 +154,11 @@ export default function ProductionValidationPanel({
             sourceSummary: upload.summary,
             sourceValid: upload.valid,
             sourceRows: upload.rows,
-            modelHourly: selectedModel.hourly,
+            modelHourly: comparisonModel.hourly,
+            modelLimitations,
           })
         : null,
-    [comparison, upload, selectedModel],
+    [comparison, upload, comparisonModel, modelLimitations],
   );
 
   useEffect(() => {
@@ -142,6 +187,7 @@ export default function ProductionValidationPanel({
           system: modelSystem,
           horizon,
           weather,
+          consumption,
         });
     };
     worker.current.onerror = () => {
@@ -150,8 +196,14 @@ export default function ProductionValidationPanel({
         "Production comparison could not be calculated. Reload and retry.",
       );
     };
-    worker.current.postMessage({ id, system: modelSystem, horizon, weather });
-  }, [weather, modelSystem, horizon, busy]);
+    worker.current.postMessage({
+      id,
+      system: modelSystem,
+      horizon,
+      weather,
+      consumption,
+    });
+  }, [weather, modelSystem, horizon, busy, consumption]);
   useEffect(() => {
     weatherRequest.current?.abort();
     setWeatherLoading(false);
@@ -218,7 +270,8 @@ export default function ProductionValidationPanel({
         <p className="field-help">
           Import Deye / Solarman detailed-data Excel exports directly. Select
           several monthly files together. First match the site polygon, DC
-          capacity, tilt and orientation to your installation in Scenario.
+          capacity, inverter AC output limit, grid export limit, tilt and
+          orientation to your installation in Scenario.
         </p>
         <label className="upload-zone">
           <Upload size={23} />
@@ -408,6 +461,16 @@ export default function ProductionValidationPanel({
       ) : null}
       {comparison ? (
         <Section title="Complete hourly comparison">
+          <p className="field-help" data-testid="production-power-basis">
+            {hasGridLimit
+              ? `Comparing PV production after inverter clipping and grid-limit curtailment, using the configured household load${!weather && storage?.enabled ? " and historical battery dispatch" : " without battery dispatch"}. Grid export is a different measurement.`
+              : "Comparing available PV production after any configured inverter AC limit, before grid curtailment. Grid export is a different measurement."}
+          </p>
+          {modelLimitations.map((message) => (
+            <p className="warning" key={message}>
+              {message}
+            </p>
+          ))}
           <ProductionAssessment assessment={assessment} />
           {!comparison.matchedHours ? (
             <p className="warning" data-testid="production-no-overlap">
@@ -430,10 +493,14 @@ export default function ProductionValidationPanel({
                   `${number(comparison.actualKwh, 2)} kWh`,
                 ],
                 [
-                  "Matched coverage",
-                  comparison.candidateHours
-                    ? `${number((100 * comparison.matchedHours) / comparison.candidateHours, 1)}% of ${number(comparison.candidateHours)} candidate hours`
+                  "Full-period coverage",
+                  Number.isFinite(assessment.coverage.coveragePct)
+                    ? `${number(assessment.coverage.coveragePct, 1)}% of ${number(assessment.coverage.expectedHours)} hours in the overlapping date window`
                     : "—",
+                ],
+                [
+                  "Hours touched by source intervals",
+                  number(comparison.candidateHours),
                 ],
                 ["Modeled", `${number(comparison.modelKwh, 2)} kWh`],
                 ["Bias", `${number(comparison.biasPct, 1)}%`],
@@ -449,12 +516,14 @@ export default function ProductionValidationPanel({
             />
           </div>
           {comparison.matchedHours > 0 &&
-          comparison.matchedHours < 0.8 * comparison.candidateHours ? (
+          Number.isFinite(assessment.coverage.coveragePct) &&
+          assessment.coverage.coveragePct <
+            assessment.policy.minimumCoveragePct ? (
             <p className="warning">
               Only {number(comparison.matchedHours)} of{" "}
-              {number(comparison.candidateHours)} candidate hours were compared.
-              Review the interpolation limit and excluded coverage before
-              interpreting accuracy metrics.
+              {number(assessment.coverage.expectedHours)} hours in the
+              overlapping date window were compared. Review the interpolation
+              limit and excluded coverage before interpreting accuracy metrics.
             </p>
           ) : null}
           <p className="warning">{comparison.assumption}</p>
@@ -469,7 +538,7 @@ export default function ProductionValidationPanel({
               downloadFile(
                 "production-comparison.csv",
                 [
-                  "time,actual_kwh,model_kwh,error_kwh,coverage_minutes,source_segments,max_sample_span_minutes,longer_span_minutes,max_interpolation_span_minutes",
+                  "time,actual_kwh,model_kwh,error_kwh,coverage_minutes,source_segments,max_sample_span_minutes,longer_span_minutes,max_interpolation_span_minutes,dc_kwp,inverter_ac_kw,grid_export_limit_kw,model_basis,battery_dispatch_included,model_limited",
                   ...comparison.matched.map((row) =>
                     [
                       row.time,
@@ -481,6 +550,14 @@ export default function ProductionValidationPanel({
                       row.maxSampleGapMinutes ?? "",
                       row.longerSpanMinutes ?? 0,
                       upload.summary?.integrationMaxGapMinutes ?? "",
+                      modelSystem.kwp,
+                      modelSystem.inverterAcKw ?? "",
+                      modelSystem.gridExportLimitKw ?? "",
+                      hasGridLimit
+                        ? "ac_after_grid_curtailment"
+                        : "available_ac_after_inverter",
+                      hasGridLimit && !weather && !!storage?.enabled,
+                      modelLimitations.length > 0,
                     ].join(","),
                   ),
                 ].join("\n"),

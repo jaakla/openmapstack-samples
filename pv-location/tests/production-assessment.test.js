@@ -421,3 +421,18 @@ test("assessment is pure, exposes the policy, and suggests checks without automa
     /does not automatically correct capacity/,
   );
 });
+
+test("known unmodeled battery behavior keeps an otherwise close complete comparison neutral", () => {
+  const data = fixture();
+  const result = assess(data, {
+    modelLimitations: ["Date-specific battery dispatch is not modeled."],
+  });
+  assert.equal(result.total.biasPct, 0);
+  assert.equal(result.status, "limited");
+  assert.equal(result.band.tone, "neutral");
+  assert.ok(has(result, "model_limitation_0"));
+  assert.match(
+    result.caveats.find((entry) => entry.code === "model_limitation_0").message,
+    /battery dispatch/,
+  );
+});

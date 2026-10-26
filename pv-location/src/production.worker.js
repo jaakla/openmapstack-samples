@@ -1,7 +1,13 @@
 import { analyzePV } from "./analysis.js";
+import { applyConsumption } from "./consumption.js";
 
 /** Model the supplied weather dates, including years outside the published baseline. */
-export function analyzeProductionPeriod({ system, horizon, weather } = {}) {
+export function analyzeProductionPeriod({
+  system,
+  horizon,
+  weather,
+  consumption,
+} = {}) {
   const rows = Array.isArray(weather) ? weather : weather?.rows;
   if (!Array.isArray(rows) || !rows.length)
     throw new Error(
@@ -63,7 +69,7 @@ export function analyzeProductionPeriod({ system, horizon, weather } = {}) {
     scope: "imported_production_period",
     valuation: "not_requested",
   };
-  return {
+  const result = {
     system: modeled.system,
     hourly,
     quality,
@@ -75,6 +81,14 @@ export function analyzeProductionPeriod({ system, horizon, weather } = {}) {
       (value) => !value.startsWith("All energy is exported"),
     ),
   };
+  if (modeled.system.gridExportLimitKw != null) {
+    // Physical curtailment depends on demand but does not require market prices.
+    // Keep this on the requested dates; a fetched period has no battery dispatch.
+    const demand = applyConsumption(result, consumption);
+    result.hourly = demand.hourly;
+    result.consumption = demand.consumption;
+  }
+  return result;
 }
 
 if (typeof self !== "undefined")

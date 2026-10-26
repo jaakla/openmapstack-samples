@@ -996,6 +996,28 @@ input[type="range"]::-webkit-slider-thumb {
   padding: 14px;
   margin: 0 0 20px;
 }
+.power-limit-results {
+  border: 1px solid var(--oms-border);
+  background: var(--oms-surface-2);
+  border-radius: 6px;
+  padding: 12px;
+  margin: 18px 0;
+  font-size: 11px;
+}
+.power-limit-results > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 4px 0;
+}
+.power-limit-results strong {
+  white-space: nowrap;
+}
+.power-limit-results p {
+  color: var(--oms-text-muted);
+  line-height: 1.65;
+  margin: 8px 0 0;
+}
 .production-assessment[data-tone="good"] {
   border-left-color: var(--oms-ok);
 }

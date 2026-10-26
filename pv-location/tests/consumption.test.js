@@ -209,6 +209,84 @@ test("negative prices remain signed for both avoided import cost and export reve
   assert.ok(result.summary.shadowNetBenefitLossEur < 0);
 });
 
+test("grid export limits apply after direct self-use and preserve available/generated/curtailed energy", () => {
+  const analysis = model([{ time: "2024-06-01T10:00:00Z" }]);
+  const consumption = { dayKwh: 32, nightKwh: 0 };
+  const limited = applyConsumption(
+    { ...analysis, system: { ...analysis.system, gridExportLimitKw: 1 } },
+    consumption,
+  );
+  const s = limited.summary;
+  close(s.availablePvKwh, 4);
+  close(s.selfConsumedKwh, 2);
+  close(s.exportKwh, 1);
+  close(s.curtailedKwh, 1);
+  close(s.pvGeneratedKwh, 3);
+  close(s.availablePvKwh, s.selfConsumedKwh + s.exportKwh + s.curtailedKwh);
+  close(s.selfConsumptionPct, 50);
+  close(s.weatherAvailablePvKwh, 5);
+  close(s.weatherPvGeneratedKwh, 3);
+  close(s.weatherCurtailedKwh, 2);
+  close(s.shadowNetBenefitLossEur, 0);
+  close(s.netBenefitEur, 0.295);
+  close(limited.monthly[0].curtailedKwh, s.curtailedKwh);
+  close(limited.annual[0].pvGeneratedKwh, s.pvGeneratedKwh);
+  for (const gridExportLimitKw of [null, undefined]) {
+    const unlimited = applyConsumption(
+      { ...analysis, system: { ...analysis.system, gridExportLimitKw } },
+      consumption,
+    );
+    close(unlimited.summary.curtailedKwh, 0);
+    close(unlimited.summary.pvGeneratedKwh, analysis.hourly[0].shadedKwh);
+    close(unlimited.summary.exportKwh, 2);
+  }
+});
+
+test("zero export limit curtails only quarter-hour surplus, and unknown demand remains unknown", () => {
+  const time = "2024-06-01T10:00:00Z";
+  const analysis = model([{ time }], {
+    system: { gridExportLimitKw: 0, salesMarginEurMWh: 5 },
+  });
+  const rows = [4, 0, 0, 0].map((energyKwh, i) => ({
+    time: new Date(Date.parse(time) + i * 900000).toISOString(),
+    durationHours: 0.25,
+    energyKwh,
+  }));
+  const result = applyConsumption(analysis, { mode: "csv-exact", rows });
+  close(result.summary.selfConsumedKwh, 1);
+  close(result.summary.importKwh, 3);
+  close(result.summary.exportKwh, 0);
+  close(result.summary.curtailedKwh, 3);
+  close(result.summary.pvGeneratedKwh, 1);
+  close(result.summary.selfConsumptionPct, 25);
+  const partial = applyConsumption(analysis, {
+    mode: "csv-exact",
+    rows: rows.slice(0, 1),
+  });
+  assert.equal(partial.summary.curtailedKwh, null);
+  assert.equal(partial.summary.pvGeneratedKwh, null);
+  close(partial.summary.availablePvKwh, 4);
+  close(partial.summary.coveredPvGeneratedKwh, 1);
+  close(partial.summary.coveredCurtailedKwh, 0);
+  assert.equal(partial.summary.selfConsumptionPct, null);
+});
+
+test("grid curtailment physical energy does not depend on prices and invalid export limits are rejected", () => {
+  const analysis = model(
+    [{ time: "2024-06-01T10:00:00Z", priceEurMWh: null }],
+    { system: { gridExportLimitKw: 0 } },
+  );
+  const result = applyConsumption(analysis, { dayKwh: 32, nightKwh: 0 });
+  close(result.summary.curtailedKwh, 2);
+  close(result.summary.pvGeneratedKwh, 2);
+  assert.equal(result.summary.netBenefitEur, null);
+  for (const gridExportLimitKw of [-1, NaN, Infinity, "1", 1000001])
+    assert.throws(
+      () => applyConsumption({ ...analysis, system: { gridExportLimitKw } }),
+      /Grid export limit/,
+    );
+});
+
 test("quarter-hour allocation is performed before hourly self-consumption aggregation", () => {
   const time = "2024-06-01T10:00:00Z";
   const rows = [4, 0, 0, 0].map((energyKwh, i) => ({

@@ -149,6 +149,35 @@ export function ScenarioPanel({
           step={0.1}
           unit="kWp"
         />
+        {[
+          ["inverterAcKw", "Inverter AC output limit", 0.1],
+          ["gridExportLimitKw", "Grid export limit", 0],
+        ].map(([key, label, min]) => (
+          <label className="field" key={key}>
+            <span>{label}</span>
+            <span className="number-input">
+              <input
+                type="number"
+                aria-label={label}
+                min={min}
+                max={1000000}
+                step={0.1}
+                placeholder="Not specified"
+                value={system[key] ?? ""}
+                onChange={(e) =>
+                  field(key)(e.target.value === "" ? null : +e.target.value)
+                }
+              />
+              kW
+            </span>
+          </label>
+        ))}
+        <p className="field-help">
+          Keep panel capacity at 20 kWp for a 20 kWp array, even with a 15 kW
+          inverter. The inverter caps AC production; the grid limit caps surplus
+          exports after local use and battery flows. Blank means no specified
+          limit; 0 kW grid export means no export.
+        </p>
         <Field
           label="Facing azimuth"
           id="azimuth"
@@ -196,6 +225,10 @@ export function ScenarioPanel({
           step={1}
           unit="%"
         />
+        <p className="field-help">
+          System loss includes aggregate conversion and electrical losses.
+          Inverter clipping is calculated separately when an AC limit is set.
+        </p>
       </Section>
       <StoragePanel
         {...{ storage, setStorage, system, analysis, consumption }}

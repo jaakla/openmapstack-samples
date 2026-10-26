@@ -19,14 +19,14 @@ const config = {
 };
 function fixture(
   values,
-  { margin = 0, adder = 0, start = "2024-06-01T06:00:00Z" } = {},
+  { margin = 0, adder = 0, start = "2024-06-01T06:00:00Z", system = {} } = {},
 ) {
   const hourly = values.map((v, i) => ({
     time: new Date(Date.parse(start) + i * 900000).toISOString(),
     durationHours: 0.25,
-    shadedKwh: v.pv ?? 0,
-    weatherKwh: v.pv ?? 0,
-    priceEurMWh: v.price ?? 100,
+    shadedKwh: v.pv === null ? null : (v.pv ?? 0),
+    weatherKwh: v.pv === null ? null : (v.pv ?? 0),
+    priceEurMWh: v.price === null ? null : (v.price ?? 100),
   }));
   const demand = {
     mode: "csv-exact",
@@ -51,7 +51,11 @@ function fixture(
     });
   return {
     analysis: applyConsumption(
-      { system: { kwp: 20, salesMarginEurMWh: margin }, hourly, summary: {} },
+      {
+        system: { kwp: 20, salesMarginEurMWh: margin, ...system },
+        hourly,
+        summary: {},
+      },
       demand,
     ),
     demand,
@@ -74,8 +78,10 @@ function invariant(s) {
     );
     close(
       r.pvKwh + r.importKwh + r.dischargeKwh,
-      r.demandKwh + r.exportKwh + r.chargeKwh,
+      r.demandKwh + r.exportKwh + r.chargeKwh + r.curtailedKwh,
     );
+    close(r.availablePvKwh, r.pvKwh);
+    close(r.pvGeneratedKwh + r.curtailedKwh, r.pvKwh);
     close(
       r.operatingCostEur,
       r.gridImportCostEur - r.exportRevenueEur + r.cyclingCostEur,
@@ -102,6 +108,16 @@ function invariant(s) {
       assert.ok(
         r.dischargeKwh <= s.config.effectiveDischargePowerKw / 4 + 1e-8,
       );
+      if (s.config.gridExportLimitKw != null)
+        assert.ok(r.exportKwh <= s.config.gridExportLimitKw / 4 + 1e-8);
+      if (
+        s.config.inverterConnection === "shared" &&
+        s.config.inverterAcKw != null
+      )
+        assert.ok(
+          r.pvGeneratedKwh - r.chargePvKwh + r.dischargeKwh <=
+            s.config.inverterAcKw / 4 + 1e-8,
+        );
     }
   }
   close(s.summary.socStartKwh, s.config.reserveKwh);
@@ -221,6 +237,176 @@ test("negative prices retain signs without a simultaneous-flow money machine", (
     allowBatteryExport: true,
   });
   close(equal.summary.chargeKwh, 0);
+});
+
+test("otherwise curtailed PV can charge storage without sacrificing capped export revenue", () => {
+  const values = [
+    { pv: 3, price: 200 },
+    { demand: 1, price: 50 },
+  ];
+  const s = run(values, {}, { system: { gridExportLimitKw: 4 } });
+  close(s.summary.chargePvKwh, 1);
+  close(s.summary.chargeGridKwh, 0);
+  close(s.summary.dischargeToLoadKwh, 1);
+  close(s.summary.exportKwh, 1);
+  close(s.summary.curtailedKwh, 1);
+  close(s.summary.noBatteryCurtailedKwh, 2);
+  close(s.summary.incrementalBenefitEur, 0.05);
+  close(s.summary.pvGeneratedKwh, 2);
+  invariant(s);
+  // Without an export constraint the same charge would lose more revenue than it saves.
+  close(run(values).summary.chargePvKwh, 0);
+});
+
+test("zero net export allows local PV and useful storage but prohibits PV and battery sales", () => {
+  const s = run(
+    [
+      { pv: 2, demand: 0.5, price: 0 },
+      { demand: 1, price: 200 },
+    ],
+    { allowBatteryExport: true },
+    { system: { gridExportLimitKw: 0 } },
+  );
+  close(s.summary.pvDirectSelfConsumedKwh, 0.5);
+  close(s.summary.chargePvKwh, 1);
+  close(s.summary.dischargeToLoadKwh, 1);
+  close(s.summary.exportKwh, 0);
+  close(s.summary.dischargeToGridKwh, 0);
+  close(s.summary.curtailedKwh, 0.5);
+  close(s.summary.noBatteryCurtailedKwh, 1.5);
+  invariant(s);
+  const arbitrage = run(
+    [{ price: 0 }, { price: 200 }],
+    {
+      allowGridCharging: true,
+      allowBatteryExport: true,
+    },
+    { system: { gridExportLimitKw: 0 } },
+  );
+  close(arbitrage.summary.chargeKwh, 0);
+  close(arbitrage.summary.exportKwh, 0);
+  invariant(arbitrage);
+});
+
+test("PV and grid-charged battery share the same export headroom during arbitrage", () => {
+  const s = run(
+    [{ price: 0 }, { pv: 0.75, price: 200 }],
+    {
+      allowGridCharging: true,
+      allowBatteryExport: true,
+    },
+    { system: { gridExportLimitKw: 4 } },
+  );
+  close(s.summary.chargeGridKwh, 0.25);
+  close(s.hourly[1].exportKwh, 1);
+  close(s.hourly[1].dischargeToGridKwh, 0.25);
+  close(s.summary.incrementalBenefitEur, 0.05);
+  invariant(s);
+  const full = run(
+    [{ price: 0 }, { pv: 1, price: 200 }],
+    {
+      allowGridCharging: true,
+      allowBatteryExport: true,
+    },
+    { system: { gridExportLimitKw: 4 } },
+  );
+  close(full.summary.chargeGridKwh, 0);
+  close(full.summary.dischargeToGridKwh, 0);
+  invariant(full);
+});
+
+test("shared inverter output budget includes battery discharge serving local demand", () => {
+  const values = [{ price: 0 }, { pv: 3, demand: 6.25, price: 200 }];
+  const options = { system: { inverterAcKw: 15, gridExportLimitKw: 15 } };
+  const c = {
+    capacityKwh: 4,
+    chargePowerKw: 10,
+    dischargePowerKw: 10,
+    allowGridCharging: true,
+  };
+  const shared = run(values, c, options);
+  assert.equal(shared.config.inverterConnection, "shared");
+  close(shared.hourly[1].dischargeToLoadKwh, 0.75);
+  close(shared.hourly[1].pvGeneratedKwh + shared.hourly[1].dischargeKwh, 3.75);
+  close(shared.hourly[1].importKwh, 2.5);
+  invariant(shared);
+  const separate = run(
+    values,
+    { ...c, inverterConnection: "separate" },
+    options,
+  );
+  close(separate.hourly[1].dischargeToLoadKwh, 2.5);
+  close(separate.hourly[1].importKwh, 0.75);
+  invariant(separate);
+  // A fully occupied PV inverter cannot add battery AC output even for local demand.
+  const occupied = run(
+    [{ price: 0 }, { pv: 3.75, demand: 6.25, price: 200 }],
+    c,
+    options,
+  );
+  close(occupied.summary.dischargeKwh, 0);
+  close(occupied.summary.chargeKwh, 0);
+  invariant(occupied);
+  assert.throws(
+    () => normalizeStorageConfig({ inverterConnection: "hybrid-dc" }),
+    /shared or separate/,
+  );
+  assert.throws(
+    () => normalizeStorageConfig({}, { inverterAcKw: 0 }),
+    /inverter AC rating/,
+  );
+});
+
+test("disabled storage keeps capped no-battery curtailment and incomplete inputs remain unknown", () => {
+  const f = fixture([{ pv: 2, demand: 0.5 }, { demand: 1 }], {
+    system: { gridExportLimitKw: 0 },
+  });
+  const disabled = applyStorage(
+    f.analysis,
+    { enabled: false },
+    f.demand,
+  ).storage;
+  close(disabled.summary.curtailedKwh, 1.5);
+  close(disabled.summary.noBatteryCurtailedKwh, 1.5);
+  close(disabled.summary.pvGeneratedKwh, 0.5);
+  close(disabled.summary.netBenefitEur, f.analysis.summary.netBenefitEur);
+  invariant(disabled);
+  const partial = run(
+    [{ pv: 1, price: 0 }, { pv: null, demand: 1 }, { demand: 1 }],
+    {},
+    { system: { gridExportLimitKw: 0 } },
+  );
+  assert.equal(partial.summary.curtailedKwh, null);
+  assert.equal(partial.summary.pvGeneratedKwh, null);
+  assert.equal(partial.summary.incrementalBenefitEur, null);
+  close(partial.summary.coveredCurtailedKwh, 1);
+  close(partial.summary.coveragePct, 200 / 3);
+  close(partial.summary.coveredIncrementalBenefitEur, 0);
+});
+
+test("unspecified limits preserve dispatch and do not reclaim upstream inverter clipping", () => {
+  const values = [
+    { pv: 1, price: 0 },
+    { demand: 1, price: 200 },
+  ];
+  const original = run(values);
+  for (const system of [{}, { inverterAcKw: null, gridExportLimitKw: null }]) {
+    const s = run(values, {}, { system });
+    close(s.summary.chargePvKwh, original.summary.chargePvKwh);
+    close(s.summary.netBenefitEur, original.summary.netBenefitEur);
+    close(s.summary.curtailedKwh, 0);
+    invariant(s);
+  }
+  const f = fixture(values, {
+    system: { inverterAcKw: 4, gridExportLimitKw: 0 },
+  });
+  f.analysis.hourly[0].shadedPreInverterKwh = 4;
+  f.analysis.hourly[0].shadedInverterClippingKwh = 3;
+  const s = applyStorage(f.analysis, config, f.demand).storage;
+  close(s.summary.availablePvKwh, 1);
+  close(s.summary.chargePvKwh, 1);
+  close(s.summary.dischargeToLoadKwh, 1);
+  invariant(s);
 });
 
 test("charge/discharge limits, reserve and a large SOC grid do not erase small quarter-hour household loads", () => {

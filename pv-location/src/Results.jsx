@@ -65,6 +65,7 @@ function ConsumptionBalance({ summary }) {
     ["Local demand", "consumptionKwh"],
     ["Used on site", "selfConsumedKwh"],
     ["Exported", "exportKwh"],
+    ["Curtailed by grid limit", "curtailedKwh"],
     ["Grid import", "importKwh"],
   ];
   return (
@@ -140,6 +141,25 @@ export default function Results({ analysis, year, busy, horizon }) {
               {i < 2 ? <ArrowRight className="flow-arrow" size={19} /> : null}
             </div>
           ))}
+        </div>
+        <div className="power-limit-results" data-testid="power-limit-results">
+          <div>
+            <span>Inverter clipping</span>
+            <strong data-testid="inverter-clipping">
+              {number(s.shadedInverterClippingKwh)} kWh/yr
+            </strong>
+          </div>
+          <div>
+            <span>Grid-limit curtailment · without battery</span>
+            <strong data-testid="grid-curtailment">
+              {number(s.curtailedKwh)} kWh/yr
+            </strong>
+          </div>
+          <p>
+            Energy totals above are available AC production after inverter
+            clipping, before grid-limit curtailment. Clipping uses
+            hourly-average power; brief peaks within an hour remain unresolved.
+          </p>
         </div>
         <MonthlyChart monthly={analysis?.monthly} />
         <ConsumptionBalance summary={s} />

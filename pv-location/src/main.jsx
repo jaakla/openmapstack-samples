@@ -416,6 +416,10 @@ function App({ inputs }) {
           .filter((k) => item.properties?.[k] != null)
           .map((k) => [k, item.properties[k]]),
       );
+      // Older scenarios did not declare power limits; do not inherit a previous
+      // scenario's limits when importing those files. Explicit null clears a cap.
+      allowed.inverterAcKw = item.properties?.inverterAcKw ?? null;
+      allowed.gridExportLimitKw = item.properties?.gridExportLimitKw ?? null;
       const checked = validateSystem({
         ...system,
         ...allowed,
@@ -679,7 +683,16 @@ function App({ inputs }) {
                 ) : name === "Evidence" ? (
                   <EvidencePanel {...{ project, analysis, horizon }} />
                 ) : (
-                  <ValidationPanel {...{ analysis, system, horizon, busy }} />
+                  <ValidationPanel
+                    {...{
+                      analysis,
+                      system,
+                      horizon,
+                      busy,
+                      consumption,
+                      storage,
+                    }}
+                  />
                 )}
               </div>
             ))}

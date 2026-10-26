@@ -228,6 +228,121 @@ test("opaque horizon reduces direct and diffuse production while a clear profile
   assert.ok(clearAnalysis.summary.coveredWeatherKwh > 0);
 });
 
+test("DC panel capacity, optional inverter AC rating and optional grid export limit validate independently", () => {
+  assert.equal(DEFAULT_SYSTEM.inverterAcKw, null);
+  assert.equal(DEFAULT_SYSTEM.gridExportLimitKw, null);
+  const system = validateSystem({ kwp: 20, inverterAcKw: 15, gridExportLimitKw: 0 });
+  assert.equal(system.kwp, 20);
+  assert.equal(system.inverterAcKw, 15);
+  assert.equal(system.gridExportLimitKw, 0);
+  assert.equal(validateSystem({ inverterAcKw: undefined }).inverterAcKw, null);
+  assert.equal(validateSystem({ inverterAcKw: 1000000 }).inverterAcKw, 1000000);
+  assert.equal(validateSystem({ gridExportLimitKw: 1000000 }).gridExportLimitKw, 1000000);
+  for (const value of [0, -1, NaN, Infinity, "15", 1000000.1])
+    assert.throws(() => validateSystem({ inverterAcKw: value }), /inverterAcKw/);
+  for (const value of [-1, NaN, Infinity, "0", 1000000.1])
+    assert.throws(() => validateSystem({ gridExportLimitKw: value }), /gridExportLimitKw/);
+});
+
+const uniformPoaWeather = { time, ghi: 1000, dni: 0, dhi: 1000, temperatureC: 20 };
+const idealTwentyKwp = { kwp: 20, tiltDeg: 0, temperatureCoefficient: 0, systemLossPct: 0 };
+
+test("20 kWp panels with a 15 kW inverter retain pre-inverter energy and lose only energy above the AC cap", () => {
+  const result = analyzePV({
+    system: { ...idealTwentyKwp, inverterAcKw: 15 },
+    weather: [uniformPoaWeather],
+    horizon: [],
+    prices: [{ time, priceEurMWh: 100 }],
+  });
+  const row = getHour(result);
+  close(row.weatherPreInverterKwh, 20);
+  close(row.shadedPreInverterKwh, 20);
+  close(row.weatherKwh, 15);
+  close(row.shadedKwh, 15);
+  close(row.weatherInverterClippingKwh, 5);
+  close(row.shadedInverterClippingKwh, 5);
+  close(row.weatherRevenueEur, 15 * (100 - DEFAULT_SYSTEM.salesMarginEurMWh) / 1000);
+  for (const prefix of ["clear", "weather", "shaded"]) {
+    close(row[`${prefix}PreInverterKwh`], row[`${prefix}Kwh`] + row[`${prefix}InverterClippingKwh`]);
+    assert.ok(row[`${prefix}Kwh`] <= 15);
+    assert.ok(row[`${prefix}InverterClippingKwh`] >= 0);
+  }
+  const missing = getHour(result, "2024-02-01T00:00:00Z");
+  for (const prefix of ["weather", "shaded"]) {
+    assert.equal(missing[`${prefix}PreInverterKwh`], null);
+    assert.equal(missing[`${prefix}InverterClippingKwh`], null);
+    assert.equal(result.summary[`${prefix}PreInverterKwh`], null);
+    assert.equal(result.summary[`${prefix}InverterClippingKwh`], null);
+  }
+  close(result.summary.coveredWeatherPreInverterKwh, 20);
+  close(result.summary.coveredShadedPreInverterKwh, 20);
+  close(result.summary.coveredWeatherInverterClippingKwh, 5);
+  close(result.summary.coveredShadedInverterClippingKwh, 5);
+  close(result.monthly.find((month) => month.month === "2024-06").coveredShadedInverterClippingKwh, 5);
+  close(result.annual[0].coveredWeatherInverterClippingKwh, 5);
+  close(result.summary.clearPreInverterKwh, result.summary.clearKwh + result.summary.clearInverterClippingKwh, 1e-6);
+  assert.match(result.assumptions.join(" "), /Hourly-average.*underestimate clipping/);
+  assert.match(result.assumptions.join(" "), /no MPPT or inverter efficiency curve/);
+});
+
+test("existing electrical losses precede the inverter cap and are not charged a second conversion loss", () => {
+  const result = analyzePV({
+    system: { ...idealTwentyKwp, inverterAcKw: 15, systemLossPct: 30 },
+    weather: [uniformPoaWeather], horizon: [],
+  });
+  const row = getHour(result);
+  close(row.weatherPreInverterKwh, 14);
+  close(row.weatherKwh, 14);
+  close(row.weatherInverterClippingKwh, 0);
+  assert.match(result.assumptions.join(" "), /no additional inverter efficiency/);
+});
+
+test("shade losses are evaluated after AC clipping, including when both cases saturate the same inverter", () => {
+  const result = analyzePV({
+    system: { ...idealTwentyKwp, inverterAcKw: 15 },
+    weather: [uniformPoaWeather],
+    horizon: [{ azimuthDeg: 0, elevationDeg: 15 }],
+  });
+  const row = getHour(result);
+  assert.ok(row.shadedPreInverterKwh < row.weatherPreInverterKwh);
+  assert.ok(row.shadedPreInverterKwh > 15);
+  close(row.weatherKwh, 15);
+  close(row.shadedKwh, 15);
+  close(row.shadingLossKwh, 0);
+  assert.ok(row.shadedInverterClippingKwh < row.weatherInverterClippingKwh);
+  const unavailable = analyzePV({ system: { inverterAcKw: 15 }, weather: [weatherRow] });
+  assert.equal(getHour(unavailable).shadedPreInverterKwh, null);
+  assert.equal(getHour(unavailable).shadedInverterClippingKwh, null);
+});
+
+test("nullable limits preserve production exactly, and a zero grid-export allowance is not an irradiance cap", () => {
+  const options = { system: idealTwentyKwp, weather: [uniformPoaWeather], horizon: [] };
+  const omitted = analyzePV(options);
+  const explicit = analyzePV({ ...options, system: { ...idealTwentyKwp, inverterAcKw: null, gridExportLimitKw: null } });
+  const noExport = analyzePV({ ...options, system: { ...idealTwentyKwp, gridExportLimitKw: 0 } });
+  assert.deepEqual(explicit.hourly, omitted.hourly);
+  assert.deepEqual(explicit.summary, omitted.summary);
+  assert.deepEqual(noExport.hourly, omitted.hourly);
+  close(getHour(omitted).shadedKwh, 20);
+  for (const prefix of ["clear", "weather", "shaded"]) {
+    close(getHour(omitted)[`${prefix}PreInverterKwh`], getHour(omitted)[`${prefix}Kwh`]);
+    close(getHour(omitted)[`${prefix}InverterClippingKwh`], 0);
+  }
+});
+
+test("inverter power is converted to interval energy with its actual duration", () => {
+  const result = analyzePV({
+    system: { ...idealTwentyKwp, inverterAcKw: 15 },
+    weather: [uniformPoaWeather], horizon: [], durationHours: 0.5, substeps: 1,
+  });
+  const row = getHour(result);
+  assert.equal(row.durationHours, 0.5);
+  close(row.weatherPreInverterKwh, 10);
+  close(row.weatherKwh, 7.5);
+  close(row.weatherInverterClippingKwh, 2.5);
+  assert.ok(result.hourly.every((hour) => hour.clearKwh <= 7.5));
+});
+
 test("revenue uses EUR/MWh divided by 1000, margin and negative prices without clipping losses", () => {
   const result = analyzePV({
     weather: [weatherRow],
@@ -448,6 +563,11 @@ test("pinned 2024/2025 sources produce complete finite years with monotone shade
         (row) => row.shadedKwh >= 0 && row.shadedKwh <= row.weatherKwh + 1e-9,
       ),
     );
+    for (const prefix of ["clear", "weather", "shaded"]) {
+      close(result.summary[`${prefix}PreInverterKwh`], result.summary[`${prefix}Kwh`]);
+      close(result.summary[`${prefix}InverterClippingKwh`], 0);
+      close(result.monthly.reduce((sum, row) => sum + row[`${prefix}PreInverterKwh`], 0), result.summary[`${prefix}PreInverterKwh`], 1e-6);
+    }
     close(
       result.monthly.reduce((sum, row) => sum + row.shadedKwh, 0),
       result.summary.shadedKwh,

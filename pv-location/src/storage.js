@@ -1,6 +1,7 @@
 import {
   createConsumptionResolver,
   DEFAULT_CONSUMPTION,
+  normalizeGridExportLimitKw,
 } from "./consumption.js";
 
 const HOUR = 3600000,
@@ -13,6 +14,7 @@ const stamp = (value) =>
 const iso = (value) => new Date(value).toISOString();
 export const DEFAULT_STORAGE = Object.freeze({
   enabled: false,
+  inverterConnection: "shared",
   capacityMode: "auto",
   capacityKwh: 40,
   powerMode: "kw",
@@ -64,6 +66,8 @@ export function normalizeStorageConfig(input = {}, system = {}) {
     !["kw", "amps"].includes(c.powerMode)
   )
     throw new Error("Choose auto/fixed battery capacity and kw/amps power.");
+  if (!["shared", "separate"].includes(c.inverterConnection))
+    throw new Error("Choose a shared or separate battery inverter connection.");
   for (const key of [
     "capacityKwh",
     "chargePowerKw",
@@ -119,12 +123,25 @@ export function normalizeStorageConfig(input = {}, system = {}) {
   c.chargeEfficiency = Math.sqrt(c.roundTripEfficiencyPct / 100);
   c.dischargeEfficiency = c.chargeEfficiency;
   c.socStepKwh = c.usableCapacityKwh / c.socSteps;
+  c.gridExportLimitKw = normalizeGridExportLimitKw(system.gridExportLimitKw);
+  c.inverterAcKw = system.inverterAcKw ?? null;
+  if (
+    c.inverterAcKw != null &&
+    (!finite(c.inverterAcKw) || c.inverterAcKw <= 0 || c.inverterAcKw > 1000000)
+  )
+    throw new Error(
+      "PV inverter AC rating must be null or a positive kW value at most 1000000.",
+    );
   return c;
 }
 export const validateStorage = normalizeStorageConfig;
 
 const METRICS = [
   "pvKwh",
+  "availablePvKwh",
+  "pvGeneratedKwh",
+  "curtailedKwh",
+  "noBatteryCurtailedKwh",
   "demandKwh",
   "pvDirectSelfConsumedKwh",
   "chargeKwh",
@@ -189,7 +206,8 @@ function aggregate(rows) {
   return out;
 }
 
-const cost = (net, buy, sell) => (net >= 0 ? net * buy : net * sell);
+const cost = (net, buy, sell, exportLimit = Infinity) =>
+  net >= 0 ? net * buy : Math.max(net, -exportLimit) * sell;
 function bounds(q, config) {
   const n = q.demand - q.pv;
   return {
@@ -206,7 +224,10 @@ function bounds(q, config) {
         0,
         Math.min(
           config.effectiveDischargePowerKw / 4,
-          config.allowBatteryExport ? Infinity : Math.max(n, 0),
+          config.allowBatteryExport
+            ? Math.max(0, n + q.exportLimit)
+            : Math.max(n, 0),
+          Math.max(0, q.inverterLimit - q.pv),
         ),
       ) / config.dischargeEfficiency,
   };
@@ -246,7 +267,7 @@ function choose(q, energy, future, c) {
     const charge = Math.max(0, delta) / c.chargeEfficiency;
     const discharge = Math.max(0, -delta) * c.dischargeEfficiency;
     const total =
-      cost(baseNet + charge - discharge, q.buy, q.sell) +
+      cost(baseNet + charge - discharge, q.buy, q.sell, q.exportLimit) +
       discharge * c.cyclingCostEurKwh +
       interpolate(future, next, step, states);
     const travel = Math.abs(delta);
@@ -263,6 +284,9 @@ function choose(q, energy, future, c) {
   candidate(low);
   candidate(high);
   if (baseNet < 0) candidate(energy - baseNet * c.chargeEfficiency);
+  // Charging curtailed PV has no foregone export revenue until this boundary.
+  if (baseNet < -q.exportLimit)
+    candidate(energy + (-baseNet - q.exportLimit) * c.chargeEfficiency);
   if (baseNet > 0) candidate(energy - baseNet / c.dischargeEfficiency);
   for (
     let j = Math.ceil((low - EPS) / step);
@@ -311,13 +335,13 @@ function optimize(quarters, c) {
     const charge = Math.max(0, delta) / c.chargeEfficiency;
     const discharge = Math.max(0, -delta) * c.dischargeEfficiency;
     actualCost +=
-      cost(q.demand - q.pv + charge - discharge, q.buy, q.sell) +
+      cost(q.demand - q.pv + charge - discharge, q.buy, q.sell, q.exportLimit) +
       discharge * c.cyclingCostEurKwh;
     energy = next;
     return delta;
   });
   const baseline = quarters.reduce(
-    (sum, q) => sum + cost(q.demand - q.pv, q.buy, q.sell),
+    (sum, q) => sum + cost(q.demand - q.pv, q.buy, q.sell, q.exportLimit),
     0,
   );
   const fallback =
@@ -345,14 +369,19 @@ function simulate(q, delta, state, c) {
   if (Math.abs(state.grid) < 1e-8) state.grid = 0;
   const net = q.demand - q.pv + charge - discharge;
   const imported = Math.max(0, net),
-    exported = Math.max(0, -net);
+    exported = Math.min(Math.max(0, -net), q.exportLimit);
+  const curtailed = Math.max(0, -net - exported);
   const importCost = imported * q.buy,
     exportRevenue = exported * q.sell;
   const cycleCost = discharge * c.cyclingCostEurKwh;
-  const baselineGrid = cost(q.demand - q.pv, q.buy, q.sell);
+  const baselineGrid = cost(q.demand - q.pv, q.buy, q.sell, q.exportLimit);
   const operatingCost = importCost - exportRevenue + cycleCost;
   return {
     pvKwh: q.pv,
+    availablePvKwh: q.pv,
+    pvGeneratedKwh: q.pv - curtailed,
+    curtailedKwh: curtailed,
+    noBatteryCurtailedKwh: Math.max(0, q.pv - q.demand - q.exportLimit),
     demandKwh: q.demand,
     pvDirectSelfConsumedKwh: direct,
     chargeKwh: charge,
@@ -397,6 +426,10 @@ function offRow(row, c) {
   const result = Object.fromEntries(METRICS.map((key) => [key, 0]));
   const mappings = {
     pvKwh: "shadedKwh",
+    availablePvKwh: "shadedKwh",
+    pvGeneratedKwh: "pvGeneratedKwh",
+    curtailedKwh: "curtailedKwh",
+    noBatteryCurtailedKwh: "curtailedKwh",
     demandKwh: "consumptionKwh",
     pvDirectSelfConsumedKwh: "selfConsumedKwh",
     importKwh: "importKwh",
@@ -414,6 +447,12 @@ function offRow(row, c) {
   for (const [target, source] of Object.entries(mappings)) {
     result[target] = finite(row[source]) ? row[source] : null;
     if (finite(row[ck(source)])) result[ck(target)] = row[ck(source)];
+  }
+  // Older pinned, unconstrained baselines predate explicit curtailment fields.
+  if (row.curtailedKwh === undefined && c.gridExportLimitKw == null) {
+    const known = finite(row.shadedKwh) && finite(row.consumptionKwh);
+    result.curtailedKwh = result.noBatteryCurtailedKwh = known ? 0 : null;
+    result.pvGeneratedKwh = known ? row.shadedKwh : null;
   }
   return {
     ...result,
@@ -487,6 +526,15 @@ export function applyStorage(
           parent: row,
           pv: finite(row.shadedKwh) ? row.shadedKwh / n : null,
           demand,
+          exportLimit:
+            config.gridExportLimitKw == null
+              ? Infinity
+              : config.gridExportLimitKw / 4,
+          inverterLimit:
+            config.inverterConnection === "shared" &&
+            config.inverterAcKw != null
+              ? config.inverterAcKw / 4
+              : Infinity,
           buy: finite(row.priceEurMWh)
             ? (row.priceEurMWh + resolver.config.importAdderEurMWh) / 1000
             : null,
@@ -579,7 +627,9 @@ export function applyStorage(
     "Automatic capacity is twice DC PV kWp in kWh; fixed capacity overrides this planning heuristic.",
     "AC charge and discharge efficiencies are both the square root of round-trip efficiency. AC amp limits assume unity power factor; three-phase voltage is line-to-line.",
     "Each quarter permits charge, idle or discharge. A single net grid flow prevents simultaneous import/export; PV is used directly before charging and battery discharge serves residual demand before export.",
-    "Charging from PV has foregone export value. Grid charging and battery export require their separate toggles. All spot prices keep their signs; import adder, export sales margin, efficiency and cycling cost enter dispatch.",
+    "Charging from PV has foregone export value only where that PV could otherwise be exported. PV that would exceed the grid export limit can charge storage before being curtailed. Grid charging and battery export require their separate toggles. All spot prices keep their signs; import adder, export sales margin, efficiency and cycling cost enter dispatch.",
+    "The grid export kW limit constrains combined PV and battery export in every quarter, after direct local demand. Null leaves export unconstrained and zero prohibits export. Available PV is upstream inverter-clipped AC energy; generated PV is available PV minus grid curtailment. The no-battery comparison uses the same grid export limit.",
+    "Shared inverter connection applies an approximate combined PV-plus-battery AC output budget at the selected PV inverter rating, with PV used first. Separate connection applies the PV inverter rating only upstream and keeps battery charge/discharge limits separate. Neither connection recovers upstream PV inverter clipping or models DC-linked charging or a manufacturer's detailed hybrid topology. Hourly-average PV cannot establish compliance at subhour peaks.",
     "SOC reserve is unavailable for dispatch and never credited as free energy. Every optimized daily or covered segment closes at reserve. PV and grid energy mix proportionally in usable storage; source-specific losses and delivered PV self-consumption are accounted separately.",
     "Cycling cost is EUR per AC kWh discharged. Net grid cost excludes cycling cost; operating cost includes it. Incremental benefit compares operating cost with the identical no-battery demand/PV baseline.",
     "Hourly PV is uniform within its quarters; the shared demand resolver preserves actual uploaded quarter-hour spikes. Boundary local days are restricted to the modeled UTC period.",

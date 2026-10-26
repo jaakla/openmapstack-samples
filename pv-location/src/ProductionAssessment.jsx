@@ -24,6 +24,9 @@ export default function ProductionAssessment({ assessment }) {
         : Info;
   const hasBias = Number.isFinite(total.biasPct);
   const lower = total.biasPct < 0;
+  const modelLimited = assessment.caveats.some(({ code }) =>
+    code.startsWith("model_limitation_"),
+  );
   return (
     <section
       className="production-assessment"
@@ -40,7 +43,9 @@ export default function ProductionAssessment({ assessment }) {
         {assessment.status === "assessed"
           ? assessment.band.label
           : assessment.status === "limited"
-            ? "More data needed"
+            ? modelLimited
+              ? "Model assumptions need review"
+              : "More data needed"
             : "No useful comparison yet"}
       </h3>
       {hasBias ? (
@@ -95,8 +100,9 @@ export default function ProductionAssessment({ assessment }) {
       ) : null}
       {assessment.status !== "assessed" ? (
         <p className="assessment-evidence">
-          More complete data is needed before using the energy ranges below as a
-          useful assessment.
+          {modelLimited
+            ? "Review the model limitations before relying on the energy ranges below."
+            : "More complete data is needed before using the energy ranges below as a useful assessment."}
         </p>
       ) : null}
       <details className="assessment-details">
@@ -151,7 +157,9 @@ export default function ProductionAssessment({ assessment }) {
         <summary>
           {assessment.status === "assessed"
             ? "What to check next"
-            : "Why more data is needed"}
+            : modelLimited
+              ? "Why this comparison is limited"
+              : "Why more data is needed"}
           <ChevronDown size={15} aria-hidden="true" />
         </summary>
         <ul>

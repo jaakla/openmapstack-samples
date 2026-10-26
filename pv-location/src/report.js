@@ -441,8 +441,12 @@ export async function createScenarioReport({
     : finite(summary.shadowRevenueLossEur)
       ? ` Shadow impact on all-export revenue: ${money(summary.shadowRevenueLossEur)}/yr.`
       : "";
+  const hasPowerLimit =
+    system.inverterAcKw != null || system.gridExportLimitKw != null;
   paragraph(
-    `Local shadows: ${num(summary.shadingLossKwh)} kWh (${pct(summary.shadingLossPct)}) of modeled weather-adjusted production. Specific yield: ${num(summary.specificYieldKwhKwp)} kWh/kWp.${shadowMoney}`,
+    hasPowerLimit
+      ? `Local shadows: ${num(summary.shadingLossKwh)} kWh (${pct(summary.shadingLossPct)}). Inverter clipping: ${num(summary.shadedInverterClippingKwh)} kWh. Grid-limit curtailment without battery: ${num(summary.curtailedKwh)} kWh. Specific yield before grid curtailment: ${num(summary.specificYieldKwhKwp)} kWh/kWp.`
+      : `Local shadows: ${num(summary.shadingLossKwh)} kWh (${pct(summary.shadingLossPct)}) of modeled weather-adjusted production. Specific yield: ${num(summary.specificYieldKwhKwp)} kWh/kWp.${shadowMoney}`,
     left,
     215,
     width,
@@ -455,6 +459,18 @@ export async function createScenarioReport({
   const parameters = [
     ["Nominal capacity", `${num(system.kwp, 2)} kWp DC`],
     [
+      "Inverter AC limit",
+      finite(system.inverterAcKw)
+        ? `${num(system.inverterAcKw, 2)} kW`
+        : "Not specified",
+    ],
+    [
+      "Grid export limit",
+      finite(system.gridExportLimitKw)
+        ? `${num(system.gridExportLimitKw, 2)} kW`
+        : "Not specified",
+    ],
+    [
       "Tilt / facing azimuth",
       `${num(system.tiltDeg, 1)}° / ${num(system.azimuthDeg, 1)}°`,
     ],
@@ -464,10 +480,10 @@ export async function createScenarioReport({
     ["Export sales margin", `${num(system.salesMarginEurMWh, 1)} €/MWh`],
   ];
   parameters.forEach(([label, value], i) => {
-    const x = left + (i % 3) * 60,
-      y = 243 + Math.floor(i / 3) * 17;
+    const x = left + (i % 4) * 45,
+      y = 243 + Math.floor(i / 4) * 17;
     text(label, x, y, 7.1, C.muted);
-    text(value, x, y + 6, 10, C.ink, true);
+    text(value, x, y + 6, 9.5, C.ink, true);
   });
   footer(1);
 
@@ -581,7 +597,7 @@ export async function createScenarioReport({
   section(
     `Monthly energy · ${year || "selected year"}`,
     chartTop - 4,
-    "kWh · clear sky / weather / after shadows",
+    "Available AC kWh · before grid-limit curtailment",
   );
   const max = Math.max(
     1,
@@ -644,7 +660,7 @@ export async function createScenarioReport({
   const tx = [left, 45, 74, 104, 134, 164];
   [
     "Month",
-    "PV kWh",
+    "Available PV",
     "Used on site",
     "Import kWh",
     "Export kWh",
@@ -697,7 +713,7 @@ export async function createScenarioReport({
   section("How this estimate works", 87);
   const methods = [
     "Clear sky: Haurwitz reference and Erbs decomposition. Hourly ERA5 irradiance is transposed to the tilted array with isotropic diffuse sky and ground reflection.",
-    `Production: ${num(system.kwp, 2)} kWp nameplate, NOCT cell-temperature adjustment and ${num(system.systemLossPct, 1)}% electrical loss. No inverter clipping, snow, curtailment or degradation.${hasStorage ? " Storage is a separate comparison on page 4." : " Storage is disabled."}`,
+    `Production: ${num(system.kwp, 2)} kWp DC, NOCT temperature adjustment and ${num(system.systemLossPct, 1)}% aggregate electrical/conversion loss. ${finite(system.inverterAcKw) ? `AC output capped at ${num(system.inverterAcKw, 2)} kW after losses.` : "No specified inverter AC cap."} Hourly-average clipping misses shorter peaks; no MPPT, snow or degradation model.${hasStorage ? " Storage comparison on page 4." : " Storage disabled."}`,
     `Local shade: ${num(horizon?.resolutionM ?? 5)} m surface grid, ${num(horizon?.sampleCount)} receiver samples and ${num(horizon?.radiusM)} m horizon radius. DSM treats buildings and trees as opaque; tree seasonality and electrical mismatch are unresolved.`,
     "Surface dates: DSM catalogue describes 2017–2020 acquisitions; exact local dates are unknown. The frozen surface can differ from the historical weather year and misses small objects.",
     imported
@@ -705,6 +721,8 @@ export async function createScenarioReport({
       : "Consumption: fixed local day/night totals distributed uniformly within each period. This assumed load shape is not a measured household profile.",
     `Valuation: import at EE spot plus ${num(config.importAdderEurMWh ?? 0, 1)} €/MWh; export at spot less ${num(system.salesMarginEurMWh, 1)} €/MWh, including negative prices. Quarter-hour 2025 prices are averaged hourly; all figures exclude investment and taxes.`,
   ];
+  if (finite(system.gridExportLimitKw))
+    methods[4] += ` Net exports capped at ${num(system.gridExportLimitKw, 2)} kW after local use; excess PV is curtailed.`;
   let my = 95;
   methods.forEach((value, i) => {
     text(`${String(i + 1).padStart(2, "0")}`, left, my, 7.2, C.leaf, true);
@@ -865,6 +883,7 @@ export async function createScenarioReport({
       `Capacity ${num(batteryConfig.effectiveCapacityKwh, 2)} kWh (${safe(batteryConfig.capacityMode, "manual")}${batteryConfig.capacityMode === "auto" ? ": 2 × PV kWp" : ""}); reserve ${num(batteryConfig.reserveKwh, 2)} kWh (${pct(batteryConfig.reserveSocPct)}).`,
       `Charge / discharge limits ${num(batteryConfig.effectiveChargePowerKw, 2)} / ${num(batteryConfig.effectiveDischargePowerKw, 2)} kW; ${safe(batteryConfig.powerMode, "kW")} mode, configured current ${num(batteryConfig.chargeCurrentA)} / ${num(batteryConfig.dischargeCurrentA)} A, ${num(batteryConfig.phases)} phase, ${num(batteryConfig.voltageV)} V.`,
       `Round-trip efficiency ${pct(batteryConfig.roundTripEfficiencyPct)}; cycling cost ${num(batteryConfig.cyclingCostEurKwh, 3)} €/kWh discharged; grid charging ${batteryConfig.allowGridCharging ? "allowed" : "off"}; battery export ${batteryConfig.allowBatteryExport ? "allowed" : "off"}.`,
+      `${batteryConfig.inverterConnection === "separate" ? "Separate battery inverter; the PV inverter limit applies to PV alone." : "Shared PV/battery AC output budget uses the configured inverter limit."} Net grid exports share the site export limit. No recovery of DC-clipped PV or full hybrid-inverter simulation.`,
       `Solver ${safe(battery.quality?.solver, "finite state historical optimization")}; ${num(batteryConfig.socSteps)} SOC steps; start / end SOC ${num(bs.socStartKwh, 2)} / ${num(bs.socEndKwh, 2)} kWh; maximum SOC ${num(bs.maxSocKwh, 2)} kWh.`,
     ];
     let by = 98;
@@ -880,6 +899,12 @@ export async function createScenarioReport({
     const comparisons = [
       ["Grid import", summary.importKwh, bs.importKwh, "kWh"],
       ["Grid export", summary.exportKwh, bs.exportKwh, "kWh"],
+      [
+        "Grid-limit PV curtailment",
+        summary.curtailedKwh,
+        bs.curtailedKwh,
+        "kWh",
+      ],
       [
         "PV serving local demand",
         summary.selfConsumedKwh,
@@ -905,7 +930,7 @@ export async function createScenarioReport({
         text(value, cx[j], y, 7.1, j === 2 ? C.green : C.ink),
       );
     });
-    const monthlyTop = compareTop + 49;
+    const monthlyTop = compareTop + 54;
     section(
       "Monthly storage dispatch",
       monthlyTop,

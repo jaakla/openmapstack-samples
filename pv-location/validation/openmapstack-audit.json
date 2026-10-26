@@ -38,7 +38,7 @@
     {
       "check": "project.assumptions_have_rationale",
       "status": "passed",
-      "message": "all 18 assumptions have statement + rationale"
+      "message": "all 19 assumptions have statement + rationale"
     },
     {
       "check": "project.status_agrees_with_validation_report",
@@ -81,8 +81,8 @@
           "data/derived/storage-hourly.csv",
           "data/derived/storage-monthly.csv",
           "dist/data/storage-summary.csv",
-          "dist/assets/index-CAfolgyJ.css",
-          "dist/assets/index-DkNCwJFz.js",
+          "dist/assets/index-C8LmJc_F.js",
+          "dist/assets/index-DVKagxky.css",
           "dist/data/aerial.jpg",
           "dist/data/aerial.json",
           "dist/data/buildings.geojson",
@@ -139,7 +139,7 @@
     {
       "check": "validation.required_all_present",
       "status": "passed",
-      "message": "all 42 declared checks present exactly once in report"
+      "message": "all 47 declared checks present exactly once in report"
     },
     {
       "check": "validation.no_implicit_pass",
@@ -154,7 +154,7 @@
     {
       "check": "validation.run_record_matches",
       "status": "passed",
-      "message": "report run_id 'run-20261026-154345' matches a real run record with consistent hashes"
+      "message": "report run_id 'run-20261026-160522' matches a real run record with consistent hashes"
     },
     {
       "check": "validation.sample_run_not_promoted",
@@ -244,7 +244,7 @@
     {
       "check": "tables.readable",
       "status": "passed",
-      "message": "data/derived/seasonal-summary.csv: 2 rows x 63 columns",
+      "message": "data/derived/seasonal-summary.csv: 2 rows x 87 columns",
       "args": {
         "path": "data/derived/seasonal-summary.csv"
       }
@@ -260,7 +260,7 @@
     {
       "check": "tables.columns_declared",
       "status": "passed",
-      "message": "data/derived/seasonal-summary.csv: 63 declared columns present and typed",
+      "message": "data/derived/seasonal-summary.csv: 87 declared columns present and typed",
       "args": {
         "path": "data/derived/seasonal-summary.csv",
         "columns": [
@@ -363,7 +363,7 @@
             "name": "clearRevenueEur",
             "type": "number",
             "unit": "EUR",
-            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+            "description": "All-available-AC-generation-export comparator before net-grid limits or local demand; use exportRevenueEur and netBenefitEur for the actual surplus scenario."
           },
           {
             "name": "pricedWeatherRevenueEur",
@@ -374,7 +374,7 @@
             "name": "weatherRevenueEur",
             "type": "number",
             "unit": "EUR",
-            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+            "description": "All-available-AC-generation-export comparator before net-grid limits or local demand; use exportRevenueEur and netBenefitEur for the actual surplus scenario."
           },
           {
             "name": "pricedShadedRevenueEur",
@@ -385,7 +385,7 @@
             "name": "shadedRevenueEur",
             "type": "number",
             "unit": "EUR",
-            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+            "description": "All-available-AC-generation-export comparator before net-grid limits or local demand; use exportRevenueEur and netBenefitEur for the actual surplus scenario."
           },
           {
             "name": "pricedShadowRevenueLossEur",
@@ -396,7 +396,7 @@
             "name": "shadowRevenueLossEur",
             "type": "number",
             "unit": "EUR",
-            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+            "description": "All-available-AC-generation-export comparator before net-grid limits or local demand; use exportRevenueEur and netBenefitEur for the actual surplus scenario."
           },
           {
             "name": "coveredConsumptionKwh",
@@ -592,6 +592,150 @@
             "name": "selfSufficiencyPct",
             "type": "number",
             "unit": "%"
+          },
+          {
+            "name": "clearPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "weatherPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "shadedPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "clearInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "weatherInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "shadedInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "availablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "pvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "curtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "weatherAvailablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Shadow-free weather comparison: Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "weatherPvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Shadow-free weather comparison: Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "weatherCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Shadow-free weather comparison: Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "coveredClearPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "coveredWeatherPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "coveredShadedPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "coveredClearInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "coveredWeatherInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "coveredShadedInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "coveredAvailablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "coveredPvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "coveredCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "coveredWeatherAvailablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Shadow-free weather comparison: Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "coveredWeatherPvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Shadow-free weather comparison: Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "coveredWeatherCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Shadow-free weather comparison: Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
           }
         ]
       }
@@ -621,7 +765,7 @@
     {
       "check": "tables.readable",
       "status": "passed",
-      "message": "data/derived/hourly.csv: 17544 rows x 53 columns",
+      "message": "data/derived/hourly.csv: 17544 rows x 71 columns",
       "args": {
         "path": "data/derived/hourly.csv"
       }
@@ -637,7 +781,7 @@
     {
       "check": "tables.columns_declared",
       "status": "passed",
-      "message": "data/derived/hourly.csv: 53 declared columns present and typed",
+      "message": "data/derived/hourly.csv: 71 declared columns present and typed",
       "args": {
         "path": "data/derived/hourly.csv",
         "columns": [
@@ -703,25 +847,25 @@
             "name": "clearRevenueEur",
             "type": "number",
             "unit": "EUR",
-            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+            "description": "All-available-AC-generation-export comparator before net-grid limits or local demand; use exportRevenueEur and netBenefitEur for the actual surplus scenario."
           },
           {
             "name": "weatherRevenueEur",
             "type": "number",
             "unit": "EUR",
-            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+            "description": "All-available-AC-generation-export comparator before net-grid limits or local demand; use exportRevenueEur and netBenefitEur for the actual surplus scenario."
           },
           {
             "name": "shadedRevenueEur",
             "type": "number",
             "unit": "EUR",
-            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+            "description": "All-available-AC-generation-export comparator before net-grid limits or local demand; use exportRevenueEur and netBenefitEur for the actual surplus scenario."
           },
           {
             "name": "shadowRevenueLossEur",
             "type": "number",
             "unit": "EUR",
-            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+            "description": "All-available-AC-generation-export comparator before net-grid limits or local demand; use exportRevenueEur and netBenefitEur for the actual surplus scenario."
           },
           {
             "name": "coveredConsumptionKwh",
@@ -917,6 +1061,114 @@
             "name": "selfSufficiencyPct",
             "type": "number",
             "unit": "%"
+          },
+          {
+            "name": "clearPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "weatherPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "shadedPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "clearInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "weatherInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "shadedInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "availablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "pvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "curtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "weatherAvailablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Shadow-free weather comparison: Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "weatherPvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Shadow-free weather comparison: Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "weatherCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Shadow-free weather comparison: Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "coveredAvailablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "coveredPvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "coveredCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "coveredWeatherAvailablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Shadow-free weather comparison: Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "coveredWeatherPvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Shadow-free weather comparison: Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "coveredWeatherCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Shadow-free weather comparison: Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
           }
         ]
       }
@@ -947,7 +1199,7 @@
     {
       "check": "tables.readable",
       "status": "passed",
-      "message": "data/derived/monthly.csv: 24 rows x 64 columns",
+      "message": "data/derived/monthly.csv: 24 rows x 88 columns",
       "args": {
         "path": "data/derived/monthly.csv"
       }
@@ -963,7 +1215,7 @@
     {
       "check": "tables.columns_declared",
       "status": "passed",
-      "message": "data/derived/monthly.csv: 64 declared columns present and typed",
+      "message": "data/derived/monthly.csv: 88 declared columns present and typed",
       "args": {
         "path": "data/derived/monthly.csv",
         "columns": [
@@ -1070,7 +1322,7 @@
             "name": "clearRevenueEur",
             "type": "number",
             "unit": "EUR",
-            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+            "description": "All-available-AC-generation-export comparator before net-grid limits or local demand; use exportRevenueEur and netBenefitEur for the actual surplus scenario."
           },
           {
             "name": "pricedWeatherRevenueEur",
@@ -1081,7 +1333,7 @@
             "name": "weatherRevenueEur",
             "type": "number",
             "unit": "EUR",
-            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+            "description": "All-available-AC-generation-export comparator before net-grid limits or local demand; use exportRevenueEur and netBenefitEur for the actual surplus scenario."
           },
           {
             "name": "pricedShadedRevenueEur",
@@ -1092,7 +1344,7 @@
             "name": "shadedRevenueEur",
             "type": "number",
             "unit": "EUR",
-            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+            "description": "All-available-AC-generation-export comparator before net-grid limits or local demand; use exportRevenueEur and netBenefitEur for the actual surplus scenario."
           },
           {
             "name": "pricedShadowRevenueLossEur",
@@ -1103,7 +1355,7 @@
             "name": "shadowRevenueLossEur",
             "type": "number",
             "unit": "EUR",
-            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+            "description": "All-available-AC-generation-export comparator before net-grid limits or local demand; use exportRevenueEur and netBenefitEur for the actual surplus scenario."
           },
           {
             "name": "coveredConsumptionKwh",
@@ -1299,6 +1551,150 @@
             "name": "selfSufficiencyPct",
             "type": "number",
             "unit": "%"
+          },
+          {
+            "name": "clearPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "weatherPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "shadedPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "clearInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "weatherInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "shadedInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "availablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "pvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "curtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "weatherAvailablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Shadow-free weather comparison: Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "weatherPvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Shadow-free weather comparison: Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "weatherCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Shadow-free weather comparison: Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "coveredClearPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "coveredWeatherPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "coveredShadedPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "coveredClearInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "coveredWeatherInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "coveredShadedInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "coveredAvailablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "coveredPvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "coveredCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "coveredWeatherAvailablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Shadow-free weather comparison: Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "coveredWeatherPvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Shadow-free weather comparison: Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "coveredWeatherCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Shadow-free weather comparison: Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
           }
         ]
       }
@@ -1329,7 +1725,7 @@
     {
       "check": "tables.readable",
       "status": "passed",
-      "message": "dist/data/seasonal-summary.csv: 2 rows x 63 columns",
+      "message": "dist/data/seasonal-summary.csv: 2 rows x 87 columns",
       "args": {
         "path": "dist/data/seasonal-summary.csv"
       }
@@ -1345,7 +1741,7 @@
     {
       "check": "tables.columns_declared",
       "status": "passed",
-      "message": "dist/data/seasonal-summary.csv: 63 declared columns present and typed",
+      "message": "dist/data/seasonal-summary.csv: 87 declared columns present and typed",
       "args": {
         "path": "dist/data/seasonal-summary.csv",
         "columns": [
@@ -1448,7 +1844,7 @@
             "name": "clearRevenueEur",
             "type": "number",
             "unit": "EUR",
-            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+            "description": "All-available-AC-generation-export comparator before net-grid limits or local demand; use exportRevenueEur and netBenefitEur for the actual surplus scenario."
           },
           {
             "name": "pricedWeatherRevenueEur",
@@ -1459,7 +1855,7 @@
             "name": "weatherRevenueEur",
             "type": "number",
             "unit": "EUR",
-            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+            "description": "All-available-AC-generation-export comparator before net-grid limits or local demand; use exportRevenueEur and netBenefitEur for the actual surplus scenario."
           },
           {
             "name": "pricedShadedRevenueEur",
@@ -1470,7 +1866,7 @@
             "name": "shadedRevenueEur",
             "type": "number",
             "unit": "EUR",
-            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+            "description": "All-available-AC-generation-export comparator before net-grid limits or local demand; use exportRevenueEur and netBenefitEur for the actual surplus scenario."
           },
           {
             "name": "pricedShadowRevenueLossEur",
@@ -1481,7 +1877,7 @@
             "name": "shadowRevenueLossEur",
             "type": "number",
             "unit": "EUR",
-            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+            "description": "All-available-AC-generation-export comparator before net-grid limits or local demand; use exportRevenueEur and netBenefitEur for the actual surplus scenario."
           },
           {
             "name": "coveredConsumptionKwh",
@@ -1677,6 +2073,150 @@
             "name": "selfSufficiencyPct",
             "type": "number",
             "unit": "%"
+          },
+          {
+            "name": "clearPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "weatherPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "shadedPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "clearInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "weatherInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "shadedInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "availablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "pvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "curtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "weatherAvailablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Shadow-free weather comparison: Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "weatherPvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Shadow-free weather comparison: Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "weatherCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Shadow-free weather comparison: Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "coveredClearPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "coveredWeatherPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "coveredShadedPreInverterKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Modeled energy after aggregate system losses and before the explicit inverter AC ceiling."
+          },
+          {
+            "name": "coveredClearInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "coveredWeatherInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "coveredShadedInverterClippingKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Energy excluded by the configured inverter AC ceiling at hourly mean resolution."
+          },
+          {
+            "name": "coveredAvailablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "coveredPvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "coveredCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "coveredWeatherAvailablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Shadow-free weather comparison: Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "coveredWeatherPvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Shadow-free weather comparison: Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "coveredWeatherCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Shadow-free weather comparison: Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
           }
         ]
       }
@@ -1706,7 +2246,7 @@
     {
       "check": "tables.readable",
       "status": "passed",
-      "message": "data/derived/storage-summary.csv: 2 rows x 73 columns",
+      "message": "data/derived/storage-summary.csv: 2 rows x 81 columns",
       "args": {
         "path": "data/derived/storage-summary.csv"
       }
@@ -1722,7 +2262,7 @@
     {
       "check": "tables.columns_declared",
       "status": "passed",
-      "message": "data/derived/storage-summary.csv: 73 declared columns present and typed",
+      "message": "data/derived/storage-summary.csv: 81 declared columns present and typed",
       "args": {
         "path": "data/derived/storage-summary.csv",
         "columns": [
@@ -2161,6 +2701,54 @@
             "type": "number",
             "unit": "kWh",
             "description": "Usable stored energy attributed to PV or grid input at the end of the period; excludes reserve."
+          },
+          {
+            "name": "availablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "pvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "curtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "noBatteryCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Grid-export curtailment in the matching comparison without storage."
+          },
+          {
+            "name": "coveredAvailablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "coveredPvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "coveredCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "coveredNoBatteryCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Grid-export curtailment in the matching comparison without storage."
           }
         ]
       }
@@ -2190,7 +2778,7 @@
     {
       "check": "tables.readable",
       "status": "passed",
-      "message": "data/derived/storage-hourly.csv: 17544 rows x 75 columns",
+      "message": "data/derived/storage-hourly.csv: 17544 rows x 83 columns",
       "args": {
         "path": "data/derived/storage-hourly.csv"
       }
@@ -2206,7 +2794,7 @@
     {
       "check": "tables.columns_declared",
       "status": "passed",
-      "message": "data/derived/storage-hourly.csv: 75 declared columns present and typed",
+      "message": "data/derived/storage-hourly.csv: 83 declared columns present and typed",
       "args": {
         "path": "data/derived/storage-hourly.csv",
         "columns": [
@@ -2654,6 +3242,54 @@
             "type": "number",
             "unit": "kWh",
             "description": "Usable stored energy attributed to PV or grid input at the end of the period; excludes reserve."
+          },
+          {
+            "name": "availablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "pvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "curtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "noBatteryCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Grid-export curtailment in the matching comparison without storage."
+          },
+          {
+            "name": "coveredAvailablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "coveredPvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "coveredCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "coveredNoBatteryCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Grid-export curtailment in the matching comparison without storage."
           }
         ]
       }
@@ -2684,7 +3320,7 @@
     {
       "check": "tables.readable",
       "status": "passed",
-      "message": "data/derived/storage-monthly.csv: 24 rows x 74 columns",
+      "message": "data/derived/storage-monthly.csv: 24 rows x 82 columns",
       "args": {
         "path": "data/derived/storage-monthly.csv"
       }
@@ -2700,7 +3336,7 @@
     {
       "check": "tables.columns_declared",
       "status": "passed",
-      "message": "data/derived/storage-monthly.csv: 74 declared columns present and typed",
+      "message": "data/derived/storage-monthly.csv: 82 declared columns present and typed",
       "args": {
         "path": "data/derived/storage-monthly.csv",
         "columns": [
@@ -3143,6 +3779,54 @@
             "type": "number",
             "unit": "kWh",
             "description": "Usable stored energy attributed to PV or grid input at the end of the period; excludes reserve."
+          },
+          {
+            "name": "availablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "pvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "curtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "noBatteryCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Grid-export curtailment in the matching comparison without storage."
+          },
+          {
+            "name": "coveredAvailablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "coveredPvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "coveredCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "coveredNoBatteryCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Grid-export curtailment in the matching comparison without storage."
           }
         ]
       }
@@ -3173,7 +3857,7 @@
     {
       "check": "tables.readable",
       "status": "passed",
-      "message": "dist/data/storage-summary.csv: 2 rows x 73 columns",
+      "message": "dist/data/storage-summary.csv: 2 rows x 81 columns",
       "args": {
         "path": "dist/data/storage-summary.csv"
       }
@@ -3189,7 +3873,7 @@
     {
       "check": "tables.columns_declared",
       "status": "passed",
-      "message": "dist/data/storage-summary.csv: 73 declared columns present and typed",
+      "message": "dist/data/storage-summary.csv: 81 declared columns present and typed",
       "args": {
         "path": "dist/data/storage-summary.csv",
         "columns": [
@@ -3628,6 +4312,54 @@
             "type": "number",
             "unit": "kWh",
             "description": "Usable stored energy attributed to PV or grid input at the end of the period; excludes reserve."
+          },
+          {
+            "name": "availablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "pvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "curtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "noBatteryCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Grid-export curtailment in the matching comparison without storage."
+          },
+          {
+            "name": "coveredAvailablePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Potential AC PV after inverter clipping and before grid curtailment."
+          },
+          {
+            "name": "coveredPvGeneratedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Available AC PV remaining after grid curtailment."
+          },
+          {
+            "name": "coveredCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Available AC PV excluded by the net grid-export ceiling after demand and any applicable storage."
+          },
+          {
+            "name": "coveredNoBatteryCurtailedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Known matching-interval subset without extrapolation. Grid-export curtailment in the matching comparison without storage."
           }
         ]
       }
@@ -3687,16 +4419,16 @@
         "target_id": "dashboard"
       },
       "evidence": {
-        "view_sha256": "sha256:63d9ac78a43e6ec2a1b792c6820e52a9b0357a2aa313f8099353a1e592f09bbb",
+        "view_sha256": "sha256:b36bb82c0572e5808b268eb7d5856faa710ca23ed9e1c308f37fc7951d43d574",
         "analytical_outputs": {
-          "planning_scenario": "sha256:a10e3c78e6549c65d6e46d0fa300f0aca9b26574c2d06468f8969ab48d5fe420",
-          "seasonal_summary": "sha256:d69c4c9c730bbf6e92488f9013811142514fd4affde245f3b3ea4e8083ccf40b",
-          "hourly_results": "sha256:63421e282fe8bde4c4b603afb15a8e5d8442a52a5d2e9d8211f0b830dc9c34d0",
-          "monthly_results": "sha256:344fc0232cf579b27705a85c7e01b2e2dfe2bcff1b0c3a11c587a1773af76ff9",
+          "planning_scenario": "sha256:79fee71bea38596e7584d910b9a47a8c148ef85d39e468b77c5704dbb87e5e91",
+          "seasonal_summary": "sha256:d9742a1afd654170651939b47ac1b356de6dc6cb27c48b1f49362c1562405e1a",
+          "hourly_results": "sha256:03a5bc27f47c7a256d217183c58bfa7cb65a580150c307e5bf885918cd974c7f",
+          "monthly_results": "sha256:3003e85c5c389523bc09d43f96fc9abc10afe0f2b18ad67e0260b2bff9496e86",
           "browser_buildings": "sha256:fee6a302bf84cf0b394ecc0d1c04e884f02e150e22074255acce62a030e34584",
-          "browser_scenario": "sha256:a10e3c78e6549c65d6e46d0fa300f0aca9b26574c2d06468f8969ab48d5fe420",
-          "hosted_seasonal_summary": "sha256:d69c4c9c730bbf6e92488f9013811142514fd4affde245f3b3ea4e8083ccf40b",
-          "hosted_storage_summary": "sha256:1131544e3f1e165bef094b3ddd6d3603a1edff97fffd7b2c82de786e6dbfa78b"
+          "browser_scenario": "sha256:79fee71bea38596e7584d910b9a47a8c148ef85d39e468b77c5704dbb87e5e91",
+          "hosted_seasonal_summary": "sha256:d9742a1afd654170651939b47ac1b356de6dc6cb27c48b1f49362c1562405e1a",
+          "hosted_storage_summary": "sha256:bec2b4b93ff458f367e3f9b964110172d66b65bf9dffabfad5d323dccecc9715"
         }
       }
     },
@@ -3744,10 +4476,10 @@
       "evidence": {
         "planner:desktop_map_stats": {
           "width": 935,
-          "height": 390,
-          "distinct_colors_quantized": 2269,
-          "modal_color_fraction": 0.157809,
-          "non_modal_fraction": 0.842191
+          "height": 355,
+          "distinct_colors_quantized": 2250,
+          "modal_color_fraction": 0.174841,
+          "non_modal_fraction": 0.825159
         },
         "planner:basemap_tile_requests": [
           "https://tile.openstreetmap.org/17/75262/39222.png",
@@ -3762,10 +4494,10 @@
           "https://tile.openstreetmap.org/17/75260/39223.png"
         ],
         "toggle_diff_fraction": {
-          "group:aerial": 0.8202660085013026,
-          "group:buildings": 0.06114356232003291,
-          "group:surface": 0.8161552173316879,
-          "group:shadows": 0.2751734539969834
+          "group:aerial": 0.803024779694208,
+          "group:buildings": 0.07068464261504857,
+          "group:surface": 0.797140920388642,
+          "group:shadows": 0.2771138058296302
         },
         "planner:mobile_map_width": 390
       }
@@ -3780,7 +4512,7 @@
       "status": "passed",
       "message": "canonical entrypoint succeeded in a clean workspace and artifacts revalidated",
       "args": {
-        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-w0vw6hxd"
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-xodl70zn"
       }
     },
     {
@@ -3788,7 +4520,7 @@
       "status": "passed",
       "message": "all 3 outputs are semantically equal across the clean rerun",
       "args": {
-        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-w0vw6hxd",
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-xodl70zn",
         "paths": [
           "data/derived/planning-scenario.geojson",
           "public/data/buildings.geojson",
@@ -3801,7 +4533,7 @@
       "status": "passed",
       "message": "all 8 tables hold the same values across the clean rerun",
       "args": {
-        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-w0vw6hxd",
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-xodl70zn",
         "paths": [
           "data/derived/seasonal-summary.csv",
           "data/derived/hourly.csv",
@@ -3819,7 +4551,7 @@
       "status": "passed",
       "message": "validation evidence reproduces with status 'warning'",
       "args": {
-        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-w0vw6hxd"
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-xodl70zn"
       }
     },
     {
@@ -3827,7 +4559,7 @@
       "status": "passed",
       "message": "all 36 source files byte-identical between workspace and rerun",
       "args": {
-        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-w0vw6hxd",
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-xodl70zn",
         "paths": [
           "data/source/aerial.jpg",
           "data/source/aerial.json",
@@ -3915,15 +4647,15 @@
         "/tmp/oms-pv-venv/bin/python",
         "pipeline.py"
       ],
-      "cwd": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-w0vw6hxd",
+      "cwd": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-xodl70zn",
       "returncode": 0,
       "timed_out": false,
-      "duration_s": 17.454633692046627,
-      "stdout": "\nadded 129 packages in 3s\n\n> solar-atlas-pv-location@1.0.0 build\n> vite build\n\nvite v7.3.7 building client environment for production...\ntransforming...\n✓ 2017 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                     0.82 kB │ gzip:     0.49 kB\ndist/assets/index-CAfolgyJ.css    105.50 kB │ gzip:    17.09 kB\ndist/assets/index-DkNCwJFz.js   3,890.17 kB │ gzip: 1,214.95 kB\n✓ built in 7.50s\n",
+      "duration_s": 17.765580375911668,
+      "stdout": "\nadded 129 packages in 3s\n\n> solar-atlas-pv-location@1.0.0 build\n> vite build\n\nvite v7.3.7 building client environment for production...\ntransforming...\n✓ 2017 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                     0.82 kB │ gzip:     0.49 kB\ndist/assets/index-DVKagxky.css    105.87 kB │ gzip:    17.14 kB\ndist/assets/index-C8LmJc_F.js   3,916.61 kB │ gzip: 1,223.24 kB\n✓ built in 7.37s\n",
       "stderr": "npm warn allow-scripts 2 packages have install scripts not yet covered by allowScripts:\nnpm warn allow-scripts   core-js@3.51.0 (postinstall: node -e \"try{require('./postinstall')}catch(e){}\")\nnpm warn allow-scripts   esbuild@0.28.2 (postinstall: node install.js)\nnpm warn allow-scripts\nnpm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow.\n\n(!) Some chunks are larger than 3000 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
     },
     "source_hashes": {
-      "data/overrides/planning-scenario.geojson": "sha256:134f7afe5b75e571942e35f1355d4260988831bf5e98d2e30f0357a533f72c76",
+      "data/overrides/planning-scenario.geojson": "sha256:cdc339f683ed3c82421b45f144d460e005de8bd48383d96b738484db4ba04834",
       "data/source/aerial.jpg": "sha256:bf170384421d68c7d14ccc0181e5f9e47f05870166fb614cf9b3fd10516f35e2",
       "data/source/aerial.json": "sha256:e9fae91b0a081fc01880adba0b811f3578ee0710aa0a37da306e4bf1f54db189",
       "data/source/buildings.geojson": "sha256:fee6a302bf84cf0b394ecc0d1c04e884f02e150e22074255acce62a030e34584",
@@ -3962,7 +4694,7 @@
     },
     "artifact_validation": {
       "schema": "openmapstack-validation-result/v1",
-      "project_file": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-w0vw6hxd/project.yaml",
+      "project_file": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-xodl70zn/project.yaml",
       "status": "warning",
       "counts": {
         "passed": 77,
@@ -3992,7 +4724,7 @@
         {
           "id": "interpretation.assumptions",
           "status": "passed",
-          "message": "18 assumptions have rationale",
+          "message": "19 assumptions have rationale",
           "path": "interpretation.assumptions"
         },
         {
@@ -4376,16 +5108,16 @@
           "message": "dashboard: view and evidence bind the declared analysis",
           "details": {
             "evidence": {
-              "view_sha256": "sha256:f623c784ca4642caf4b2527d84dfd78b8826e069bb9564f60de6890b1b95a324",
+              "view_sha256": "sha256:83ebe15301c2b0afbfe6e5407e51bdba56df885e96033908968d46bed20e6347",
               "analytical_outputs": {
-                "planning_scenario": "sha256:a10e3c78e6549c65d6e46d0fa300f0aca9b26574c2d06468f8969ab48d5fe420",
-                "seasonal_summary": "sha256:d69c4c9c730bbf6e92488f9013811142514fd4affde245f3b3ea4e8083ccf40b",
-                "hourly_results": "sha256:63421e282fe8bde4c4b603afb15a8e5d8442a52a5d2e9d8211f0b830dc9c34d0",
-                "monthly_results": "sha256:344fc0232cf579b27705a85c7e01b2e2dfe2bcff1b0c3a11c587a1773af76ff9",
+                "planning_scenario": "sha256:79fee71bea38596e7584d910b9a47a8c148ef85d39e468b77c5704dbb87e5e91",
+                "seasonal_summary": "sha256:d9742a1afd654170651939b47ac1b356de6dc6cb27c48b1f49362c1562405e1a",
+                "hourly_results": "sha256:03a5bc27f47c7a256d217183c58bfa7cb65a580150c307e5bf885918cd974c7f",
+                "monthly_results": "sha256:3003e85c5c389523bc09d43f96fc9abc10afe0f2b18ad67e0260b2bff9496e86",
                 "browser_buildings": "sha256:fee6a302bf84cf0b394ecc0d1c04e884f02e150e22074255acce62a030e34584",
-                "browser_scenario": "sha256:a10e3c78e6549c65d6e46d0fa300f0aca9b26574c2d06468f8969ab48d5fe420",
-                "hosted_seasonal_summary": "sha256:d69c4c9c730bbf6e92488f9013811142514fd4affde245f3b3ea4e8083ccf40b",
-                "hosted_storage_summary": "sha256:1131544e3f1e165bef094b3ddd6d3603a1edff97fffd7b2c82de786e6dbfa78b"
+                "browser_scenario": "sha256:79fee71bea38596e7584d910b9a47a8c148ef85d39e468b77c5704dbb87e5e91",
+                "hosted_seasonal_summary": "sha256:d9742a1afd654170651939b47ac1b356de6dc6cb27c48b1f49362c1562405e1a",
+                "hosted_storage_summary": "sha256:bec2b4b93ff458f367e3f9b964110172d66b65bf9dffabfad5d323dccecc9715"
               }
             }
           }
@@ -4454,7 +5186,7 @@
         {
           "id": "validation.declaration",
           "status": "passed",
-          "message": "42 validation checks are declared",
+          "message": "47 validation checks are declared",
           "path": "validation"
         },
         {
@@ -4478,7 +5210,7 @@
         {
           "id": "validation.report",
           "status": "warning",
-          "message": "report has 42 explicit checks; status=warning",
+          "message": "report has 47 explicit checks; status=warning",
           "path": "validation/latest-report.json"
         },
         {
@@ -4490,8 +5222,8 @@
         {
           "id": "runs.latest",
           "status": "passed",
-          "message": "run-20261026-154512 resolves and matches report status/hashes",
-          "path": "runs/run-20261026-154512.json"
+          "message": "run-20261026-160715 resolves and matches report status/hashes",
+          "path": "runs/run-20261026-160715.json"
         },
         {
           "id": "runs.sample_isolation",

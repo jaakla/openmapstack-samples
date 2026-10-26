@@ -38,6 +38,7 @@ if (!rawStorage || typeof rawStorage.enabled !== "boolean") {
 const storage = normalizeStorageConfig(rawStorage, system);
 const storageKeys = [
   "enabled",
+  "inverterConnection",
   "capacityMode",
   "capacityKwh",
   "powerMode",

@@ -182,6 +182,14 @@ function metrics(rows) {
 export function assessProductionComparison(comparison, options = {}) {
   const caveats = [];
   const add = (code, message) => caveats.push({ code, message });
+  const modelLimitations = Array.isArray(options.modelLimitations)
+    ? options.modelLimitations.filter(
+        (message) => typeof message === "string" && message.trim(),
+      )
+    : [];
+  modelLimitations.forEach((message, index) =>
+    add(`model_limitation_${index}`, message),
+  );
   const byTime = new Map(),
     rejectedTimes = new Set();
   let invalidMatchedRows = 0,
@@ -419,6 +427,7 @@ export function assessProductionComparison(comparison, options = {}) {
     generation.hours >= PRODUCTION_ASSESSMENT_POLICY.minimumGenerationHours &&
     coveragePct >= PRODUCTION_ASSESSMENT_POLICY.minimumCoveragePct &&
     !sourceProblem &&
+    !modelLimitations.length &&
     !invalidMatchedRows &&
     !duplicateMatchedRows;
   const status = !testable

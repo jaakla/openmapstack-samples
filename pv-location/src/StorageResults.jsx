@@ -16,6 +16,7 @@ export default function StorageResults({ storage }) {
     ["Grid exports", "exportKwh"],
     ["Battery losses", "lossKwh"],
     ["PV used on site", "pvSelfConsumedKwh"],
+    ["PV curtailed by grid limit", "curtailedKwh"],
   ];
   const max = Math.max(
     1,

@@ -454,3 +454,39 @@ test("enabled storage report requires current dispatch results", async () => {
   };
   await assert.rejects(createScenarioReport(stale), /current storage analysis/);
 });
+
+test(
+  "report records independent DC, inverter and export limits and separates clipping from grid curtailment",
+  { skip: parser.status !== 0 },
+  async () => {
+    const args = fixture();
+    args.system = {
+      ...args.system,
+      kwp: 20,
+      inverterAcKw: 15,
+      gridExportLimitKw: 5,
+    };
+    args.analysis.summary = {
+      ...args.analysis.summary,
+      shadedInverterClippingKwh: 350,
+      curtailedKwh: 600,
+    };
+    args.analysis.annual = [{ year: 2025, ...args.analysis.summary }];
+    const doc = await createScenarioReport(args);
+    const pdf = inspect(doc);
+    assert.equal(pdf.pages, 3);
+    const text = pdf.text.join("\n");
+    for (const phrase of [
+      "20 kWp DC",
+      "Inverter AC limit",
+      "15 kW",
+      "Grid export limit",
+      "5 kW",
+      "Inverter clipping: 350 kWh",
+      "curtailment without battery: 600 kWh",
+      "Hourly-average clipping",
+    ])
+      assert.ok(text.includes(phrase), phrase);
+    assert.ok(!text.includes("No inverter clipping"));
+  },
+);

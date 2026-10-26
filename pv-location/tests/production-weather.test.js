@@ -361,3 +361,53 @@ test("worker message replies retain request IDs and return explicit errors", asy
     else globalThis.self = previous;
   }
 });
+
+test("date-specific validation retains inverter-clipped potential and applies the net export cap after local demand without needing prices", () => {
+  const input = workerInput();
+  input.system.inverterAcKw = 5;
+  input.system.gridExportLimitKw = 1;
+  input.consumption = {
+    mode: "estimate",
+    dayKwh: 16,
+    nightKwh: 0,
+    dayStartHour: 7,
+    dayEndHour: 23,
+    timeZone: "Europe/Tallinn",
+  };
+  const result = analyzeProductionPeriod(input);
+  assert.equal(result.hourly.length, 2);
+  for (const row of result.hourly) {
+    assert.equal(row.shadedKwh, 5);
+    assert.ok(row.shadedInverterClippingKwh > 0);
+    assert.equal(row.selfConsumedKwh, 1);
+    assert.equal(row.exportKwh, 1);
+    assert.equal(row.curtailedKwh, 3);
+    assert.equal(row.pvGeneratedKwh, 2);
+    assert.equal(row.exportRevenueEur, null);
+    assert.equal(row.priceEurMWh, null);
+  }
+  assert.equal(result.annual, undefined);
+  assert.equal(result.quality.valuation, "not_requested");
+  const zeroExport = analyzeProductionPeriod({
+    ...input,
+    system: { ...input.system, gridExportLimitKw: 0 },
+  });
+  assert.ok(
+    zeroExport.hourly.every(
+      (row) => row.exportKwh === 0 && row.pvGeneratedKwh === 1,
+    ),
+  );
+  const unknownDemand = analyzeProductionPeriod({
+    ...input,
+    consumption: {
+      ...input.consumption,
+      mode: "csv-exact",
+      rows: [{ time: "2025-06-15T10:00:00Z", energyKwh: 1, durationHours: 1 }],
+    },
+  });
+  assert.ok(
+    unknownDemand.hourly.every(
+      (row) => row.pvGeneratedKwh === null && row.curtailedKwh === null,
+    ),
+  );
+});

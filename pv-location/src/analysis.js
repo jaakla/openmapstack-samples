@@ -23,6 +23,8 @@ export const DEFAULT_SYSTEM = Object.freeze({
   latitude: 58.37,
   longitude: 26.72,
   kwp: 10,
+  inverterAcKw: null,
+  gridExportLimitKw: null,
   azimuthDeg: 180,
   tiltDeg: 35,
   mountingHeightM: 2,
@@ -189,6 +191,18 @@ export function validateSystem(input = {}) {
   for (const [key, [min, max]] of Object.entries(rules)) {
     if (!finite(system[key]) || system[key] < min || system[key] > max)
       throw new Error(`${key} must be a number between ${min} and ${max}.`);
+  }
+  for (const key of ["inverterAcKw", "gridExportLimitKw"]) {
+    if (system[key] == null) system[key] = null;
+    else if (
+      !finite(system[key]) ||
+      system[key] < 0 ||
+      system[key] > 1000000 ||
+      (key === "inverterAcKw" && system[key] === 0)
+    )
+      throw new Error(
+        `${key} must be null or a number ${key === "inverterAcKw" ? "greater than 0 and at most" : "between 0 and"} 1000000 kW.`,
+      );
   }
   system.azimuthDeg = wrap(system.azimuthDeg);
   return system;
@@ -659,6 +673,20 @@ function aggregate(
       .reduce((sum, row) => sum + row.durationHours, 0),
   };
   for (const key of [
+    "clearPreInverterKwh",
+    "weatherPreInverterKwh",
+    "shadedPreInverterKwh",
+    "clearInverterClippingKwh",
+    "weatherInverterClippingKwh",
+    "shadedInverterClippingKwh",
+  ]) {
+    const coveredKey = `covered${key[0].toUpperCase()}${key.slice(1)}`;
+    summary[coveredKey] = sumKnown(rows, key);
+    summary[key] = rows.every((row) => finite(row[key]))
+      ? summary[coveredKey]
+      : null;
+  }
+  for (const key of [
     "clearRevenueEur",
     "weatherRevenueEur",
     "shadedRevenueEur",
@@ -835,6 +863,18 @@ export function analyzePV({
           }
         }
       }
+      // Keep the existing aggregate conversion/electrical loss before the AC
+      // rating cap. Capping the integrated interval average deliberately does
+      // not claim to resolve inverter clipping at within-hour irradiance peaks.
+      const clearPreInverterKwh = clearKwh;
+      const weatherPreInverterKwh = weatherKwh;
+      const shadedPreInverterKwh = shadedKwh;
+      if (system.inverterAcKw != null) {
+        const maximumAcKwh = system.inverterAcKw * durationHours;
+        clearKwh = Math.min(clearKwh, maximumAcKwh);
+        if (weatherKwh != null) weatherKwh = Math.min(weatherKwh, maximumAcKwh);
+        if (shadedKwh != null) shadedKwh = Math.min(shadedKwh, maximumAcKwh);
+      }
       const priceEurMWh = priceMap.get(time) ?? null;
       const netPriceEurKwh =
         priceEurMWh != null
@@ -846,6 +886,14 @@ export function analyzePV({
         clearKwh,
         weatherKwh,
         shadedKwh,
+        clearPreInverterKwh,
+        weatherPreInverterKwh,
+        shadedPreInverterKwh,
+        clearInverterClippingKwh: clearPreInverterKwh - clearKwh,
+        weatherInverterClippingKwh:
+          weatherKwh == null ? null : weatherPreInverterKwh - weatherKwh,
+        shadedInverterClippingKwh:
+          shadedKwh == null ? null : shadedPreInverterKwh - shadedKwh,
         shadingLossKwh:
           shadedKwh != null ? Math.max(0, weatherKwh - shadedKwh) : null,
         sunVisibleFraction,
@@ -924,9 +972,10 @@ export function analyzePV({
       "Weather and market rows are UTC interval starts.",
       `${substeps} midpoint samples per weather interval; irradiance is constant within each interval.`,
       "Haurwitz clear sky with Erbs decomposition; isotropic diffuse sky and albedo ground reflection.",
-      "Linear nameplate power, NOCT cell temperature, temperature coefficient and aggregate electrical loss; no inverter clipping, snow, curtailment, storage or self-consumption.",
+      "Linear DC nameplate power, NOCT cell temperature, temperature coefficient and aggregate electrical loss before the inverter AC rating cap. Conversion losses remain included in the aggregate loss; no additional inverter efficiency is applied.",
+      `${durationHours === 1 ? "Hourly" : "Interval"}-average inverter AC clipping can underestimate clipping from shorter power peaks; no MPPT or inverter efficiency curve is modeled. A null AC rating applies no cap.`,
       "DSM horizon is opaque in every season; no tree leaf transmission or electrical string mismatch model. Ground-reflected light is not locally obstructed.",
-      "All energy is exported at spot price less sales margin, including negative prices.",
+      "All energy is exported at spot price less sales margin, including negative prices, in this potential-AC-PV comparator. Grid export limits are applied to net flows by consumption/storage analysis, not to irradiance production here. Snow, curtailment, storage and self-consumption are not included in this comparator.",
     ],
   };
 }
@@ -1060,10 +1109,17 @@ export function compareOwnerData(input, analysis) {
   const model = new Map();
   for (const row of analysis?.hourly ?? []) {
     const time = timestamp(row.time);
-    if (!Number.isFinite(time) || time % HOUR !== 0 || (row.durationHours != null && row.durationHours !== 1)) {
-      throw new Error("Owner comparison requires model hours starting on UTC hour boundaries.");
+    if (
+      !Number.isFinite(time) ||
+      time % HOUR !== 0 ||
+      (row.durationHours != null && row.durationHours !== 1)
+    ) {
+      throw new Error(
+        "Owner comparison requires model hours starting on UTC hour boundaries.",
+      );
     }
-    if (model.has(time)) throw new Error("Owner comparison contains duplicate model hours.");
+    if (model.has(time))
+      throw new Error("Owner comparison contains duplicate model hours.");
     model.set(time, row);
   }
   const modelTimes = [...model.keys()].sort((a, b) => a - b);
@@ -1071,42 +1127,66 @@ export function compareOwnerData(input, analysis) {
   const modelEnd = modelTimes.length ? modelTimes.at(-1) + HOUR : -Infinity;
   const groups = new Map();
   const group = (hour) => {
-    if (!groups.has(hour)) groups.set(hour, { segments: [], sourceIds: new Set(), invalid: false, overlap: false });
+    if (!groups.has(hour))
+      groups.set(hour, {
+        segments: [],
+        sourceIds: new Set(),
+        invalid: false,
+        overlap: false,
+      });
     return groups.get(hour);
   };
   // Iterate only inside the bounded modeled period, including holes in model coverage.
   const visitHours = (start, end, callback) => {
     const finish = Math.min(end, modelEnd);
-    for (let hour = Math.max(Math.floor(start / HOUR) * HOUR, modelMin); hour < finish - toleranceMs; hour += HOUR) {
+    for (
+      let hour = Math.max(Math.floor(start / HOUR) * HOUR, modelMin);
+      hour < finish - toleranceMs;
+      hour += HOUR
+    ) {
       if (!model.has(hour)) continue;
-      const a = Math.max(start, hour), b = Math.min(end, hour + HOUR);
+      const a = Math.max(start, hour),
+        b = Math.min(end, hour + HOUR);
       if (b > a + toleranceMs) callback(hour, a, b);
     }
   };
   const intervals = [];
-  let invalidIntervals = 0, outsideModelIntervals = 0, outsideModelHours = 0, splitIntervals = 0;
+  let invalidIntervals = 0,
+    outsideModelIntervals = 0,
+    outsideModelHours = 0,
+    splitIntervals = 0;
   for (let index = 0; index < rows.length; index += 1) {
     const row = rows[index] ?? {};
     const start = timestamp(row.time);
     const minutes = row.durationMinutes ?? input?.intervalMinutes ?? 15;
     const duration = finite(minutes) ? minutes * 60000 : NaN;
     const end = start + duration;
-    const validExtent = Number.isFinite(start) && Number.isFinite(end) && duration > toleranceMs;
+    const validExtent =
+      Number.isFinite(start) && Number.isFinite(end) && duration > toleranceMs;
     if (!validExtent || !finite(row.energyKwh) || row.energyKwh < 0) {
       invalidIntervals += 1;
-      if (validExtent) visitHours(start, end, (hour) => { group(hour).invalid = true; });
+      if (validExtent)
+        visitHours(start, end, (hour) => {
+          group(hour).invalid = true;
+        });
       continue;
     }
     const item = { index, start, end, energyKwh: row.energyKwh };
     intervals.push(item);
-    if (Math.floor(start / HOUR) !== Math.floor((end - toleranceMs) / HOUR)) splitIntervals += 1;
+    if (Math.floor(start / HOUR) !== Math.floor((end - toleranceMs) / HOUR))
+      splitIntervals += 1;
     let modeledMs = 0;
     visitHours(start, end, (hour, a, b) => {
       modeledMs += b - a;
       const g = group(hour);
       g.segments.push({
-        start: a, end: b, energyKwh: row.energyKwh * (b - a) / duration,
-        sampleGapMinutes: finite(row.sampleGapMinutes) && row.sampleGapMinutes > 0 ? row.sampleGapMinutes : null,
+        start: a,
+        end: b,
+        energyKwh: (row.energyKwh * (b - a)) / duration,
+        sampleGapMinutes:
+          finite(row.sampleGapMinutes) && row.sampleGapMinutes > 0
+            ? row.sampleGapMinutes
+            : null,
         extendedSpan: row.extendedSpan === true,
       });
       g.sourceIds.add(index);
@@ -1117,41 +1197,71 @@ export function compareOwnerData(input, analysis) {
   }
   intervals.sort((a, b) => a.start - b.start || a.end - b.end);
   // Sweep all source boundaries so even nested/duplicate intervals taint every overlapping hour.
-  const events = intervals.flatMap((row) => [[row.start, 1], [row.end, -1]]).sort((a, b) => a[0] - b[0]);
+  const events = intervals
+    .flatMap((row) => [
+      [row.start, 1],
+      [row.end, -1],
+    ])
+    .sort((a, b) => a[0] - b[0]);
   const overlapSpans = [];
-  let active = 0, previous = null;
-  for (let i = 0; i < events.length;) {
+  let active = 0,
+    previous = null;
+  for (let i = 0; i < events.length; ) {
     const time = events[i][0];
     if (previous != null && active > 1 && time > previous + toleranceMs) {
       const last = overlapSpans.at(-1);
       if (last && Math.abs(last[1] - previous) <= toleranceMs) last[1] = time;
       else overlapSpans.push([previous, time]);
     }
-    while (i < events.length && events[i][0] === time) { active += events[i][1]; i += 1; }
+    while (i < events.length && events[i][0] === time) {
+      active += events[i][1];
+      i += 1;
+    }
     previous = time;
   }
-  for (const [start, end] of overlapSpans) visitHours(start, end, (hour) => { group(hour).overlap = true; });
+  for (const [start, end] of overlapSpans)
+    visitHours(start, end, (hour) => {
+      group(hour).overlap = true;
+    });
   let overlapIntervals = 0;
   for (const row of intervals) {
-    let low = 0, high = overlapSpans.length;
-    while (low < high) { const middle = (low + high) >> 1; if (overlapSpans[middle][1] <= row.start + toleranceMs) low = middle + 1; else high = middle; }
+    let low = 0,
+      high = overlapSpans.length;
+    while (low < high) {
+      const middle = (low + high) >> 1;
+      if (overlapSpans[middle][1] <= row.start + toleranceMs) low = middle + 1;
+      else high = middle;
+    }
     if (overlapSpans[low]?.[0] < row.end - toleranceMs) overlapIntervals += 1;
   }
   // This is unique observed duration, not the sum of potentially duplicated input durations.
-  let inputCoverageMs = 0, unionStart = null, unionEnd = null;
+  let inputCoverageMs = 0,
+    unionStart = null,
+    unionEnd = null;
   for (const row of intervals) {
     if (unionEnd == null || row.start > unionEnd + toleranceMs) {
       if (unionEnd != null) inputCoverageMs += unionEnd - unionStart;
-      unionStart = row.start; unionEnd = row.end;
+      unionStart = row.start;
+      unionEnd = row.end;
     } else unionEnd = Math.max(unionEnd, row.end);
   }
   if (unionEnd != null) inputCoverageMs += unionEnd - unionStart;
-  const matched = [], matchedIds = new Set(), unavailableIds = new Set();
-  let partialHours = 0, partialCoveredHours = 0, overlapHours = 0, invalidHours = 0;
-  let unavailableModelHours = 0, excludedHours = 0, excludedCoveredHours = 0, modeledCoverageMs = 0;
+  const matched = [],
+    matchedIds = new Set(),
+    unavailableIds = new Set();
+  let partialHours = 0,
+    partialCoveredHours = 0,
+    overlapHours = 0,
+    invalidHours = 0;
+  let unavailableModelHours = 0,
+    excludedHours = 0,
+    excludedCoveredHours = 0,
+    modeledCoverageMs = 0;
   for (const [hour, g] of [...groups].sort((a, b) => a[0] - b[0])) {
     g.segments.sort((a, b) => a.start - b.start || a.end - b.end);
-    let coveredMs = 0, end = hour, actualKwh = 0;
+    let coveredMs = 0,
+      end = hour,
+      actualKwh = 0;
     for (const segment of g.segments) {
       coveredMs += Math.max(0, segment.end - Math.max(end, segment.start));
       end = Math.max(end, segment.end);
@@ -1161,49 +1271,122 @@ export function compareOwnerData(input, analysis) {
     const complete = Math.abs(coveredMs - HOUR) <= toleranceMs;
     const estimate = model.get(hour);
     const available = finite(estimate.shadedKwh) && estimate.shadedKwh >= 0;
-    if (!complete) { partialHours += 1; partialCoveredHours += coveredMs / HOUR; }
+    if (!complete) {
+      partialHours += 1;
+      partialCoveredHours += coveredMs / HOUR;
+    }
     if (g.overlap) overlapHours += 1;
     if (g.invalid) invalidHours += 1;
-    if (!available) { unavailableModelHours += 1; for (const index of g.sourceIds) unavailableIds.add(index); }
+    if (!available) {
+      unavailableModelHours += 1;
+      for (const index of g.sourceIds) unavailableIds.add(index);
+    }
     if (!complete || g.overlap || g.invalid || !available) {
-      excludedHours += 1; excludedCoveredHours += coveredMs / HOUR; continue;
+      excludedHours += 1;
+      excludedCoveredHours += coveredMs / HOUR;
+      continue;
     }
     for (const index of g.sourceIds) matchedIds.add(index);
-    const maxSampleGapMinutes = g.segments.reduce((maximum, segment) => segment.sampleGapMinutes == null ? maximum : Math.max(maximum ?? 0, segment.sampleGapMinutes), null);
+    const maxSampleGapMinutes = g.segments.reduce(
+      (maximum, segment) =>
+        segment.sampleGapMinutes == null
+          ? maximum
+          : Math.max(maximum ?? 0, segment.sampleGapMinutes),
+      null,
+    );
     matched.push({
-      time: utc(hour), durationMinutes: 60, coverageMinutes: coveredMs / 60000,
+      time: utc(hour),
+      durationMinutes: 60,
+      coverageMinutes: coveredMs / 60000,
       sourceIntervals: g.sourceIds.size,
       maxSampleGapMinutes,
-      longerSpanMinutes: g.segments.reduce((sum, segment) => sum + (segment.extendedSpan ? (segment.end - segment.start) / 60000 : 0), 0),
-      actualKwh, modelKwh: estimate.shadedKwh, errorKwh: estimate.shadedKwh - actualKwh,
+      longerSpanMinutes: g.segments.reduce(
+        (sum, segment) =>
+          sum +
+          (segment.extendedSpan ? (segment.end - segment.start) / 60000 : 0),
+        0,
+      ),
+      actualKwh,
+      modelKwh: estimate.shadedKwh,
+      errorKwh: estimate.shadedKwh - actualKwh,
     });
   }
   const n = matched.length;
   outsideModelHours = Math.max(0, (inputCoverageMs - modeledCoverageMs) / HOUR);
   const actualKwh = n ? sumKnown(matched, "actualKwh") : null;
   const modelKwh = n ? sumKnown(matched, "modelKwh") : null;
-  const maeKwh = n ? matched.reduce((sum, row) => sum + Math.abs(row.errorKwh), 0) / n : null;
-  const rmseKwh = n ? Math.sqrt(matched.reduce((sum, row) => sum + row.errorKwh ** 2, 0) / n) : null;
+  const maeKwh = n
+    ? matched.reduce((sum, row) => sum + Math.abs(row.errorKwh), 0) / n
+    : null;
+  const rmseKwh = n
+    ? Math.sqrt(matched.reduce((sum, row) => sum + row.errorKwh ** 2, 0) / n)
+    : null;
   const biasKwh = n ? (modelKwh - actualKwh) / n : null;
   const warnings = [];
-  if (invalidIntervals) warnings.push(`${invalidIntervals} invalid source intervals were excluded; touched model hours are not compared.`);
-  if (overlapIntervals) warnings.push(`${overlapIntervals} overlapping source intervals affect ${overlapHours} model hours, which were excluded.`);
-  if (partialHours) warnings.push(`${partialHours} model hours have incomplete measured coverage and were excluded.`);
-  if (outsideModelIntervals) warnings.push(`${outsideModelIntervals} source intervals extend outside available model timestamps; those portions are not compared.`);
-  if (unavailableModelHours) warnings.push(`${unavailableModelHours} touched model hours have unknown predicted energy and were excluded.`);
-  if (splitIntervals) warnings.push(`${splitIntervals} source intervals cross an hour boundary. Their interval energy is allocated by duration, assuming uniform energy rate within each split source interval.`);
-  if (!n) warnings.push("No complete, nonoverlapping measured hours match available model energy. No accuracy metrics can be calculated.");
+  if (invalidIntervals)
+    warnings.push(
+      `${invalidIntervals} invalid source intervals were excluded; touched model hours are not compared.`,
+    );
+  if (overlapIntervals)
+    warnings.push(
+      `${overlapIntervals} overlapping source intervals affect ${overlapHours} model hours, which were excluded.`,
+    );
+  if (partialHours)
+    warnings.push(
+      `${partialHours} model hours have incomplete measured coverage and were excluded.`,
+    );
+  if (outsideModelIntervals)
+    warnings.push(
+      `${outsideModelIntervals} source intervals extend outside available model timestamps; those portions are not compared.`,
+    );
+  if (unavailableModelHours)
+    warnings.push(
+      `${unavailableModelHours} touched model hours have unknown predicted energy and were excluded.`,
+    );
+  if (splitIntervals)
+    warnings.push(
+      `${splitIntervals} source intervals cross an hour boundary. Their interval energy is allocated by duration, assuming uniform energy rate within each split source interval.`,
+    );
+  if (!n)
+    warnings.push(
+      "No complete, nonoverlapping measured hours match available model energy. No accuracy metrics can be calculated.",
+    );
   return {
-    matched, matchedIntervals: n, matchedHours: n, matchedSourceIntervals: matchedIds.size,
-    inputIntervals: rows.length, invalidIntervals, invalidHours, outsideModelIntervals, outsideModelHours,
-    unavailableModelIntervals: unavailableIds.size, unavailableModelHours,
-    partialHours, partialCoveredHours, overlapIntervals, overlapHours, excludedHours, excludedCoveredHours,
-    candidateHours: groups.size, inputCoverageHours: inputCoverageMs / HOUR, splitIntervals,
-    actualKwh, modelKwh, biasKwh, biasPct: actualKwh > 0 ? (modelKwh / actualKwh - 1) * 100 : null,
-    maeKwh, rmseKwh, hourlyMaeKwh: maeKwh, hourlyRmseKwh: rmseKwh, hourlyBiasKwh: biasKwh,
-    nmaePct: actualKwh > 0 ? maeKwh * n / actualKwh * 100 : null,
-    periodStart: matched[0]?.time ?? null, periodEnd: n ? utc(timestamp(matched.at(-1).time) + HOUR) : null,
-    status: n ? "compared" : "not_testable", warnings,
-    assumption: "Measured interval energy is aggregated into complete UTC model hours. Partial hours, overlapping or invalid source coverage, outside periods and unknown model energy are excluded. Predictions retain their hourly resolution; no five-minute or quarter-hour prediction accuracy is claimed. Source intervals crossing an hour boundary use an explicit uniform-rate duration allocation. Metrics and totals describe matched hours only; no annual extrapolation.",
+    matched,
+    matchedIntervals: n,
+    matchedHours: n,
+    matchedSourceIntervals: matchedIds.size,
+    inputIntervals: rows.length,
+    invalidIntervals,
+    invalidHours,
+    outsideModelIntervals,
+    outsideModelHours,
+    unavailableModelIntervals: unavailableIds.size,
+    unavailableModelHours,
+    partialHours,
+    partialCoveredHours,
+    overlapIntervals,
+    overlapHours,
+    excludedHours,
+    excludedCoveredHours,
+    candidateHours: groups.size,
+    inputCoverageHours: inputCoverageMs / HOUR,
+    splitIntervals,
+    actualKwh,
+    modelKwh,
+    biasKwh,
+    biasPct: actualKwh > 0 ? (modelKwh / actualKwh - 1) * 100 : null,
+    maeKwh,
+    rmseKwh,
+    hourlyMaeKwh: maeKwh,
+    hourlyRmseKwh: rmseKwh,
+    hourlyBiasKwh: biasKwh,
+    nmaePct: actualKwh > 0 ? ((maeKwh * n) / actualKwh) * 100 : null,
+    periodStart: matched[0]?.time ?? null,
+    periodEnd: n ? utc(timestamp(matched.at(-1).time) + HOUR) : null,
+    status: n ? "compared" : "not_testable",
+    warnings,
+    assumption:
+      "Measured interval energy is aggregated into complete UTC model hours. Partial hours, overlapping or invalid source coverage, outside periods and unknown model energy are excluded. Predictions retain their hourly resolution; no five-minute or quarter-hour prediction accuracy is claimed. Source intervals crossing an hour boundary use an explicit uniform-rate duration allocation. Metrics and totals describe matched hours only; no annual extrapolation.",
   };
 }
