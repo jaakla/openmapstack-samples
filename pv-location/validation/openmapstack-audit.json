@@ -1,0 +1,2542 @@
+{
+  "schema": "openmapstack-verify-result/v1",
+  "project_file": "/home/jaak/codeman-cases/openmapstack-samples/pv-location/project.yaml",
+  "status": "passed",
+  "counts": {
+    "passed": 68,
+    "warning": 0,
+    "not_testable": 0,
+    "failed": 0
+  },
+  "coverage": {
+    "applicable": 68,
+    "executed": 68,
+    "not_testable": 0,
+    "execution_rate": 1.0
+  },
+  "checks": [
+    {
+      "check": "project.parses",
+      "status": "passed",
+      "message": "project.yaml parses"
+    },
+    {
+      "check": "project.conforms_to_schema",
+      "status": "passed",
+      "message": "project.yaml conforms to the packaged OpenMapStack v1 JSON Schema"
+    },
+    {
+      "check": "project.graph_resolves",
+      "status": "passed",
+      "message": "graph resolves: 5 steps, 5 produced symbols, 41 outputs all traced to real steps"
+    },
+    {
+      "check": "project.one_canonical_pipeline",
+      "status": "passed",
+      "message": "pipeline.py is the canonical implementation; wrappers import it"
+    },
+    {
+      "check": "project.assumptions_have_rationale",
+      "status": "passed",
+      "message": "all 12 assumptions have statement + rationale"
+    },
+    {
+      "check": "project.status_agrees_with_validation_report",
+      "status": "passed",
+      "message": "project.status 'warning' agrees with report status 'warning'"
+    },
+    {
+      "check": "project.declared_files_exist",
+      "status": "passed",
+      "message": "all 41 declared files exist",
+      "args": {
+        "files": [
+          "data/derived/planning-scenario.geojson",
+          "data/derived/analysis.json",
+          "data/derived/seasonal-summary.csv",
+          "data/derived/hourly.csv",
+          "data/derived/monthly.csv",
+          "findings.md",
+          "dist/index.html",
+          "delivery/dashboard-evidence.json",
+          "public/data/project.json",
+          "public/data/weather-2024.json",
+          "public/data/weather-2025.json",
+          "public/data/prices-2024.json",
+          "public/data/prices-2025.json",
+          "public/data/terrain.json",
+          "public/data/aerial.json",
+          "public/data/aerial.jpg",
+          "public/data/government.json",
+          "public/data/seasonal-summary.csv",
+          "public/data/hourly.csv",
+          "public/data/monthly.csv",
+          "public/data/buildings.geojson",
+          "public/data/scenario.geojson",
+          "dist/data/seasonal-summary.csv",
+          "dist/findings.md",
+          "public/data/canonical-report.pdf",
+          "dist/data/canonical-report.pdf",
+          "dist/assets/index-C1InLwA9.css",
+          "dist/assets/index-CVJNkS8g.js",
+          "dist/data/aerial.jpg",
+          "dist/data/aerial.json",
+          "dist/data/buildings.geojson",
+          "dist/data/government.json",
+          "dist/data/hourly.csv",
+          "dist/data/monthly.csv",
+          "dist/data/prices-2024.json",
+          "dist/data/prices-2025.json",
+          "dist/data/project.json",
+          "dist/data/scenario.geojson",
+          "dist/data/terrain.json",
+          "dist/data/weather-2024.json",
+          "dist/data/weather-2025.json"
+        ]
+      }
+    },
+    {
+      "check": "provenance.every_source_has_provider_and_access",
+      "status": "passed",
+      "message": "all 15 sources declare provider + access method + retrieval timestamp"
+    },
+    {
+      "check": "provenance.every_source_pinned",
+      "status": "passed",
+      "message": "all 15 sources are pinned (local_snapshot)"
+    },
+    {
+      "check": "provenance.no_inline_credentials",
+      "status": "passed",
+      "message": "no inline credentials in 15 sources; connections are by reference"
+    },
+    {
+      "check": "provenance.license_present_where_required",
+      "status": "passed",
+      "message": "license metadata present for required sources"
+    },
+    {
+      "check": "provenance.rationale_present",
+      "status": "passed",
+      "message": "all 15 sources document selection rationale"
+    },
+    {
+      "check": "overrides.every_override_has_provenance",
+      "status": "passed",
+      "message": "all 1 overrides carry id/action/rationale/author/timestamp"
+    },
+    {
+      "check": "overrides.evidence_not_placeholder",
+      "status": "passed",
+      "message": "no placeholder evidence found"
+    },
+    {
+      "check": "validation.required_all_present",
+      "status": "passed",
+      "message": "all 30 declared checks present exactly once in report"
+    },
+    {
+      "check": "validation.no_implicit_pass",
+      "status": "passed",
+      "message": "every check has an explicit status"
+    },
+    {
+      "check": "validation.warning_or_failed_propagates_to_status",
+      "status": "passed",
+      "message": "overall status 'warning' correctly reflects check statuses"
+    },
+    {
+      "check": "validation.run_record_matches",
+      "status": "passed",
+      "message": "report run_id 'run-20261026-110629' matches a real run record with consistent hashes"
+    },
+    {
+      "check": "validation.sample_run_not_promoted",
+      "status": "passed",
+      "message": "no sampled run records; runs.latest is canonical"
+    },
+    {
+      "check": "geodata.crs_not_used_for_metrics",
+      "status": "passed",
+      "message": "analysis_crs EPSG:3301 is valid for 0 metric operation(s); storage/load/reprojection steps were excluded"
+    },
+    {
+      "check": "geodata.geometry_all_valid",
+      "status": "passed",
+      "message": "data/derived/planning-scenario.geojson: all 1 features have valid geometry",
+      "args": {
+        "path": "data/derived/planning-scenario.geojson"
+      }
+    },
+    {
+      "check": "geodata.dataset_crs_is",
+      "status": "passed",
+      "message": "data/derived/planning-scenario.geojson actual CRS metadata is EPSG:4326",
+      "args": {
+        "path": "data/derived/planning-scenario.geojson",
+        "expected": "EPSG:4326"
+      }
+    },
+    {
+      "check": "geodata.layer_extent_within_aoi",
+      "status": "passed",
+      "message": "all 1 features of data/derived/planning-scenario.geojson lie within the AOI (margin 0.5)",
+      "args": {
+        "path": "data/derived/planning-scenario.geojson"
+      }
+    },
+    {
+      "check": "geodata.geometry_all_valid",
+      "status": "passed",
+      "message": "public/data/buildings.geojson: all 4420 features have valid geometry",
+      "args": {
+        "path": "public/data/buildings.geojson"
+      }
+    },
+    {
+      "check": "geodata.dataset_crs_is",
+      "status": "passed",
+      "message": "public/data/buildings.geojson actual CRS metadata is EPSG:4326",
+      "args": {
+        "path": "public/data/buildings.geojson",
+        "expected": "EPSG:4326"
+      }
+    },
+    {
+      "check": "geodata.layer_extent_within_aoi",
+      "status": "passed",
+      "message": "all 4420 features of public/data/buildings.geojson lie within the AOI (margin 0.5)",
+      "args": {
+        "path": "public/data/buildings.geojson"
+      }
+    },
+    {
+      "check": "geodata.geometry_all_valid",
+      "status": "passed",
+      "message": "public/data/scenario.geojson: all 1 features have valid geometry",
+      "args": {
+        "path": "public/data/scenario.geojson"
+      }
+    },
+    {
+      "check": "geodata.dataset_crs_is",
+      "status": "passed",
+      "message": "public/data/scenario.geojson actual CRS metadata is EPSG:4326",
+      "args": {
+        "path": "public/data/scenario.geojson",
+        "expected": "EPSG:4326"
+      }
+    },
+    {
+      "check": "geodata.layer_extent_within_aoi",
+      "status": "passed",
+      "message": "all 1 features of public/data/scenario.geojson lie within the AOI (margin 0.5)",
+      "args": {
+        "path": "public/data/scenario.geojson"
+      }
+    },
+    {
+      "check": "tables.readable",
+      "status": "passed",
+      "message": "data/derived/seasonal-summary.csv: 2 rows x 63 columns",
+      "args": {
+        "path": "data/derived/seasonal-summary.csv"
+      }
+    },
+    {
+      "check": "tables.not_empty",
+      "status": "passed",
+      "message": "data/derived/seasonal-summary.csv has 2 rows",
+      "args": {
+        "path": "data/derived/seasonal-summary.csv"
+      }
+    },
+    {
+      "check": "tables.columns_declared",
+      "status": "passed",
+      "message": "data/derived/seasonal-summary.csv: 63 declared columns present and typed",
+      "args": {
+        "path": "data/derived/seasonal-summary.csv",
+        "columns": [
+          {
+            "name": "year",
+            "type": "integer",
+            "unit": "year"
+          },
+          {
+            "name": "clearKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "weatherKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "shadedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredWeatherKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredShadedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "shadingLossKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "shadingLossPct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "weatherRetentionPct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "solarRetentionPct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "specificYieldKwhKwp",
+            "type": "number",
+            "unit": "kWh/kWp"
+          },
+          {
+            "name": "capacityFactorPct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "expectedHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "intervalHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "weatherHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "shadedHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "pricedHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "negativePriceHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "pricedClearRevenueEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "clearRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+          },
+          {
+            "name": "pricedWeatherRevenueEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "weatherRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+          },
+          {
+            "name": "pricedShadedRevenueEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "shadedRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+          },
+          {
+            "name": "pricedShadowRevenueLossEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "shadowRevenueLossEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+          },
+          {
+            "name": "coveredConsumptionKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "consumptionKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled demand; imported meter readings remain a demand proxy when pre-existing PV supplied unobserved on-site load."
+          },
+          {
+            "name": "coveredSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "selfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled PV used on site within matching intervals."
+          },
+          {
+            "name": "coveredImportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "importKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled remaining demand purchased from the grid."
+          },
+          {
+            "name": "coveredExportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "exportKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Surplus modeled PV sold to the grid."
+          },
+          {
+            "name": "coveredAvoidedImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "avoidedImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Self-use valued at modeled spot plus the explicit import adder; no unentered VAT or grid charge."
+          },
+          {
+            "name": "coveredExportRevenueEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "exportRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Surplus export valued at modeled spot less sales margin."
+          },
+          {
+            "name": "coveredGridImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "gridImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "coveredBaselineImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "baselineImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "coveredNetBenefitEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "netBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Avoided import cost plus surplus export revenue, before capital cost and unentered charges."
+          },
+          {
+            "name": "coveredNetGridCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "netGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Grid import cost minus surplus export revenue; negative values indicate net receipts."
+          },
+          {
+            "name": "coveredWeatherSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "weatherSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredWeatherImportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "weatherImportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredWeatherExportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "weatherExportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredWeatherNetBenefitEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "weatherNetBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Same demand applied to shadow-free weather production."
+          },
+          {
+            "name": "coveredShadowNetBenefitLossEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "shadowNetBenefitLossEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Shadow-free weather net PV benefit minus locally shaded net PV benefit."
+          },
+          {
+            "name": "consumptionCoveredHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "consumptionExpectedHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "imputedHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "pricedConsumptionHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "consumptionCoveragePct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "selfConsumptionPct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "selfSufficiencyPct",
+            "type": "number",
+            "unit": "%"
+          }
+        ]
+      }
+    },
+    {
+      "check": "tables.key_unique",
+      "status": "passed",
+      "message": "data/derived/seasonal-summary.csv: key ['year'] is unique across 2 rows",
+      "args": {
+        "path": "data/derived/seasonal-summary.csv",
+        "key": [
+          "year"
+        ]
+      }
+    },
+    {
+      "check": "tables.downloads_consistent",
+      "status": "passed",
+      "message": "data/derived/seasonal-summary.csv: 1 download formats hold the same 2 rows",
+      "args": {
+        "path": "data/derived/seasonal-summary.csv",
+        "formats": [
+          "csv"
+        ]
+      }
+    },
+    {
+      "check": "tables.readable",
+      "status": "passed",
+      "message": "data/derived/hourly.csv: 17544 rows x 53 columns",
+      "args": {
+        "path": "data/derived/hourly.csv"
+      }
+    },
+    {
+      "check": "tables.not_empty",
+      "status": "passed",
+      "message": "data/derived/hourly.csv has 17544 rows",
+      "args": {
+        "path": "data/derived/hourly.csv"
+      }
+    },
+    {
+      "check": "tables.columns_declared",
+      "status": "passed",
+      "message": "data/derived/hourly.csv: 53 declared columns present and typed",
+      "args": {
+        "path": "data/derived/hourly.csv",
+        "columns": [
+          {
+            "name": "year",
+            "type": "integer",
+            "unit": "year"
+          },
+          {
+            "name": "time",
+            "type": "datetime"
+          },
+          {
+            "name": "durationHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "clearKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "weatherKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "shadedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "shadingLossKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "sunVisibleFraction",
+            "type": "number"
+          },
+          {
+            "name": "priceEurMWh",
+            "type": "number",
+            "unit": "EUR/MWh"
+          },
+          {
+            "name": "netPriceEurKwh",
+            "type": "number",
+            "unit": "EUR/kWh"
+          },
+          {
+            "name": "temperatureC",
+            "type": "number",
+            "unit": "°C"
+          },
+          {
+            "name": "ghi",
+            "type": "number",
+            "unit": "W/m²"
+          },
+          {
+            "name": "clearRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+          },
+          {
+            "name": "weatherRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+          },
+          {
+            "name": "shadedRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+          },
+          {
+            "name": "shadowRevenueLossEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+          },
+          {
+            "name": "coveredConsumptionKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "consumptionKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled demand; imported meter readings remain a demand proxy when pre-existing PV supplied unobserved on-site load."
+          },
+          {
+            "name": "coveredSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "selfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled PV used on site within matching intervals."
+          },
+          {
+            "name": "coveredImportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "importKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled remaining demand purchased from the grid."
+          },
+          {
+            "name": "coveredExportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "exportKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Surplus modeled PV sold to the grid."
+          },
+          {
+            "name": "coveredAvoidedImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "avoidedImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Self-use valued at modeled spot plus the explicit import adder; no unentered VAT or grid charge."
+          },
+          {
+            "name": "coveredExportRevenueEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "exportRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Surplus export valued at modeled spot less sales margin."
+          },
+          {
+            "name": "coveredGridImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "gridImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "coveredBaselineImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "baselineImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "coveredNetBenefitEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "netBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Avoided import cost plus surplus export revenue, before capital cost and unentered charges."
+          },
+          {
+            "name": "coveredNetGridCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "netGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Grid import cost minus surplus export revenue; negative values indicate net receipts."
+          },
+          {
+            "name": "coveredWeatherSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "weatherSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredWeatherImportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "weatherImportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredWeatherExportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "weatherExportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredWeatherNetBenefitEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "weatherNetBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Same demand applied to shadow-free weather production."
+          },
+          {
+            "name": "coveredShadowNetBenefitLossEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "shadowNetBenefitLossEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Shadow-free weather net PV benefit minus locally shaded net PV benefit."
+          },
+          {
+            "name": "consumptionCoveredHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "consumptionExpectedHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "imputedHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "pricedConsumptionHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "consumptionCoveragePct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "selfConsumptionPct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "selfSufficiencyPct",
+            "type": "number",
+            "unit": "%"
+          }
+        ]
+      }
+    },
+    {
+      "check": "tables.key_unique",
+      "status": "passed",
+      "message": "data/derived/hourly.csv: key ['year', 'time'] is unique across 17544 rows",
+      "args": {
+        "path": "data/derived/hourly.csv",
+        "key": [
+          "year",
+          "time"
+        ]
+      }
+    },
+    {
+      "check": "tables.downloads_consistent",
+      "status": "passed",
+      "message": "data/derived/hourly.csv: 1 download formats hold the same 17544 rows",
+      "args": {
+        "path": "data/derived/hourly.csv",
+        "formats": [
+          "csv"
+        ]
+      }
+    },
+    {
+      "check": "tables.readable",
+      "status": "passed",
+      "message": "data/derived/monthly.csv: 24 rows x 64 columns",
+      "args": {
+        "path": "data/derived/monthly.csv"
+      }
+    },
+    {
+      "check": "tables.not_empty",
+      "status": "passed",
+      "message": "data/derived/monthly.csv has 24 rows",
+      "args": {
+        "path": "data/derived/monthly.csv"
+      }
+    },
+    {
+      "check": "tables.columns_declared",
+      "status": "passed",
+      "message": "data/derived/monthly.csv: 64 declared columns present and typed",
+      "args": {
+        "path": "data/derived/monthly.csv",
+        "columns": [
+          {
+            "name": "year",
+            "type": "integer",
+            "unit": "year"
+          },
+          {
+            "name": "month",
+            "type": "string"
+          },
+          {
+            "name": "clearKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "weatherKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "shadedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredWeatherKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredShadedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "shadingLossKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "shadingLossPct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "weatherRetentionPct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "solarRetentionPct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "specificYieldKwhKwp",
+            "type": "number",
+            "unit": "kWh/kWp"
+          },
+          {
+            "name": "capacityFactorPct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "expectedHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "intervalHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "weatherHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "shadedHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "pricedHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "negativePriceHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "pricedClearRevenueEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "clearRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+          },
+          {
+            "name": "pricedWeatherRevenueEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "weatherRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+          },
+          {
+            "name": "pricedShadedRevenueEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "shadedRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+          },
+          {
+            "name": "pricedShadowRevenueLossEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "shadowRevenueLossEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+          },
+          {
+            "name": "coveredConsumptionKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "consumptionKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled demand; imported meter readings remain a demand proxy when pre-existing PV supplied unobserved on-site load."
+          },
+          {
+            "name": "coveredSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "selfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled PV used on site within matching intervals."
+          },
+          {
+            "name": "coveredImportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "importKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled remaining demand purchased from the grid."
+          },
+          {
+            "name": "coveredExportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "exportKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Surplus modeled PV sold to the grid."
+          },
+          {
+            "name": "coveredAvoidedImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "avoidedImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Self-use valued at modeled spot plus the explicit import adder; no unentered VAT or grid charge."
+          },
+          {
+            "name": "coveredExportRevenueEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "exportRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Surplus export valued at modeled spot less sales margin."
+          },
+          {
+            "name": "coveredGridImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "gridImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "coveredBaselineImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "baselineImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "coveredNetBenefitEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "netBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Avoided import cost plus surplus export revenue, before capital cost and unentered charges."
+          },
+          {
+            "name": "coveredNetGridCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "netGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Grid import cost minus surplus export revenue; negative values indicate net receipts."
+          },
+          {
+            "name": "coveredWeatherSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "weatherSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredWeatherImportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "weatherImportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredWeatherExportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "weatherExportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredWeatherNetBenefitEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "weatherNetBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Same demand applied to shadow-free weather production."
+          },
+          {
+            "name": "coveredShadowNetBenefitLossEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "shadowNetBenefitLossEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Shadow-free weather net PV benefit minus locally shaded net PV benefit."
+          },
+          {
+            "name": "consumptionCoveredHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "consumptionExpectedHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "imputedHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "pricedConsumptionHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "consumptionCoveragePct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "selfConsumptionPct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "selfSufficiencyPct",
+            "type": "number",
+            "unit": "%"
+          }
+        ]
+      }
+    },
+    {
+      "check": "tables.key_unique",
+      "status": "passed",
+      "message": "data/derived/monthly.csv: key ['year', 'month'] is unique across 24 rows",
+      "args": {
+        "path": "data/derived/monthly.csv",
+        "key": [
+          "year",
+          "month"
+        ]
+      }
+    },
+    {
+      "check": "tables.downloads_consistent",
+      "status": "passed",
+      "message": "data/derived/monthly.csv: 1 download formats hold the same 24 rows",
+      "args": {
+        "path": "data/derived/monthly.csv",
+        "formats": [
+          "csv"
+        ]
+      }
+    },
+    {
+      "check": "tables.readable",
+      "status": "passed",
+      "message": "dist/data/seasonal-summary.csv: 2 rows x 63 columns",
+      "args": {
+        "path": "dist/data/seasonal-summary.csv"
+      }
+    },
+    {
+      "check": "tables.not_empty",
+      "status": "passed",
+      "message": "dist/data/seasonal-summary.csv has 2 rows",
+      "args": {
+        "path": "dist/data/seasonal-summary.csv"
+      }
+    },
+    {
+      "check": "tables.columns_declared",
+      "status": "passed",
+      "message": "dist/data/seasonal-summary.csv: 63 declared columns present and typed",
+      "args": {
+        "path": "dist/data/seasonal-summary.csv",
+        "columns": [
+          {
+            "name": "year",
+            "type": "integer",
+            "unit": "year"
+          },
+          {
+            "name": "clearKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "weatherKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "shadedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredWeatherKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredShadedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "shadingLossKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "shadingLossPct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "weatherRetentionPct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "solarRetentionPct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "specificYieldKwhKwp",
+            "type": "number",
+            "unit": "kWh/kWp"
+          },
+          {
+            "name": "capacityFactorPct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "expectedHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "intervalHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "weatherHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "shadedHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "pricedHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "negativePriceHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "pricedClearRevenueEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "clearRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+          },
+          {
+            "name": "pricedWeatherRevenueEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "weatherRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+          },
+          {
+            "name": "pricedShadedRevenueEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "shadedRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+          },
+          {
+            "name": "pricedShadowRevenueLossEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "shadowRevenueLossEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "All-generation-export comparator; use exportRevenueEur and netBenefitEur for the consumption scenario."
+          },
+          {
+            "name": "coveredConsumptionKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "consumptionKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled demand; imported meter readings remain a demand proxy when pre-existing PV supplied unobserved on-site load."
+          },
+          {
+            "name": "coveredSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "selfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled PV used on site within matching intervals."
+          },
+          {
+            "name": "coveredImportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "importKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Modeled remaining demand purchased from the grid."
+          },
+          {
+            "name": "coveredExportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "exportKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Surplus modeled PV sold to the grid."
+          },
+          {
+            "name": "coveredAvoidedImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "avoidedImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Self-use valued at modeled spot plus the explicit import adder; no unentered VAT or grid charge."
+          },
+          {
+            "name": "coveredExportRevenueEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "exportRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Surplus export valued at modeled spot less sales margin."
+          },
+          {
+            "name": "coveredGridImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "gridImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "coveredBaselineImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "baselineImportCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "coveredNetBenefitEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "netBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Avoided import cost plus surplus export revenue, before capital cost and unentered charges."
+          },
+          {
+            "name": "coveredNetGridCostEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "netGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Grid import cost minus surplus export revenue; negative values indicate net receipts."
+          },
+          {
+            "name": "coveredWeatherSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "weatherSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredWeatherImportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "weatherImportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredWeatherExportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "weatherExportKwh",
+            "type": "number",
+            "unit": "kWh"
+          },
+          {
+            "name": "coveredWeatherNetBenefitEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "weatherNetBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Same demand applied to shadow-free weather production."
+          },
+          {
+            "name": "coveredShadowNetBenefitLossEur",
+            "type": "number",
+            "unit": "EUR"
+          },
+          {
+            "name": "shadowNetBenefitLossEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Shadow-free weather net PV benefit minus locally shaded net PV benefit."
+          },
+          {
+            "name": "consumptionCoveredHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "consumptionExpectedHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "imputedHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "pricedConsumptionHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "consumptionCoveragePct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "selfConsumptionPct",
+            "type": "number",
+            "unit": "%"
+          },
+          {
+            "name": "selfSufficiencyPct",
+            "type": "number",
+            "unit": "%"
+          }
+        ]
+      }
+    },
+    {
+      "check": "tables.key_unique",
+      "status": "passed",
+      "message": "dist/data/seasonal-summary.csv: key ['year'] is unique across 2 rows",
+      "args": {
+        "path": "dist/data/seasonal-summary.csv",
+        "key": [
+          "year"
+        ]
+      }
+    },
+    {
+      "check": "tables.downloads_consistent",
+      "status": "passed",
+      "message": "dist/data/seasonal-summary.csv: 1 download formats hold the same 2 rows",
+      "args": {
+        "path": "dist/data/seasonal-summary.csv",
+        "formats": [
+          "csv"
+        ]
+      }
+    },
+    {
+      "check": "credits.declaration_valid",
+      "status": "passed",
+      "message": "delivery author and toolkit metadata are complete"
+    },
+    {
+      "check": "credits.rendered_matches",
+      "status": "passed",
+      "message": "credits match in 1 delivery surface(s)"
+    },
+    {
+      "check": "findings.artifact_matches",
+      "status": "passed",
+      "message": "findings match the current run and analytical artifacts"
+    },
+    {
+      "check": "delivery.declaration_valid",
+      "status": "passed",
+      "message": "delivery declaration resolves"
+    },
+    {
+      "check": "presentation.layers_reference_outputs",
+      "status": "passed",
+      "message": "all persistent presentation layers resolve to outputs or override geometry"
+    },
+    {
+      "check": "delivery.dashboard.evidence_matches",
+      "status": "passed",
+      "message": "dashboard: view and evidence bind the declared analysis",
+      "args": {
+        "target_id": "dashboard"
+      },
+      "evidence": {
+        "view_sha256": "sha256:5d50b48d1990e24dca4dbfa27022ea348bc3c5efefe2cb62871dd4e7922447f9",
+        "analytical_outputs": {
+          "planning_scenario": "sha256:55bf5807ba8311d68ffd729fd4455334063cafab53f3aeebb36bbd7cdca1e35e",
+          "seasonal_summary": "sha256:d69c4c9c730bbf6e92488f9013811142514fd4affde245f3b3ea4e8083ccf40b",
+          "hourly_results": "sha256:63421e282fe8bde4c4b603afb15a8e5d8442a52a5d2e9d8211f0b830dc9c34d0",
+          "monthly_results": "sha256:344fc0232cf579b27705a85c7e01b2e2dfe2bcff1b0c3a11c587a1773af76ff9",
+          "browser_buildings": "sha256:fee6a302bf84cf0b394ecc0d1c04e884f02e150e22074255acce62a030e34584",
+          "browser_scenario": "sha256:55bf5807ba8311d68ffd729fd4455334063cafab53f3aeebb36bbd7cdca1e35e",
+          "hosted_seasonal_summary": "sha256:d69c4c9c730bbf6e92488f9013811142514fd4affde245f3b3ea4e8083ccf40b"
+        }
+      }
+    },
+    {
+      "check": "delivery.dashboard.web_view_loads",
+      "status": "passed",
+      "message": "dashboard: view loads and exposes provenance/warnings",
+      "args": {
+        "target_id": "dashboard"
+      }
+    },
+    {
+      "check": "presentation.tables_reference_table_outputs",
+      "status": "passed",
+      "message": "1 table view(s) show declared table outputs"
+    },
+    {
+      "check": "delivery.dashboard.table_downloads_linked",
+      "status": "passed",
+      "message": "index.html links every declared table download",
+      "args": {
+        "dashboard": "dist/index.html",
+        "allow_identical_copies": false
+      }
+    },
+    {
+      "check": "presentation.layers_use_semantic_roles",
+      "status": "passed",
+      "message": "all 2 layers declare a semantic_role"
+    },
+    {
+      "check": "presentation.controls_match_pipeline",
+      "status": "passed",
+      "message": "3 filter control(s), 0 scenario control(s) and 1 variant control(s) consistent"
+    },
+    {
+      "check": "presentation.edit_targets_reference_real_sources",
+      "status": "passed",
+      "message": "no edit targets declared (vacuously true)"
+    },
+    {
+      "check": "visual.dashboard_loads_in_browser",
+      "status": "passed",
+      "message": "1 page(s) load cleanly; every declared control, layer group, panel and reset works through the state protocol",
+      "evidence": {
+        "planner:desktop_map_stats": {
+          "width": 935,
+          "height": 390,
+          "distinct_colors_quantized": 2269,
+          "modal_color_fraction": 0.157809,
+          "non_modal_fraction": 0.842191
+        },
+        "planner:basemap_tile_requests": [
+          "https://tile.openstreetmap.org/17/75262/39222.png",
+          "https://tile.openstreetmap.org/17/75262/39223.png",
+          "https://tile.openstreetmap.org/17/75263/39222.png",
+          "https://tile.openstreetmap.org/17/75263/39223.png",
+          "https://tile.openstreetmap.org/17/75261/39222.png",
+          "https://tile.openstreetmap.org/17/75261/39223.png",
+          "https://tile.openstreetmap.org/17/75264/39222.png",
+          "https://tile.openstreetmap.org/17/75264/39223.png",
+          "https://tile.openstreetmap.org/17/75260/39222.png",
+          "https://tile.openstreetmap.org/17/75260/39223.png"
+        ],
+        "toggle_diff_fraction": {
+          "group:aerial": 0.8202660085013026,
+          "group:buildings": 0.06114904703139997,
+          "group:surface": 0.8161552173316879,
+          "group:shadows": 0.2751734539969834
+        },
+        "planner:mobile_map_width": 390
+      }
+    },
+    {
+      "check": "rerun.no_chat_dependency",
+      "status": "passed",
+      "message": "canonical project dependencies contain no chat/transcript references"
+    },
+    {
+      "check": "rerun.clean_execution_succeeded",
+      "status": "passed",
+      "message": "canonical entrypoint succeeded in a clean workspace and artifacts revalidated",
+      "args": {
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-a30i5yev"
+      }
+    },
+    {
+      "check": "rerun.outputs_semantically_equal",
+      "status": "passed",
+      "message": "all 3 outputs are semantically equal across the clean rerun",
+      "args": {
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-a30i5yev",
+        "paths": [
+          "data/derived/planning-scenario.geojson",
+          "public/data/buildings.geojson",
+          "public/data/scenario.geojson"
+        ]
+      }
+    },
+    {
+      "check": "rerun.tables_semantically_equal",
+      "status": "passed",
+      "message": "all 4 tables hold the same values across the clean rerun",
+      "args": {
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-a30i5yev",
+        "paths": [
+          "data/derived/seasonal-summary.csv",
+          "data/derived/hourly.csv",
+          "data/derived/monthly.csv",
+          "dist/data/seasonal-summary.csv"
+        ]
+      }
+    },
+    {
+      "check": "rerun.validation_report_reproducible",
+      "status": "passed",
+      "message": "validation evidence reproduces with status 'warning'",
+      "args": {
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-a30i5yev"
+      }
+    },
+    {
+      "check": "overrides.source_files_byte_identical",
+      "status": "passed",
+      "message": "all 36 source files byte-identical between workspace and rerun",
+      "args": {
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-a30i5yev",
+        "paths": [
+          "data/source/aerial.jpg",
+          "data/source/aerial.json",
+          "data/source/buildings.geojson",
+          "data/source/context-grid.json",
+          "data/source/government-aggregates.json",
+          "data/source/prices-2024.json",
+          "data/source/prices-2025.json",
+          "data/source/raw/aerial-3301.jpg",
+          "data/source/raw/arcgis_data.json.gz",
+          "data/source/raw/arcgis_item.json.gz",
+          "data/source/raw/buildings.geojson.gz",
+          "data/source/raw/dsm-cap.xml.gz",
+          "data/source/raw/dsm-desc.xml.gz",
+          "data/source/raw/dsm-layer-metadata.xml.gz",
+          "data/source/raw/dsm.tif",
+          "data/source/raw/dsm_metadata.xml.gz",
+          "data/source/raw/dtm-cap.xml.gz",
+          "data/source/raw/dtm-desc.xml.gz",
+          "data/source/raw/dtm-layer-metadata.xml.gz",
+          "data/source/raw/dtm.tif",
+          "data/source/raw/dtm_metadata.xml.gz",
+          "data/source/raw/etak-cap.xml.gz",
+          "data/source/raw/government-existing.json.gz",
+          "data/source/raw/government-planned.json.gz",
+          "data/source/raw/ortho_cap.xml.gz",
+          "data/source/raw/prices-2024.json.gz",
+          "data/source/raw/prices-2025.json.gz",
+          "data/source/raw/solar_existing.json.gz",
+          "data/source/raw/solar_item.json.gz",
+          "data/source/raw/solar_planned.json.gz",
+          "data/source/raw/weather-2024.json.gz",
+          "data/source/raw/weather-2025.json.gz",
+          "data/source/raw/webmap.json.gz",
+          "data/source/weather-2024.json",
+          "data/source/weather-2025.json",
+          "data/overrides/planning-scenario.geojson"
+        ]
+      }
+    }
+  ],
+  "clean_rerun": {
+    "schema": "openmapstack-clean-rerun/v1",
+    "status": "passed",
+    "stage": "complete",
+    "preserved_paths": [
+      "data/overrides",
+      "data/source",
+      "index.html",
+      "package-lock.json",
+      "package.json",
+      "pipeline.py",
+      "project.yaml",
+      "requirements.txt",
+      "scripts/canonical-analysis.mjs",
+      "scripts/canonical-report.mjs",
+      "sources.lock.json",
+      "src",
+      "vite.config.js"
+    ],
+    "excluded_artifact_classes": [
+      "derived_outputs",
+      "validation_reports",
+      "run_records",
+      "caches",
+      "presentation_artifacts",
+      "conversation_state"
+    ],
+    "command": [
+      "/tmp/oms-pv-venv/bin/python",
+      "pipeline.py"
+    ],
+    "removed_environment_keys": [
+      "CODEX_APPLY_PATCH_PRESERVE_LINE_ENDINGS",
+      "CODEX_CI",
+      "CODEX_HOME",
+      "CODEX_REMOTE_PAYLOAD",
+      "CODEX_SESSION_ID",
+      "CODEX_THREAD_ID",
+      "CODEX_TOOL_CALL_ID",
+      "CODEX_VERSION"
+    ],
+    "execution": {
+      "command": [
+        "/tmp/oms-pv-venv/bin/python",
+        "pipeline.py"
+      ],
+      "cwd": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-a30i5yev",
+      "returncode": 0,
+      "timed_out": false,
+      "duration_s": 11.908433916978538,
+      "stdout": "\nadded 120 packages in 3s\n\n> solar-atlas-pv-location@1.0.0 build\n> vite build\n\nvite v7.3.7 building client environment for production...\ntransforming...\n✓ 1943 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                     0.82 kB │ gzip:   0.49 kB\ndist/assets/index-C1InLwA9.css     98.08 kB │ gzip:  15.79 kB\ndist/assets/index-CVJNkS8g.js   3,029.33 kB │ gzip: 913.90 kB\n✓ built in 5.25s\n",
+      "stderr": "npm warn allow-scripts 2 packages have install scripts not yet covered by allowScripts:\nnpm warn allow-scripts   core-js@3.51.0 (postinstall: node -e \"try{require('./postinstall')}catch(e){}\")\nnpm warn allow-scripts   esbuild@0.28.2 (postinstall: node install.js)\nnpm warn allow-scripts\nnpm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow.\n\n(!) Some chunks are larger than 3000 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
+    },
+    "source_hashes": {
+      "data/overrides/planning-scenario.geojson": "sha256:1e7ae4a7e88ad051e3e8e8d2f0f994720738db85ee08d0381fe0beda2339d291",
+      "data/source/aerial.jpg": "sha256:bf170384421d68c7d14ccc0181e5f9e47f05870166fb614cf9b3fd10516f35e2",
+      "data/source/aerial.json": "sha256:e9fae91b0a081fc01880adba0b811f3578ee0710aa0a37da306e4bf1f54db189",
+      "data/source/buildings.geojson": "sha256:fee6a302bf84cf0b394ecc0d1c04e884f02e150e22074255acce62a030e34584",
+      "data/source/context-grid.json": "sha256:85b489d002a77937f7a9a19bac2575fcc7070a36ea6e643c17635e1170aaa315",
+      "data/source/government-aggregates.json": "sha256:70351a14d7eadffc40175bd05fe802ae79a29dc3e473929e4507602662d8bc34",
+      "data/source/prices-2024.json": "sha256:d165caa7147509954d852e78ea899e48f1f8d04fb395d2751fb00da3b9cdf765",
+      "data/source/prices-2025.json": "sha256:5772860f650229d05ce15946210f7932267a94daeee432ad37dbcb27d5cbcd3d",
+      "data/source/raw/aerial-3301.jpg": "sha256:bd6a28359c64f413982d816ba20fb498bf1b96002f79e6c276ea8d1a3ea240b5",
+      "data/source/raw/arcgis_data.json.gz": "sha256:770192abebd64db6850635bd3e821ca1d4dc1d545045013d27f69dc214fa41ee",
+      "data/source/raw/arcgis_item.json.gz": "sha256:8a12cee0902da5f3429cd1752332a207810e82cd86ce03c9dcb43d529a03ec02",
+      "data/source/raw/buildings.geojson.gz": "sha256:221831e66dd8d54086ee9d1c00d0afa218192d190eb051e5dfa54357b9af09e1",
+      "data/source/raw/dsm-cap.xml.gz": "sha256:3a6c93aa09637bee902951ad843c878ea30765560865e3c0af18f5bb0758b22c",
+      "data/source/raw/dsm-desc.xml.gz": "sha256:f66fd0727be3a65a1b7dd0b2a9d5a0c281ee482519ba054b8effa1d00bda0d96",
+      "data/source/raw/dsm-layer-metadata.xml.gz": "sha256:404d2cbc1aadfd2f3921505b62eb6e80eff260db1a650e32a6d122855c7dc64b",
+      "data/source/raw/dsm.tif": "sha256:ebfc3bd172c588414516f5e17a369bd3cec4c07eece50fb0e49e3cf0863a3750",
+      "data/source/raw/dsm_metadata.xml.gz": "sha256:2d2051af86cc56ddcc113eb7ba19cb49628f9c5ea401b9262f12171631d5e9ea",
+      "data/source/raw/dtm-cap.xml.gz": "sha256:cec2c1b7d1e42f2b91b65170a41d8206a2854bc6d4b7a79d2d22ac0c025984bd",
+      "data/source/raw/dtm-desc.xml.gz": "sha256:8f32912abc66c5e692c53d3b13acf4ca69c2c37828c94ca45f76b0630c5e6f6a",
+      "data/source/raw/dtm-layer-metadata.xml.gz": "sha256:ab1605bb87eb37a312ac8e9481a70bdb8b6fe7c51e53d06ee6b0e6259527f1a4",
+      "data/source/raw/dtm.tif": "sha256:e603ba2be6fa4e5276a3d3cb4eafa5ddce8c26ee691ed5e6c6cc2fc5faa07cdc",
+      "data/source/raw/dtm_metadata.xml.gz": "sha256:a7bb7aa58b143d36b4b95b85dccd73e294eb7779e7643ebfa0a27f86a32a5385",
+      "data/source/raw/etak-cap.xml.gz": "sha256:9fb7ac73d3a5c94626761c925e6b1e606294af38d63e34de961376090702e92a",
+      "data/source/raw/government-existing.json.gz": "sha256:edf49d6ae72f93917051bd00bd2e441e56bd88f1084e1f9fe18044c65571a131",
+      "data/source/raw/government-planned.json.gz": "sha256:8ac55a5a007521d09b02b7009d58cc7b39252bce6522949c72e2fa0b31975690",
+      "data/source/raw/ortho_cap.xml.gz": "sha256:7d974969a01fb2f86a0dbc969507827f561d590470266de4863a0fe70b28ea05",
+      "data/source/raw/prices-2024.json.gz": "sha256:39f6ed20bb1f594b97dd8c3549bbf57c1fcc33a24150cc60c3215b51f2ebe7b9",
+      "data/source/raw/prices-2025.json.gz": "sha256:0e2dc5a1d20d7e3d799d0b2a9c345cbb28387f6da4f6fc54f0b7e5a5c329c4a8",
+      "data/source/raw/solar_existing.json.gz": "sha256:ea0af26f422e80a159663f894e6fc41a1b6faac403d75a4fc1755175b4152fba",
+      "data/source/raw/solar_item.json.gz": "sha256:4fbbccf5a7c0fb39056415e7737e020d7a75e63aba87cad74386f96466db6a8e",
+      "data/source/raw/solar_planned.json.gz": "sha256:a863b44544437a6e414f780696efd57cc2c1febc7457986022a0c10a42e0f5b6",
+      "data/source/raw/weather-2024.json.gz": "sha256:39751c8858bd579e3de0c976eb196e1f35e59ef752b8b6fe954a02e8405d8fc0",
+      "data/source/raw/weather-2025.json.gz": "sha256:bd7029eaefa85ab7659e173489a0298e5aec6bb98db3f4daf06e018c0cfc04e4",
+      "data/source/raw/webmap.json.gz": "sha256:ec8510c83d68e07c5ae6cfa84c1bcb7dfe69d86703b1bb3ae40e5df3aa3a101a",
+      "data/source/weather-2024.json": "sha256:47962b70e2e72c213ff1d79fc291c3fe40baa4652ef46a7582761cb88c5b0715",
+      "data/source/weather-2025.json": "sha256:117d63b07c2e0ebbb89dc0cb4dd2f1e1cca3de8f86324a5fdd9ada1391efaad4"
+    },
+    "artifact_validation": {
+      "schema": "openmapstack-validation-result/v1",
+      "project_file": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-a30i5yev/project.yaml",
+      "status": "warning",
+      "counts": {
+        "passed": 77,
+        "warning": 1,
+        "not_testable": 0,
+        "failed": 0
+      },
+      "checks": [
+        {
+          "id": "manifest.json_schema",
+          "status": "passed",
+          "message": "project.yaml conforms to the packaged OpenMapStack v1 JSON Schema",
+          "path": "project.yaml"
+        },
+        {
+          "id": "manifest.schema",
+          "status": "passed",
+          "message": "schema is openmapstack-project/v1",
+          "path": "schema"
+        },
+        {
+          "id": "manifest.project",
+          "status": "passed",
+          "message": "project identity, timestamps, question, and status are declared",
+          "path": "project"
+        },
+        {
+          "id": "interpretation.assumptions",
+          "status": "passed",
+          "message": "12 assumptions have rationale",
+          "path": "interpretation.assumptions"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.era5_2024"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/raw/weather-2024.json.gz matches its content hash",
+          "path": "sources.era5_2024.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as CC-BY-4.0 data; free API access for non-commercial use",
+          "path": "sources.era5_2024.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.ee_prices_2024"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/raw/prices-2024.json.gz matches its content hash",
+          "path": "sources.ee_prices_2024.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as No explicit dataset reuse licence verified in public dashboard/API documentation",
+          "path": "sources.ee_prices_2024.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.era5_2025"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/raw/weather-2025.json.gz matches its content hash",
+          "path": "sources.era5_2025.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as CC-BY-4.0 data; free API access for non-commercial use",
+          "path": "sources.era5_2025.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.ee_prices_2025"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/raw/prices-2025.json.gz matches its content hash",
+          "path": "sources.ee_prices_2025.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as No explicit dataset reuse licence verified in public dashboard/API documentation",
+          "path": "sources.ee_prices_2025.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.dsm"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/raw/dsm.tif matches its content hash",
+          "path": "sources.dsm.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents (2025-01-01) and service terms",
+          "path": "sources.dsm.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.dtm"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/raw/dtm.tif matches its content hash",
+          "path": "sources.dtm.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents (2025-01-01) and service terms",
+          "path": "sources.dtm.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.buildings"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/raw/buildings.geojson.gz matches its content hash",
+          "path": "sources.buildings.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents (2025-01-01) and service terms",
+          "path": "sources.buildings.license"
+        },
+        {
+          "id": "source.completeness",
+          "status": "passed",
+          "message": "bounded API completeness proved (4420/4420)",
+          "path": "sources.buildings"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.aerial_context"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/raw/aerial-3301.jpg matches its content hash",
+          "path": "sources.aerial_context.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents (2025-01-01) and service terms",
+          "path": "sources.aerial_context.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.government_existing"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/raw/government-existing.json.gz matches its content hash",
+          "path": "sources.government_existing.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as Unspecified in ArcGIS item metadata",
+          "path": "sources.government_existing.license"
+        },
+        {
+          "id": "source.completeness",
+          "status": "passed",
+          "message": "bounded API completeness proved (2/2)",
+          "path": "sources.government_existing"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.government_planned"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/raw/government-planned.json.gz matches its content hash",
+          "path": "sources.government_planned.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as Unspecified in ArcGIS item metadata",
+          "path": "sources.government_planned.license"
+        },
+        {
+          "id": "source.completeness",
+          "status": "passed",
+          "message": "bounded API completeness proved (2/2)",
+          "path": "sources.government_planned"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.weather_2024"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/weather-2024.json matches its content hash",
+          "path": "sources.weather_2024.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as CC-BY-4.0 data; free API access for non-commercial use",
+          "path": "sources.weather_2024.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.weather_2025"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/weather-2025.json matches its content hash",
+          "path": "sources.weather_2025.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as CC-BY-4.0 data; free API access for non-commercial use",
+          "path": "sources.weather_2025.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.prices_2024"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/prices-2024.json matches its content hash",
+          "path": "sources.prices_2024.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as No explicit dataset reuse licence verified in public dashboard/API documentation",
+          "path": "sources.prices_2024.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.prices_2025"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/prices-2025.json matches its content hash",
+          "path": "sources.prices_2025.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as No explicit dataset reuse licence verified in public dashboard/API documentation",
+          "path": "sources.prices_2025.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.context_grid"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/context-grid.json matches its content hash",
+          "path": "sources.context_grid.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents (2025-01-01) and service terms",
+          "path": "sources.context_grid.license"
+        },
+        {
+          "id": "override.declaration",
+          "status": "passed",
+          "message": "SCENARIO-001 has action, provenance, rationale, and evidence",
+          "path": "overrides[0]"
+        },
+        {
+          "id": "overrides.ids",
+          "status": "passed",
+          "message": "1 override ids are unique",
+          "path": "overrides"
+        },
+        {
+          "id": "overrides.undocumented_files",
+          "status": "passed",
+          "message": "all override geodata files are declared",
+          "path": "data/overrides"
+        },
+        {
+          "id": "processing.crs",
+          "status": "passed",
+          "message": "analysis=EPSG:3301; storage=EPSG:4326",
+          "path": "processing"
+        },
+        {
+          "id": "processing.graph",
+          "status": "passed",
+          "message": "5 ordered steps and 5 symbols resolve",
+          "path": "processing.steps"
+        },
+        {
+          "id": "outputs.declaration",
+          "status": "passed",
+          "message": "41 outputs trace to real steps",
+          "path": "outputs"
+        },
+        {
+          "id": "delivery.declaration",
+          "status": "passed",
+          "message": "delivery declaration resolves",
+          "path": "delivery"
+        },
+        {
+          "id": "delivery.dashboard.evidence",
+          "status": "passed",
+          "message": "dashboard: view and evidence bind the declared analysis",
+          "details": {
+            "evidence": {
+              "view_sha256": "sha256:b705c1a921a529a946f63fd987b7159317f2c72cac1851925c56d95e69a98607",
+              "analytical_outputs": {
+                "planning_scenario": "sha256:55bf5807ba8311d68ffd729fd4455334063cafab53f3aeebb36bbd7cdca1e35e",
+                "seasonal_summary": "sha256:d69c4c9c730bbf6e92488f9013811142514fd4affde245f3b3ea4e8083ccf40b",
+                "hourly_results": "sha256:63421e282fe8bde4c4b603afb15a8e5d8442a52a5d2e9d8211f0b830dc9c34d0",
+                "monthly_results": "sha256:344fc0232cf579b27705a85c7e01b2e2dfe2bcff1b0c3a11c587a1773af76ff9",
+                "browser_buildings": "sha256:fee6a302bf84cf0b394ecc0d1c04e884f02e150e22074255acce62a030e34584",
+                "browser_scenario": "sha256:55bf5807ba8311d68ffd729fd4455334063cafab53f3aeebb36bbd7cdca1e35e",
+                "hosted_seasonal_summary": "sha256:d69c4c9c730bbf6e92488f9013811142514fd4affde245f3b3ea4e8083ccf40b"
+              }
+            }
+          }
+        },
+        {
+          "id": "credits.declaration",
+          "status": "passed",
+          "message": "delivery author and toolkit metadata are complete"
+        },
+        {
+          "id": "credits.rendered",
+          "status": "passed",
+          "message": "credits match in 1 delivery surface(s)",
+          "details": {
+            "surfaces": [
+              "dist/index.html"
+            ]
+          }
+        },
+        {
+          "id": "presentation.declaration",
+          "status": "passed",
+          "message": "semantic presentation declares 2 layers",
+          "path": "presentation"
+        },
+        {
+          "id": "presentation.layers_reference_outputs",
+          "status": "passed",
+          "message": "all persistent presentation layers resolve to outputs or override geometry"
+        },
+        {
+          "id": "views.declaration",
+          "status": "passed",
+          "message": "1 view(s) declared",
+          "path": "views"
+        },
+        {
+          "id": "findings.artifact",
+          "status": "passed",
+          "message": "findings declaration/artifact is consistent"
+        },
+        {
+          "id": "warnings.declaration",
+          "status": "passed",
+          "message": "7 unresolved warnings are documented",
+          "path": "warnings"
+        },
+        {
+          "id": "runtime.pipeline",
+          "status": "passed",
+          "message": "canonical pipeline exists: pipeline.py",
+          "path": "runtime.implementation.pipeline"
+        },
+        {
+          "id": "runtime.dependencies",
+          "status": "passed",
+          "message": "9 clean-run dependencies resolve inside the project",
+          "path": "runtime.implementation.dependencies"
+        },
+        {
+          "id": "runtime.environment",
+          "status": "passed",
+          "message": "2 runtime versions are recorded",
+          "path": "runtime.environment"
+        },
+        {
+          "id": "validation.declaration",
+          "status": "passed",
+          "message": "30 validation checks are declared",
+          "path": "validation"
+        },
+        {
+          "id": "outputs.files",
+          "status": "passed",
+          "message": "all 41 declared outputs exist",
+          "path": "outputs"
+        },
+        {
+          "id": "outputs.undeclared_derived_files",
+          "status": "passed",
+          "message": "every file under data/derived is a declared output",
+          "path": "data/derived"
+        },
+        {
+          "id": "project.readme",
+          "status": "passed",
+          "message": "README.md exists",
+          "path": "README.md"
+        },
+        {
+          "id": "validation.report",
+          "status": "warning",
+          "message": "report has 30 explicit checks; status=warning",
+          "path": "validation/latest-report.json"
+        },
+        {
+          "id": "overrides.application",
+          "status": "passed",
+          "message": "all 1 overrides have one applied result",
+          "path": "validation/latest-report.json"
+        },
+        {
+          "id": "runs.latest",
+          "status": "passed",
+          "message": "run-20261026-110728 resolves and matches report status/hashes",
+          "path": "runs/run-20261026-110728.json"
+        },
+        {
+          "id": "runs.sample_isolation",
+          "status": "passed",
+          "message": "no sampled run records",
+          "path": "runs"
+        }
+      ]
+    }
+  }
+}

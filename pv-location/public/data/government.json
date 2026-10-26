@@ -1,0 +1,82 @@
+{
+  "provider": "Keskkonnaagentuur",
+  "dataset": "Taastuvenergia Eestis KOV lõikes",
+  "snapshotAt": "2026-10-26",
+  "inventoryUsable": false,
+  "reason": "Public app solar layers are municipal polygons with counts. No array/site geometry, per-installation DC capacity, commissioning date or record-level PV status is supplied. Existing and planned aggregates kept separately.",
+  "licenseStatus": "Unspecified in ArcGIS item metadata; no CC license inferred.",
+  "sources": [
+    {
+      "status": "existing",
+      "url": "https://services.arcgis.com/fe2zzRbhcPNuoFC4/arcgis/rest/services/Taastuvenergiarajatised_liigiti_KOVides/FeatureServer/14/query?f=json&where=KOV+LIKE+%27%25Tartu%25%27&outFields=%2A&returnGeometry=false",
+      "semantics": "Municipality aggregate counts, not installation geometries or DC capacity",
+      "records": [
+        {
+          "FID": 67,
+          "Kov_KOOD": "0793",
+          "KOV": "Tartu linn",
+          "MAAKOND": "Tartu maakond",
+          "Päikeseja": 21,
+          "Tuulikud": 0,
+          "Hüdrojaam": 0,
+          "Soojatootm": 10,
+          "Biogaasija": 3,
+          "Akud": 0,
+          "Kk_soojusp": 2,
+          "Kk_Soojuss": 1,
+          "Shape__Area": 154029878.2998047,
+          "Shape__Length": 76489.4258218753
+        },
+        {
+          "FID": 76,
+          "Kov_KOOD": "0796",
+          "KOV": "Tartu vald",
+          "MAAKOND": "Tartu maakond",
+          "Päikeseja": 81,
+          "Tuulikud": 2,
+          "Hüdrojaam": 0,
+          "Soojatootm": 7,
+          "Biogaasija": 0,
+          "Akud": 0,
+          "Kk_soojusp": 0,
+          "Kk_Soojuss": 0,
+          "Shape__Area": 741831223.6408691,
+          "Shape__Length": 231429.94847335108
+        }
+      ]
+    },
+    {
+      "status": "planned",
+      "url": "https://services.arcgis.com/fe2zzRbhcPNuoFC4/arcgis/rest/services/Kavandatavad_taastuvenergiarajatised_liigiti_KOVides/FeatureServer/16/query?f=json&where=KOV+LIKE+%27%25Tartu%25%27&outFields=%2A&returnGeometry=false",
+      "semantics": "Municipality aggregate counts, not installation geometries or DC capacity",
+      "records": [
+        {
+          "FID": 67,
+          "KOV": "Tartu linn",
+          "MAAKOND": "Tartu maakond",
+          "Päikeseel": 7,
+          "Tuulikud": 0,
+          "Akud": 1,
+          "Biogaasija": 0,
+          "S_pump_kau": 0,
+          "S_salv_kau": 0,
+          "Shape__Area": 154029878.2998047,
+          "Shape__Length": 76489.4258218753
+        },
+        {
+          "FID": 76,
+          "KOV": "Tartu vald",
+          "MAAKOND": "Tartu maakond",
+          "Päikeseel": 40,
+          "Tuulikud": 1,
+          "Akud": 2,
+          "Biogaasija": 0,
+          "S_pump_kau": 0,
+          "S_salv_kau": 0,
+          "Shape__Area": 741831223.6408691,
+          "Shape__Length": 231429.94847335108
+        }
+      ]
+    }
+  ]
+}

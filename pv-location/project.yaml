@@ -1,0 +1,1994 @@
+schema: openmapstack-project/v1
+delivery:
+  schema: openmapstack-delivery/v1
+  targets:
+  - id: dashboard
+    kind: dashboard
+    mode: local
+    output: dashboard
+    inputs:
+    - planning_scenario
+    - seasonal_summary
+    - hourly_results
+    - monthly_results
+    - browser_buildings
+    - browser_scenario
+    - hosted_seasonal_summary
+    evidence: dashboard_evidence
+project:
+  id: tartu-pv-location
+  title: Solar Atlas — PV location analysis
+  question: Estimate hypothetical PV production, local shadow losses and 2024/2025
+    energy value with on-site consumption; export a reviewable scenario PDF.
+  created_at: '2026-10-26T09:40:35Z'
+  updated_at: '2026-10-26T11:06:31.743080+00:00'
+  status: warning
+  aoi:
+    bbox:
+    - 658125
+    - 6472170
+    - 660125
+    - 6474170
+    crs: EPSG:3301
+  author:
+    name: Jaak Laineste
+    email: jaak.laineste@gmail.com
+    url: https://github.com/jaakla
+  generated_with:
+    tool: OpenMapStack
+    url: https://jaakla.github.io/openmapstack-skills/
+interpretation:
+  objective: Implement interactive manual-PV planning over pinned source context,
+    with shared browser/batch solar and consumption calculations, private household
+    CSV import, and scenario PDF reports.
+  assumptions:
+  - id: hypothetical
+    statement: The initial 30 × 12 m, 20 kWp array is a hypothetical planning scenario,
+      not an observed PV installation or suitability recommendation.
+    rationale: 'Issue #4 requests manual polygon planning; the open-surface patch
+      was selected from the frozen DSM without inferring rights or engineering suitability.'
+  - id: metric_crs
+    statement: All metric geometry and horizon distances use EPSG:3301; GeoJSON coordinates
+      are WGS84 longitude, latitude.
+    rationale: Estonia's projected CRS supports metre-based calculations without Web
+      Mercator area distortion.
+  - id: weather
+    statement: Hourly ERA5 weather is a grid estimate shared across this bounded pilot;
+      it is not site-measured irradiance.
+    rationale: No owner irradiance or production observations were provided.
+  - id: surface_time
+    statement: The frozen 5 m DSM/DTM download is not asserted contemporaneous with
+      either 2024 or 2025.
+    rationale: Per-cell LiDAR acquisition dates are not exposed by the selected WCS
+      response.
+  - id: horizon
+    statement: Local shadows use equal-weight polygon receiver samples and a 500 m
+      DSM horizon at 2° azimuth intervals, with 2 m mounting height initially.
+    rationale: A bounded horizon approximation captures major buildings and vegetation
+      while remaining interactive; module electrical mismatch is outside scope.
+  - id: revenue
+    statement: Surplus export revenue is exported kWh / 1000 × (EE spot EUR/MWh −
+      sales margin); on-site PV avoids imports at spot price plus the explicit import
+      adder.
+    rationale: The extended planning scenario separates self-consumption value from
+      surplus sales; the original all-generation-export comparison is retained and
+      labeled.
+  - id: time
+    statement: All source and model timestamps use UTC interval starts; weather radiation
+      averages are aligned by the acquisition transformation.
+    rationale: Explicit interval semantics prevent the one-hour radiation shift and
+      daylight-saving duplicate hours.
+  - id: consumption_profile
+    statement: The canonical consumption assumption is 10 kWh during local daytime
+      07:00–23:00 and 4 kWh during the remaining local night, in Europe/Tallinn.
+    rationale: No household measurements were supplied; this explicit editable planning
+      profile supports on-site use estimates without presenting assumed demand as
+      observations.
+  - id: import_price
+    statement: The canonical import-price adder is 0 EUR/MWh, so avoided import cost
+      uses spot prices only; VAT and grid fees are not assumed.
+    rationale: Actual retail and network contracts were not supplied. A configurable
+      adder remains an explicitly user-entered scenario assumption.
+  - id: consumption_matching
+    statement: PV and demand are matched on the model time axis without a battery;
+      missing uploaded demand remains unknown unless the user explicitly enables estimate
+      filling.
+    rationale: Imports, exports and self-use must balance while preserving uncertainty
+      and partial profile coverage.
+  - id: private_consumption
+    statement: Uploaded household consumption is processed in browser memory and excluded
+      from the repository and PDF reports; a user-initiated scenario export may explicitly
+      include the normalized profile.
+    rationale: The public canonical baseline contains only a generic estimate, not
+      personal household observations.
+  - id: pdf_snapshot
+    statement: A downloaded scenario PDF describes the current modeled scenario and
+      its limitations; the published canonical PDF uses the pinned baseline and canonical
+      run time.
+    rationale: The report is a reviewable view over the analysis, and does not validate
+      a scenario or establish financial returns.
+sources:
+  era5_2024:
+    provider: Open-Meteo / Copernicus Climate Change Service
+    dataset: ERA5 hourly reanalysis at requested Tartu pilot
+    source_url: https://archive-api.open-meteo.com/v1/archive?latitude=58.37&longitude=26.72&start_date=2024-01-01&end_date=2025-01-01&hourly=temperature_2m%2Cshortwave_radiation%2Cdirect_normal_irradiance%2Cdiffuse_radiation&timezone=UTC&models=era5
+    access:
+      method: https
+      retrieved_at: '2026-10-26T09:40:35Z'
+      request_spec: '{"url": "https://archive-api.open-meteo.com/v1/archive?latitude=58.37&longitude=26.72&start_date=2024-01-01&end_date=2025-01-01&hourly=temperature_2m%2Cshortwave_radiation%2Cdirect_normal_irradiance%2Cdiffuse_radiation&timezone=UTC&models=era5"}'
+      downloaded_at: '2026-10-26T09:40:35Z'
+    version:
+      identifier: local snapshot 2026-10-26T09:40:35Z
+    pin:
+      class: local_snapshot
+      path: data/source/raw/weather-2024.json.gz
+      sha256: sha256:39751c8858bd579e3de0c976eb196e1f35e59ef752b8b6fe954a02e8405d8fc0
+      captured_at: '2026-10-26T09:40:35Z'
+    license:
+      name: CC-BY-4.0 data; free API access for non-commercial use
+      url: https://open-meteo.com/en/terms
+    schema:
+      crs: EPSG:4326
+      columns:
+      - hourly.time
+      - temperature_2m
+      - shortwave_radiation
+      - direct_normal_irradiance
+      - diffuse_radiation
+    selection:
+      filter: All 8784 UTC intervals in year; following-day response included to retain
+        end timestamp. Grid point58.25,26.75, not panel observations.
+    rationale: ERA5 hourly reanalysis at requested Tartu pilot
+    role: authoritative_input
+  ee_prices_2024:
+    provider: Elering
+    dataset: Nord Pool EE day-ahead spot prices
+    source_url: https://dashboard.elering.ee/api/nps/price?start=2024-01-01T00%3A00%3A00.000Z&end=2025-01-01T00%3A00%3A00.000Z
+    access:
+      method: https
+      retrieved_at: '2026-10-26T09:40:35Z'
+      request_spec: '{"url": "https://dashboard.elering.ee/api/nps/price?start=2024-01-01T00%3A00%3A00.000Z&end=2025-01-01T00%3A00%3A00.000Z"}'
+      downloaded_at: '2026-10-26T09:40:35Z'
+    version:
+      identifier: local snapshot 2026-10-26T09:40:35Z
+    pin:
+      class: local_snapshot
+      path: data/source/raw/prices-2024.json.gz
+      sha256: sha256:39f6ed20bb1f594b97dd8c3549bbf57c1fcc33a24150cc60c3215b51f2ebe7b9
+      captured_at: '2026-10-26T09:40:35Z'
+    license:
+      name: No explicit dataset reuse licence verified in public dashboard/API documentation
+      url: https://dashboard.elering.ee/assets/api-doc.html
+      status: unresolved
+    schema:
+      crs: not_spatial
+      columns:
+      - data.ee.timestamp
+      - data.ee.price
+    selection:
+      filter: All UTC hours for 2024; API inclusive endpoint trimmed. Hourly output
+        uses arithmetic mean of four equal quarter-hour records after interval change.
+    rationale: Nord Pool EE day-ahead spot prices
+    role: authoritative_input
+  era5_2025:
+    provider: Open-Meteo / Copernicus Climate Change Service
+    dataset: ERA5 hourly reanalysis at requested Tartu pilot
+    source_url: https://archive-api.open-meteo.com/v1/archive?latitude=58.37&longitude=26.72&start_date=2025-01-01&end_date=2026-01-01&hourly=temperature_2m%2Cshortwave_radiation%2Cdirect_normal_irradiance%2Cdiffuse_radiation&timezone=UTC&models=era5
+    access:
+      method: https
+      retrieved_at: '2026-10-26T09:40:35Z'
+      request_spec: '{"url": "https://archive-api.open-meteo.com/v1/archive?latitude=58.37&longitude=26.72&start_date=2025-01-01&end_date=2026-01-01&hourly=temperature_2m%2Cshortwave_radiation%2Cdirect_normal_irradiance%2Cdiffuse_radiation&timezone=UTC&models=era5"}'
+      downloaded_at: '2026-10-26T09:40:35Z'
+    version:
+      identifier: local snapshot 2026-10-26T09:40:35Z
+    pin:
+      class: local_snapshot
+      path: data/source/raw/weather-2025.json.gz
+      sha256: sha256:bd7029eaefa85ab7659e173489a0298e5aec6bb98db3f4daf06e018c0cfc04e4
+      captured_at: '2026-10-26T09:40:35Z'
+    license:
+      name: CC-BY-4.0 data; free API access for non-commercial use
+      url: https://open-meteo.com/en/terms
+    schema:
+      crs: EPSG:4326
+      columns:
+      - hourly.time
+      - temperature_2m
+      - shortwave_radiation
+      - direct_normal_irradiance
+      - diffuse_radiation
+    selection:
+      filter: All 8760 UTC intervals in year; following-day response included to retain
+        end timestamp. Grid point58.25,26.75, not panel observations.
+    rationale: ERA5 hourly reanalysis at requested Tartu pilot
+    role: authoritative_input
+  ee_prices_2025:
+    provider: Elering
+    dataset: Nord Pool EE day-ahead spot prices
+    source_url: https://dashboard.elering.ee/api/nps/price?start=2025-01-01T00%3A00%3A00.000Z&end=2026-01-01T00%3A00%3A00.000Z
+    access:
+      method: https
+      retrieved_at: '2026-10-26T09:40:35Z'
+      request_spec: '{"url": "https://dashboard.elering.ee/api/nps/price?start=2025-01-01T00%3A00%3A00.000Z&end=2026-01-01T00%3A00%3A00.000Z"}'
+      downloaded_at: '2026-10-26T09:40:35Z'
+    version:
+      identifier: local snapshot 2026-10-26T09:40:35Z
+    pin:
+      class: local_snapshot
+      path: data/source/raw/prices-2025.json.gz
+      sha256: sha256:0e2dc5a1d20d7e3d799d0b2a9c345cbb28387f6da4f6fc54f0b7e5a5c329c4a8
+      captured_at: '2026-10-26T09:40:35Z'
+    license:
+      name: No explicit dataset reuse licence verified in public dashboard/API documentation
+      url: https://dashboard.elering.ee/assets/api-doc.html
+      status: unresolved
+    schema:
+      crs: not_spatial
+      columns:
+      - data.ee.timestamp
+      - data.ee.price
+    selection:
+      filter: All UTC hours for 2025; API inclusive endpoint trimmed. Hourly output
+        uses arithmetic mean of four equal quarter-hour records after interval change.
+    rationale: Nord Pool EE day-ahead spot prices
+    role: authoritative_input
+  dsm:
+    provider: Maa- ja Ruumiamet
+    dataset: dsm-5 coverage in bounded2km Tartu pilot
+    source_url: https://teenus.maaamet.ee/ows/wcs-dsm?service=WCS&request=GetCoverage&version=1.0.0&coverage=dsm-5&crs=EPSG%3A3301&response_crs=EPSG%3A3301&bbox=658125%2C6472170%2C660125%2C6474170&width=400&height=400&format=GTiff&interpolation=nearest+neighbor
+    access:
+      method: https
+      retrieved_at: '2026-10-26T09:40:35Z'
+      request_spec: '{"url": "https://teenus.maaamet.ee/ows/wcs-dsm?service=WCS&request=GetCoverage&version=1.0.0&coverage=dsm-5&crs=EPSG%3A3301&response_crs=EPSG%3A3301&bbox=658125%2C6472170%2C660125%2C6474170&width=400&height=400&format=GTiff&interpolation=nearest+neighbor"}'
+      downloaded_at: '2026-10-26T09:40:35Z'
+    version:
+      identifier: local snapshot 2026-10-26T09:40:35Z
+    pin:
+      class: local_snapshot
+      path: data/source/raw/dsm.tif
+      sha256: sha256:ebfc3bd172c588414516f5e17a369bd3cec4c07eece50fb0e49e3cf0863a3750
+      captured_at: '2026-10-26T09:40:35Z'
+    license:
+      name: Maa- ja Ruumiameti avaandmete litsents (2025-01-01) and service terms
+      url: https://geoportaal.maaruum.ee/avaandmete-litsents
+      terms_url: https://geoportaal.maaruum.ee/est/teenused/wms-wfs-wcs-teenused/maa-ja-ruumiameti-kaarditeenuste-kasutustingimused-p24.html
+    schema:
+      crs: EPSG:3301
+      columns:
+      - band1 height_m
+    selection:
+      bbox:
+      - 658125
+      - 6472170
+      - 660125
+      - 6474170
+      filter: 400x400 aligned5m cells. 658 nonpositive DSM cells plus360 positive
+        DSM cells more than2m below DTM marked null by conservative plausibility filter
+        in normalized output. Raw GeoTIFF retained unchanged. Per-cell acquisition
+        dates unresolved.
+    rationale: dsm-5 coverage in bounded2km Tartu pilot
+    role: authoritative_input
+  dtm:
+    provider: Maa- ja Ruumiamet
+    dataset: dtm-1 coverage in bounded2km Tartu pilot
+    source_url: https://teenus.maaamet.ee/ows/wcs-dtm?service=WCS&request=GetCoverage&version=1.0.0&coverage=dtm-1&crs=EPSG%3A3301&response_crs=EPSG%3A3301&bbox=658125%2C6472170%2C660125%2C6474170&width=400&height=400&format=GTiff&interpolation=nearest+neighbor
+    access:
+      method: https
+      retrieved_at: '2026-10-26T09:40:35Z'
+      request_spec: '{"url": "https://teenus.maaamet.ee/ows/wcs-dtm?service=WCS&request=GetCoverage&version=1.0.0&coverage=dtm-1&crs=EPSG%3A3301&response_crs=EPSG%3A3301&bbox=658125%2C6472170%2C660125%2C6474170&width=400&height=400&format=GTiff&interpolation=nearest+neighbor"}'
+      downloaded_at: '2026-10-26T09:40:35Z'
+    version:
+      identifier: local snapshot 2026-10-26T09:40:35Z
+    pin:
+      class: local_snapshot
+      path: data/source/raw/dtm.tif
+      sha256: sha256:e603ba2be6fa4e5276a3d3cb4eafa5ddce8c26ee691ed5e6c6cc2fc5faa07cdc
+      captured_at: '2026-10-26T09:40:35Z'
+    license:
+      name: Maa- ja Ruumiameti avaandmete litsents (2025-01-01) and service terms
+      url: https://geoportaal.maaruum.ee/avaandmete-litsents
+      terms_url: https://geoportaal.maaruum.ee/est/teenused/wms-wfs-wcs-teenused/maa-ja-ruumiameti-kaarditeenuste-kasutustingimused-p24.html
+    schema:
+      crs: EPSG:3301
+      columns:
+      - band1 height_m
+    selection:
+      bbox:
+      - 658125
+      - 6472170
+      - 660125
+      - 6474170
+      filter: 400x400 aligned5m cells. Nearest-neighbour WCS resampling;658 nonpositive
+        DSM cells null in normalized grid; no DTM nulls. Per-cell acquisition dates
+        unresolved.
+    rationale: dtm-1 coverage in bounded2km Tartu pilot
+    role: authoritative_input
+  buildings:
+    provider: Maa- ja Ruumiamet
+    dataset: ETAK e_401_hoone_ka
+    source_url: https://gsavalik.envir.ee/geoserver/etak/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=etak%3Ae_401_hoone_ka&bbox=658125%2C6472170%2C660125%2C6474170%2CEPSG%3A3301&srsName=EPSG%3A4326&outputFormat=application%2Fjson&count=5000
+    access:
+      method: WFS
+      retrieved_at: '2026-10-26T09:40:35Z'
+      request_spec: '{"url": "https://gsavalik.envir.ee/geoserver/etak/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=etak%3Ae_401_hoone_ka&bbox=658125%2C6472170%2C660125%2C6474170%2CEPSG%3A3301&srsName=EPSG%3A4326&outputFormat=application%2Fjson&count=5000"}'
+      downloaded_at: '2026-10-26T09:40:35Z'
+    version:
+      identifier: local snapshot 2026-10-26T09:40:35Z
+    pin:
+      class: local_snapshot
+      path: data/source/raw/buildings.geojson.gz
+      sha256: sha256:221831e66dd8d54086ee9d1c00d0afa218192d190eb051e5dfa54357b9af09e1
+      captured_at: '2026-10-26T09:40:35Z'
+    license:
+      name: Maa- ja Ruumiameti avaandmete litsents (2025-01-01) and service terms
+      url: https://geoportaal.maaruum.ee/avaandmete-litsents
+      terms_url: https://geoportaal.maaruum.ee/est/teenused/wms-wfs-wcs-teenused/maa-ja-ruumiameti-kaarditeenuste-kasutustingimused-p24.html
+    schema:
+      crs: EPSG:4326
+      columns:
+      - etak_id
+      - tyyp_tekst
+      - korgus_m
+      - geom_muutmisaeg
+      key: building_id
+    selection:
+      bbox_crs: EPSG:3301
+      bbox:
+      - 658125
+      - 6472170
+      - 660125
+      - 6474170
+      filter: numberMatched=numberReturned=4420<5000. Bbox-overlapping geometries
+        retained, no filtering by building use, EHR registration or current lifecycle
+        status.
+      completeness:
+        matched: 4420
+        returned: 4420
+        page_size: 5000
+        pages: 1
+    rationale: ETAK e_401_hoone_ka
+    role: context
+  aerial_context:
+    provider: Maa- ja Ruumiamet
+    dataset: EESTIFOTO rendered WMS context
+    source_url: https://kaart.maaamet.ee/wms/fotokaart?service=WMS&version=1.1.1&request=GetMap&layers=EESTIFOTO&styles=&srs=EPSG%3A3301&bbox=658125%2C6472170%2C660125%2C6474170&width=1600&height=1600&format=image%2Fjpeg
+    access:
+      method: https
+      retrieved_at: '2026-10-26T09:40:35Z'
+      request_spec: '{"url": "https://kaart.maaamet.ee/wms/fotokaart?service=WMS&version=1.1.1&request=GetMap&layers=EESTIFOTO&styles=&srs=EPSG%3A3301&bbox=658125%2C6472170%2C660125%2C6474170&width=1600&height=1600&format=image%2Fjpeg"}'
+      downloaded_at: '2026-10-26T09:40:35Z'
+    version:
+      identifier: local snapshot 2026-10-26T09:40:35Z
+    pin:
+      class: local_snapshot
+      path: data/source/raw/aerial-3301.jpg
+      sha256: sha256:bd6a28359c64f413982d816ba20fb498bf1b96002f79e6c276ea8d1a3ea240b5
+      captured_at: '2026-10-26T09:40:35Z'
+    license:
+      name: Maa- ja Ruumiameti avaandmete litsents (2025-01-01) and service terms
+      url: https://geoportaal.maaruum.ee/avaandmete-litsents
+      terms_url: https://geoportaal.maaruum.ee/est/teenused/wms-wfs-wcs-teenused/maa-ja-ruumiameti-kaarditeenuste-kasutustingimused-p24.html
+    schema:
+      crs: EPSG:3301
+      columns:
+      - RGB rendered image
+    selection:
+      filter: Single1600x1600 WMS image across exact2km bbox, requested1.25m display
+        resolution. Native source GSD and acquisition date unresolved. Display-only,
+        not inference.
+    rationale: EESTIFOTO rendered WMS context
+    role: context
+  government_existing:
+    provider: Keskkonnaagentuur
+    dataset: Taastuvenergia Eestis municipal solar counts (existing)
+    source_url: https://services.arcgis.com/fe2zzRbhcPNuoFC4/arcgis/rest/services/Taastuvenergiarajatised_liigiti_KOVides/FeatureServer/14/query?f=json&where=KOV+LIKE+%27%25Tartu%25%27&outFields=%2A&returnGeometry=false
+    access:
+      method: api
+      retrieved_at: '2026-10-26T09:40:35Z'
+      request_spec: '{"url": "https://services.arcgis.com/fe2zzRbhcPNuoFC4/arcgis/rest/services/Taastuvenergiarajatised_liigiti_KOVides/FeatureServer/14/query?f=json&where=KOV+LIKE+%27%25Tartu%25%27&outFields=%2A&returnGeometry=false"}'
+      downloaded_at: '2026-10-26T09:40:35Z'
+    version:
+      identifier: local snapshot 2026-10-26T09:40:35Z
+    pin:
+      class: local_snapshot
+      path: data/source/raw/government-existing.json.gz
+      sha256: sha256:edf49d6ae72f93917051bd00bd2e441e56bd88f1084e1f9fe18044c65571a131
+      captured_at: '2026-10-26T09:40:35Z'
+    license:
+      name: Unspecified in ArcGIS item metadata
+      url: https://www.arcgis.com/sharing/rest/content/items/7715e0bf33d049069e6d518754fda2b4?f=pjson
+      status: unresolved
+    schema:
+      crs: not_spatial
+      columns:
+      - KOV
+      - Päikeseja
+    selection:
+      filter: Two municipalities matching Tartu, full query response without exceededTransferLimit;
+        not installation-level records.
+      completeness:
+        matched: 2
+        returned: 2
+        page_size: 2000
+        pages: 1
+    rationale: Taastuvenergia Eestis municipal solar counts (existing)
+    role: context
+  government_planned:
+    provider: Keskkonnaagentuur
+    dataset: Taastuvenergia Eestis municipal solar counts (planned)
+    source_url: https://services.arcgis.com/fe2zzRbhcPNuoFC4/arcgis/rest/services/Kavandatavad_taastuvenergiarajatised_liigiti_KOVides/FeatureServer/16/query?f=json&where=KOV+LIKE+%27%25Tartu%25%27&outFields=%2A&returnGeometry=false
+    access:
+      method: api
+      retrieved_at: '2026-10-26T09:40:35Z'
+      request_spec: '{"url": "https://services.arcgis.com/fe2zzRbhcPNuoFC4/arcgis/rest/services/Kavandatavad_taastuvenergiarajatised_liigiti_KOVides/FeatureServer/16/query?f=json&where=KOV+LIKE+%27%25Tartu%25%27&outFields=%2A&returnGeometry=false"}'
+      downloaded_at: '2026-10-26T09:40:35Z'
+    version:
+      identifier: local snapshot 2026-10-26T09:40:35Z
+    pin:
+      class: local_snapshot
+      path: data/source/raw/government-planned.json.gz
+      sha256: sha256:8ac55a5a007521d09b02b7009d58cc7b39252bce6522949c72e2fa0b31975690
+      captured_at: '2026-10-26T09:40:35Z'
+    license:
+      name: Unspecified in ArcGIS item metadata
+      url: https://www.arcgis.com/sharing/rest/content/items/7715e0bf33d049069e6d518754fda2b4?f=pjson
+      status: unresolved
+    schema:
+      crs: not_spatial
+      columns:
+      - KOV
+      - Päikeseel
+    selection:
+      filter: Two municipalities matching Tartu, full query response without exceededTransferLimit;
+        not installation-level records.
+      completeness:
+        matched: 2
+        returned: 2
+        page_size: 2000
+        pages: 1
+    rationale: Taastuvenergia Eestis municipal solar counts (planned)
+    role: context
+  weather_2024:
+    provider: Open-Meteo / Copernicus Climate Change Service
+    dataset: ERA5 hourly reanalysis at requested Tartu pilot — normalized hourly input
+    source_url: https://archive-api.open-meteo.com/v1/archive?latitude=58.37&longitude=26.72&start_date=2024-01-01&end_date=2025-01-01&hourly=temperature_2m%2Cshortwave_radiation%2Cdirect_normal_irradiance%2Cdiffuse_radiation&timezone=UTC&models=era5
+    access:
+      method: https
+      retrieved_at: '2026-10-26T09:40:35Z'
+      request_spec: '{"url": "https://archive-api.open-meteo.com/v1/archive?latitude=58.37&longitude=26.72&start_date=2024-01-01&end_date=2025-01-01&hourly=temperature_2m%2Cshortwave_radiation%2Cdirect_normal_irradiance%2Cdiffuse_radiation&timezone=UTC&models=era5"}'
+      downloaded_at: '2026-10-26T09:40:35Z'
+    version:
+      identifier: local snapshot 2026-10-26T09:40:35Z
+    pin:
+      class: local_snapshot
+      path: data/source/weather-2024.json
+      sha256: sha256:47962b70e2e72c213ff1d79fc291c3fe40baa4652ef46a7582761cb88c5b0715
+      captured_at: '2026-10-26T09:40:35Z'
+    license:
+      name: CC-BY-4.0 data; free API access for non-commercial use
+      url: https://open-meteo.com/en/terms
+    schema:
+      crs: EPSG:4326
+      key: time
+      columns:
+      - time
+      - ghi
+      - dni
+      - dhi
+      - temperatureC
+    selection:
+      filter: Complete UTC calendar year; source transformation and interval convention
+        retained in file.
+    rationale: ERA5 hourly reanalysis at requested Tartu pilot
+    role: authoritative_input
+  weather_2025:
+    provider: Open-Meteo / Copernicus Climate Change Service
+    dataset: ERA5 hourly reanalysis at requested Tartu pilot — normalized hourly input
+    source_url: https://archive-api.open-meteo.com/v1/archive?latitude=58.37&longitude=26.72&start_date=2025-01-01&end_date=2026-01-01&hourly=temperature_2m%2Cshortwave_radiation%2Cdirect_normal_irradiance%2Cdiffuse_radiation&timezone=UTC&models=era5
+    access:
+      method: https
+      retrieved_at: '2026-10-26T09:40:35Z'
+      request_spec: '{"url": "https://archive-api.open-meteo.com/v1/archive?latitude=58.37&longitude=26.72&start_date=2025-01-01&end_date=2026-01-01&hourly=temperature_2m%2Cshortwave_radiation%2Cdirect_normal_irradiance%2Cdiffuse_radiation&timezone=UTC&models=era5"}'
+      downloaded_at: '2026-10-26T09:40:35Z'
+    version:
+      identifier: local snapshot 2026-10-26T09:40:35Z
+    pin:
+      class: local_snapshot
+      path: data/source/weather-2025.json
+      sha256: sha256:117d63b07c2e0ebbb89dc0cb4dd2f1e1cca3de8f86324a5fdd9ada1391efaad4
+      captured_at: '2026-10-26T09:40:35Z'
+    license:
+      name: CC-BY-4.0 data; free API access for non-commercial use
+      url: https://open-meteo.com/en/terms
+    schema:
+      crs: EPSG:4326
+      key: time
+      columns:
+      - time
+      - ghi
+      - dni
+      - dhi
+      - temperatureC
+    selection:
+      filter: Complete UTC calendar year; source transformation and interval convention
+        retained in file.
+    rationale: ERA5 hourly reanalysis at requested Tartu pilot
+    role: authoritative_input
+  prices_2024:
+    provider: Elering
+    dataset: Nord Pool EE day-ahead spot prices — normalized hourly input
+    source_url: https://dashboard.elering.ee/api/nps/price?start=2024-01-01T00%3A00%3A00.000Z&end=2025-01-01T00%3A00%3A00.000Z
+    access:
+      method: https
+      retrieved_at: '2026-10-26T09:40:35Z'
+      request_spec: '{"url": "https://dashboard.elering.ee/api/nps/price?start=2024-01-01T00%3A00%3A00.000Z&end=2025-01-01T00%3A00%3A00.000Z"}'
+      downloaded_at: '2026-10-26T09:40:35Z'
+    version:
+      identifier: local snapshot 2026-10-26T09:40:35Z
+    pin:
+      class: local_snapshot
+      path: data/source/prices-2024.json
+      sha256: sha256:d165caa7147509954d852e78ea899e48f1f8d04fb395d2751fb00da3b9cdf765
+      captured_at: '2026-10-26T09:40:35Z'
+    license:
+      name: No explicit dataset reuse licence verified in public dashboard/API documentation
+      url: https://dashboard.elering.ee/assets/api-doc.html
+      status: unresolved
+    schema:
+      crs: not_spatial
+      key: time
+      columns:
+      - time
+      - priceEurMWh
+    selection:
+      filter: Complete UTC calendar year; source transformation and interval convention
+        retained in file.
+    rationale: Nord Pool EE day-ahead spot prices
+    role: authoritative_input
+  prices_2025:
+    provider: Elering
+    dataset: Nord Pool EE day-ahead spot prices — normalized hourly input
+    source_url: https://dashboard.elering.ee/api/nps/price?start=2025-01-01T00%3A00%3A00.000Z&end=2026-01-01T00%3A00%3A00.000Z
+    access:
+      method: https
+      retrieved_at: '2026-10-26T09:40:35Z'
+      request_spec: '{"url": "https://dashboard.elering.ee/api/nps/price?start=2025-01-01T00%3A00%3A00.000Z&end=2026-01-01T00%3A00%3A00.000Z"}'
+      downloaded_at: '2026-10-26T09:40:35Z'
+    version:
+      identifier: local snapshot 2026-10-26T09:40:35Z
+    pin:
+      class: local_snapshot
+      path: data/source/prices-2025.json
+      sha256: sha256:5772860f650229d05ce15946210f7932267a94daeee432ad37dbcb27d5cbcd3d
+      captured_at: '2026-10-26T09:40:35Z'
+    license:
+      name: No explicit dataset reuse licence verified in public dashboard/API documentation
+      url: https://dashboard.elering.ee/assets/api-doc.html
+      status: unresolved
+    schema:
+      crs: not_spatial
+      key: time
+      columns:
+      - time
+      - priceEurMWh
+    selection:
+      filter: Complete UTC calendar year; source transformation and interval convention
+        retained in file.
+    rationale: Nord Pool EE day-ahead spot prices
+    role: authoritative_input
+  context_grid:
+    provider: Maa- ja Ruumiamet
+    dataset: Aligned normalized DSM/DTM 5 m grid
+    source_url: https://teenus.maaamet.ee/ows/wcs-dsm?service=WCS&request=GetCoverage&version=1.0.0&coverage=dsm-5&crs=EPSG%3A3301&response_crs=EPSG%3A3301&bbox=658125%2C6472170%2C660125%2C6474170&width=400&height=400&format=GTiff&interpolation=nearest+neighbor
+    access:
+      method: https
+      retrieved_at: '2026-10-26T09:40:35Z'
+      request_spec: '{"url": "https://teenus.maaamet.ee/ows/wcs-dsm?service=WCS&request=GetCoverage&version=1.0.0&coverage=dsm-5&crs=EPSG%3A3301&response_crs=EPSG%3A3301&bbox=658125%2C6472170%2C660125%2C6474170&width=400&height=400&format=GTiff&interpolation=nearest+neighbor"}'
+      downloaded_at: '2026-10-26T09:40:35Z'
+    version:
+      identifier: local snapshot 2026-10-26T09:40:35Z
+    pin:
+      class: local_snapshot
+      path: data/source/context-grid.json
+      sha256: sha256:85b489d002a77937f7a9a19bac2575fcc7070a36ea6e643c17635e1170aaa315
+      captured_at: '2026-10-26T09:40:35Z'
+    license:
+      name: Maa- ja Ruumiameti avaandmete litsents (2025-01-01) and service terms
+      url: https://geoportaal.maaruum.ee/avaandmete-litsents
+      terms_url: https://geoportaal.maaruum.ee/est/teenused/wms-wfs-wcs-teenused/maa-ja-ruumiameti-kaarditeenuste-kasutustingimused-p24.html
+    schema:
+      crs: EPSG:3301
+      columns:
+      - bounds
+      - width
+      - height
+      - dsm
+      - dtm
+    selection:
+      bbox:
+      - 658125
+      - 6472170
+      - 660125
+      - 6474170
+      filter: 400x400 aligned5m cells. 658 nonpositive DSM cells plus360 positive
+        DSM cells more than2m below DTM marked null by conservative plausibility filter
+        in normalized output. Raw GeoTIFF retained unchanged. Per-cell acquisition
+        dates unresolved.
+    rationale: dsm-5 coverage in bounded2km Tartu pilot
+    role: authoritative_input
+overrides:
+- id: SCENARIO-001
+  action: add_feature
+  layer: planning_scenario
+  geometry_file:
+    path: data/overrides/planning-scenario.geojson
+  geometry_origin: scenario
+  rationale: 'Explicitly hypothetical 30 × 12 m array demonstrates issue #4 manual
+    planning on an open-surface DSM patch. This is not evidence of an existing installation,
+    permission or suitability.'
+  evidence:
+  - type: issue
+    value: https://github.com/jaakla/openmapstack-samples/issues/4
+  created_at: '2026-10-26T09:40:35Z'
+  created_by: scenario
+processing:
+  analysis_crs: EPSG:3301
+  storage_crs: EPSG:4326
+  steps:
+  - id: load
+    operation: read_pinned_sources
+    inputs:
+    - era5_2024
+    - ee_prices_2024
+    - era5_2025
+    - ee_prices_2025
+    - dsm
+    - dtm
+    - buildings
+    - aerial_context
+    - government_existing
+    - government_planned
+    - weather_2024
+    - weather_2025
+    - prices_2024
+    - prices_2025
+    - context_grid
+    output: pinned_inputs
+  - id: scenario
+    operation: apply_hypothetical_override
+    input: pinned_inputs
+    output: scenario_inputs
+    crs: EPSG:3301
+  - id: model
+    operation: hourly_solar_horizon_consumption_and_energy_value
+    input: scenario_inputs
+    output: modeled_seasons
+    crs: EPSG:3301
+    horizon_radius_m: 500
+    azimuth_step_deg: 2
+    receiver_samples_max: 9
+    years:
+    - 2024
+    - 2025
+    azimuth: 180
+    tilt: 35
+    height: 2
+    consumption:
+      mode: estimate
+      dayKwh: 10
+      nightKwh: 4
+      dayStartHour: 7
+      dayEndHour: 23
+      timeZone: Europe/Tallinn
+      importAdderEurMWh: 0
+      fillMissingWithEstimate: false
+  - id: export
+    operation: write_geodata_tables_and_browser_data
+    input: modeled_seasons
+    output: analytical_outputs
+  - id: render
+    operation: build_dashboard_findings_and_delivery_evidence
+    input: analytical_outputs
+    output: delivery_views
+findings:
+  schema: openmapstack-findings/v1
+  output: findings
+outputs:
+  planning_scenario:
+    path: data/derived/planning-scenario.geojson
+    format: GeoJSON EPSG:4326
+    kind: geodata
+    generated_by: export
+    crs: EPSG:4326
+  analysis:
+    path: data/derived/analysis.json
+    format: JSON
+    kind: document
+    generated_by: model
+  seasonal_summary:
+    path: data/derived/seasonal-summary.csv
+    format: CSV
+    kind: table
+    generated_by: export
+    table:
+      key:
+      - year
+      columns:
+      - name: year
+        type: integer
+        unit: year
+      - name: clearKwh
+        type: number
+        unit: kWh
+      - name: weatherKwh
+        type: number
+        unit: kWh
+      - name: shadedKwh
+        type: number
+        unit: kWh
+      - name: coveredWeatherKwh
+        type: number
+        unit: kWh
+      - name: coveredShadedKwh
+        type: number
+        unit: kWh
+      - name: shadingLossKwh
+        type: number
+        unit: kWh
+      - name: shadingLossPct
+        type: number
+        unit: '%'
+      - name: weatherRetentionPct
+        type: number
+        unit: '%'
+      - name: solarRetentionPct
+        type: number
+        unit: '%'
+      - name: specificYieldKwhKwp
+        type: number
+        unit: kWh/kWp
+      - name: capacityFactorPct
+        type: number
+        unit: '%'
+      - name: expectedHours
+        type: number
+        unit: h
+      - name: intervalHours
+        type: number
+        unit: h
+      - name: weatherHours
+        type: number
+        unit: h
+      - name: shadedHours
+        type: number
+        unit: h
+      - name: pricedHours
+        type: number
+        unit: h
+      - name: negativePriceHours
+        type: number
+        unit: h
+      - name: pricedClearRevenueEur
+        type: number
+        unit: EUR
+      - name: clearRevenueEur
+        type: number
+        unit: EUR
+        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
+          for the consumption scenario.
+      - name: pricedWeatherRevenueEur
+        type: number
+        unit: EUR
+      - name: weatherRevenueEur
+        type: number
+        unit: EUR
+        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
+          for the consumption scenario.
+      - name: pricedShadedRevenueEur
+        type: number
+        unit: EUR
+      - name: shadedRevenueEur
+        type: number
+        unit: EUR
+        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
+          for the consumption scenario.
+      - name: pricedShadowRevenueLossEur
+        type: number
+        unit: EUR
+      - name: shadowRevenueLossEur
+        type: number
+        unit: EUR
+        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
+          for the consumption scenario.
+      - name: coveredConsumptionKwh
+        type: number
+        unit: kWh
+      - name: consumptionKwh
+        type: number
+        unit: kWh
+        description: Modeled demand; imported meter readings remain a demand proxy
+          when pre-existing PV supplied unobserved on-site load.
+      - name: coveredSelfConsumedKwh
+        type: number
+        unit: kWh
+      - name: selfConsumedKwh
+        type: number
+        unit: kWh
+        description: Modeled PV used on site within matching intervals.
+      - name: coveredImportKwh
+        type: number
+        unit: kWh
+      - name: importKwh
+        type: number
+        unit: kWh
+        description: Modeled remaining demand purchased from the grid.
+      - name: coveredExportKwh
+        type: number
+        unit: kWh
+      - name: exportKwh
+        type: number
+        unit: kWh
+        description: Surplus modeled PV sold to the grid.
+      - name: coveredAvoidedImportCostEur
+        type: number
+        unit: EUR
+      - name: avoidedImportCostEur
+        type: number
+        unit: EUR
+        description: Self-use valued at modeled spot plus the explicit import adder;
+          no unentered VAT or grid charge.
+      - name: coveredExportRevenueEur
+        type: number
+        unit: EUR
+      - name: exportRevenueEur
+        type: number
+        unit: EUR
+        description: Surplus export valued at modeled spot less sales margin.
+      - name: coveredGridImportCostEur
+        type: number
+        unit: EUR
+      - name: gridImportCostEur
+        type: number
+        unit: EUR
+      - name: coveredBaselineImportCostEur
+        type: number
+        unit: EUR
+      - name: baselineImportCostEur
+        type: number
+        unit: EUR
+      - name: coveredNetBenefitEur
+        type: number
+        unit: EUR
+      - name: netBenefitEur
+        type: number
+        unit: EUR
+        description: Avoided import cost plus surplus export revenue, before capital
+          cost and unentered charges.
+      - name: coveredNetGridCostEur
+        type: number
+        unit: EUR
+      - name: netGridCostEur
+        type: number
+        unit: EUR
+        description: Grid import cost minus surplus export revenue; negative values
+          indicate net receipts.
+      - name: coveredWeatherSelfConsumedKwh
+        type: number
+        unit: kWh
+      - name: weatherSelfConsumedKwh
+        type: number
+        unit: kWh
+      - name: coveredWeatherImportKwh
+        type: number
+        unit: kWh
+      - name: weatherImportKwh
+        type: number
+        unit: kWh
+      - name: coveredWeatherExportKwh
+        type: number
+        unit: kWh
+      - name: weatherExportKwh
+        type: number
+        unit: kWh
+      - name: coveredWeatherNetBenefitEur
+        type: number
+        unit: EUR
+      - name: weatherNetBenefitEur
+        type: number
+        unit: EUR
+        description: Same demand applied to shadow-free weather production.
+      - name: coveredShadowNetBenefitLossEur
+        type: number
+        unit: EUR
+      - name: shadowNetBenefitLossEur
+        type: number
+        unit: EUR
+        description: Shadow-free weather net PV benefit minus locally shaded net PV
+          benefit.
+      - name: consumptionCoveredHours
+        type: number
+        unit: h
+      - name: consumptionExpectedHours
+        type: number
+        unit: h
+      - name: imputedHours
+        type: number
+        unit: h
+      - name: pricedConsumptionHours
+        type: number
+        unit: h
+      - name: consumptionCoveragePct
+        type: number
+        unit: '%'
+      - name: selfConsumptionPct
+        type: number
+        unit: '%'
+      - name: selfSufficiencyPct
+        type: number
+        unit: '%'
+    downloads:
+    - csv
+  hourly_results:
+    path: data/derived/hourly.csv
+    format: CSV
+    kind: table
+    generated_by: export
+    table:
+      key:
+      - year
+      - time
+      columns:
+      - name: year
+        type: integer
+        unit: year
+      - name: time
+        type: datetime
+      - name: durationHours
+        type: number
+        unit: h
+      - name: clearKwh
+        type: number
+        unit: kWh
+      - name: weatherKwh
+        type: number
+        unit: kWh
+      - name: shadedKwh
+        type: number
+        unit: kWh
+      - name: shadingLossKwh
+        type: number
+        unit: kWh
+      - name: sunVisibleFraction
+        type: number
+      - name: priceEurMWh
+        type: number
+        unit: EUR/MWh
+      - name: netPriceEurKwh
+        type: number
+        unit: EUR/kWh
+      - name: temperatureC
+        type: number
+        unit: °C
+      - name: ghi
+        type: number
+        unit: W/m²
+      - name: clearRevenueEur
+        type: number
+        unit: EUR
+        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
+          for the consumption scenario.
+      - name: weatherRevenueEur
+        type: number
+        unit: EUR
+        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
+          for the consumption scenario.
+      - name: shadedRevenueEur
+        type: number
+        unit: EUR
+        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
+          for the consumption scenario.
+      - name: shadowRevenueLossEur
+        type: number
+        unit: EUR
+        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
+          for the consumption scenario.
+      - name: coveredConsumptionKwh
+        type: number
+        unit: kWh
+      - name: consumptionKwh
+        type: number
+        unit: kWh
+        description: Modeled demand; imported meter readings remain a demand proxy
+          when pre-existing PV supplied unobserved on-site load.
+      - name: coveredSelfConsumedKwh
+        type: number
+        unit: kWh
+      - name: selfConsumedKwh
+        type: number
+        unit: kWh
+        description: Modeled PV used on site within matching intervals.
+      - name: coveredImportKwh
+        type: number
+        unit: kWh
+      - name: importKwh
+        type: number
+        unit: kWh
+        description: Modeled remaining demand purchased from the grid.
+      - name: coveredExportKwh
+        type: number
+        unit: kWh
+      - name: exportKwh
+        type: number
+        unit: kWh
+        description: Surplus modeled PV sold to the grid.
+      - name: coveredAvoidedImportCostEur
+        type: number
+        unit: EUR
+      - name: avoidedImportCostEur
+        type: number
+        unit: EUR
+        description: Self-use valued at modeled spot plus the explicit import adder;
+          no unentered VAT or grid charge.
+      - name: coveredExportRevenueEur
+        type: number
+        unit: EUR
+      - name: exportRevenueEur
+        type: number
+        unit: EUR
+        description: Surplus export valued at modeled spot less sales margin.
+      - name: coveredGridImportCostEur
+        type: number
+        unit: EUR
+      - name: gridImportCostEur
+        type: number
+        unit: EUR
+      - name: coveredBaselineImportCostEur
+        type: number
+        unit: EUR
+      - name: baselineImportCostEur
+        type: number
+        unit: EUR
+      - name: coveredNetBenefitEur
+        type: number
+        unit: EUR
+      - name: netBenefitEur
+        type: number
+        unit: EUR
+        description: Avoided import cost plus surplus export revenue, before capital
+          cost and unentered charges.
+      - name: coveredNetGridCostEur
+        type: number
+        unit: EUR
+      - name: netGridCostEur
+        type: number
+        unit: EUR
+        description: Grid import cost minus surplus export revenue; negative values
+          indicate net receipts.
+      - name: coveredWeatherSelfConsumedKwh
+        type: number
+        unit: kWh
+      - name: weatherSelfConsumedKwh
+        type: number
+        unit: kWh
+      - name: coveredWeatherImportKwh
+        type: number
+        unit: kWh
+      - name: weatherImportKwh
+        type: number
+        unit: kWh
+      - name: coveredWeatherExportKwh
+        type: number
+        unit: kWh
+      - name: weatherExportKwh
+        type: number
+        unit: kWh
+      - name: coveredWeatherNetBenefitEur
+        type: number
+        unit: EUR
+      - name: weatherNetBenefitEur
+        type: number
+        unit: EUR
+        description: Same demand applied to shadow-free weather production.
+      - name: coveredShadowNetBenefitLossEur
+        type: number
+        unit: EUR
+      - name: shadowNetBenefitLossEur
+        type: number
+        unit: EUR
+        description: Shadow-free weather net PV benefit minus locally shaded net PV
+          benefit.
+      - name: consumptionCoveredHours
+        type: number
+        unit: h
+      - name: consumptionExpectedHours
+        type: number
+        unit: h
+      - name: imputedHours
+        type: number
+        unit: h
+      - name: pricedConsumptionHours
+        type: number
+        unit: h
+      - name: consumptionCoveragePct
+        type: number
+        unit: '%'
+      - name: selfConsumptionPct
+        type: number
+        unit: '%'
+      - name: selfSufficiencyPct
+        type: number
+        unit: '%'
+    downloads:
+    - csv
+  monthly_results:
+    path: data/derived/monthly.csv
+    format: CSV
+    kind: table
+    generated_by: export
+    table:
+      key:
+      - year
+      - month
+      columns:
+      - name: year
+        type: integer
+        unit: year
+      - name: month
+        type: string
+      - name: clearKwh
+        type: number
+        unit: kWh
+      - name: weatherKwh
+        type: number
+        unit: kWh
+      - name: shadedKwh
+        type: number
+        unit: kWh
+      - name: coveredWeatherKwh
+        type: number
+        unit: kWh
+      - name: coveredShadedKwh
+        type: number
+        unit: kWh
+      - name: shadingLossKwh
+        type: number
+        unit: kWh
+      - name: shadingLossPct
+        type: number
+        unit: '%'
+      - name: weatherRetentionPct
+        type: number
+        unit: '%'
+      - name: solarRetentionPct
+        type: number
+        unit: '%'
+      - name: specificYieldKwhKwp
+        type: number
+        unit: kWh/kWp
+      - name: capacityFactorPct
+        type: number
+        unit: '%'
+      - name: expectedHours
+        type: number
+        unit: h
+      - name: intervalHours
+        type: number
+        unit: h
+      - name: weatherHours
+        type: number
+        unit: h
+      - name: shadedHours
+        type: number
+        unit: h
+      - name: pricedHours
+        type: number
+        unit: h
+      - name: negativePriceHours
+        type: number
+        unit: h
+      - name: pricedClearRevenueEur
+        type: number
+        unit: EUR
+      - name: clearRevenueEur
+        type: number
+        unit: EUR
+        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
+          for the consumption scenario.
+      - name: pricedWeatherRevenueEur
+        type: number
+        unit: EUR
+      - name: weatherRevenueEur
+        type: number
+        unit: EUR
+        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
+          for the consumption scenario.
+      - name: pricedShadedRevenueEur
+        type: number
+        unit: EUR
+      - name: shadedRevenueEur
+        type: number
+        unit: EUR
+        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
+          for the consumption scenario.
+      - name: pricedShadowRevenueLossEur
+        type: number
+        unit: EUR
+      - name: shadowRevenueLossEur
+        type: number
+        unit: EUR
+        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
+          for the consumption scenario.
+      - name: coveredConsumptionKwh
+        type: number
+        unit: kWh
+      - name: consumptionKwh
+        type: number
+        unit: kWh
+        description: Modeled demand; imported meter readings remain a demand proxy
+          when pre-existing PV supplied unobserved on-site load.
+      - name: coveredSelfConsumedKwh
+        type: number
+        unit: kWh
+      - name: selfConsumedKwh
+        type: number
+        unit: kWh
+        description: Modeled PV used on site within matching intervals.
+      - name: coveredImportKwh
+        type: number
+        unit: kWh
+      - name: importKwh
+        type: number
+        unit: kWh
+        description: Modeled remaining demand purchased from the grid.
+      - name: coveredExportKwh
+        type: number
+        unit: kWh
+      - name: exportKwh
+        type: number
+        unit: kWh
+        description: Surplus modeled PV sold to the grid.
+      - name: coveredAvoidedImportCostEur
+        type: number
+        unit: EUR
+      - name: avoidedImportCostEur
+        type: number
+        unit: EUR
+        description: Self-use valued at modeled spot plus the explicit import adder;
+          no unentered VAT or grid charge.
+      - name: coveredExportRevenueEur
+        type: number
+        unit: EUR
+      - name: exportRevenueEur
+        type: number
+        unit: EUR
+        description: Surplus export valued at modeled spot less sales margin.
+      - name: coveredGridImportCostEur
+        type: number
+        unit: EUR
+      - name: gridImportCostEur
+        type: number
+        unit: EUR
+      - name: coveredBaselineImportCostEur
+        type: number
+        unit: EUR
+      - name: baselineImportCostEur
+        type: number
+        unit: EUR
+      - name: coveredNetBenefitEur
+        type: number
+        unit: EUR
+      - name: netBenefitEur
+        type: number
+        unit: EUR
+        description: Avoided import cost plus surplus export revenue, before capital
+          cost and unentered charges.
+      - name: coveredNetGridCostEur
+        type: number
+        unit: EUR
+      - name: netGridCostEur
+        type: number
+        unit: EUR
+        description: Grid import cost minus surplus export revenue; negative values
+          indicate net receipts.
+      - name: coveredWeatherSelfConsumedKwh
+        type: number
+        unit: kWh
+      - name: weatherSelfConsumedKwh
+        type: number
+        unit: kWh
+      - name: coveredWeatherImportKwh
+        type: number
+        unit: kWh
+      - name: weatherImportKwh
+        type: number
+        unit: kWh
+      - name: coveredWeatherExportKwh
+        type: number
+        unit: kWh
+      - name: weatherExportKwh
+        type: number
+        unit: kWh
+      - name: coveredWeatherNetBenefitEur
+        type: number
+        unit: EUR
+      - name: weatherNetBenefitEur
+        type: number
+        unit: EUR
+        description: Same demand applied to shadow-free weather production.
+      - name: coveredShadowNetBenefitLossEur
+        type: number
+        unit: EUR
+      - name: shadowNetBenefitLossEur
+        type: number
+        unit: EUR
+        description: Shadow-free weather net PV benefit minus locally shaded net PV
+          benefit.
+      - name: consumptionCoveredHours
+        type: number
+        unit: h
+      - name: consumptionExpectedHours
+        type: number
+        unit: h
+      - name: imputedHours
+        type: number
+        unit: h
+      - name: pricedConsumptionHours
+        type: number
+        unit: h
+      - name: consumptionCoveragePct
+        type: number
+        unit: '%'
+      - name: selfConsumptionPct
+        type: number
+        unit: '%'
+      - name: selfSufficiencyPct
+        type: number
+        unit: '%'
+    downloads:
+    - csv
+  findings:
+    path: findings.md
+    format: Markdown
+    kind: document
+    generated_by: render
+  dashboard:
+    path: dist/index.html
+    format: HTML
+    kind: document
+    generated_by: render
+  dashboard_evidence:
+    path: delivery/dashboard-evidence.json
+    format: JSON
+    kind: document
+    generated_by: render
+  browser_project:
+    path: public/data/project.json
+    format: JSON
+    kind: document
+    generated_by: render
+  browser_weather_2024_json:
+    path: public/data/weather-2024.json
+    format: JSON
+    kind: document
+    generated_by: export
+  browser_weather_2025_json:
+    path: public/data/weather-2025.json
+    format: JSON
+    kind: document
+    generated_by: export
+  browser_prices_2024_json:
+    path: public/data/prices-2024.json
+    format: JSON
+    kind: document
+    generated_by: export
+  browser_prices_2025_json:
+    path: public/data/prices-2025.json
+    format: JSON
+    kind: document
+    generated_by: export
+  browser_terrain_json:
+    path: public/data/terrain.json
+    format: JSON
+    kind: document
+    generated_by: export
+  browser_aerial_json:
+    path: public/data/aerial.json
+    format: JSON
+    kind: document
+    generated_by: export
+  browser_aerial_jpg:
+    path: public/data/aerial.jpg
+    format: JPG
+    kind: document
+    generated_by: export
+  browser_government_json:
+    path: public/data/government.json
+    format: JSON
+    kind: document
+    generated_by: export
+  browser_seasonal_summary_csv:
+    path: public/data/seasonal-summary.csv
+    format: CSV
+    kind: document
+    generated_by: export
+  browser_hourly_csv:
+    path: public/data/hourly.csv
+    format: CSV
+    kind: document
+    generated_by: export
+  browser_monthly_csv:
+    path: public/data/monthly.csv
+    format: CSV
+    kind: document
+    generated_by: export
+  browser_buildings:
+    path: public/data/buildings.geojson
+    format: GeoJSON EPSG:4326
+    kind: geodata
+    generated_by: export
+    crs: EPSG:4326
+  browser_scenario:
+    path: public/data/scenario.geojson
+    format: GeoJSON EPSG:4326
+    kind: geodata
+    generated_by: export
+    crs: EPSG:4326
+  hosted_seasonal_summary:
+    path: dist/data/seasonal-summary.csv
+    format: CSV
+    kind: table
+    generated_by: render
+    table:
+      key:
+      - year
+      columns:
+      - name: year
+        type: integer
+        unit: year
+      - name: clearKwh
+        type: number
+        unit: kWh
+      - name: weatherKwh
+        type: number
+        unit: kWh
+      - name: shadedKwh
+        type: number
+        unit: kWh
+      - name: coveredWeatherKwh
+        type: number
+        unit: kWh
+      - name: coveredShadedKwh
+        type: number
+        unit: kWh
+      - name: shadingLossKwh
+        type: number
+        unit: kWh
+      - name: shadingLossPct
+        type: number
+        unit: '%'
+      - name: weatherRetentionPct
+        type: number
+        unit: '%'
+      - name: solarRetentionPct
+        type: number
+        unit: '%'
+      - name: specificYieldKwhKwp
+        type: number
+        unit: kWh/kWp
+      - name: capacityFactorPct
+        type: number
+        unit: '%'
+      - name: expectedHours
+        type: number
+        unit: h
+      - name: intervalHours
+        type: number
+        unit: h
+      - name: weatherHours
+        type: number
+        unit: h
+      - name: shadedHours
+        type: number
+        unit: h
+      - name: pricedHours
+        type: number
+        unit: h
+      - name: negativePriceHours
+        type: number
+        unit: h
+      - name: pricedClearRevenueEur
+        type: number
+        unit: EUR
+      - name: clearRevenueEur
+        type: number
+        unit: EUR
+        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
+          for the consumption scenario.
+      - name: pricedWeatherRevenueEur
+        type: number
+        unit: EUR
+      - name: weatherRevenueEur
+        type: number
+        unit: EUR
+        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
+          for the consumption scenario.
+      - name: pricedShadedRevenueEur
+        type: number
+        unit: EUR
+      - name: shadedRevenueEur
+        type: number
+        unit: EUR
+        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
+          for the consumption scenario.
+      - name: pricedShadowRevenueLossEur
+        type: number
+        unit: EUR
+      - name: shadowRevenueLossEur
+        type: number
+        unit: EUR
+        description: All-generation-export comparator; use exportRevenueEur and netBenefitEur
+          for the consumption scenario.
+      - name: coveredConsumptionKwh
+        type: number
+        unit: kWh
+      - name: consumptionKwh
+        type: number
+        unit: kWh
+        description: Modeled demand; imported meter readings remain a demand proxy
+          when pre-existing PV supplied unobserved on-site load.
+      - name: coveredSelfConsumedKwh
+        type: number
+        unit: kWh
+      - name: selfConsumedKwh
+        type: number
+        unit: kWh
+        description: Modeled PV used on site within matching intervals.
+      - name: coveredImportKwh
+        type: number
+        unit: kWh
+      - name: importKwh
+        type: number
+        unit: kWh
+        description: Modeled remaining demand purchased from the grid.
+      - name: coveredExportKwh
+        type: number
+        unit: kWh
+      - name: exportKwh
+        type: number
+        unit: kWh
+        description: Surplus modeled PV sold to the grid.
+      - name: coveredAvoidedImportCostEur
+        type: number
+        unit: EUR
+      - name: avoidedImportCostEur
+        type: number
+        unit: EUR
+        description: Self-use valued at modeled spot plus the explicit import adder;
+          no unentered VAT or grid charge.
+      - name: coveredExportRevenueEur
+        type: number
+        unit: EUR
+      - name: exportRevenueEur
+        type: number
+        unit: EUR
+        description: Surplus export valued at modeled spot less sales margin.
+      - name: coveredGridImportCostEur
+        type: number
+        unit: EUR
+      - name: gridImportCostEur
+        type: number
+        unit: EUR
+      - name: coveredBaselineImportCostEur
+        type: number
+        unit: EUR
+      - name: baselineImportCostEur
+        type: number
+        unit: EUR
+      - name: coveredNetBenefitEur
+        type: number
+        unit: EUR
+      - name: netBenefitEur
+        type: number
+        unit: EUR
+        description: Avoided import cost plus surplus export revenue, before capital
+          cost and unentered charges.
+      - name: coveredNetGridCostEur
+        type: number
+        unit: EUR
+      - name: netGridCostEur
+        type: number
+        unit: EUR
+        description: Grid import cost minus surplus export revenue; negative values
+          indicate net receipts.
+      - name: coveredWeatherSelfConsumedKwh
+        type: number
+        unit: kWh
+      - name: weatherSelfConsumedKwh
+        type: number
+        unit: kWh
+      - name: coveredWeatherImportKwh
+        type: number
+        unit: kWh
+      - name: weatherImportKwh
+        type: number
+        unit: kWh
+      - name: coveredWeatherExportKwh
+        type: number
+        unit: kWh
+      - name: weatherExportKwh
+        type: number
+        unit: kWh
+      - name: coveredWeatherNetBenefitEur
+        type: number
+        unit: EUR
+      - name: weatherNetBenefitEur
+        type: number
+        unit: EUR
+        description: Same demand applied to shadow-free weather production.
+      - name: coveredShadowNetBenefitLossEur
+        type: number
+        unit: EUR
+      - name: shadowNetBenefitLossEur
+        type: number
+        unit: EUR
+        description: Shadow-free weather net PV benefit minus locally shaded net PV
+          benefit.
+      - name: consumptionCoveredHours
+        type: number
+        unit: h
+      - name: consumptionExpectedHours
+        type: number
+        unit: h
+      - name: imputedHours
+        type: number
+        unit: h
+      - name: pricedConsumptionHours
+        type: number
+        unit: h
+      - name: consumptionCoveragePct
+        type: number
+        unit: '%'
+      - name: selfConsumptionPct
+        type: number
+        unit: '%'
+      - name: selfSufficiencyPct
+        type: number
+        unit: '%'
+    downloads:
+    - csv
+  hosted_findings:
+    path: dist/findings.md
+    format: Markdown
+    kind: document
+    generated_by: render
+  canonical_pdf:
+    path: public/data/canonical-report.pdf
+    format: PDF
+    kind: document
+    generated_by: render
+  hosted_canonical_pdf:
+    path: dist/data/canonical-report.pdf
+    format: PDF
+    kind: document
+    generated_by: render
+  bundle_assets_index_C1InLwA9_css:
+    path: dist/assets/index-C1InLwA9.css
+    format: CSS
+    kind: document
+    generated_by: render
+  bundle_assets_index_CVJNkS8g_js:
+    path: dist/assets/index-CVJNkS8g.js
+    format: JS
+    kind: document
+    generated_by: render
+  bundle_data_aerial_jpg:
+    path: dist/data/aerial.jpg
+    format: JPG
+    kind: document
+    generated_by: render
+  bundle_data_aerial_json:
+    path: dist/data/aerial.json
+    format: JSON
+    kind: document
+    generated_by: render
+  bundle_data_buildings_geojson:
+    path: dist/data/buildings.geojson
+    format: GEOJSON
+    kind: document
+    generated_by: render
+  bundle_data_government_json:
+    path: dist/data/government.json
+    format: JSON
+    kind: document
+    generated_by: render
+  bundle_data_hourly_csv:
+    path: dist/data/hourly.csv
+    format: CSV
+    kind: document
+    generated_by: render
+  bundle_data_monthly_csv:
+    path: dist/data/monthly.csv
+    format: CSV
+    kind: document
+    generated_by: render
+  bundle_data_prices_2024_json:
+    path: dist/data/prices-2024.json
+    format: JSON
+    kind: document
+    generated_by: render
+  bundle_data_prices_2025_json:
+    path: dist/data/prices-2025.json
+    format: JSON
+    kind: document
+    generated_by: render
+  bundle_data_project_json:
+    path: dist/data/project.json
+    format: JSON
+    kind: document
+    generated_by: render
+  bundle_data_scenario_geojson:
+    path: dist/data/scenario.geojson
+    format: GEOJSON
+    kind: document
+    generated_by: render
+  bundle_data_terrain_json:
+    path: dist/data/terrain.json
+    format: JSON
+    kind: document
+    generated_by: render
+  bundle_data_weather_2024_json:
+    path: dist/data/weather-2024.json
+    format: JSON
+    kind: document
+    generated_by: render
+  bundle_data_weather_2025_json:
+    path: dist/data/weather-2025.json
+    format: JSON
+    kind: document
+    generated_by: render
+validation:
+  required:
+  - source_hashes_match
+  - scenario_geometry_valid
+  - overrides_applied
+  - hourly_coverage_2024
+  - price_coverage_2024
+  - energy_ordering_2024
+  - finite_summary_2024
+  - prices_matched_2024
+  - hourly_coverage_2025
+  - price_coverage_2025
+  - energy_ordering_2025
+  - finite_summary_2025
+  - prices_matched_2025
+  - owner_15min_field_validation
+  - aerial_pv_detection_validation
+  - government_installation_reconciliation
+  - monthly_annual_parity_2024
+  - monthly_annual_parity_2025
+  - horizon_source_coverage
+  - hosted_table_matches_canonical
+  - canonical_pdf_generated
+  - consumption_energy_balance_2024
+  - consumption_coverage_2024
+  - consumption_value_balance_2024
+  - consumption_monthly_parity_2024
+  - consumption_energy_balance_2025
+  - consumption_coverage_2025
+  - consumption_value_balance_2025
+  - consumption_monthly_parity_2025
+  - canonical_consumption_is_public_estimate
+  domain_checks: []
+  expectations: []
+presentation:
+  intent: analytical_workspace
+  primary_view: map
+  layout:
+    type: map_with_sidebar
+    sidebar:
+      position: left
+      width: medium
+      organization: tabs
+      section_state: static
+      tabs:
+      - id: analysis
+        title: Plan
+        sections:
+        - summary
+        - metrics
+        - criteria
+        - assumptions
+        - warnings
+      - id: map
+        title: Map
+        sections:
+        - scenario_controls
+        - layer_controls
+        - basemap
+      - id: provenance
+        title: Evidence
+        sections:
+        - credits
+        - provenance
+        - validation
+        - outputs
+        - run_record
+  controls:
+    reconfigurable: true
+    canonical_reset: true
+    off_canonical_labelling: required
+    filters:
+    - id: azimuth
+      type: range
+      field: azimuthDeg
+      unit: °
+      canonical: 180
+      step: 5
+    - id: tilt
+      type: range
+      field: tiltDeg
+      unit: °
+      canonical: 35
+      step: 1
+    - id: height
+      type: range
+      field: mountingHeightM
+      unit: m
+      canonical: 2
+      step: 0.5
+    scenarios: []
+    variants:
+    - id: year
+      canonical: 2025
+      options:
+      - 2024
+      - 2025
+      effect: exploratory
+  tables:
+  - output: hosted_seasonal_summary
+    title: Canonical energy, consumption and energy value by season
+    downloads:
+    - csv
+  map:
+    engine_preference: maplibre
+    interaction:
+      feature_select: true
+      hover_tooltip: true
+      zoom_to_selection: true
+    basemap:
+      id: openstreetmap
+      kind: raster-xyz
+      url: https://tile.openstreetmap.org/{z}/{x}/{y}.png
+      attribution: © OpenStreetMap contributors
+      default_visible: true
+    layer_groups:
+    - id: aerial
+      title: Official orthophoto
+      default_open: true
+    - id: buildings
+      title: ETAK buildings
+      default_open: true
+    - id: surface
+      title: DSM surface
+      default_open: false
+    - id: shadows
+      title: Planning array
+      default_open: true
+    layers:
+    - source: browser_buildings
+      group: buildings
+      semantic_role: context
+      geometry: polygon
+      style:
+        visual_priority: context
+        opacity: 0.45
+    - source: planning_scenario
+      group: shadows
+      semantic_role: planned
+      geometry: polygon
+      style:
+        visual_priority: primary
+        opacity: 0.8
+  legend:
+    visible: true
+    mode: semantic
+  provenance_ui:
+    feature_source_on_click: true
+    show_source_timestamp: true
+    show_override_badge: true
+    show_assumptions: true
+    credits:
+      generated_with: true
+      analysis_timestamp: runs.latest.completed_at
+      author: true
+  design_language: openmapstack-views/0.1
+warnings:
+- id: MODEL
+  severity: medium
+  issue: model
+  statement: Energy is an uncalibrated planning estimate from ERA5 and a 5 m horizon
+    model; no owner production field validation was possible.
+  mitigation: Inspect source provenance and methodology before using the planning
+    estimate.
+- id: SURFACE
+  severity: medium
+  issue: surface
+  statement: DSM catalog metadata describes acquisition campaigns in 2017–2020; exact
+    cell dates are unknown. The frozen 5 m surface may differ from 2024/2025 and omits
+    small objects, seasonal foliage and electrical mismatch.
+  mitigation: Inspect source provenance and methodology before using the planning
+    estimate.
+- id: SCOPE
+  severity: medium
+  issue: scope
+  statement: This pilot supports only the retained 2 × 2 km Tartu context. Scenarios
+    outside it require fresh source acquisition.
+  mitigation: Inspect source provenance and methodology before using the planning
+    estimate.
+- id: MARKET
+  severity: medium
+  issue: market
+  statement: Energy value uses explicit consumption and price assumptions; it excludes
+    storage, taxes, unentered grid charges, curtailment and financing. The default
+    import adder is zero, and 2025 quarter-hour prices are averaged hourly.
+  mitigation: Inspect source provenance and methodology before using the planning
+    estimate.
+- id: LICENSE
+  severity: medium
+  issue: license
+  statement: Elering price-data reuse licensing was not verified in the public API
+    documentation; source attribution and the unresolved status are retained.
+  mitigation: Inspect source provenance and methodology before using the planning
+    estimate.
+- id: ML
+  severity: medium
+  issue: ml
+  statement: Aerial PV detection and installation-level government reconciliation
+    are not evaluated; available government data are municipality aggregates.
+  mitigation: Inspect source provenance and methodology before using the planning
+    estimate.
+- id: CONSUMPTION
+  severity: medium
+  issue: assumed_demand
+  statement: The published 10 kWh day / 4 kWh night household demand is an estimate,
+    not a measured household profile. Partial CSV imports do not establish full-year
+    demand or savings.
+  mitigation: Use a complete, correctly interpreted Enefit consumption export and
+    enter actual import-price components before assessing household savings.
+runtime:
+  implementation:
+    preferred_engine: javascript
+    pipeline: pipeline.py
+    dependencies:
+    - src
+    - scripts/canonical-analysis.mjs
+    - package.json
+    - package-lock.json
+    - index.html
+    - vite.config.js
+    - sources.lock.json
+    - requirements.txt
+    - scripts/canonical-report.mjs
+  environment:
+    python: '3.12'
+    packages:
+    - openmapstack @ git+https://github.com/jaakla/openmapstack-skills.git@a3df1cb8126d5222fbb27e3f1dba49aca01b6302
+runs:
+  latest:
+    id: run-20261026-110629
+    status: warning
+    started_at: '2026-10-26T11:06:29.400982+00:00'
+    completed_at: '2026-10-26T11:06:31.743080+00:00'
+    inputs_hash: sha256:cb833af7b018db5ee365302dc4e5b04eda8224b6ce31a60a4fe81e568cadb965
+    outputs_hash: sha256:0652c07356cc4c5e99d66d89c5b0c8963f24d3913d3c357545f4838fb9f3192b
+    record:
+      path: runs/run-20261026-110629.json
+    validation_report:
+      path: validation/latest-report.json
+views:
+- id: planner
+  output: dashboard
+  archetype: workspace
+  scope: One hypothetical PV polygon within the bounded Tartu pilot; complete UTC
+    seasons 2024 and 2025
+  entry: true

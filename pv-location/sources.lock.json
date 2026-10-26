@@ -1,0 +1,652 @@
+{
+  "schema_version": 1,
+  "captured_at": "2026-10-26T09:40:35Z",
+  "aoi": {
+    "name": "Tartu bounded2km pilot",
+    "crs": "EPSG:3301",
+    "bounds": [
+      658125,
+      6472170,
+      660125,
+      6474170
+    ],
+    "center": [
+      26.72,
+      58.37
+    ],
+    "area_km2": 4
+  },
+  "sources": [
+    {
+      "id": "era5-2024",
+      "provider": "Open-Meteo / Copernicus Climate Change Service",
+      "dataset": "ERA5 hourly reanalysis at requested Tartu pilot",
+      "source_url": "https://archive-api.open-meteo.com/v1/archive?latitude=58.37&longitude=26.72&start_date=2024-01-01&end_date=2025-01-01&hourly=temperature_2m%2Cshortwave_radiation%2Cdirect_normal_irradiance%2Cdiffuse_radiation&timezone=UTC&models=era5",
+      "access": {
+        "method": "HTTP GET",
+        "retrieved_at": "2026-10-26T09:40:35Z",
+        "request_spec": {
+          "url": "https://archive-api.open-meteo.com/v1/archive?latitude=58.37&longitude=26.72&start_date=2024-01-01&end_date=2025-01-01&hourly=temperature_2m%2Cshortwave_radiation%2Cdirect_normal_irradiance%2Cdiffuse_radiation&timezone=UTC&models=era5"
+        }
+      },
+      "version": {
+        "identifier": "local snapshot 2026-10-26T09:40:35Z",
+        "published_at": null
+      },
+      "pin": {
+        "class": "local_snapshot",
+        "path": "data/source/raw/weather-2024.json.gz",
+        "sha256": "39751c8858bd579e3de0c976eb196e1f35e59ef752b8b6fe954a02e8405d8fc0",
+        "captured_at": "2026-10-26T09:40:35Z"
+      },
+      "license": {
+        "name": "CC-BY-4.0 data; free API access for non-commercial use",
+        "url": "https://open-meteo.com/en/terms"
+      },
+      "schema": {
+        "crs": "EPSG:4326",
+        "columns": [
+          "hourly.time",
+          "temperature_2m",
+          "shortwave_radiation",
+          "direct_normal_irradiance",
+          "diffuse_radiation"
+        ]
+      },
+      "selection": {
+        "completeness": "All 8784 UTC intervals in year; following-day response included to retain end timestamp. Grid point58.25,26.75, not panel observations."
+      },
+      "rationale": "ERA5 hourly reanalysis at requested Tartu pilot"
+    },
+    {
+      "id": "ee-prices-2024",
+      "provider": "Elering",
+      "dataset": "Nord Pool EE day-ahead spot prices",
+      "source_url": "https://dashboard.elering.ee/api/nps/price?start=2024-01-01T00%3A00%3A00.000Z&end=2025-01-01T00%3A00%3A00.000Z",
+      "access": {
+        "method": "HTTP GET",
+        "retrieved_at": "2026-10-26T09:40:35Z",
+        "request_spec": {
+          "url": "https://dashboard.elering.ee/api/nps/price?start=2024-01-01T00%3A00%3A00.000Z&end=2025-01-01T00%3A00%3A00.000Z"
+        }
+      },
+      "version": {
+        "identifier": "local snapshot 2026-10-26T09:40:35Z",
+        "published_at": null
+      },
+      "pin": {
+        "class": "local_snapshot",
+        "path": "data/source/raw/prices-2024.json.gz",
+        "sha256": "39f6ed20bb1f594b97dd8c3549bbf57c1fcc33a24150cc60c3215b51f2ebe7b9",
+        "captured_at": "2026-10-26T09:40:35Z"
+      },
+      "license": {
+        "name": "No explicit dataset reuse licence verified in public dashboard/API documentation",
+        "url": "https://dashboard.elering.ee/assets/api-doc.html",
+        "status": "unresolved"
+      },
+      "schema": {
+        "crs": null,
+        "columns": [
+          "data.ee.timestamp",
+          "data.ee.price"
+        ]
+      },
+      "selection": {
+        "completeness": "All UTC hours for 2024; API inclusive endpoint trimmed. Hourly output uses arithmetic mean of four equal quarter-hour records after interval change."
+      },
+      "rationale": "Nord Pool EE day-ahead spot prices"
+    },
+    {
+      "id": "era5-2025",
+      "provider": "Open-Meteo / Copernicus Climate Change Service",
+      "dataset": "ERA5 hourly reanalysis at requested Tartu pilot",
+      "source_url": "https://archive-api.open-meteo.com/v1/archive?latitude=58.37&longitude=26.72&start_date=2025-01-01&end_date=2026-01-01&hourly=temperature_2m%2Cshortwave_radiation%2Cdirect_normal_irradiance%2Cdiffuse_radiation&timezone=UTC&models=era5",
+      "access": {
+        "method": "HTTP GET",
+        "retrieved_at": "2026-10-26T09:40:35Z",
+        "request_spec": {
+          "url": "https://archive-api.open-meteo.com/v1/archive?latitude=58.37&longitude=26.72&start_date=2025-01-01&end_date=2026-01-01&hourly=temperature_2m%2Cshortwave_radiation%2Cdirect_normal_irradiance%2Cdiffuse_radiation&timezone=UTC&models=era5"
+        }
+      },
+      "version": {
+        "identifier": "local snapshot 2026-10-26T09:40:35Z",
+        "published_at": null
+      },
+      "pin": {
+        "class": "local_snapshot",
+        "path": "data/source/raw/weather-2025.json.gz",
+        "sha256": "bd7029eaefa85ab7659e173489a0298e5aec6bb98db3f4daf06e018c0cfc04e4",
+        "captured_at": "2026-10-26T09:40:35Z"
+      },
+      "license": {
+        "name": "CC-BY-4.0 data; free API access for non-commercial use",
+        "url": "https://open-meteo.com/en/terms"
+      },
+      "schema": {
+        "crs": "EPSG:4326",
+        "columns": [
+          "hourly.time",
+          "temperature_2m",
+          "shortwave_radiation",
+          "direct_normal_irradiance",
+          "diffuse_radiation"
+        ]
+      },
+      "selection": {
+        "completeness": "All 8760 UTC intervals in year; following-day response included to retain end timestamp. Grid point58.25,26.75, not panel observations."
+      },
+      "rationale": "ERA5 hourly reanalysis at requested Tartu pilot"
+    },
+    {
+      "id": "ee-prices-2025",
+      "provider": "Elering",
+      "dataset": "Nord Pool EE day-ahead spot prices",
+      "source_url": "https://dashboard.elering.ee/api/nps/price?start=2025-01-01T00%3A00%3A00.000Z&end=2026-01-01T00%3A00%3A00.000Z",
+      "access": {
+        "method": "HTTP GET",
+        "retrieved_at": "2026-10-26T09:40:35Z",
+        "request_spec": {
+          "url": "https://dashboard.elering.ee/api/nps/price?start=2025-01-01T00%3A00%3A00.000Z&end=2026-01-01T00%3A00%3A00.000Z"
+        }
+      },
+      "version": {
+        "identifier": "local snapshot 2026-10-26T09:40:35Z",
+        "published_at": null
+      },
+      "pin": {
+        "class": "local_snapshot",
+        "path": "data/source/raw/prices-2025.json.gz",
+        "sha256": "0e2dc5a1d20d7e3d799d0b2a9c345cbb28387f6da4f6fc54f0b7e5a5c329c4a8",
+        "captured_at": "2026-10-26T09:40:35Z"
+      },
+      "license": {
+        "name": "No explicit dataset reuse licence verified in public dashboard/API documentation",
+        "url": "https://dashboard.elering.ee/assets/api-doc.html",
+        "status": "unresolved"
+      },
+      "schema": {
+        "crs": null,
+        "columns": [
+          "data.ee.timestamp",
+          "data.ee.price"
+        ]
+      },
+      "selection": {
+        "completeness": "All UTC hours for 2025; API inclusive endpoint trimmed. Hourly output uses arithmetic mean of four equal quarter-hour records after interval change."
+      },
+      "rationale": "Nord Pool EE day-ahead spot prices"
+    },
+    {
+      "id": "dsm",
+      "provider": "Maa- ja Ruumiamet",
+      "dataset": "dsm-5 coverage in bounded2km Tartu pilot",
+      "source_url": "https://teenus.maaamet.ee/ows/wcs-dsm?service=WCS&request=GetCoverage&version=1.0.0&coverage=dsm-5&crs=EPSG%3A3301&response_crs=EPSG%3A3301&bbox=658125%2C6472170%2C660125%2C6474170&width=400&height=400&format=GTiff&interpolation=nearest+neighbor",
+      "access": {
+        "method": "HTTP GET",
+        "retrieved_at": "2026-10-26T09:40:35Z",
+        "request_spec": {
+          "url": "https://teenus.maaamet.ee/ows/wcs-dsm?service=WCS&request=GetCoverage&version=1.0.0&coverage=dsm-5&crs=EPSG%3A3301&response_crs=EPSG%3A3301&bbox=658125%2C6472170%2C660125%2C6474170&width=400&height=400&format=GTiff&interpolation=nearest+neighbor"
+        }
+      },
+      "version": {
+        "identifier": "local snapshot 2026-10-26T09:40:35Z",
+        "published_at": null
+      },
+      "pin": {
+        "class": "local_snapshot",
+        "path": "data/source/raw/dsm.tif",
+        "sha256": "ebfc3bd172c588414516f5e17a369bd3cec4c07eece50fb0e49e3cf0863a3750",
+        "captured_at": "2026-10-26T09:40:35Z"
+      },
+      "license": {
+        "name": "Maa- ja Ruumiameti avaandmete litsents (2025-01-01) and service terms",
+        "url": "https://geoportaal.maaruum.ee/avaandmete-litsents",
+        "terms_url": "https://geoportaal.maaruum.ee/est/teenused/wms-wfs-wcs-teenused/maa-ja-ruumiameti-kaarditeenuste-kasutustingimused-p24.html"
+      },
+      "schema": {
+        "crs": "EPSG:3301",
+        "columns": [
+          "band1 height_m"
+        ]
+      },
+      "selection": {
+        "bbox": [
+          658125,
+          6472170,
+          660125,
+          6474170
+        ],
+        "completeness": "400x400 aligned5m cells. 658 nonpositive DSM cells plus360 positive DSM cells more than2m below DTM marked null by conservative plausibility filter in normalized output. Raw GeoTIFF retained unchanged. Per-cell acquisition dates unresolved."
+      },
+      "rationale": "dsm-5 coverage in bounded2km Tartu pilot"
+    },
+    {
+      "id": "dtm",
+      "provider": "Maa- ja Ruumiamet",
+      "dataset": "dtm-1 coverage in bounded2km Tartu pilot",
+      "source_url": "https://teenus.maaamet.ee/ows/wcs-dtm?service=WCS&request=GetCoverage&version=1.0.0&coverage=dtm-1&crs=EPSG%3A3301&response_crs=EPSG%3A3301&bbox=658125%2C6472170%2C660125%2C6474170&width=400&height=400&format=GTiff&interpolation=nearest+neighbor",
+      "access": {
+        "method": "HTTP GET",
+        "retrieved_at": "2026-10-26T09:40:35Z",
+        "request_spec": {
+          "url": "https://teenus.maaamet.ee/ows/wcs-dtm?service=WCS&request=GetCoverage&version=1.0.0&coverage=dtm-1&crs=EPSG%3A3301&response_crs=EPSG%3A3301&bbox=658125%2C6472170%2C660125%2C6474170&width=400&height=400&format=GTiff&interpolation=nearest+neighbor"
+        }
+      },
+      "version": {
+        "identifier": "local snapshot 2026-10-26T09:40:35Z",
+        "published_at": null
+      },
+      "pin": {
+        "class": "local_snapshot",
+        "path": "data/source/raw/dtm.tif",
+        "sha256": "e603ba2be6fa4e5276a3d3cb4eafa5ddce8c26ee691ed5e6c6cc2fc5faa07cdc",
+        "captured_at": "2026-10-26T09:40:35Z"
+      },
+      "license": {
+        "name": "Maa- ja Ruumiameti avaandmete litsents (2025-01-01) and service terms",
+        "url": "https://geoportaal.maaruum.ee/avaandmete-litsents",
+        "terms_url": "https://geoportaal.maaruum.ee/est/teenused/wms-wfs-wcs-teenused/maa-ja-ruumiameti-kaarditeenuste-kasutustingimused-p24.html"
+      },
+      "schema": {
+        "crs": "EPSG:3301",
+        "columns": [
+          "band1 height_m"
+        ]
+      },
+      "selection": {
+        "bbox": [
+          658125,
+          6472170,
+          660125,
+          6474170
+        ],
+        "completeness": "400x400 aligned5m cells. Nearest-neighbour WCS resampling;658 nonpositive DSM cells null in normalized grid; no DTM nulls. Per-cell acquisition dates unresolved."
+      },
+      "rationale": "dtm-1 coverage in bounded2km Tartu pilot"
+    },
+    {
+      "id": "buildings",
+      "provider": "Maa- ja Ruumiamet",
+      "dataset": "ETAK e_401_hoone_ka",
+      "source_url": "https://gsavalik.envir.ee/geoserver/etak/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=etak%3Ae_401_hoone_ka&bbox=658125%2C6472170%2C660125%2C6474170%2CEPSG%3A3301&srsName=EPSG%3A4326&outputFormat=application%2Fjson&count=5000",
+      "access": {
+        "method": "HTTP GET",
+        "retrieved_at": "2026-10-26T09:40:35Z",
+        "request_spec": {
+          "url": "https://gsavalik.envir.ee/geoserver/etak/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=etak%3Ae_401_hoone_ka&bbox=658125%2C6472170%2C660125%2C6474170%2CEPSG%3A3301&srsName=EPSG%3A4326&outputFormat=application%2Fjson&count=5000"
+        }
+      },
+      "version": {
+        "identifier": "local snapshot 2026-10-26T09:40:35Z",
+        "published_at": null
+      },
+      "pin": {
+        "class": "local_snapshot",
+        "path": "data/source/raw/buildings.geojson.gz",
+        "sha256": "221831e66dd8d54086ee9d1c00d0afa218192d190eb051e5dfa54357b9af09e1",
+        "captured_at": "2026-10-26T09:40:35Z"
+      },
+      "license": {
+        "name": "Maa- ja Ruumiameti avaandmete litsents (2025-01-01) and service terms",
+        "url": "https://geoportaal.maaruum.ee/avaandmete-litsents",
+        "terms_url": "https://geoportaal.maaruum.ee/est/teenused/wms-wfs-wcs-teenused/maa-ja-ruumiameti-kaarditeenuste-kasutustingimused-p24.html"
+      },
+      "schema": {
+        "crs": "EPSG:4326",
+        "columns": [
+          "etak_id",
+          "tyyp_tekst",
+          "korgus_m",
+          "geom_muutmisaeg"
+        ]
+      },
+      "selection": {
+        "bbox_crs": "EPSG:3301",
+        "bbox": [
+          658125,
+          6472170,
+          660125,
+          6474170
+        ],
+        "completeness": "numberMatched=numberReturned=4420<5000. Bbox-overlapping geometries retained, no filtering by building use, EHR registration or current lifecycle status."
+      },
+      "rationale": "ETAK e_401_hoone_ka"
+    },
+    {
+      "id": "aerial-context",
+      "provider": "Maa- ja Ruumiamet",
+      "dataset": "EESTIFOTO rendered WMS context",
+      "source_url": "https://kaart.maaamet.ee/wms/fotokaart?service=WMS&version=1.1.1&request=GetMap&layers=EESTIFOTO&styles=&srs=EPSG%3A3301&bbox=658125%2C6472170%2C660125%2C6474170&width=1600&height=1600&format=image%2Fjpeg",
+      "access": {
+        "method": "HTTP GET",
+        "retrieved_at": "2026-10-26T09:40:35Z",
+        "request_spec": {
+          "url": "https://kaart.maaamet.ee/wms/fotokaart?service=WMS&version=1.1.1&request=GetMap&layers=EESTIFOTO&styles=&srs=EPSG%3A3301&bbox=658125%2C6472170%2C660125%2C6474170&width=1600&height=1600&format=image%2Fjpeg"
+        }
+      },
+      "version": {
+        "identifier": "local snapshot 2026-10-26T09:40:35Z",
+        "published_at": null
+      },
+      "pin": {
+        "class": "local_snapshot",
+        "path": "data/source/raw/aerial-3301.jpg",
+        "sha256": "bd6a28359c64f413982d816ba20fb498bf1b96002f79e6c276ea8d1a3ea240b5",
+        "captured_at": "2026-10-26T09:40:35Z"
+      },
+      "license": {
+        "name": "Maa- ja Ruumiameti avaandmete litsents (2025-01-01) and service terms",
+        "url": "https://geoportaal.maaruum.ee/avaandmete-litsents",
+        "terms_url": "https://geoportaal.maaruum.ee/est/teenused/wms-wfs-wcs-teenused/maa-ja-ruumiameti-kaarditeenuste-kasutustingimused-p24.html"
+      },
+      "schema": {
+        "crs": "EPSG:3301",
+        "columns": [
+          "RGB rendered image"
+        ]
+      },
+      "selection": {
+        "completeness": "Single1600x1600 WMS image across exact2km bbox, requested1.25m display resolution. Native source GSD and acquisition date unresolved. Display-only, not inference."
+      },
+      "rationale": "EESTIFOTO rendered WMS context"
+    },
+    {
+      "id": "government-existing",
+      "provider": "Keskkonnaagentuur",
+      "dataset": "Taastuvenergia Eestis municipal solar counts (existing)",
+      "source_url": "https://services.arcgis.com/fe2zzRbhcPNuoFC4/arcgis/rest/services/Taastuvenergiarajatised_liigiti_KOVides/FeatureServer/14/query?f=json&where=KOV+LIKE+%27%25Tartu%25%27&outFields=%2A&returnGeometry=false",
+      "access": {
+        "method": "HTTP GET",
+        "retrieved_at": "2026-10-26T09:40:35Z",
+        "request_spec": {
+          "url": "https://services.arcgis.com/fe2zzRbhcPNuoFC4/arcgis/rest/services/Taastuvenergiarajatised_liigiti_KOVides/FeatureServer/14/query?f=json&where=KOV+LIKE+%27%25Tartu%25%27&outFields=%2A&returnGeometry=false"
+        }
+      },
+      "version": {
+        "identifier": "local snapshot 2026-10-26T09:40:35Z",
+        "published_at": null
+      },
+      "pin": {
+        "class": "local_snapshot",
+        "path": "data/source/raw/government-existing.json.gz",
+        "sha256": "edf49d6ae72f93917051bd00bd2e441e56bd88f1084e1f9fe18044c65571a131",
+        "captured_at": "2026-10-26T09:40:35Z"
+      },
+      "license": {
+        "name": "Unspecified in ArcGIS item metadata",
+        "url": "https://www.arcgis.com/sharing/rest/content/items/7715e0bf33d049069e6d518754fda2b4?f=pjson",
+        "status": "unresolved"
+      },
+      "schema": {
+        "crs": null,
+        "columns": [
+          "KOV",
+          "Päikeseja"
+        ]
+      },
+      "selection": {
+        "completeness": "Two municipalities matching Tartu, full query response without exceededTransferLimit; not installation-level records."
+      },
+      "rationale": "Taastuvenergia Eestis municipal solar counts (existing)"
+    },
+    {
+      "id": "government-planned",
+      "provider": "Keskkonnaagentuur",
+      "dataset": "Taastuvenergia Eestis municipal solar counts (planned)",
+      "source_url": "https://services.arcgis.com/fe2zzRbhcPNuoFC4/arcgis/rest/services/Kavandatavad_taastuvenergiarajatised_liigiti_KOVides/FeatureServer/16/query?f=json&where=KOV+LIKE+%27%25Tartu%25%27&outFields=%2A&returnGeometry=false",
+      "access": {
+        "method": "HTTP GET",
+        "retrieved_at": "2026-10-26T09:40:35Z",
+        "request_spec": {
+          "url": "https://services.arcgis.com/fe2zzRbhcPNuoFC4/arcgis/rest/services/Kavandatavad_taastuvenergiarajatised_liigiti_KOVides/FeatureServer/16/query?f=json&where=KOV+LIKE+%27%25Tartu%25%27&outFields=%2A&returnGeometry=false"
+        }
+      },
+      "version": {
+        "identifier": "local snapshot 2026-10-26T09:40:35Z",
+        "published_at": null
+      },
+      "pin": {
+        "class": "local_snapshot",
+        "path": "data/source/raw/government-planned.json.gz",
+        "sha256": "8ac55a5a007521d09b02b7009d58cc7b39252bce6522949c72e2fa0b31975690",
+        "captured_at": "2026-10-26T09:40:35Z"
+      },
+      "license": {
+        "name": "Unspecified in ArcGIS item metadata",
+        "url": "https://www.arcgis.com/sharing/rest/content/items/7715e0bf33d049069e6d518754fda2b4?f=pjson",
+        "status": "unresolved"
+      },
+      "schema": {
+        "crs": null,
+        "columns": [
+          "KOV",
+          "Päikeseel"
+        ]
+      },
+      "selection": {
+        "completeness": "Two municipalities matching Tartu, full query response without exceededTransferLimit; not installation-level records."
+      },
+      "rationale": "Taastuvenergia Eestis municipal solar counts (planned)"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "data/source/aerial.jpg",
+      "sha256": "bf170384421d68c7d14ccc0181e5f9e47f05870166fb614cf9b3fd10516f35e2",
+      "bytes": 1197885,
+      "role": "normalized_or_display_derivative"
+    },
+    {
+      "path": "data/source/aerial.json",
+      "sha256": "e9fae91b0a081fc01880adba0b811f3578ee0710aa0a37da306e4bf1f54db189",
+      "bytes": 1280,
+      "role": "normalized_or_display_derivative"
+    },
+    {
+      "path": "data/source/buildings.geojson",
+      "sha256": "fee6a302bf84cf0b394ecc0d1c04e884f02e150e22074255acce62a030e34584",
+      "bytes": 2416694,
+      "role": "normalized_or_display_derivative"
+    },
+    {
+      "path": "data/source/context-grid.json",
+      "sha256": "85b489d002a77937f7a9a19bac2575fcc7070a36ea6e643c17635e1170aaa315",
+      "bytes": 1887782,
+      "role": "normalized_or_display_derivative"
+    },
+    {
+      "path": "data/source/government-aggregates.json",
+      "sha256": "70351a14d7eadffc40175bd05fe802ae79a29dc3e473929e4507602662d8bc34",
+      "bytes": 2850,
+      "role": "normalized_or_display_derivative"
+    },
+    {
+      "path": "data/source/prices-2024.json",
+      "sha256": "d165caa7147509954d852e78ea899e48f1f8d04fb395d2751fb00da3b9cdf765",
+      "bytes": 457927,
+      "role": "normalized_or_display_derivative"
+    },
+    {
+      "path": "data/source/prices-2025.json",
+      "sha256": "5772860f650229d05ce15946210f7932267a94daeee432ad37dbcb27d5cbcd3d",
+      "bytes": 459068,
+      "role": "normalized_or_display_derivative"
+    },
+    {
+      "path": "data/source/raw/aerial-3301.jpg",
+      "sha256": "bd6a28359c64f413982d816ba20fb498bf1b96002f79e6c276ea8d1a3ea240b5",
+      "bytes": 951661,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/arcgis_data.json.gz",
+      "sha256": "770192abebd64db6850635bd3e821ca1d4dc1d545045013d27f69dc214fa41ee",
+      "bytes": 11920,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/arcgis_item.json.gz",
+      "sha256": "8a12cee0902da5f3429cd1752332a207810e82cd86ce03c9dcb43d529a03ec02",
+      "bytes": 710,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/buildings.geojson.gz",
+      "sha256": "221831e66dd8d54086ee9d1c00d0afa218192d190eb051e5dfa54357b9af09e1",
+      "bytes": 487283,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/dsm-cap.xml.gz",
+      "sha256": "3a6c93aa09637bee902951ad843c878ea30765560865e3c0af18f5bb0758b22c",
+      "bytes": 1085,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/dsm-desc.xml.gz",
+      "sha256": "f66fd0727be3a65a1b7dd0b2a9d5a0c281ee482519ba054b8effa1d00bda0d96",
+      "bytes": 875,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/dsm-layer-metadata.xml.gz",
+      "sha256": "404d2cbc1aadfd2f3921505b62eb6e80eff260db1a650e32a6d122855c7dc64b",
+      "bytes": 1885,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/dsm.tif",
+      "sha256": "ebfc3bd172c588414516f5e17a369bd3cec4c07eece50fb0e49e3cf0863a3750",
+      "bytes": 640904,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/dsm_metadata.xml.gz",
+      "sha256": "2d2051af86cc56ddcc113eb7ba19cb49628f9c5ea401b9262f12171631d5e9ea",
+      "bytes": 3505,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/dtm-cap.xml.gz",
+      "sha256": "cec2c1b7d1e42f2b91b65170a41d8206a2854bc6d4b7a79d2d22ac0c025984bd",
+      "bytes": 1096,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/dtm-desc.xml.gz",
+      "sha256": "8f32912abc66c5e692c53d3b13acf4ca69c2c37828c94ca45f76b0630c5e6f6a",
+      "bytes": 878,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/dtm-layer-metadata.xml.gz",
+      "sha256": "ab1605bb87eb37a312ac8e9481a70bdb8b6fe7c51e53d06ee6b0e6259527f1a4",
+      "bytes": 1886,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/dtm.tif",
+      "sha256": "e603ba2be6fa4e5276a3d3cb4eafa5ddce8c26ee691ed5e6c6cc2fc5faa07cdc",
+      "bytes": 640904,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/dtm_metadata.xml.gz",
+      "sha256": "a7bb7aa58b143d36b4b95b85dccd73e294eb7779e7643ebfa0a27f86a32a5385",
+      "bytes": 3563,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/etak-cap.xml.gz",
+      "sha256": "9fb7ac73d3a5c94626761c925e6b1e606294af38d63e34de961376090702e92a",
+      "bytes": 11745,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/government-existing.json.gz",
+      "sha256": "edf49d6ae72f93917051bd00bd2e441e56bd88f1084e1f9fe18044c65571a131",
+      "bytes": 663,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/government-planned.json.gz",
+      "sha256": "8ac55a5a007521d09b02b7009d58cc7b39252bce6522949c72e2fa0b31975690",
+      "bytes": 619,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/ortho_cap.xml.gz",
+      "sha256": "7d974969a01fb2f86a0dbc969507827f561d590470266de4863a0fe70b28ea05",
+      "bytes": 4818,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/prices-2024.json.gz",
+      "sha256": "39f6ed20bb1f594b97dd8c3549bbf57c1fcc33a24150cc60c3215b51f2ebe7b9",
+      "bytes": 214921,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/prices-2025.json.gz",
+      "sha256": "0e2dc5a1d20d7e3d799d0b2a9c345cbb28387f6da4f6fc54f0b7e5a5c329c4a8",
+      "bytes": 370465,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/solar_existing.json.gz",
+      "sha256": "ea0af26f422e80a159663f894e6fc41a1b6faac403d75a4fc1755175b4152fba",
+      "bytes": 3522,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/solar_item.json.gz",
+      "sha256": "4fbbccf5a7c0fb39056415e7737e020d7a75e63aba87cad74386f96466db6a8e",
+      "bytes": 754,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/solar_planned.json.gz",
+      "sha256": "a863b44544437a6e414f780696efd57cc2c1febc7457986022a0c10a42e0f5b6",
+      "bytes": 3470,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/weather-2024.json.gz",
+      "sha256": "39751c8858bd579e3de0c976eb196e1f35e59ef752b8b6fe954a02e8405d8fc0",
+      "bytes": 59223,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/weather-2025.json.gz",
+      "sha256": "bd7029eaefa85ab7659e173489a0298e5aec6bb98db3f4daf06e018c0cfc04e4",
+      "bytes": 58794,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/raw/webmap.json.gz",
+      "sha256": "ec8510c83d68e07c5ae6cfa84c1bcb7dfe69d86703b1bb3ae40e5df3aa3a101a",
+      "bytes": 3463,
+      "role": "raw_provider_snapshot"
+    },
+    {
+      "path": "data/source/weather-2024.json",
+      "sha256": "47962b70e2e72c213ff1d79fc291c3fe40baa4652ef46a7582761cb88c5b0715",
+      "bytes": 737062,
+      "role": "normalized_or_display_derivative"
+    },
+    {
+      "path": "data/source/weather-2025.json",
+      "sha256": "117d63b07c2e0ebbb89dc0cb4dd2f1e1cca3de8f86324a5fdd9ada1391efaad4",
+      "bytes": 734108,
+      "role": "normalized_or_display_derivative"
+    }
+  ],
+  "unresolved": [
+    "DSM/DTM per-cell acquisition date",
+    "Elering dataset reuse licence",
+    "Government aggregate reuse licence and installation-level vector access",
+    "Native dated20cm imagery and independent AOI-wide model inference",
+    "Owner15-minute production measurements"
+  ]
+}

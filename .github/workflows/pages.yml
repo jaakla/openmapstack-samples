@@ -30,6 +30,7 @@ jobs:
           cache-dependency-path: |
             toompea-3d/package-lock.json
             battlefield-visibility/package-lock.json
+            pv-location/package-lock.json
       - name: Install dependencies
         working-directory: toompea-3d
         run: npm ci
@@ -51,11 +52,33 @@ jobs:
       - name: Build Helsinki visibility at its public URL
         working-directory: battlefield-visibility
         run: npm run build -- --base=/openmapstack-samples/battlefield-visibility/
+      - name: Install Solar Atlas dependencies
+        working-directory: pv-location
+        run: npm ci
+      - name: Test PV calculations, source data and PDF reports
+        working-directory: pv-location
+        run: |
+          python3 -m venv /tmp/pv-pdf-tests
+          /tmp/pv-pdf-tests/bin/pip install pypdf==6.20.1
+          PATH="/tmp/pv-pdf-tests/bin:$PATH" npm test
+      - name: Install Chromium for Solar Atlas interaction checks
+        working-directory: pv-location
+        run: npx playwright install --with-deps chromium
+      - name: Test Solar Atlas browser workflows
+        working-directory: pv-location
+        run: npm run test:browser
+      - name: Build the canonical Solar Atlas with provenance
+        working-directory: pv-location
+        run: |
+          python3 -m venv /tmp/pv-build-env
+          /tmp/pv-build-env/bin/pip install -r requirements.txt
+          /tmp/pv-build-env/bin/python pipeline.py
       - name: Assemble the site
         run: |
-          mkdir -p _site/toompea-3d _site/battlefield-visibility _site/gallery
+          mkdir -p _site/toompea-3d _site/battlefield-visibility _site/pv-location _site/gallery
           cp -a toompea-3d/dist/. _site/toompea-3d/
           cp -a battlefield-visibility/dist/. _site/battlefield-visibility/
+          cp -a pv-location/dist/. _site/pv-location/
           cp index.html _site/index.html
           cp -a gallery/. _site/gallery/
           cp toompea-3d/docs/toompea-preview.png _site/gallery/toompea-preview.png

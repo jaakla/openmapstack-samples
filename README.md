@@ -2,6 +2,18 @@
 
 Source-backed geospatial applications built with [OpenMapStack](https://github.com/jaakla/openmapstack-skills).
 
+## Solar Atlas
+
+Draw a hypothetical PV site in Tartu and compare clear-sky, weather-adjusted and locally shaded production. Add day/night consumption or an Enefit historical CSV to estimate on-site use, grid imports, surplus sales and value at 2024/2025 Estonian market prices. Export a three-page scenario PDF with maps, charts, assumptions and sources. Inspect official surface data and import your own 15-minute production CSV for comparison.
+
+[![Solar Atlas planning workspace with a hypothetical PV footprint, annual energy and revenue estimates](gallery/pv-location-preview.png)](https://jaakla.github.io/openmapstack-samples/pv-location/)
+
+- [Open Solar Atlas](https://jaakla.github.io/openmapstack-samples/pv-location/)
+- [Project documentation, reproducible pipeline and limitations](pv-location/README.md)
+- [Example scenario PDF](pv-location/public/data/canonical-report.pdf)
+
+This bounded planning prototype implements the core of [issue #4](https://github.com/jaakla/openmapstack-samples/issues/4). Regional aerial PV detection and owner field calibration remain pending.
+
 ## Toompea Digital Atlas
 
 Explore surveyed architecture, airborne LiDAR, terrain, cross sections, measurements, and sun studies of Toompea hill in Tallinn.
@@ -34,7 +46,7 @@ Explore a kriged temperature surface, census block groups, model settings and he
 
 ## Publishing
 
-The shared `Deploy GitHub Pages` workflow tests and builds both demos on pull requests and pushes to `main`. Pushes to `main` publish the prepared browser assets under `toompea-3d/` and `battlefield-visibility/`; the [site root](https://jaakla.github.io/openmapstack-samples/) is a gallery linking both local demos and the external Cloudflare demos.
+The shared `Deploy GitHub Pages` workflow tests and builds all three demos on pull requests and pushes to `main`. Pushes to `main` publish the prepared browser assets under `pv-location/`, `toompea-3d/` and `battlefield-visibility/`; the [site root](https://jaakla.github.io/openmapstack-samples/) is a gallery linking these local demos and the external Cloudflare demos. Solar Atlas also runs browser interaction tests and rebuilds its canonical analysis and provenance from committed source snapshots.
 
 Normal Pages builds use committed browser assets and skip raw Git LFS downloads. Toompea's original large LAZ survey files use Git LFS; full GIS recompilation requires `git lfs pull` and the numerical/desktop dependencies documented in that project. UAV visibility's raw acquisitions are excluded from normal git; its project documentation describes acquisition and full recompilation.
 

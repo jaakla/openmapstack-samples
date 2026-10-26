@@ -1,0 +1,2 @@
+# CLI and evidence helpers pinned to the GitHub main revision used for this project.
+openmapstack[geo,visual] @ git+https://github.com/jaakla/openmapstack-skills.git@a3df1cb8126d5222fbb27e3f1dba49aca01b6302

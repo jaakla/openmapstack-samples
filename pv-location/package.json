@@ -1,0 +1,27 @@
+{
+  "name": "solar-atlas-pv-location",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test tests/*.test.js",
+    "data": "python3 pipeline.py",
+    "test:browser": "playwright test"
+  },
+  "dependencies": {
+    "jspdf": "4.2.1",
+    "lucide-react": "0.468.0",
+    "maplibre-gl": "6.16.0",
+    "proj4": "2.22.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "@vitejs/plugin-react": "5.0.4",
+    "vite": "7.3.7"
+  }
+}

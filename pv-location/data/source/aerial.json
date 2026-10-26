@@ -1,0 +1,55 @@
+{
+  "crs": "EPSG:3857",
+  "bounds": [
+    2972476.0882612173,
+    8043463.998084733,
+    2976432.0673273006,
+    8047427.117907253
+  ],
+  "coordinatesWgs84NW_NE_SE_SW": [
+    [
+      26.70220701764859,
+      58.379322752732335
+    ],
+    [
+      26.737744182235787,
+      58.379322752732335
+    ],
+    [
+      26.737744182235787,
+      58.36065228708454
+    ],
+    [
+      26.70220701764859,
+      58.36065228708454
+    ]
+  ],
+  "aoiCornersWgs84": [
+    [
+      26.703583838733092,
+      58.379322752732335
+    ],
+    [
+      26.73774163860128,
+      58.37859462076534
+    ],
+    [
+      26.73634746077441,
+      58.36065272106234
+    ],
+    [
+      26.702207017648593,
+      58.36138048330313
+    ]
+  ],
+  "width": 1600,
+  "height": 1600,
+  "role": "display-only rendered WMS orthoimage, not native inference imagery",
+  "nativeGsdM": null,
+  "acquisitionDate": null,
+  "extractedAt": "2026-10-26",
+  "url": "https://kaart.maaamet.ee/wms/fotokaart?service=WMS&version=1.1.1&request=GetMap&layers=EESTIFOTO&styles=&srs=EPSG%3A3301&bbox=658125%2C6472170%2C660125%2C6474170&width=1600&height=1600&format=image%2Fjpeg",
+  "attribution": "Maa- ja Ruumiameti ortofoto, extracted 2026-10-26",
+  "sourceCrs": "EPSG:3301",
+  "reprojection": "GDAL bilinear to EPSG:3857 for display only"
+}
