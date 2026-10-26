@@ -222,7 +222,7 @@ def main():
 
     # Independent truth is unavailable; absence is recorded as not_testable.
     check("owner_15min_field_validation", status="not_testable",
-          reason="No owner production CSV was supplied; no measured accuracy is claimed.")
+          reason="Field accuracy has not been established against an independently verified matching installation and retained calibration inputs; private browser uploads are not canonical source evidence.")
     check("aerial_pv_detection_validation", status="not_testable",
           reason="Later phase: no trained detector, installation labels or evaluated inference.")
     check("government_installation_reconciliation", status="not_testable",
@@ -401,7 +401,7 @@ def main():
                              f"{consumption['timeZone']}; daytime is {consumption['dayStartHour']:02d}:00–"
                              f"{consumption['dayEndHour']:02d}:00. The import adder is "
                              f"{consumption['importAdderEurMWh']:g} EUR/MWh; charges are included only "
-                             "when explicitly represented in that adder. No owner field validation.",
+                             "when explicitly represented in that adder. Independently verified field calibration is not established.",
                              *(["Storage dispatch uses known historical daily prices and finite state resolution. "
                                 "Every local-day or covered segment starts and ends at reserve; energy is not "
                                 "carried overnight or across unknown input gaps. This is not a live trading "

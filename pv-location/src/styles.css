@@ -976,6 +976,21 @@ input[type="range"]::-webkit-slider-thumb {
   font-size: 11px;
   line-height: 1.6;
 }
+.production-csv-help {
+  margin: 14px 0;
+  color: var(--oms-text-muted);
+  font-size: 11px;
+}
+.production-csv-help > summary {
+  cursor: pointer;
+}
+.production-weather-button {
+  width: 100%;
+  white-space: normal;
+}
+[data-testid="production-import-summary"] > p:first-child {
+  overflow-wrap: anywhere;
+}
 code {
   font-size: 10px;
 }

@@ -679,7 +679,7 @@ function App({ inputs }) {
                 ) : name === "Evidence" ? (
                   <EvidencePanel {...{ project, analysis, horizon }} />
                 ) : (
-                  <ValidationPanel {...{ analysis, system, busy }} />
+                  <ValidationPanel {...{ analysis, system, horizon, busy }} />
                 )}
               </div>
             ))}

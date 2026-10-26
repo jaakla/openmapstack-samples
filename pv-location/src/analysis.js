@@ -1053,68 +1053,146 @@ export function parseOwnerCsv(text) {
   };
 }
 
-/** Compare only overlapping valid intervals. No gaps are filled or scaled to a year. */
+/** Aggregate measured interval energy into complete model hours; never upsample the prediction. */
 export function compareOwnerData(input, analysis) {
   const rows = Array.isArray(input) ? input : (input?.rows ?? []);
-  const model = new Map(
-    (analysis?.hourly ?? []).map((row) => [timestamp(row.time), row]),
-  );
-  const matched = [];
-  let outsideModelIntervals = 0;
-  let unavailableModelIntervals = 0;
-  if (
-    (analysis?.hourly ?? []).some(
-      (row) => row.durationHours != null && row.durationHours !== 1,
-    )
-  )
-    throw new Error("Owner comparison requires hourly model intervals.");
-  for (const row of rows) {
-    const t = timestamp(row.time);
-    if (!Number.isFinite(t) || !finite(row.energyKwh)) continue;
-    const start = Math.floor(t / HOUR) * HOUR;
-    const estimate = model.get(start);
-    if (!estimate) {
-      outsideModelIntervals += 1;
+  const toleranceMs = 0.001;
+  const model = new Map();
+  for (const row of analysis?.hourly ?? []) {
+    const time = timestamp(row.time);
+    if (!Number.isFinite(time) || time % HOUR !== 0 || (row.durationHours != null && row.durationHours !== 1)) {
+      throw new Error("Owner comparison requires model hours starting on UTC hour boundaries.");
+    }
+    if (model.has(time)) throw new Error("Owner comparison contains duplicate model hours.");
+    model.set(time, row);
+  }
+  const modelTimes = [...model.keys()].sort((a, b) => a - b);
+  const modelMin = modelTimes[0] ?? Infinity;
+  const modelEnd = modelTimes.length ? modelTimes.at(-1) + HOUR : -Infinity;
+  const groups = new Map();
+  const group = (hour) => {
+    if (!groups.has(hour)) groups.set(hour, { segments: [], sourceIds: new Set(), invalid: false, overlap: false });
+    return groups.get(hour);
+  };
+  // Iterate only inside the bounded modeled period, including holes in model coverage.
+  const visitHours = (start, end, callback) => {
+    const finish = Math.min(end, modelEnd);
+    for (let hour = Math.max(Math.floor(start / HOUR) * HOUR, modelMin); hour < finish - toleranceMs; hour += HOUR) {
+      if (!model.has(hour)) continue;
+      const a = Math.max(start, hour), b = Math.min(end, hour + HOUR);
+      if (b > a + toleranceMs) callback(hour, a, b);
+    }
+  };
+  const intervals = [];
+  let invalidIntervals = 0, outsideModelIntervals = 0, outsideModelHours = 0, splitIntervals = 0;
+  for (let index = 0; index < rows.length; index += 1) {
+    const row = rows[index] ?? {};
+    const start = timestamp(row.time);
+    const minutes = row.durationMinutes ?? input?.intervalMinutes ?? 15;
+    const duration = finite(minutes) ? minutes * 60000 : NaN;
+    const end = start + duration;
+    const validExtent = Number.isFinite(start) && Number.isFinite(end) && duration > toleranceMs;
+    if (!validExtent || !finite(row.energyKwh) || row.energyKwh < 0) {
+      invalidIntervals += 1;
+      if (validExtent) visitHours(start, end, (hour) => { group(hour).invalid = true; });
       continue;
     }
-    if (!finite(estimate.shadedKwh)) {
-      unavailableModelIntervals += 1;
-      continue;
-    }
-    const modelKwh = estimate.shadedKwh / 4;
-    matched.push({
-      time: utc(t),
-      actualKwh: row.energyKwh,
-      modelKwh,
-      errorKwh: modelKwh - row.energyKwh,
+    const item = { index, start, end, energyKwh: row.energyKwh };
+    intervals.push(item);
+    if (Math.floor(start / HOUR) !== Math.floor((end - toleranceMs) / HOUR)) splitIntervals += 1;
+    let modeledMs = 0;
+    visitHours(start, end, (hour, a, b) => {
+      modeledMs += b - a;
+      const g = group(hour);
+      g.segments.push({ start: a, end: b, energyKwh: row.energyKwh * (b - a) / duration });
+      g.sourceIds.add(index);
     });
+    const outsideMs = Math.max(0, duration - modeledMs);
+    if (outsideMs > toleranceMs) outsideModelIntervals += 1;
+    outsideModelHours += outsideMs / HOUR;
+  }
+  intervals.sort((a, b) => a.start - b.start || a.end - b.end);
+  // Sweep all source boundaries so even nested/duplicate intervals taint every overlapping hour.
+  const events = intervals.flatMap((row) => [[row.start, 1], [row.end, -1]]).sort((a, b) => a[0] - b[0]);
+  const overlapSpans = [];
+  let active = 0, previous = null;
+  for (let i = 0; i < events.length;) {
+    const time = events[i][0];
+    if (previous != null && active > 1 && time > previous + toleranceMs) {
+      const last = overlapSpans.at(-1);
+      if (last && Math.abs(last[1] - previous) <= toleranceMs) last[1] = time;
+      else overlapSpans.push([previous, time]);
+    }
+    while (i < events.length && events[i][0] === time) { active += events[i][1]; i += 1; }
+    previous = time;
+  }
+  for (const [start, end] of overlapSpans) visitHours(start, end, (hour) => { group(hour).overlap = true; });
+  let overlapIntervals = 0;
+  for (const row of intervals) {
+    let low = 0, high = overlapSpans.length;
+    while (low < high) { const middle = (low + high) >> 1; if (overlapSpans[middle][1] <= row.start + toleranceMs) low = middle + 1; else high = middle; }
+    if (overlapSpans[low]?.[0] < row.end - toleranceMs) overlapIntervals += 1;
+  }
+  // This is unique observed duration, not the sum of potentially duplicated input durations.
+  let inputCoverageMs = 0, unionStart = null, unionEnd = null;
+  for (const row of intervals) {
+    if (unionEnd == null || row.start > unionEnd + toleranceMs) {
+      if (unionEnd != null) inputCoverageMs += unionEnd - unionStart;
+      unionStart = row.start; unionEnd = row.end;
+    } else unionEnd = Math.max(unionEnd, row.end);
+  }
+  if (unionEnd != null) inputCoverageMs += unionEnd - unionStart;
+  const matched = [], matchedIds = new Set(), unavailableIds = new Set();
+  let partialHours = 0, partialCoveredHours = 0, overlapHours = 0, invalidHours = 0;
+  let unavailableModelHours = 0, excludedHours = 0, excludedCoveredHours = 0, modeledCoverageMs = 0;
+  for (const [hour, g] of [...groups].sort((a, b) => a[0] - b[0])) {
+    g.segments.sort((a, b) => a.start - b.start || a.end - b.end);
+    let coveredMs = 0, end = hour, actualKwh = 0;
+    for (const segment of g.segments) {
+      coveredMs += Math.max(0, segment.end - Math.max(end, segment.start));
+      end = Math.max(end, segment.end);
+      actualKwh += segment.energyKwh;
+    }
+    modeledCoverageMs += coveredMs;
+    const complete = Math.abs(coveredMs - HOUR) <= toleranceMs;
+    const estimate = model.get(hour);
+    const available = finite(estimate.shadedKwh) && estimate.shadedKwh >= 0;
+    if (!complete) { partialHours += 1; partialCoveredHours += coveredMs / HOUR; }
+    if (g.overlap) overlapHours += 1;
+    if (g.invalid) invalidHours += 1;
+    if (!available) { unavailableModelHours += 1; for (const index of g.sourceIds) unavailableIds.add(index); }
+    if (!complete || g.overlap || g.invalid || !available) {
+      excludedHours += 1; excludedCoveredHours += coveredMs / HOUR; continue;
+    }
+    for (const index of g.sourceIds) matchedIds.add(index);
+    matched.push({ time: utc(hour), durationMinutes: 60, sourceIntervals: g.sourceIds.size, actualKwh, modelKwh: estimate.shadedKwh, errorKwh: estimate.shadedKwh - actualKwh });
   }
   const n = matched.length;
-  const actualKwh = sumKnown(matched, "actualKwh");
-  const modelKwh = sumKnown(matched, "modelKwh");
-  const maeKwh = n
-    ? matched.reduce((sum, row) => sum + Math.abs(row.errorKwh), 0) / n
-    : null;
-  const rmseKwh = n
-    ? Math.sqrt(matched.reduce((sum, row) => sum + row.errorKwh ** 2, 0) / n)
-    : null;
+  outsideModelHours = Math.max(0, (inputCoverageMs - modeledCoverageMs) / HOUR);
+  const actualKwh = n ? sumKnown(matched, "actualKwh") : null;
+  const modelKwh = n ? sumKnown(matched, "modelKwh") : null;
+  const maeKwh = n ? matched.reduce((sum, row) => sum + Math.abs(row.errorKwh), 0) / n : null;
+  const rmseKwh = n ? Math.sqrt(matched.reduce((sum, row) => sum + row.errorKwh ** 2, 0) / n) : null;
   const biasKwh = n ? (modelKwh - actualKwh) / n : null;
+  const warnings = [];
+  if (invalidIntervals) warnings.push(`${invalidIntervals} invalid source intervals were excluded; touched model hours are not compared.`);
+  if (overlapIntervals) warnings.push(`${overlapIntervals} overlapping source intervals affect ${overlapHours} model hours, which were excluded.`);
+  if (partialHours) warnings.push(`${partialHours} model hours have incomplete measured coverage and were excluded.`);
+  if (outsideModelIntervals) warnings.push(`${outsideModelIntervals} source intervals extend outside available model timestamps; those portions are not compared.`);
+  if (unavailableModelHours) warnings.push(`${unavailableModelHours} touched model hours have unknown predicted energy and were excluded.`);
+  if (splitIntervals) warnings.push(`${splitIntervals} source intervals cross an hour boundary. Their interval energy is allocated by duration, assuming uniform energy rate within each split source interval.`);
+  if (!n) warnings.push("No complete, nonoverlapping measured hours match available model energy. No accuracy metrics can be calculated.");
   return {
-    matched,
-    matchedIntervals: n,
-    matchedHours: n / 4,
-    inputIntervals: rows.length,
-    outsideModelIntervals,
-    unavailableModelIntervals,
-    actualKwh,
-    modelKwh,
-    biasKwh,
-    biasPct: actualKwh > 0 ? (modelKwh / actualKwh - 1) * 100 : null,
-    maeKwh,
-    rmseKwh,
-    nmaePct: actualKwh > 0 ? ((maeKwh * n) / actualKwh) * 100 : null,
-    status: n ? "compared" : "not_testable",
-    assumption:
-      "Each modeled hour is divided equally into four quarter hours. This preserves hourly energy but cannot validate within-hour cloud or shadow timing. Only uploaded matching intervals are compared; no annual extrapolation.",
+    matched, matchedIntervals: n, matchedHours: n, matchedSourceIntervals: matchedIds.size,
+    inputIntervals: rows.length, invalidIntervals, invalidHours, outsideModelIntervals, outsideModelHours,
+    unavailableModelIntervals: unavailableIds.size, unavailableModelHours,
+    partialHours, partialCoveredHours, overlapIntervals, overlapHours, excludedHours, excludedCoveredHours,
+    candidateHours: groups.size, inputCoverageHours: inputCoverageMs / HOUR, splitIntervals,
+    actualKwh, modelKwh, biasKwh, biasPct: actualKwh > 0 ? (modelKwh / actualKwh - 1) * 100 : null,
+    maeKwh, rmseKwh, hourlyMaeKwh: maeKwh, hourlyRmseKwh: rmseKwh, hourlyBiasKwh: biasKwh,
+    nmaePct: actualKwh > 0 ? maeKwh * n / actualKwh * 100 : null,
+    periodStart: matched[0]?.time ?? null, periodEnd: n ? utc(timestamp(matched.at(-1).time) + HOUR) : null,
+    status: n ? "compared" : "not_testable", warnings,
+    assumption: "Measured interval energy is aggregated into complete UTC model hours. Partial hours, overlapping or invalid source coverage, outside periods and unknown model energy are excluded. Predictions retain their hourly resolution; no five-minute or quarter-hour prediction accuracy is claimed. Source intervals crossing an hour boundary use an explicit uniform-rate duration allocation. Metrics and totals describe matched hours only; no annual extrapolation.",
   };
 }

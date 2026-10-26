@@ -23,7 +23,7 @@ project:
     energy value with local consumption and optional storage; select bounded Estonian
     contexts and export a reviewable scenario PDF.
   created_at: '2026-10-26T09:40:35Z'
-  updated_at: '2026-10-26T12:25:14.412110+00:00'
+  updated_at: '2026-10-26T13:57:35.184393+00:00'
   status: warning
   aoi:
     bbox:
@@ -58,7 +58,9 @@ interpretation:
   - id: weather
     statement: Hourly ERA5 weather is a grid estimate shared across this bounded pilot;
       it is not site-measured irradiance.
-    rationale: No owner irradiance or production observations were provided.
+    rationale: Site irradiance and a matching installation have not been independently
+      verified for canonical field calibration; private browser uploads do not become
+      retained calibration evidence.
   - id: surface_time
     statement: The frozen 5 m DSM/DTM download is not asserted contemporaneous with
       either 2024 or 2025.
@@ -129,6 +131,14 @@ interpretation:
       kWp array therefore proposes 40 kWh while storage remains disabled.
     rationale: The multiplier is an explicit editable scenario assumption, not an
       engineering or investment recommendation.
+  - id: private_production
+    statement: Private production workbooks and CSVs may be compared in the browser
+      using date-matched historical weather, but are not retained in the canonical
+      source inputs.
+    rationale: Exploratory overlap statistics do not independently verify installation
+      location, equipment, meter meaning or model field accuracy. Production values,
+      filenames and account identifiers are excluded from weather requests and repository
+      evidence.
 sources:
   era5_2024:
     provider: Open-Meteo / Copernicus Climate Change Service
@@ -3211,13 +3221,13 @@ outputs:
       - year
     downloads:
     - csv
-  bundle_assets_index_0_AQ1_wk_css:
-    path: dist/assets/index-0_AQ1-wk.css
+  bundle_assets_index_Ck_pH2PC_css:
+    path: dist/assets/index-Ck-pH2PC.css
     format: CSS
     kind: document
     generated_by: render
-  bundle_assets_index_DAZtOjAc_js:
-    path: dist/assets/index-DAZtOjAc.js
+  bundle_assets_index_DvpYUI4F_js:
+    path: dist/assets/index-DvpYUI4F.js
     format: JS
     kind: document
     generated_by: render
@@ -3469,7 +3479,9 @@ warnings:
   severity: medium
   issue: model
   statement: Energy is an uncalibrated planning estimate from ERA5 and a 5 m horizon
-    model; no owner production field validation was possible.
+    model. Field accuracy has not been established against an independently verified
+    matching installation and retained calibration inputs; private browser uploads
+    are not canonical source evidence.
   mitigation: Inspect source provenance and methodology before using the planning
     estimate.
 - id: SURFACE
@@ -3547,14 +3559,14 @@ runtime:
     - openmapstack @ git+https://github.com/jaakla/openmapstack-skills.git@a3df1cb8126d5222fbb27e3f1dba49aca01b6302
 runs:
   latest:
-    id: run-20261026-122510
+    id: run-20261026-135731
     status: warning
-    started_at: '2026-10-26T12:25:10.323379+00:00'
-    completed_at: '2026-10-26T12:25:14.412110+00:00'
-    inputs_hash: sha256:068b598bc4ded61b1bcdc32217bd9e9fd77e20e34a27d90f7b96e0b8c38c0802
-    outputs_hash: sha256:d73553bb0f7196d2b06737e92a2cb8fb25bf2abc19d7e1786f6d58b691aeacaf
+    started_at: '2026-10-26T13:57:31.044756+00:00'
+    completed_at: '2026-10-26T13:57:35.184393+00:00'
+    inputs_hash: sha256:733b7795706b82d0bbccca7b898943275a516587cdb4554f57563cfde2f89299
+    outputs_hash: sha256:f8b9de578652c6daebc613d467010bb7e6c7ad338acf82b05809b46074487d9e
     record:
-      path: runs/run-20261026-122510.json
+      path: runs/run-20261026-135731.json
     validation_report:
       path: validation/latest-report.json
 views:

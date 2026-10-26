@@ -22,7 +22,7 @@
           {
             "id": "weather",
             "statement": "Hourly ERA5 weather is a grid estimate shared across this bounded pilot; it is not site-measured irradiance.",
-            "rationale": "No owner irradiance or production observations were provided."
+            "rationale": "Site irradiance and a matching installation have not been independently verified for canonical field calibration; private browser uploads do not become retained calibration evidence."
           },
           {
             "id": "surface_time",
@@ -83,6 +83,11 @@
             "id": "storage_capacity",
             "statement": "Automatic battery capacity is twice PV kWp in kWh; the canonical 20 kWp array therefore proposes 40 kWh while storage remains disabled.",
             "rationale": "The multiplier is an explicit editable scenario assumption, not an engineering or investment recommendation."
+          },
+          {
+            "id": "private_production",
+            "statement": "Private production workbooks and CSVs may be compared in the browser using date-matched historical weather, but are not retained in the canonical source inputs.",
+            "rationale": "Exploratory overlap statistics do not independently verify installation location, equipment, meter meaning or model field accuracy. Production values, filenames and account identifiers are excluded from weather requests and repository evidence."
           }
         ]
       },
@@ -4112,7 +4117,7 @@
           "id": "MODEL",
           "severity": "medium",
           "issue": "model",
-          "statement": "Energy is an uncalibrated planning estimate from ERA5 and a 5 m horizon model; no owner production field validation was possible.",
+          "statement": "Energy is an uncalibrated planning estimate from ERA5 and a 5 m horizon model. Field accuracy has not been established against an independently verified matching installation and retained calibration inputs; private browser uploads are not canonical source evidence.",
           "mitigation": "Inspect source provenance and methodology before using the planning estimate."
         },
         {
@@ -4177,5 +4182,5 @@
       "hosted_storage_summary": "sha256:1131544e3f1e165bef094b3ddd6d3603a1edff97fffd7b2c82de786e6dbfa78b"
     }
   },
-  "view_sha256": "sha256:292a17f0cd72b99f3055db1f8ac3adb283cb72f38346b781a0359bcb3bb3b00c"
+  "view_sha256": "sha256:bc54bc8f1ae7ba5abaa3847b84265358e132be2b1a9d0b6bc0f0069ba6012f08"
 }

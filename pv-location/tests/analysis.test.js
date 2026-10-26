@@ -301,27 +301,88 @@ test("owner CSV keeps DST offsets distinct, rejects ambiguous timestamps/negativ
   );
 });
 
-test("owner comparison preserves hourly energy and evaluates only supplied overlapping quarters", () => {
-  const model = {
-    hourly: [
-      { time: "2024-06-21T10:00:00Z", shadedKwh: 4 },
-      { time: "2024-06-21T11:00:00Z", shadedKwh: null },
-    ],
-  };
-  const owner = parseOwnerCsv(
-    "time,energy_kwh\n2024-06-21T10:00:00Z,1\n2024-06-21T10:15:00Z,2\n2024-06-21T11:00:00Z,3\n2023-06-21T10:00:00Z,5",
-  );
+test("owner comparison aggregates four quarter-hours and excludes unavailable/outside model intervals", () => {
+  const model = { hourly: [{ time: "2024-06-21T10:00:00Z", shadedKwh: 4 }, { time: "2024-06-21T11:00:00Z", shadedKwh: null }] };
+  const owner = parseOwnerCsv("time,energy_kwh\n" + [
+    ...[1,2,1,2].map((e,i) => `2024-06-21T10:${String(i*15).padStart(2,'0')}:00Z,${e}`),
+    ...[0,1,2,3].map(i => `2024-06-21T11:${String(i*15).padStart(2,'0')}:00Z,0.5`),
+    "2023-06-21T10:00:00Z,5",
+  ].join("\n"));
   const result = compareOwnerData(owner, model);
-  assert.equal(result.matchedIntervals, 2);
-  assert.equal(result.matchedHours, 0.5);
-  assert.equal(result.outsideModelIntervals, 1);
-  assert.equal(result.unavailableModelIntervals, 1);
-  close(result.actualKwh, 3);
-  close(result.modelKwh, 2);
-  close(result.maeKwh, 0.5);
-  close(result.rmseKwh, Math.sqrt(0.5));
-  close(result.biasPct, -100 / 3);
-  assert.match(result.assumption, /no annual extrapolation/);
+  assert.equal(result.matchedIntervals, 1); assert.equal(result.matchedHours, 1);
+  assert.equal(result.matchedSourceIntervals, 4); assert.equal(result.matched[0].sourceIntervals, 4);
+  assert.equal(result.outsideModelIntervals, 1); close(result.outsideModelHours, 0.25);
+  assert.equal(result.unavailableModelIntervals, 4); assert.equal(result.unavailableModelHours, 1);
+  close(result.actualKwh, 6); close(result.modelKwh, 4); close(result.maeKwh, 2); close(result.rmseKwh, 2);
+  close(result.biasPct, -100/3); assert.equal(result.matched[0].durationMinutes, 60);
+  assert.match(result.assumption, /no annual extrapolation/); assert.match(result.assumption, /hourly resolution/);
+});
+
+const measuredFiveMinutes = (start = "2024-06-21T10:00:00Z", count = 12) => Array.from({ length: count }, (_, i) => ({ time: new Date(Date.parse(start) + i*300000).toISOString(), durationMinutes: 5, energyKwh: 0.1 }));
+
+test("twelve five-minute measurements become one complete hourly observation with hourly error metrics", () => {
+  const model = { hourly: [{ time: "2024-06-21T10:00:00Z", durationHours: 1, shadedKwh: 1.5 }, { time: "2024-07-21T10:00:00Z", shadedKwh: 8 }] };
+  const result = compareOwnerData(measuredFiveMinutes(), model);
+  assert.equal(result.matchedHours, 1); assert.equal(result.matchedIntervals, 1); assert.equal(result.matchedSourceIntervals, 12);
+  close(result.actualKwh, 1.2); close(result.modelKwh, 1.5); close(result.hourlyMaeKwh, 0.3); close(result.hourlyRmseKwh, 0.3); close(result.biasPct, 25);
+  assert.equal(result.candidateHours, 1); assert.equal(result.splitIntervals, 0);
+  assert.equal(result.periodStart, "2024-06-21T10:00:00.000Z"); assert.equal(result.periodEnd, "2024-06-21T11:00:00.000Z");
+});
+
+test("partial measured hours are excluded rather than filled or compared to a fraction of a prediction", () => {
+  const result = compareOwnerData(measuredFiveMinutes(undefined, 11), { hourly: [{ time: "2024-06-21T10:00:00Z", shadedKwh: 1.2 }] });
+  assert.equal(result.status, "not_testable"); assert.equal(result.matchedHours, 0); assert.equal(result.partialHours, 1);
+  close(result.partialCoveredHours, 55/60); close(result.excludedCoveredHours, 55/60);
+  assert.equal(result.actualKwh, null); assert.equal(result.maeKwh, null); assert.equal(result.biasPct, null);
+  assert.ok(result.warnings.some(w => w.includes("incomplete measured coverage")));
+});
+
+test("duplicate and nested overlaps invalidate touched hours without double-counting duration", () => {
+  const source = measuredFiveMinutes();
+  const model = { hourly: [{ time: source[0].time, shadedKwh: 1.2 }] };
+  const duplicate = compareOwnerData([...source, source[3]], model);
+  assert.equal(duplicate.matchedHours, 0); assert.equal(duplicate.overlapHours, 1); assert.equal(duplicate.overlapIntervals, 2);
+  close(duplicate.inputCoverageHours, 1); assert.equal(duplicate.partialHours, 0);
+  const nested = compareOwnerData([...source, { time: source[0].time, durationMinutes: 60, energyKwh: 1.2 }], model);
+  assert.equal(nested.overlapIntervals, 13); assert.equal(nested.matchedHours, 0);
+});
+
+test("cross-hour source energy is allocated by duration only with an explicit assumption", () => {
+  const source = [
+    { time: "2024-06-21T10:00:00Z", durationMinutes: 55, energyKwh: 11 },
+    { time: "2024-06-21T10:55:00Z", durationMinutes: 10, energyKwh: 2 },
+    { time: "2024-06-21T11:05:00Z", durationMinutes: 55, energyKwh: 11 },
+  ];
+  const result = compareOwnerData(source, { hourly: [{ time: "2024-06-21T10:00:00Z", shadedKwh: 10 }, { time: "2024-06-21T11:00:00Z", shadedKwh: 14 }] });
+  assert.equal(result.matchedHours, 2); assert.equal(result.matchedSourceIntervals, 3); assert.equal(result.splitIntervals, 1);
+  close(result.matched[0].actualKwh, 12); close(result.matched[1].actualKwh, 12); close(result.actualKwh, 24);
+  close(result.maeKwh, 2); close(result.biasKwh, 0);
+  assert.ok(result.warnings.some(w => /uniform energy rate/.test(w)));
+});
+
+test("a monthly upload outside modeled years gives no fabricated totals or accuracy", () => {
+  const result = compareOwnerData(measuredFiveMinutes("2026-06-21T10:00:00+02:00"), { hourly: [{ time: "2025-06-21T08:00:00Z", shadedKwh: 1.2 }] });
+  assert.equal(result.status, "not_testable"); assert.equal(result.matchedHours, 0); assert.equal(result.outsideModelIntervals, 12);
+  close(result.outsideModelHours, 1); assert.equal(result.actualKwh, null); assert.equal(result.modelKwh, null); assert.equal(result.rmseKwh, null);
+  const repeated = measuredFiveMinutes("2026-06-21T10:00:00+02:00");
+  close(compareOwnerData([...repeated, ...repeated], { hourly: [] }).outsideModelHours, 1);
+});
+
+test("known zero measured energy yields absolute hourly errors but unknown relative error", () => {
+  const zero = measuredFiveMinutes().map(row => ({ ...row, energyKwh: 0 }));
+  const result = compareOwnerData(zero, { hourly: [{ time: zero[0].time, shadedKwh: 1 }] });
+  assert.equal(result.matchedHours, 1); close(result.actualKwh, 0); close(result.maeKwh, 1);
+  assert.equal(result.biasPct, null); assert.equal(result.nmaePct, null);
+});
+
+test("invalid durations/energy and gaps cannot silently create a complete comparison hour", () => {
+  const source = measuredFiveMinutes();
+  const model = { hourly: [{ time: source[0].time, shadedKwh: 1.2 }] };
+  const invalid = compareOwnerData([...source, { time: source[0].time, energyKwh: -1, durationMinutes: 5 }, { time: source[0].time, energyKwh: 1, durationMinutes: 0 }], model);
+  assert.equal(invalid.invalidIntervals, 2); assert.equal(invalid.invalidHours, 1); assert.equal(invalid.matchedHours, 0);
+  const gap = compareOwnerData(source.filter((_, i) => i !== 6), model);
+  assert.equal(gap.partialHours, 1); assert.equal(gap.matchedHours, 0);
+  assert.throws(() => compareOwnerData(source, { hourly: [{ time: source[0].time, durationHours: 0.25, shadedKwh: 1 }] }), /model hours/);
 });
 
 test("pinned 2024/2025 sources produce complete finite years with monotone shade losses and exact aggregation", () => {

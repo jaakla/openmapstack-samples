@@ -1,4 +1,3 @@
-import { useMemo, useState } from "react";
 import {
   ChevronDown,
   Download,
@@ -8,7 +7,6 @@ import {
   Info,
   ArrowUpRight,
 } from "lucide-react";
-import { parseOwnerCsv, compareOwnerData } from "./analysis.js";
 import { number } from "./Results.jsx";
 import { downloadFile } from "./downloads.js";
 import ConsumptionPanel from "./ConsumptionPanel.jsx";
@@ -393,130 +391,4 @@ export function EvidencePanel({ project, analysis, horizon }) {
     </div>
   );
 }
-export function ValidationPanel({ analysis, system, busy }) {
-  const [upload, setUpload] = useState(null),
-    [error, setError] = useState("");
-  const comparison = useMemo(
-    () =>
-      upload?.valid && analysis ? compareOwnerData(upload, analysis) : null,
-    [upload, analysis],
-  );
-  const load = async (e) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    try {
-      if (file.size > 15e6)
-        throw new Error("CSV exceeds the 15 MB browser limit.");
-      const parsed = parseOwnerCsv(await file.text());
-      setUpload({ ...parsed, fileName: file.name });
-      setError("");
-    } catch (err) {
-      setError(err.message);
-      setUpload(null);
-    }
-    e.target.value = "";
-  };
-  return (
-    <div className="validation-panel">
-      <Section title="Compare your production">
-        <p className="field-help">
-          Import 15-minute interval energy from the same site. Set the polygon,
-          DC capacity and array configuration to match your installation first.
-        </p>
-        <label className="upload-zone">
-          <Upload size={23} />
-          <strong>Choose production CSV</strong>
-          <span>Processed locally in this browser</span>
-          <input type="file" accept=".csv,text/csv" onChange={load} />
-        </label>
-        <p className="field-help">
-          Headers <code>time,energy_kwh</code>. Use interval-start timestamps
-          with <code>Z</code> or an explicit UTC offset. Values are kWh per 15
-          minutes, not kW.
-        </p>
-        <button
-          className="text-button"
-          onClick={() =>
-            downloadFile(
-              "production-format.csv",
-              "time,energy_kwh\n",
-              "text/csv",
-            )
-          }
-        >
-          Download CSV header
-        </button>
-        {error ? (
-          <p className="warning" role="alert">
-            {error}
-          </p>
-        ) : null}
-        {upload ? (
-          <>
-            <p>
-              {upload.fileName}: {number(upload.rows.length)} valid intervals
-            </p>
-            {upload.errors.slice(0, 6).map((e) => (
-              <p className="warning" key={e}>
-                {e}
-              </p>
-            ))}
-            {upload.warnings.map((w) => (
-              <p className="warning" key={w}>
-                {w}
-              </p>
-            ))}
-          </>
-        ) : (
-          <p className="pending-note">
-            Owner calibration: pending real production data.
-          </p>
-        )}
-      </Section>
-      {comparison ? (
-        <Section title="Overlapping intervals">
-          <dl className="quality-list">
-            {[
-              ["Matched", `${comparison.matchedIntervals} intervals`],
-              ["Measured", `${number(comparison.actualKwh, 2)} kWh`],
-              ["Modeled", `${number(comparison.modelKwh, 2)} kWh`],
-              ["Bias", `${number(comparison.biasPct, 1)}%`],
-              ["MAE", `${number(comparison.maeKwh, 3)} kWh / interval`],
-              ["RMSE", `${number(comparison.rmseKwh, 3)} kWh / interval`],
-              ["Outside model year", comparison.outsideModelIntervals],
-            ].map(([label, value]) => (
-              <div key={label}>
-                <dt>{label}</dt>
-                <dd>{value}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="warning">{comparison.assumption}</p>
-          <button
-            disabled={!comparison.matchedIntervals || busy}
-            onClick={() =>
-              downloadFile(
-                "production-comparison.csv",
-                [
-                  "time,actual_kwh,model_kwh,error_kwh",
-                  ...comparison.matched.map((r) =>
-                    [r.time, r.actualKwh, r.modelKwh, r.errorKwh].join(","),
-                  ),
-                ].join("\n"),
-                "text/csv",
-              )
-            }
-          >
-            <Download size={14} />
-            Export comparison
-          </button>
-        </Section>
-      ) : null}
-      <p className="field-help">
-        Current DC capacity: {number(system.kwp, 1)} kWp. Hourly model energy is
-        divided equally into four quarters; this comparison does not establish
-        quarter-hour timing accuracy.
-      </p>
-    </div>
-  );
-}
+export { default as ValidationPanel } from "./ProductionValidationPanel.jsx";

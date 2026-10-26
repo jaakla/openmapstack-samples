@@ -5,7 +5,7 @@ export default defineConfig({
   base: "./",
   // These libraries are used on demand. Prepare them before the first area/PDF
   // action so dependency discovery cannot invalidate an in-flight dev import.
-  optimizeDeps: { include: ["geotiff", "jspdf"] },
+  optimizeDeps: { include: ["geotiff", "jspdf", "xlsx"] },
   build: {
     chunkSizeWarningLimit: 3000,
     rollupOptions: { output: { inlineDynamicImports: true } },

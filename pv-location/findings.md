@@ -4,7 +4,7 @@ project_id: tartu-pv-location
 question: Estimate hypothetical PV production, local shadow losses and historical
   energy value with local consumption and optional storage; select bounded Estonian
   contexts and export a reviewable scenario PDF.
-run_id: run-20261026-122510
+run_id: run-20261026-135731
 scope: one hypothetical 20 kWp array within the retained manifest AOI, complete UTC
   years 2024 and 2025
 validation:
@@ -95,7 +95,7 @@ validation:
   - id: hosted_table_matches_canonical
     status: passed
 validation_report: validation/latest-report.json
-context_sha256: sha256:71c43620e694cb9588863fbc64f583f69da2e5a5b88becfdab1f96c4e49dfa41
+context_sha256: sha256:c6ae2813c8a2f4def6b1ae234fbd535b0d04620c8c27c654ef47297787df83f2
 assumptions:
 - id: hypothetical
   statement: The initial 30 × 12 m, 20 kWp array is a hypothetical planning scenario,
@@ -110,7 +110,9 @@ assumptions:
 - id: weather
   statement: Hourly ERA5 weather is a grid estimate shared across this bounded pilot;
     it is not site-measured irradiance.
-  rationale: No owner irradiance or production observations were provided.
+  rationale: Site irradiance and a matching installation have not been independently
+    verified for canonical field calibration; private browser uploads do not become
+    retained calibration evidence.
 - id: surface_time
   statement: The frozen 5 m DSM/DTM download is not asserted contemporaneous with
     either 2024 or 2025.
@@ -178,12 +180,22 @@ assumptions:
     array therefore proposes 40 kWh while storage remains disabled.
   rationale: The multiplier is an explicit editable scenario assumption, not an engineering
     or investment recommendation.
+- id: private_production
+  statement: Private production workbooks and CSVs may be compared in the browser
+    using date-matched historical weather, but are not retained in the canonical source
+    inputs.
+  rationale: Exploratory overlap statistics do not independently verify installation
+    location, equipment, meter meaning or model field accuracy. Production values,
+    filenames and account identifiers are excluded from weather requests and repository
+    evidence.
 warnings:
 - id: MODEL
   severity: medium
   issue: model
   statement: Energy is an uncalibrated planning estimate from ERA5 and a 5 m horizon
-    model; no owner production field validation was possible.
+    model. Field accuracy has not been established against an independently verified
+    matching installation and retained calibration inputs; private browser uploads
+    are not canonical source evidence.
   mitigation: Inspect source provenance and methodology before using the planning
     estimate.
 - id: SURFACE
@@ -261,8 +273,8 @@ findings:
   limitations:
   - Hypothetical array and estimated 10 kWh daytime / 4 kWh nighttime local daily
     demand in Europe/Tallinn; daytime is 07:00–23:00. The import adder is 0 EUR/MWh;
-    charges are included only when explicitly represented in that adder. No owner
-    field validation.
+    charges are included only when explicitly represented in that adder. Independently
+    verified field calibration is not established.
 - id: season_2025
   statement: '2025: clear-sky estimate 31969.9 kWh; weather-adjusted shadow-free 18647.6
     kWh; locally shaded 18012.8 kWh. Local shadow loss 634.8 kWh (3.40%). If all generation
@@ -282,8 +294,8 @@ findings:
   limitations:
   - Hypothetical array and estimated 10 kWh daytime / 4 kWh nighttime local daily
     demand in Europe/Tallinn; daytime is 07:00–23:00. The import adder is 0 EUR/MWh;
-    charges are included only when explicitly represented in that adder. No owner
-    field validation.
+    charges are included only when explicitly represented in that adder. Independently
+    verified field calibration is not established.
 evidence:
   seasonal_summary:
     definition:
@@ -1100,7 +1112,7 @@ evidence:
 
 Estimate hypothetical PV production, local shadow losses and historical energy value with local consumption and optional storage; select bounded Estonian contexts and export a reviewable scenario PDF.
 
-Scope: one hypothetical 20 kWp array within the retained manifest AOI, complete UTC years 2024 and 2025. Run: `run-20261026-122510`. Validation: **warning**.
+Scope: one hypothetical 20 kWp array within the retained manifest AOI, complete UTC years 2024 and 2025. Run: `run-20261026-135731`. Validation: **warning**.
 
 ## season_2024
 
@@ -1113,7 +1125,7 @@ Evidence:
 - [hourly_results](data/derived/hourly.csv)
 - [storage_summary](data/derived/storage-summary.csv)
 
-Limitation: Hypothetical array and estimated 10 kWh daytime / 4 kWh nighttime local daily demand in Europe/Tallinn; daytime is 07:00–23:00. The import adder is 0 EUR/MWh; charges are included only when explicitly represented in that adder. No owner field validation.
+Limitation: Hypothetical array and estimated 10 kWh daytime / 4 kWh nighttime local daily demand in Europe/Tallinn; daytime is 07:00–23:00. The import adder is 0 EUR/MWh; charges are included only when explicitly represented in that adder. Independently verified field calibration is not established.
 
 ## season_2025
 
@@ -1126,13 +1138,13 @@ Evidence:
 - [hourly_results](data/derived/hourly.csv)
 - [storage_summary](data/derived/storage-summary.csv)
 
-Limitation: Hypothetical array and estimated 10 kWh daytime / 4 kWh nighttime local daily demand in Europe/Tallinn; daytime is 07:00–23:00. The import adder is 0 EUR/MWh; charges are included only when explicitly represented in that adder. No owner field validation.
+Limitation: Hypothetical array and estimated 10 kWh daytime / 4 kWh nighttime local daily demand in Europe/Tallinn; daytime is 07:00–23:00. The import adder is 0 EUR/MWh; charges are included only when explicitly represented in that adder. Independently verified field calibration is not established.
 
 ## Assumptions and limitations
 
 - The initial 30 × 12 m, 20 kWp array is a hypothetical planning scenario, not an observed PV installation or suitability recommendation. Issue #4 requests manual polygon planning; the open-surface patch was selected from the frozen DSM without inferring rights or engineering suitability.
 - All metric geometry and horizon distances use EPSG:3301; GeoJSON coordinates are WGS84 longitude, latitude. Estonia's projected CRS supports metre-based calculations without Web Mercator area distortion.
-- Hourly ERA5 weather is a grid estimate shared across this bounded pilot; it is not site-measured irradiance. No owner irradiance or production observations were provided.
+- Hourly ERA5 weather is a grid estimate shared across this bounded pilot; it is not site-measured irradiance. Site irradiance and a matching installation have not been independently verified for canonical field calibration; private browser uploads do not become retained calibration evidence.
 - The frozen 5 m DSM/DTM download is not asserted contemporaneous with either 2024 or 2025. Per-cell LiDAR acquisition dates are not exposed by the selected WCS response.
 - Local shadows use equal-weight polygon receiver samples and a 500 m DSM horizon at 2° azimuth intervals, with 2 m mounting height initially. A bounded horizon approximation captures major buildings and vegetation while remaining interactive; module electrical mismatch is outside scope.
 - Surplus export revenue is exported kWh / 1000 × (EE spot EUR/MWh − sales margin); on-site PV avoids imports at spot price plus the explicit import adder. The extended planning scenario separates self-consumption value from surplus sales; the original all-generation-export comparison is retained and labeled.
@@ -1145,7 +1157,8 @@ Limitation: Hypothetical array and estimated 10 kWh daytime / 4 kWh nighttime lo
 - The canonical source AOI remains the pinned Tartu pilot. Another selected Estonian area loads its own bounded terrain and weather context and remains exploratory, with request-time provenance. Tartu terrain and weather cannot establish shading or weather at another location; live request hashes do not substitute for retained raw source pins.
 - Storage is explicitly disabled in the canonical baseline. Optional historical dispatch uses configured capacity, charge/discharge limits, efficiency, reserve, permitted grid charging/export and cycling cost, with finite state resolution and historical price knowledge. Storage results are separate from the comparison without storage; perfect historical information does not establish live achievable returns or a recommended battery size.
 - Automatic battery capacity is twice PV kWp in kWh; the canonical 20 kWp array therefore proposes 40 kWh while storage remains disabled. The multiplier is an explicit editable scenario assumption, not an engineering or investment recommendation.
-- Energy is an uncalibrated planning estimate from ERA5 and a 5 m horizon model; no owner production field validation was possible.
+- Private production workbooks and CSVs may be compared in the browser using date-matched historical weather, but are not retained in the canonical source inputs. Exploratory overlap statistics do not independently verify installation location, equipment, meter meaning or model field accuracy. Production values, filenames and account identifiers are excluded from weather requests and repository evidence.
+- Energy is an uncalibrated planning estimate from ERA5 and a 5 m horizon model. Field accuracy has not been established against an independently verified matching installation and retained calibration inputs; private browser uploads are not canonical source evidence.
 - DSM catalog metadata describes acquisition campaigns in 2017–2020; exact cell dates are unknown. The frozen 5 m surface may differ from 2024/2025 and omits small objects, seasonal foliage and electrical mismatch.
 - The retained canonical source context is a 2 × 2 km Tartu pilot. Another selected Estonian area loads its own bounded source context and remains exploratory; missing context is not extrapolated from Tartu.
 - Energy value uses explicit consumption and price assumptions; optional storage is a separate historical dispatch comparison. Figures exclude taxes, unentered grid charges, curtailment and financing. The default import adder is zero, and 2025 quarter-hour prices are averaged hourly.

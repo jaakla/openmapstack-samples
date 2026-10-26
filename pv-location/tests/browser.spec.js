@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import { mockAreaSources } from "./fixtures/area-sources.js";
+import { solarmanWorkbook } from "./fixtures/solarman-workbook.js";
 const project = JSON.parse(
   fs.readFileSync(
     new URL("../public/data/project.json", import.meta.url),
@@ -59,12 +60,16 @@ test("canonical replay, live scenarios, geometry, export/import and honest CSV c
     name: "test-only.csv",
     mimeType: "text/csv",
     buffer: Buffer.from(
-      "time,energy_kwh\n2024-06-21T10:00:00Z,1\n2024-06-21T10:15:00Z,1\n",
+      "time,energy_kwh\n2024-06-21T10:00:00Z,1\n2024-06-21T10:15:00Z,1\n2024-06-21T10:30:00Z,1\n2024-06-21T10:45:00Z,1\n",
     ),
   });
-  await expect(page.getByText("2 intervals", { exact: true })).toBeVisible();
   await expect(
-    page.getByText(/Each modeled hour is divided equally/),
+    page.getByText("1 complete hour", { exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByText(
+      /Measured interval energy is aggregated into complete UTC model hours/,
+    ),
   ).toBeVisible();
   await page.locator(".upload-zone input").setInputFiles({
     name: "ambiguous.csv",
@@ -128,6 +133,142 @@ test("canonical replay, live scenarios, geometry, export/import and honest CSV c
     page.getByText(/Government municipality counts are context/),
   ).toBeVisible();
   expect(errors).toEqual([]);
+});
+
+test.describe("Solarman production validation", () => {
+  test.use({ timezoneId: "Europe/Tallinn" });
+  test("monthly Excel files retain logger offsets and compare matching 2026 weather privately", async ({
+    page,
+  }) => {
+    const errors = [],
+      requests = [];
+    page.on("pageerror", (error) => errors.push(error.message));
+    await page.route(
+      "https://archive-api.open-meteo.com/v1/archive?**",
+      (route) => {
+        const url = new URL(route.request().url());
+        requests.push(url);
+        const start = Date.parse(url.searchParams.get("start_date"));
+        const end = Date.parse(url.searchParams.get("end_date")) + 86400000;
+        const time = Array.from({ length: (end - start) / 3600000 }, (_, i) =>
+          new Date(start + i * 3600000).toISOString().slice(0, 16),
+        );
+        // Synthetic weather tests the UI/temporal path; it is not field-validation evidence.
+        return route.fulfill({
+          json: {
+            latitude: 58.25,
+            longitude: 26.75,
+            utc_offset_seconds: 0,
+            hourly_units: {
+              temperature_2m: "°C",
+              shortwave_radiation: "W/m²",
+              direct_normal_irradiance: "W/m²",
+              diffuse_radiation: "W/m²",
+            },
+            hourly: {
+              time,
+              temperature_2m: time.map(() => 20),
+              shortwave_radiation: time.map(() => 500),
+              direct_normal_irradiance: time.map(() => 600),
+              diffuse_radiation: time.map(() => 100),
+            },
+          },
+        });
+      },
+    );
+    await page.goto("/");
+    await settled(page);
+    const annual = await page.getByTestId("shadedKwh").textContent();
+    await page.getByRole("tab", { name: "Validate", exact: true }).click();
+    const part = (startMinute) =>
+      Array.from({ length: 13 }, (_, i) => [
+        new Date(Date.UTC(2026, 5, 1, 12, startMinute + 5 * i)),
+        "UTC+02:00",
+        1000,
+        -8000,
+        8000,
+      ]);
+    await page
+      .getByLabel("Upload production files", { exact: true })
+      .setInputFiles([
+        {
+          name: "synthetic-month-part-1.xlsx",
+          mimeType:
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          buffer: Buffer.from(solarmanWorkbook(part(0))),
+        },
+        {
+          name: "synthetic-month-part-2.xlsx",
+          mimeType:
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+          buffer: Buffer.from(solarmanWorkbook(part(60))),
+        },
+      ]);
+    await expect(page.getByTestId("production-import-summary")).toContainText(
+      "25 power samples",
+    );
+    await expect(page.getByTestId("production-import-summary")).toContainText(
+      "UTC+02:00",
+    );
+    await expect(page.getByTestId("production-import-summary")).toContainText(
+      "2026-06-01 10:00 UTC",
+    );
+    await expect(page.getByTestId("production-no-overlap")).toContainText(
+      "Load weather for imported dates",
+    );
+    await expect(
+      page.getByRole("button", { name: "Export comparison", exact: true }),
+    ).toBeDisabled();
+    await page
+      .getByRole("button", {
+        name: "Load weather for imported dates",
+        exact: true,
+      })
+      .click();
+    await expect(page.getByTestId("production-comparison")).toContainText(
+      "2 complete hours",
+      { timeout: 30000 },
+    );
+    const actual = page
+      .getByTestId("production-comparison")
+      .locator("div")
+      .filter({
+        has: page.locator("dt", { hasText: "Measured / integrated" }),
+      });
+    await expect(actual.locator("dd")).toHaveText("2 kWh");
+    expect(requests).toHaveLength(1);
+    expect(requests[0].searchParams.get("start_date")).toBe("2026-06-01");
+    expect([...requests[0].searchParams.keys()].sort()).toEqual([
+      "end_date",
+      "hourly",
+      "latitude",
+      "longitude",
+      "models",
+      "start_date",
+      "temperature_unit",
+      "timezone",
+    ]);
+    expect(requests[0].href).not.toContain("synthetic");
+    const [comparison] = await Promise.all([
+      page.waitForEvent("download"),
+      page
+        .getByRole("button", { name: "Export comparison", exact: true })
+        .click(),
+    ]);
+    const exported = fs.readFileSync(await comparison.path(), "utf8");
+    expect(exported.trim().split("\n")).toHaveLength(3);
+    expect(exported).toContain("2026-06-01T10:00:00.000Z,1,");
+    expect(
+      await page.evaluate(() => JSON.stringify({ ...localStorage })),
+    ).not.toContain("synthetic-month");
+    await page
+      .getByRole("button", { name: "Remove production data", exact: true })
+      .click();
+    await expect(page.getByTestId("production-import-summary")).toHaveCount(0);
+    await expect(page.getByTestId("production-comparison")).toHaveCount(0);
+    await expect(page.getByTestId("shadedKwh")).toHaveText(annual);
+    expect(errors).toEqual([]);
+  });
 });
 for (const width of [390, 320])
   test(`mobile ${width}px keeps map visible and controls accessible`, async ({

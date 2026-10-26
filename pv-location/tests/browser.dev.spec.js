@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
 import { mockAreaSources } from "./fixtures/area-sources.js";
+import { solarmanWorkbook } from "./fixtures/solarman-workbook.js";
 
 // The server starts with an isolated fresh cache; the second case reuses its warmed dependencies.
 for (const cache of ["cold", "warm"]) {
@@ -32,6 +33,30 @@ for (const cache of ["cold", "warm"]) {
       "false",
     );
     const initialNavigations = navigations.length;
+
+    await page.getByRole("tab", { name: "Validate", exact: true }).click();
+    await page
+      .getByLabel("Upload production files", { exact: true })
+      .setInputFiles({
+        name: "synthetic-solarman.xlsx",
+        mimeType:
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        buffer: Buffer.from(
+          solarmanWorkbook(
+            Array.from({ length: 13 }, (_, i) => [
+              new Date(Date.UTC(2026, 5, 1, 12, i * 5)),
+              "UTC+02:00",
+              1000,
+              0,
+              0,
+            ]),
+          ),
+        ),
+      });
+    await expect(page.getByTestId("production-import-summary")).toContainText(
+      "13 power samples",
+    );
+    await page.getByRole("tab", { name: "Scenario", exact: true }).click();
 
     const [pdf] = await Promise.all([
       page.waitForEvent("download"),
