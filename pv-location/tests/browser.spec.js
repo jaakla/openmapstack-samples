@@ -66,6 +66,14 @@ test("canonical replay, live scenarios, geometry, export/import and honest CSV c
   await expect(
     page.getByText("1 complete hour", { exact: true }),
   ).toBeVisible();
+  await expect(page.getByTestId("production-assessment")).toHaveAttribute(
+    "data-assessment-status",
+    "limited",
+  );
+  await expect(page.getByTestId("production-assessment")).toHaveAttribute(
+    "data-tone",
+    "neutral",
+  );
   await expect(
     page.getByText(
       /Measured interval energy is aggregated into complete UTC model hours/,
@@ -137,6 +145,99 @@ test("canonical replay, live scenarios, geometry, export/import and honest CSV c
 
 test.describe("Solarman production validation", () => {
   test.use({ timezoneId: "Europe/Tallinn" });
+  test("quick assessment explains energy bias, its screening ranges and limited evidence", async ({
+    page,
+  }) => {
+    const errors = [];
+    page.on("pageerror", (error) => errors.push(error.message));
+    // Invented measurements derived from the pinned public model test this UI only.
+    // They are never owner validation evidence or a calibrated physical result.
+    const [header, ...lines] = fs
+      .readFileSync(
+        new URL("../public/data/hourly.csv", import.meta.url),
+        "utf8",
+      )
+      .trim()
+      .split(/\r?\n/)
+      .map((line) => line.split(","));
+    const ti = header.indexOf("time"),
+      si = header.indexOf("shadedKwh");
+    const sample = lines.filter(
+      (row) => row[ti] >= "2025-06-01" && row[ti] < "2025-06-08",
+    );
+    expect(sample).toHaveLength(168);
+    const csv = (biasPct) =>
+      [
+        "time,energy_kwh",
+        ...sample.flatMap((row) =>
+          Array.from(
+            { length: 4 },
+            (_, quarter) =>
+              `${new Date(Date.parse(row[ti]) + quarter * 900000).toISOString()},${Number(row[si]) / (1 + biasPct / 100) / 4}`,
+          ),
+        ),
+      ].join("\n");
+    await page.goto("/");
+    await settled(page);
+    await page.getByRole("tab", { name: "Validate", exact: true }).click();
+    await page
+      .getByLabel("Upload production files", { exact: true })
+      .setInputFiles({
+        name: "synthetic-guide-2025.csv",
+        mimeType: "text/csv",
+        buffer: Buffer.from(csv(-13.5)),
+      });
+    const card = page.getByTestId("production-assessment");
+    await expect(card).toHaveAttribute("data-assessment-status", "assessed");
+    await expect(card).toHaveAttribute("data-tone", "review");
+    await expect(page.getByTestId("assessment-headline")).toHaveText(
+      "Worth checking",
+    );
+    await expect(page.getByTestId("assessment-result")).toContainText(
+      "13.5% less energy",
+    );
+    await expect(card).toContainText("168 matched hours across 7 days");
+    await expect(card).toContainText("Absolute hourly differences add up to");
+    await card.getByText("What is a good range?", { exact: true }).click();
+    await expect(
+      card.getByRole("cell", { name: "Over 10–20%", exact: true }),
+    ).toBeVisible();
+    await expect(
+      card.getByText(/not a formal acceptance standard/),
+    ).toBeVisible();
+    await page
+      .getByLabel("Upload production files", { exact: true })
+      .setInputFiles({
+        name: "synthetic-agreement-2025.csv",
+        mimeType: "text/csv",
+        buffer: Buffer.from(csv(0)),
+      });
+    await expect(card).toHaveAttribute("data-tone", "good");
+    await expect(page.getByTestId("assessment-headline")).toHaveText(
+      "Close energy total",
+    );
+    await page
+      .getByLabel("Upload production files", { exact: true })
+      .setInputFiles({
+        name: "synthetic-one-hour.csv",
+        mimeType: "text/csv",
+        buffer: Buffer.from(
+          [
+            "time,energy_kwh",
+            ...Array.from({ length: 4 }, (_, quarter) => {
+              const row = sample.find((entry) => Number(entry[si]) > 0);
+              return `${new Date(Date.parse(row[ti]) + quarter * 900000).toISOString()},${Number(row[si]) / 4}`;
+            }),
+          ].join("\n"),
+        ),
+      });
+    await expect(card).toHaveAttribute("data-assessment-status", "limited");
+    await expect(card).toHaveAttribute("data-tone", "neutral");
+    await expect(page.getByTestId("assessment-headline")).toHaveText(
+      "More data needed",
+    );
+    expect(errors).toEqual([]);
+  });
   test("mixed sampling intervals compare hourly and changing the gap limit reuses the imported workbook", async ({
     page,
   }) => {

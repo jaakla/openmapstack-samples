@@ -93,6 +93,11 @@
             "id": "production_interpolation",
             "statement": "Solarman power-sample comparisons estimate energy by linear interpolation between adjacent observations over their actual elapsed time. The editable maximum interpolation span defaults to 30 minutes, with longer spans excluded; accepted integrals are clipped at UTC hour boundaries.",
             "rationale": "Logging intervals can vary. The observed modal interval is a diagnostic separate from the selected interpolation limit. Accepted extended spans, their duration and excluded-span duration remain visible; complete-hour comparison statistics describe estimated energy rather than metered interval energy or independently verified field accuracy."
+          },
+          {
+            "id": "production_screening",
+            "statement": "The private matched-period energy guide uses absolute total-energy bias bands up to 5 percent, over 5 to 10 percent, over 10 to 20 percent and over 20 percent. It requires seven distinct matched UTC dates, 24 matched hours with positive imported or modeled production, and 80 percent coverage of the elapsed source/model overlap, including whole missing hours and days.",
+            "rationale": "These are project screening heuristics, not NREL or PVGIS standards or an accuracy guarantee. Unknown coverage or insufficient evidence leaves the assessment limited. Hourly errors may offset in the total; hourly MAE and RMSE remain separate diagnostics. The guide does not calibrate the model, establish annual performance or upgrade canonical field validation."
           }
         ]
       },
@@ -4187,5 +4192,5 @@
       "hosted_storage_summary": "sha256:1131544e3f1e165bef094b3ddd6d3603a1edff97fffd7b2c82de786e6dbfa78b"
     }
   },
-  "view_sha256": "sha256:ddd4b02bd16533e835fb566f73eed9e434665963fd8e010a83f0fb5af98c0a41"
+  "view_sha256": "sha256:63d9ac78a43e6ec2a1b792c6820e52a9b0357a2aa313f8099353a1e592f09bbb"
 }

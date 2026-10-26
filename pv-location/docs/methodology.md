@@ -82,4 +82,25 @@ Import metadata records `integrationMaxGapMinutes`, `typicalIntervalMinutes` and
 
 Measured interval energy or estimated power integrals are aggregated to complete UTC hours, matching model resolution. Partial hours, overlaps, invalid intervals and missing model energy are excluded; hourly MAE/RMSE/bias and totals use only complete matching hours. For power logs these are statistics over the estimated hourly energy, without annual extrapolation or claims of native-sample timing accuracy. Generic energy intervals crossing an hour use explicitly disclosed uniform-rate allocation; Solarman's linear power integrals are already clipped at those boundaries. Period-specific ERA5 weather can be loaded for up to 366 days at the current scenario location, including years outside the market baseline. Radiation values retain Open-Meteo's preceding-hour convention and shift back one hour; complete UTC coverage is verified, with no fallback to Tartu weather. Production values never leave browser memory in that request.
 
+### Production screening guide
+
+The quick assessment is a project-specific screening guide for the matched period. Signed total-energy bias is `100 × (modeled kWh / imported kWh − 1)` over complete matching hours; a positive value means the model estimates more energy. The guide uses its absolute value:
+
+| Absolute total-energy bias | App interpretation |
+| --- | --- |
+| Up to 5% | Close energy total |
+| Over 5%, up to 10% | Reasonable energy total |
+| Over 10%, up to 20% | Worth checking |
+| Over 20% | Large energy difference |
+
+These bands are our screening heuristics. They are not an NREL or PVGIS acceptance standard, a statistical confidence interval or an accuracy guarantee. They do not grade individual hours, annual performance or the validity of the imported measurement.
+
+An assessment requires at least seven distinct UTC dates represented by complete matched hours, at least 24 matched hours where imported or modeled production is positive, and at least 80% elapsed-overlap coverage. The coverage denominator counts UTC hour bins over the intersection of the full source and model time envelopes, rounding the overlap start down and its exclusive end up to hour boundaries. It therefore includes entire missing hours or days inside that window, including hours with absent model values. It is not the count of hours touched by accepted source intervals. The numerator is complete matched hours. Source sample bounds are used when available; otherwise interval starts and durations define the source envelope. If coverage is unknown or an evidence gate is unmet, the assessment remains limited. It is not assessable without valid matches, positive imported total energy and a valid import. Invalid or overlapping source data must be resolved before relying on a band. These gates are also project choices, rather than an independent validation standard.
+
+Hourly MAE and RMSE remain separate, ungraded diagnostics in kWh per matched hour. Normalized metrics use mean imported production and remain unknown when that denominator is zero. Positive and negative hourly errors can cancel in a close energy total. A period meeting the evidence gates may still be seasonally unrepresentative; the app makes no annual extrapolation and does not automatically calibrate any parameter. Solarman hourly energy remains estimated by the selected power-interpolation policy.
+
+Review the installation location and weather grid, explicit source timezone and timestamp basis, DC capacity and measurement location, tilt/orientation, local shading and missing source periods before interpreting a difference. The [Sandia PVPMC validation procedure](https://pvpmc.sandia.gov/model-validation/model-validation-procedure/) combines basic errors, residual analysis and baseline comparisons using a full year of hourly field data to examine seasonal and daily conditions. A short-period energy total alone does not provide that evidence. The [JRC PVGIS methods](https://joint-research-centre.ec.europa.eu/photovoltaic-geographical-information-system-pvgis/general-information/data-sources-calculation-methods_en) describe the coarse spatial resolution and uncertainty of reanalysis radiation; those limits help explain why ERA5 cannot reproduce each local cloud.
+
+The [NREL PVWatts Version 5 manual](https://docs.nrel.gov/docs/fy14osti/62641.pdf) discusses approximately ±10% annual and ±30% monthly energy uncertainty in a typical-weather modeling context. Those figures do not define acceptance thresholds for this app's same-date custom model or support its screening bands.
+
 A private production workbook has demonstrated format compatibility, but the actual installation's geometry, equipment and a retained calibration result have not been independently verified as canonical inputs. Field validation therefore remains `not_testable`. The published hypothetical site has no measured accuracy claim. Aerial PV detection is a later phase without training labels or an evaluated model. Those unavailable validations are recorded as `not_testable`, not successful tests.

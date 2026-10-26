@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown, Download, Upload } from "lucide-react";
 import { compareOwnerData } from "./analysis.js";
+import { assessProductionComparison } from "./production-assessment.js";
+import ProductionAssessment from "./ProductionAssessment.jsx";
 import {
   combineSolarmanImports,
   parseProductionFiles,
@@ -99,6 +101,19 @@ export default function ProductionValidationPanel({
         ? compareOwnerData(upload, selectedModel)
         : null,
     [upload, selectedModel, busy],
+  );
+  const assessment = useMemo(
+    () =>
+      comparison
+        ? assessProductionComparison(comparison, {
+            sourceFormat: upload.sourceFormat,
+            sourceSummary: upload.summary,
+            sourceValid: upload.valid,
+            sourceRows: upload.rows,
+            modelHourly: selectedModel.hourly,
+          })
+        : null,
+    [comparison, upload, selectedModel],
   );
 
   useEffect(() => {
@@ -393,6 +408,7 @@ export default function ProductionValidationPanel({
       ) : null}
       {comparison ? (
         <Section title="Complete hourly comparison">
+          <ProductionAssessment assessment={assessment} />
           {!comparison.matchedHours ? (
             <p className="warning" data-testid="production-no-overlap">
               {comparison.outsideModelIntervals

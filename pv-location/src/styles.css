@@ -988,6 +988,107 @@ input[type="range"]::-webkit-slider-thumb {
   width: 100%;
   white-space: normal;
 }
+.production-assessment {
+  border: 1px solid var(--oms-border);
+  border-left: 3px solid var(--oms-text-muted);
+  border-radius: 6px;
+  background: var(--oms-surface-2);
+  padding: 14px;
+  margin: 0 0 20px;
+}
+.production-assessment[data-tone="good"] {
+  border-left-color: var(--oms-ok);
+}
+.production-assessment[data-tone="review"] {
+  border-left-color: var(--oms-warn);
+}
+.production-assessment[data-tone="poor"] {
+  border-left-color: var(--oms-error);
+}
+.assessment-kicker {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  font-weight: 650;
+  color: var(--oms-text-muted);
+}
+.production-assessment[data-tone="good"] .assessment-kicker {
+  color: var(--oms-ok);
+}
+.production-assessment[data-tone="review"] .assessment-kicker {
+  color: var(--oms-warn);
+}
+.production-assessment[data-tone="poor"] .assessment-kicker {
+  color: var(--oms-error);
+}
+.production-assessment h3 {
+  font-size: 17px;
+  line-height: 1.35;
+  margin: 8px 0 10px;
+}
+.production-assessment .assessment-result {
+  font-size: 12px;
+  color: var(--oms-text);
+}
+.production-assessment .assessment-scope,
+.production-assessment .assessment-footer {
+  color: var(--oms-text-muted);
+  font-size: 10px;
+}
+.assessment-hourly {
+  border-top: 1px solid var(--oms-border);
+  padding-top: 12px;
+  margin-top: 12px;
+  font-size: 11px;
+}
+.assessment-hourly > p {
+  margin: 6px 0 12px;
+}
+.assessment-evidence {
+  color: var(--oms-warn);
+}
+.assessment-details {
+  border-top: 1px solid var(--oms-border);
+  padding: 10px 0;
+  font-size: 11px;
+}
+.assessment-details > summary {
+  cursor: pointer;
+  margin: 0;
+  gap: 10px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.assessment-details > summary svg {
+  flex-shrink: 0;
+}
+.assessment-details:not([open]) > summary svg {
+  transform: rotate(-90deg);
+}
+.assessment-details ul,
+.assessment-details ol {
+  padding-left: 17px;
+  line-height: 1.6;
+}
+.assessment-details li + li {
+  margin-top: 7px;
+}
+.assessment-guide {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 10px;
+}
+.assessment-guide th,
+.assessment-guide td {
+  padding: 7px 3px;
+  text-align: left;
+  border-bottom: 1px solid var(--oms-border);
+}
+.assessment-guide th {
+  color: var(--oms-text-muted);
+  font-weight: 500;
+}
 [data-testid="production-import-summary"] > p:first-child {
   overflow-wrap: anywhere;
 }

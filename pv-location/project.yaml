@@ -23,7 +23,7 @@ project:
     energy value with local consumption and optional storage; select bounded Estonian
     contexts and export a reviewable scenario PDF.
   created_at: '2026-10-26T09:40:35Z'
-  updated_at: '2026-10-26T14:48:42.689554+00:00'
+  updated_at: '2026-10-26T15:43:50.338808+00:00'
   status: warning
   aoi:
     bbox:
@@ -149,6 +149,17 @@ interpretation:
       duration and excluded-span duration remain visible; complete-hour comparison
       statistics describe estimated energy rather than metered interval energy or
       independently verified field accuracy.
+  - id: production_screening
+    statement: The private matched-period energy guide uses absolute total-energy
+      bias bands up to 5 percent, over 5 to 10 percent, over 10 to 20 percent and
+      over 20 percent. It requires seven distinct matched UTC dates, 24 matched hours
+      with positive imported or modeled production, and 80 percent coverage of the
+      elapsed source/model overlap, including whole missing hours and days.
+    rationale: These are project screening heuristics, not NREL or PVGIS standards
+      or an accuracy guarantee. Unknown coverage or insufficient evidence leaves the
+      assessment limited. Hourly errors may offset in the total; hourly MAE and RMSE
+      remain separate diagnostics. The guide does not calibrate the model, establish
+      annual performance or upgrade canonical field validation.
 sources:
   era5_2024:
     provider: Open-Meteo / Copernicus Climate Change Service
@@ -3231,13 +3242,13 @@ outputs:
       - year
     downloads:
     - csv
-  bundle_assets_index_Ck_pH2PC_css:
-    path: dist/assets/index-Ck-pH2PC.css
+  bundle_assets_index_CAfolgyJ_css:
+    path: dist/assets/index-CAfolgyJ.css
     format: CSS
     kind: document
     generated_by: render
-  bundle_assets_index_D5fUua1E_js:
-    path: dist/assets/index-D5fUua1E.js
+  bundle_assets_index_DkNCwJFz_js:
+    path: dist/assets/index-DkNCwJFz.js
     format: JS
     kind: document
     generated_by: render
@@ -3569,14 +3580,14 @@ runtime:
     - openmapstack @ git+https://github.com/jaakla/openmapstack-skills.git@a3df1cb8126d5222fbb27e3f1dba49aca01b6302
 runs:
   latest:
-    id: run-20261026-144837
+    id: run-20261026-154345
     status: warning
-    started_at: '2026-10-26T14:48:37.793233+00:00'
-    completed_at: '2026-10-26T14:48:42.689554+00:00'
-    inputs_hash: sha256:a055c1604017bf82f6f730236e92c78f16fcff8f984fc6d103e2dde29c16c8da
-    outputs_hash: sha256:b96c42821f15a27c63c8e2c235a07902f4bf1a6544ee9245614b9afd1e71d081
+    started_at: '2026-10-26T15:43:45.971320+00:00'
+    completed_at: '2026-10-26T15:43:50.338808+00:00'
+    inputs_hash: sha256:85f46af2c549147fcb520a35ef308efd8dd61a19f1b67146c62160eca265a111
+    outputs_hash: sha256:5accf7e82969a535a9a63f9d4dce0da7f5913a1a189d9d4b5abb44413f41b1bd
     record:
-      path: runs/run-20261026-144837.json
+      path: runs/run-20261026-154345.json
     validation_report:
       path: validation/latest-report.json
 views:
