@@ -16,6 +16,7 @@ const report = await createScenarioReport({
   analysis: result.years[String(project.canonical.year)],
   horizon: result.horizon,
   consumption: project.canonical.consumption,
+  storage: project.canonical.storage,
   mapImage: {
     dataUrl:
       "data:image/jpeg;base64," +

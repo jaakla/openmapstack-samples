@@ -1,6 +1,6 @@
 # Methodology and validation boundary
 
-The reproducible project answers a bounded planning question: how much does a hypothetical PV array within the 2 km Tartu pilot produce under clear sky, recorded 2024/2025 weather, and the local DSM horizon, and what is the corresponding wholesale revenue? A browser preview runs the same source-controlled engine against the same frozen data. The polygon and user-entered equipment parameters are planning assumptions, never facts inferred from aerial imagery.
+The reproducible baseline answers a bounded planning question: how much does a hypothetical PV array within the 2 km Tartu pilot produce under clear sky, recorded 2024/2025 weather, and the local DSM horizon, and what is the corresponding energy value? Browser planning can load a new bounded context elsewhere in Estonia. That context has its own fetched surface and weather records and remains exploratory; it does not inherit the Tartu source pins. The polygon and user-entered equipment parameters are planning assumptions, never facts inferred from aerial imagery.
 
 ## Spatial inputs
 
@@ -13,6 +13,12 @@ The engine samples the array polygon, adds mounting height to local ground eleva
 The WCS mosaic is a frozen download at the recorded retrieval time; catalog metadata describes acquisition campaigns in 2017–2020, while exact per-cell LiDAR dates are not exposed by the response. It is not claimed to represent the surface in either historical price/weather year. Its 5 m cells cannot resolve small chimneys or narrow trees. The normalized grid masks 658 nonpositive DSM cells and 360 physically inconsistent cells where DSM is more than 2 m below DTM; the immutable raw responses are retained. Missing cells and array positions outside supported coverage are disclosed; analysis beyond the pilot must acquire new context instead of extrapolating this grid.
 
 ETAK building footprints are authoritative context with source-reported height attributes. Their presence does not imply PV equipment. Solar-related government thematic layers discovered for this pilot contain municipality aggregates, not installation geometry, so they cannot establish an installation inventory or a detection confusion matrix.
+
+### Selecting another Estonian location
+
+The national map is a selection surface, not a precomputed national solar result. Selecting an area loads a bounded local DSM/DTM window from the official WCS, aerial display context from WMS, ETAK building context and ERA5 weather for the selected point. A different location must use those responses rather than moving the frozen Tartu grid. EE market prices remain the same bidding-zone series. Missing, failed or incomplete requests remain visible and cannot establish an unobstructed site or a complete analysis.
+
+Live context records retain request URLs, retrieval times, response content hashes, requested and returned coordinates and normalization details. These are request-time provenance records, not immutable files retained by this repository. A scenario or PDF records its selected context separately from the canonical source run. To promote another area into a reproducible public baseline, retain its raw responses and normalized inputs, update the source lock and manifest AOI, adopt a non-private override, then run the canonical pipeline and clean audit.
 
 ## Solar and energy model
 
@@ -32,7 +38,7 @@ For exported energy, revenue in euros is `export_kWh / 1000 × (price_EUR_per_MW
 
 The canonical baseline uses the explicit estimate in the planning override: 10 kWh during local daytime 07:00–23:00 and 4 kWh during the remaining night, in `Europe/Tallinn`. Day/night estimates are distributed over their local periods rather than treating Estonia's time as a fixed UTC offset. They describe a generic household scenario, not measurements, occupancy or a tariff contract. The same `src/consumption.js` applies this profile in the browser and Node pipeline.
 
-At each matching model interval, self-use is the smaller of PV generation and demand. Grid import is demand minus self-use; surplus export is PV minus self-use. There is no battery or annual netting. Matching uses quarter-hour demand where provided; hourly modeled PV is split uniformly across its four quarters, so this cannot reconstruct actual quarter-hour cloud or appliance behavior.
+The comparison without storage matches each model interval independently: self-use is the smaller of PV generation and demand; grid import is demand minus self-use; surplus export is PV minus self-use. There is no annual netting. Matching uses quarter-hour demand where provided; hourly modeled PV is split uniformly across its four quarters, so this cannot reconstruct actual quarter-hour cloud or appliance behavior. An optional storage result is reported separately, preserving these original comparison fields.
 
 Avoided import cost is self-consumed kWh × `(spot EUR/MWh + explicit import adder EUR/MWh) / 1000`. The canonical adder is zero: the initial result is spot-only value, not an actual household bill saving. VAT and grid tariffs are not supplied or inferred. A user-entered adder is a scenario assumption and must reflect the intended contract components. Negative import prices remain negative rather than being clipped.
 
@@ -44,9 +50,17 @@ Exact timestamp matching preserves the supplied observation year. A calendar-pro
 
 Uploaded consumption stays in browser memory. The public canonical project contains no household rows. A scenario export can include the normalized profile only as an explicit private-file action for reimport; raw account identifiers are not needed for modeling. PDF reports include aggregate modeled consumption and the source label, with no interval rows or account identifiers.
 
+## Optional battery storage
+
+Storage is explicitly disabled in the published baseline. Its editable capacity initially follows twice the installed PV capacity in kWh: a 20 kWp array proposes 40 kWh. This sizing rule is an assumption, not a battery recommendation. Charge and discharge limits, efficiency, reserve, grid charging, battery export and cycling cost are explicit scenario settings. Ampere limits require the configured phase count and voltage; a current value alone does not define charging power.
+
+The shared storage engine compares dispatch with the same PV, demand and market series without storage. Its historical optimization has advance knowledge of that replay's prices and uses a finite state-of-charge resolution. It describes modeled dispatch potential, not a live trading strategy, guaranteed return or optimal battery purchase. Investment, battery degradation beyond the explicit cycling cost, standing losses and equipment controls are not inferred. Energy remaining in the battery and conversion losses must be accounted for rather than counted as household use or export.
+
+Storage results preserve uncertainty in the consumption profile. Missing demand or prices do not become zero; incomplete periods are disclosed separately from complete results. Storage values and economic improvement are reported separately from the original PV and no-storage demand fields, so a disabled battery preserves the prior comparison.
+
 ## PDF reports
 
-The browser PDF button serializes the current scenario, the current analysis, the consumption interpretation, coverage and limitations. It includes the displayed map when available and labels the scenario state. Exporting it does not promote an exploratory scenario into the canonical project or establish model accuracy.
+The browser PDF button serializes the current scenario, the current analysis, the consumption interpretation, coverage and limitations. It includes the displayed map when available and labels the scenario state. Enabled storage adds a battery comparison and its settings; the baseline without storage retains three pages. Exporting a report does not promote an exploratory scenario into the canonical project or establish model accuracy.
 
 The pipeline also generates `public/data/canonical-report.pdf` with the same report builder and copies it into the delivered app. It uses the canonical run time and retained official aerial image, cropped around the hypothetical footprint and overlaid using the image's georeferenced corners. This is a source-context figure, not a fabricated app screenshot. The PDF is a document view over canonical analytical outputs; private CSV profiles never enter this published report.
 

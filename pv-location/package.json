@@ -12,6 +12,7 @@
     "test:browser": "playwright test"
   },
   "dependencies": {
+    "geotiff": "3.0.5",
     "jspdf": "4.2.1",
     "lucide-react": "0.468.0",
     "maplibre-gl": "6.16.0",

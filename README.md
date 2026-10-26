@@ -4,7 +4,7 @@ Source-backed geospatial applications built with [OpenMapStack](https://github.c
 
 ## Solar Atlas
 
-Draw a hypothetical PV site in Tartu and compare clear-sky, weather-adjusted and locally shaded production. Add day/night consumption or an Enefit historical CSV to estimate on-site use, grid imports, surplus sales and value at 2024/2025 Estonian market prices. Export a three-page scenario PDF with maps, charts, assumptions and sources. Inspect official surface data and import your own 15-minute production CSV for comparison.
+Choose an area on Estonian land, load official terrain and imagery, then draw a hypothetical PV site. The pinned Tartu scenario remains the reproducible baseline. Compare clear-sky, weather-adjusted and locally shaded production; add day/night consumption or an Enefit historical CSV for on-site use and grid economics. Model battery capacity, AC power limits, efficiency and historical price arbitrage, then export a scenario PDF with maps, charts, assumptions and sources. Storage-enabled reports include a fourth comparison page.
 
 [![Solar Atlas planning workspace with a hypothetical PV footprint, annual energy and revenue estimates](gallery/pv-location-preview.png)](https://jaakla.github.io/openmapstack-samples/pv-location/)
 

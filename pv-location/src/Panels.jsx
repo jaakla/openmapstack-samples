@@ -12,6 +12,7 @@ import { parseOwnerCsv, compareOwnerData } from "./analysis.js";
 import { number } from "./Results.jsx";
 import { downloadFile } from "./downloads.js";
 import ConsumptionPanel from "./ConsumptionPanel.jsx";
+import StoragePanel from "./StoragePanel.jsx";
 function Section({ title, children }) {
   return (
     <details className="control-section" open>
@@ -84,6 +85,8 @@ function Field({
 }
 export function ScenarioPanel({
   resetVersion,
+  storage,
+  setStorage,
   consumption,
   setConsumption,
   analysis,
@@ -132,6 +135,7 @@ export function ScenarioPanel({
           <Upload size={13} /> Import scenario GeoJSON
           <input
             type="file"
+            aria-label="Import scenario GeoJSON"
             accept=".geojson,.json,application/geo+json,application/json"
             onChange={importScenario}
           />
@@ -195,6 +199,9 @@ export function ScenarioPanel({
           unit="%"
         />
       </Section>
+      <StoragePanel
+        {...{ storage, setStorage, system, analysis, consumption }}
+      />
       <ConsumptionPanel
         key={resetVersion}
         {...{ consumption, setConsumption, analysis }}
@@ -280,6 +287,13 @@ export function EvidencePanel({ project, analysis, horizon }) {
       }
     >
       <Credits project={project} />
+      {project.liveContext ? (
+        <p className="warning">
+          Live exploratory area: {project.liveContext.name}. Sources below
+          belong to this loaded area. The Tartu canonical run is the parent
+          project, not a validation of this area.
+        </p>
+      ) : null}
       <Section title="Source evidence">
         {project.sources.map((source) => (
           <a
@@ -298,7 +312,11 @@ export function EvidencePanel({ project, analysis, horizon }) {
               {typeof source.license === "object"
                 ? source.license.name
                 : source.license}{" "}
-              · retrieved {source.retrieved_at?.slice(0, 10)}
+              · retrieved{" "}
+              {(source.retrieved_at || source.access?.retrieved_at)?.slice(
+                0,
+                10,
+              )}
             </small>
           </a>
         ))}
@@ -306,7 +324,9 @@ export function EvidencePanel({ project, analysis, horizon }) {
       <Section title="Run and coverage">
         <dl className="quality-list">
           <div>
-            <dt>Canonical run</dt>
+            <dt>
+              {project.liveContext ? "Parent canonical run" : "Canonical run"}
+            </dt>
             <dd>{project.run.id}</dd>
           </div>
           <div>

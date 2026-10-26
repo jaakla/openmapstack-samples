@@ -61,6 +61,7 @@ function scenarioData(polygon, draft) {
 }
 export default function MapView({
   captureMapRef,
+  areaCenter,
   resetVersion,
   project,
   terrain,
@@ -101,10 +102,7 @@ export default function MapView({
     const m = new Map({
       container: container.current,
       canvasContextAttributes: { preserveDrawingBuffer: true },
-      center: [
-        project.canonical.system.longitude,
-        project.canonical.system.latitude,
-      ],
+      center: areaCenter,
       zoom: 16,
       maxZoom: 20,
       minZoom: 13,
@@ -127,6 +125,8 @@ export default function MapView({
       },
     });
     map.current = m;
+    const resizeObserver = new ResizeObserver(() => m.resize());
+    resizeObserver.observe(container.current);
     if (captureMapRef)
       captureMapRef.current = async () => {
         if (!m.loaded())
@@ -141,7 +141,7 @@ export default function MapView({
         const canvas = m.getCanvas();
         return {
           fit: "contain",
-          dataUrl: canvas.toDataURL("image/png"),
+          dataUrl: canvas.toDataURL("image/jpeg", 0.92),
           width: canvas.width,
           height: canvas.height,
           caption: `Current map view · hypothetical PV polygon · ${project.aerial?.attribution || "Maa- ja Ruumiamet"} · ETAK buildings · © OpenStreetMap contributors`,
@@ -154,7 +154,7 @@ export default function MapView({
     );
     m.on("load", () => {
       const aerialUrl =
-        window.__PV_AERIAL_URL__ ||
+        (!project.liveContext && window.__PV_AERIAL_URL__) ||
         (project.data.aerial
           ? new URL(project.data.aerial, document.baseURI).href
           : null);
@@ -281,23 +281,26 @@ export default function MapView({
       v.setDraft((d) => [...d, point]);
     });
     return () => {
+      resizeObserver.disconnect();
+      if (captureMapRef) captureMapRef.current = null;
       setReady(false);
       m.remove();
       map.current = null;
     };
   }, [project, terrain, buildings]);
   useEffect(() => {
-    if (ready)
-      map.current.getSource("scenario").setData(scenarioData(polygon, draft));
+    const source = ready && map.current?.getSource("scenario");
+    if (source) source.setData(scenarioData(polygon, draft));
   }, [ready, polygon, draft]);
   useEffect(() => {
-    if (ready)
-      map.current
-        .getSource("shadows")
-        .updateImage({ url: surfaceImage(terrain, sun, "shadows", heightM) });
+    const source = ready && map.current?.getSource("shadows");
+    if (source)
+      source.updateImage({
+        url: surfaceImage(terrain, sun, "shadows", heightM),
+      });
   }, [ready, sun, terrain, heightM]);
   useEffect(() => {
-    if (ready) {
+    if (ready && map.current?.isStyleLoaded()) {
       for (const [id, visible] of [
         ["surface", surface],
         ["shadows", shadows],
@@ -334,7 +337,8 @@ export default function MapView({
         ref={container}
         className="map"
         data-testid="map"
-        aria-label="Measured Tartu pilot context and hypothetical PV polygon"
+        data-map-ready={ready}
+        aria-label="Measured Estonia area and hypothetical PV polygon"
       />
       <div className="layer-controls" aria-label="Map layers">
         <span>
@@ -364,10 +368,7 @@ export default function MapView({
         aria-label="Center on the planning site"
         onClick={() =>
           map.current?.flyTo({
-            center: polygon?.coordinates[0][0] || [
-              project.canonical.system.longitude,
-              project.canonical.system.latitude,
-            ],
+            center: polygon?.coordinates[0][0] || areaCenter,
             zoom: 17,
             duration: 500,
           })

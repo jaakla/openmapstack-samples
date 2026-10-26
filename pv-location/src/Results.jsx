@@ -1,10 +1,7 @@
+import StorageResults from "./StorageResults.jsx";
 import { Sun, Cloud, TreePine, ArrowRight, Coins, Tag } from "lucide-react";
-export const number = (value, digits = 0) =>
-  Number.isFinite(value)
-    ? new Intl.NumberFormat("en-GB", { maximumFractionDigits: digits }).format(
-        value,
-      )
-    : "—";
+import { number } from "./format.js";
+export { number } from "./format.js";
 const series = [
   { key: "clearKwh", label: "Clear-sky reference", color: "#25543a" },
   { key: "weatherKwh", label: "Weather adjusted", color: "#78a84d" },
@@ -168,7 +165,11 @@ export default function Results({ analysis, year, busy, horizon }) {
       </div>
       <div className="economic-results">
         <h2>
-          Economic results <span>{year} EE market</span>
+          Economic results{" "}
+          <span>
+            {year} EE market
+            {analysis?.storage?.config?.enabled ? " · without battery" : ""}
+          </span>
         </h2>
         <div className="money-row">
           <Coins size={21} />
@@ -222,6 +223,7 @@ export default function Results({ analysis, year, busy, horizon }) {
           financing excluded; negative prices retained.
         </p>
       </div>
+      <StorageResults storage={analysis?.storage} />
     </section>
   );
 }

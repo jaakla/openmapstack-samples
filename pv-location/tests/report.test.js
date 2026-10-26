@@ -337,3 +337,120 @@ test("PDF download dates follow the Tallinn calendar around UTC midnight", () =>
     "solar-atlas-pv-2025-2026-10-26.pdf",
   );
 });
+
+test(
+  "enabled storage adds a readable comparison page and distinguishes live AOI provenance",
+  {
+    skip:
+      parser.status !== 0 &&
+      "Python pypdf is needed for independent PDF parsing",
+  },
+  async () => {
+    const args = fixture();
+    args.project.liveContext = { name: "Tallinna valitud ala" };
+    args.project.sources = [
+      {
+        id: "dsm",
+        source_url: "https://example.test/live-dsm",
+        access: { retrieved_at: "2026-10-26T12:00:00Z" },
+        pin: { sha256: "sha256:1234567890abcdef" },
+      },
+    ];
+    const stored = {
+      importKwh: 3000,
+      exportKwh: 5000,
+      pvSelfConsumedKwh: 4000,
+      chargeKwh: 2000,
+      dischargeKwh: 1800,
+      lossKwh: 200,
+      operatingCostEur: 150,
+      netBenefitEur: 1050,
+      incrementalBenefitEur: 250,
+      socStartKwh: 4,
+      socEndKwh: 4,
+      maxSocKwh: 40,
+      coveragePct: 100,
+      coveredHours: 8760,
+      expectedHours: 8760,
+    };
+    args.analysis.storage = {
+      config: {
+        enabled: true,
+        capacityMode: "auto",
+        effectiveCapacityKwh: 40,
+        reserveKwh: 4,
+        reserveSocPct: 10,
+        powerMode: "kw",
+        effectiveChargePowerKw: 10,
+        effectiveDischargePowerKw: 10,
+        chargeCurrentA: 16,
+        dischargeCurrentA: 16,
+        phases: 3,
+        voltageV: 400,
+        roundTripEfficiencyPct: 90,
+        cyclingCostEurKwh: 0.02,
+        allowGridCharging: false,
+        allowBatteryExport: false,
+        socSteps: 80,
+      },
+      summary: stored,
+      monthly: Array.from({ length: 12 }, (_, i) => ({
+        ...stored,
+        month: `2025-${String(i + 1).padStart(2, "0")}`,
+      })),
+      quality: { solver: "daily finite-state dispatch" },
+    };
+    const pdf = inspect(await createScenarioReport(args));
+    assert.equal(pdf.pages, 4);
+    const text = pdf.text.join("\n");
+    for (const phrase of [
+      "Battery storage",
+      "Benefit versus no battery",
+      "€250",
+      "€1,050",
+      "40 kWh",
+      "10 / 10 kW",
+      "90%",
+      "0.02 €/kWh",
+      "Monthly storage dispatch",
+      "prices are known in advance",
+      "Parent pinned run",
+      "Tallinna valitud ala",
+      "1234567890",
+      "4 of 4",
+    ])
+      assert.ok(
+        text.includes(phrase),
+        `Missing storage/context evidence: ${phrase}`,
+      );
+    assert.ok(pdf.text[1].includes("comparison without storage"));
+    args.analysis.storage.summary = {
+      ...stored,
+      incrementalBenefitEur: null,
+      netBenefitEur: null,
+      coveredIncrementalBenefitEur: 999999,
+      coveragePct: 50,
+      coveredHours: 4380,
+    };
+    args.analysis.storage.monthly = [];
+    const partial = inspect(await createScenarioReport(args)).text.join("\n");
+    assert.ok(partial.includes("50%"));
+    assert.ok(
+      !partial.includes("999,999"),
+      "matched subset totals never appear as annual storage benefits",
+    );
+  },
+);
+
+test("enabled storage report requires current dispatch results", async () => {
+  await assert.rejects(
+    createScenarioReport(fixture({ storage: { enabled: true } })),
+    /current storage analysis/,
+  );
+  const stale = fixture({ storage: { enabled: true, capacityKwh: 80 } });
+  stale.analysis.storage = {
+    config: { enabled: false, capacityKwh: 40 },
+    summary: {},
+  };
+  await assert.rejects(createScenarioReport(stale), /current storage analysis/);
+});

@@ -91,13 +91,31 @@ def main():
           reason="The published baseline contains generic day/night assumptions, not uploaded household rows.")
     if not public_estimate:
         raise ValueError("Private household profiles must not enter the published canonical baseline")
+    storage = feature["properties"].get("storage", {})
+    storage_keys = {"enabled", "capacityMode", "capacityKwh", "powerMode", "chargePowerKw",
+                    "dischargePowerKw", "chargeCurrentA", "dischargeCurrentA", "phases",
+                    "voltageV", "roundTripEfficiencyPct", "reserveSocPct", "allowGridCharging",
+                    "allowBatteryExport", "cyclingCostEurKwh", "socSteps"}
+    public_storage = isinstance(storage.get("enabled"), bool) and set(storage) == storage_keys
+    check("canonical_storage_config_explicit", public_storage,
+          reason="Every battery setting is explicit; the published baseline contains no private profile metadata.")
+    if not public_storage:
+        raise ValueError("Canonical storage settings must be explicit and contain only supported keys")
     ring = feature["geometry"]["coordinates"][0]
+    aoi_corners = read("data/source/aerial.json")["aoiCornersWgs84"]
+    west, east = min(p[0] for p in aoi_corners), max(p[0] for p in aoi_corners)
+    south, north = min(p[1] for p in aoi_corners), max(p[1] for p in aoi_corners)
     coordinate_valid = (len(ring) >= 4 and ring[0] == ring[-1]
                         and all(len(p) == 2 and all(math.isfinite(v) for v in p)
-                                and 26.69 < p[0] < 26.75 and 58.35 < p[1] < 58.39
+                                and west <= p[0] <= east and south <= p[1] <= north
                                 for p in ring))
     check("scenario_geometry_valid", coordinate_valid, feature_id=feature["id"],
-          reason="Closed, finite planning polygon in the declared Tartu AOI; canonical override is a rectangle.")
+          reason="Closed, finite planning polygon within retained context; the shared engine also checks EPSG:3301 bounds.")
+    grid = read("data/source/context-grid.json")
+    declared_aoi = project["project"]["aoi"]
+    check("canonical_context_matches_declared_aoi",
+          grid["bounds"] == declared_aoi["bbox"] and grid["crs"] == declared_aoi["crs"],
+          reason="Canonical terrain dimensions and CRS match the manifest AOI, independently of exploratory browser selections.")
     check("overrides_applied", feature["properties"]["status"] == "hypothetical",
           results=[{"id": "SCENARIO-001", "status": "applied",
                       "feature_id": feature["id"], "geometry_origin": "scenario"}])
@@ -110,16 +128,23 @@ def main():
     run("node", "scripts/canonical-analysis.mjs")
     analysis = read("data/derived/analysis.json")
     consumption = analysis["consumption"]
+    storage = analysis["storage"]
     coverage = analysis["horizon"]["coveragePct"]
     check("horizon_source_coverage", status="passed" if coverage >= 100 else "warning",
           coverage_pct=coverage, warnings=analysis["horizon"]["warnings"])
     seasonal, hourly, monthly = [], [], []
+    storage_seasonal, storage_hourly, storage_monthly = [], [], []
     for year in (2024, 2025):
         result = analysis["years"][str(year)]
         summary = result["summary"]
         seasonal.append({"year": year, **summary})
         hourly.extend({"year": year, **row} for row in result["hourly"])
         monthly.extend({"year": year, **row} for row in result["monthly"])
+        battery = result["storage"]
+        battery_summary = battery["summary"]
+        storage_seasonal.append({"year": year, **battery_summary})
+        storage_hourly.extend({"year": year, **row} for row in battery["hourly"])
+        storage_monthly.extend({"year": year, **row} for row in battery["monthly"])
         weather = read(f"data/source/weather-{year}.json")["rows"]
         prices = read(f"data/source/prices-{year}.json")["rows"]
         expected = 8784 if year == 2024 else 8760
@@ -156,7 +181,38 @@ def main():
         consumption_total = sum(row["consumptionKwh"] for row in result["monthly"])
         check(f"consumption_monthly_parity_{year}", abs(consumption_total - summary["consumptionKwh"]) < 1e-7,
               monthly_consumption_kwh=consumption_total, annual_consumption_kwh=summary["consumptionKwh"])
-    for key, rows in (("seasonal_summary", seasonal), ("hourly_results", hourly), ("monthly_results", monthly)):
+        battery_balanced = all(
+            abs(row["chargeKwh"] - row["chargePvKwh"] - row["chargeGridKwh"]) < 1e-7
+            and abs(row["internalChargedKwh"] - row["chargeKwh"] + row["chargeLossKwh"]) < 1e-7
+            and abs(row["internalDischargedKwh"] - row["dischargeKwh"] - row["dischargeLossKwh"]) < 1e-7
+            and abs(row["socEndKwh"] - row["socStartKwh"] - row["internalChargedKwh"] + row["internalDischargedKwh"]) < 1e-7
+            and abs(row["pvKwh"] + row["importKwh"] + row["dischargeKwh"] - row["demandKwh"] - row["exportKwh"] - row["chargeKwh"]) < 1e-7
+            and all(storage["reserveKwh"] - 1e-7 <= row[key] <= storage["effectiveCapacityKwh"] + 1e-7
+                    for key in ("socStartKwh", "socEndKwh", "maxSocKwh"))
+            and abs(row["pvSocEndKwh"] + row["gridSocEndKwh"] - row["socEndKwh"] + storage["reserveKwh"]) < 1e-7
+            for row in battery["hourly"]
+        ) and abs(battery_summary["socEndKwh"] - storage["reserveKwh"]) < 1e-7
+        check(f"storage_energy_balance_{year}", battery_balanced,
+              reason="Battery conversion losses, state changes and grid/PV/load flows balance at every modeled hour.")
+        check(f"storage_value_balance_{year}",
+              abs(battery_summary["operatingCostEur"] - battery_summary["gridImportCostEur"] + battery_summary["exportRevenueEur"] - battery_summary["cyclingCostEur"]) < 1e-7
+              and abs(battery_summary["netBenefitEur"] - battery_summary["baselineImportCostEur"] + battery_summary["operatingCostEur"]) < 1e-7
+              and abs(battery_summary["incrementalBenefitEur"] - battery_summary["noBatteryNetGridCostEur"] + battery_summary["operatingCostEur"]) < 1e-7
+              and abs(battery_summary["noBatteryNetBenefitEur"] - summary["netBenefitEur"]) < 1e-7
+              and battery_summary["incrementalBenefitEur"] >= -1e-7)
+        check(f"storage_coverage_{year}", battery_summary["coveragePct"] == 100,
+              coverage_pct=battery_summary["coveragePct"])
+        check(f"storage_disabled_parity_{year}", storage["enabled"] or all(
+            abs(battery_summary[battery_key] - summary[base_key]) < 1e-7
+            for battery_key, base_key in (("importKwh", "importKwh"), ("exportKwh", "exportKwh"),
+                                          ("netBenefitEur", "netBenefitEur"))) ,
+              reason="When disabled, storage retains the original imports, exports and household benefit.")
+        check(f"storage_monthly_parity_{year}", all(
+            abs(sum(row[key] for row in battery["monthly"]) - battery_summary[key]) < 1e-7
+            for key in ("chargeKwh", "dischargeKwh", "lossKwh", "incrementalBenefitEur")))
+    for key, rows in (("seasonal_summary", seasonal), ("hourly_results", hourly), ("monthly_results", monthly),
+                      ("storage_summary", storage_seasonal), ("storage_hourly", storage_hourly),
+                      ("storage_monthly", storage_monthly)):
         output = project["outputs"][key]
         columns = [column["name"] for column in output["table"]["columns"]]
         if any(set(row) != set(columns) for row in rows):
@@ -185,6 +241,9 @@ def main():
         "data/derived/seasonal-summary.csv": "public/data/seasonal-summary.csv",
         "data/derived/hourly.csv": "public/data/hourly.csv",
         "data/derived/monthly.csv": "public/data/monthly.csv",
+        "data/derived/storage-summary.csv": "public/data/storage-summary.csv",
+        "data/derived/storage-hourly.csv": "public/data/storage-hourly.csv",
+        "data/derived/storage-monthly.csv": "public/data/storage-monthly.csv",
     }
     for source, destination in copies.items():
         (ROOT / destination).parent.mkdir(parents=True, exist_ok=True)
@@ -202,8 +261,10 @@ def main():
                     for key, source in project["sources"].items()],
         "warnings": project["warnings"], "assumptions": project["interpretation"]["assumptions"],
         "canonical": {"year": 2025, "system": system, "polygon": feature["geometry"],
-                      "consumption": analysis["consumption"]},
-        "results": {year: {key: result[key] for key in ("summary", "monthly", "quality")}
+                      "consumption": consumption, "storage": storage},
+        "results": {year: {**{key: result[key] for key in ("summary", "monthly", "quality")},
+                           "storage": {key: result["storage"][key]
+                                       for key in ("config", "summary", "monthly", "quality", "assumptions")}}
                     for year, result in analysis["years"].items()},
         "data": {"weather": {str(y): f"data/weather-{y}.json" for y in (2024, 2025)},
                  "prices": {str(y): f"data/prices-{y}.json" for y in (2024, 2025)},
@@ -215,6 +276,8 @@ def main():
         "bounds": aerial["aoiCornersWgs84"],
         "downloads": {"summary": "data/seasonal-summary.csv", "hourly": "data/hourly.csv",
                       "monthly": "data/monthly.csv", "scenario": "data/scenario.geojson",
+                      "storageSummary": "data/storage-summary.csv", "storageHourly": "data/storage-hourly.csv",
+                      "storageMonthly": "data/storage-monthly.csv",
                       "report": "data/canonical-report.pdf"},
     }
     write("public/data/project.json", payload)
@@ -242,7 +305,9 @@ def main():
             key = "bundle_" + relative.removeprefix("dist/").replace("/", "_").replace(".", "_").replace("-", "_")
             project["outputs"][key] = {"path": relative, "format": bundle_file.suffix.lstrip(".").upper(),
                                        "kind": "document", "generated_by": "render"}
-    identical_table = (ROOT / "data/derived/seasonal-summary.csv").read_bytes() == (ROOT / "dist/data/seasonal-summary.csv").read_bytes()
+    identical_table = all((ROOT / f"data/derived/{name}.csv").read_bytes()
+                          == (ROOT / f"dist/data/{name}.csv").read_bytes()
+                          for name in ("seasonal-summary", "storage-summary"))
     check("hosted_table_matches_canonical", identical_table)
     if not identical_table:
         raise ValueError("Hosted seasonal table differs from canonical analytical output")
@@ -255,9 +320,10 @@ def main():
     warnings = "".join(f'<li><strong>{html.escape(w["id"])}</strong>: {html.escape(w["statement"])}</li>' for w in project["warnings"])
     footer = (f'<footer id="provenance" class="canonical-provenance" data-openmapstack-provenance>'
               f'{html_credits(credit_payload(project, completed_at=completed))}'
-              f'<h2>Sources and limitations</h2><ul>{provenance}</ul><ul id="warnings">{warnings}</ul>'
+              f'<h2>Canonical baseline sources and limitations</h2><ul>{provenance}</ul><ul id="warnings">{warnings}</ul>'
               '<a href="./findings.md">Canonical findings</a> · '
               '<a href="./data/seasonal-summary.csv">Seasonal CSV</a> · '
+              '<a href="./data/storage-summary.csv">Storage CSV</a> · '
               '<a href="./data/canonical-report.pdf">Canonical PDF report</a></footer>')
     metadata = metadata_json(ROOT, project, target)
     document = path.read_text()
@@ -301,6 +367,17 @@ def main():
     report = {"run_id": run_id, "status": status, "checks": checks}
     findings = []
     for row in seasonal:
+        battery_summary = next(value for value in storage_seasonal if value["year"] == row["year"])
+        battery_statement = (
+            f" With {storage['effectiveCapacityKwh']:g} kWh storage enabled, modeled PV-plus-storage "
+            f"benefit is {battery_summary['netBenefitEur']:.2f} EUR, an incremental "
+            f"{battery_summary['incrementalBenefitEur']:.2f} EUR after cycling cost. "
+            f"Storage conversion loss is {battery_summary['lossKwh']:.1f} kWh."
+            if storage["enabled"] else
+            f" Storage is explicitly disabled; the configured capacity would be "
+            f"{storage['effectiveCapacityKwh']:g} kWh. The separate storage table retains the "
+            "same imports, exports and benefit with zero dispatch."
+        )
         findings.append({"id": f"season_{row['year']}",
                          "statement": (f"{row['year']}: clear-sky estimate {row['clearKwh']:.1f} kWh; "
                             f"weather-adjusted shadow-free {row['weatherKwh']:.1f} kWh; "
@@ -315,23 +392,29 @@ def main():
                             f"Surplus sales are {row['exportRevenueEur']:.2f} EUR and avoided import cost "
                             f"{row['avoidedImportCostEur']:.2f} EUR, giving net PV benefit "
                             f"{row['netBenefitEur']:.2f} EUR. Local shadows reduce this combined value "
-                            f"by {row['shadowNetBenefitLossEur']:.2f} EUR versus shadow-free weather."),
-                         "evidence": ["seasonal_summary", "planning_scenario", "hourly_results"],
+                            f"by {row['shadowNetBenefitLossEur']:.2f} EUR versus shadow-free weather."
+                            + battery_statement),
+                         "evidence": ["seasonal_summary", "planning_scenario", "hourly_results", "storage_summary"],
                          "limitations": [
                              f"Hypothetical array and estimated {consumption['dayKwh']:g} kWh daytime / "
                              f"{consumption['nightKwh']:g} kWh nighttime local daily demand in "
                              f"{consumption['timeZone']}; daytime is {consumption['dayStartHour']:02d}:00–"
                              f"{consumption['dayEndHour']:02d}:00. The import adder is "
                              f"{consumption['importAdderEurMWh']:g} EUR/MWh; charges are included only "
-                             "when explicitly represented in that adder. No owner field validation."
+                             "when explicitly represented in that adder. No owner field validation.",
+                             *(["Storage dispatch uses known historical daily prices and finite state resolution. "
+                                "Every local-day or covered segment starts and ends at reserve; energy is not "
+                                "carried overnight or across unknown input gaps. This is not a live trading "
+                                "forecast or a guarantee of a global optimum."] if storage["enabled"] else [])
                          ]})
     findings_path = write_findings(ROOT, project, report=report,
-                                  scope=f"one hypothetical {system['kwp']:g} kWp array in the bounded Tartu pilot, complete UTC years 2024 and 2025",
+                                  scope=f"one hypothetical {system['kwp']:g} kWp array within the retained manifest AOI, complete UTC years 2024 and 2025",
                                   findings=findings)
     # Hosted reading copy: the canonical findings retain structured metadata;
     # this companion uses the same generated prose with app-local evidence links.
     hosted_findings = findings_path.read_text().split("\n---\n", 1)[1]
     for source, bundled in {"data/derived/seasonal-summary.csv": "data/seasonal-summary.csv",
+                            "data/derived/storage-summary.csv": "data/storage-summary.csv",
                             "data/derived/hourly.csv": "data/hourly.csv",
                             "data/derived/planning-scenario.geojson": "data/scenario.geojson",
                             "project.yaml": "https://github.com/jaakla/openmapstack-samples/blob/main/pv-location/project.yaml",

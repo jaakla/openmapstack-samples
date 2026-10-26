@@ -3,14 +3,14 @@
   "project_file": "/home/jaak/codeman-cases/openmapstack-samples/pv-location/project.yaml",
   "status": "passed",
   "counts": {
-    "passed": 68,
+    "passed": 88,
     "warning": 0,
     "not_testable": 0,
     "failed": 0
   },
   "coverage": {
-    "applicable": 68,
-    "executed": 68,
+    "applicable": 88,
+    "executed": 88,
     "not_testable": 0,
     "execution_rate": 1.0
   },
@@ -28,7 +28,7 @@
     {
       "check": "project.graph_resolves",
       "status": "passed",
-      "message": "graph resolves: 5 steps, 5 produced symbols, 41 outputs all traced to real steps"
+      "message": "graph resolves: 5 steps, 5 produced symbols, 47 outputs all traced to real steps"
     },
     {
       "check": "project.one_canonical_pipeline",
@@ -38,7 +38,7 @@
     {
       "check": "project.assumptions_have_rationale",
       "status": "passed",
-      "message": "all 12 assumptions have statement + rationale"
+      "message": "all 15 assumptions have statement + rationale"
     },
     {
       "check": "project.status_agrees_with_validation_report",
@@ -48,7 +48,7 @@
     {
       "check": "project.declared_files_exist",
       "status": "passed",
-      "message": "all 41 declared files exist",
+      "message": "all 47 declared files exist",
       "args": {
         "files": [
           "data/derived/planning-scenario.geojson",
@@ -77,8 +77,12 @@
           "dist/findings.md",
           "public/data/canonical-report.pdf",
           "dist/data/canonical-report.pdf",
-          "dist/assets/index-C1InLwA9.css",
-          "dist/assets/index-CVJNkS8g.js",
+          "data/derived/storage-summary.csv",
+          "data/derived/storage-hourly.csv",
+          "data/derived/storage-monthly.csv",
+          "dist/data/storage-summary.csv",
+          "dist/assets/index-0_AQ1-wk.css",
+          "dist/assets/index-B6ckQsCN.js",
           "dist/data/aerial.jpg",
           "dist/data/aerial.json",
           "dist/data/buildings.geojson",
@@ -89,6 +93,8 @@
           "dist/data/prices-2025.json",
           "dist/data/project.json",
           "dist/data/scenario.geojson",
+          "dist/data/storage-hourly.csv",
+          "dist/data/storage-monthly.csv",
           "dist/data/terrain.json",
           "dist/data/weather-2024.json",
           "dist/data/weather-2025.json"
@@ -133,7 +139,7 @@
     {
       "check": "validation.required_all_present",
       "status": "passed",
-      "message": "all 30 declared checks present exactly once in report"
+      "message": "all 42 declared checks present exactly once in report"
     },
     {
       "check": "validation.no_implicit_pass",
@@ -148,7 +154,7 @@
     {
       "check": "validation.run_record_matches",
       "status": "passed",
-      "message": "report run_id 'run-20261026-110629' matches a real run record with consistent hashes"
+      "message": "report run_id 'run-20261026-115114' matches a real run record with consistent hashes"
     },
     {
       "check": "validation.sample_run_not_promoted",
@@ -1698,6 +1704,1957 @@
       }
     },
     {
+      "check": "tables.readable",
+      "status": "passed",
+      "message": "data/derived/storage-summary.csv: 2 rows x 73 columns",
+      "args": {
+        "path": "data/derived/storage-summary.csv"
+      }
+    },
+    {
+      "check": "tables.not_empty",
+      "status": "passed",
+      "message": "data/derived/storage-summary.csv has 2 rows",
+      "args": {
+        "path": "data/derived/storage-summary.csv"
+      }
+    },
+    {
+      "check": "tables.columns_declared",
+      "status": "passed",
+      "message": "data/derived/storage-summary.csv: 73 declared columns present and typed",
+      "args": {
+        "path": "data/derived/storage-summary.csv",
+        "columns": [
+          {
+            "name": "year",
+            "type": "integer"
+          },
+          {
+            "name": "pvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "demandKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvDirectSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "chargeKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "chargePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "chargeGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "dischargeKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "dischargeToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "dischargeToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvBatteryToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "gridBatteryToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvBatteryToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "gridBatteryToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "chargeLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "dischargeLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "lossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "internalChargedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "internalDischargedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "importKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "exportKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "gridImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "exportRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "cyclingCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "netGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "operatingCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "baselineImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "noBatteryNetGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "noBatteryNetBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "netBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "incrementalBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "coveredPvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDemandKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredPvDirectSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredChargeKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredChargePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredChargeGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDischargeKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDischargeToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDischargeToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredPvBatteryToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredGridBatteryToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredPvBatteryToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredGridBatteryToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredChargeLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDischargeLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredInternalChargedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredInternalDischargedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredImportKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredExportKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredPvSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredGridImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredExportRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredCyclingCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredNetGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredOperatingCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredBaselineImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredNoBatteryNetGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredNoBatteryNetBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredNetBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredIncrementalBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "expectedHours",
+            "type": "number",
+            "unit": "h",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "coveredHours",
+            "type": "number",
+            "unit": "h",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "socStartKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "socEndKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "maxSocKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "selfConsumptionPct",
+            "type": "number",
+            "unit": "%",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "selfSufficiencyPct",
+            "type": "number",
+            "unit": "%",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "coveragePct",
+            "type": "number",
+            "unit": "%",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvSocEndKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Usable stored energy attributed to PV or grid input at the end of the period; excludes reserve."
+          },
+          {
+            "name": "gridSocEndKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Usable stored energy attributed to PV or grid input at the end of the period; excludes reserve."
+          }
+        ]
+      }
+    },
+    {
+      "check": "tables.key_unique",
+      "status": "passed",
+      "message": "data/derived/storage-summary.csv: key ['year'] is unique across 2 rows",
+      "args": {
+        "path": "data/derived/storage-summary.csv",
+        "key": [
+          "year"
+        ]
+      }
+    },
+    {
+      "check": "tables.downloads_consistent",
+      "status": "passed",
+      "message": "data/derived/storage-summary.csv: 1 download formats hold the same 2 rows",
+      "args": {
+        "path": "data/derived/storage-summary.csv",
+        "formats": [
+          "csv"
+        ]
+      }
+    },
+    {
+      "check": "tables.readable",
+      "status": "passed",
+      "message": "data/derived/storage-hourly.csv: 17544 rows x 75 columns",
+      "args": {
+        "path": "data/derived/storage-hourly.csv"
+      }
+    },
+    {
+      "check": "tables.not_empty",
+      "status": "passed",
+      "message": "data/derived/storage-hourly.csv has 17544 rows",
+      "args": {
+        "path": "data/derived/storage-hourly.csv"
+      }
+    },
+    {
+      "check": "tables.columns_declared",
+      "status": "passed",
+      "message": "data/derived/storage-hourly.csv: 75 declared columns present and typed",
+      "args": {
+        "path": "data/derived/storage-hourly.csv",
+        "columns": [
+          {
+            "name": "year",
+            "type": "integer"
+          },
+          {
+            "name": "time",
+            "type": "string"
+          },
+          {
+            "name": "durationHours",
+            "type": "number",
+            "unit": "h"
+          },
+          {
+            "name": "pvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "demandKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvDirectSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "chargeKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "chargePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "chargeGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "dischargeKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "dischargeToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "dischargeToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvBatteryToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "gridBatteryToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvBatteryToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "gridBatteryToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "chargeLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "dischargeLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "lossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "internalChargedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "internalDischargedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "importKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "exportKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "gridImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "exportRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "cyclingCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "netGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "operatingCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "baselineImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "noBatteryNetGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "noBatteryNetBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "netBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "incrementalBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "coveredPvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDemandKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredPvDirectSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredChargeKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredChargePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredChargeGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDischargeKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDischargeToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDischargeToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredPvBatteryToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredGridBatteryToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredPvBatteryToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredGridBatteryToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredChargeLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDischargeLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredInternalChargedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredInternalDischargedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredImportKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredExportKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredPvSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredGridImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredExportRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredCyclingCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredNetGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredOperatingCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredBaselineImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredNoBatteryNetGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredNoBatteryNetBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredNetBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredIncrementalBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "expectedHours",
+            "type": "number",
+            "unit": "h",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "coveredHours",
+            "type": "number",
+            "unit": "h",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "socStartKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "socEndKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "maxSocKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "selfConsumptionPct",
+            "type": "number",
+            "unit": "%",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "selfSufficiencyPct",
+            "type": "number",
+            "unit": "%",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "coveragePct",
+            "type": "number",
+            "unit": "%",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvSocEndKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Usable stored energy attributed to PV or grid input at the end of the period; excludes reserve."
+          },
+          {
+            "name": "gridSocEndKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Usable stored energy attributed to PV or grid input at the end of the period; excludes reserve."
+          }
+        ]
+      }
+    },
+    {
+      "check": "tables.key_unique",
+      "status": "passed",
+      "message": "data/derived/storage-hourly.csv: key ['year', 'time'] is unique across 17544 rows",
+      "args": {
+        "path": "data/derived/storage-hourly.csv",
+        "key": [
+          "year",
+          "time"
+        ]
+      }
+    },
+    {
+      "check": "tables.downloads_consistent",
+      "status": "passed",
+      "message": "data/derived/storage-hourly.csv: 1 download formats hold the same 17544 rows",
+      "args": {
+        "path": "data/derived/storage-hourly.csv",
+        "formats": [
+          "csv"
+        ]
+      }
+    },
+    {
+      "check": "tables.readable",
+      "status": "passed",
+      "message": "data/derived/storage-monthly.csv: 24 rows x 74 columns",
+      "args": {
+        "path": "data/derived/storage-monthly.csv"
+      }
+    },
+    {
+      "check": "tables.not_empty",
+      "status": "passed",
+      "message": "data/derived/storage-monthly.csv has 24 rows",
+      "args": {
+        "path": "data/derived/storage-monthly.csv"
+      }
+    },
+    {
+      "check": "tables.columns_declared",
+      "status": "passed",
+      "message": "data/derived/storage-monthly.csv: 74 declared columns present and typed",
+      "args": {
+        "path": "data/derived/storage-monthly.csv",
+        "columns": [
+          {
+            "name": "year",
+            "type": "integer"
+          },
+          {
+            "name": "month",
+            "type": "string"
+          },
+          {
+            "name": "pvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "demandKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvDirectSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "chargeKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "chargePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "chargeGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "dischargeKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "dischargeToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "dischargeToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvBatteryToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "gridBatteryToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvBatteryToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "gridBatteryToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "chargeLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "dischargeLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "lossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "internalChargedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "internalDischargedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "importKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "exportKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "gridImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "exportRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "cyclingCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "netGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "operatingCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "baselineImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "noBatteryNetGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "noBatteryNetBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "netBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "incrementalBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "coveredPvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDemandKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredPvDirectSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredChargeKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredChargePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredChargeGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDischargeKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDischargeToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDischargeToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredPvBatteryToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredGridBatteryToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredPvBatteryToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredGridBatteryToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredChargeLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDischargeLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredInternalChargedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredInternalDischargedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredImportKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredExportKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredPvSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredGridImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredExportRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredCyclingCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredNetGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredOperatingCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredBaselineImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredNoBatteryNetGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredNoBatteryNetBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredNetBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredIncrementalBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "expectedHours",
+            "type": "number",
+            "unit": "h",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "coveredHours",
+            "type": "number",
+            "unit": "h",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "socStartKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "socEndKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "maxSocKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "selfConsumptionPct",
+            "type": "number",
+            "unit": "%",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "selfSufficiencyPct",
+            "type": "number",
+            "unit": "%",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "coveragePct",
+            "type": "number",
+            "unit": "%",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvSocEndKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Usable stored energy attributed to PV or grid input at the end of the period; excludes reserve."
+          },
+          {
+            "name": "gridSocEndKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Usable stored energy attributed to PV or grid input at the end of the period; excludes reserve."
+          }
+        ]
+      }
+    },
+    {
+      "check": "tables.key_unique",
+      "status": "passed",
+      "message": "data/derived/storage-monthly.csv: key ['year', 'month'] is unique across 24 rows",
+      "args": {
+        "path": "data/derived/storage-monthly.csv",
+        "key": [
+          "year",
+          "month"
+        ]
+      }
+    },
+    {
+      "check": "tables.downloads_consistent",
+      "status": "passed",
+      "message": "data/derived/storage-monthly.csv: 1 download formats hold the same 24 rows",
+      "args": {
+        "path": "data/derived/storage-monthly.csv",
+        "formats": [
+          "csv"
+        ]
+      }
+    },
+    {
+      "check": "tables.readable",
+      "status": "passed",
+      "message": "dist/data/storage-summary.csv: 2 rows x 73 columns",
+      "args": {
+        "path": "dist/data/storage-summary.csv"
+      }
+    },
+    {
+      "check": "tables.not_empty",
+      "status": "passed",
+      "message": "dist/data/storage-summary.csv has 2 rows",
+      "args": {
+        "path": "dist/data/storage-summary.csv"
+      }
+    },
+    {
+      "check": "tables.columns_declared",
+      "status": "passed",
+      "message": "dist/data/storage-summary.csv: 73 declared columns present and typed",
+      "args": {
+        "path": "dist/data/storage-summary.csv",
+        "columns": [
+          {
+            "name": "year",
+            "type": "integer"
+          },
+          {
+            "name": "pvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "demandKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvDirectSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "chargeKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "chargePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "chargeGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "dischargeKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "dischargeToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "dischargeToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvBatteryToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "gridBatteryToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvBatteryToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "gridBatteryToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "chargeLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "dischargeLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "lossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "internalChargedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "internalDischargedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "importKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "exportKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "gridImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "exportRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "cyclingCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "netGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "operatingCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "baselineImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "noBatteryNetGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "noBatteryNetBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "netBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "incrementalBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "coveredPvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDemandKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredPvDirectSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredChargeKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredChargePvKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredChargeGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDischargeKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDischargeToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDischargeToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredPvBatteryToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredGridBatteryToLoadKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredPvBatteryToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredGridBatteryToGridKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredChargeLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredDischargeLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredLossKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredInternalChargedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredInternalDischargedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredImportKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredExportKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredPvSelfConsumedKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredGridImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredExportRevenueEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredCyclingCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredNetGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredOperatingCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredBaselineImportCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredNoBatteryNetGridCostEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredNoBatteryNetBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredNetBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "coveredIncrementalBenefitEur",
+            "type": "number",
+            "unit": "EUR",
+            "description": "Total over matched intervals only; not extrapolated to missing periods."
+          },
+          {
+            "name": "expectedHours",
+            "type": "number",
+            "unit": "h",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "coveredHours",
+            "type": "number",
+            "unit": "h",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "socStartKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "socEndKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "maxSocKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "selfConsumptionPct",
+            "type": "number",
+            "unit": "%",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "selfSufficiencyPct",
+            "type": "number",
+            "unit": "%",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "coveragePct",
+            "type": "number",
+            "unit": "%",
+            "description": "Separate optional-storage comparison; full-period energy/value is unknown when coverage is incomplete."
+          },
+          {
+            "name": "pvSocEndKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Usable stored energy attributed to PV or grid input at the end of the period; excludes reserve."
+          },
+          {
+            "name": "gridSocEndKwh",
+            "type": "number",
+            "unit": "kWh",
+            "description": "Usable stored energy attributed to PV or grid input at the end of the period; excludes reserve."
+          }
+        ]
+      }
+    },
+    {
+      "check": "tables.key_unique",
+      "status": "passed",
+      "message": "dist/data/storage-summary.csv: key ['year'] is unique across 2 rows",
+      "args": {
+        "path": "dist/data/storage-summary.csv",
+        "key": [
+          "year"
+        ]
+      }
+    },
+    {
+      "check": "tables.downloads_consistent",
+      "status": "passed",
+      "message": "dist/data/storage-summary.csv: 1 download formats hold the same 2 rows",
+      "args": {
+        "path": "dist/data/storage-summary.csv",
+        "formats": [
+          "csv"
+        ]
+      }
+    },
+    {
       "check": "credits.declaration_valid",
       "status": "passed",
       "message": "delivery author and toolkit metadata are complete"
@@ -1730,15 +3687,16 @@
         "target_id": "dashboard"
       },
       "evidence": {
-        "view_sha256": "sha256:5d50b48d1990e24dca4dbfa27022ea348bc3c5efefe2cb62871dd4e7922447f9",
+        "view_sha256": "sha256:04c883e011e8b18e85c8f022f051a3151bcd2f3f5c42a6711624b63b9537aac4",
         "analytical_outputs": {
-          "planning_scenario": "sha256:55bf5807ba8311d68ffd729fd4455334063cafab53f3aeebb36bbd7cdca1e35e",
+          "planning_scenario": "sha256:a10e3c78e6549c65d6e46d0fa300f0aca9b26574c2d06468f8969ab48d5fe420",
           "seasonal_summary": "sha256:d69c4c9c730bbf6e92488f9013811142514fd4affde245f3b3ea4e8083ccf40b",
           "hourly_results": "sha256:63421e282fe8bde4c4b603afb15a8e5d8442a52a5d2e9d8211f0b830dc9c34d0",
           "monthly_results": "sha256:344fc0232cf579b27705a85c7e01b2e2dfe2bcff1b0c3a11c587a1773af76ff9",
           "browser_buildings": "sha256:fee6a302bf84cf0b394ecc0d1c04e884f02e150e22074255acce62a030e34584",
-          "browser_scenario": "sha256:55bf5807ba8311d68ffd729fd4455334063cafab53f3aeebb36bbd7cdca1e35e",
-          "hosted_seasonal_summary": "sha256:d69c4c9c730bbf6e92488f9013811142514fd4affde245f3b3ea4e8083ccf40b"
+          "browser_scenario": "sha256:a10e3c78e6549c65d6e46d0fa300f0aca9b26574c2d06468f8969ab48d5fe420",
+          "hosted_seasonal_summary": "sha256:d69c4c9c730bbf6e92488f9013811142514fd4affde245f3b3ea4e8083ccf40b",
+          "hosted_storage_summary": "sha256:1131544e3f1e165bef094b3ddd6d3603a1edff97fffd7b2c82de786e6dbfa78b"
         }
       }
     },
@@ -1822,7 +3780,7 @@
       "status": "passed",
       "message": "canonical entrypoint succeeded in a clean workspace and artifacts revalidated",
       "args": {
-        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-a30i5yev"
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-l1brc7il"
       }
     },
     {
@@ -1830,7 +3788,7 @@
       "status": "passed",
       "message": "all 3 outputs are semantically equal across the clean rerun",
       "args": {
-        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-a30i5yev",
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-l1brc7il",
         "paths": [
           "data/derived/planning-scenario.geojson",
           "public/data/buildings.geojson",
@@ -1841,14 +3799,18 @@
     {
       "check": "rerun.tables_semantically_equal",
       "status": "passed",
-      "message": "all 4 tables hold the same values across the clean rerun",
+      "message": "all 8 tables hold the same values across the clean rerun",
       "args": {
-        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-a30i5yev",
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-l1brc7il",
         "paths": [
           "data/derived/seasonal-summary.csv",
           "data/derived/hourly.csv",
           "data/derived/monthly.csv",
-          "dist/data/seasonal-summary.csv"
+          "dist/data/seasonal-summary.csv",
+          "data/derived/storage-summary.csv",
+          "data/derived/storage-hourly.csv",
+          "data/derived/storage-monthly.csv",
+          "dist/data/storage-summary.csv"
         ]
       }
     },
@@ -1857,7 +3819,7 @@
       "status": "passed",
       "message": "validation evidence reproduces with status 'warning'",
       "args": {
-        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-a30i5yev"
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-l1brc7il"
       }
     },
     {
@@ -1865,7 +3827,7 @@
       "status": "passed",
       "message": "all 36 source files byte-identical between workspace and rerun",
       "args": {
-        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-a30i5yev",
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-l1brc7il",
         "paths": [
           "data/source/aerial.jpg",
           "data/source/aerial.json",
@@ -1953,15 +3915,15 @@
         "/tmp/oms-pv-venv/bin/python",
         "pipeline.py"
       ],
-      "cwd": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-a30i5yev",
+      "cwd": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-l1brc7il",
       "returncode": 0,
       "timed_out": false,
-      "duration_s": 11.908433916978538,
-      "stdout": "\nadded 120 packages in 3s\n\n> solar-atlas-pv-location@1.0.0 build\n> vite build\n\nvite v7.3.7 building client environment for production...\ntransforming...\n✓ 1943 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                     0.82 kB │ gzip:   0.49 kB\ndist/assets/index-C1InLwA9.css     98.08 kB │ gzip:  15.79 kB\ndist/assets/index-CVJNkS8g.js   3,029.33 kB │ gzip: 913.90 kB\n✓ built in 5.25s\n",
+      "duration_s": 14.286145388847217,
+      "stdout": "\nadded 128 packages in 2s\n\n> solar-atlas-pv-location@1.0.0 build\n> vite build\n\nvite v7.3.7 building client environment for production...\ntransforming...\n✓ 2010 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                     0.82 kB │ gzip:     0.49 kB\ndist/assets/index-0_AQ1-wk.css    103.35 kB │ gzip:    16.71 kB\ndist/assets/index-B6ckQsCN.js   3,335.88 kB │ gzip: 1,025.33 kB\n✓ built in 5.55s\n",
       "stderr": "npm warn allow-scripts 2 packages have install scripts not yet covered by allowScripts:\nnpm warn allow-scripts   core-js@3.51.0 (postinstall: node -e \"try{require('./postinstall')}catch(e){}\")\nnpm warn allow-scripts   esbuild@0.28.2 (postinstall: node install.js)\nnpm warn allow-scripts\nnpm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow.\n\n(!) Some chunks are larger than 3000 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
     },
     "source_hashes": {
-      "data/overrides/planning-scenario.geojson": "sha256:1e7ae4a7e88ad051e3e8e8d2f0f994720738db85ee08d0381fe0beda2339d291",
+      "data/overrides/planning-scenario.geojson": "sha256:134f7afe5b75e571942e35f1355d4260988831bf5e98d2e30f0357a533f72c76",
       "data/source/aerial.jpg": "sha256:bf170384421d68c7d14ccc0181e5f9e47f05870166fb614cf9b3fd10516f35e2",
       "data/source/aerial.json": "sha256:e9fae91b0a081fc01880adba0b811f3578ee0710aa0a37da306e4bf1f54db189",
       "data/source/buildings.geojson": "sha256:fee6a302bf84cf0b394ecc0d1c04e884f02e150e22074255acce62a030e34584",
@@ -2000,7 +3962,7 @@
     },
     "artifact_validation": {
       "schema": "openmapstack-validation-result/v1",
-      "project_file": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-a30i5yev/project.yaml",
+      "project_file": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-l1brc7il/project.yaml",
       "status": "warning",
       "counts": {
         "passed": 77,
@@ -2030,7 +3992,7 @@
         {
           "id": "interpretation.assumptions",
           "status": "passed",
-          "message": "12 assumptions have rationale",
+          "message": "15 assumptions have rationale",
           "path": "interpretation.assumptions"
         },
         {
@@ -2399,7 +4361,7 @@
         {
           "id": "outputs.declaration",
           "status": "passed",
-          "message": "41 outputs trace to real steps",
+          "message": "47 outputs trace to real steps",
           "path": "outputs"
         },
         {
@@ -2414,15 +4376,16 @@
           "message": "dashboard: view and evidence bind the declared analysis",
           "details": {
             "evidence": {
-              "view_sha256": "sha256:b705c1a921a529a946f63fd987b7159317f2c72cac1851925c56d95e69a98607",
+              "view_sha256": "sha256:ce7841d1e814faaf8c6a1473d23ebb7051cffd5cb6a6005aefd410f34d11ab02",
               "analytical_outputs": {
-                "planning_scenario": "sha256:55bf5807ba8311d68ffd729fd4455334063cafab53f3aeebb36bbd7cdca1e35e",
+                "planning_scenario": "sha256:a10e3c78e6549c65d6e46d0fa300f0aca9b26574c2d06468f8969ab48d5fe420",
                 "seasonal_summary": "sha256:d69c4c9c730bbf6e92488f9013811142514fd4affde245f3b3ea4e8083ccf40b",
                 "hourly_results": "sha256:63421e282fe8bde4c4b603afb15a8e5d8442a52a5d2e9d8211f0b830dc9c34d0",
                 "monthly_results": "sha256:344fc0232cf579b27705a85c7e01b2e2dfe2bcff1b0c3a11c587a1773af76ff9",
                 "browser_buildings": "sha256:fee6a302bf84cf0b394ecc0d1c04e884f02e150e22074255acce62a030e34584",
-                "browser_scenario": "sha256:55bf5807ba8311d68ffd729fd4455334063cafab53f3aeebb36bbd7cdca1e35e",
-                "hosted_seasonal_summary": "sha256:d69c4c9c730bbf6e92488f9013811142514fd4affde245f3b3ea4e8083ccf40b"
+                "browser_scenario": "sha256:a10e3c78e6549c65d6e46d0fa300f0aca9b26574c2d06468f8969ab48d5fe420",
+                "hosted_seasonal_summary": "sha256:d69c4c9c730bbf6e92488f9013811142514fd4affde245f3b3ea4e8083ccf40b",
+                "hosted_storage_summary": "sha256:1131544e3f1e165bef094b3ddd6d3603a1edff97fffd7b2c82de786e6dbfa78b"
               }
             }
           }
@@ -2467,7 +4430,7 @@
         {
           "id": "warnings.declaration",
           "status": "passed",
-          "message": "7 unresolved warnings are documented",
+          "message": "8 unresolved warnings are documented",
           "path": "warnings"
         },
         {
@@ -2491,13 +4454,13 @@
         {
           "id": "validation.declaration",
           "status": "passed",
-          "message": "30 validation checks are declared",
+          "message": "42 validation checks are declared",
           "path": "validation"
         },
         {
           "id": "outputs.files",
           "status": "passed",
-          "message": "all 41 declared outputs exist",
+          "message": "all 47 declared outputs exist",
           "path": "outputs"
         },
         {
@@ -2515,7 +4478,7 @@
         {
           "id": "validation.report",
           "status": "warning",
-          "message": "report has 30 explicit checks; status=warning",
+          "message": "report has 42 explicit checks; status=warning",
           "path": "validation/latest-report.json"
         },
         {
@@ -2527,8 +4490,8 @@
         {
           "id": "runs.latest",
           "status": "passed",
-          "message": "run-20261026-110728 resolves and matches report status/hashes",
-          "path": "runs/run-20261026-110728.json"
+          "message": "run-20261026-115257 resolves and matches report status/hashes",
+          "path": "runs/run-20261026-115257.json"
         },
         {
           "id": "runs.sample_isolation",

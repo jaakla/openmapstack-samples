@@ -20,6 +20,24 @@
           "systemLossPct": 14,
           "salesMarginEurMWh": 5
         },
+        "storage": {
+          "enabled": false,
+          "capacityMode": "auto",
+          "capacityKwh": 40,
+          "powerMode": "kw",
+          "chargePowerKw": 10,
+          "dischargePowerKw": 10,
+          "chargeCurrentA": 16,
+          "dischargeCurrentA": 16,
+          "phases": 3,
+          "voltageV": 400,
+          "roundTripEfficiencyPct": 90,
+          "reserveSocPct": 10,
+          "allowGridCharging": false,
+          "allowBatteryExport": false,
+          "cyclingCostEurKwh": 0.02,
+          "socSteps": 80
+        },
         "consumption": {
           "mode": "estimate",
           "dayKwh": 10,

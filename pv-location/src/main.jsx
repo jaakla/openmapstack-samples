@@ -11,6 +11,9 @@ import {
 } from "lucide-react";
 import MapView from "./MapView.jsx";
 import Results from "./Results.jsx";
+import AreaPanel from "./AreaPanel.jsx";
+import { DEFAULT_STORAGE, normalizeStorageConfig } from "./storage.js";
+import { downloadFile } from "./downloads.js";
 import { ScenarioPanel, EvidencePanel, ValidationPanel } from "./Panels.jsx";
 import { polygonMetrics, solarPosition, validateSystem } from "./analysis.js";
 import { withinCoverage } from "./geography.js";
@@ -50,8 +53,63 @@ async function loadProject() {
   };
 }
 function App({ inputs }) {
-  const { project, terrain, buildings } = inputs,
-    canonical = project.canonical;
+  const canonical = inputs.project.canonical;
+  const [areaContext, setAreaContext] = useState(null);
+  const [areaLoading, setAreaLoading] = useState(""),
+    [areaError, setAreaError] = useState("");
+  const areaRequest = useRef();
+  const footprintRequest = useRef();
+  const terrain = areaContext?.terrain || inputs.terrain;
+  const buildings = areaContext?.buildings || inputs.buildings;
+  const weather = areaContext?.weather || inputs.weather;
+  const area = areaContext
+    ? {
+        id: areaContext.id,
+        name: `${areaContext.name} · Estonia`,
+        center: [areaContext.center.longitude, areaContext.center.latitude],
+      }
+    : {
+        id: "canonical",
+        name: "Tartu, Estonia",
+        center: [canonical.system.longitude, canonical.system.latitude],
+      };
+  const project = useMemo(
+    () =>
+      areaContext
+        ? {
+            ...inputs.project,
+            liveContext: {
+              id: areaContext.id,
+              name: `${areaContext.name} · Estonia`,
+              center: areaContext.center,
+              bounds: areaContext.bounds,
+              provenance: areaContext.provenance,
+            },
+            project: {
+              ...inputs.project.project,
+              aoi: { bbox: areaContext.bounds, crs: "EPSG:3301" },
+            },
+            aerial: areaContext.aerialMetadata,
+            data: { ...inputs.project.data, aerial: areaContext.aerialURL },
+            sources: [
+              ...inputs.project.sources.filter((source) =>
+                /ee_prices/.test(source.id),
+              ),
+              ...areaContext.sources,
+            ],
+            warnings: [
+              ...inputs.project.warnings,
+              ...areaContext.warnings.map((statement, index) => ({
+                id: `live_${index}`,
+                statement,
+              })),
+            ],
+            downloads: {},
+          }
+        : inputs.project,
+    [inputs.project, areaContext],
+  );
+  const [storage, setStorage] = useState(canonical.storage || DEFAULT_STORAGE);
   const [system, setSystem] = useState(canonical.system),
     [polygon, setPolygon] = useState(canonical.polygon),
     [year, setYear] = useState(canonical.year),
@@ -74,7 +132,16 @@ function App({ inputs }) {
     [horizon, setHorizon] = useState(null),
     [busy, setBusy] = useState(true),
     [error, setError] = useState("");
-  exportStateRef.current = { system, polygon, year, consumption, day, hour };
+  exportStateRef.current = {
+    system,
+    polygon,
+    year,
+    consumption,
+    storage,
+    day,
+    hour,
+    areaContext,
+  };
   const worker = useRef(),
     sequence = useRef(0);
   const metrics = useMemo(() => {
@@ -94,6 +161,10 @@ function App({ inputs }) {
     [day, hour, metrics, system.latitude, system.longitude],
   );
   const exploratory =
+    !!areaContext ||
+    Object.keys(DEFAULT_STORAGE).some(
+      (key) => storage[key] !== (canonical.storage || DEFAULT_STORAGE)[key],
+    ) ||
     JSON.stringify(system) !== JSON.stringify(canonical.system) ||
     JSON.stringify(polygon) !== JSON.stringify(canonical.polygon) ||
     year !== canonical.year ||
@@ -112,7 +183,7 @@ function App({ inputs }) {
     worker.current = w;
     w.postMessage({
       type: "init",
-      inputs: { terrain, weather: inputs.weather, prices: inputs.prices },
+      inputs: { terrain, weather, prices: inputs.prices },
     });
     w.onmessage = ({ data }) => {
       if (data.id !== sequence.current) return;
@@ -131,18 +202,128 @@ function App({ inputs }) {
       setBusy(false);
     };
     return () => w.terminate();
-  }, [inputs, terrain]);
+  }, [inputs, terrain, weather]);
   useEffect(() => {
     const id = ++sequence.current;
+    if (!polygon) {
+      setBusy(false);
+      setAnalysis(null);
+      setHorizon(null);
+      return;
+    }
     setBusy(true);
     const timer = setTimeout(
       () =>
-        worker.current?.postMessage({ id, system, polygon, year, consumption }),
+        worker.current?.postMessage({
+          id,
+          system,
+          polygon,
+          year,
+          consumption,
+          storage,
+        }),
       120,
     );
     return () => clearTimeout(timer);
-  }, [system, polygon, year, consumption]);
+  }, [system, polygon, year, consumption, storage, terrain]);
+  const cancelArea = () => {
+    areaRequest.current?.abort();
+    if (footprintRequest.current) {
+      footprintRequest.current.abort();
+      setBusy(false);
+    }
+    footprintRequest.current = null;
+    areaRequest.current = null;
+    setAreaLoading("");
+  };
+  useEffect(
+    () => () => {
+      areaRequest.current?.abort();
+      footprintRequest.current?.abort();
+    },
+    [],
+  );
+  const activateArea = (next) => {
+    setAreaContext(next);
+    setPolygon(null);
+    setAnalysis(null);
+    setHorizon(null);
+    setSystem((current) => ({
+      ...current,
+      longitude: next.center.longitude,
+      latitude: next.center.latitude,
+    }));
+    setDraft([]);
+    setDrawing(true);
+    setError("");
+    setPdfError("");
+    setAreaError("");
+    setResetVersion((value) => value + 1);
+  };
+  const loadArea = async (coordinate) => {
+    cancelArea();
+    const request = new AbortController();
+    areaRequest.current = request;
+    setAreaError("");
+    setAreaLoading("Checking Estonian land coverage…");
+    try {
+      const { loadEstoniaArea } = await import("./areas.js");
+      const next = await loadEstoniaArea(coordinate, {
+        signal: request.signal,
+        onProgress: (message) => {
+          if (areaRequest.current === request)
+            setAreaLoading(
+              typeof message === "string"
+                ? message
+                : message.message || "Loading source data…",
+            );
+        },
+        years: [2024, 2025],
+      });
+      if (!request.signal.aborted && areaRequest.current === request)
+        activateArea(next);
+    } catch (err) {
+      if (!request.signal.aborted && areaRequest.current === request)
+        setAreaError(
+          `Area could not be loaded: ${err.message} The previous area is retained.`,
+        );
+    } finally {
+      if (areaRequest.current === request) {
+        areaRequest.current = null;
+        setAreaLoading("");
+      }
+    }
+  };
+  const importArea = async (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    cancelArea();
+    try {
+      if (file.size > 40e6) throw new Error("Area bundle exceeds 40 MB.");
+      const { parseAreaBundle } = await import("./areas.js");
+      const next = await parseAreaBundle(await file.text());
+      activateArea(next);
+    } catch (err) {
+      setAreaError(`Could not import area bundle: ${err.message}`);
+    }
+    event.target.value = "";
+  };
+  const exportArea = async () => {
+    try {
+      const { serializeAreaBundle } = await import("./areas.js");
+      downloadFile(
+        "solar-atlas-estonia-area.json",
+        await serializeAreaBundle(areaContext),
+      );
+    } catch (err) {
+      setAreaError(`Could not save area bundle: ${err.message}`);
+    }
+  };
   const reset = () => {
+    cancelArea();
+    setAreaContext(null);
+    setAreaError("");
+    setStorage(canonical.storage || DEFAULT_STORAGE);
     setResetVersion((value) => value + 1);
     setSystem(canonical.system);
     setPolygon(canonical.polygon);
@@ -153,7 +334,26 @@ function App({ inputs }) {
     setDraft([]);
     setError("");
   };
-  const changePolygon = (shape) => {
+  const verifyFootprint = async (shape) => {
+    if (!areaContext) return;
+    footprintRequest.current?.abort();
+    const request = new AbortController();
+    footprintRequest.current = request;
+    ++sequence.current;
+    setBusy(true);
+    try {
+      const { verifyEstoniaFootprint } = await import("./areas.js");
+      await verifyEstoniaFootprint(shape, { signal: request.signal });
+      if (request.signal.aborted)
+        throw new DOMException("Footprint check cancelled.", "AbortError");
+    } finally {
+      if (footprintRequest.current === request) {
+        footprintRequest.current = null;
+        setBusy(false);
+      }
+    }
+  };
+  const changePolygon = async (shape) => {
     try {
       const m = polygonMetrics(shape);
       if (!withinCoverage(shape.coordinates[0], terrain))
@@ -164,6 +364,7 @@ function App({ inputs }) {
         throw new Error(
           "Use a footprint smaller than 10 hectares for this nine-sample pilot.",
         );
+      await verifyFootprint(shape);
       setPolygon(shape);
       setSystem((s) => ({
         ...s,
@@ -172,7 +373,7 @@ function App({ inputs }) {
       }));
       setError("");
     } catch (e) {
-      setError(e.message);
+      if (e.name !== "AbortError") setError(e.message);
     }
   };
   const importScenario = async (e) => {
@@ -199,7 +400,7 @@ function App({ inputs }) {
         m.areaM2 > 100000
       )
         throw new Error(
-          "Imported site must fit within the pilot and be smaller than 10 hectares.",
+          "Load the matching Estonia area or import its area bundle first. The site must fit inside its measured coverage and be smaller than 10 hectares.",
         );
       const allowed = Object.fromEntries(
         [
@@ -223,7 +424,13 @@ function App({ inputs }) {
           canonical.consumption ||
           DEFAULT_CONSUMPTION,
       );
+      await verifyFootprint(item.geometry);
+      const importedStorage = normalizeStorageConfig(
+        item.properties?.storage || canonical.storage || DEFAULT_STORAGE,
+        checked,
+      );
       setPolygon(item.geometry);
+      setStorage(importedStorage);
       setConsumption(importedConsumption);
       setSystem({
         ...system,
@@ -233,7 +440,7 @@ function App({ inputs }) {
       });
       setError("");
     } catch (err) {
-      setError(err.message);
+      if (err.name !== "AbortError") setError(err.message);
     }
     e.target.value = "";
   };
@@ -253,7 +460,8 @@ function App({ inputs }) {
     };
   }, [exportMenu]);
   const exportPdf = async () => {
-    if (busy || !analysis?.hourly || exporting || drawing) return;
+    if (busy || areaLoading || !analysis?.hourly || exporting || drawing)
+      return;
     const snapshot = exportStateRef.current;
     setExporting(true);
     setPdfError("");
@@ -283,6 +491,7 @@ function App({ inputs }) {
         analysis,
         horizon,
         consumption,
+        storage,
         mapImage,
         scenarioState: exploratory ? "exploratory" : "canonical",
       });
@@ -302,7 +511,7 @@ function App({ inputs }) {
         </div>
         <div className="location">
           <MapPin size={17} />
-          Tartu, Estonia
+          {area.name}
         </div>
         <div className="header-actions">
           <button
@@ -317,7 +526,7 @@ function App({ inputs }) {
             className="icon-button"
             aria-label="Download modeled hourly CSV"
             title="Download modeled hourly CSV"
-            disabled={busy || exporting || !analysis?.hourly}
+            disabled={busy || !!areaLoading || exporting || !analysis?.hourly}
             onClick={() => exportHourly(analysis)}
           >
             <Download size={18} />
@@ -327,7 +536,12 @@ function App({ inputs }) {
               className="primary export-scenario"
               onClick={exportPdf}
               disabled={
-                busy || exporting || drawing || !analysis?.hourly || !!error
+                busy ||
+                !!areaLoading ||
+                exporting ||
+                drawing ||
+                !analysis?.hourly ||
+                !!error
               }
               title="Download a PDF report of the current scenario"
             >
@@ -339,7 +553,7 @@ function App({ inputs }) {
               aria-label="More scenario export options"
               aria-haspopup="menu"
               aria-expanded={exportMenu}
-              disabled={exporting || busy || !!error}
+              disabled={exporting || busy || !!areaLoading || !!error}
               onClick={() => setExportMenu((v) => !v)}
             >
               <ChevronDown size={15} />
@@ -351,7 +565,13 @@ function App({ inputs }) {
                   disabled={busy || exporting || drawing || !!error}
                   onClick={() => {
                     try {
-                      exportScenario(system, polygon, project, consumption);
+                      exportScenario(
+                        system,
+                        polygon,
+                        project,
+                        consumption,
+                        storage,
+                      );
                       setPdfError("");
                     } catch (err) {
                       setPdfError(
@@ -365,7 +585,9 @@ function App({ inputs }) {
                 </button>
                 <button
                   role="menuitem"
-                  disabled={busy || exporting || !analysis?.hourly}
+                  disabled={
+                    busy || !!areaLoading || exporting || !analysis?.hourly
+                  }
                   onClick={() => {
                     exportHourly(analysis);
                     setExportMenu(false);
@@ -383,7 +605,11 @@ function App({ inputs }) {
           {pdfError}
         </div>
       ) : null}
-      <main className="workspace" inert={exporting} aria-busy={exporting}>
+      <main
+        className={`workspace ${storage.enabled ? "with-storage" : ""}`}
+        inert={exporting}
+        aria-busy={exporting}
+      >
         <aside className="planning-rail">
           <div className="rail-heading">
             <h2>Plan a solar site</h2>
@@ -416,24 +642,38 @@ function App({ inputs }) {
                 key={name}
               >
                 {name === "Scenario" ? (
-                  <ScenarioPanel
-                    {...{
-                      system,
-                      resetVersion,
-                      setSystem,
-                      year,
-                      setYear,
-                      drawing,
-                      setDrawing,
-                      setDraft,
-                      reset,
-                      importScenario,
-                      consumption,
-                      setConsumption,
-                      analysis,
-                    }}
-                    area={metrics?.areaM2}
-                  />
+                  <>
+                    <AreaPanel
+                      area={area}
+                      loading={areaLoading}
+                      error={areaError}
+                      onLoad={loadArea}
+                      onCancel={cancelArea}
+                      onReset={reset}
+                      onImport={importArea}
+                      onExport={exportArea}
+                    />
+                    <ScenarioPanel
+                      {...{
+                        system,
+                        storage,
+                        setStorage,
+                        resetVersion,
+                        setSystem,
+                        year,
+                        setYear,
+                        drawing,
+                        setDrawing,
+                        setDraft,
+                        reset,
+                        importScenario,
+                        consumption,
+                        setConsumption,
+                        analysis,
+                      }}
+                      area={metrics?.areaM2}
+                    />
+                  </>
                 ) : name === "Evidence" ? (
                   <EvidencePanel {...{ project, analysis, horizon }} />
                 ) : (
@@ -470,6 +710,7 @@ function App({ inputs }) {
             </div>
           ) : null}
           <MapView
+            key={area.id}
             {...{
               resetVersion,
               captureMapRef,
@@ -488,9 +729,16 @@ function App({ inputs }) {
               setHour,
               theme,
             }}
+            areaCenter={area.center}
             onPolygon={changePolygon}
             heightM={system.mountingHeightM}
           />
+          {!polygon ? (
+            <div className="empty-site" role="status">
+              New area loaded. Draw your PV footprint on the map to calculate
+              this site.
+            </div>
+          ) : null}
           <Results {...{ analysis, year, busy, horizon, consumption }} />
         </div>
       </main>

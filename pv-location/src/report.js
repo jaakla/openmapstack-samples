@@ -1,4 +1,5 @@
 import { polygonMetrics } from "./analysis.js";
+import { DEFAULT_STORAGE } from "./storage.js";
 
 const C = {
   ink: "#192c23",
@@ -55,6 +56,7 @@ export async function createScenarioReport({
   analysis,
   horizon,
   consumption,
+  storage,
   mapImage,
   scenarioState,
   createdAt = new Date(),
@@ -92,6 +94,22 @@ export async function createScenarioReport({
     keywords: "PV, solar, planning, historical estimate",
   });
   const demand = analysis.consumption || consumption || {};
+  const battery = analysis.storage || storage || {};
+  const batteryConfig = battery.config || battery;
+  const hasStorage = batteryConfig.enabled === true;
+  const staleStorage =
+    storage &&
+    analysis.storage &&
+    Object.keys(DEFAULT_STORAGE).some(
+      (key) =>
+        Object.hasOwn(storage, key) && storage[key] !== batteryConfig[key],
+    );
+  if ((hasStorage && !battery.summary) || staleStorage)
+    throw new Error(
+      "Run the current storage analysis before exporting a report.",
+    );
+  const totalPages = hasStorage ? 4 : 3;
+  const liveContext = project.liveContext;
   const config = demand.config || demand;
   const profile = demand.provenance || {};
   const year =
@@ -208,7 +226,7 @@ export async function createScenarioReport({
       C.muted,
     );
     text(
-      `${year || "Historical replay"}  /  ${page} of 3`,
+      `${year || "Historical replay"}  /  ${page} of ${totalPages}`,
       193,
       288,
       7,
@@ -419,7 +437,7 @@ export async function createScenarioReport({
     C.white,
   );
   const shadowMoney = finite(summary.shadowNetBenefitLossEur)
-    ? ` Shadow impact on household benefit: ${money(summary.shadowNetBenefitLossEur)}/yr.`
+    ? ` Shadow impact on household benefit${hasStorage ? " without storage" : ""}: ${money(summary.shadowNetBenefitLossEur)}/yr.`
     : finite(summary.shadowRevenueLossEur)
       ? ` Shadow impact on all-export revenue: ${money(summary.shadowRevenueLossEur)}/yr.`
       : "";
@@ -457,7 +475,7 @@ export async function createScenarioReport({
   brand(
     2,
     "Consumption & value",
-    "Hourly matching of local demand and PV · historical wholesale prices · no battery",
+    "Local demand and PV · historical wholesale prices · comparison without storage",
   );
   const imported =
     config.mode === "csv-calendar" || config.mode === "csv-exact";
@@ -679,7 +697,7 @@ export async function createScenarioReport({
   section("How this estimate works", 87);
   const methods = [
     "Clear sky: Haurwitz reference and Erbs decomposition. Hourly ERA5 irradiance is transposed to the tilted array with isotropic diffuse sky and ground reflection.",
-    `Production: ${num(system.kwp, 2)} kWp nameplate, NOCT cell-temperature adjustment and ${num(system.systemLossPct, 1)}% electrical loss. No inverter clipping, snow, curtailment, degradation or storage model.`,
+    `Production: ${num(system.kwp, 2)} kWp nameplate, NOCT cell-temperature adjustment and ${num(system.systemLossPct, 1)}% electrical loss. No inverter clipping, snow, curtailment or degradation.${hasStorage ? " Storage is a separate comparison on page 4." : " Storage is disabled."}`,
     `Local shade: ${num(horizon?.resolutionM ?? 5)} m surface grid, ${num(horizon?.sampleCount)} receiver samples and ${num(horizon?.radiusM)} m horizon radius. DSM treats buildings and trees as opaque; tree seasonality and electrical mismatch are unresolved.`,
     "Surface dates: DSM catalogue describes 2017–2020 acquisitions; exact local dates are unknown. The frozen surface can differ from the historical weather year and misses small objects.",
     imported
@@ -692,7 +710,10 @@ export async function createScenarioReport({
     text(`${String(i + 1).padStart(2, "0")}`, left, my, 7.2, C.leaf, true);
     my = paragraph(value, left + 8, my, width - 8, 7.4, C.ink, 3.8) + 3;
   });
-  section("Source snapshots", my + 3);
+  section(
+    liveContext ? "Selected live source context" : "Source snapshots",
+    my + 3,
+  );
   let sy = my + 12;
   const groups = [
     [
@@ -726,11 +747,15 @@ export async function createScenarioReport({
     const captured =
       sources[0]?.access?.retrieved_at || sources[0]?.retrieved_at;
     const hashes = sources
-      .map((source) => source.pin?.sha256?.replace(/^sha256:/, "").slice(0, 10))
+      .map((source) =>
+        (source.pin?.sha256 || source.sha256)
+          ?.replace(/^sha256:/, "")
+          .slice(0, 10),
+      )
       .filter(Boolean)
       .join(" / ");
     text(
-      `${captured ? `Retrieved ${captured.slice(0, 10)}` : "See project manifest"}${hashes ? ` · SHA-256 ${hashes}` : ""}`,
+      `${captured ? `Retrieved ${captured.slice(0, 10)}` : "See source provenance"}${hashes ? ` · SHA-256 ${hashes}` : ""}`,
       left + 22,
       sy + 4,
       6.1,
@@ -741,7 +766,9 @@ export async function createScenarioReport({
     sy += 12;
   });
   paragraph(
-    "Government solar records in the checked application are municipal counts, not installations. Aerial detection and installation inventory accuracy have not been evaluated. Full source URLs, licences and SHA-256 pins remain in the project manifest.",
+    liveContext
+      ? `Selected area: ${safe(liveContext.name, "Exploratory Estonian context")}. Live response hashes and retrieval records describe this context; the parent pinned run does not validate it. Aerial PV detection and installation inventory accuracy remain untested.`
+      : "Government solar records in the checked application are municipal counts, not installations. Aerial detection and installation inventory accuracy have not been evaluated. Full source URLs, licences and SHA-256 pins remain in the project manifest.",
     left,
     sy + 1,
     width,
@@ -777,7 +804,7 @@ export async function createScenarioReport({
     author.url || (author.email ? `mailto:${author.email}` : null);
   if (authorUrl) doc.link(left, creditY + 3, 107, 4, { url: authorUrl });
   text(
-    `Source run: ${safe(project.run?.id, "Interactive scenario")} · ${safe(project.run?.completed_at, "Run time not supplied")}`,
+    `${liveContext ? "Parent pinned run" : "Source run"}: ${safe(project.run?.id, "Interactive scenario")} · ${safe(project.run?.completed_at, "Run time not supplied")}`,
     left,
     creditY + 11,
     6.3,
@@ -791,6 +818,135 @@ export async function createScenarioReport({
     C.muted,
   );
   footer(3);
+  if (hasStorage) {
+    doc.addPage();
+    brand(
+      4,
+      "Battery storage",
+      "Historical dispatch compared with the same PV and demand without storage",
+    );
+    const bs =
+      battery.annual?.find((row) => row.year === year) || battery.summary;
+    const bm = (battery.monthly || [])
+      .filter((row) => !year || row.month?.startsWith(String(year)))
+      .slice(0, 12);
+    metric(
+      left,
+      50,
+      mw,
+      "Benefit versus no battery",
+      money(bs.incrementalBenefitEur),
+      "After explicit cycling cost",
+      C.green,
+      C.white,
+    );
+    metric(
+      left + mw + 4,
+      50,
+      mw,
+      "PV + storage benefit",
+      money(bs.netBenefitEur),
+      "Versus the no-PV import cost",
+    );
+    metric(
+      left + 2 * (mw + 4),
+      50,
+      mw,
+      "Storage conversion loss",
+      `${num(bs.lossKwh)} kWh`,
+      "Charge and discharge losses",
+    );
+    section(
+      "Operating assumptions",
+      90,
+      `Coverage ${pct(bs.coveragePct)} · ${num(bs.coveredHours)} / ${num(bs.expectedHours)} h`,
+    );
+    const settings = [
+      `Capacity ${num(batteryConfig.effectiveCapacityKwh, 2)} kWh (${safe(batteryConfig.capacityMode, "manual")}${batteryConfig.capacityMode === "auto" ? ": 2 × PV kWp" : ""}); reserve ${num(batteryConfig.reserveKwh, 2)} kWh (${pct(batteryConfig.reserveSocPct)}).`,
+      `Charge / discharge limits ${num(batteryConfig.effectiveChargePowerKw, 2)} / ${num(batteryConfig.effectiveDischargePowerKw, 2)} kW; ${safe(batteryConfig.powerMode, "kW")} mode, configured current ${num(batteryConfig.chargeCurrentA)} / ${num(batteryConfig.dischargeCurrentA)} A, ${num(batteryConfig.phases)} phase, ${num(batteryConfig.voltageV)} V.`,
+      `Round-trip efficiency ${pct(batteryConfig.roundTripEfficiencyPct)}; cycling cost ${num(batteryConfig.cyclingCostEurKwh, 3)} €/kWh discharged; grid charging ${batteryConfig.allowGridCharging ? "allowed" : "off"}; battery export ${batteryConfig.allowBatteryExport ? "allowed" : "off"}.`,
+      `Solver ${safe(battery.quality?.solver, "finite state historical optimization")}; ${num(batteryConfig.socSteps)} SOC steps; start / end SOC ${num(bs.socStartKwh, 2)} / ${num(bs.socEndKwh, 2)} kWh; maximum SOC ${num(bs.maxSocKwh, 2)} kWh.`,
+    ];
+    let by = 98;
+    settings.forEach((value) => {
+      by = paragraph(value, left, by, width, 7.1, C.ink, 3.7, 2) + 2;
+    });
+    const compareTop = Math.max(135, by + 3);
+    section("Annual comparison", compareTop);
+    const cx = [left, 80, 131, 164];
+    ["Flow / value", "Without battery", "With battery", "Unit"].forEach(
+      (value, i) => text(value, cx[i], compareTop + 8, 7, C.muted),
+    );
+    const comparisons = [
+      ["Grid import", summary.importKwh, bs.importKwh, "kWh"],
+      ["Grid export", summary.exportKwh, bs.exportKwh, "kWh"],
+      [
+        "PV serving local demand",
+        summary.selfConsumedKwh,
+        bs.pvSelfConsumedKwh,
+        "kWh",
+      ],
+      [
+        "Net operating cost",
+        summary.netGridCostEur,
+        bs.operatingCostEur,
+        "EUR",
+      ],
+      ["Benefit versus no PV", summary.netBenefitEur, bs.netBenefitEur, "EUR"],
+    ];
+    comparisons.forEach(([label, before, after, unit], i) => {
+      const y = compareTop + 16 + i * 5;
+      [
+        label,
+        num(before, unit === "EUR" ? 2 : 1),
+        num(after, unit === "EUR" ? 2 : 1),
+        unit,
+      ].forEach((value, j) =>
+        text(value, cx[j], y, 7.1, j === 2 ? C.green : C.ink),
+      );
+    });
+    const monthlyTop = compareTop + 49;
+    section(
+      "Monthly storage dispatch",
+      monthlyTop,
+      "Complete-period totals; unknown coverage remains —",
+    );
+    const bx = [left, 48, 83, 121, 159];
+    [
+      "Month",
+      "Charge kWh",
+      "Discharge kWh",
+      "Loss kWh",
+      "Extra benefit €",
+    ].forEach((value, i) => text(value, bx[i], monthlyTop + 8, 7, C.muted));
+    bm.forEach((row, i) => {
+      const y = monthlyTop + 15 + i * 4.3;
+      if (i % 2 === 0) {
+        doc.setFillColor(C.mist);
+        doc.rect(left, y - 3.1, width, 4.3, "F");
+      }
+      [
+        MONTHS[Number(row.month?.slice(5, 7)) - 1] || row.month,
+        num(row.chargeKwh),
+        num(row.dischargeKwh),
+        num(row.lossKwh),
+        num(row.incrementalBenefitEur, 2),
+      ].forEach((value, j) =>
+        text(value, bx[j], y, 7, j === 4 ? C.green : C.ink),
+      );
+    });
+    paragraph(
+      "Historical prices are known in advance in this replay. Daily dispatch returns to reserve SOC and uses finite state resolution; this is not a live trading forecast. No battery purchase cost, financing, standing loss or degradation beyond the stated cycling cost is assumed. Missing demand or prices do not become zero.",
+      left,
+      258,
+      width,
+      7.1,
+      C.muted,
+      3.8,
+      5,
+    );
+    footer(4);
+  }
   return doc;
 }
 

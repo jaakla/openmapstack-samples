@@ -582,10 +582,9 @@ function metricSummary(rows) {
 }
 
 /** Add demand, self-consumption and net grid economics without changing original PV comparators. */
-export function applyConsumption(analysis, input = DEFAULT_CONSUMPTION) {
+/** Resolve exact quarter-hour demand for consumption and storage without exposing meter metadata. */
+export function createConsumptionResolver(input = DEFAULT_CONSUMPTION) {
   const config = normalizeConsumptionConfig(input);
-  if (!Array.isArray(analysis?.hourly) || !analysis.hourly.length)
-    throw new Error("Consumption analysis needs modeled hourly PV intervals.");
   const localCache = new Map();
   const local = (time) => {
     if (!localCache.has(time))
@@ -668,6 +667,31 @@ export function applyConsumption(analysis, input = DEFAULT_CONSUMPTION) {
     throw new Error(
       "Calendar replay contains more than one source value for the same local month/day/clock occurrence. Use exact dates or a single historical annual cycle.",
     );
+  return {
+    config,
+    dayKey: (time) => dateKey(local(time)),
+    at(time) {
+      const parts = local(time);
+      const occurrence =
+        config.mode === "csv-calendar"
+          ? candidates(parts, config.timeZone).indexOf(time)
+          : 0;
+      const key =
+        config.mode === "csv-exact" ? time : `${clockKey(parts)}#${occurrence}`;
+      let energyKwh =
+        config.mode === "estimate" ? estimate(time) : (source.get(key) ?? null);
+      const imputed = energyKwh == null && config.fillMissingWithEstimate;
+      if (imputed) energyKwh = estimate(time);
+      return { energyKwh, imputed };
+    },
+  };
+}
+
+export function applyConsumption(analysis, input = DEFAULT_CONSUMPTION) {
+  const resolver = createConsumptionResolver(input);
+  const config = resolver.config;
+  if (!Array.isArray(analysis?.hourly) || !analysis.hourly.length)
+    throw new Error("Consumption analysis needs modeled hourly PV intervals.");
   const hourly = analysis.hourly.map((row) => {
     const duration = row.durationHours ?? 1;
     const start = stamp(row.time);
@@ -685,17 +709,7 @@ export function applyConsumption(analysis, input = DEFAULT_CONSUMPTION) {
     const quarters = [];
     for (let i = 0; i < quarterCount; i += 1) {
       const time = start + i * QUARTER;
-      const parts = local(time);
-      const occurrence =
-        config.mode === "csv-calendar"
-          ? candidates(parts, config.timeZone).indexOf(time)
-          : 0;
-      const key =
-        config.mode === "csv-exact" ? time : `${clockKey(parts)}#${occurrence}`;
-      let demand =
-        config.mode === "estimate" ? estimate(time) : (source.get(key) ?? null);
-      const imputed = demand == null && config.fillMissingWithEstimate;
-      if (imputed) demand = estimate(time);
+      const { energyKwh: demand, imputed } = resolver.at(time);
       const q = Object.fromEntries(METRICS.map((metric) => [metric, null]));
       q.consumptionKwh = demand;
       q.consumptionExpectedHours = 0.25;

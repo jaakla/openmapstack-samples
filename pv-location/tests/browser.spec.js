@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
+import { gunzipSync } from "node:zlib";
 const project = JSON.parse(
   fs.readFileSync(
     new URL("../public/data/project.json", import.meta.url),
@@ -103,17 +104,19 @@ test("canonical replay, live scenarios, geometry, export/import and honest CSV c
   const exported = JSON.parse(fs.readFileSync(await download.path(), "utf8"));
   expect(exported.features[0].properties.scenarioType).toBe("hypothetical");
   expect(exported.features[0].geometry.type).toBe("Polygon");
-  await page.locator(".import-link input").setInputFiles({
-    name: "canonical.geojson",
-    mimeType: "application/geo+json",
-    buffer: Buffer.from(
-      JSON.stringify({
-        type: "Feature",
-        geometry: project.canonical.polygon,
-        properties: project.canonical.system,
-      }),
-    ),
-  });
+  await page
+    .getByLabel("Import scenario GeoJSON", { exact: true })
+    .setInputFiles({
+      name: "canonical.geojson",
+      mimeType: "application/geo+json",
+      buffer: Buffer.from(
+        JSON.stringify({
+          type: "Feature",
+          geometry: project.canonical.polygon,
+          properties: project.canonical.system,
+        }),
+      ),
+    });
   await settled(page);
   await expect(page.getByTestId("shadedKwh")).toHaveText(initial);
   // Clearing a date must retain the previous valid sun state and not crash rendering.
@@ -224,5 +227,221 @@ test("consumption estimates, private Enefit import and PDF report export", async
   await expect(
     page.getByLabel("Consumption profile", { exact: true }),
   ).toHaveValue("estimate");
+  expect(errors).toEqual([]);
+});
+
+test("storage sizes automatically, accepts AC current limits and exports the configured dispatch", async ({
+  page,
+}) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.goto("/");
+  await settled(page);
+  await page.getByLabel("Enable battery storage", { exact: true }).check();
+  await expect(page.getByTestId("battery-capacity")).toHaveText("40 kWh");
+  await expect(page.getByTestId("battery-benefit")).not.toContainText("—", {
+    timeout: 20000,
+  });
+  await settled(page);
+  await expect(page.getByTestId("with-battery-value")).toBeVisible();
+  await expect
+    .poll(() =>
+      page
+        .locator(".maplibregl-canvas")
+        .evaluate((canvas) =>
+          Math.abs(canvas.clientHeight - canvas.closest(".map").clientHeight),
+        ),
+    )
+    .toBeLessThan(2);
+  await page
+    .getByLabel("Battery power units", { exact: true })
+    .selectOption("amps");
+  await expect(page.getByText(/11.09 kW charge/)).toBeVisible();
+  await page
+    .getByRole("button", { name: "Enable price arbitrage", exact: true })
+    .click();
+  await expect(page.getByLabel("Allow charging from the grid")).toBeChecked();
+  await expect(
+    page.getByLabel("Allow battery sales to the grid"),
+  ).toBeChecked();
+  await settled(page);
+  await page.getByLabel("DC capacity", { exact: true }).fill("30");
+  await expect(page.getByTestId("battery-capacity")).toHaveText("60 kWh");
+  await settled(page);
+  const [download] = await Promise.all([
+    page.waitForEvent("download"),
+    (async () => {
+      await page
+        .getByRole("button", { name: "More scenario export options" })
+        .click();
+      await page.getByRole("menuitem", { name: "Scenario GeoJSON" }).click();
+    })(),
+  ]);
+  const scenario = JSON.parse(fs.readFileSync(await download.path(), "utf8"));
+  expect(scenario.features[0].properties.storage.enabled).toBe(true);
+  expect(scenario.features[0].properties.storage.effectiveCapacityKwh).toBe(60);
+  expect(scenario.features[0].properties.storage.powerMode).toBe("amps");
+  const [pdf] = await Promise.all([
+    page.waitForEvent("download"),
+    page.getByRole("button", { name: "Export scenario", exact: true }).click(),
+  ]);
+  expect(
+    fs
+      .readFileSync(await pdf.path())
+      .subarray(0, 5)
+      .toString(),
+  ).toBe("%PDF-");
+  await page.locator("[data-oms-reset]").first().click();
+  await settled(page);
+  await expect(
+    page.getByLabel("Enable battery storage", { exact: true }),
+  ).not.toBeChecked();
+  await expect(page.getByTestId("storage-results")).toHaveCount(0);
+  expect(errors).toEqual([]);
+});
+
+test("area picker and failed area loads preserve the published site", async ({
+  page,
+}) => {
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.goto("/");
+  await settled(page);
+  const initial = await page.getByTestId("shadedKwh").textContent();
+  await page
+    .getByRole("button", { name: "Choose on map", exact: true })
+    .click();
+  await expect(page.getByRole("dialog")).toBeVisible();
+  await expect(
+    page.getByTestId("area-picker-map").locator("canvas"),
+  ).toBeVisible();
+  await page
+    .getByRole("button", { name: "Use these coordinates", exact: true })
+    .click();
+  await expect(page.getByRole("dialog")).toHaveCount(0);
+  await page.route(
+    "https://teenus.maaamet.ee/ows/ajakohane-haldusjaotus?**",
+    (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "text/xml",
+        body: '<wfs:FeatureCollection xmlns:wfs="http://www.opengis.net/wfs/2.0" numberMatched="0"/>',
+      }),
+  );
+  await page.getByLabel("Area latitude", { exact: true }).fill("56.9496");
+  await page.getByLabel("Area longitude", { exact: true }).fill("24.1052");
+  await page
+    .getByRole("button", { name: "Load Estonia area", exact: true })
+    .click();
+  await expect(
+    page.getByText(/Choose a location on Estonian land/),
+  ).toBeVisible({ timeout: 15000 });
+  await expect(page.getByTestId("shadedKwh")).toHaveText(initial);
+  await expect(page.locator("html")).toHaveAttribute(
+    "data-oms-state",
+    "canonical",
+  );
+  await page.getByLabel("Import area bundle", { exact: true }).setInputFiles({
+    name: "broken-area.json",
+    mimeType: "application/json",
+    buffer: Buffer.from(
+      '{"schema":"solar-atlas-area-bundle/v1","sha256":"wrong","area":{}}',
+    ),
+  });
+  await expect(page.getByText(/checksum mismatch/)).toBeVisible();
+  await expect(page.getByTestId("shadedKwh")).toHaveText(initial);
+  expect(errors).toEqual([]);
+});
+
+test("loading retained real area fixtures replaces map context and clears prior results", async ({
+  page,
+}) => {
+  // Reuse the real pinned Tartu responses to test replacement without mutable live API dependencies.
+  const source = (path) =>
+    fs.readFileSync(new URL(`../data/source/${path}`, import.meta.url));
+  const errors = [];
+  page.on("pageerror", (error) => errors.push(error.message));
+  await page.route(
+    "https://teenus.maaamet.ee/ows/ajakohane-haldusjaotus?**",
+    (route) =>
+      route.fulfill({
+        status: 200,
+        contentType: "text/xml",
+        body: '<wfs:FeatureCollection xmlns:wfs="http://www.opengis.net/wfs/2.0" numberMatched="1"/>',
+      }),
+  );
+  await page.route("https://teenus.maaamet.ee/ows/wcs-*?**", (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "image/tiff",
+      body: source(
+        route.request().url().includes("wcs-dsm")
+          ? "raw/dsm.tif"
+          : "raw/dtm.tif",
+      ),
+    }),
+  );
+  await page.route("https://gsavalik.envir.ee/geoserver/etak/wfs?**", (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: gunzipSync(source("raw/buildings.geojson.gz")),
+    }),
+  );
+  await page.route("https://kaart.maaamet.ee/wms/alus-geo?**", (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "image/jpeg",
+      body: source("aerial.jpg"),
+    }),
+  );
+  await page.route(
+    "https://archive-api.open-meteo.com/v1/archive?**",
+    (route) => {
+      const year = new URL(route.request().url()).searchParams
+        .get("start_date")
+        .slice(0, 4);
+      return route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: gunzipSync(source(`raw/weather-${year}.json.gz`)),
+      });
+    },
+  );
+  await page.goto("/");
+  await settled(page);
+  await page.getByLabel("Area latitude", { exact: true }).fill("58.37");
+  await page.getByLabel("Area longitude", { exact: true }).fill("26.72");
+  await page
+    .getByRole("button", { name: "Load Estonia area", exact: true })
+    .click();
+  await expect(page.locator(".empty-site")).toBeVisible({ timeout: 20000 });
+  await expect(page.getByTestId("map")).toHaveAttribute(
+    "data-map-ready",
+    "true",
+  );
+  await expect(page.getByTestId("shadedKwh")).toContainText("—");
+  await expect(page.locator("html")).toHaveAttribute(
+    "data-oms-state",
+    "exploratory",
+  );
+  const [bundle] = await Promise.all([
+    page.waitForEvent("download"),
+    page.getByRole("button", { name: "Save area bundle", exact: true }).click(),
+  ]);
+  expect(
+    JSON.parse(fs.readFileSync(await bundle.path(), "utf8")).area.weather[
+      "2025"
+    ].requestedLocation.latitude,
+  ).toBe(58.37);
+  await page.locator("[data-oms-reset]").first().click();
+  await settled(page);
+  await expect(page.getByTestId("shadedKwh")).toContainText(
+    pretty(project.results["2025"].summary.shadedKwh),
+  );
+  await expect(page.locator("html")).toHaveAttribute(
+    "data-oms-state",
+    "canonical",
+  );
   expect(errors).toEqual([]);
 });
