@@ -1,0 +1,84 @@
+{
+  "status": "acquired",
+  "artifacts": [
+    {
+      "path": "data/source/LVK2026101300737.pdf",
+      "sha256": "e83f18453dfdebe1d621d7d9e77e0df864169e635a89d9056dd50bf7b29bc004"
+    },
+    {
+      "path": "data/source/Mojuala_seosed.pdf",
+      "sha256": "7abe040af2d45ad8d16d84afd05cd26f3b88f36da5a47b5aefeeda068a70b742"
+    },
+    {
+      "path": "data/source/Olemasolev_olukord.pdf",
+      "sha256": "8d12e5ee7f656de235995e27d16ed869aafaedfe78c898ddac7a1557ba442829"
+    },
+    {
+      "path": "data/source/Pohijoonis.pdf",
+      "sha256": "d8f3f8d81e4f07d0b1ce8726558dd0736d172e22fdc82ff20495637996e7f149"
+    },
+    {
+      "path": "data/source/Seletuskiri.pdf",
+      "sha256": "d744a7bc4a494a8655d3ac06dc472dd7df89cfa00550f9492872ba091842eb31"
+    },
+    {
+      "path": "data/source/TLVK2026101300737.html",
+      "sha256": "23464935c81a47555dde65d5e1d7f1255cc754e95f00c640da3fe489f88ec0f2"
+    },
+    {
+      "path": "data/source/Tehnovorgud.pdf",
+      "sha256": "0453e6eb0685c8c76d29a51396c4dbab7deee5f3db5399b7f829eb6c4594bc07"
+    },
+    {
+      "path": "data/source/context/acquisition.json",
+      "sha256": "3014e6ff23daefb224cb1952351358a63892a739c515bc134a642296be5acb90"
+    },
+    {
+      "path": "data/source/context/aerial.jpg",
+      "sha256": "803113fde93176b1dc321f0c0d3dad1ce1f9796582405badaab901768cce8dcf"
+    },
+    {
+      "path": "data/source/context/basemap-capabilities.xml",
+      "sha256": "c15b9df2f376374ec8e9bd9d7d2a3ee1c742463812b6c3e974ef95fd30f6b56c"
+    },
+    {
+      "path": "data/source/context/basemap.png",
+      "sha256": "e254b4989deb5303f4854efbf1bc7a4e3ad41664b9f4c6a3e52e59ea924a308d"
+    },
+    {
+      "path": "data/source/context/buildings.geojson",
+      "sha256": "529753b3f18f2b2daf0db483a24891a28da833186feb8453f7cdea38273eaada"
+    },
+    {
+      "path": "data/source/context/dtm-capabilities.xml",
+      "sha256": "441e31201e04419d071bfd029ba42f2fdce46817e69c1895769882dcee3bb2d7"
+    },
+    {
+      "path": "data/source/context/dtm.tif",
+      "sha256": "7ae66ee9a0a24d182dc6d77a944c3fdc22917844993b41a5e0c6381c150f9505"
+    },
+    {
+      "path": "data/source/context/etak-capabilities.xml",
+      "sha256": "de10bd61109cb042cdf08e592347336d1b1709891f197e953a560f386766370b"
+    },
+    {
+      "path": "data/source/vector-basemap/light.json",
+      "sha256": "5cbb36f5ca2b46a42e13ad836b68f1c97c78e39e419ea8387f8626816a04a276"
+    },
+    {
+      "path": "data/source/vector-basemap/bundle.json",
+      "sha256": "e03ab4152aabcfc160ce29124d02aebc2cfdff8ecd57ffe8b066104d3aa6ef97"
+    },
+    {
+      "path": "data/source/vector-basemap/tilejson.json",
+      "sha256": "25ec689d34b7e98e3ca5edf23c5403b5851df26bb422c0434a1277b8a5a2fa3b"
+    },
+    {
+      "path": "data/source/vector-basemap/dark.json",
+      "sha256": "1d2b1465859c071d27c468652507fa549621d356f83842b0973aa7f2b9d2c5ce"
+    }
+  ],
+  "record_url": "https://dokumendid.tartu.ee/dhs.nsf/web/viited/TLVK2026101300737",
+  "supplied_on": "2026-10-26",
+  "toolkit_commit": "a3df1cb8126d5222fbb27e3f1dba49aca01b6302"
+}

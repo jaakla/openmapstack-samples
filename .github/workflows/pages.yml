@@ -76,6 +76,8 @@ jobs:
           python3 -m venv /tmp/pv-build-env
           /tmp/pv-build-env/bin/pip install -r requirements.txt
           /tmp/pv-build-env/bin/python pipeline.py
+      - name: Prepare verified Idaringtee 21 planning atlas
+        run: node detailplaneering/scripts/prepare-pages.mjs _site/detailplaneering
       - name: Assemble the site
         run: |
           mkdir -p _site/toompea-3d _site/battlefield-visibility _site/pv-location _site/gallery

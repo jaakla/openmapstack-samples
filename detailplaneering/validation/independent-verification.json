@@ -1,0 +1,1130 @@
+{
+  "schema": "openmapstack-verify-result/v1",
+  "project_file": "/home/jaak/codeman-cases/openmapstack-samples/detailplaneering/project.yaml",
+  "status": "passed",
+  "counts": {
+    "passed": 63,
+    "warning": 0,
+    "not_testable": 0,
+    "failed": 0
+  },
+  "coverage": {
+    "applicable": 63,
+    "executed": 63,
+    "not_testable": 0,
+    "execution_rate": 1.0
+  },
+  "checks": [
+    {
+      "check": "project.parses",
+      "status": "passed",
+      "message": "project.yaml parses"
+    },
+    {
+      "check": "project.conforms_to_schema",
+      "status": "passed",
+      "message": "project.yaml conforms to the packaged OpenMapStack v1 JSON Schema"
+    },
+    {
+      "check": "project.graph_resolves",
+      "status": "passed",
+      "message": "graph resolves: 3 steps, 3 produced symbols, 63 outputs all traced to real steps"
+    },
+    {
+      "check": "project.one_canonical_pipeline",
+      "status": "passed",
+      "message": "pipeline.py is the canonical implementation; wrappers import it"
+    },
+    {
+      "check": "project.assumptions_have_rationale",
+      "status": "passed",
+      "message": "all 5 assumptions have statement + rationale"
+    },
+    {
+      "check": "project.status_agrees_with_validation_report",
+      "status": "passed",
+      "message": "project.status 'warning' agrees with report status 'warning'"
+    },
+    {
+      "check": "project.declared_files_exist",
+      "status": "passed",
+      "message": "all 63 declared files exist",
+      "args": {
+        "files": [
+          "data/derived/planned.geojson",
+          "data/derived/plots.geojson",
+          "data/derived/surfaces.geojson",
+          "data/derived/boundary.geojson",
+          "data/derived/existing.geojson",
+          "data/derived/context.geojson",
+          "data/derived/summary.json",
+          "dist/index.html",
+          "delivery/dashboard-evidence.json",
+          "findings.md",
+          "data/derived/drawing.geojson",
+          "data/derived/utilities.geojson",
+          "data/derived/relations.geojson",
+          "data/derived/aerial.png",
+          "data/derived/basemap.png",
+          "data/derived/drawing.png",
+          "data/derived/terrain/14/9409/4902.png",
+          "data/derived/terrain/14/9409/4903.png",
+          "data/derived/terrain/14/9409/4904.png",
+          "data/derived/terrain/14/9409/4905.png",
+          "data/derived/terrain/14/9410/4902.png",
+          "data/derived/terrain/14/9410/4903.png",
+          "data/derived/terrain/14/9410/4904.png",
+          "data/derived/terrain/14/9410/4905.png",
+          "data/derived/terrain/14/9411/4902.png",
+          "data/derived/terrain/14/9411/4903.png",
+          "data/derived/terrain/14/9411/4904.png",
+          "data/derived/terrain/14/9411/4905.png",
+          "dist/assets/index-Ci6imn4p.js",
+          "dist/assets/index-jJ9j8JiY.css",
+          "dist/data/aerial.png",
+          "dist/data/basemap.png",
+          "dist/data/boundary.geojson",
+          "dist/data/context.geojson",
+          "dist/data/drawing.geojson",
+          "dist/data/drawing.png",
+          "dist/data/existing.geojson",
+          "dist/data/model.json",
+          "dist/data/planned.geojson",
+          "dist/data/plots.geojson",
+          "dist/data/relations.geojson",
+          "dist/data/summary.json",
+          "dist/data/surfaces.geojson",
+          "dist/data/terrain/14/9409/4902.png",
+          "dist/data/terrain/14/9409/4903.png",
+          "dist/data/terrain/14/9409/4904.png",
+          "dist/data/terrain/14/9409/4905.png",
+          "dist/data/terrain/14/9410/4902.png",
+          "dist/data/terrain/14/9410/4903.png",
+          "dist/data/terrain/14/9410/4904.png",
+          "dist/data/terrain/14/9410/4905.png",
+          "dist/data/terrain/14/9411/4902.png",
+          "dist/data/terrain/14/9411/4903.png",
+          "dist/data/terrain/14/9411/4904.png",
+          "dist/data/terrain/14/9411/4905.png",
+          "dist/data/utilities.geojson",
+          "dist/documents/LVK2026101300737.pdf",
+          "dist/documents/Mojuala_seosed.pdf",
+          "dist/documents/Olemasolev_olukord.pdf",
+          "dist/documents/Pohijoonis.pdf",
+          "dist/documents/Seletuskiri.pdf",
+          "dist/documents/Tehnovorgud.pdf",
+          "dist/findings.md"
+        ]
+      }
+    },
+    {
+      "check": "provenance.every_source_has_provider_and_access",
+      "status": "passed",
+      "message": "all 11 sources declare provider + access method + retrieval timestamp"
+    },
+    {
+      "check": "provenance.every_source_pinned",
+      "status": "passed",
+      "message": "all 11 sources are pinned (local_snapshot)"
+    },
+    {
+      "check": "provenance.no_inline_credentials",
+      "status": "passed",
+      "message": "no inline credentials in 11 sources; connections are by reference"
+    },
+    {
+      "check": "provenance.license_present_where_required",
+      "status": "passed",
+      "message": "license metadata present for required sources"
+    },
+    {
+      "check": "provenance.rationale_present",
+      "status": "passed",
+      "message": "all 11 sources document selection rationale"
+    },
+    {
+      "check": "overrides.every_override_has_provenance",
+      "status": "passed",
+      "message": "all 2 overrides carry id/action/rationale/author/timestamp"
+    },
+    {
+      "check": "overrides.evidence_not_placeholder",
+      "status": "passed",
+      "message": "no placeholder evidence found"
+    },
+    {
+      "check": "validation.required_all_present",
+      "status": "passed",
+      "message": "all 21 declared checks present exactly once in report"
+    },
+    {
+      "check": "validation.no_implicit_pass",
+      "status": "passed",
+      "message": "every check has an explicit status"
+    },
+    {
+      "check": "validation.warning_or_failed_propagates_to_status",
+      "status": "passed",
+      "message": "overall status 'warning' correctly reflects check statuses"
+    },
+    {
+      "check": "validation.run_record_matches",
+      "status": "passed",
+      "message": "report run_id 'run-20261026-181505' matches a real run record with consistent hashes"
+    },
+    {
+      "check": "validation.sample_run_not_promoted",
+      "status": "passed",
+      "message": "no sampled run records; runs.latest is canonical"
+    },
+    {
+      "check": "geodata.crs_not_used_for_metrics",
+      "status": "passed",
+      "message": "analysis_crs EPSG:3301 is valid for 1 metric operation(s); storage/load/reprojection steps were excluded"
+    },
+    {
+      "check": "geodata.geometry_all_valid",
+      "status": "passed",
+      "message": "data/derived/planned.geojson: all 42 features have valid geometry",
+      "args": {
+        "path": "data/derived/planned.geojson"
+      }
+    },
+    {
+      "check": "geodata.dataset_crs_is",
+      "status": "passed",
+      "message": "data/derived/planned.geojson actual CRS metadata is EPSG:4326",
+      "args": {
+        "path": "data/derived/planned.geojson",
+        "expected": "EPSG:4326"
+      }
+    },
+    {
+      "check": "geodata.layer_extent_within_aoi",
+      "status": "passed",
+      "message": "all 42 features of data/derived/planned.geojson lie within the AOI (margin 0.5)",
+      "args": {
+        "path": "data/derived/planned.geojson"
+      }
+    },
+    {
+      "check": "geodata.geometry_all_valid",
+      "status": "passed",
+      "message": "data/derived/plots.geojson: all 31 features have valid geometry",
+      "args": {
+        "path": "data/derived/plots.geojson"
+      }
+    },
+    {
+      "check": "geodata.dataset_crs_is",
+      "status": "passed",
+      "message": "data/derived/plots.geojson actual CRS metadata is EPSG:4326",
+      "args": {
+        "path": "data/derived/plots.geojson",
+        "expected": "EPSG:4326"
+      }
+    },
+    {
+      "check": "geodata.layer_extent_within_aoi",
+      "status": "passed",
+      "message": "all 31 features of data/derived/plots.geojson lie within the AOI (margin 0.5)",
+      "args": {
+        "path": "data/derived/plots.geojson"
+      }
+    },
+    {
+      "check": "geodata.geometry_all_valid",
+      "status": "passed",
+      "message": "data/derived/surfaces.geojson: all 137 features have valid geometry",
+      "args": {
+        "path": "data/derived/surfaces.geojson"
+      }
+    },
+    {
+      "check": "geodata.dataset_crs_is",
+      "status": "passed",
+      "message": "data/derived/surfaces.geojson actual CRS metadata is EPSG:4326",
+      "args": {
+        "path": "data/derived/surfaces.geojson",
+        "expected": "EPSG:4326"
+      }
+    },
+    {
+      "check": "geodata.layer_extent_within_aoi",
+      "status": "passed",
+      "message": "all 137 features of data/derived/surfaces.geojson lie within the AOI (margin 0.5)",
+      "args": {
+        "path": "data/derived/surfaces.geojson"
+      }
+    },
+    {
+      "check": "geodata.geometry_all_valid",
+      "status": "passed",
+      "message": "data/derived/boundary.geojson: all 1 features have valid geometry",
+      "args": {
+        "path": "data/derived/boundary.geojson"
+      }
+    },
+    {
+      "check": "geodata.dataset_crs_is",
+      "status": "passed",
+      "message": "data/derived/boundary.geojson actual CRS metadata is EPSG:4326",
+      "args": {
+        "path": "data/derived/boundary.geojson",
+        "expected": "EPSG:4326"
+      }
+    },
+    {
+      "check": "geodata.layer_extent_within_aoi",
+      "status": "passed",
+      "message": "all 1 features of data/derived/boundary.geojson lie within the AOI (margin 0.5)",
+      "args": {
+        "path": "data/derived/boundary.geojson"
+      }
+    },
+    {
+      "check": "geodata.geometry_all_valid",
+      "status": "passed",
+      "message": "data/derived/existing.geojson: all 1115 features have valid geometry",
+      "args": {
+        "path": "data/derived/existing.geojson"
+      }
+    },
+    {
+      "check": "geodata.dataset_crs_is",
+      "status": "passed",
+      "message": "data/derived/existing.geojson actual CRS metadata is EPSG:4326",
+      "args": {
+        "path": "data/derived/existing.geojson",
+        "expected": "EPSG:4326"
+      }
+    },
+    {
+      "check": "geodata.layer_extent_within_aoi",
+      "status": "passed",
+      "message": "all 1115 features of data/derived/existing.geojson lie within the AOI (margin 0.5)",
+      "args": {
+        "path": "data/derived/existing.geojson"
+      }
+    },
+    {
+      "check": "geodata.geometry_all_valid",
+      "status": "passed",
+      "message": "data/derived/context.geojson: all 1 features have valid geometry",
+      "args": {
+        "path": "data/derived/context.geojson"
+      }
+    },
+    {
+      "check": "geodata.dataset_crs_is",
+      "status": "passed",
+      "message": "data/derived/context.geojson actual CRS metadata is EPSG:4326",
+      "args": {
+        "path": "data/derived/context.geojson",
+        "expected": "EPSG:4326"
+      }
+    },
+    {
+      "check": "geodata.layer_extent_within_aoi",
+      "status": "passed",
+      "message": "all 1 features of data/derived/context.geojson lie within the AOI (margin 0.5)",
+      "args": {
+        "path": "data/derived/context.geojson"
+      }
+    },
+    {
+      "check": "geodata.geometry_all_valid",
+      "status": "passed",
+      "message": "data/derived/drawing.geojson: all 1 features have valid geometry",
+      "args": {
+        "path": "data/derived/drawing.geojson"
+      }
+    },
+    {
+      "check": "geodata.dataset_crs_is",
+      "status": "passed",
+      "message": "data/derived/drawing.geojson actual CRS metadata is EPSG:4326",
+      "args": {
+        "path": "data/derived/drawing.geojson",
+        "expected": "EPSG:4326"
+      }
+    },
+    {
+      "check": "geodata.layer_extent_within_aoi",
+      "status": "passed",
+      "message": "all 1 features of data/derived/drawing.geojson lie within the AOI (margin 0.5)",
+      "args": {
+        "path": "data/derived/drawing.geojson"
+      }
+    },
+    {
+      "check": "geodata.geometry_all_valid",
+      "status": "passed",
+      "message": "data/derived/utilities.geojson: all 12 features have valid geometry",
+      "args": {
+        "path": "data/derived/utilities.geojson"
+      }
+    },
+    {
+      "check": "geodata.dataset_crs_is",
+      "status": "passed",
+      "message": "data/derived/utilities.geojson actual CRS metadata is EPSG:4326",
+      "args": {
+        "path": "data/derived/utilities.geojson",
+        "expected": "EPSG:4326"
+      }
+    },
+    {
+      "check": "geodata.layer_extent_within_aoi",
+      "status": "passed",
+      "message": "all 12 features of data/derived/utilities.geojson lie within the AOI (margin 0.5)",
+      "args": {
+        "path": "data/derived/utilities.geojson"
+      }
+    },
+    {
+      "check": "geodata.geometry_all_valid",
+      "status": "passed",
+      "message": "data/derived/relations.geojson: all 40 features have valid geometry",
+      "args": {
+        "path": "data/derived/relations.geojson"
+      }
+    },
+    {
+      "check": "geodata.dataset_crs_is",
+      "status": "passed",
+      "message": "data/derived/relations.geojson actual CRS metadata is EPSG:4326",
+      "args": {
+        "path": "data/derived/relations.geojson",
+        "expected": "EPSG:4326"
+      }
+    },
+    {
+      "check": "geodata.layer_extent_within_aoi",
+      "status": "passed",
+      "message": "all 40 features of data/derived/relations.geojson lie within the AOI (margin 0.5)",
+      "args": {
+        "path": "data/derived/relations.geojson"
+      }
+    },
+    {
+      "check": "credits.declaration_valid",
+      "status": "passed",
+      "message": "delivery author and toolkit metadata are complete"
+    },
+    {
+      "check": "credits.rendered_matches",
+      "status": "passed",
+      "message": "credits match in 1 delivery surface(s)"
+    },
+    {
+      "check": "findings.artifact_matches",
+      "status": "passed",
+      "message": "findings match the current run and analytical artifacts"
+    },
+    {
+      "check": "delivery.declaration_valid",
+      "status": "passed",
+      "message": "delivery declaration resolves"
+    },
+    {
+      "check": "presentation.layers_reference_outputs",
+      "status": "passed",
+      "message": "all persistent presentation layers resolve to outputs or override geometry"
+    },
+    {
+      "check": "delivery.dashboard.evidence_matches",
+      "status": "passed",
+      "message": "dashboard: view and evidence bind the declared analysis",
+      "args": {
+        "target_id": "dashboard"
+      },
+      "evidence": {
+        "view_sha256": "sha256:1b8932aa5ca2ac268b8d2d5da9f3b0f7dafdccfc4588c4dc1a850efcc89b862f",
+        "analytical_outputs": {
+          "planned": "sha256:300c3a16dbc0e84be3154e11e63d8944d7800532b15fa8ece5229eafc704619f",
+          "plots": "sha256:9e0df74c26f9a79e00761e3ba9d9250de122919233bcf2c73af3357169d3f032",
+          "surfaces": "sha256:aa5c7f515a0221a3b0929b15f1d5cb3b47cb9339dc18ed148f0f450b4f734c5f",
+          "boundary": "sha256:59fbaf801935a409cee0df1c6d4699dc5e9ca5f5fc980745c6ca16398a85f6e6",
+          "existing": "sha256:761ad6658e04e344379110b55b0c6db03ed11befb756d70580bc0aa9e91e7e1f",
+          "context": "sha256:c51b314caa79bd9c6e88df398cbdfec2d103096d8195d042baba745ba7c936ef",
+          "drawing": "sha256:ab00f23cbfd54e573c9b6420732be09a7212beb1a8b43a83681f34cc951b24e8",
+          "utilities": "sha256:def5159cc82eb7b6bc716e75ae4233babf2a7ccb28ba0252fdb7b8cecf6a6cb9",
+          "relations": "sha256:8a523a69bdfd748bcd083464634b5c3d9ff1338bb6144acaa88c0ef2362d0d38"
+        }
+      }
+    },
+    {
+      "check": "delivery.dashboard.web_view_loads",
+      "status": "passed",
+      "message": "dashboard: view loads and exposes provenance/warnings",
+      "args": {
+        "target_id": "dashboard"
+      }
+    },
+    {
+      "check": "presentation.layers_use_semantic_roles",
+      "status": "passed",
+      "message": "all 9 layers declare a semantic_role"
+    },
+    {
+      "check": "presentation.controls_match_pipeline",
+      "status": "passed",
+      "message": "0 filter control(s), 0 scenario control(s) and 1 variant control(s) consistent"
+    },
+    {
+      "check": "presentation.edit_targets_reference_real_sources",
+      "status": "passed",
+      "message": "no edit targets declared (vacuously true)"
+    },
+    {
+      "check": "visual.dashboard_loads_in_browser",
+      "status": "passed",
+      "message": "1 page(s) load cleanly; every declared control, layer group, panel and reset works through the state protocol",
+      "evidence": {
+        "dashboard:desktop_map_stats": {
+          "width": 960,
+          "height": 685,
+          "distinct_colors_quantized": 1522,
+          "modal_color_fraction": 0.526986,
+          "non_modal_fraction": 0.473014
+        },
+        "dashboard:basemap_tile_requests": [
+          "https://tiles.goplex.ee/planet-20261006/15/18820/9807.mvt",
+          "https://tiles.goplex.ee/planet-20261006/15/18820/9807.mvt",
+          "https://tiles.goplex.ee/planet-20261006/15/18820/9808.mvt",
+          "https://tiles.goplex.ee/planet-20261006/15/18820/9807.mvt",
+          "https://tiles.goplex.ee/planet-20261006/15/18821/9807.mvt",
+          "https://tiles.goplex.ee/planet-20261006/15/18820/9807.mvt",
+          "https://tiles.goplex.ee/planet-20261006/15/18819/9807.mvt",
+          "https://tiles.goplex.ee/planet-20261006/15/18820/9806.mvt",
+          "https://tiles.goplex.ee/planet-20261006/15/18819/9807.mvt",
+          "https://tiles.goplex.ee/planet-20261006/15/18820/9806.mvt",
+          "https://tiles.goplex.ee/planet-20261006/15/18820/9807.mvt",
+          "https://tiles.goplex.ee/planet-20261006/15/18821/9807.mvt",
+          "https://tiles.goplex.ee/planet-20261006/15/18820/9806.mvt",
+          "https://tiles.goplex.ee/planet-20261006/15/18821/9806.mvt",
+          "https://tiles.goplex.ee/planet-20261006/14/9410/4902.mvt",
+          "https://tiles.goplex.ee/planet-20261006/14/9409/4903.mvt",
+          "https://tiles.goplex.ee/planet-20261006/15/18820/9808.mvt",
+          "https://tiles.goplex.ee/planet-20261006/15/18820/9808.mvt",
+          "https://tiles.goplex.ee/planet-20261006/15/18821/9808.mvt",
+          "https://tiles.goplex.ee/planet-20261006/14/9409/4904.mvt"
+        ],
+        "toggle_diff_fraction": {
+          "group:proposal": 0.08838807785888078,
+          "group:existing": 0.03491788321167883,
+          "group:plots": 0.09525243309002433,
+          "group:drawing": 0.0850456204379562,
+          "group:context": 0.816815693430657,
+          "group:utilities": 0.10590784671532846,
+          "group:relations": 0.13985097323600973
+        },
+        "dashboard:mobile_map_width": 390
+      }
+    },
+    {
+      "check": "rerun.no_chat_dependency",
+      "status": "passed",
+      "message": "canonical project dependencies contain no chat/transcript references"
+    },
+    {
+      "check": "rerun.clean_execution_succeeded",
+      "status": "passed",
+      "message": "canonical entrypoint succeeded in a clean workspace and artifacts revalidated",
+      "args": {
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-hpoh3x72"
+      }
+    },
+    {
+      "check": "rerun.outputs_semantically_equal",
+      "status": "passed",
+      "message": "all 9 outputs are semantically equal across the clean rerun",
+      "args": {
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-hpoh3x72",
+        "paths": [
+          "data/derived/planned.geojson",
+          "data/derived/plots.geojson",
+          "data/derived/surfaces.geojson",
+          "data/derived/boundary.geojson",
+          "data/derived/existing.geojson",
+          "data/derived/context.geojson",
+          "data/derived/drawing.geojson",
+          "data/derived/utilities.geojson",
+          "data/derived/relations.geojson"
+        ]
+      }
+    },
+    {
+      "check": "rerun.validation_report_reproducible",
+      "status": "passed",
+      "message": "validation evidence reproduces with status 'warning'",
+      "args": {
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-hpoh3x72"
+      }
+    },
+    {
+      "check": "overrides.source_files_byte_identical",
+      "status": "passed",
+      "message": "all 21 source files byte-identical between workspace and rerun",
+      "args": {
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-hpoh3x72",
+        "paths": [
+          "data/source/LVK2026101300737.pdf",
+          "data/source/Mojuala_seosed.pdf",
+          "data/source/Olemasolev_olukord.pdf",
+          "data/source/Pohijoonis.pdf",
+          "data/source/Seletuskiri.pdf",
+          "data/source/TLVK2026101300737.html",
+          "data/source/Tehnovorgud.pdf",
+          "data/source/context/acquisition.json",
+          "data/source/context/aerial.jpg",
+          "data/source/context/basemap-capabilities.xml",
+          "data/source/context/basemap.png",
+          "data/source/context/buildings.geojson",
+          "data/source/context/dtm-capabilities.xml",
+          "data/source/context/dtm.tif",
+          "data/source/context/etak-capabilities.xml",
+          "data/source/vector-basemap/bundle.json",
+          "data/source/vector-basemap/dark.json",
+          "data/source/vector-basemap/light.json",
+          "data/source/vector-basemap/tilejson.json",
+          "data/overrides/georeferencing.geojson",
+          "data/overrides/plot-parameters.geojson"
+        ]
+      }
+    }
+  ],
+  "clean_rerun": {
+    "schema": "openmapstack-clean-rerun/v1",
+    "status": "passed",
+    "stage": "complete",
+    "preserved_paths": [
+      "data/overrides",
+      "data/source",
+      "data/source/vector-basemap/dark.json",
+      "data/source/vector-basemap/light.json",
+      "data/source/vector-basemap/tilejson.json",
+      "geometry.py",
+      "index.html",
+      "package-lock.json",
+      "package.json",
+      "pipeline.py",
+      "project.yaml",
+      "raster.py",
+      "requirements.txt",
+      "sources.json",
+      "src/MapView.jsx",
+      "src/Sidebar.jsx",
+      "src/main.jsx",
+      "src/mapStyles.js",
+      "src/styles.css",
+      "themes.py",
+      "vite.config.js"
+    ],
+    "excluded_artifact_classes": [
+      "derived_outputs",
+      "validation_reports",
+      "run_records",
+      "caches",
+      "presentation_artifacts",
+      "conversation_state"
+    ],
+    "command": [
+      "/home/jaak/codeman-cases/openmapstack-samples/detailplaneering/.venv/bin/python",
+      "pipeline.py"
+    ],
+    "removed_environment_keys": [
+      "CODEX_APPLY_PATCH_PRESERVE_LINE_ENDINGS",
+      "CODEX_CI",
+      "CODEX_HOME",
+      "CODEX_REMOTE_PAYLOAD",
+      "CODEX_SANDBOX_NETWORK_DISABLED",
+      "CODEX_SESSION_ID",
+      "CODEX_THREAD_ID",
+      "CODEX_TOOL_CALL_ID",
+      "CODEX_VERSION"
+    ],
+    "execution": {
+      "command": [
+        "/home/jaak/codeman-cases/openmapstack-samples/detailplaneering/.venv/bin/python",
+        "pipeline.py"
+      ],
+      "cwd": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-hpoh3x72",
+      "returncode": 0,
+      "timed_out": false,
+      "duration_s": 45.937302227830514,
+      "stdout": "Recovering PDF vectors and survey registration…\nBuilding terrain and map textures…\nBuilding interactive atlas…\n\nadded 94 packages in 2s\n\n> idaringtee-detailed-plan@1.0.0 build\n> vite build\n\nvite v7.3.7 building client environment for production...\ntransforming...\n✓ 1584 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                     0.68 kB │ gzip:   0.47 kB\ndist/assets/index-jJ9j8JiY.css     83.51 kB │ gzip:  13.17 kB\ndist/assets/index-Ci6imn4p.js   1,814.59 kB │ gzip: 512.69 kB\n✓ built in 3.07s\n{\n  \"counts\": {\n    \"plots\": 31,\n    \"main_buildings\": 32,\n    \"ancillary\": 10,\n    \"existing\": 1115,\n    \"unknown_heights\": 55,\n    \"area_ha\": 10.18\n  },\n  \"georeferencing\": {\n    \"scale_m_per_pdf_point\": 0.1763911833036373,\n    \"third_point_residual_m\": 2.6867038925841444e-05\n  },\n  \"context_radius_m\": 1000,\n  \"planned_height_range_m\": [\n    8.5,\n    11.95\n  ],\n  \"ground_labels\": 72\n}\n",
+      "stderr": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-hpoh3x72/pipeline.py:43: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.\n  pdf_boundary=unary_union([g for g,_ in plots]);boundary=transform(xy,pdf_boundary)\n/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-hpoh3x72/pipeline.py:64: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.\n  existing.append({'type':'Feature','id':props['id'],'properties':props,'geometry':mapping(transform(TO_WGS.transform,g))})\n/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-hpoh3x72/pipeline.py:75: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.\n  datasets={'planned':collection(planned),'plots':collection(plotfeatures),'existing':collection(existing),'surfaces':collection(surfaces),'boundary':collection([{'type':'Feature','id':'boundary','geometry':mapping(transform(TO_WGS.transform,boundary)),'properties':{'id':'boundary','source':'Union of the 31 PDF plots','area_m2':round(boundary.area,2)}}]),'context':collection([{'type':'Feature','id':'context','geometry':mapping(transform(TO_WGS.transform,context)),'properties':{'id':'context','radius_m':radius,'basis':'Straight-line distance from the outer plan boundary, EPSG:3301'}}])}\n/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-hpoh3x72/pipeline.py:77: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.\n  theme_data,theme_registration,utility_types=thematic(ROOT,[transform(xy,g) for g,_ in plots]);datasets.update(theme_data)\n/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-hpoh3x72/pipeline.py:83: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.\n  ditch=transform(Transformer.from_crs(4326,3301,always_xy=True).transform,ditch)\n/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-hpoh3x72/pipeline.py:101: DeprecationWarning: The 'shapely.ops.transform()' function is deprecated. Use 'shapely.transform()' or 'shapely.transform_coordseq()' instead. See https://shapely.readthedocs.io/en/latest/manual.html#shapely.ops.transform for more details.\n  model={'datasets':datasets,'vector_basemap':json.loads((ROOT/'data/source/vector-basemap/bundle.json').read_text()),'thematic_registration':theme_registration,'utility_types':utility_types,'rasters':rasters,'terrain':dem,'summary':stats,'center':TO_WGS.transform(boundary.centroid.x,boundary.centroid.y),'plan_bounds':transform(TO_WGS.transform,boundary).bounds,'context_bounds':transform(TO_WGS.transform,context).bounds,'completed_at':completed,'sources':project['sources'],'warnings':project['warnings'],'assumptions':project['interpretation']['assumptions'],'author':project['project']['author'],'toolkit':project['project']['generated_with'],'toolkit_commit':project['project']['toolkit_commit'],'checks':checks,'credits_html':credits}\nnpm warn allow-scripts 1 package has install scripts not yet covered by allowScripts:\nnpm warn allow-scripts   esbuild@0.28.2 (postinstall: node install.js)\nnpm warn allow-scripts\nnpm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow.\n"
+    },
+    "source_hashes": {
+      "data/overrides/georeferencing.geojson": "sha256:051014af51fc8750c6cc366a0ffa487b9f9f5af11b344d2248e33a3f6a6a6ccc",
+      "data/overrides/plot-parameters.geojson": "sha256:8b34a50549c06cf608710843830aa6b5217eaf7e57077f3a1ea3f1d346279af2",
+      "data/source/LVK2026101300737.pdf": "sha256:e83f18453dfdebe1d621d7d9e77e0df864169e635a89d9056dd50bf7b29bc004",
+      "data/source/Mojuala_seosed.pdf": "sha256:7abe040af2d45ad8d16d84afd05cd26f3b88f36da5a47b5aefeeda068a70b742",
+      "data/source/Olemasolev_olukord.pdf": "sha256:8d12e5ee7f656de235995e27d16ed869aafaedfe78c898ddac7a1557ba442829",
+      "data/source/Pohijoonis.pdf": "sha256:d8f3f8d81e4f07d0b1ce8726558dd0736d172e22fdc82ff20495637996e7f149",
+      "data/source/Seletuskiri.pdf": "sha256:d744a7bc4a494a8655d3ac06dc472dd7df89cfa00550f9492872ba091842eb31",
+      "data/source/TLVK2026101300737.html": "sha256:23464935c81a47555dde65d5e1d7f1255cc754e95f00c640da3fe489f88ec0f2",
+      "data/source/Tehnovorgud.pdf": "sha256:0453e6eb0685c8c76d29a51396c4dbab7deee5f3db5399b7f829eb6c4594bc07",
+      "data/source/context/acquisition.json": "sha256:3014e6ff23daefb224cb1952351358a63892a739c515bc134a642296be5acb90",
+      "data/source/context/aerial.jpg": "sha256:803113fde93176b1dc321f0c0d3dad1ce1f9796582405badaab901768cce8dcf",
+      "data/source/context/basemap-capabilities.xml": "sha256:c15b9df2f376374ec8e9bd9d7d2a3ee1c742463812b6c3e974ef95fd30f6b56c",
+      "data/source/context/basemap.png": "sha256:e254b4989deb5303f4854efbf1bc7a4e3ad41664b9f4c6a3e52e59ea924a308d",
+      "data/source/context/buildings.geojson": "sha256:529753b3f18f2b2daf0db483a24891a28da833186feb8453f7cdea38273eaada",
+      "data/source/context/dtm-capabilities.xml": "sha256:441e31201e04419d071bfd029ba42f2fdce46817e69c1895769882dcee3bb2d7",
+      "data/source/context/dtm.tif": "sha256:7ae66ee9a0a24d182dc6d77a944c3fdc22917844993b41a5e0c6381c150f9505",
+      "data/source/context/etak-capabilities.xml": "sha256:de10bd61109cb042cdf08e592347336d1b1709891f197e953a560f386766370b",
+      "data/source/vector-basemap/bundle.json": "sha256:e03ab4152aabcfc160ce29124d02aebc2cfdff8ecd57ffe8b066104d3aa6ef97",
+      "data/source/vector-basemap/dark.json": "sha256:1d2b1465859c071d27c468652507fa549621d356f83842b0973aa7f2b9d2c5ce",
+      "data/source/vector-basemap/light.json": "sha256:5cbb36f5ca2b46a42e13ad836b68f1c97c78e39e419ea8387f8626816a04a276",
+      "data/source/vector-basemap/tilejson.json": "sha256:25ec689d34b7e98e3ca5edf23c5403b5851df26bb422c0434a1277b8a5a2fa3b"
+    },
+    "artifact_validation": {
+      "schema": "openmapstack-validation-result/v1",
+      "project_file": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-hpoh3x72/project.yaml",
+      "status": "warning",
+      "counts": {
+        "passed": 63,
+        "warning": 1,
+        "not_testable": 0,
+        "failed": 0
+      },
+      "checks": [
+        {
+          "id": "manifest.json_schema",
+          "status": "passed",
+          "message": "project.yaml conforms to the packaged OpenMapStack v1 JSON Schema",
+          "path": "project.yaml"
+        },
+        {
+          "id": "manifest.schema",
+          "status": "passed",
+          "message": "schema is openmapstack-project/v1",
+          "path": "schema"
+        },
+        {
+          "id": "manifest.project",
+          "status": "passed",
+          "message": "project identity, timestamps, question, and status are declared",
+          "path": "project"
+        },
+        {
+          "id": "interpretation.assumptions",
+          "status": "passed",
+          "message": "5 assumptions have rationale",
+          "path": "interpretation.assumptions"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.lvk2026101300737"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/LVK2026101300737.pdf matches its content hash",
+          "path": "sources.lvk2026101300737.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as User-supplied planning material; reuse terms not verified",
+          "path": "sources.lvk2026101300737.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.mojuala_seosed"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/Mojuala_seosed.pdf matches its content hash",
+          "path": "sources.mojuala_seosed.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as User-supplied planning material; reuse terms not verified",
+          "path": "sources.mojuala_seosed.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.olemasolev_olukord"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/Olemasolev_olukord.pdf matches its content hash",
+          "path": "sources.olemasolev_olukord.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as User-supplied planning material; reuse terms not verified",
+          "path": "sources.olemasolev_olukord.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.pohijoonis"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/Pohijoonis.pdf matches its content hash",
+          "path": "sources.pohijoonis.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as User-supplied planning material; reuse terms not verified",
+          "path": "sources.pohijoonis.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.seletuskiri"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/Seletuskiri.pdf matches its content hash",
+          "path": "sources.seletuskiri.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as User-supplied planning material; reuse terms not verified",
+          "path": "sources.seletuskiri.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.tehnovorgud"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/Tehnovorgud.pdf matches its content hash",
+          "path": "sources.tehnovorgud.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as User-supplied planning material; reuse terms not verified",
+          "path": "sources.tehnovorgud.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.buildings"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/context/buildings.geojson matches its content hash",
+          "path": "sources.buildings.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents",
+          "path": "sources.buildings.license"
+        },
+        {
+          "id": "source.completeness",
+          "status": "passed",
+          "message": "bounded API completeness proved (2123/2123)",
+          "path": "sources.buildings"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.dtm"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/context/dtm.tif matches its content hash",
+          "path": "sources.dtm.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents",
+          "path": "sources.dtm.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.basemap"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/context/basemap.png matches its content hash",
+          "path": "sources.basemap.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents",
+          "path": "sources.basemap.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.aerial"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/context/aerial.jpg matches its content hash",
+          "path": "sources.aerial.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as Maa- ja Ruumiameti avaandmete litsents",
+          "path": "sources.aerial.license"
+        },
+        {
+          "id": "source.provenance",
+          "status": "passed",
+          "message": "source URL, retrieval, version, selection, and rationale are pinned",
+          "path": "sources.vector_basemap"
+        },
+        {
+          "id": "source.pin",
+          "status": "passed",
+          "message": "local snapshot data/source/vector-basemap/bundle.json matches its content hash",
+          "path": "sources.vector_basemap.pin",
+          "details": {
+            "pin_class": "local_snapshot"
+          }
+        },
+        {
+          "id": "source.license",
+          "status": "passed",
+          "message": "license recorded as OpenStreetMap ODbL; Protomaps / goplex.ee allikaviide",
+          "path": "sources.vector_basemap.license"
+        },
+        {
+          "id": "override.declaration",
+          "status": "passed",
+          "message": "PLAN-ANNOTATIONS has action, provenance, rationale, and evidence",
+          "path": "overrides[0]"
+        },
+        {
+          "id": "override.declaration",
+          "status": "passed",
+          "message": "PLOT-PARAMETERS has action, provenance, rationale, and evidence",
+          "path": "overrides[1]"
+        },
+        {
+          "id": "overrides.ids",
+          "status": "passed",
+          "message": "2 override ids are unique",
+          "path": "overrides"
+        },
+        {
+          "id": "overrides.undocumented_files",
+          "status": "passed",
+          "message": "all override geodata files are declared",
+          "path": "data/overrides"
+        },
+        {
+          "id": "processing.crs",
+          "status": "passed",
+          "message": "analysis=EPSG:3301; storage=EPSG:4326",
+          "path": "processing"
+        },
+        {
+          "id": "processing.graph",
+          "status": "passed",
+          "message": "3 ordered steps and 3 symbols resolve",
+          "path": "processing.steps"
+        },
+        {
+          "id": "outputs.declaration",
+          "status": "passed",
+          "message": "63 outputs trace to real steps",
+          "path": "outputs"
+        },
+        {
+          "id": "delivery.declaration",
+          "status": "passed",
+          "message": "delivery declaration resolves",
+          "path": "delivery"
+        },
+        {
+          "id": "delivery.dashboard.evidence",
+          "status": "passed",
+          "message": "dashboard: view and evidence bind the declared analysis",
+          "details": {
+            "evidence": {
+              "view_sha256": "sha256:1ef71ef9216c5e46c7a0422b8a08f5308b3ed279271adcca4643345618bbb945",
+              "analytical_outputs": {
+                "planned": "sha256:300c3a16dbc0e84be3154e11e63d8944d7800532b15fa8ece5229eafc704619f",
+                "plots": "sha256:9e0df74c26f9a79e00761e3ba9d9250de122919233bcf2c73af3357169d3f032",
+                "surfaces": "sha256:aa5c7f515a0221a3b0929b15f1d5cb3b47cb9339dc18ed148f0f450b4f734c5f",
+                "boundary": "sha256:59fbaf801935a409cee0df1c6d4699dc5e9ca5f5fc980745c6ca16398a85f6e6",
+                "existing": "sha256:761ad6658e04e344379110b55b0c6db03ed11befb756d70580bc0aa9e91e7e1f",
+                "context": "sha256:c51b314caa79bd9c6e88df398cbdfec2d103096d8195d042baba745ba7c936ef",
+                "drawing": "sha256:ab00f23cbfd54e573c9b6420732be09a7212beb1a8b43a83681f34cc951b24e8",
+                "utilities": "sha256:def5159cc82eb7b6bc716e75ae4233babf2a7ccb28ba0252fdb7b8cecf6a6cb9",
+                "relations": "sha256:8a523a69bdfd748bcd083464634b5c3d9ff1338bb6144acaa88c0ef2362d0d38"
+              }
+            }
+          }
+        },
+        {
+          "id": "credits.declaration",
+          "status": "passed",
+          "message": "delivery author and toolkit metadata are complete"
+        },
+        {
+          "id": "credits.rendered",
+          "status": "passed",
+          "message": "credits match in 1 delivery surface(s)",
+          "details": {
+            "surfaces": [
+              "dist/index.html"
+            ]
+          }
+        },
+        {
+          "id": "presentation.declaration",
+          "status": "passed",
+          "message": "semantic presentation declares 9 layers",
+          "path": "presentation"
+        },
+        {
+          "id": "presentation.layers_reference_outputs",
+          "status": "passed",
+          "message": "all persistent presentation layers resolve to outputs or override geometry"
+        },
+        {
+          "id": "findings.artifact",
+          "status": "passed",
+          "message": "findings declaration/artifact is consistent"
+        },
+        {
+          "id": "warnings.declaration",
+          "status": "passed",
+          "message": "7 unresolved warnings are documented",
+          "path": "warnings"
+        },
+        {
+          "id": "runtime.pipeline",
+          "status": "passed",
+          "message": "canonical pipeline exists: pipeline.py",
+          "path": "runtime.implementation.pipeline"
+        },
+        {
+          "id": "runtime.dependencies",
+          "status": "passed",
+          "message": "17 clean-run dependencies resolve inside the project",
+          "path": "runtime.implementation.dependencies"
+        },
+        {
+          "id": "runtime.environment",
+          "status": "passed",
+          "message": "2 runtime versions are recorded",
+          "path": "runtime.environment"
+        },
+        {
+          "id": "validation.declaration",
+          "status": "passed",
+          "message": "21 validation checks are declared",
+          "path": "validation"
+        },
+        {
+          "id": "outputs.files",
+          "status": "passed",
+          "message": "all 63 declared outputs exist",
+          "path": "outputs"
+        },
+        {
+          "id": "outputs.undeclared_derived_files",
+          "status": "passed",
+          "message": "every file under data/derived is a declared output",
+          "path": "data/derived"
+        },
+        {
+          "id": "project.readme",
+          "status": "passed",
+          "message": "README.md exists",
+          "path": "README.md"
+        },
+        {
+          "id": "validation.report",
+          "status": "warning",
+          "message": "report has 21 explicit checks; status=warning",
+          "path": "validation/latest-report.json"
+        },
+        {
+          "id": "overrides.application",
+          "status": "passed",
+          "message": "all 2 overrides have one applied result",
+          "path": "validation/latest-report.json"
+        },
+        {
+          "id": "runs.latest",
+          "status": "passed",
+          "message": "run-20261026-181811 resolves and matches report status/hashes",
+          "path": "runs/run-20261026-181811.json"
+        },
+        {
+          "id": "runs.sample_isolation",
+          "status": "passed",
+          "message": "no sampled run records",
+          "path": "runs"
+        }
+      ]
+    }
+  }
+}

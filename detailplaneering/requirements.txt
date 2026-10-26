@@ -1,0 +1,8 @@
+# Use a system GDAL environment; see README for the tested runtime.
+pymupdf==2.0
+shapely==2.2.0
+pyproj==3.8.0
+numpy==2.5.4
+pillow==13.0.0
+PyYAML==6.0.3
+openmapstack @ git+https://github.com/jaakla/openmapstack-skills.git@a3df1cb8126d5222fbb27e3f1dba49aca01b6302

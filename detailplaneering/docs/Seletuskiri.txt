@@ -1,0 +1,1023 @@
+--- PAGE 1 ---
+ 
+ 
+ AB Artes Terrae OÜ 
+Reg kood 12978320 
+Küütri 14, Tartu 51007 
+Tel 742 0218 
+artes@artes.ee 
+www.artes.ee 
+  
+ 
+Tartu 2026 
+Idaringtee 21 krundi detailplaneering 
+Tartu linn 
+ 
+Foto: Maa- ja Ruumiamet 27.04.2024 
+ 
+ 
+ 
+ 
+Töö nr: 24101DP3 
+Kuupäev: 17.07.2026 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
+
+
+--- PAGE 2 ---
+ 
+ AB Artes Terræ  
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+Planeeringu koostamise korraldaja: Tartu linnavalitsus 
+Huvitatud isik: Idaringtee 21 OÜ 
+Projekti juht, volitatud maastikuarhitekt-ekspert, ruumilise keskkonna planeerija: Heiki Kalberg 
+Volitatud maastikuarhitekt, koostaja: Karl Hansson 
+
+--- PAGE 3 ---
+ Idaringtee 21 krundi detailplaneering 24101DP3 
+ 
+ 
+ AB Artes Terræ 3 / 23 
+ 
+Sisukord 
+1 Üldosa ................................ ................................ ................................ ................................ .. 5 
+1.1. Sissejuhatus ............................................................................................................................. 5 
+1.2. Planeeringu lähtedokumendid ................................................................................................ 5 
+1.3. Olemasoleva olukorra iseloomustus ....................................................................................... 5 
+1.4. Vastavus üldplaneeringule ...................................................................................................... 5 
+1.5. Planeeringuala ja kontaktvööndi linnaehituslikud ja funktsionaalsed seosed ....................... 7 
+1.6. Planeeringu- ja selle mõjuala analüüsil põhinevad järeldused ja ruumilise arengu eesmärgid 
+  ................................................................................................................................................. 7 
+2. Planeerimise lahendus ................................ ................................ ................................ .......... 8 
+2.1. Planeeringuala kruntideks jaotamine ..................................................................................... 8 
+2.2. Krundi hoonestusala ja ehitusõigus ........................................................................................ 8 
+2.3. Ehitise ehituslikud, arhitektuurilised ja kujunduslikud tingimused ........................................ 8 
+2.4. Liikluskorralduse põhimõtted ................................................................................................. 9 
+2.5. Haljastuse ja heakorrastuse põhimõtted .............................................................................. 12 
+2.6. Tehnovõrgud ......................................................................................................................... 14 
+2.6.1. Üldosa ............................................................................................................................ 14 
+2.6.2. Veevarustus ................................................................................................................... 14 
+2.6.3. Kanalisatsioon ............................................................................................................... 15 
+2.6.4. Sademevesi ja drenaaž .................................................................................................. 15 
+2.6.5. Elektrivarustus ja tänavavalgustus ................................................................................ 16 
+2.6.6. Soojavarustus ................................................................................................................ 16 
+2.6.7. Telekommunikatsioonivarustus .................................................................................... 17 
+2.7. Kujad ...................................................................................................................................... 17 
+2.8. Kuritegevuse riski vähendavad tingimused ........................................................................... 17 
+2.9. Keskkonnatingimused ........................................................................................................... 17 
+2.10. Servituutide ja sundvalduse seadmise vajadus ................................................................. 19 
+2.11. Planeeringu elluviimine ..................................................................................................... 19 
+3. Kooskõlastuste ja arvamuste kokkuvõte ................................ ................................ .............. 22 
+4. Joonised (digitaalselt esitatud eraldi failidena) ................................ ................................ ..... 23 
+1. Situatsiooniskeem 
+2. Planeeringuala kontaktvööndi funktsionaalsed ja linnaehituslikud seosed 
+3. Olemaoslev olukord 
+4. Põhijoonis 
+5. Tehnovõrgud 
+
+--- PAGE 4 ---
+
+
+--- PAGE 5 ---
+ Idaringtee 21 krundi detailplaneering 24101DP3 
+ 
+ 
+ AB Artes Terræ 5 / 23 
+ 
+1 Üldosa 
+1.1. Sissejuhatus 
+Detailplaneeringu ala hõlmab Tartu linnas Idaringtee 21 maaüksust. Planeeringuala suurus on 10,9 ha. 
+Planeeringu eesmärk on üldplaneeringu elluviimise käigus kaaluda võimalusi ehitusõiguse 
+määramiseks elamute ning ärihoone rajamiseks, puhke- ja rohealade kavandamiseks. 
+1.2. Planeeringu lähtedokumendid 
+Planeeringu lähtedokument on Tartu linnavalitsuse 21.05.2024 korraldus nr 443 „Idaringtee 21 krundi 
+detailplaneeringu koostamise algatamine ja lähteseisukohtade kinnitamine ning keskkonnamõju 
+strateegilise hindamise algatamata jätmine”. 
+Täiendavateks lähtedokumentideks on: 
+▪ geodeetiline alusplaan mõõtkavas 1:500, mille koostas GeoBaltica OÜ 2025. a septembris, töö 
+nr GEO-25-17. Koordinaadid on L-EST 97 ja kõrgused EH2000 süsteemis;  
+▪ Tartu linna üldplaneering 2040+; 
+▪ Idaringtee 21 planeeringuvõistluse võidutöö, AB Korrus OÜ, 2024; 
+▪ Idaringtee 21 puittaimede hinnang, AB Artes Terrae OÜ, 2025; 
+▪ kaitstavate taimeliikide inventuur, Rein Kalamees, 2023; 
+▪ liiklusuuring, Liikluslahendus OÜ, 2026; 
+▪ keskkonnamõju strateegilise hindamise eelhinnang, Alkranel OÜ, 2024; 
+▪ Ihaste tee 12a ja Ihaste tee 16b kruntide detailplaneering , kehtestatud Tartu kinnavalitsuse 
+13.04.2021 korraldusega nr 417; 
+▪ Idaringtee 21 detailplaneeringu ala kuivendus, sademeveekäitlus  ja vertikaalplaneerimine , 
+Inseneribüroo Urmas Nugin OÜ 2026. 
+Planeeringu käigus toimunud kirjavahetus ametkondade ja eraisikutega ning muud materjalid asuvad 
+planeeringu II köites „Lisad“. 
+1.3. Olemasoleva olukorra iseloomustus 
+Idaringtee 21 krunt suurusega 10,9 ha asub Ihaste linnaosas Tartu linna idapoolse ümbersõidu ääres, 
+kust on tagatud alale ka parempöörde võimalusega juurdepääs. Idaringtee 21 katastriüksuse 
+sihtotstarve on hetkel sihtotstarbeta maa 100%, krunt on hoonestamata. 
+EELISe andmetel asuvad alal III kategooria kaitsealuste taimeliikide (harilik kikkapuu, ahtalehine 
+ängelhein) kasvukohad. Dendroloogilise hindamise käigus tuvastati viie hariliku kikkapuu esinemine. 
+Alal on teostatud metsaraied vastavalt Ihaste tee 18 metsamajanduskavale (koostaja TerraPro OÜ,  
+04.2021), mille järgselt on säilinud mõned puudegrupid. Inventeeritud puudest moodustavad enamuse 
+kased, osaliselt harilik haab, hall lepp, vähemal määral harilik vaher, harilik toomingas, remmelga - ja 
+pajuliigid. Dendroloogilisi haruldusi või silmapaistvate mõõtmetega puittaimi alal ei täheldatud. 
+Planeeringuala reljeef on ebaühtlane, osa alast on pinnasega täidetud, krundi servaaladel on kraavid.  
+Planeeritud krundi olemasolevad andmed ning olemasolev olukord on esitatud joonisel 3. 
+1.4. Vastavus üldplaneeringule 
+Tartu linna üldplaneeringu 2040+ kohaselt on planeeringuala maakasutuse juhtfunktsioon id roheala, 
+väikeelamu-, korterelamu - ja ärihoone maa -ala. Samuti läbib ala tee - ja tänava maa (kohalik 
+jaotustänav, jalgrattatee tugivõrk). 
+
+--- PAGE 6 ---
+24101DP3 Idaringtee 21 krundi detailplaneering  
+ 
+ 
+6 / 23 AB Artes Terræ  
+ 
+Arhitektuuriüksuses UI3 nähakse seni hoonestamata maa-aladele ette kaasaegse arhitektuurikeelega 
+väikeelamute, üksik-, kaksik- ja ridaelamute ning määratud aladel  korterelamute rajamise võimalus. 
+Maa-alade planeerimisel tuleb tagada ühtne ruumiline  arhitektuurne keskkond, arhitektuurinõuded 
+tuleb anda hoonegruppide kohta. Korterelamute  lubatud korruselisus on kuni 3, väikeelamute 
+korruselisus on kuni 2.  Arhitektuuriüksuses UI4 on maa -alad määratud piirkonda teenindavate 
+kaubandus- ja teenindusettevõtete ehitamiseks. Ala kruntideks jaotamine ei ole lubatud. Hoonete 
+maksimaalne korruselisus on kaks. 
+Planeeritud lahendus on üldplaneeringuga kooskõlas.  Erineva juhtfunktsiooniga alasid on 
+arhitektuurivõistluse järgselt võrreldes üldplaneeringuga planeeringu ala siseselt ümber paigutatud, 
+kuid seejuures on ligikaudu säilinud erinevate funktsioonidega alade osakaalud , millest on 
+proportsionaalselt maha arvestatud planeeritud tänavate maa.  Võrreldes üldplaneeringuga on 
+detailplaneeringus vähenenud väikeelamu  maa-ala (EV) ot starve 4 % võrra ning suurenenud on  
+korterelamu maa-ala (EK) 2,6% võrra ja ärihoone maa-ala (Ä) 1,4% võrra, roheala (H) proportsioon  
+säilib samana (vt Tabel 1). 
+ 
+Skeem 1. Väljavõte Tartu linna üldplaneeringu maakasutuse juhtotstarvete joonisest. H - roheala; EK - 
+korterelamu maa -ala; EV - väikeelamu maa -ala; Ä - ärihoone maa -ala; OT - tehnoehitise maa -ala; ÜHP - 
+haridusasutuse maa-ala; ÜH - ühiskondliku hoone maa-ala. 
+
+
+--- PAGE 7 ---
+ Idaringtee 21 krundi detailplaneering 24101DP3 
+ 
+ 
+ AB Artes Terræ 7 / 23 
+ 
+Tabel 1. Maakasutuse juhtotstarvete osakaalude võrdlus üldplaneeringus ja detailplaneeringus 
+ 
+H - roheala; EK - korterelamu maa-ala; EV - väikeelamu maa-ala; Ä - ärihoone maa-ala; LT - tee ja tänava maa -
+ala 
+1.5. Planeeringuala ja kontaktvööndi linnaehituslikud ja funktsionaalsed seosed 
+Planeeringuala piirneb läänest põhimagistraali Idaringtee tänavaga, millelt on planeeringualale 
+juurdepääs parempöördega. Samuti on Idaringteel jalgratta- ja jalgtee, mis on üldplaneeringu kohase 
+jalgrattateede põhivõrgu osa. Planeeringuala lõunaküljel asub ridaelamute piirkond. Planeeringuala 
+põhjaküljel on hoonestamata alad, kuhu üldplaneering näeb lisaks rohealale ette väikeelamute ning 
+ühiskondlike hoonete ehitamise.  Planeeringuala idaserva näeb üldplaneering ette Uus-Ihaste tee 
+pikendusena tänava rajamise kuni Lammi tänavani . Planeeringualast ida poole jääb üldplaneeringu 
+järgi väikeelamute ala, mis hetkel on looduslik ala. 
+Planeeringuala on Uus-Ihaste tee pikendamise korral planeeringualale  väga hästi ligipääsetav 
+erinevate liikumisviisidega – jalgsi, jalgrattaga, ühistranspordiga ning mootorsõidukitega. 
+Planeeringuala vahetus läheduses Idaringteel, samuti Lammi tänaval planeeringualast kirde suunas, 
+asuvad bussipeatused.  Planeeringualale luuakse ühendused jalakäijatele ja jalgratturitele 
+planeeringuala lõunaküljel ole va ridaelamupiirkonna tänavatevõrguga  ja mänguväljakuga ning 
+Idaringtee jalgratta - ja jalgteega . Lähim esmatarbekaupade kauplus asub planeeringualast u 1 km 
+kaugusel kagu suunas, planeeringualale kavandatakse samuti võimalus kaubandus -, toitlustus - ja 
+teenindushoone ehitamiseks.  Lähimad koolid asuvad u 2 ,2 km kaugusel  ning lasteaed u 1,8 km 
+kaugusel põhja suunas Annelinnas.  
+Lähim hoonestus on planeeringualast lõuna pool asuvad ridaelamud, mis on kahekorruselised ning 
+lamekatustega. 
+Planeeringuala kontaktvöönd on kajastatud joonisel 2. 
+1.6. Planeeringu- ja selle mõjuala analüüsil põhinevad järeldused ja ruumilise arengu 
+eesmärgid 
+Planeeringu eesmärk on üldplaneeringu kohase arengu ning elluviimine läbi viidud 
+planeeringuvõistluse võidutöö põhimõtetest lähtuvalt. Planeeritud linnaehituslike tingimuste 
+määramisel on lähtutud eelkõige üldplaneeringukohastest põhimõtetest ja piirväärtustest ning 
+planeeringuvõistluse võidutööst. Planeeritud hoonestus sobitub piirkonna olemasoleva ridaelamute 
+hoonestusega. Korterelamud ning ärihoone on kavandatud planeeringuala ga piirneva  
+magistraaltänava Idaringtee poolsele küljele , kuhu need ruumiliselt sobituvad.  Planeeringualale on 
+planeeritud tänavatevõrgu rajami se järgselt  väga hea juurdepääs erinevate liikumisviisidega  ning 
+läheduses on suured avalikud haljas- ja puhkealad, mistõttu on planeeringualale sobiv rajada elamuid. 
+Hoonegruppide vahelistele aladele luuakse haljas- ja puhkealad  kvaliteetse maastikukujundus e ja 
+inventariga (sh võrkpalliväljakud). 
+Maaka-
+sutuse 
+ots-
+tarve
+Otstarbe 
+pindala 
+ÜP-s (m²)
+% alast
+% H-EV-
+EK-Ä 
+alast
+Liiklusmaa 
+pindala DP-
+s (m²)
+% H-EV-
+EK-Ä 
+alast
+ÜP 
+proport-
+sioon
+% alast
+% H-EV-
+EK-Ä 
+alast
+Otstarbe 
+pindala 
+DP-s
+% alast % H-EV-EK-Ä-st
+Vahe 
+DP 
+võrreld
+es ÜP-
+ga (m²) 
+Osakaa-
+lude 
+erine-
+vus %
+H 20760 21,6% 21,6% 18895 19,7% 21,6% 18895 19,7% 21,6% 0 0,0%
+EV 48693 50,7% 50,7% 44318 46,2% 50,7% 40854 42,5% 46,7% -3464 -4,0%
+EK 23720 24,7% 24,7% 21589 22,5% 24,7% 23833 24,8% 27,3% 2244 2,6%
+Ä 2852 3,0% 3,0% 2596 2,7% 3,0% 3825 4,0% 4,4% 1229 1,4%
+LT 0,0% 8627 9,0% 8627 9,0% 8627 9,0% 0
+Kokku 96025 100% 100% 96025 96025 100,0% 100% 96034 100% 100% 9*
+ÜP JA DP 
+OTSTARVETE 
+OSAKAALUDE 
+VÕRDLUS
+ÜP OTSTARBED
+DP PLANEERITUD LT 
+ALA ÜP H-EV-EK-Ä 
+ALAST
+ÜP OTSTARVETE OSAKAALUD 
+ARVESTADES DP LIIKLUSMAAGA
+DP OTSTARVETE 
+OSAKAALUD
+
+--- PAGE 8 ---
+24101DP3 Idaringtee 21 krundi detailplaneering  
+ 
+ 
+8 / 23 AB Artes Terræ  
+ 
+2. Planeerimise lahendus 
+2.1. Planeeringuala kruntideks jaotamine 
+Idaringtee 21 krunt on planeeritud jaotada 31-ks krundiks. Krundi piirid, suurus ja krundi kasutamise 
+sihtotstarbed on esitatud joonisel 4. 
+2.2. Krundi hoonestusala ja ehitusõigus 
+Krundi hoonestusala ja ehitusõigus on esitatud joonisel 4. Ehitamine on lubatud joonisel 4 esitatud 
+hoonestusala piires vastavalt ehitusõigusele; hoonestusala piires on lubatud ka jalgteede, sõiduteede, 
+parkla ja haljasala ehitamine. Hoonete ja rajatiste e hitamisel tuleb järgida kujadest tingitud nõudeid 
+ning haljastuse tagamise nõuet. Kõikidele põhihoonetele on planeeritud ka maa-aluse korruse rajamise 
+ehitusõigus. 
+Lisaks planeeritud ehitusõigusele on lubatud krundi kasutusotstarbega seotud rajatised ning kuni 20  
+m² ehitisealuse pinnaga kuni 5 m kõrged abihooned (nt prügimaja, jalgrataste hoiuhoone, 
+elektriautode laadimistaristu, varjualused, puhke-, mängu- ja spordirajatised jne). Nimetatud ehitised 
+võivad asuda ka väljaspool hoonestusala, abihoone lähemal kui 4 m krundi piirile naabriga kokkuleppel. 
+Haljastusnõuded tuleb igal juhul tagada.. 
+Ehitusõiguse realiseerimiseks on vajalik täita ka muud planeeringuga määratud tingimused (haljastuse 
+miinimumnõuded, parkimise nõuded jms). Esitatud ehitusõigus ei ole ülem teiste seatud nõuete osas.  
+2.3. Ehitise ehituslikud, arhitektuurilised ja kujunduslikud tingimused 
+Hoonestuse arhitektuurne lahendus peab lähtuma planeeringuvõistluse võidutöö põhimõtetest. 
+Arhitektuur peab olema kaasaegne ja kõrgetasemeline.  Elamute mahus on vajalik lahendada 
+abiruumid jalgrataste, lapsekärude, kelkude jms hoidmiseks.  Hoonete mahus parkimise ja 
+varjumiskoha kavandamisel tuleb see lahendada maa -alusel korrusel. Hoone projekteerimisel tuleb 
+kavandada hoonest väljapääs hoone mõlemalt küljelt – nii peafassaadi kui ka õueala poolt. 
+Planeeritud hoonete  1. korruse põranda  ±0.00 kõrgus võib olla kuni 0,9 m hoonet ümbritsevast 
+keskmisest maapinnast kõrgemal. Planeeringu käigus on koostatud planeeringuala kuivenduse, 
+sademeveekäitluse ja vertikaalplaneerimise  eksperthinnang, millega on kavandatud ligikaudsed 
+maapinna kõrgused (esitatud ka joonisel 4), mida täpsustatakse projekteerimisel.  
+Juhul kui elamutele või ärihoonetele kavandatakse tehnoseadmeid, tuleb need paigutada 
+tänavapoolsesse hooneossa või selliselt, et nende müra ei oleks suunatud elamualade poole. Juhul kui 
+kavandatav tegevus eeldab kaupade laadimist või sagedast transpordiliiklust, tuleb vastavad laadimis- 
+ja teenindusalad kavandada selliselt, et need ei paikneks elamute vahetus läheduses ega oleks 
+suunatud elamualade poole. 
+Hoonetes tuleb tagada sisemüra normtasemed vastavalt sotsiaalministri 12.11.2025 määrusele nr 61 
+„Nõuded müra, sealhulgas ultra - ja infraheli ohutusele elamutes ja ühiskasutusega hoonetes ning 
+helirõhutaseme mõõtmise meetodid“ , määruse muutumisel planeeringu elluviimise ajal kehtivatest 
+nõuetest. Hoonete Idaringtee poolsel fassaadil on soovitav kasutada müra tõkestavaid ehitustehnilisi 
+lahendusi, et vähendada mürataset hoonete siseruumides.  Hoonete kõrgema mürafooniga külgedel 
+(eelkõige Idaringtee tänava poolne külg) on soovitatav ette näha müra suhtes vähem tundlikke ruume. 
+Hoone eskiisprojekt tuleb enne ehitusloa taotlust kooskõlastada Tartu linna valitsuse arhitektuuri ja 
+ehituse osakonnaga. 
+Hoonetele on antud täiendavalt järgnevad arhitektuurilised nõuded: 
+Katusekalle: 0-30°. 
+
+--- PAGE 9 ---
+ Idaringtee 21 krundi detailplaneering 24101DP3 
+ 
+ 
+ AB Artes Terræ 9 / 23 
+ 
+Välisviimistluse materjalid: puit, kivi, betoon, krohv, tellis, ilmastikukindel ehitusplaat. 
+Välisviimistluse toonid: eelistada heledaid või sooje ja looduslähedasi värvitoone. 
+Katusematerjal: rullmaterjal, kivi või plekk. 
+Keelatud on  imiteerivate materjalide kasutamine. Võimalikud p rügimajad peavad 
+arhitektuurselt haakuma elamuga. Katuseka ttematerjalid ja  viimistlusmaterjalid peavad 
+sobima hoone arhitektuurilahendusega ja välisilmega. 
+Tulepüsivusklass määrata projekteerimisel lähtuvalt ehitise kasutamise otstarbest ja sellele seatud 
+nõuetest. Planeeritud hoonete tulepüsivusklassi määramisel tuleb juhinduda siseministri 30.03.2017 
+määrusest nr 17 „Ehitisele esitatavad tuleohutusnõuded“, määruse muutumisel planeeringu 
+elluviimise ajal kehtivatest nõuetest.  
+2.4. Liikluskorralduse põhimõtted 
+Projekteerimisel on lubatud joonisel 4 esitatud juurdepääsude asukohti, tänavarajatiste (sh 
+jalgrattatee) paigutust ja parameetreid ning parkimislahendust vastavalt kehtivatele nõuetele 
+täpsustada. Teede ja muude rajatiste rajamisel tuleb arvestada säilivate puude kasvuruumiga ning 
+juurestiku säilimise vajadusega. 
+Planeeringuala idaserva on planeeritud üldplaneeringu kohane kohalik jaotustänav (Pos 30), mis tuleb 
+planeeringualale juurdepääsu tagamiseks ühendada lõuna suunas Uus-Ihaste tee T1 maaüksusel asuva 
+tänavaga. Sarnaselt olemasoleva tänavaga on planeeritud tänav kavandatud kahepoolse jalgratta - ja 
+jalgteega, mis on sõiduteest eraldatud haljasribadega , kuhu on vajadusel võimalik rajada ka 
+bussipeatuse taskud (asukohad täpsustatakse projektiga) .Tänava läänekülejele tuleb istutada 
+haljasribadele puuderead. 
+Idaringteelt on rajatud planeeringualale sõidutee mahasõit, kus on lubatud vaid parempööre, samuti 
+on lubatud vaid parempööre Idaringteele väljumiseks. Alates Idaringtee mahasõidust kuni 
+planeeringuala idaserva planeeritud tänavani on planeeritud tänava rajamine  (Pos 28)  koos 
+juurdepääsudega planeeritud kruntidele. Tänavale on planeeritud sõidutee, kahele poole tänavat  
+jalgtee ning ühele poole tänavat kahesuunaline jalgrattatee . Ühele poole tänavat on planeeritud  
+jalgrattateed ning sõiduteed eraldav haljasriba,  kuhu tuleb istutada puud ning  kuhu on vajadusel 
+võimalik rajada ka bussipeatuse tasku (asukoht täpsustatakse projektiga). 
+Planeeritud k runtidele Pos 19…Pos 27 juurdepääsuks on planeeritud tänav (Pos 29), mis 
+mootorsõidukitele on tupiktee ning jalakäijatele ja jalgratturitele ning vajadusel operatiivsõidukitele 
+jätkub läbi Pos 31 planeeritud haljasala . Ühele poole tänavat on planeeritud jalgratta - ja jalgtee ning 
+haljasriba, kuhu tuleb istutada puud. Tänava lõppu on planeeritud ümberpööramiskoht. 
+Jalakäijatele ja jalgratturitele on planeeritud teede ühenduse d planeeringuala lõunapiiril asuva 
+jalgratta- ja jalgteega , Idaringtee jalgratta - ja jalgteega  ning planeeringuala põhjapiiril asuva 
+olemasoleva jalgratta- ja jalgteega. 
+Planeeringuala on planeeringu elluviimisel hästi ligipääsetav erinevate liikumisviisidega – jalgsi, 
+jalgrattaga, ühistranspordiga ning mootorsõidukitega. 
+Jalg- ja/või jalgrattateede ristumine sõiduteedega tuleb teha jalg - ja/või jalgrattatee tasapinnas 
+(tagades reljeefse kiviga ka nägemispuudega inimesele sõnumi teist liiki liiklusega ristumisest), 
+sõiduteest eristuva katendiga, et potentsiaalne suurem ohuala eristuks muust teest. 
+Jalgrattaparklate rajamine on lubatud kogu planeeritud krundi piires ning hoone siseselt. Elamu mahus 
+on vajalik lahendada abiruumid jalgrataste, lapsekärude, kelkude jms hoidmiseks. Välijalgrattaparklad 
+
+--- PAGE 10 ---
+24101DP3 Idaringtee 21 krundi detailplaneering  
+ 
+ 
+10 / 23 AB Artes Terræ  
+ 
+tuleb rajada hoone sissepääsude lähedusse, raamist lukustamise võimalusega ning soovitav on need 
+rajada varju alla. Jalgrattaparklate kavandamisel lähtuda Tartu linna jalgrattaparklate tüüptingimustest 
+ning kehtivast standardist (EVS 843:2016 „Linnatänavad “). Jalgrataste parkimiskohtade arv tuleb 
+täpsustada projekteerimisel lähtuvalt standardist, kavandatavast hoone brutopinnast, korterite arvust. 
+Planeeritud krundi mootorsõidukite parkimine tuleb lahendada vastavalt kehtivale standardile (EVS 
+843 „Linnatänavad“) ning üldplaneeringule. Projekteerimisel võib standardis määratud 
+parkimiskohtade normatiivi täpsustada, kui on koostatud liikluse tekke ja  parkimise nõudluse uuring 
+koos erinevate liikumisviisidega juurdepääsetavuse võrdleva analüüsiga. Analüüsi tulemusi ja kinnistu 
+ühendustegurit arvestades on võimalik parkimisnormatiivist väiksema arvu parkimiskohtade rajamine, 
+kui on selge, et alternatiivsete liikumisviiside (jalakäimine, jalgrattasõit, ühistransport) kasutajate hulk 
+on piisavalt suur ja autode parkimiskohti ei ole nii palju vaja. Joonisel 4 on esitatud näitlik väliste  ja 
+hoone siseste (maa-aluse korruse) parkimiskohtade paiknemine. Parkimiskohtade arv tuleb täpsustada 
+projekteerimisel lähtuvalt standardist, kavandatavast hoone brutopinnast, korterite arvust. 
+Tabel 2 on esitatud näitlik parkimiskohtade arvutus arvestades  joonisel 4 esitatud näitliku lahenduse 
+puhul võimaliku suurima korterite arvuga  ning Pos 1 planeeritud ärihoone suurima võimaliku 
+brutopinnaga ja kaupluse funktsiooniga. 
+
+--- PAGE 11 ---
+ Idaringtee 21 krundi detailplaneering 24101DP3 
+ 
+ 
+ AB Artes Terræ 11 / 23 
+ 
+Tabel 2. Planeeritud kruntide näitlik parkimisarvutus. 
+ 
+Avaparklad liigendada väiksemateks, maksimaalselt kuni 20 -kohalisteks üksusteks, kasutades 
+haljasribasid, madal- ning kõrghaljastust. Parklasse projekteerida vähemalt üks puu 20 parkimiskoha 
+kohta. 
+Koostatud liiklusanalüüsi (Liikluslahendus OÜ, töö nr 233401) kokkuvõte on järgnev: 
+Elamute rajamisel lisandub väljuvat liiklust hommikusel tipptunnil u 240 a/h ja õhtusel 
+tipptunnil ca 100 a/h, mis hinnanguliselt jaguneb Idaringtee ja Ihaste tee vahel võrdselt. 
+Kaupluse rajamine tekitab Idaringtee sisenevat ja väljuvat liiklust u 50 autot/h. 
+Ihaste tee ja Uus -Ihaste tee ristmikul on enamkoormatud tund hommikune tipptund. Peatee 
+(Ihaste tee) liiklust on mõlemas suunas kokku on u 450 a/h (7 -8 a/min), Uus -Ihaste teelt 
+väljasõitjaid sõidukeid 160 a/h (2 -3 autot minutis). Läbilaskvustega muret ei ole, ooteajad on 
+lühikesed. 
+Pos 1 3825
+100% kaubandus-, 
+toitlustus- ja 
+teenindus-hoone 
+maa
+1530 23 38 61 - - - 61 - 20
+Pos 2 7178 100% korterelamu maa 1740 51 64 115 87,5 82 114,8 - 164
+Pos 4 3565 100% korterelamu maa 870 26 32 58 87,0 41 57,4 - 82 -
+Pos 5 3481 100% korterelamu maa 870 26 32 58 84,9 41 57,4 - 82 -
+Pos 7 6153 100% korterelamu maa 1340 50 48 98 87,9 70 98 - 140 -
+Pos 8 3457 100% korterelamu maa 670 25 24 49 98,8 35 49 - 70 -
+Pos 10 2742 100% ridaelamu maa 718 20 0 20 274,2 10 20 - 20 -
+Pos 11 2473 100% ridaelamu maa 597 22 0 18 274,8 9 18 - 18 -
+Pos 12 3502 100% ridaelamu maa 792 22 0 22 318,4 11 22 - 22 -
+Pos 13 3129 100% ridaelamu maa 792 22 0 22 284,5 11 22 - 22 -
+Pos 14 4137 100% ridaelamu maa 792 20 0 20 376,1 11 22 - 22 -
+Pos 15 3106 100% ridaelamu maa 792 20 0 20 282,4 11 22 - 22 -
+Pos 16 2934 100% ridaelamu maa 792 18 0 20 266,7 11 22 - 22 -
+Pos 17 3294 100% ridaelamu maa 792 18 0 20 299,5 11 22 - 22
+Pos 18 3143 100% ridaelamu maa 792 18 0 20 285,7 11 22 - 22 -
+Pos 19 1894 100% kaksikelamu maa 300 4 0 4 947,0 2 4 - 4 -
+Pos 20 1201 100% kaksikelamu maa 300 4 0 4 600,5 2 4 - 4 -
+Pos 21 1716 100% kaksikelamu maa 300 4 0 4 858,0 2 4 - 4 -
+Pos 22 1511 100% kaksikelamu maa 300 4 0 4 755,5 2 4 - 4 -
+Pos 23 1259 100% kaksikelamu maa 300 4 0 4 629,5 2 4 - 4 -
+Pos 24 1332 100% kaksikelamu maa 300 4 0 4 666,0 2 4 - 4 -
+Pos 25 1258 100% kaksikelamu maa 300 4 0 4 629,0 2 4 - 4 -
+Pos 26 1139 100% kaksikelamu maa 300 4 0 4 569,5 2 4 - 4 -
+Pos 27 1082 100% kaksikelamu maa 300 4 0 4 541,0 2 4 - 4 -
+Näitlik 
+normatiivne 
+kaupluse 
+sõiduautode 
+parkimis-
+kohtade arv (1 
+koht/50 m² 
+brutopinna 
+kohta)
+Näitlik 
+parkimis-
+kohtade 
+arv väljas
+Planee-
+ritud
+krunt
+Planee-
+ritud 
+krundi
+pindala 
+(m²)
+Planeeritud krundi
+kasutamise 
+sihtotstarve
+Krundi suurim 
+lubatud 
+põhihoone 
+maapealne ja 
+maa-alune 
+ehitisealune 
+pind (m²)
+Näitlik 
+normatiivne 
+korterite 
+jalgrataste 
+parkimis-
+kohtade arv (2 
+kohta/korter)
+Näitlik 
+normatiivne 
+kaupluse 
+jalgrataste 
+parkimis-
+kohtade arv (1 
+koht/150m² 
+brutopinna 
+kohta)
+Näitlik 
+sõiduautode 
+parkimis-
+kohtade arv 
+hoone mahus
+Näitlik 
+sõiduautode 
+parkimis-
+kohtade arv 
+kokku
+Näitlik
+koormus-
+indeks 
+(krundi 
+pind korteri 
+kohta)
+Näitlik 
+korterite 
+arv
+Näitlik 
+normatiivne 
+korterite 
+sõiduautode 
+parkimis-
+kohtade arv (1,4 
+kohta/korter); 
+ridaelamutel ja 
+paarismajadel 2 
+kohta/korter
+
+--- PAGE 12 ---
+24101DP3 Idaringtee 21 krundi detailplaneering  
+ 
+ 
+12 / 23 AB Artes Terræ  
+ 
+Idaringtee juurdepääsul planeeringualale on enamkoormatud tund õhtune tipptund. 
+Lõikumiskohas on välja ehitatud maanteede projekteerimise normidele vastavad kiirendus- ja 
+aeglustusrajad. Kiiruse muutused Idaringteel ei ole märgatavad. 
+Idaringtee ja Lammi tee ristmikul moodustab planeeringuga lisanduv liiklus enamkoormatud  
+tunnil u 8% Idaringtee selle haru liiklusest (100/1200), mis on liikluse igapäevase ebaühtlusega 
+samas suurusjärgus. Idaringtee ja Lammi tn ringristmiku projekteerimisel arvestati planeeringu 
+juurdepääsuga. 
+Ristmiku rekonstrueerimise vajaduse määramiseks tuleb kontrollida tegelikku jaotust  
+liiklusloendustega (mudeli jaotus ei pruugi ole piisavalt täpne) ja arvesse võttes kõiki  
+teadaolevaid muutusi, prognoosida liikluse nõudlus.  See ei saa olla ühe planeerigu raames 
+lahendatav ülesanne arvestades ka seda, et nn  „turboringristmiku“ loenduste teostamine on 
+töömahukas. 
+2.5. Haljastuse ja heakorrastuse põhimõtted 
+Igal elamukrundil peab haljastatud ala olema vähemalt 40% krundi pindalast, kõrghaljastuse osakaal 
+haljastatud alast vähemalt 25%. Krundi haljastuse hulka loetakse ka mänguväljakud ja jalgtee ning 
+muud välipuhkust võimaldavad rajatised. Elamuk rundi haljastatav osa peab olema suurem, kui 
+kõvakattega ala. Pos 1 äriotstarbelisel krundil peab olema minimaalselt 10% planeeritud krundi pinnast 
+kõrghaljastatud. 
+Tabel 3. Minimaalsed haljastatud ala ja kõrghaljastatud ala pinnad kruntidel. 
+ 
+Parklad tuleb liigendada haljastusega. Korterelamumaale kavandada terviklik alasisene puhke - ja 
+haljasala ning laste mänguväljak. Puhkeala ning mänguväljak võivad olla lahendatud ka mitme krundi 
+Pos 1 3825 100% kaubandus-, toitlustus- ja teenindus-hoone maa - 383
+Pos 2 7178 100% korterelamu maa 2871 718
+Pos 4 3565 100% korterelamu maa 1426 357
+Pos 5 3481 100% korterelamu maa 1392 348
+Pos 7 6153 100% korterelamu maa 2461 615
+Pos 8 3457 100% korterelamu maa 1383 346
+Pos 10 2742 100% ridaelamu maa 1097 274
+Pos 11 2473 100% ridaelamu maa 989 247
+Pos 12 3502 100% ridaelamu maa 1401 350
+Pos 13 3129 100% ridaelamu maa 1252 313
+Pos 14 3775 100% ridaelamu maa 1510 378
+Pos 15 3162 100% ridaelamu maa 1265 316
+Pos 16 2934 100% ridaelamu maa 1174 293
+Pos 17 3294 100% ridaelamu maa 1318 329
+Pos 18 2780 100% ridaelamu maa 1112 278
+Pos 19 1722 100% kaksikelamu maa 689 172
+Pos 20 1201 100% kaksikelamu maa 480 120
+Pos 21 1457 100% kaksikelamu maa 583 146
+Pos 22 1332 100% kaksikelamu maa 533 133
+Pos 23 1259 100% kaksikelamu maa 504 126
+Pos 24 1332 100% kaksikelamu maa 533 133
+Pos 25 1358 100% kaksikelamu maa 543 136
+Pos 26 1210 100% kaksikelamu maa 484 121
+Pos 27 1145 100% kaksikelamu maa 458 115
+Min haljastatud ala m² 
+elamukrundil (40% krundi 
+pinnast) (m²)
+Min kõrghalhaljastatud ala 
+m² elamukrundil ja ärikrundil 
+(10% krundi pinnast) (m²)
+Planeeritud
+krunt
+Planeeritud krundi
+pindala (m²)
+Planeeritud krundi
+kasutamise sihtotstarve
+
+--- PAGE 13 ---
+ Idaringtee 21 krundi detailplaneering 24101DP3 
+ 
+ 
+ AB Artes Terræ 13 / 23 
+ 
+kohta ühise na. Joonisel 4 on esitatud näitlik krun tide siseste mänguväljakute paiknemine, mida 
+täpsustatakse projektiga. 
+Pos 31 on planeeritud keskne haljasala, kuhu on kavandatud virgestusrajatistena kahe võrkpalliväljaku 
+ning puhkeala rajamine. Pos 31 haljasala loob planeeritud elamuala ühenduse planeeringualast põhja 
+pool asuvate avalike haljasalade ga. Lisaks on planeeritud haljasalad Pos 3, Pos 6 ja Pos 9 kruntidele. 
+Pos 3 ühendab planeeritud keskse haljasala lõuna suunas olemasoleva mängu - ja puhkealaga. 
+Avalikkusele suunatud välialad peavad olema esinduslikult kujundatud ning võimaldama lühipuhkust 
+(istumisvõimalused). 
+Planeeritud tänavatele on planeeritud puuderidade istutamine . Kõrgekasvulisi puid ei tohi istutada 
+planeeritud drenaažitorustikele lähemale , kui 3 m , sellest lähemale on lubatud madalate puude ja 
+põõsaste istutamine. Tehnovõrkude kaitsevööndisse puid ja põõsaid mitte istutada. 
+Eelistada olemasoleva väärtusliku haljastuse säilitamist uue haljastuse rajamisele.  Olemasolev 
+kõrghaljastus, mis ei jää hoonete, teede ja muude rajatiste  kohale, võimalusel säilitatakse. 
+Uushaljastuse istutamine on lubatud kogu planeeringuala piires arvestades, et rajatav haljastus ei tohi 
+piirata sõidukijuhtide nähtavust ning ei asu tehnovõrguliinide kaitsevööndis. Haljastuse kavandamisel 
+tuleb eelistada kodumaiseid taimeliike, mis sobivad ümbruskonna looduskooslusesse . Täpne 
+haljastuse lahendus ja liigilisus tuleb anda ehitusprojektiga. Kui istutatava puu alune haljasala laius on 
+alla 3 m, tuleb kasvupinnase mahtu suurendada kõvakatte alla rajatava tugipinnasega või teisel viisil 
+(EVS 843:2016, ptk 8.3 p 13). Juurestikul e vajalik kasvupinnase ulatus kuupmeetrites ja kasvupinnase 
+sügavus olenevalt puu suurusest (madala-, keskmise-, suurekasvuline puu) on esitatud EVS 939–4:2020 
+„Puittaimed haljastuses osa 4: Puuhooldustööd“. Võimaluse korral kasutada sellist katusekatte 
+lahendust (vajadusel kombineerides katusehaljastusega, hele materjal jms), mis vähendaks 
+kuumasaare tekkimise riski. 
+Detailplaneeringu algatamise korraldusega on soovitud lähtuvalt planeeringu algatamise eelselt 
+koostatud dendroloogilisest hinnangust määrata säilitatavaks toonases dendroloogilises hinnangus 
+perspektiivsena näidatud eraldis 8 tervikuna ja eraldis 6 osas, kus kasvavad perspektiivsed puud ning 
+kavandada selle sidumine rohealaga Lammi tn 17b krundil. Lisaks nägi korraldus ette vajadust kaaluda 
+võimalusi määrata rohealaks toonase dendroloogilise hinnangu kohane eraldis 4 looduslikuna 
+(seisundi halvenemisel pla neerida uus kõrghaljastus). Kuna alal on läbi viidud raied ning haljastuse 
+olukord on võrreldes algatamise eelselt dendroloogilise hindamise ajaga oluliselt muutunud, siis on 
+2025. a koostatud uus dendroloogiline hinnang ning säilitatav haljastus on määratud selle alusel. 
+Dendroloogilise hinnangu järgi asub planeeringualal suur hulk kuivanud, kuivavaid, murdunud ja 
+murdumisohtlikke puid, mis tuleb turvalisusse tagamiseks likvideerida. Planeeritud Pos 8 krundil asub 
+üks väärtuslik puu (harilik tamm), mis tuleb säilitada või ümber istutada. Pos 6 asuvad looduslikud puu- 
+ja põõsagrupid, mis on dendroloogilise hinnanguga määratud III väärtusklassi, on planeeritud säilitada 
+– Pos 4 parkimisala rajamisel on võimalik vähesel määral selle piiril asuva eraldise  puittaimede 
+likvideerimine. Dendroloogilise hindamise käigus tuvastati Pos 6 alal viis III kaitsekategooria kaitsealuse 
+taime harilik kikkapuu isendit , mis tuleb säilitada . Pos 31 on planeeritud säilitada  seal kasvavaid III 
+väärtusklassi puid (arukased), mille juurestiku kaitsealade ulatuses valdavalt ehitustöid ning maapinna 
+tõstmist ei kavandata – vähesel määral jäävad juurestiku kaitsealad planeeritud tee alale. Ehitustöödel 
+tuleb säilitatavate puude juures toimuvates tegevustes lähtuda  EVS 939 -1:2020 „Puittaimed 
+haljastuses. Osa 3: Ehitusaegne puude kaitse“ ptk 7, 8, 9 esitatud nõuetest. 
+Säilivate puude juurestiku kaitsealal tuleb kaevetööd teha käsitsi, eelistatul õhklabidaga. Juuri, mille 
+läbimõõt on alla 25 mm, võib kärpida spetsiaalsete kääridega või käsisaega. Üle 25 mm läbimõõduga 
+juured võimalusel säilitatakse (nt jättes need tee aluskihtide sisse). Üle 4 cm läbimõõduga juuri ei tohi 
+
+--- PAGE 14 ---
+24101DP3 Idaringtee 21 krundi detailplaneering  
+ 
+ 
+14 / 23 AB Artes Terræ  
+ 
+läbi raiuda, kui see äärekivi või valgusti paigaldamisel on siiski vältimatu, tuleb juured läbi lõigata risti 
+võimalikult väikese lõikepinnaga ning lõikekoht ei tohi jääda narmendav või ebaühtlane. 
+Juurestiku kaitsealal mitte tõsta maapinda üle 20 cm, juurekaela vahetus ümbruses ei tohi maapinda 
+tõsta. Juurestiku kaitsealal rajada maa-alused tehnovõrguliinid kinnisel meetodil ning minimaalselt 70 
+cm sügavusele olemasolevast maapinnast. 
+Kõigi säilivate puude võrad tuleb üle vaadata iga -aastaselt arboristi poolt ning vajadusel teha 
+võrahooldus. Kuna tegemist  on elamualaga, avalike haljasalade ja tänavaruumiga , tuleb puude 
+ülevaatusel erilist tähelepanu pöörata võimalikele murdumisohtlikele puudele või okstele ning 
+vajadusel võrad toestada või likvideerida. Säilitatavatel arukaskedel leidub hulganisti oksatüükaid ning 
+kuivanud oksi, mis võib viidata tekkinud või tekkivatele mädanikukolletele tüves ning tõsta 
+murdumisohtu. 
+Kaubandus- ja teenindushoone krunti piiretega üldjuhul ei piirata, v.a majandushoovid, 
+ladustamisplatsid jms krundi majandussuunitlusega osad. Korterelamute krunte ei ole lubatud piirdega 
+ääristada, kuid on lubatud istutada hekke. Ridaelamute ja kaksikelamute piirdeaia kõrgus võib olla 
+maksimaalselt 1,5 m. Ridaelamu bokside vahel  on lubatud hekk või kuni 1,0 m kõrgused piirded. 
+Lähtuda tuleks naaberkinnistute lahendustest. Mänguväljak piirata vajadusel tee poolt piirdeaiaga või 
+madala hekiga turvalisuse  tagamiseks. Üldkasutatava maa ja nendega külgnevate elamukrun tide 
+vahele rajada täiendavat haljastust (kõrgemad  hekid, põõsad jms), et tagada elamukrun tidele 
+täiendavat privaatsust. Piirde kujunduslaad ning värvivalik peavad  visuaalselt sobima hoonete 
+arhitektuuriga. Väravad ei tohi avaneda tänava poole ning tehnovõrkude kaitsevööndisse piirdeaedade 
+rajamine on keelatud. Planeeritud nõvades ei tohi olla vundamendiga piiret, mis takistaks vee liikumist.  
+Olmejäätmed on planeeritud kokku koguda igale elamu- ja ärikrundile  kavandatavas 
+jäätmekogumispunktis, mille näitlik asukoht on esitatud joonisel 4, konteinerid kavandada prügimajas- 
+või varjualuses, maa-alustena või hoonesisestena. 
+2.6. Tehnovõrgud 
+2.6.1. Üldosa 
+Projekteerimisel võib planeeritud tehnovõrkude ja rajatiste asukohta täpsustada koostöös kõigi 
+tehnovõrguvaldajatega. Projekteeritavad tehnovõrguliinid näha ette maa -alustena. Tehnovõrkude 
+koridoris peab kõigile torustike kaevudele ja sõlmedele olema tagat ud juurdepääs hooldustehnikaga. 
+Servituudialas paiknevad torustikud ja kaevud peavad olema füüsiliselt ligipääsetavad. 
+Planeeritud tehnovõrgud on esitatud joonisel 5. 
+2.6.2. Veevarustus 
+Planeeritud hoonete veevarustus on planeeritud vastavalt AS Tartu Veevärgi tehnilistele tingimustele 
+nr 24ARE-2-DT-18 alates Iirise tn ja Krookuse tn veetorustikust . Planeeritud t änavatele ning 
+veetorustiku ringistamise eesmärgil Pos 6 ja Pos  31 planeeritud haljasaladele  ning Idaringtee  
+tänavamaale on planeeritud veetorustiku ringvõrk. Igale planeeritud krundile on planeeritud eraldi 
+veeühendustoru krundiga külgnevast tänavatorustikust. 
+Tuletõrjevee tagamisel tuleb arvestada siseministri 30.03.2017 määruses nr 17 „Ehitisele esitatavad 
+tuleohutusnõuded“ esitatud nõuetega, määruse muutumisel planeeringu elluviimise ajal kehtivate 
+nõuetega. Planeeringualast vahetult lõuna pool Iirise tänaval on olemaoslev tuletõrjehüdrant. 
+Planeeringualale on planeeritud ühisveetorustikule kolme uue tuletõrjehüdrandi asukohad. 
+
+--- PAGE 15 ---
+ Idaringtee 21 krundi detailplaneering 24101DP3 
+ 
+ 
+ AB Artes Terræ 15 / 23 
+ 
+2.6.3. Kanalisatsioon 
+Planeeritud hoonete reoveekanalisatsioon ning sademevee ärajuhtimine on planeeritud vastavalt AS 
+Tartu Veevärgi tehnilistele tingimustele  nr 24ARE -2-DT-18. Planeeringuala reoveekanalisatsiooni 
+eesvool on planeeringuala põhjapoolse piiri kõrval asuv reoveekanalisatsioonikollektor DN 1000 . 
+Planeeringualale on planeeritud isevoolne reoveekanalisatsiooni tänavatorustik alates eesvoolust kuni 
+planeeringuala kruntideni . Igale krundile  on planeeritud eraldi ühendustoru krundiga külgnevast 
+tänavatorustikust. Iirise ja Krookuse tänava äärsete kruntide reoveekanalisatsioon on planeeritud 
+ühendada nimetatud tänavatel asuva olemasoleva torustikuga. 
+Planeeringuala põhjapiiril asuvale DN 1000 kanalisatsioonikollektorile tagada seadusega kehtestatud 
+kaitsevöönd (5 m) ning tagada juurdepääs kollektori kaevudele.  Pos 1 tuleb olemasoleva 
+kanalisatsioonikollektori poolses küljes näha projekteerimisel ette tugiseina rajamine tagamaks 
+torustiku hoolduse ja remondi võimalusi.  Juhul kui hoone projekteerimise käigus selgub, et hoone 
+rajamine võib siiski olemasolevat torustikku ohustada või kitsendada torustiku rekonstrueerimise 
+võimalusi, tuleb torustik hoonestaja kulul ümber tõsta selleks sobilikku kohta. 
+Kinnistu maapind kanali satsioonikaevude juures ja hoonete ±0.00 peavad asuma kõrgemal 
+ühiskanalisatsiooni paisutustasemest. 
+2.6.4. Sademevesi ja drenaaž 
+Planeeringuala sa demevee käitlemise lahendus  ning vertikaalplaneerimine  on koostatud koostöös 
+veevarustuse- ja kanalisatsiooniinsener iga (Meelis Viirma, volitatud veevarustuse - ja 
+kanalisatsiooniinsener, tase 8 ). Terviklik koostatud sademevee ärajuhtimise ja vertikaalplaneerimise 
+eksperthinnang on esitatud planeeringu lisades. Eksperthinnangu kokkuvõte on järgnev: 
+Vee ärajuhtimine on võimalik ala põhja ja lääneküljel paikneva olemasoleva kraaviga, mis viib 
+vee Idaringtee ja Ihaste tee alt läbi Emajõkke. Idaringtee all oleva truubi läbimõõt on Di1000, 
+Idaringteelt kinnistule mahasõidu ja kraavi kaldal oleva kruusatee all on Di600 truubid. Kraavi 
+suubub Ihaste piirkonnas sademeveetorustik Di600. 
+Teine võimalik suund vee ärajuhtimiseks on lõuna suunas Iirise tänavale rajatud 
+sademeveetorustik Di600. 
+Lahenduse üldiseks põhimõtteks on maastiku vertikaalplaneerimisega vett võimalikult palju 
+hajutada ja lokaalselt ajutiselt kogudes äravoolu aeglustada ning ärajuhitavat vooluhulka 
+vähendada. Vee kogumiseks ja maapinnal ära juhtimiseks on kavandatud nõvad, mis toimivad 
+ka vee mahutajatena. Vee mahutamiseks on kavandatud maapinnale viibealad. Nõvadesse ja 
+viibealadele juhitakse katuste ja haljasalade vesi. Äravool nõvadest ja viibealadelt toimub kas 
+läbi täidisdreeni või ülevoolude kaudu. Viibeala ja nõva täi tumisel algab ülevool 
+sademeveetorustikku ja edasisel täitumisel algab ülevool mööda maapinda.  Hooldatud 
+(eelkõige tuleb vältida torustikku vett juhtiva ülevoolu ummistumist) süsteemi korral ei toimu 
+ülevoolu maapinnal sagedamini kui üks kord 2 aasta jooksul ühel päeval. 
+Piirkondades, kus nõvade vett ei ole võimalik viibealadele suunata, juhitakse vesi kas 
+sademeveetorustikku või kraavi. Planeeringuala idaküljele on kavandatud täiendav viibekraav, 
+mis toimib kuivendus - kui viibekraavina nii Idaringee 21 kinnistule kui piir nevale Lammi 25 
+kinnistule. Kogumismaht veetaseme tõusu 0,5 m korral on ca 200 m³. Lammi 25 kinnistu 
+arendamisel elamupiirkonnas tuleb seal kavandada täiendav äravoolu reguleerimine. 
+Parklate (sh hoonete all asuvate parklate) vesi on ette nähtud juhtida läbi liiva-õlipüüduri Iirise 
+tee sademeveetorustikku vooluhulka eelnevalt ühtlustades. Kraavidesse juhitava sademevee 
+vooluhulka ei ühtlustata.  
+
+--- PAGE 16 ---
+24101DP3 Idaringtee 21 krundi detailplaneering  
+ 
+ 
+16 / 23 AB Artes Terræ  
+ 
+Hoonete all asuvatest parklatest tuleb sinna sattuv vesi kindlasti välja pumbata. Vajadusel 
+tuleb vesi ka mujal õlipüüduritest kraavi pumbata kui kraavi veetase uputab õlipüüdurist 
+väljavoolu. Torustiku suudmed kraavi jäävad kraavide veega täitumisel kindl asti uputatuks ja 
+sellega tuleb edasisel projekteerimisel arvestada.  
+Tänavate sademevesi kogutakse restkaevudega ja juhitakse kas Iirise tänava 
+sademeveetorustikku või kraavi.  
+Parklad on kavandatud üldise kaldega tänavate suunas ja tänavad on kavandatud üldise 
+kaldega kraavide suunas. Selline lähenemine tagab vee äravoolu maapinnal 
+sademeveesüsteemi ummistumise ja ületäitumise (näiteks arvutuslikust suuremad sademed) 
+korral. Era ndiks on Iirise tänavaga piirnev parkla, kus vee ülevool maapinnal on esmalt 
+suunatud nõvasse ja viibealale 1. Samuti on kavandatud kõikidele viibealadele ülevoolud 
+maapinnal. 
+Kinnistutorustik ja reguleeriva mahu jaoks vajalikud rajatised tuleb ehitusprojekti koosseisus äravoolu 
+reguleerimise nõudest lähtuvalt dimensioneerida. Nõuded vooluhulga  piiramiseks täpsustatakse 
+ehitusprojekti koostamiseks väljastatavates tehnilistes tingimustes. Sademe- ja drenaaživee juhtimine 
+reoveetorustikku on keelatud. 
+Eraomandisse jäävate  kruntide sisesed drenaaži- ja sademeveesüsteemid on planeeritud 
+naaberkinnistutega ühiskasutusse ja need ei hakka kuuluma vee-ettevõtjale. 
+Avalikele aladele jäävad  avatud sademeveesüsteemid, viibealad jms on avalikku kasutusse mineva 
+kinnistuga kaasas käivad rajatised ja kuuluvad maa omanikule.   
+2.6.5. Elektrivarustus ja tänavavalgustus 
+Planeeringuala elektrivarustus on planeeritud vastavalt Elektrilevi OÜ tehnilistele tingimustele  nr 
+483070. Pos 31 on planeeritud koht uuele komplektalajaamale. Uue alajaama toide on planeeritud 10 
+kV maakaabelliiniga olemasolevatest 10 kV kaabelliinidest, mis asuvad Lammi tn 25 kinnistul ning Soo 
+103:(Ülejõe) alajaamast, mis asub Nõlvaku tn 34a kinnistul. 
+Soo 103:(Ülejõe) olemasolevast alajaamast ja uuest planeeritud alajaamast on planeeritud kruntide 
+elektrivarustuseks eraldi fiidrite ringtoiteliinidena 0,4 kV maakaabelliinid. Kruntide piiridele on 
+planeeritud 0,4 kV liitumiskilbid ja jaotuskilbid. Liitumiskilbid on planeeritud võimalusel  
+mitmekohalistena. Liitumiskilbid peavad olema alati vabalt teenindatavad.  Elektritoide liitumiskilbist 
+hooneteni on ette nähtud maakaabliga. 
+Tänavatele ning avalikele aladele on planeeritud valgustus, valgustite asukohad määratakse projektiga. 
+Planeeritud kruntide sisene valgustus lahendatakse projekteerimisel vastavalt vajadusele ning krundi 
+kujunduslahendusele, krundi sisese valgustusega ei tohi põhjustada ülemääraseid häiringuid 
+piirnevatel tänavatel liikujatele. Projekteerimisel tagada, et ei tekitataks valgusreostust. 
+Vastavalt ehitusseadustikule tuleb sellise hoone püstitamisel, mille teenindamiseks on ette nähtud 
+rohkem kui kümme parkimiskohta, paigaldada juhtmetaristu vähemalt igale viiendale parkimiskohale 
+ja elektriauto laadimispunkt vähemalt ühele parkimiskohale, kui tegemist on mitteelamuga. 
+2.6.6. Soojavarustus 
+Planeeringuala asub väljaspool üldplaneeringu kohas t kaugküttepiirkonda. Planeeritud hoone te 
+soojavarustus tagatakse lokaalsete lahendustega. Lubatud on maakütte, 
+päikesepaneelide/kollektorite, gaasi ja elektri  kasutamine. Võimalik maakütte kasutamine igal krundil 
+otsustatakse vastavale krundile projekteerimisel. 
+
+--- PAGE 17 ---
+ Idaringtee 21 krundi detailplaneering 24101DP3 
+ 
+ 
+ AB Artes Terræ 17 / 23 
+ 
+Vastavalt OÜ Ihaste Gaa si 15.09.2026 tehnilistele tingimustele  on võimalik planeeringuala varustada 
+maagaasiga B kategooria torustikust . Liitumiskoht olemasoleva gaasitorustikuga on Lammi tänaval  
+Nõlvaku ja Eduard Wiiralti tänava nurgal (vt joonis 2). 
+2.6.7. Telekommunikatsioonivarustus 
+Planeeritud hoonete telekommunikatsioonivarustus on planeeritud vastavalt Telia Eesti AS tehnilistele 
+tingimustele nr 39189938. Kaablivõrguga ühenduse saamiseks on ette nähtud paigaldada sidekaev 
+Iirise tn 10  // 12  kulgevale multitorule . Planeeritud hooneteni on planeeritud sidekanalisatsiooni 
+rajamine, igale hoonele / kinnistule / ridaelamuboksile näha ette individuaalsed sidekanalisatsiooni 
+sisendid planeeritud põhitrassist koos vajaliku mahulise optilise kaabli ning jätkudega. 
+2.7. Kujad 
+Planeeritud hoonestusalale ehitamisel tuleb arvestada tuleohutusklasside ja hoonetevaheliste 
+kujadega vastavalt Siseministri 30.03.2017 määrusele nr 17 „Ehitisele esitatavad tuleohutusnõuded“. 
+Kui ehitatavate hoonete vaheline kaugus on alla 8 m tuleb proje kteerimisel ette näha tule levikut 
+takistavad meetmed. 
+2.8. Kuritegevuse riski vähendavad tingimused 
+Projekteerimisel  ja  hilisemal  rajamisel  ning  kasutamisel  tuleb lisaks  
+eelnevale tagada: 
+▪ liikumisalade ja hoonetevaheline hea nähtavus ja valgustatus; 
+▪ üldkasutatavate teede ja eraalade juurde viivate ühiskasutuses olevate  
+sissepääsuteede selge eristamine; 
+▪ erineva kasutusega alade selgepiiriline ruumiline eristamine, atraktiivsed materjalid, värvid; 
+▪ atraktiivne maastikukujundus, arhitektuur ja teed, suunaviidad; 
+▪ vastupidavate ja kvaliteetsete materjalide kasutamine (uksed, aknad,  
+lukud, pingid, prügikastid, märgid); 
+▪ üldkasutatavate alade korrashoid. 
+2.9. Keskkonnatingimused 
+Planeeringu elluviimisel võib t eatav müra ja vibratsioon kaasneda ehitustegevuse käigus, kuid 
+eeldatavalt ei kaasne ülenormatiivset müra ja vibratsiooni. Ehitustööde aegset müra ja vibratsiooni 
+saab vähendada õigete ehitusvõtete kasutamisega. Ehituaegse transpordi juurdepääs tuleb korraldada 
+selliselt, et see häiriks võimalikult vähe naaberhoonete elanikke. 
+Planeeringu elluviimisel tuleb arvestada tänavatelt, eeskätt Idaringteelt tuleneva müra, vibratsiooni ja 
+õhusaastega. 
+Vastavalt keskkonnaministri 16.12.2016 määruse nr 71 „Välisõhus leviva müra normtasemed ja 
+mürataseme mõõtmise, määramise ja hindamise meetodid“ lisas 1 toodule on ühiskondlike hoonete 
+maa-alal päevase liiklusmüra sihtväärtus 60 dBA ning öise liiklusmüra piirväärtus 50 dBA. Elamumaa-
+alal on vastavad näitajad 55 dBA ja 50 dBA. 
+Vastavalt tänavaliikluse siseriiklikule mürakaardile 20221 (vt ka Skeem 2 ja Skeem 3) on planeeringuala 
+lääneküljel 35 m kaugusel Idaringtee poolsest krundi piirist, kuhu on kavandatud lähim elamu, päevane 
+tänavaliikluse müratase 50–55 db ning öine tänavaliikluse müratase 45–50 db, mis jääb 
+keskkonnaministri  määruses nr 71 lubatud müra sihtväärtuse piiresse. Planeeritud äriotstarbelise 
+krundini Pos 1 ulatuv tänavaliikluse müratase on vastavalt tänavaliikluse siseriiklikule mürakaardile 
+ 
+1 https://xgis.maaamet.ee/xgis2/page/app/myrakaart 
+
+--- PAGE 18 ---
+24101DP3 Idaringtee 21 krundi detailplaneering  
+ 
+ 
+18 / 23 AB Artes Terræ  
+ 
+2022 päevasel ajal 55–60 db ning öisel ajal kuni ligikaudu 9 m kauguseni krundil 50–55 db ning sealt 
+edasi alla 50 db , mis jääb samuti valdavalt keskkonnaministri  määruses nr 71 lubatud müra 
+piirväärtuste piiresse, arvestades ka, et öisel ajal planeeritud ärihoones inimeste viibimist ei kavandata.  
+ 
+Skeem 2. Väljavõte päevase tänavaliikluse siseriiklikust mürakaardist 2022. 
+ 
+Skeem 3. Väljavõte öise tänavaliikluse siseriiklikust mürakaardist 2022. 
+
+
+--- PAGE 19 ---
+ Idaringtee 21 krundi detailplaneering 24101DP3 
+ 
+ 
+ AB Artes Terræ 19 / 23 
+ 
+Planeeritud alale ei ole kavandatud keskkonnaohtlikke objekte. Kõvakattega aladelt tulev sademevesi 
+tuleb juhtida sademeveekanalisatsiooni  või nõvadesse  ja kraavidesse,  mitte lasta valguda 
+naaberkruntidele, v.a sademevee juhtimine on lubatud ka kruntide piiril asuvatesse nõvadesse  ja 
+dreenidesse. Planeeringualalt ära juhitav vesi peab vastama Keskkonnaministri 15.11.2019 määruses 
+nr 61 „Nõuded reovee puhastamise ning heit-, sademe-, kaevandus-, karjääri- ja jahutusvee suublasse 
+juhtimise kohta, nõuetele vastavuse hindamise meetmed ning saasteaine sisalduse piirväärtused“ 
+esitatud nõuetele, määruse muutumisel planeeringu elluviimise ajal kehtivatele nõuetele. 
+Jäätmed tuleb koguda kinnistesse vastavatesse konteineritesse. Jäätmete äravedu võib teostada 
+vastavat luba omav ettevõte.  
+EELIS (Eesti Looduse Infosüsteem) andmete alusel jäävad planeeringualale III kaitsekategooria taimede 
+ahtalehise ängelheina (Thalictrum lucidum; KLO9317135) ja hariliku kikkapuu (Euonymus europaeus;  
+KLO9344134, KLO9344098) leiukohad. 
+Dendroloogilise u uringu käigus tuvastati viis III kaitsekategooria kaitsealuse taime harilik kikkapuu 
+isendit, mis on planeeritud säilitada. 
+Kaitstavate taimeliikide inventuur iga (Kalamees 2023) leiti kaitstavatest taimeliikidest Idaringtee 21 
+kinnistul ja selle piirialadel kasvamas vaid ahtalehiseid  ängelheinu. Kõik leitud 23 isendit kasvasid 
+kinnistu välispiiril teeservas või kraavikaldal. Valdav enamus leitud ahtalehistest ängelheintest kasvas 
+kinnistu piiridest pigem väljaspool. Vaid 4 -5 taime kinnistu põhjaserval teeservas jäi enamvähem 
+kindlalt Idaringtee 21 kinnistu piiridesse. 
+Keskkonnamõju strateegilise hindamise eelhinnang us on antud järgnevad suunised, mida järgida 
+edasistes tegevustes: 
+▪ raietegevust läbi viia väljaspool haudelinnustiku pesitsusperioodi (31.07-01.03 – periood, kus 
+raie võimalik (soovitatavalt külmunud pinnasega ajal ehk novembrist märtsini)); 
+▪ kaitsealuse kikkapuu kasvukoht säilitada. Raie - ja ehitustöödel kikkapuude läheduses  vältida 
+raiejääkida sattumist põõsastikk ning masinatega sõitmist põõsastiku alal. 
+2.10. Servituutide ja sundvalduse seadmise vajadus 
+Pos 4, Pos 7, Pos 8, Pos 1 0, Pos 11, Pos 12, Pos 13, Pos 15, Pos 16 , Pos 17, Pos 18  on planeeritud 
+servituudi seadmise vajadus naaberkruntidele juurdepääsuks. 
+Pos 2, Pos 4, Pos 5, Pos 7, Pos 8, Pos 10…Pos 27 on planeeritud servituudi seadmise vajadus planeeritud 
+sademevee viibealadele, sademevee nõvadele ning võimalikele drenaažitorustikele, mis annab õiguse 
+naabermaaüksuste sademevee ärajuhtimiseks kasutada servituudiala. 
+Pos 1, Pos 2, Pos 22…Pos 25 asub olemasolev reoveekanalisatsiooni torustik ja/või selle kaitsevöönd, 
+mille ulatuses on planeeritud servituudi seadmise vajadus  reoveekanalisatsiooni võrgu valdaja kasuks 
+toru kasutamiseks ja hooldamiseks. 
+Pos 4, Pos 8 ja Pos 10 on planeeritud servituudi seadmise vajadus planeeritud gaasitorudele gaasivõrgu 
+valadaja kasuks. 
+Pos 4, Pos 5, Pos 7, Pos 8 on planeeritud servituudi seadmise vajadus ühise mänguväljaku 
+kasutamiseks. 
+2.11. Planeeringu elluviimine 
+Kehtestatud detailplaneering on aluseks ehitusprojektide koostamisel ja maakorralduslike toimingute 
+teostamisel. 
+
+--- PAGE 20 ---
+24101DP3 Idaringtee 21 krundi detailplaneering  
+ 
+ 
+20 / 23 AB Artes Terræ  
+ 
+Planeeringu elluviimisega ei kaasne Tartu linnale kohustust detailplaneeringukohase avalikuks 
+kasutamiseks ette nähtud tee ning sellega seonduvate rajatiste, haljastuse, välisvalgustuse ning 
+tehnorajatiste sh sademeveekanalisatsiooni (edaspidi avalikud raj atised) väljaehitamiseks ega 
+vastavate kulude kandmiseks. Nimetatud rajatiste projekteerimine ja väljaehitamine on planeeritud 
+hoonestatavate kruntide igakordse omaniku (edaspidi arendaja) kohustus. 
+I Planeeringuga on kavandatud järgmised avalikud rajatised ja haljastus:  
+1. krundile Pos 28 sõidutee, kahepoolne jalgtee ja ühepoolne jalgrattatee koos tänavavalgustuse ja 
+kõrghaljastusega, sademeveekanalisatsioon jt tehnovõrgud (vesi, kanalisatsioon, elekter, side , 
+vajadusel gaas); 
+2. krundile Pos 29 sõidutee, jalgratta - ja jalgtee koos tänavavalgustuse ja kõrghaljastusega, 
+sademeveekanalisatsioon jt tehnovõrgud (vesi, kanalisatsioon, elekter, side, vajadusel gaas); 
+3. krundile  Pos 30 sõidutee, kahepoolne jalgratta - ja jalgtee koos tänavavalgustuse ja 
+kõrghaljastusega,  sademeveekanalisatsioon jt tehnovõrgud (vesi, kanalisatsioon, vajadusel gaas); 
+4. krundile Pos 31 jalgratta - ja jalgtee koos tänavavalgustusega, sademeveekanalisatsioon jt 
+tehnovõrgud (elekter, vesi, side), sademevee viibealad koos drenaažiga, spordiväljak ning haljastus (sh 
+puud); 
+5. krundile Pos 3 jalgratta - ja jalgtee koos tänavavalgustusega, sademeveekanalisatsioon jt 
+tehnovõrgud (elekter, vesi, side,), sademevee viibealad koos drenaažiga ning haljastus (põõsad ja 
+puud); 
+6. krundile Pos 6 ja Pos 9 sademevee viibeala koos drenaažiga ja kõrghaljastusega; 
+7. väljaspool planeeringuala krundil Uus-Ihaste tee T3: 
+1) Pos 30 ja Uus -Ihaste tee ühendamiseks sõidutee, kahepoolne jalgratta - ja jalgtee koos 
+tänavavalgustuse ja kõrghaljastusega ning  sademeveekanalisatsioon; 
+2) jalgratta- ja jalgtee alates Krookuse tänav T1 olevast teest kuni Uus-Ihaste teeni; 
+3) planeeringuala teenindav sademeveesüsteem ja sellega seotud kraavid või nõvad mõlemal  
+pool Uus-Ihaste teed (Ihaste tee 12a ja 16b DP-ga kavandatud). 
+II Planeeringu elluviimise tegevuskava on järgmine:   
+1. kruntide moodustamine ning kruntide Pos 3, Pos 6, Pos 9, Pos 28, Pos 29, Pos 30, Pos 31 Tartu linnale 
+tasuta üleandmine;   
+2. vertikaalplaneerimine;   
+3. avalikult kasutatavate rajatiste ehitamine:   
+3.1. krundi Pos 1 hoonestamise eelselt tuleb rajada avalikud rajatised ja haljastus, mis on loetletud 
+lõigus I punktides 1, 3 (kuni ristumiseni teega Pos 28) ja 7; 
+3.2. kruntide Pos 2, Pos 10 kuni Pos 18 hoonestamise eelselt tuleb rajada lõigus I punktides 1, 3 
+(kuni ristumiseni teega Pos 28), 4, 5 ja 7 nimetatud avalikud rajatised ja haljastus; 
+3.3. krundi Pos 4, Pos 5, Pos 7, Pos 8 hoonestamise eelselt tuleb rajada lõigus I punktides 1, 3 (kuni 
+ristumiseni teega Pos 28), 4, 5, 6 ja 7 nimetatud avalikud rajatised ja haljastus;   
+3.4. kruntide Pos 19 kuni Pos 27 kruntide hoonestamise eelselt tuleb rajada lõigus I punktides 1, 2, 
+3, 4 ja 7 nimetatud avalikud rajatised ja haljastus;   
+4. haljasalade korrastamine mõlemal pool Uus-Ihaste teed krundil Uus-Ihaste tee T3; 
+
+--- PAGE 21 ---
+ Idaringtee 21 krundi detailplaneering 24101DP3 
+ 
+ 
+ AB Artes Terræ 21 / 23 
+ 
+5. servituudikokkulepete sõlmimine ja/või sundvalduste seadmine; 
+6. hoonete ehitusloa taotlemine. 
+Mistahes hoone ehitusloa saamise eeldus on, et planeering on realiseeritud lõigus II nimetatud 
+tegevuskava punktide 1. kuni 6. osas vastava etapi ulatuses. Hoone ehitusloa võib anda enne 
+nimetatud tingimuste täitmist, kui arendaja on sõlminud Tartu linnaga  lepingu, millega antakse 
+rajatiste väljaehitamise kohustuse täitmise tagamiseks hiljemalt mistahes esimese hoone kasutusloa 
+taotlemise ajaks piisavad tagatised. 
+Avalike rajatiste projekti tellija, ehitaja ja finantseerija on arendaja. Rajatiste projekteerimisel ja 
+ehitustööde tellimisel tuleb teha koostööd Tartu linnaga. Rajatistele peab kehtima kahe aasta pikkune 
+ehitustööde garantii. Avalike rajatiste väljaehita mise kohustuse mittetäitmise korral on Tartu linnal 
+õigus keelduda mistahes planeeringukohase hoone ehitusloa väljastamisest või tunnistada 
+detailplaneering kehtetuks. Avalike rajatiste väljaehitamise kohustuse halduslepingu sõlmimine 
+Arendaja ja Tartu linna vahel on detailplaneeringu kehtestamise eeldus. 
+Tehnovõrkude rajamine toimub vastavalt krundi igakordse omaniku ning võrguvaldajate vahelistele 
+kokkulepetele.   
+Kõik planeeringuga seotud ehitusprojektid, mille koosseisus kavandatakse tegevusi tehnovõrkude 
+kaitsevööndites, tuleb esitada nõusoleku saamiseks vastava tehnovõrgu omanikule.   
+Planeeringuga ei tohi põhjustada kahju kolmandatele osapooltele. Selleks tuleb tagada, et rajatavad 
+uued hooned ja haljastus ei kahjustaks naaberkruntide kasutamise võimalusi ei ehitamise ega 
+kasutamise käigus. Juhul kui planeeritava tegevusega tekitatakse  siiski kahju kolmandatele isikutele, 
+kohustub planeeringuala kruntide igakordne omanik hüvitama tekitatud kahju.. 
+ 
+
+--- PAGE 22 ---
+24101DP3 Idaringtee 21 krundi detailplaneering  
+ 
+ 
+22 / 23 AB Artes Terræ  
+ 
+3. Kooskõlastuste ja arvamuste kokkuvõte 
+Planeeringu on kooskõlastanud: 
+• Päästeamet, Lõuna päästeksekus ohutusjärelevalve büroo nõunik  Margo Lempu 19.08.2026: 
+digitaalselt allkirjastatud planeeringu failid (digitaalallkirjade kinnitusleht vt planeeringu lisad); 
+• Terviseamet, vaneminspektor Liis Kukk  27.07.2026: digitaalselt allkirjastatud kiri (vt 
+planeeringu lisad). 
+Koostöö raames on planeeringu läbi vaadanud ja heaks kiitnud: 
+• Elektrilevi OÜ, Marge Kasenurm 29.04.2026: digitaalselt allkirjastatud kiri (vt planeeringu 
+lisad); tingimus: tööjoonised kooskõlastada täiendavalt; 
+• Telia Eesti AS, Margus Kukk 16.04.2026: digitaalselt allkirjastatud kiri (vt planeeringu lisad); 
+• AS Tartu Veevärk, Liisa Unt  26.05.2026: digitaalselt allkirjastatud planeeringu fail id 
+(digitaalallkirjade kinnitusleht vt planeeringu lisad); 
+• OÜ Ihaste Gaas, Tarmo Tammai 18.09.2026: digitaalselt allkirjastatud planeeringu seletuskiri 
+(digitaalallkirjade kinnitusleht vt planeeringu lisad). 
+ 
+
+--- PAGE 23 ---
+ Idaringtee 21 krundi detailplaneering 24101DP3 
+ 
+ 
+ AB Artes Terræ 23 / 23 
+ 
+4. Joonised (digitaalselt esitatud eraldi failidena) 
+1. Situatsiooniskeem 
+2. Planeeringuala kontaktvööndi funktsionaalsed ja linnaehituslikud seosed 
+3. Olemaoslev olukord 
+4. Põhijoonis 
+5. Tehnovõrgud 
+ 
+ 

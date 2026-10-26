@@ -1,0 +1,58 @@
+[
+  {
+    "id": "buildings",
+    "url": "https://gsavalik.envir.ee/geoserver/etak/wfs?service=WFS&version=2.0.0&request=GetFeature&typeNames=etak%3Ae_401_hoone_ka&bbox=660800%2C6470400%2C663600%2C6473300%2CEPSG%3A3301&srsName=EPSG%3A3301&outputFormat=application%2Fjson&count=5000",
+    "path": "data/source/context/buildings.geojson",
+    "retrieved_at": "2026-10-26T16:29:56.541538+00:00",
+    "sha256": "529753b3f18f2b2daf0db483a24891a28da833186feb8453f7cdea38273eaada",
+    "bbox": [
+      660800,
+      6470400,
+      663600,
+      6473300
+    ],
+    "crs": "EPSG:3301"
+  },
+  {
+    "id": "dtm",
+    "url": "https://teenus.maaamet.ee/ows/wcs-dtm?service=WCS&request=GetCoverage&version=1.0.0&coverage=dtm-1&crs=EPSG%3A3301&response_crs=EPSG%3A3301&bbox=660800%2C6470400%2C663600%2C6473300&width=560&height=580&format=GTiff&interpolation=nearest+neighbor",
+    "path": "data/source/context/dtm.tif",
+    "retrieved_at": "2026-10-26T16:29:56.832778+00:00",
+    "sha256": "7ae66ee9a0a24d182dc6d77a944c3fdc22917844993b41a5e0c6381c150f9505",
+    "bbox": [
+      660800,
+      6470400,
+      663600,
+      6473300
+    ],
+    "crs": "EPSG:3301"
+  },
+  {
+    "id": "basemap",
+    "url": "https://kaart.maaamet.ee/wms/alus?service=WMS&request=GetMap&version=1.1.1&layers=pohi_mvr2&styles=&srs=EPSG%3A3301&bbox=660800%2C6470400%2C663600%2C6473300&width=2800&height=2900&format=image%2Fpng",
+    "path": "data/source/context/basemap.png",
+    "retrieved_at": "2026-10-26T16:29:57.002641+00:00",
+    "sha256": "e254b4989deb5303f4854efbf1bc7a4e3ad41664b9f4c6a3e52e59ea924a308d",
+    "bbox": [
+      660800,
+      6470400,
+      663600,
+      6473300
+    ],
+    "crs": "EPSG:3301"
+  },
+  {
+    "id": "aerial",
+    "url": "https://kaart.maaamet.ee/wms/alus?service=WMS&request=GetMap&version=1.1.1&layers=of10000&styles=&srs=EPSG%3A3301&bbox=660800%2C6470400%2C663600%2C6473300&width=2800&height=2900&format=image%2Fjpeg",
+    "path": "data/source/context/aerial.jpg",
+    "retrieved_at": "2026-10-26T16:29:57.371191+00:00",
+    "sha256": "803113fde93176b1dc321f0c0d3dad1ce1f9796582405badaab901768cce8dcf",
+    "bbox": [
+      660800,
+      6470400,
+      663600,
+      6473300
+    ],
+    "crs": "EPSG:3301"
+  }
+]

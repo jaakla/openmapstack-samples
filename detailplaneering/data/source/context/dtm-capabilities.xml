@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding="UTF-8" standalone="no" ?>
+<WCS_Capabilities
+   version="1.0.0" 
+   updateSequence="0" 
+   xmlns="http://www.opengis.net/wcs" 
+   xmlns:xlink="http://www.w3.org/1999/xlink" 
+   xmlns:gml="http://www.opengis.net/gml" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.opengis.net/wcs http://schemas.opengis.net/wcs/1.0.0/wcsCapabilities.xsd">
+<Service>
+<!-- WARNING: Some mandatory elements for '(null)' are missing in this context. -->
+  <description>Maapinna kõrgusmudel (DTM - Digital Terrain Model)</description>
+  <name>MapServer WCS</name>
+  <label>DTM Maa-amet</label>
+<responsibleParty>
+    <individualName>Maa-amet</individualName>
+    <organisationName>Maa-amet</organisationName>
+  <contactInfo>
+    <address>
+    <deliveryPoint>Mustamae tee 51</deliveryPoint>
+    <city>Tallinn</city>
+    <administrativeArea>Harju maakond</administrativeArea>
+    <postalCode>10621</postalCode>
+    <country>Eesti</country>
+    <electronicMailAddress>kaardirakendus@maaamet.ee</electronicMailAddress>
+    </address>
+  </contactInfo>
+</responsibleParty>
+  <fees>none</fees>
+  <accessConstraints>
+    none
+  </accessConstraints>
+</Service>
+<Capability>
+  <Request>
+    <GetCapabilities>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xlink:type="simple" xlink:href="https://teenus.maaamet.ee/ows/wcs-dtm?" /></Get>
+        </HTTP>
+      </DCPType>
+      <DCPType>
+        <HTTP>
+          <Post><OnlineResource xlink:type="simple" xlink:href="https://teenus.maaamet.ee/ows/wcs-dtm?" /></Post>
+        </HTTP>
+      </DCPType>
+    </GetCapabilities>
+    <DescribeCoverage>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xlink:type="simple" xlink:href="https://teenus.maaamet.ee/ows/wcs-dtm?" /></Get>
+        </HTTP>
+      </DCPType>
+      <DCPType>
+        <HTTP>
+          <Post><OnlineResource xlink:type="simple" xlink:href="https://teenus.maaamet.ee/ows/wcs-dtm?" /></Post>
+        </HTTP>
+      </DCPType>
+    </DescribeCoverage>
+    <GetCoverage>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xlink:type="simple" xlink:href="https://teenus.maaamet.ee/ows/wcs-dtm?" /></Get>
+        </HTTP>
+      </DCPType>
+      <DCPType>
+        <HTTP>
+          <Post><OnlineResource xlink:type="simple" xlink:href="https://teenus.maaamet.ee/ows/wcs-dtm?" /></Post>
+        </HTTP>
+      </DCPType>
+    </GetCoverage>
+  </Request>
+  <Exception>
+    <Format>application/vnd.ogc.se_xml</Format>
+  </Exception>
+</Capability>
+<ContentMetadata>
+  <CoverageOfferingBrief>
+  <metadataLink metadataType="TC211" xlink:type="simple" xlink:href="https://teenus.maaamet.ee/ows/wcs-dtm?request=GetMetadata&amp;layer=dtm-25"/>    <name>dtm-25</name>
+    <label>Kogu Eesti DTM eraldusvõimega 25m</label>
+    <lonLatEnvelope srsName="urn:ogc:def:crs:OGC:1.3:CRS84">
+      <gml:pos>21.592806309666 57.4532950479157</gml:pos>
+      <gml:pos>28.2754939840628 59.8517005032378</gml:pos>
+    </lonLatEnvelope>
+  </CoverageOfferingBrief>
+  <CoverageOfferingBrief>
+  <metadataLink metadataType="TC211" xlink:type="simple" xlink:href="https://teenus.maaamet.ee/ows/wcs-dtm?request=GetMetadata&amp;layer=dtm-10"/>    <name>dtm-10</name>
+    <label>Kogu Eesti DTM eraldusvõimega 10m</label>
+    <lonLatEnvelope srsName="urn:ogc:def:crs:OGC:1.3:CRS84">
+      <gml:pos>21.592806309666 57.4532950479157</gml:pos>
+      <gml:pos>28.2754939840628 59.8517005032378</gml:pos>
+    </lonLatEnvelope>
+  </CoverageOfferingBrief>
+  <CoverageOfferingBrief>
+  <metadataLink metadataType="TC211" xlink:type="simple" xlink:href="https://teenus.maaamet.ee/ows/wcs-dtm?request=GetMetadata&amp;layer=dtm-1"/>    <name>dtm-1</name>
+    <label>Kogu Eesti DTM eraldusvõimega 1m</label>
+    <lonLatEnvelope srsName="urn:ogc:def:crs:OGC:1.3:CRS84">
+      <gml:pos>21.592806309666 57.4532950479157</gml:pos>
+      <gml:pos>28.2754939840628 59.8517005032378</gml:pos>
+    </lonLatEnvelope>
+  </CoverageOfferingBrief>
+</ContentMetadata>
+</WCS_Capabilities>

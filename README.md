@@ -2,6 +2,14 @@
 
 Source-backed geospatial applications built with [OpenMapStack](https://github.com/jaakla/openmapstack-skills).
 
+## Detailplaneering · Idaringtee 21
+
+Explore the Idaringtee 21 detailed plan in Tartu in 3D, with 32 proposed main-building masses, official terrain, aerial imagery and 1,115 existing building footprints within 1 km. Compare the proposal with the existing situation and inspect the original georeferenced drawing. The interface is in Estonian, with light/dark OSM basemaps and switchable utility and functional-context layers.
+
+[![Idaringtee 21 detailed plan](gallery/detailplaneering-preview.png)](https://jaakla.github.io/openmapstack-samples/detailplaneering/)
+
+- [Run the atlas, sources and reproducible pipeline](detailplaneering/README.md)
+
 ## Solar Atlas
 
 Choose an area on Estonian land, load official terrain and imagery, then draw a hypothetical PV site. The pinned Tartu scenario remains the reproducible baseline. Compare clear-sky, weather-adjusted and locally shaded production; add day/night consumption or an Enefit historical CSV for on-site use and grid economics. Model battery capacity, AC power limits, efficiency and historical price arbitrage, then export a scenario PDF with maps, charts, assumptions and sources. Storage-enabled reports include a fourth comparison page.
@@ -46,7 +54,7 @@ Explore a kriged temperature surface, census block groups, model settings and he
 
 ## Publishing
 
-The shared `Deploy GitHub Pages` workflow tests and builds all three demos on pull requests and pushes to `main`. Pushes to `main` publish the prepared browser assets under `pv-location/`, `toompea-3d/` and `battlefield-visibility/`; the [site root](https://jaakla.github.io/openmapstack-samples/) is a gallery linking these local demos and the external Cloudflare demos. Solar Atlas also runs browser interaction tests and rebuilds its canonical analysis and provenance from committed source snapshots.
+The shared `Deploy GitHub Pages` workflow tests and builds the existing demos and verifies the prepared Idaringtee 21 publication on pull requests and pushes to `main`. Pushes to `main` publish the prepared browser assets under `detailplaneering/`, `pv-location/`, `toompea-3d/` and `battlefield-visibility/`; the [site root](https://jaakla.github.io/openmapstack-samples/) is a gallery linking these local demos and the external Cloudflare demos. Solar Atlas also runs browser interaction tests and rebuilds its canonical analysis and provenance from committed source snapshots.
 
 Normal Pages builds use committed browser assets and skip raw Git LFS downloads. Toompea's original large LAZ survey files use Git LFS; full GIS recompilation requires `git lfs pull` and the numerical/desktop dependencies documented in that project. UAV visibility's raw acquisitions are excluded from normal git; its project documentation describes acquisition and full recompilation.
 
