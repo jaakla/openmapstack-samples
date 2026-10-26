@@ -11,6 +11,15 @@ const key = (value) =>
 const iso = (time) => new Date(time).toISOString();
 const pad = (value) => String(value).padStart(2, "0");
 
+function integrationOptions(options = {}) {
+  const maxGapMinutes = options?.maxGapMinutes === undefined
+    ? 30
+    : options.maxGapMinutes;
+  if (!Number.isFinite(maxGapMinutes) || maxGapMinutes < 1 || maxGapMinutes > 120)
+    throw new Error("Integration maximum gap must be a number between 1 and 120 minutes.");
+  return { maxGapMinutes };
+}
+
 function offsetMinutes(value) {
   const text = String(value ?? "").trim();
   if (/^(?:UTC|GMT|Z)$/i.test(text)) return 0;
@@ -75,7 +84,10 @@ function integrate(
   errors = [],
   extraWarnings = [],
   duplicateSamples = 0,
+  options = {},
 ) {
+  const { maxGapMinutes } = integrationOptions(options);
+  const sourceErrors = [...errors];
   const sorted = [...samples].sort(
     (a, b) => Date.parse(a.time) - Date.parse(b.time),
   );
@@ -84,33 +96,50 @@ function integrate(
     const previous = unique.at(-1);
     if (previous?.time === sample.time) {
       if (previous.powerW !== sample.powerW)
-        errors.push(
+        sourceErrors.push(
           `Conflicting production readings at ${sample.time}; overlapping files cannot be combined.`,
         );
       else duplicateSamples += 1;
     } else unique.push(sample);
   }
+  // The most frequent positive spacing is a diagnostic of this export, not a
+  // promise of its native sampling cadence or the selected interpolation limit.
+  const spacings = new Map();
+  for (let i = 1; i < unique.length; i++) {
+    const duration = Date.parse(unique[i].time) - Date.parse(unique[i - 1].time);
+    if (duration > 0) spacings.set(duration, (spacings.get(duration) ?? 0) + 1);
+  }
+  const typicalMs = [...spacings].sort((a, b) => b[1] - a[1] || a[0] - b[0])[0]?.[0] ?? null;
+  const typicalIntervalMinutes = typicalMs == null ? null : typicalMs / MINUTE;
   const rows = [];
   let acceptedSegments = 0,
     gapCount = 0,
-    missingSampleSlots = 0;
+    missingSampleSlots = 0,
+    maxIntegratedGapMinutes = null,
+    extendedSegments = 0,
+    extendedHours = 0,
+    excludedGapHours = 0;
   for (let i = 1; i < unique.length; i++) {
     const a = unique[i - 1],
       b = unique[i];
     const start = Date.parse(a.time),
       end = Date.parse(b.time),
       duration = end - start;
-    // A five-minute logger can have small timing jitter. Never integrate across missing samples.
-    if (duration > 7.5 * MINUTE) {
+    if (duration <= 0) continue;
+    const extendedSpan = duration > 1.5 * typicalMs;
+    if (extendedSpan)
+      missingSampleSlots += Math.max(0, Math.round(duration / typicalMs) - 1);
+    if (duration > maxGapMinutes * MINUTE) {
       gapCount += 1;
-      missingSampleSlots += Math.max(
-        1,
-        Math.round(duration / (5 * MINUTE)) - 1,
-      );
+      excludedGapHours += duration / HOUR;
       continue;
     }
-    if (duration <= 0) continue;
     acceptedSegments += 1;
+    maxIntegratedGapMinutes = Math.max(maxIntegratedGapMinutes ?? 0, duration / MINUTE);
+    if (extendedSpan) {
+      extendedSegments += 1;
+      extendedHours += duration / HOUR;
+    }
     for (let t = start; t < end; ) {
       const next = Math.min(end, (Math.floor(t / HOUR) + 1) * HOUR);
       const p0 = a.powerW + ((b.powerW - a.powerW) * (t - start)) / duration;
@@ -119,6 +148,8 @@ function integrate(
         time: iso(t),
         durationMinutes: (next - t) / MINUTE,
         energyKwh: (((p0 + p1) / 2 / 1000) * (next - t)) / HOUR,
+        sampleGapMinutes: duration / MINUTE,
+        extendedSpan,
       });
       t = next;
     }
@@ -129,35 +160,50 @@ function integrate(
   );
   const estimatedKwh = rows.reduce((sum, row) => sum + row.energyKwh, 0);
   const warnings = [
-    "Energy is estimated by trapezoidal integration of reported PV power samples, not read from a metered kWh counter. The export does not establish the AC/DC measurement point.",
+    `Energy is estimated by trapezoidal integration of reported PV power samples, not read from a metered kWh counter. Power is linearly interpolated between accepted readings up to ${maxGapMinutes} minutes apart, including short sparse spans. The export does not establish the AC/DC measurement point.`,
     ...extraWarnings,
+    ...(extendedSegments
+      ? [`${extendedSegments} accepted spans (${(extendedHours * 60).toFixed(2)} minutes) exceed 1.5 times the typical observed spacing; their interpolated energy is estimated, not metered.`]
+      : []),
     ...(gapCount
       ? [
-          `${gapCount} gaps longer than 7.5 minutes (${missingSampleSlots} missing five-minute sample slots) are excluded; missing production is not filled.`,
+          `${gapCount} gaps longer than ${maxGapMinutes} minutes (${(excludedGapHours * 60).toFixed(2)} minutes total) are excluded; production during these longer outages is not filled.`,
         ]
+      : []),
+    ...(missingSampleSlots
+      ? [`Approximately ${missingSampleSlots} nominal sample slots are absent relative to the typical observed spacing; this is a diagnostic, not an established native logger cadence.`]
       : []),
     ...(duplicateSamples
       ? [`${duplicateSamples} identical overlapping samples were counted once.`]
       : []),
   ];
-  if (!rows.length && !errors.length)
-    errors.push(
-      "At least two adjacent production readings are needed to estimate energy.",
+  const allErrors = [...sourceErrors];
+  if (!rows.length && !allErrors.length)
+    allErrors.push(
+      `At least two production readings no more than ${maxGapMinutes} minutes apart are needed to estimate energy.`,
     );
   return {
     sourceFormat: "solarman-xlsx",
-    valid: errors.length === 0 && rows.length > 0,
+    valid: allErrors.length === 0 && rows.length > 0,
     rows,
     samples: unique,
-    errors,
+    errors: allErrors,
+    sourceErrors,
+    sourceWarnings: [...extraWarnings],
     warnings,
-    intervalMinutes: 5,
+    intervalMinutes: typicalIntervalMinutes,
     summary: {
       sampleCount: unique.length,
       acceptedSegments,
       duplicateSamples,
       gapCount,
       missingSampleSlots,
+      integrationMaxGapMinutes: maxGapMinutes,
+      typicalIntervalMinutes,
+      maxIntegratedGapMinutes,
+      extendedSegments,
+      extendedHours,
+      excludedGapHours,
       coveredHours,
       estimatedKwh,
       firstTime: unique[0]?.time ?? null,
@@ -168,7 +214,8 @@ function integrate(
 }
 
 /** Read only the PV power and timestamp columns. Account, plant and device identifiers are discarded. */
-export function parseSolarmanSheets(sheets) {
+export function parseSolarmanSheets(sheets, options = {}) {
+  integrationOptions(options);
   const samples = [],
     errors = [],
     warnings = [];
@@ -225,28 +272,29 @@ export function parseSolarmanSheets(sheets) {
     );
   if (omittedPower)
     warnings.push(
-      `${omittedPower} missing, negative or invalid PV power readings were omitted; their gaps are not filled.`,
+      `${omittedPower} missing, negative or invalid PV power readings were omitted. Remaining valid readings may be interpolated within the selected integration limit; longer outages stay uncovered.`,
     );
-  return integrate(samples, errors, warnings);
+  return integrate(samples, errors, warnings, 0, options);
 }
 
-export function combineSolarmanImports(imports) {
+export function combineSolarmanImports(imports, options = {}) {
   return integrate(
     imports.flatMap((item) => item.samples),
-    imports.flatMap((item) => item.errors),
+    imports.flatMap((item) => item.sourceErrors ?? item.errors),
     [
       ...new Set(
         imports
-          .flatMap((item) => item.warnings)
-          .filter((w) => /omitted/.test(w)),
+          .flatMap((item) => item.sourceWarnings ?? item.warnings.filter((w) => /omitted/.test(w))),
       ),
     ],
     imports.reduce((sum, item) => sum + item.summary.duplicateSamples, 0),
+    options,
   );
 }
 
 /** Files and normalized measurements stay in browser memory; no network or storage calls. */
-export async function parseProductionFiles(files) {
+export async function parseProductionFiles(files, options = {}) {
+  integrationOptions(options);
   const list = Array.from(files ?? []);
   if (!list.length || list.length > 24)
     throw new Error("Choose between 1 and 24 monthly production files.");
@@ -281,12 +329,13 @@ export async function parseProductionFiles(files) {
               UTC: true,
             }),
           })),
+          options,
         ),
       );
     }
     if (imports.reduce((sum, item) => sum + item.samples.length, 0) > MAX_ROWS)
       throw new Error("Production data exceed the 220,000-row browser limit.");
-    result = combineSolarmanImports(imports);
+    result = combineSolarmanImports(imports, options);
   } else {
     if (list.some((file) => !/\.csv$/i.test(file.name)))
       throw new Error(

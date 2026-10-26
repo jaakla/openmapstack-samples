@@ -137,6 +137,92 @@ test("canonical replay, live scenarios, geometry, export/import and honest CSV c
 
 test.describe("Solarman production validation", () => {
   test.use({ timezoneId: "Europe/Tallinn" });
+  test("mixed sampling intervals compare hourly and changing the gap limit reuses the imported workbook", async ({
+    page,
+  }) => {
+    const errors = [];
+    page.on("pageerror", (error) => errors.push(error.message));
+    await page.goto("/");
+    await settled(page);
+    const annual = await page.getByTestId("shadedKwh").textContent();
+    await page.getByRole("tab", { name: "Validate", exact: true }).click();
+    // Synthetic mixed logger cadence and one long outage; no owner's measurements are retained.
+    const minutes = Array.from({ length: 73 }, (_, i) => i * 5).filter(
+      (minute) =>
+        (minute <= 120 || minute >= 220) &&
+        (minute <= 60 || minute === 220 || minute % 15 !== 10),
+    );
+    const rows = minutes.map((minute) => [
+      new Date(Date.UTC(2025, 9, 1, 0, minute)),
+      "UTC+02:00",
+      1000,
+      0,
+      0,
+    ]);
+    await page
+      .getByLabel("Upload production files", { exact: true })
+      .setInputFiles({
+        name: "synthetic-irregular-2025.xlsx",
+        mimeType:
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        buffer: Buffer.from(solarmanWorkbook(rows)),
+      });
+    await expect(
+      page.getByLabel("Maximum interpolation span", { exact: true }),
+    ).toHaveValue("30");
+    await expect(page.getByTestId("production-comparison")).toContainText(
+      "4 complete hours",
+    );
+    await expect(page.getByTestId("production-import-summary")).toContainText(
+      "1 / 1.67 hours",
+    );
+    await page
+      .getByLabel("Maximum interpolation span", { exact: true })
+      .selectOption("7.5");
+    await expect(page.getByTestId("production-comparison")).toContainText(
+      "1 complete hour",
+    );
+    await expect(
+      page.getByText(/Only 1 of 5 candidate hours were compared/),
+    ).toBeVisible();
+    await page
+      .getByLabel("Maximum interpolation span", { exact: true })
+      .selectOption("15");
+    await expect(page.getByTestId("production-comparison")).toContainText(
+      "4 complete hours",
+    );
+    const [download] = await Promise.all([
+      page.waitForEvent("download"),
+      page
+        .getByRole("button", { name: "Export comparison", exact: true })
+        .click(),
+    ]);
+    const [header, ...records] = fs
+      .readFileSync(await download.path(), "utf8")
+      .trim()
+      .split("\n")
+      .map((line) => line.split(","));
+    expect(header).toContain("max_interpolation_span_minutes");
+    expect(records).toHaveLength(4);
+    expect(
+      records.every((row) => row[header.indexOf("coverage_minutes")] === "60"),
+    ).toBe(true);
+    expect(
+      records.every(
+        (row) => row[header.indexOf("max_interpolation_span_minutes")] === "15",
+      ),
+    ).toBe(true);
+    expect(
+      records.some(
+        (row) => +row[header.indexOf("max_sample_span_minutes")] === 10,
+      ),
+    ).toBe(true);
+    expect(
+      records.some((row) => +row[header.indexOf("longer_span_minutes")] > 0),
+    ).toBe(true);
+    await expect(page.getByTestId("shadedKwh")).toHaveText(annual);
+    expect(errors).toEqual([]);
+  });
   test("monthly Excel files retain logger offsets and compare matching 2026 weather privately", async ({
     page,
   }) => {
@@ -233,9 +319,15 @@ test.describe("Solarman production validation", () => {
       .getByTestId("production-comparison")
       .locator("div")
       .filter({
-        has: page.locator("dt", { hasText: "Measured / integrated" }),
+        has: page.locator("dt", { hasText: "Integrated from power" }),
       });
     await expect(actual.locator("dd")).toHaveText("2 kWh");
+    await page
+      .getByLabel("Maximum interpolation span", { exact: true })
+      .selectOption("15");
+    await expect(page.getByTestId("production-comparison")).toContainText(
+      "2 complete hours",
+    );
     expect(requests).toHaveLength(1);
     expect(requests[0].searchParams.get("start_date")).toBe("2026-06-01");
     expect([...requests[0].searchParams.keys()].sort()).toEqual([

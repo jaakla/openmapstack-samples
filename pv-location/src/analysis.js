@@ -1104,7 +1104,11 @@ export function compareOwnerData(input, analysis) {
     visitHours(start, end, (hour, a, b) => {
       modeledMs += b - a;
       const g = group(hour);
-      g.segments.push({ start: a, end: b, energyKwh: row.energyKwh * (b - a) / duration });
+      g.segments.push({
+        start: a, end: b, energyKwh: row.energyKwh * (b - a) / duration,
+        sampleGapMinutes: finite(row.sampleGapMinutes) && row.sampleGapMinutes > 0 ? row.sampleGapMinutes : null,
+        extendedSpan: row.extendedSpan === true,
+      });
       g.sourceIds.add(index);
     });
     const outsideMs = Math.max(0, duration - modeledMs);
@@ -1165,7 +1169,14 @@ export function compareOwnerData(input, analysis) {
       excludedHours += 1; excludedCoveredHours += coveredMs / HOUR; continue;
     }
     for (const index of g.sourceIds) matchedIds.add(index);
-    matched.push({ time: utc(hour), durationMinutes: 60, sourceIntervals: g.sourceIds.size, actualKwh, modelKwh: estimate.shadedKwh, errorKwh: estimate.shadedKwh - actualKwh });
+    const maxSampleGapMinutes = g.segments.reduce((maximum, segment) => segment.sampleGapMinutes == null ? maximum : Math.max(maximum ?? 0, segment.sampleGapMinutes), null);
+    matched.push({
+      time: utc(hour), durationMinutes: 60, coverageMinutes: coveredMs / 60000,
+      sourceIntervals: g.sourceIds.size,
+      maxSampleGapMinutes,
+      longerSpanMinutes: g.segments.reduce((sum, segment) => sum + (segment.extendedSpan ? (segment.end - segment.start) / 60000 : 0), 0),
+      actualKwh, modelKwh: estimate.shadedKwh, errorKwh: estimate.shadedKwh - actualKwh,
+    });
   }
   const n = matched.length;
   outsideModelHours = Math.max(0, (inputCoverageMs - modeledCoverageMs) / HOUR);

@@ -4,7 +4,7 @@ project_id: tartu-pv-location
 question: Estimate hypothetical PV production, local shadow losses and historical
   energy value with local consumption and optional storage; select bounded Estonian
   contexts and export a reviewable scenario PDF.
-run_id: run-20261026-135731
+run_id: run-20261026-144837
 scope: one hypothetical 20 kWp array within the retained manifest AOI, complete UTC
   years 2024 and 2025
 validation:
@@ -95,7 +95,7 @@ validation:
   - id: hosted_table_matches_canonical
     status: passed
 validation_report: validation/latest-report.json
-context_sha256: sha256:c6ae2813c8a2f4def6b1ae234fbd535b0d04620c8c27c654ef47297787df83f2
+context_sha256: sha256:4fb0578b81190fc6365de95360b2f9067ada03fe64a043e59333672691f4ef8b
 assumptions:
 - id: hypothetical
   statement: The initial 30 × 12 m, 20 kWp array is a hypothetical planning scenario,
@@ -188,6 +188,16 @@ assumptions:
     location, equipment, meter meaning or model field accuracy. Production values,
     filenames and account identifiers are excluded from weather requests and repository
     evidence.
+- id: production_interpolation
+  statement: Solarman power-sample comparisons estimate energy by linear interpolation
+    between adjacent observations over their actual elapsed time. The editable maximum
+    interpolation span defaults to 30 minutes, with longer spans excluded; accepted
+    integrals are clipped at UTC hour boundaries.
+  rationale: Logging intervals can vary. The observed modal interval is a diagnostic
+    separate from the selected interpolation limit. Accepted extended spans, their
+    duration and excluded-span duration remain visible; complete-hour comparison statistics
+    describe estimated energy rather than metered interval energy or independently
+    verified field accuracy.
 warnings:
 - id: MODEL
   severity: medium
@@ -1112,7 +1122,7 @@ evidence:
 
 Estimate hypothetical PV production, local shadow losses and historical energy value with local consumption and optional storage; select bounded Estonian contexts and export a reviewable scenario PDF.
 
-Scope: one hypothetical 20 kWp array within the retained manifest AOI, complete UTC years 2024 and 2025. Run: `run-20261026-135731`. Validation: **warning**.
+Scope: one hypothetical 20 kWp array within the retained manifest AOI, complete UTC years 2024 and 2025. Run: `run-20261026-144837`. Validation: **warning**.
 
 ## season_2024
 
@@ -1158,6 +1168,7 @@ Limitation: Hypothetical array and estimated 10 kWh daytime / 4 kWh nighttime lo
 - Storage is explicitly disabled in the canonical baseline. Optional historical dispatch uses configured capacity, charge/discharge limits, efficiency, reserve, permitted grid charging/export and cycling cost, with finite state resolution and historical price knowledge. Storage results are separate from the comparison without storage; perfect historical information does not establish live achievable returns or a recommended battery size.
 - Automatic battery capacity is twice PV kWp in kWh; the canonical 20 kWp array therefore proposes 40 kWh while storage remains disabled. The multiplier is an explicit editable scenario assumption, not an engineering or investment recommendation.
 - Private production workbooks and CSVs may be compared in the browser using date-matched historical weather, but are not retained in the canonical source inputs. Exploratory overlap statistics do not independently verify installation location, equipment, meter meaning or model field accuracy. Production values, filenames and account identifiers are excluded from weather requests and repository evidence.
+- Solarman power-sample comparisons estimate energy by linear interpolation between adjacent observations over their actual elapsed time. The editable maximum interpolation span defaults to 30 minutes, with longer spans excluded; accepted integrals are clipped at UTC hour boundaries. Logging intervals can vary. The observed modal interval is a diagnostic separate from the selected interpolation limit. Accepted extended spans, their duration and excluded-span duration remain visible; complete-hour comparison statistics describe estimated energy rather than metered interval energy or independently verified field accuracy.
 - Energy is an uncalibrated planning estimate from ERA5 and a 5 m horizon model. Field accuracy has not been established against an independently verified matching installation and retained calibration inputs; private browser uploads are not canonical source evidence.
 - DSM catalog metadata describes acquisition campaigns in 2017–2020; exact cell dates are unknown. The frozen 5 m surface may differ from 2024/2025 and omits small objects, seasonal foliage and electrical mismatch.
 - The retained canonical source context is a 2 × 2 km Tartu pilot. Another selected Estonian area loads its own bounded source context and remains exploratory; missing context is not extrapolated from Tartu.

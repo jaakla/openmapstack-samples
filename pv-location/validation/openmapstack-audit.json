@@ -38,7 +38,7 @@
     {
       "check": "project.assumptions_have_rationale",
       "status": "passed",
-      "message": "all 16 assumptions have statement + rationale"
+      "message": "all 17 assumptions have statement + rationale"
     },
     {
       "check": "project.status_agrees_with_validation_report",
@@ -82,7 +82,7 @@
           "data/derived/storage-monthly.csv",
           "dist/data/storage-summary.csv",
           "dist/assets/index-Ck-pH2PC.css",
-          "dist/assets/index-DvpYUI4F.js",
+          "dist/assets/index-D5fUua1E.js",
           "dist/data/aerial.jpg",
           "dist/data/aerial.json",
           "dist/data/buildings.geojson",
@@ -154,7 +154,7 @@
     {
       "check": "validation.run_record_matches",
       "status": "passed",
-      "message": "report run_id 'run-20261026-135731' matches a real run record with consistent hashes"
+      "message": "report run_id 'run-20261026-144837' matches a real run record with consistent hashes"
     },
     {
       "check": "validation.sample_run_not_promoted",
@@ -3687,7 +3687,7 @@
         "target_id": "dashboard"
       },
       "evidence": {
-        "view_sha256": "sha256:bc54bc8f1ae7ba5abaa3847b84265358e132be2b1a9d0b6bc0f0069ba6012f08",
+        "view_sha256": "sha256:ddd4b02bd16533e835fb566f73eed9e434665963fd8e010a83f0fb5af98c0a41",
         "analytical_outputs": {
           "planning_scenario": "sha256:a10e3c78e6549c65d6e46d0fa300f0aca9b26574c2d06468f8969ab48d5fe420",
           "seasonal_summary": "sha256:d69c4c9c730bbf6e92488f9013811142514fd4affde245f3b3ea4e8083ccf40b",
@@ -3763,9 +3763,9 @@
         ],
         "toggle_diff_fraction": {
           "group:aerial": 0.8202660085013026,
-          "group:buildings": 0.06114904703139997,
+          "group:buildings": 0.06114356232003291,
           "group:surface": 0.8161552173316879,
-          "group:shadows": 0.2751734539969834
+          "group:shadows": 0.2751789387083505
         },
         "planner:mobile_map_width": 390
       }
@@ -3780,7 +3780,7 @@
       "status": "passed",
       "message": "canonical entrypoint succeeded in a clean workspace and artifacts revalidated",
       "args": {
-        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-s69nauwg"
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-qvtxxv3g"
       }
     },
     {
@@ -3788,7 +3788,7 @@
       "status": "passed",
       "message": "all 3 outputs are semantically equal across the clean rerun",
       "args": {
-        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-s69nauwg",
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-qvtxxv3g",
         "paths": [
           "data/derived/planning-scenario.geojson",
           "public/data/buildings.geojson",
@@ -3801,7 +3801,7 @@
       "status": "passed",
       "message": "all 8 tables hold the same values across the clean rerun",
       "args": {
-        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-s69nauwg",
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-qvtxxv3g",
         "paths": [
           "data/derived/seasonal-summary.csv",
           "data/derived/hourly.csv",
@@ -3819,7 +3819,7 @@
       "status": "passed",
       "message": "validation evidence reproduces with status 'warning'",
       "args": {
-        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-s69nauwg"
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-qvtxxv3g"
       }
     },
     {
@@ -3827,7 +3827,7 @@
       "status": "passed",
       "message": "all 36 source files byte-identical between workspace and rerun",
       "args": {
-        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-s69nauwg",
+        "rerun_workspace": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-qvtxxv3g",
         "paths": [
           "data/source/aerial.jpg",
           "data/source/aerial.json",
@@ -3915,11 +3915,11 @@
         "/tmp/oms-pv-venv/bin/python",
         "pipeline.py"
       ],
-      "cwd": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-s69nauwg",
+      "cwd": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-qvtxxv3g",
       "returncode": 0,
       "timed_out": false,
-      "duration_s": 15.573663186049089,
-      "stdout": "\nadded 129 packages in 3s\n\n> solar-atlas-pv-location@1.0.0 build\n> vite build\n\nvite v7.3.7 building client environment for production...\ntransforming...\n✓ 2015 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                     0.82 kB │ gzip:     0.49 kB\ndist/assets/index-Ck-pH2PC.css    103.60 kB │ gzip:    16.77 kB\ndist/assets/index-DvpYUI4F.js   3,872.04 kB │ gzip: 1,208.15 kB\n✓ built in 6.49s\n",
+      "duration_s": 15.376553640933707,
+      "stdout": "\nadded 129 packages in 3s\n\n> solar-atlas-pv-location@1.0.0 build\n> vite build\n\nvite v7.3.7 building client environment for production...\ntransforming...\n✓ 2015 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                     0.82 kB │ gzip:     0.49 kB\ndist/assets/index-Ck-pH2PC.css    103.60 kB │ gzip:    16.77 kB\ndist/assets/index-D5fUua1E.js   3,875.96 kB │ gzip: 1,209.46 kB\n✓ built in 6.40s\n",
       "stderr": "npm warn allow-scripts 2 packages have install scripts not yet covered by allowScripts:\nnpm warn allow-scripts   core-js@3.51.0 (postinstall: node -e \"try{require('./postinstall')}catch(e){}\")\nnpm warn allow-scripts   esbuild@0.28.2 (postinstall: node install.js)\nnpm warn allow-scripts\nnpm warn allow-scripts Run `npm approve-scripts --allow-scripts-pending` to review, or `npm approve-scripts <pkg>` to allow.\n\n(!) Some chunks are larger than 3000 kB after minification. Consider:\n- Using dynamic import() to code-split the application\n- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks\n- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.\n"
     },
     "source_hashes": {
@@ -3962,7 +3962,7 @@
     },
     "artifact_validation": {
       "schema": "openmapstack-validation-result/v1",
-      "project_file": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-s69nauwg/project.yaml",
+      "project_file": "/home/jaak/.cache/agent-tmp/openmapstack-verify-rerun-qvtxxv3g/project.yaml",
       "status": "warning",
       "counts": {
         "passed": 77,
@@ -3992,7 +3992,7 @@
         {
           "id": "interpretation.assumptions",
           "status": "passed",
-          "message": "16 assumptions have rationale",
+          "message": "17 assumptions have rationale",
           "path": "interpretation.assumptions"
         },
         {
@@ -4376,7 +4376,7 @@
           "message": "dashboard: view and evidence bind the declared analysis",
           "details": {
             "evidence": {
-              "view_sha256": "sha256:5be7716ed0623aa3ced94ce5df5f1891dc143262d58ee6d833256eb63f2afdc5",
+              "view_sha256": "sha256:100fe4716b5fb80094f2363f7d3a014c60a1d32445001bce14e0f62d7bcaf67c",
               "analytical_outputs": {
                 "planning_scenario": "sha256:a10e3c78e6549c65d6e46d0fa300f0aca9b26574c2d06468f8969ab48d5fe420",
                 "seasonal_summary": "sha256:d69c4c9c730bbf6e92488f9013811142514fd4affde245f3b3ea4e8083ccf40b",
@@ -4490,8 +4490,8 @@
         {
           "id": "runs.latest",
           "status": "passed",
-          "message": "run-20261026-135848 resolves and matches report status/hashes",
-          "path": "runs/run-20261026-135848.json"
+          "message": "run-20261026-144949 resolves and matches report status/hashes",
+          "path": "runs/run-20261026-144949.json"
         },
         {
           "id": "runs.sample_isolation",

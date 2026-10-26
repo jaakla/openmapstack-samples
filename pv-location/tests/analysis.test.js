@@ -315,6 +315,9 @@ test("owner comparison aggregates four quarter-hours and excludes unavailable/ou
   assert.equal(result.unavailableModelIntervals, 4); assert.equal(result.unavailableModelHours, 1);
   close(result.actualKwh, 6); close(result.modelKwh, 4); close(result.maeKwh, 2); close(result.rmseKwh, 2);
   close(result.biasPct, -100/3); assert.equal(result.matched[0].durationMinutes, 60);
+  assert.equal(result.matched[0].coverageMinutes, 60);
+  assert.equal(result.matched[0].maxSampleGapMinutes, null);
+  assert.equal(result.matched[0].longerSpanMinutes, 0);
   assert.match(result.assumption, /no annual extrapolation/); assert.match(result.assumption, /hourly resolution/);
 });
 
@@ -335,6 +338,26 @@ test("partial measured hours are excluded rather than filled or compared to a fr
   close(result.partialCoveredHours, 55/60); close(result.excludedCoveredHours, 55/60);
   assert.equal(result.actualKwh, null); assert.equal(result.maeKwh, null); assert.equal(result.biasPct, null);
   assert.ok(result.warnings.some(w => w.includes("incomplete measured coverage")));
+});
+
+test("complete comparison hours retain interpolated-span duration and source-gap metadata", () => {
+  const rows = [
+    { time: "2024-06-21T10:00:00Z", durationMinutes: 55, energyKwh: 1.1, sampleGapMinutes: 5, extendedSpan: false },
+    { time: "2024-06-21T10:55:00Z", durationMinutes: 10, energyKwh: 0.2, sampleGapMinutes: 10, extendedSpan: true },
+    { time: "2024-06-21T11:05:00Z", durationMinutes: 55, energyKwh: 1.1, sampleGapMinutes: 5, extendedSpan: false },
+  ];
+  const result = compareOwnerData(rows, { hourly: [
+    { time: "2024-06-21T10:00:00Z", shadedKwh: 1.2 },
+    { time: "2024-06-21T11:00:00Z", shadedKwh: 1.2 },
+  ] });
+  assert.equal(result.matchedHours, 2);
+  for (const hour of result.matched) {
+    assert.equal(hour.coverageMinutes, 60);
+    assert.equal(hour.maxSampleGapMinutes, 10);
+    assert.equal(hour.longerSpanMinutes, 5);
+  }
+  close(result.actualKwh, 2.4);
+  close(result.hourlyMaeKwh, 0);
 });
 
 test("duplicate and nested overlaps invalidate touched hours without double-counting duration", () => {

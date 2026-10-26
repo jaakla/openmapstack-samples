@@ -1,7 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { ChevronDown, Download, Upload } from "lucide-react";
 import { compareOwnerData } from "./analysis.js";
-import { parseProductionFiles } from "./production-import.js";
+import {
+  combineSolarmanImports,
+  parseProductionFiles,
+} from "./production-import.js";
 import { loadProductionWeather } from "./production-weather.js";
 import ProductionWorker from "./production.worker.js?worker&inline";
 import { number } from "./format.js";
@@ -39,8 +42,9 @@ export default function ProductionValidationPanel({
   horizon,
   busy,
 }) {
-  const [upload, setUpload] = useState(null),
+  const [originalUpload, setUpload] = useState(null),
     [error, setError] = useState("");
+  const [maxGapMinutes, setMaxGapMinutes] = useState(30);
   const [reading, setReading] = useState(false),
     [weatherLoading, setWeatherLoading] = useState(false);
   const [weatherRecord, setWeatherRecord] = useState(null),
@@ -53,6 +57,16 @@ export default function ProductionValidationPanel({
     weatherRequest = useRef();
   const modelSystem = analysis?.system ?? system;
   const coordinateKey = `${modelSystem.latitude},${modelSystem.longitude}`;
+  const upload = useMemo(
+    () =>
+      originalUpload?.sourceFormat === "solarman-xlsx"
+        ? {
+            ...combineSolarmanImports([originalUpload], { maxGapMinutes }),
+            fileNames: originalUpload.fileNames,
+          }
+        : originalUpload,
+    [originalUpload, maxGapMinutes],
+  );
   const period = useMemo(() => {
     if (!upload?.valid) return null;
     const rows = upload.rows;
@@ -63,9 +77,10 @@ export default function ProductionValidationPanel({
       ).toISOString(),
     };
   }, [upload]);
+  const periodKey = period ? `${period.start}/${period.end}` : "";
   const weather =
     weatherRecord?.coordinateKey === coordinateKey &&
-    weatherRecord?.upload === upload
+    weatherRecord?.periodKey === periodKey
       ? weatherRecord.data
       : null;
   const periodTooLong =
@@ -126,7 +141,7 @@ export default function ProductionValidationPanel({
     weatherRequest.current?.abort();
     setWeatherLoading(false);
     setWeatherError("");
-  }, [coordinateKey, upload]);
+  }, [coordinateKey, periodKey]);
 
   async function load(event) {
     const files = [...(event.target.files ?? [])];
@@ -140,7 +155,7 @@ export default function ProductionValidationPanel({
     setWeatherRecord(null);
     setPeriodResult(null);
     try {
-      const parsed = await parseProductionFiles(files);
+      const parsed = await parseProductionFiles(files, { maxGapMinutes });
       if (id === fileSequence.current) setUpload(parsed);
     } catch (e) {
       if (id === fileSequence.current) {
@@ -174,7 +189,7 @@ export default function ProductionValidationPanel({
         signal: request.signal,
       });
       if (!request.signal.aborted)
-        setWeatherRecord({ data, coordinateKey, upload });
+        setWeatherRecord({ data, coordinateKey, periodKey });
     } catch (e) {
       if (!request.signal.aborted) setWeatherError(e.message);
     } finally {
@@ -208,10 +223,35 @@ export default function ProductionValidationPanel({
           />
         </label>
         <p className="field-help">
-          Solarman: Updated Time, Time Zone and Production Power(W). Five-minute
-          power samples are integrated into energy; gaps are excluded. One month
-          is enough for a period comparison.
+          Solarman: Updated Time, Time Zone and Production Power(W). Power is
+          integrated using the actual time between readings, including mixed
+          sampling intervals. One month is enough for a period comparison.
         </p>
+        {originalUpload?.sourceFormat === "solarman-xlsx" ? (
+          <>
+            <label className="field">
+              <span>Maximum interpolation span</span>
+              <select
+                aria-label="Maximum interpolation span"
+                value={maxGapMinutes}
+                onChange={(event) =>
+                  setMaxGapMinutes(Number(event.target.value))
+                }
+              >
+                <option value="7.5">7.5 minutes (strict)</option>
+                <option value="15">15 minutes</option>
+                <option value="30">30 minutes</option>
+                <option value="60">60 minutes</option>
+              </select>
+            </label>
+            <p className="field-help">
+              Estimate energy between neighboring power readings up to this
+              span. This accommodates five-, ten- and fifteen-minute logging.
+              Longer outages stay unknown. Changing the limit recalculates this
+              file immediately.
+            </p>
+          </>
+        ) : null}
         <details className="production-csv-help">
           <summary>Using another system’s CSV?</summary>
           <p className="field-help">
@@ -253,8 +293,24 @@ export default function ProductionValidationPanel({
                   ["First sample", clock(upload.summary.firstTime)],
                   ["Last sample", clock(upload.summary.lastTime)],
                   [
-                    "Covered duration",
+                    "Typical reading spacing",
+                    `${number(upload.summary.typicalIntervalMinutes, 1)} minutes`,
+                  ],
+                  [
+                    "Largest integrated span",
+                    `${number(upload.summary.maxIntegratedGapMinutes, 1)} minutes`,
+                  ],
+                  [
+                    "Integrated duration",
                     `${number(upload.summary.coveredHours, 2)} hours`,
+                  ],
+                  [
+                    "Longer spans interpolated",
+                    `${number(upload.summary.extendedSegments)} / ${number(upload.summary.extendedHours, 2)} hours`,
+                  ],
+                  [
+                    "Outages excluded",
+                    `${number(upload.summary.gapCount)} / ${number(upload.summary.excludedGapHours, 2)} hours`,
                   ],
                   [
                     "Integrated PV energy",
@@ -352,8 +408,16 @@ export default function ProductionValidationPanel({
                   `${number(comparison.matchedHours)} complete ${comparison.matchedHours === 1 ? "hour" : "hours"}`,
                 ],
                 [
-                  "Measured / integrated",
+                  upload.sourceFormat === "solarman-xlsx"
+                    ? "Integrated from power"
+                    : "Measured interval energy",
                   `${number(comparison.actualKwh, 2)} kWh`,
+                ],
+                [
+                  "Matched coverage",
+                  comparison.candidateHours
+                    ? `${number((100 * comparison.matchedHours) / comparison.candidateHours, 1)}% of ${number(comparison.candidateHours)} candidate hours`
+                    : "—",
                 ],
                 ["Modeled", `${number(comparison.modelKwh, 2)} kWh`],
                 ["Bias", `${number(comparison.biasPct, 1)}%`],
@@ -368,6 +432,15 @@ export default function ProductionValidationPanel({
               ]}
             />
           </div>
+          {comparison.matchedHours > 0 &&
+          comparison.matchedHours < 0.8 * comparison.candidateHours ? (
+            <p className="warning">
+              Only {number(comparison.matchedHours)} of{" "}
+              {number(comparison.candidateHours)} candidate hours were compared.
+              Review the interpolation limit and excluded coverage before
+              interpreting accuracy metrics.
+            </p>
+          ) : null}
           <p className="warning">{comparison.assumption}</p>
           {comparison.warnings.map((message, i) => (
             <p className="warning" key={i}>
@@ -380,11 +453,19 @@ export default function ProductionValidationPanel({
               downloadFile(
                 "production-comparison.csv",
                 [
-                  "time,actual_kwh,model_kwh,error_kwh",
+                  "time,actual_kwh,model_kwh,error_kwh,coverage_minutes,source_segments,max_sample_span_minutes,longer_span_minutes,max_interpolation_span_minutes",
                   ...comparison.matched.map((row) =>
-                    [row.time, row.actualKwh, row.modelKwh, row.errorKwh].join(
-                      ",",
-                    ),
+                    [
+                      row.time,
+                      row.actualKwh,
+                      row.modelKwh,
+                      row.errorKwh,
+                      row.coverageMinutes,
+                      row.sourceIntervals,
+                      row.maxSampleGapMinutes ?? "",
+                      row.longerSpanMinutes ?? 0,
+                      upload.summary?.integrationMaxGapMinutes ?? "",
+                    ].join(","),
                   ),
                 ].join("\n"),
                 "text/csv",
@@ -398,10 +479,11 @@ export default function ProductionValidationPanel({
       ) : null}
       <p className="field-help">
         Exploratory comparison of the current scenario. Measurements are
-        aggregated to complete UTC hours to match the hourly weather model.
-        Missing intervals are not filled, and a monthly file is not extrapolated
-        to annual accuracy. Check that the device clock and the export’s UTC
-        offset are correct.
+        integrated over actual timestamps and aggregated to complete UTC hours
+        to match the hourly weather model. Shorter sampling gaps are
+        interpolated only within the selected limit; longer outages are
+        excluded. A monthly file is not extrapolated to annual accuracy. Check
+        that the device clock and the export’s UTC offset are correct.
       </p>
     </div>
   );

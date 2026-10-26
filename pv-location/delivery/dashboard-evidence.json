@@ -88,6 +88,11 @@
             "id": "private_production",
             "statement": "Private production workbooks and CSVs may be compared in the browser using date-matched historical weather, but are not retained in the canonical source inputs.",
             "rationale": "Exploratory overlap statistics do not independently verify installation location, equipment, meter meaning or model field accuracy. Production values, filenames and account identifiers are excluded from weather requests and repository evidence."
+          },
+          {
+            "id": "production_interpolation",
+            "statement": "Solarman power-sample comparisons estimate energy by linear interpolation between adjacent observations over their actual elapsed time. The editable maximum interpolation span defaults to 30 minutes, with longer spans excluded; accepted integrals are clipped at UTC hour boundaries.",
+            "rationale": "Logging intervals can vary. The observed modal interval is a diagnostic separate from the selected interpolation limit. Accepted extended spans, their duration and excluded-span duration remain visible; complete-hour comparison statistics describe estimated energy rather than metered interval energy or independently verified field accuracy."
           }
         ]
       },
@@ -4182,5 +4187,5 @@
       "hosted_storage_summary": "sha256:1131544e3f1e165bef094b3ddd6d3603a1edff97fffd7b2c82de786e6dbfa78b"
     }
   },
-  "view_sha256": "sha256:bc54bc8f1ae7ba5abaa3847b84265358e132be2b1a9d0b6bc0f0069ba6012f08"
+  "view_sha256": "sha256:ddd4b02bd16533e835fb566f73eed9e434665963fd8e010a83f0fb5af98c0a41"
 }

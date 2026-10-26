@@ -23,7 +23,7 @@ project:
     energy value with local consumption and optional storage; select bounded Estonian
     contexts and export a reviewable scenario PDF.
   created_at: '2026-10-26T09:40:35Z'
-  updated_at: '2026-10-26T13:57:35.184393+00:00'
+  updated_at: '2026-10-26T14:48:42.689554+00:00'
   status: warning
   aoi:
     bbox:
@@ -139,6 +139,16 @@ interpretation:
       location, equipment, meter meaning or model field accuracy. Production values,
       filenames and account identifiers are excluded from weather requests and repository
       evidence.
+  - id: production_interpolation
+    statement: Solarman power-sample comparisons estimate energy by linear interpolation
+      between adjacent observations over their actual elapsed time. The editable maximum
+      interpolation span defaults to 30 minutes, with longer spans excluded; accepted
+      integrals are clipped at UTC hour boundaries.
+    rationale: Logging intervals can vary. The observed modal interval is a diagnostic
+      separate from the selected interpolation limit. Accepted extended spans, their
+      duration and excluded-span duration remain visible; complete-hour comparison
+      statistics describe estimated energy rather than metered interval energy or
+      independently verified field accuracy.
 sources:
   era5_2024:
     provider: Open-Meteo / Copernicus Climate Change Service
@@ -3226,8 +3236,8 @@ outputs:
     format: CSS
     kind: document
     generated_by: render
-  bundle_assets_index_DvpYUI4F_js:
-    path: dist/assets/index-DvpYUI4F.js
+  bundle_assets_index_D5fUua1E_js:
+    path: dist/assets/index-D5fUua1E.js
     format: JS
     kind: document
     generated_by: render
@@ -3559,14 +3569,14 @@ runtime:
     - openmapstack @ git+https://github.com/jaakla/openmapstack-skills.git@a3df1cb8126d5222fbb27e3f1dba49aca01b6302
 runs:
   latest:
-    id: run-20261026-135731
+    id: run-20261026-144837
     status: warning
-    started_at: '2026-10-26T13:57:31.044756+00:00'
-    completed_at: '2026-10-26T13:57:35.184393+00:00'
-    inputs_hash: sha256:733b7795706b82d0bbccca7b898943275a516587cdb4554f57563cfde2f89299
-    outputs_hash: sha256:f8b9de578652c6daebc613d467010bb7e6c7ad338acf82b05809b46074487d9e
+    started_at: '2026-10-26T14:48:37.793233+00:00'
+    completed_at: '2026-10-26T14:48:42.689554+00:00'
+    inputs_hash: sha256:a055c1604017bf82f6f730236e92c78f16fcff8f984fc6d103e2dde29c16c8da
+    outputs_hash: sha256:b96c42821f15a27c63c8e2c235a07902f4bf1a6544ee9245614b9afd1e71d081
     record:
-      path: runs/run-20261026-135731.json
+      path: runs/run-20261026-144837.json
     validation_report:
       path: validation/latest-report.json
 views:

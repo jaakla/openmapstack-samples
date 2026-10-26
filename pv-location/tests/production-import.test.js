@@ -5,6 +5,7 @@ import {
   parseProductionFiles,
   parseSolarmanSheets,
 } from "../src/production-import.js";
+import { compareOwnerData } from "../src/analysis.js";
 import {
   SOLARMAN_HEADERS,
   solarmanWorkbook,
@@ -15,10 +16,10 @@ const close = (actual, expected, tolerance = 1e-9) =>
     Math.abs(actual - expected) <= tolerance,
     `${actual} != ${expected}`,
   );
-const parse = (rows, headers = SOLARMAN_HEADERS) =>
+const parse = (rows, headers = SOLARMAN_HEADERS, options = {}) =>
   parseSolarmanSheets([
     { sheet: "Synthetic measurements", data: [headers, ...rows] },
-  ]);
+  ], options);
 const sample = (time, powerW = 1000, zone = "UTC+02:00") => [
   time,
   zone,
@@ -80,13 +81,13 @@ test("rising power is integrated linearly and split at UTC hour boundaries", () 
   close(result.summary.estimatedKwh, 0.125);
 });
 
-test("missing five-minute slots are excluded without bridging or filling energy", () => {
+test("a selected strict limit excludes sparse spans instead of filling their energy", () => {
   const result = parse([
     sample("2026/06/01 00:00"),
     sample("2026/06/01 00:05"),
     sample("2026/06/01 00:15"),
     sample("2026/06/01 00:20"),
-  ]);
+  ], undefined, { maxGapMinutes: 7.5 });
   assert.equal(result.valid, true);
   assert.equal(result.summary.acceptedSegments, 2);
   assert.equal(result.summary.gapCount, 1);
@@ -97,7 +98,9 @@ test("missing five-minute slots are excluded without bridging or filling energy"
     result.rows.map((row) => row.time),
     ["2026-05-31T22:00:00.000Z", "2026-05-31T22:15:00.000Z"],
   );
-  assert.match(result.warnings.join(" "), /missing production is not filled/);
+  assert.match(result.warnings.join(" "), /longer outages is not filled/);
+  close(result.summary.excludedGapHours, 1 / 6);
+  assert.equal(result.summary.integrationMaxGapMinutes, 7.5);
 });
 
 test("invalid or negative PV readings are omitted and their resulting gaps remain uncovered", () => {
@@ -108,7 +111,7 @@ test("invalid or negative PV readings are omitted and their resulting gaps remai
     sample("2026/06/01 00:15"),
     sample("2026/06/01 00:20", ""),
     sample("2026/06/01 00:25", "not a number"),
-  ]);
+  ], undefined, { maxGapMinutes: 7.5 });
   assert.equal(result.valid, true);
   assert.equal(result.summary.sampleCount, 3);
   assert.equal(result.summary.acceptedSegments, 1);
@@ -118,6 +121,152 @@ test("invalid or negative PV readings are omitted and their resulting gaps remai
     result.warnings.join(" "),
     /3 missing, negative or invalid PV power readings/,
   );
+});
+
+test("mixed five, ten and fifteen-minute spacing uses the selected policy and complete-hour comparisons", () => {
+  const start = Date.parse("2025-04-01T00:00:00Z");
+  const minutes = [0, 5, 10, 20, 25, 30, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120];
+  const samples = minutes.map((minute) => sample(new Date(start + minute * 60000), 1000, "UTC"));
+  const strict = parse(samples, undefined, { maxGapMinutes: 7.5 });
+  const standard = parse(samples);
+  const fifteen = parse(samples, undefined, { maxGapMinutes: 15 });
+  const model = { hourly: [0, 1].map((hour) => ({ time: new Date(start + hour * 3600000).toISOString(), shadedKwh: 1 })) };
+  assert.equal(compareOwnerData(strict, model).matchedHours, 1);
+  assert.equal(compareOwnerData(standard, model).matchedHours, 2);
+  assert.equal(compareOwnerData(fifteen, model).matchedHours, 2);
+  assert.equal(standard.intervalMinutes, 5);
+  assert.equal(standard.summary.integrationMaxGapMinutes, 30);
+  assert.equal(standard.summary.typicalIntervalMinutes, 5);
+  assert.equal(standard.summary.maxIntegratedGapMinutes, 15);
+  assert.equal(standard.summary.extendedSegments, 2);
+  close(standard.summary.extendedHours, 25 / 60);
+  close(standard.summary.excludedGapHours, 0);
+  assert.equal(standard.summary.gapCount, 0);
+  close(standard.summary.estimatedKwh, 2);
+  const hours = compareOwnerData(standard, model).matched;
+  assert.equal(hours[0].maxSampleGapMinutes, 15);
+  close(hours[0].longerSpanMinutes, 25);
+  assert.equal(hours[1].maxSampleGapMinutes, 5);
+  close(hours[1].longerSpanMinutes, 0);
+  assert.match(standard.warnings.join(" "), /linearly interpolated.*up to 30 minutes/);
+  assert.match(standard.warnings.join(" "), /interpolated energy is estimated, not metered/);
+});
+
+test("the gap limit includes its exact endpoint and excludes a span one second longer", () => {
+  const result = parse([
+    sample("2025-04-01 00:00:00", 1000, "UTC"),
+    sample("2025-04-01 00:30:00", 1000, "UTC"),
+    sample("2025-04-01 01:00:01", 1000, "UTC"),
+  ]);
+  assert.equal(result.summary.acceptedSegments, 1);
+  assert.equal(result.summary.maxIntegratedGapMinutes, 30);
+  assert.equal(result.summary.gapCount, 1);
+  close(result.summary.excludedGapHours, 1801 / 3600);
+  close(result.summary.coveredHours, 0.5);
+  close(result.summary.estimatedKwh, 0.5);
+  assert.match(result.warnings.join(" "), /gaps longer than 30 minutes.*longer outages is not filled/);
+});
+
+test("a ten-minute ramp crossing a UTC hour conserves trapezoid energy and retains its original sample span", () => {
+  const result = parse([
+    sample("2025-04-01 00:55:00", 0, "UTC"),
+    sample("2025-04-01 01:05:00", 6000, "UTC"),
+  ]);
+  assert.equal(result.rows.length, 2);
+  assert.deepEqual(result.rows.map((row) => row.durationMinutes), [5, 5]);
+  assert.deepEqual(result.rows.map((row) => row.sampleGapMinutes), [10, 10]);
+  close(result.rows[0].energyKwh, 0.125);
+  close(result.rows[1].energyKwh, 0.375);
+  close(result.summary.estimatedKwh, 0.5);
+  // A consistently ten-minute export is not described as missing five-minute samples.
+  assert.equal(result.summary.typicalIntervalMinutes, 10);
+  assert.equal(result.summary.extendedSegments, 0);
+});
+
+test("native fifteen-minute cadence and timestamp jitter do not require five-minute sample alignment", () => {
+  const result = parse([0, 15, 30, 45, 60].map((minute) => sample(new Date(Date.parse("2025-04-01T00:00:00Z") + minute * 60000), 1200, "UTC")));
+  assert.equal(result.summary.typicalIntervalMinutes, 15);
+  assert.equal(result.intervalMinutes, 15);
+  assert.equal(result.summary.missingSampleSlots, 0);
+  assert.equal(result.summary.extendedSegments, 0);
+  const compared = compareOwnerData(result, { hourly: [{ time: "2025-04-01T00:00:00Z", shadedKwh: 1.2 }] });
+  assert.equal(compared.matchedHours, 1);
+  assert.equal(compared.matched[0].maxSampleGapMinutes, 15);
+  close(compared.actualKwh, 1.2);
+  const jitter = parse([
+    sample("2025-04-01 00:00:00", 600, "UTC"),
+    sample("2025-04-01 00:05:07", 600, "UTC"),
+    sample("2025-04-01 00:10:09", 600, "UTC"),
+  ]);
+  assert.equal(jitter.samples[1].time, "2025-04-01T00:05:07.000Z");
+  close(jitter.summary.coveredHours, 609 / 3600);
+  close(jitter.summary.estimatedKwh, 0.6 * 609 / 3600);
+});
+
+test("reprocessing retained samples clears policy errors but preserves invalid timestamp and duplicate conflicts", () => {
+  const readings = [sample("2025-04-01 00:00", 1000, "UTC"), sample("2025-04-01 00:10", 1000, "UTC")];
+  const strict = parse(readings, undefined, { maxGapMinutes: 5 });
+  assert.equal(strict.valid, false);
+  assert.equal(strict.rows.length, 0);
+  assert.equal(strict.sourceErrors.length, 0);
+  const relaxed = combineSolarmanImports([strict], { maxGapMinutes: 30 });
+  assert.equal(relaxed.valid, true);
+  assert.deepEqual(relaxed.errors, []);
+  close(relaxed.summary.estimatedKwh, 1 / 6);
+  const strictAgain = combineSolarmanImports([relaxed], { maxGapMinutes: 5 });
+  assert.equal(strictAgain.valid, false);
+  assert.equal(strictAgain.summary.gapCount, 1);
+  assert.equal(strictAgain.summary.integrationMaxGapMinutes, 5);
+  assert.equal(strictAgain.summary.maxIntegratedGapMinutes, null);
+  assert.equal(compareOwnerData(strictAgain, { hourly: [{ time: "2025-04-01T00:00:00Z", shadedKwh: 1 }] }).actualKwh, null);
+  const badTime = parse([...readings, sample("2025-02-30 00:00", 1000, "UTC")], undefined, { maxGapMinutes: 5 });
+  const badDuplicate = parse([...readings, sample("2025-04-01 00:00", 999, "UTC")], undefined, { maxGapMinutes: 5 });
+  for (const invalid of [badTime, badDuplicate]) {
+    assert.ok(invalid.sourceErrors.length > 0);
+    const reprocessed = combineSolarmanImports([invalid], { maxGapMinutes: 30 });
+    assert.equal(reprocessed.valid, false);
+    assert.deepEqual(reprocessed.errors, invalid.sourceErrors);
+    assert.equal(reprocessed.rows.length, 1);
+  }
+});
+
+test("omitted power can create explicitly interpolated sparse spans while long file-boundary outages stay excluded", () => {
+  const omitted = parse([
+    sample("2025-04-01 00:00", 1000, "UTC"),
+    sample("2025-04-01 00:05", -1, "UTC"),
+    sample("2025-04-01 00:10", 1000, "UTC"),
+  ]);
+  assert.equal(omitted.valid, true);
+  close(omitted.summary.estimatedKwh, 1 / 6);
+  assert.match(omitted.warnings.join(" "), /readings were omitted.*may be interpolated/);
+  assert.doesNotMatch(omitted.warnings.join(" "), /their gaps are not filled/);
+  const first = parse([sample("2025-04-01 00:00", 1000, "UTC"), sample("2025-04-01 00:05", 1000, "UTC")]);
+  const second = parse([sample("2025-04-01 01:45", 1000, "UTC"), sample("2025-04-01 01:50", 1000, "UTC")]);
+  const combined = combineSolarmanImports([second, first]);
+  assert.equal(combined.summary.gapCount, 1);
+  close(combined.summary.excludedGapHours, 100 / 60);
+  close(combined.summary.estimatedKwh, 1 / 6);
+  assert.equal(combined.summary.extendedSegments, 0);
+  const compared = compareOwnerData(combined, { hourly: [
+    { time: "2025-04-01T00:00:00Z", shadedKwh: 1 },
+    { time: "2025-04-01T01:00:00Z", shadedKwh: 1 },
+  ] });
+  assert.equal(compared.matchedHours, 0);
+  assert.equal(compared.partialHours, 2);
+  assert.equal(compared.actualKwh, null);
+});
+
+test("invalid integration limits are rejected by every import entry point", async () => {
+  for (const maxGapMinutes of [NaN, Infinity, -1, 0, 0.5, 120.01, "30", null]) {
+    const options = { maxGapMinutes };
+    assert.throws(() => parse([], undefined, options), /between 1 and 120/);
+    assert.throws(() => combineSolarmanImports([], options), /between 1 and 120/);
+    await assert.rejects(parseProductionFiles([], options), /between 1 and 120/);
+  }
+  for (const maxGapMinutes of [1, 120]) {
+    const result = parse([sample("2025-04-01 00:00"), sample("2025-04-01 00:01")], undefined, { maxGapMinutes });
+    assert.equal(result.summary.integrationMaxGapMinutes, maxGapMinutes);
+  }
 });
 
 test("logger offsets distinguish repeated autumn wall-clock times instead of applying Tallinn DST", () => {
@@ -321,6 +470,25 @@ test("actual XLSX reader parses string timestamps and sanitizes unrelated workbo
     JSON.stringify(result),
     /SYNTHETIC-IDENTIFIER|Plant Name/,
   );
+});
+
+test("the XLSX file entry point applies the selected gap limit and can reprocess without rereading the workbook", async () => {
+  const file = excelFile("synthetic-sparse.xlsx", [
+    sample("2025-04-01 00:00", 1000, "UTC"),
+    sample("2025-04-01 00:10", 1000, "UTC"),
+  ]);
+  let reads = 0;
+  const readBuffer = file.arrayBuffer;
+  file.arrayBuffer = async () => { reads += 1; return readBuffer(); };
+  const strict = await parseProductionFiles([file], { maxGapMinutes: 5 });
+  assert.equal(strict.valid, false);
+  assert.equal(strict.summary.integrationMaxGapMinutes, 5);
+  assert.deepEqual(strict.fileNames, ["synthetic-sparse.xlsx"]);
+  const relaxed = combineSolarmanImports([strict], { maxGapMinutes: 30 });
+  assert.equal(relaxed.valid, true);
+  assert.equal(relaxed.summary.integrationMaxGapMinutes, 30);
+  close(relaxed.summary.estimatedKwh, 1 / 6);
+  assert.equal(reads, 1);
 });
 
 test("actual XLSX date styles yield wall-clock Date cells; unstyled numeric serials are rejected", async () => {
