@@ -67,6 +67,9 @@ jobs:
       - name: Test Solar Atlas browser workflows
         working-directory: pv-location
         run: npm run test:browser
+      - name: Test Solar Atlas development module loading
+        working-directory: pv-location
+        run: npm run test:browser:dev
       - name: Build the canonical Solar Atlas with provenance
         working-directory: pv-location
         run: |

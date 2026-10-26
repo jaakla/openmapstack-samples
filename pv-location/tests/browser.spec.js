@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import fs from "node:fs";
-import { gunzipSync } from "node:zlib";
+import { mockAreaSources } from "./fixtures/area-sources.js";
 const project = JSON.parse(
   fs.readFileSync(
     new URL("../public/data/project.json", import.meta.url),
@@ -356,58 +356,9 @@ test("area picker and failed area loads preserve the published site", async ({
 test("loading retained real area fixtures replaces map context and clears prior results", async ({
   page,
 }) => {
-  // Reuse the real pinned Tartu responses to test replacement without mutable live API dependencies.
-  const source = (path) =>
-    fs.readFileSync(new URL(`../data/source/${path}`, import.meta.url));
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
-  await page.route(
-    "https://teenus.maaamet.ee/ows/ajakohane-haldusjaotus?**",
-    (route) =>
-      route.fulfill({
-        status: 200,
-        contentType: "text/xml",
-        body: '<wfs:FeatureCollection xmlns:wfs="http://www.opengis.net/wfs/2.0" numberMatched="1"/>',
-      }),
-  );
-  await page.route("https://teenus.maaamet.ee/ows/wcs-*?**", (route) =>
-    route.fulfill({
-      status: 200,
-      contentType: "image/tiff",
-      body: source(
-        route.request().url().includes("wcs-dsm")
-          ? "raw/dsm.tif"
-          : "raw/dtm.tif",
-      ),
-    }),
-  );
-  await page.route("https://gsavalik.envir.ee/geoserver/etak/wfs?**", (route) =>
-    route.fulfill({
-      status: 200,
-      contentType: "application/json",
-      body: gunzipSync(source("raw/buildings.geojson.gz")),
-    }),
-  );
-  await page.route("https://kaart.maaamet.ee/wms/alus-geo?**", (route) =>
-    route.fulfill({
-      status: 200,
-      contentType: "image/jpeg",
-      body: source("aerial.jpg"),
-    }),
-  );
-  await page.route(
-    "https://archive-api.open-meteo.com/v1/archive?**",
-    (route) => {
-      const year = new URL(route.request().url()).searchParams
-        .get("start_date")
-        .slice(0, 4);
-      return route.fulfill({
-        status: 200,
-        contentType: "application/json",
-        body: gunzipSync(source(`raw/weather-${year}.json.gz`)),
-      });
-    },
-  );
+  await mockAreaSources(page);
   await page.goto("/");
   await settled(page);
   await page.getByLabel("Area latitude", { exact: true }).fill("58.37");

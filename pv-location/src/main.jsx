@@ -12,6 +12,12 @@ import {
 import MapView from "./MapView.jsx";
 import Results from "./Results.jsx";
 import AreaPanel from "./AreaPanel.jsx";
+import {
+  loadEstoniaArea,
+  parseAreaBundle,
+  serializeAreaBundle,
+  verifyEstoniaFootprint,
+} from "./areas.js";
 import { DEFAULT_STORAGE, normalizeStorageConfig } from "./storage.js";
 import { downloadFile } from "./downloads.js";
 import { ScenarioPanel, EvidencePanel, ValidationPanel } from "./Panels.jsx";
@@ -267,7 +273,6 @@ function App({ inputs }) {
     setAreaError("");
     setAreaLoading("Checking Estonian land coverage…");
     try {
-      const { loadEstoniaArea } = await import("./areas.js");
       const next = await loadEstoniaArea(coordinate, {
         signal: request.signal,
         onProgress: (message) => {
@@ -300,7 +305,6 @@ function App({ inputs }) {
     cancelArea();
     try {
       if (file.size > 40e6) throw new Error("Area bundle exceeds 40 MB.");
-      const { parseAreaBundle } = await import("./areas.js");
       const next = await parseAreaBundle(await file.text());
       activateArea(next);
     } catch (err) {
@@ -310,7 +314,6 @@ function App({ inputs }) {
   };
   const exportArea = async () => {
     try {
-      const { serializeAreaBundle } = await import("./areas.js");
       downloadFile(
         "solar-atlas-estonia-area.json",
         await serializeAreaBundle(areaContext),
@@ -342,7 +345,6 @@ function App({ inputs }) {
     ++sequence.current;
     setBusy(true);
     try {
-      const { verifyEstoniaFootprint } = await import("./areas.js");
       await verifyEstoniaFootprint(shape, { signal: request.signal });
       if (request.signal.aborted)
         throw new DOMException("Footprint check cancelled.", "AbortError");

@@ -32,9 +32,10 @@ Run the engine and browser checks with:
 npm test
 npx playwright install chromium
 npm run test:browser
+npm run test:browser:dev
 ```
 
-To use an existing Chromium binary, set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to its absolute executable path. The browser suite starts its configured local server and exercises scenario controls, drawing, reset, exports, invalid measurement input and responsive layouts. The OpenMapStack verification below additionally checks the generated direct-file dashboard and its canonical evidence.
+To use an existing Chromium binary, set `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` to its absolute executable path. The browser suite starts its configured local server and exercises scenario controls, drawing, reset, exports, invalid measurement input and responsive layouts. The development suite separately checks first-use area loading, real TIFF decoding and PDF export with fresh and warm Vite caches, without changing a running developer server’s cache. If a local tab retains an old module graph after an update, restart Vite with `npm run dev -- --force` and reload the tab. The OpenMapStack verification below additionally checks the generated direct-file dashboard and its canonical evidence.
 
 Independent PDF parsing checks use Python `pypdf==6.20.1`; those checks are explicitly skipped if it is absent. CI installs the pinned parser. For the full local suite, install it into the Python environment described below with `uv pip install --python .venv/bin/python pypdf==6.20.1`, then run `PATH="$PWD/.venv/bin:$PATH" npm test`.
 

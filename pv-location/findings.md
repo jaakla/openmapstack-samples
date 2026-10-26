@@ -4,7 +4,7 @@ project_id: tartu-pv-location
 question: Estimate hypothetical PV production, local shadow losses and historical
   energy value with local consumption and optional storage; select bounded Estonian
   contexts and export a reviewable scenario PDF.
-run_id: run-20261026-115114
+run_id: run-20261026-122510
 scope: one hypothetical 20 kWp array within the retained manifest AOI, complete UTC
   years 2024 and 2025
 validation:
@@ -1100,7 +1100,7 @@ evidence:
 
 Estimate hypothetical PV production, local shadow losses and historical energy value with local consumption and optional storage; select bounded Estonian contexts and export a reviewable scenario PDF.
 
-Scope: one hypothetical 20 kWp array within the retained manifest AOI, complete UTC years 2024 and 2025. Run: `run-20261026-115114`. Validation: **warning**.
+Scope: one hypothetical 20 kWp array within the retained manifest AOI, complete UTC years 2024 and 2025. Run: `run-20261026-122510`. Validation: **warning**.
 
 ## season_2024
 

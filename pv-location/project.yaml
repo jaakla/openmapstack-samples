@@ -23,7 +23,7 @@ project:
     energy value with local consumption and optional storage; select bounded Estonian
     contexts and export a reviewable scenario PDF.
   created_at: '2026-10-26T09:40:35Z'
-  updated_at: '2026-10-26T11:51:19.296531+00:00'
+  updated_at: '2026-10-26T12:25:14.412110+00:00'
   status: warning
   aoi:
     bbox:
@@ -3216,8 +3216,8 @@ outputs:
     format: CSS
     kind: document
     generated_by: render
-  bundle_assets_index_B6ckQsCN_js:
-    path: dist/assets/index-B6ckQsCN.js
+  bundle_assets_index_DAZtOjAc_js:
+    path: dist/assets/index-DAZtOjAc.js
     format: JS
     kind: document
     generated_by: render
@@ -3547,14 +3547,14 @@ runtime:
     - openmapstack @ git+https://github.com/jaakla/openmapstack-skills.git@a3df1cb8126d5222fbb27e3f1dba49aca01b6302
 runs:
   latest:
-    id: run-20261026-115114
+    id: run-20261026-122510
     status: warning
-    started_at: '2026-10-26T11:51:14.646139+00:00'
-    completed_at: '2026-10-26T11:51:19.296531+00:00'
-    inputs_hash: sha256:79ba2d349424ee3c6cda50839abd25bb8f17c2626b04bb244d982a2c0d48e089
-    outputs_hash: sha256:fc5b473ab622070ebbda5181acf4ff4c2db6793a603bac2866fbe9b717314571
+    started_at: '2026-10-26T12:25:10.323379+00:00'
+    completed_at: '2026-10-26T12:25:14.412110+00:00'
+    inputs_hash: sha256:068b598bc4ded61b1bcdc32217bd9e9fd77e20e34a27d90f7b96e0b8c38c0802
+    outputs_hash: sha256:d73553bb0f7196d2b06737e92a2cb8fb25bf2abc19d7e1786f6d58b691aeacaf
     record:
-      path: runs/run-20261026-115114.json
+      path: runs/run-20261026-122510.json
     validation_report:
       path: validation/latest-report.json
 views:
