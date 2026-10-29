@@ -22,7 +22,7 @@ järgi planeerimist, peatuste otsingut ja rongiga marsruuti. JavaScripti vead,
 konsooli veateated ja HTTP tõrked ebaõnnestuvad. Ekraanipilt jäädvustatakse ka
 eduka kontrolli korral; vea korral säilib lisaks Playwrighti trace.
 
-Kahe sekundi piir rakendub DOMContentLoaded ajale ja planeerija kasutusvalmidusele,
+Viie sekundi piir rakendub DOMContentLoaded ajale ja planeerija kasutusvalmidusele,
 millest lahutatakse nelja suure algandmefaili võrgulaadimise ajavahemike ühend.
 See ei lahuta JavaScripti/JSON-i töötlemist ega varja suurt tegelikku ooteaega:
 raportis on eraldi kogu kasutusvalmiduse aeg ja algandmete laadimise aeg.
