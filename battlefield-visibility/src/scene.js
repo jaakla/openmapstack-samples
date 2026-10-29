@@ -249,6 +249,8 @@ export class VisibilityScene {
     };
     if (this.latestSnapshot) this.updateSnapshot(this.latestSnapshot);
     this.setLayers(this.layers);
+    this.needsRender = true;
+    window.omsAnalytics?.once('map_ready', { duration_ms: performance.now() });
   }
   prepareModel(object, length) {
     const box = new THREE.Box3().setFromObject(object),

@@ -149,7 +149,7 @@ function App({ inputs }) {
     areaContext,
   };
   const worker = useRef(),
-    sequence = useRef(0);
+    sequence = useRef(0), analysisStarted = useRef(0), initialCalculation = useRef(true);
   const metrics = useMemo(() => {
     try {
       return polygonMetrics(polygon);
@@ -194,6 +194,11 @@ function App({ inputs }) {
     w.onmessage = ({ data }) => {
       if (data.id !== sequence.current) return;
       setBusy(false);
+      window.omsAnalytics?.track('calculation_completed', {
+        duration_ms: performance.now() - analysisStarted.current,
+        status: data.error ? 'error' : 'success', initial: initialCalculation.current,
+      });
+      initialCalculation.current = false;
       if (data.error) {
         setError(data.error);
         setAnalysis(null);
@@ -219,7 +224,8 @@ function App({ inputs }) {
     }
     setBusy(true);
     const timer = setTimeout(
-      () =>
+      () => {
+        analysisStarted.current = performance.now();
         worker.current?.postMessage({
           id,
           system,
@@ -227,7 +233,8 @@ function App({ inputs }) {
           year,
           consumption,
           storage,
-        }),
+        });
+      },
       120,
     );
     return () => clearTimeout(timer);

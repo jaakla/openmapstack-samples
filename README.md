@@ -2,6 +2,45 @@
 
 Source-backed geospatial applications built with [OpenMapStack](https://github.com/jaakla/openmapstack-skills).
 
+## Website usage and performance
+
+The gallery and the five GitHub Pages apps use one EU PostHog project. The shared
+configuration is [shared/analytics.js](shared/analytics.js). Its project token is
+a public browser credential, not an administrative API key.
+
+- Collection runs only at `jaakla.github.io/openmapstack-samples/`, excluding
+  localhost, automated/headless browsers, offline mode and Do Not Track/GPC.
+- Each event has a `site` field: `gallery`, `tallinn-transit`, `pv-location`,
+  `toompea-3d`, `battlefield-visibility` or `detailplaneering`.
+- Page views, page leaves and numeric Web Vitals are collected. The apps add
+  `map_ready`, `planner_ready`, `route_search_completed`, `calculation_completed`,
+  `feature_used` and gallery `demo_opened` events where applicable. Filter
+  `initial=false` to separate rider-initiated searches/calculations from startup.
+- Session recordings, input autocapture, heatmaps, surveys, console recordings
+  and person profiles are disabled. Only approved event properties are sent;
+  URL queries/fragments, addresses, coordinates and arbitrary DOM data are removed.
+- Analytics is optional and loaded asynchronously. A blocked SDK cannot prevent
+  an app from loading. The Tallinn offline manifest includes the local wrapper;
+  the external SDK is not required for offline routing or maps.
+
+In PostHog open **Web Analytics** (including its **Web Vitals** tab), filter by
+path or `site`, and create an insight for a custom event with a `site` breakdown.
+The public project token cannot create dashboards or read their data; that needs
+an authenticated PostHog account. Validate collection by opening a published app
+in a normal browser; automated tests deliberately do not count as visitors.
+
+Vite includes the wrapper before inventories/offline manifests are generated.
+Each app pins the shared runtime and build plugin hash in its inventoried Vite
+configuration; update all four pins when either shared source changes.
+The planning atlas retains its accepted canonical snapshot in `published/`;
+`prepare-pages.mjs` records the added script's source/served HTML hashes in
+`delivery-transform.json` without altering analytical inputs or geometries.
+The two externally hosted Worker demos linked from the gallery are not instrumented;
+their outbound gallery clicks are counted.
+
+Run `node --test shared/analytics.test.mjs` to check the collection guards and
+payload filtering. Those checks also run in the Pages workflow.
+
 ## Tallinn liigub
 
 Tallinn bus and tram map with live vehicles, direction arrows and clearly labelled average-speed estimates, stop and address search, scheduled departures, and local departure-time/arrival-deadline journey planning. Save the app, GTFS schedules and city basemap for offline use. A small relay handles public GPS requests; journeys stay on the device.

@@ -266,6 +266,7 @@ export default function MapView({
         },
       });
       setReady(true);
+      window.omsAnalytics?.once('map_ready', { duration_ms: performance.now() });
     });
     m.on("click", (e) => {
       const v = latest.current;

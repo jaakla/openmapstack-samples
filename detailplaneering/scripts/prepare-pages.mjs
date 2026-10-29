@@ -1,5 +1,5 @@
 // Publish the verified canonical bundle without a second GIS implementation.
-import {readFile, mkdir, copyFile} from 'node:fs/promises';
+import {readFile, writeFile, mkdir, copyFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
@@ -26,3 +26,19 @@ for(const [source,target] of files){
  await copyFile(path.join(root,source),path.join(destination,target));
 }
 console.log(`Prepared ${files.length} verified files from ${record.run_id} at ${destination}`);
+// The accepted analytical bundle stays byte-identical in published/. Record the
+// optional telemetry delivery transform separately instead of changing its pins.
+const original=await readFile(path.join(destination,'index.html'),'utf8');
+const release=process.env.GITHUB_SHA||'local-build';
+assert.match(release,/^[a-zA-Z0-9-]+$/);
+const served=original.replace('</head>',`<script defer src="./analytics.js" data-site="detailplaneering" data-release="${release}"></script></head>`);
+assert.notEqual(served,original,'Published HTML must have a head closing tag');
+await copyFile(path.join(root,'../shared/analytics.js'),path.join(destination,'analytics.js'));
+await writeFile(path.join(destination,'index.html'),served);
+const hash=value=>'sha256:'+createHash('sha256').update(value).digest('hex');
+await writeFile(path.join(destination,'delivery-transform.json'),JSON.stringify({
+  schema:'openmapstack-delivery-transform/v1',canonicalRun:record.run_id,
+  transformation:'Add optional production-only PostHog script; analytical data unchanged',
+  sourceHtmlSha256:hash(original),servedHtmlSha256:hash(served),
+  analyticsSha256:hash(await readFile(path.join(destination,'analytics.js'))),
+},null,2)+'\n');

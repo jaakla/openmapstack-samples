@@ -101,12 +101,12 @@ function TransitApp({data,shapes,project,walking}) {
   }
   const doSearch=useCallback(async()=>{
     if(!from||!to){setError('Vali lähte- ja sihtkoht otsingutulemustest või kaardilt.');return;}
-    const id=++latestSearch.current;setBusy(true);setError('');setSearched(true);setDirty(false);setTab('journey');setRoute(null);setInspection(null);setNearbyPaths([]);
-    try{const items=await router.request({type:'plan',request:{from,to,date,time,arriveBy,maxTransfers,maxWalk,mode:transport}});if(id===latestSearch.current){setResults(items.map(j=>({...j,fromPlace:from,toPlace:to})));setSelectedJourney(items.length?0:null);}}
-    catch(e){if(id===latestSearch.current){setError(e.message);setResults([]);setSelectedJourney(null);}}finally{if(id===latestSearch.current)setBusy(false);}
+    const initialSearch=!initialized.current,started=performance.now(),id=++latestSearch.current;setBusy(true);setError('');setSearched(true);setDirty(false);setTab('journey');setRoute(null);setInspection(null);setNearbyPaths([]);
+    try{const items=await router.request({type:'plan',request:{from,to,date,time,arriveBy,maxTransfers,maxWalk,mode:transport}});if(id===latestSearch.current){setResults(items.map(j=>({...j,fromPlace:from,toPlace:to})));setSelectedJourney(items.length?0:null);window.omsAnalytics?.track('route_search_completed',{duration_ms:performance.now()-started,result_count:items.length,status:items.length?'success':'no_results',arrive_by:arriveBy,mode:transport,initial:initialSearch});}}
+    catch(e){if(id===latestSearch.current){setError(e.message);setResults([]);setSelectedJourney(null);window.omsAnalytics?.track('route_search_completed',{duration_ms:performance.now()-started,status:'error'});}}finally{if(id===latestSearch.current)setBusy(false);}
   },[from,to,date,time,arriveBy,maxTransfers,maxWalk,transport,router.request]);
   const initialized=useRef(false);
-  useEffect(()=>{if(router.ready&&!initialized.current){initialized.current=true;doSearch();}},[router.ready,doSearch]);
+  useEffect(()=>{if(router.ready&&!initialized.current){window.omsAnalytics?.once('planner_ready',{duration_ms:performance.now()});doSearch();initialized.current=true;}},[router.ready,doSearch]);
   useEffect(()=>{
     let alive=true;setNearbyPaths([]);
     if(!inspection||inspection.kind==='vehicle'||!router.ready)return;
@@ -121,7 +121,7 @@ function TransitApp({data,shapes,project,walking}) {
     setDirty(true);setTab('journey');setInspection(null);setNearbyPaths([]);
   },[]);
   const closeInspect=useCallback(()=>{setInspection(null);setNearbyPaths([]);},[]);
-  const onMapReady=useCallback(()=>setMapReady(true),[]);
+  const onMapReady=useCallback(()=>{setMapReady(true);window.omsAnalytics?.once('map_ready',{duration_ms:performance.now()});},[]);
   const change=(fn,value)=>{fn(value);setDirty(true);};
   const filteredRoutes=useMemo(()=>data.routes.map((r,index)=>({...r,index})).filter(r=>normalize(`${r.name} ${r.longName}`).includes(normalize(routeQuery))),[data,routeQuery]);
   const stops=useMemo(()=>stopQuery?searchStations(data,stopQuery,80):data.stations.filter(s=>['Balti jaam','Viru','Hobujaama','Estonia','Vabaduse väljak','Lennujaam','Bussijaam'].includes(s.name)).map(s=>({...s,kind:'station'})),[data,stopQuery]);

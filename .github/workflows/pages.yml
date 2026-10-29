@@ -35,6 +35,8 @@ jobs:
       - name: Install dependencies
         working-directory: toompea-3d
         run: npm ci
+      - name: Test shared RUM privacy and production guards
+        run: node --test shared/analytics.test.mjs
       - name: Test survey calculations
         working-directory: toompea-3d
         run: npm test
@@ -111,6 +113,8 @@ jobs:
           cp -a pv-location/dist/. _site/pv-location/
           cp -a tallinn-transit/dist/. _site/tallinn-transit/
           cp index.html _site/index.html
+          mkdir -p _site/shared
+          cp shared/analytics.js _site/shared/analytics.js
           cp -a gallery/. _site/gallery/
           cp toompea-3d/docs/toompea-preview.png _site/gallery/toompea-preview.png
           cp battlefield-visibility/docs/uav-visibility-preview.png _site/gallery/uav-visibility-preview.png

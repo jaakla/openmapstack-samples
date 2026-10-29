@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { analyticsPlugin } from '../shared/vite-analytics.mjs';
 import { readFileSync } from 'node:fs';
 
 const escapeHTML=value=>String(value).replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
@@ -25,7 +26,7 @@ function publicationAttribution(){
 }
 export default defineConfig({
   base:'./',
-  plugins:[react(),publicationAttribution()],
+  plugins:[react(),publicationAttribution(),analyticsPlugin('toompea-3d', '6cdeb1e0afb19e2ddc566d5221100a3fb3a13c2d681af5f0beb7d17570c6cc7d')],
   server:{host:'0.0.0.0'},
   build:{
     chunkSizeWarningLimit:900,
