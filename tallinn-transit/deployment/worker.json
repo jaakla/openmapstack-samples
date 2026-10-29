@@ -1,18 +1,18 @@
 {
   "worker": "tallinn-transit-api",
-  "versionId": "744a5bbc-3e0c-4026-87d3-1e13e2e6bcfc",
+  "versionId": "c14b29a5-4266-4c92-9623-87824a39508c",
   "verification": {
-    "checkedAt": "2026-10-29T04:44:40.435Z",
+    "checkedAt": "2026-10-29T06:05:11.754Z",
     "base": "https://tallinn-transit-api.jaak-laineste.workers.dev/",
     "passed": true,
     "clientsInBurst": 20,
-    "initialUpstreamRequests": 3,
-    "finalUpstreamRequests": 4,
+    "initialUpstreamRequests": 28,
+    "finalUpstreamRequests": 29,
     "conditionalStatus": 304,
     "conditionalBytes": 0,
     "cacheControl": "public, max-age=10, s-maxage=10, must-revalidate",
-    "initialValidatedAt": "2026-10-29T04:44:30.164Z",
-    "nextValidatedAt": "2026-10-29T04:44:40.333Z",
+    "initialValidatedAt": "2026-10-29T06:05:01.451Z",
+    "nextValidatedAt": "2026-10-29T06:05:11.611Z",
     "geocoder": "Vabaduse väljak 7"
   },
   "upstreamProbe": {
@@ -35,5 +35,50 @@
   "references": [
     "https://developers.cloudflare.com/workers/runtime-apis/cache/",
     "https://developers.cloudflare.com/durable-objects/best-practices/access-durable-objects-storage/"
+  ],
+  "workersCacheVerification": [
+    {
+      "status": 200,
+      "cache": "MISS",
+      "age": null,
+      "validatedAt": "2026-10-29T06:00:33.000Z",
+      "upstreamRequests": "25",
+      "vehicles": 485,
+      "estimatedSpeeds": 0,
+      "headings": 483
+    },
+    {
+      "status": 200,
+      "cache": "HIT",
+      "age": "0",
+      "validatedAt": "2026-10-29T06:00:33.000Z",
+      "upstreamRequests": "25",
+      "vehicles": 485,
+      "estimatedSpeeds": 0,
+      "headings": 483
+    }
+  ],
+  "motionVerification": [
+    {
+      "at": "2026-10-29T06:02:13.930Z",
+      "sourceAt": "2026-10-29T06:02:12.000Z",
+      "vehicles": 485,
+      "estimatedSpeeds": 0,
+      "speedRange": null,
+      "sourceRequests": "26",
+      "cache": "EXPIRED"
+    },
+    {
+      "at": "2026-10-29T06:02:24.829Z",
+      "sourceAt": "2026-10-29T06:02:22.000Z",
+      "vehicles": 485,
+      "estimatedSpeeds": 275,
+      "speedRange": [
+        5,
+        60
+      ],
+      "sourceRequests": "27",
+      "cache": "EXPIRED"
+    }
   ]
 }

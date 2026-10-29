@@ -3,7 +3,7 @@ schema: openmapstack-findings/v1
 project_id: tallinn-transit
 question: Loo Tallinna ühistranspordi kaart ja uksest ukseni reisiplaneerija koos
   aadressiotsingu, sõidukite asukohtade, päris jalgsimarsruutide ning võrguta kasutamisega.
-run_id: run-20261029-053908
+run_id: run-20261029-060740
 scope: Tallinna ühistranspordi fikseeritud GTFS-i ja OSM-i andmepakett
 validation:
   status: warning
@@ -149,7 +149,7 @@ evidence:
 
 Loo Tallinna ühistranspordi kaart ja uksest ukseni reisiplaneerija koos aadressiotsingu, sõidukite asukohtade, päris jalgsimarsruutide ning võrguta kasutamisega.
 
-Scope: Tallinna ühistranspordi fikseeritud GTFS-i ja OSM-i andmepakett. Run: `run-20261029-053908`. Validation: **warning**.
+Scope: Tallinna ühistranspordi fikseeritud GTFS-i ja OSM-i andmepakett. Run: `run-20261029-060740`. Validation: **warning**.
 
 ## network
 

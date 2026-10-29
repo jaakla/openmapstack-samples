@@ -115,7 +115,8 @@ see piirang on projekti päritoluinfos säilitatud.
 
 Tootmisversioon kasutab avaldatud serverless API-t:
 **https://tallinn-transit-api.jaak-laineste.workers.dev/**.
-`GET /gps` vahendab Tallinna sõidukeid, `GET /geocode?q=...` In-ADS-i aadresse.
+`GET /gps` säilitab Tallinna algse CSV-voo, `GET /vehicles` tagastab sõidukid koos
+suuna ja hinnangulise keskmise kiirusega JSON-kujul; `GET /geocode?q=...` otsib In-ADS-i aadresse.
 `dist/` avaldatakse hoidla GitHub Pagesi töövoos alamkataloogi `tallinn-transit/`.
 Töövoog koostab kanoonilise andmepaketi ja käivitab ühik- ning brauseritestid.
 GPS-i ja aadressiotsingu Worker on eraldi avaldatud. Teekonnad arvutatakse
@@ -145,10 +146,12 @@ välja lülitatud. API võtmeid rakenduse kasutamiseks ei vaja.
   algsest 10-sekundilisest aknast järele jäänud aja. Päringuparameetrid ja lubatud
   origin'id ei tekita eraldi GPS-koopiaid. Cache API üksi pole globaalne, mistõttu
   on algallika koormuse piiramiseks vajalik ühine Durable Object.
-- Piirkondlik vahemälu asub Cloudflare'i servas, kuid seda loetakse Workeri
-  `caches.default` kaudu. Võrgupäring käivitab Workeri ka vahemälutabamuse korral;
-  tabamus jätab ära Durable Objecti ja algallika päringu. Brauseri HTTP-vahemälu
-  tabamus jätab ära ka Workeri päringu. Aadressiotsing ei kasuta jagatud vahemälu.
+- Workeri ees on lisaks uus **Workers Cache**, sisse lülitatud seadega
+  `cache.enabled: true`. `CF-Cache-Status: HIT` tähendab, et vastus väljastati
+  Workerit käivitamata. See austab `Vary: Origin`, `ETag`-i ja 10-sekundilist
+  värskusakent; vigu ega aadressiotsingut ei salvestata (`no-store`).
+  Workeri sees säilib `caches.default` piirkondliku vahemäluna ja Durable Object
+  globaalse algallikapiiranguna. Brauseri HTTP-vahemälu väldib ka CDN-päringut.
 - Algallikale saadetakse eelmine `If-None-Match` ja `If-Modified-Since`.
   2026-10-29 päriskontroll kinnitas `304 Not Modified` tuge, null andmebaidiga.
   Algallikas andis `ETag`-i ja `Last-Modified` päised, kuid mitte `Cache-Control`-i.
@@ -169,6 +172,26 @@ Viimase avaldamise ja päriskontrolli andmed on `deployment/worker.json`.
 
 Cloudflare'i alusdokumendid: [Cache API](https://developers.cloudflare.com/workers/runtime-apis/cache/)
 ja [Durable Objectsi püsiv olek](https://developers.cloudflare.com/durable-objects/best-practices/access-durable-objects-storage/).
+
+## Sõidukite suund ja hinnanguline kiirus
+
+Kaardi liininumber jääb püstiseks ja eraldi nool järgib kaardi pööramist.
+Eelistatakse algallika suunanurka. Puuduvat suunda saab hinnata vähemalt 15 m
+liikumise põhjal, kasutades viimast piisava pikkusega kahe punkti vahet; see
+väldib eelmise tänava suuna ülemäärast keskmistamist pärast pööret.
+
+Globaalses Durable Objectis hoitakse kuni kuut hiljutist vaatlust sõiduki kohta.
+Keskmine kiirus arvutatakse kuni 40 s aknas asukohapunktide vaheliste kauguste
+ja voo vaatlusaegade põhjal ning kuvatakse kujul **Hinnanguline keskmine kiirus: ~22 km/h (30 s)**.
+Puuduv või ebaselge väärtus jäetakse välja. Algallika tegelik kiirus, kui see on
+olemas, on eelistatud. Seisva sõiduki GPS-värinast ei tehta nullkiiruse mõõtmist.
+
+Need on voo vaatluste põhjal arvutatud hinnangud: voos puudub sõiduki enda
+mõõtmise ajatempel. Need ei ole mõõdetud hetkkiirus ega saabumisprognoos.
+HTTP 304 ja vahemälutabamused ei lisa vaatluspunkti. Üle 60 s paus, liinivahetus
+või üle 120 km/h eeldav asukohahüpe alustab uut seeriat; kadunud sõidukite ajalugu
+aegub 120 s järel. Ajaloos hoitakse kõige rohkem 1500 sõidukit ning lisapäringuid
+algallikasse ei tehta. Üle 45 s vanu hinnangulisi kiirusi brauser enam ei kuva.
 
 ## Kontrollimine ja kordamine
 

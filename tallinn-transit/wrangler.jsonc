@@ -6,6 +6,7 @@
   "compatibility_date": "2026-10-28",
   "workers_dev": true,
   "preview_urls": false,
+  "cache": { "enabled": true },
   "vars": {
     "ALLOWED_ORIGINS": "https://jaakla.github.io,http://127.0.0.1:5177,http://localhost:5177"
   },

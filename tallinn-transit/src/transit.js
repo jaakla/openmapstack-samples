@@ -190,8 +190,11 @@ export function finiteNumber(value) {
   if(value===null||value===undefined||(typeof value==='string'&&!value.trim())||typeof value==='boolean')return null;
   const n=Number(value);return Number.isFinite(n)?n:null;
 }
-export function cleanVehicle(vehicle) {
-  return {...vehicle,speed:finiteNumber(vehicle.speed),bearing:finiteNumber(vehicle.bearing),
+export function cleanVehicle(vehicle, now=Date.now()) {
+  const age=now-Date.parse(vehicle.motionObservedAt);
+  const speed=vehicle.speedSource==='estimated'&&age>45000?null:finiteNumber(vehicle.speed);
+  const bearing=vehicle.bearingSource==='estimated'&&age>60000?null:finiteNumber(vehicle.bearing);
+  return {...vehicle,speed:speed!==null&&speed>=0?speed:null,bearing:bearing!==null&&bearing>=0&&bearing<360?bearing:null,
     headsign:typeof vehicle.headsign==='string'&&!['undefined','null'].includes(vehicle.headsign)?vehicle.headsign:''};
 }
 export function normalize(text) { return String(text).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLocaleLowerCase('et'); }
@@ -210,10 +213,10 @@ export function parseGPS(text) {
     const [type, route, lonRaw, latRaw, speed, bearing, id, ...rest] = line.split(',');
     const lon = Number(lonRaw) / 1e6, lat = Number(latRaw) / 1e6;
     if (!id || !route || !lonRaw || !latRaw || !Number.isFinite(lon) || !Number.isFinite(lat) || lon < 24.3 || lon > 25.2 || lat < 59.2 || lat > 59.65) continue;
-    vehicles.push({ id, route: route.trim(), lon, lat, mode: type === '3' ? 'tram' : 'bus',
-      bearing: bearing !== '' && Number(bearing) < 360 ? Number(bearing) : null,
+    vehicles.push(cleanVehicle({ id, route: route.trim(), lon, lat, mode: type === '3' ? 'tram' : 'bus',
+      bearing: finiteNumber(bearing),
       speed: finiteNumber(speed),
-      headsign: rest.slice(2).join(',') });
+      headsign: rest.slice(2).join(',') }));
   }
   if (!vehicles.length) throw new Error('GPS response contains no valid Tallinn vehicle positions.');
   return vehicles;

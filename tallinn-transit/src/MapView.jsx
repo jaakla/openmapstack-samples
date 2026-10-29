@@ -17,8 +17,14 @@ function markerImage(color) {
   const ctx = c.getContext('2d');
   ctx.fillStyle = color; ctx.strokeStyle = 'white'; ctx.lineWidth = 4;
   ctx.beginPath(); ctx.roundRect(3, 3, 74, 44, 10); ctx.fill(); ctx.stroke();
-  ctx.beginPath(); ctx.moveTo(33, 47); ctx.lineTo(40, 54); ctx.lineTo(47, 47); ctx.fill();
+  // Route labels stay upright; a separate map-aligned arrow shows direction.
   return ctx.getImageData(0, 0, 80, 54);
+}
+function directionImage(color) {
+  const c=document.createElement('canvas');c.width=40;c.height=40;
+  const ctx=c.getContext('2d');ctx.fillStyle=color;ctx.strokeStyle='white';ctx.lineWidth=3;ctx.lineJoin='round';
+  ctx.beginPath();ctx.moveTo(20,3);ctx.lineTo(35,27);ctx.lineTo(24,23);ctx.lineTo(24,37);ctx.lineTo(16,37);ctx.lineTo(16,23);ctx.lineTo(5,27);ctx.closePath();ctx.fill();ctx.stroke();
+  return ctx.getImageData(0,0,40,40);
 }
 function nearestIndex(points, stop, min = 0) {
   let best = Infinity, index = min;
@@ -40,9 +46,9 @@ export default memo(function MapView({ data, shapes, theme, layers, route, journ
     map.addControl(new maplibregl.NavigationControl({ showCompass:false }), 'bottom-right');
     map.addControl(new maplibregl.ScaleControl({ maxWidth:110 }), 'bottom-left');
     map.on('click', e => {
-      const ids=['vehicles','vehicle-points','stops','stations'].filter(id=>map.getLayer(id));
+      const ids=['vehicles','vehicle-directions','vehicle-points','stops','stations'].filter(id=>map.getLayer(id));
       const hit=map.queryRenderedFeatures(e.point,{layers:ids})[0];
-      if(hit?.layer.id==='vehicles'||hit?.layer.id==='vehicle-points')callbacks.current.onInspect({...cleanVehicle(hit.properties),kind:'vehicle',lon:hit.geometry.coordinates[0],lat:hit.geometry.coordinates[1]});
+      if(hit?.layer.id==='vehicles'||hit?.layer.id==='vehicle-points'||hit?.layer.id==='vehicle-directions')callbacks.current.onInspect({...cleanVehicle(hit.properties),kind:'vehicle',lon:hit.geometry.coordinates[0],lat:hit.geometry.coordinates[1]});
       else if(hit?.layer.id==='stops'){
         const stop=data.stops[Number(hit.properties.index)];callbacks.current.onInspect({...data.stations.find(s=>s.id===stop.stationId),kind:'station'});
       }else if(hit?.layer.id==='stations')callbacks.current.onInspect({...data.stations.find(s=>s.id===hit.properties.id),kind:'station'});
@@ -51,7 +57,7 @@ export default memo(function MapView({ data, shapes, theme, layers, route, journ
         callbacks.current.onInspect({kind:'point',lon:e.lngLat.lng,lat:e.lngLat.lat,name:typeof label==='string'?label:'Valitud asukoht'});
       }
     });
-    for (const id of ['stops','stations','vehicles','vehicle-points']) {
+    for (const id of ['stops','stations','vehicles','vehicle-directions','vehicle-points']) {
       map.on('mouseenter', id, () => map.getCanvas().style.cursor = 'pointer');
       map.on('mouseleave', id, () => map.getCanvas().style.cursor = '');
     }
@@ -78,6 +84,8 @@ export default memo(function MapView({ data, shapes, theme, layers, route, journ
         // adding the same image again emits an error during each theme change.
         if(!map.hasImage('bus-marker'))map.addImage('bus-marker', markerImage('#0866ed'), {pixelRatio:2});
         if(!map.hasImage('tram-marker'))map.addImage('tram-marker', markerImage('#e45d46'), {pixelRatio:2});
+        if(!map.hasImage('bus-direction'))map.addImage('bus-direction',directionImage('#0866ed'),{pixelRatio:2});
+        if(!map.hasImage('tram-direction'))map.addImage('tram-direction',directionImage('#e45d46'),{pixelRatio:2});
         for (const name of ['routes','stops','stations','vehicles','journey','selection','endpoints','nearby']) map.addSource(name,{type:'geojson',data:empty()});
         map.addLayer({id:'nearby-walks',type:'line',source:'nearby',paint:{'line-color':theme==='dark'?'#bac9d8':'#596f85','line-width':3,'line-opacity':0.5,'line-dasharray':[1,1]}});
         map.addLayer({id:'network',type:'line',source:'routes',paint:{'line-color':['match',['get','mode'],'tram','#e45d46','#0866ed'],'line-width':2,'line-opacity':0.3}});
@@ -89,8 +97,9 @@ export default memo(function MapView({ data, shapes, theme, layers, route, journ
         map.addLayer({id:'stops',type:'circle',source:'stops',minzoom:15,paint:{'circle-radius':5,'circle-color':theme==='dark'?'#192635':'#fff','circle-stroke-color':theme==='dark'?'#adc2d8':'#6b8199','circle-stroke-width':1.5}});
         map.addLayer({id:'stop-labels',type:'symbol',source:'stops',minzoom:15,layout:{'text-field':['get','name'],'text-font':['Noto Sans Regular'],'text-size':11,'text-anchor':'top','text-offset':[0,0.65]},paint:{'text-color':theme==='dark'?'#e4edf5':'#435366','text-halo-color':theme==='dark'?'#192635':'#fff','text-halo-width':1.5}});
         map.addLayer({id:'vehicle-points',type:'circle',source:'vehicles',paint:{'circle-radius':3,'circle-color':['match',['get','mode'],'tram','#e45d46','#0866ed'],'circle-stroke-color':'white','circle-stroke-width':1}});
+        map.addLayer({id:'vehicle-directions',type:'symbol',source:'vehicles',minzoom:11,filter:['all',['>=',['coalesce',['get','bearing'],-1],0],['<',['coalesce',['get','bearing'],-1],360]],layout:{'icon-image':['match',['get','mode'],'tram','tram-direction','bus-direction'],'icon-rotate':['get','bearing'],'icon-rotation-alignment':'map','icon-pitch-alignment':'map','icon-offset':[0,-22],'icon-allow-overlap':true,'icon-ignore-placement':true}});
         map.addLayer({id:'vehicles',type:'symbol',source:'vehicles',layout:{'icon-image':['match',['get','mode'],'tram','tram-marker','bus-marker'],'icon-allow-overlap':false,'text-field':['get','route'],'text-font':['Noto Sans Medium'],'text-size':12,'text-allow-overlap':false,'text-offset':[0,-0.17]},paint:{'text-color':'#fff'}});
-        map.addLayer({id:'journey-labels',type:'symbol',source:'journey',filter:['==',['get','type'],'ride'],layout:{'symbol-placement':'line','symbol-spacing':180,'text-field':['get','lineLabel'],'text-font':['Noto Sans Medium'],'text-size':14,'text-padding':6,'text-keep-upright':true},paint:{'text-color':['match',['get','mode'],'tram','#c7422c','#0057ce'],'text-halo-color':theme==='dark'?'#182432':'#fff','text-halo-width':4}});
+        map.addLayer({id:'journey-labels',type:'symbol',source:'journey',filter:['==',['get','type'],'ride'],layout:{'symbol-placement':'line','symbol-spacing':180,'text-field':['get','lineLabel'],'text-font':['Noto Sans Medium'],'text-size':14,'text-padding':6,'text-keep-upright':true,'text-allow-overlap':true,'text-ignore-placement':true},paint:{'text-color':['match',['get','mode'],'tram','#c7422c','#0057ce'],'text-halo-color':theme==='dark'?'#182432':'#fff','text-halo-width':4}});
         map.addLayer({id:'endpoint-points',type:'circle',source:'endpoints',paint:{'circle-radius':8,'circle-color':'#fff','circle-stroke-color':'#0866ed','circle-stroke-width':4}});
         map.addLayer({id:'endpoint-labels',type:'symbol',source:'endpoints',layout:{'text-field':['get','name'],'text-font':['Noto Sans Medium'],'text-size':14,'text-anchor':'bottom-left','text-offset':[0.7,-0.7],'text-allow-overlap':true},paint:{'text-color':theme==='dark'?'#fff':'#162639','text-halo-color':theme==='dark'?'#15202c':'#fff','text-halo-width':3}});
         map.addLayer({id:'selected-stop',type:'circle',source:'selection',paint:{'circle-radius':9,'circle-color':'#fff','circle-stroke-color':'#0866ed','circle-stroke-width':4}});
@@ -119,6 +128,7 @@ export default memo(function MapView({ data, shapes, theme, layers, route, journ
     map.setFilter('route-highlight', ['==',['get','route'],route ?? -1]);
     const visible = vehicles.filter(v => layers[v.mode] && (route === null || v.route === data.routes[route]?.name));
     map.getSource('vehicles').setData({type:'FeatureCollection',features:visible.map(v => feature([v.lon,v.lat],v))});
+    map.setPaintProperty('vehicle-directions','icon-opacity',stale?0.42:1);
     map.setPaintProperty('vehicles','icon-opacity',stale?0.42:1);
     map.setPaintProperty('vehicles','text-opacity',stale?0.65:1);
     map.setPaintProperty('vehicle-points','circle-opacity',stale?0.42:1);
@@ -168,7 +178,7 @@ export default memo(function MapView({ data, shapes, theme, layers, route, journ
     const heading=document.createElement('h3');heading.textContent=inspection.kind==='vehicle'?`${inspection.mode==='tram'?'Tramm':'Buss'} ${inspection.route}`:inspection.name;box.append(heading);
     const text=value=>{if(!value)return;const p=document.createElement('p');p.textContent=value;box.append(p);};
     if(inspection.kind==='vehicle'){
-      const v=cleanVehicle(inspection);if(v.headsign)text(`Suund: ${v.headsign}`);if(v.id)text(`Sõiduk ${v.id}`);if(v.speed!==null&&v.speed>=0)text(`${v.speed} km/h`);
+      const v=cleanVehicle(inspection);if(v.headsign)text(`Suund: ${v.headsign}`);if(v.id)text(`Sõiduk ${v.id}`);if(v.speed!==null&&v.speed>=0){if(v.speedSource==='estimated')text(`Hinnanguline keskmine kiirus: ~${v.speed} km/h${v.speedWindowSeconds?` (${v.speedWindowSeconds} s)`:''}`);else text(`${v.speed} km/h`);}if(v.bearingSource==='estimated')text('Liikumissuund on hinnatud hiljutiste asukohtade põhjal.');
     }else{
       if(inspection.kind==='station')text('Peatuse väljumised ja teekonna valikud');
       else text(`${inspection.lat.toFixed(5)}, ${inspection.lon.toFixed(5)}`);

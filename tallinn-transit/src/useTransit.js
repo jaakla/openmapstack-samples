@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { asset, registerOffline } from './offline.js';
-import { parseGPS, gpsValidatedAt } from './transit.js';
+import { parseGPS, gpsValidatedAt, cleanVehicle } from './transit.js';
 
 export function useNetwork() {
   const [state, setState] = useState({ data: null, shapes: null, project: null, error: '' });
@@ -63,7 +63,8 @@ export function useLive(paused, endpoint,enabled=true) {
       try {
         const response = await fetch(endpoint, { cache: 'default', credentials: 'omit', signal: AbortSignal.any([controller.signal, AbortSignal.timeout(12000)]) });
         if (!response.ok) throw new Error('Sõidukite asukohti ei õnnestunud uuendada.');
-        const vehicles = parseGPS(await response.text());
+        const json=response.headers.get('content-type')?.includes('application/json');
+        const vehicles=json?(await response.json()).vehicles.map(v=>cleanVehicle(v)):parseGPS(await response.text());
         const modifiedAt = Date.parse(response.headers.get('last-modified'));
         if (!cancelled) {setNow(Date.now());setState({ vehicles, fetchedAt: gpsValidatedAt(response.headers), modifiedAt: Number.isFinite(modifiedAt) ? modifiedAt : null, error: '', loading: false });}
       } catch (error) {

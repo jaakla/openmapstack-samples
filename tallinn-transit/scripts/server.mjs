@@ -15,7 +15,7 @@ const server=http.createServer(async(req,res)=>{
     try{const items=await geocode(url.searchParams.get('q'));res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(items));}
     catch(e){res.writeHead(502,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify({error:e.message}));}return;
   }
-  if(url.pathname==='/api/gps'){
+  if(url.pathname==='/api/gps'||url.pathname==='/api/vehicles'){
     let response;
     try { response = gpsResponse(await gps.get(), new Request(url, { method: req.method, headers: req.headers })); }
     catch (error) { response = gpsError(error); }

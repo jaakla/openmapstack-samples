@@ -75,7 +75,7 @@ function TransitApp({data,shapes,project,walking}) {
   const [mode,setMode]=useState(()=>!navigator.onLine?'offline':localStorage.getItem('tallinn-mode')||'online'),[connected,setConnected]=useState(navigator.onLine);
   const [paused,setPaused]=useState(false),[progress,setProgress]=useState(null),[notice,setNotice]=useState(''),[mapReady,setMapReady]=useState(false);
   const online=mode==='online'&&connected;
-  const router=useRouter(data,walking),live=useLive(paused,import.meta.env.VITE_GPS_URL||api('gps'),online&&progress===null);
+  const router=useRouter(data,walking),live=useLive(paused,import.meta.env.VITE_GPS_URL||api('vehicles'),online&&progress===null);
   const latestSearch=useRef(0);
   useEffect(()=>{document.documentElement.dataset.theme=theme;localStorage.setItem('tallinn-theme',theme);},[theme]);
   useEffect(()=>{

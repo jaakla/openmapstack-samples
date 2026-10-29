@@ -103,7 +103,7 @@ test('regional cache shares all origins and query variants without extending fre
   assert.equal(c.status, 304);assert.equal(await c.text(), '');assert.equal(f.objectCalls(), 1);
   for (const entry of f.entries.values()) {
     const headers = new Headers(entry.headers);headers.set('X-GPS-Validated-At', new Date(Date.now() - 11000).toISOString());
-    f.entries.set('https://relay.example/__gps_feed_v1', new Response(body, { headers }));
+    f.entries.set('https://relay.example/__gps_feed_v2', new Response(body, { headers }));
   }
   const d = await f.send();assert.equal(d.headers.get('X-GPS-Cache'), 'GLOBAL');assert.equal(f.objectCalls(), 2);assert.equal(f.calls.length, 1);
 });
@@ -121,4 +121,14 @@ test('browser cache hits retain validation age rather than becoming new GPS fixe
   assert.equal(gpsValidatedAt(new Headers({ 'X-GPS-Validated-At': new Date(at).toISOString() }), now), at);
   assert.equal(gpsValidatedAt(new Headers({ Age: '8' }), now), now - 8000);
   assert.equal(gpsValidatedAt(new Headers({ 'X-GPS-Validated-At': new Date(now + 1000).toISOString() }), now), now);
+});
+
+test('enriched JSON and legacy CSV share a refresh but have independent caches and ETags',async()=>{
+ const f=workerFixture();f.cache.now=Date.now;
+ const raw=await f.send('/gps'), json=await f.send('/vehicles');
+ assert.equal(json.status,200);assert(json.headers.get('Content-Type').includes('application/json'));
+ const data=await json.json();assert.equal(data.vehicles[0].bearing,138);assert.equal(data.vehicles[0].bearingSource,'feed');
+ assert.notEqual(raw.headers.get('ETag'),json.headers.get('ETag'));assert.equal(f.calls.length,1);
+ const cached=await f.send('/api/vehicles?client=2');assert.equal(cached.headers.get('X-GPS-Cache'),'EDGE');assert.equal((await cached.json()).vehicles[0].bearing,138);
+ const conditional=await f.send('/vehicles','https://jaakla.github.io',{'If-None-Match':json.headers.get('ETag')});assert.equal(conditional.status,304);assert.equal(await conditional.text(),'');assert.equal(f.calls.length,1);
 });

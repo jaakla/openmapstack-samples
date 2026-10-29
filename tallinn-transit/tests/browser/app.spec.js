@@ -23,6 +23,7 @@ test('Estonian rider flows, grouped stops, actual departures and colored numbere
   const route=await page.evaluate(async()=>{const m=document.querySelector('.map-canvas').__tallinnMap;return {features:(await m.getSource('journey').getData()).features,paint:m.getPaintProperty('journey-line','line-color'),labels:m.getLayoutProperty('journey-labels','text-field')};});
   expect(route.features.some(f=>f.properties.mode==='tram'&&f.properties.lineLabel.includes('T'))).toBe(true);
   expect(JSON.stringify(route.paint)).toContain('#e45d46');expect(route.labels).toEqual(['get','lineLabel']);
+  await expect.poll(()=>page.locator('.map-canvas').evaluate(el=>{const m=el.__tallinnMap;return m.getLayer('journey-labels')?m.queryRenderedFeatures({layers:['journey-labels']}).length:0;})).toBeGreaterThan(0);
   await page.getByRole('combobox',{name:'Lähtekoht',exact:true}).fill('Balti jaam');
   await expect(page.getByRole('option').filter({hasText:'Peatus ·'}).filter({has:page.locator('strong',{hasText:/^Balti jaam$/})})).toHaveCount(1);
   await page.getByRole('option').filter({hasText:'Peatus ·'}).first().click();
@@ -38,7 +39,7 @@ test('live map positions survive pause/resume, layer toggles and repeated style 
   // a separate full-pack test with service workers enabled.
   const context=await browser.newContext({serviceWorkers:'block'}),page=await context.newPage();
   let requests=0;
-  await page.route(/\/(?:api\/)?gps(?:\?|$)/,route=>{requests++;return route.fulfill({contentType:'text/plain',body:'3,T2,24740000,59438000,,138,501,Z,179,Lennujaam',headers:{'Last-Modified':new Date().toUTCString()}});});
+  await page.route(/\/(?:api\/)?(?:gps|vehicles)(?:\?|$)/,route=>{requests++;return route.fulfill({contentType:'text/plain',body:'3,T2,24740000,59438000,,138,501,Z,179,Lennujaam',headers:{'Last-Modified':new Date().toUTCString()}});});
   await ready(page);await morning(page);await expect.poll(()=>vehicleCount(page)).toBe(1);
   const initial=requests;await page.getByRole('button',{name:'Peata asukohtade uuendamine'}).click();await expect(page.locator('.live-card')).toContainText('pausil');await expect.poll(()=>vehicleCount(page)).toBe(1);
   await page.getByRole('button',{name:'Jätka asukohtade uuendamist'}).click();await expect.poll(()=>requests).toBeGreaterThan(initial);await expect.poll(()=>vehicleCount(page)).toBe(1);
@@ -108,4 +109,18 @@ test('deployed GPS relay supports the browser HTTP cache without renewing valida
   expect(result[1].at).toBe(result[0].at);expect(result[1].count).toBe(result[0].count);expect(result[1].body).toBe(result[0].body);
   expect(result[0].policy).toBe('public, max-age=10, s-maxage=10, must-revalidate');
   await expect.poll(()=>cacheHits).toBeGreaterThan(0);
+});
+
+test('vehicle arrows follow map direction and estimated average speed is clearly labelled',async({browser})=>{
+  const context=await browser.newContext({serviceWorkers:'block'}),page=await context.newPage();
+  await page.route(/\/vehicles(?:\?|$)/,route=>route.fulfill({json:{version:1,vehicles:[{id:'motion-test',route:'T2',mode:'tram',lon:24.74,lat:59.438,bearing:90,bearingSource:'feed',speed:22,speedSource:'estimated',speedWindowSeconds:30,motionObservedAt:new Date().toISOString(),headsign:'Lennujaam'}]},headers:{'Last-Modified':new Date().toUTCString()}}));
+  await ready(page);await expect.poll(()=>vehicleCount(page)).toBe(1);
+  await page.locator('.map-canvas').evaluate(el=>el.__tallinnMap.jumpTo({center:[24.74,59.438],zoom:15,bearing:35}));
+  await page.waitForFunction(()=>document.querySelector('.map-canvas').__tallinnMap.queryRenderedFeatures({layers:['vehicle-directions']}).some(f=>f.properties.id==='motion-test'&&f.properties.bearing===90));
+  const info=await page.locator('.map-canvas').evaluate(el=>{const m=el.__tallinnMap;return{rotation:m.getLayoutProperty('vehicle-directions','icon-rotation-alignment'),textRotation:m.getLayoutProperty('vehicles','text-rotate')||0};});
+  expect(info).toEqual({rotation:'map',textRotation:0});
+  const position=await page.locator('.map-canvas').evaluate(el=>{const p=el.__tallinnMap.project([24.74,59.438]);return{x:p.x,y:p.y};});
+  await page.locator('.map-canvas').click({position});await expect(page.locator('.map-inspection')).toContainText('Hinnanguline keskmine kiirus: ~22 km/h (30 s)');
+  await expect(page.locator('.map-inspection')).not.toContainText(/undefined|null/);await expect(page.locator('.map-error')).toHaveCount(0);
+  await context.close();
 });

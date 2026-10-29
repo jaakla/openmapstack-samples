@@ -1,3 +1,4 @@
+import { observeVehicles } from './vehicle-motion.mjs';
 // Shared, demand-driven feed: concurrent requests and failures obey the same cap.
 export const GPS_TTL = 10;
 export const GPS_UPSTREAM = 'https://transport.tallinn.ee/gps.txt?x=1';
@@ -44,9 +45,18 @@ export class GpsFeedCache {
         if (!upstream.ok) { await upstream.body?.cancel(); throw new FeedUnavailable(); }
         const body = await upstream.text();
         if (!/^\d+,/.test(body.trim())) throw new FeedUnavailable();
-        const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(body));
-        const hash = [...new Uint8Array(digest)].map(x => x.toString(16).padStart(2, '0')).join('');
+        const hash = await contentHash(body);
         snapshot = { body, etag: `W/"${hash}"`, upstreamEtag: upstream.headers.get('etag'), modified: upstream.headers.get('last-modified') };
+      }
+      // Append only genuine new source versions, never cache hits or HTTP 304.
+      const sourceTime = Date.parse(snapshot.modified);
+      const observedAt = Number.isFinite(sourceTime) ? sourceTime : started;
+      const changed = !previous || snapshot.etag !== previous.etag || snapshot.modified !== previous.modified;
+      if (changed || !snapshot.vehiclesBody) {
+        const motion = observeVehicles(snapshot.body, observedAt, this.state.motionHistory);
+        this.state.motionHistory = motion.history;
+        snapshot.vehiclesBody = JSON.stringify({ version: 1, observedAt: new Date(observedAt).toISOString(), vehicles: motion.vehicles });
+        snapshot.vehiclesEtag = `W/"${await contentHash(snapshot.vehiclesBody)}"`;
       }
       // Freshness starts at the request, never when a downstream cache serves it.
       this.state.snapshot = { ...snapshot, validatedAt: started, upstreamRequests: this.state.upstreamRequests, upstreamStatus: upstream.status };
@@ -60,13 +70,23 @@ export class GpsFeedCache {
     }
   }
 }
+export async function contentHash(body) {
+  const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(body));
+  return [...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('');
+}
 export function gpsResponse(snapshot, request, { now = Date.now(), cache = 'GLOBAL' } = {}) {
+  const enriched = new URL(request.url).pathname.endsWith('/vehicles');
+  // An existing Durable Object may still hold a fresh pre-upgrade CSV snapshot.
+  // Serve native fields immediately without bypassing its upstream rate limit.
+  const initial = enriched && !snapshot.vehiclesBody ? observeVehicles(snapshot.body, Date.parse(snapshot.modified) || snapshot.validatedAt).vehicles : null;
+  const etag = enriched ? snapshot.vehiclesEtag || `W/"vehicles-${snapshot.etag.replace(/[^a-zA-Z0-9]/g,'')}"` : snapshot.etag;
+  const body = enriched ? snapshot.vehiclesBody || JSON.stringify({version:1,vehicles:initial}) : snapshot.body;
   const headers = new Headers({
-    'Content-Type': 'text/plain; charset=utf-8',
+    'Content-Type': enriched ? 'application/json; charset=utf-8' : 'text/plain; charset=utf-8',
     'Cache-Control': `public, max-age=${GPS_TTL}, s-maxage=${GPS_TTL}, must-revalidate`,
     Date: new Date(snapshot.validatedAt).toUTCString(),
     Age: String(Math.max(0, Math.ceil((now - snapshot.validatedAt) / 1000))),
-    ETag: snapshot.etag,
+    ETag: etag,
     'X-GPS-Validated-At': new Date(snapshot.validatedAt).toISOString(),
     'X-GPS-Upstream-Requests': String(snapshot.upstreamRequests),
     'X-GPS-Upstream-Status': String(snapshot.upstreamStatus),
@@ -76,9 +96,9 @@ export function gpsResponse(snapshot, request, { now = Date.now(), cache = 'GLOB
   const noneMatch = request.headers.get('if-none-match');
   const since = Date.parse(request.headers.get('if-modified-since'));
   const modified = Date.parse(snapshot.modified);
-  const unchanged = noneMatch ? noneMatch.split(',').some(tag => tag.trim() === '*' || tag.trim().replace(/^W\//, '') === snapshot.etag.replace(/^W\//, ''))
-    : Number.isFinite(since) && Number.isFinite(modified) && modified <= since;
-  return new Response(unchanged || request.method === 'HEAD' ? null : snapshot.body, { status: unchanged ? 304 : 200, headers });
+  const unchanged = noneMatch ? noneMatch.split(',').some(tag => tag.trim() === '*' || tag.trim().replace(/^W\//, '') === etag.replace(/^W\//, ''))
+    : !enriched && Number.isFinite(since) && Number.isFinite(modified) && modified <= since;
+  return new Response(unchanged || request.method === 'HEAD' ? null : body, { status: unchanged ? 304 : 200, headers });
 }
 export function gpsError(error) {
   return new Response('Sõidukite asukohad pole praegu kättesaadavad.', { status: 503, headers: {

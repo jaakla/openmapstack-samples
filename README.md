@@ -4,7 +4,7 @@ Source-backed geospatial applications built with [OpenMapStack](https://github.c
 
 ## Tallinn liigub
 
-Tallinn bus and tram map with live GPS vehicles, route and platform search, scheduled departures, and local departure-time/arrival-deadline journey planning. Save the app, GTFS schedules and city basemap for offline use. A small relay handles public GPS requests; journeys stay on the device.
+Tallinn bus and tram map with live vehicles, direction arrows and clearly labelled average-speed estimates, stop and address search, scheduled departures, and local departure-time/arrival-deadline journey planning. Save the app, GTFS schedules and city basemap for offline use. A small relay handles public GPS requests; journeys stay on the device.
 
 - [Run locally, sources, tests and reproducible pipeline](tallinn-transit/README.md)
 - [Open the public app](https://jaakla.github.io/openmapstack-samples/tallinn-transit/)
