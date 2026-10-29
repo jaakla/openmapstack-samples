@@ -77,5 +77,5 @@ export function useLive(paused, endpoint,enabled=true) {
   }, [paused, endpoint,enabled]);
   const age = state.fetchedAt ? Math.max(0, Math.floor((now - state.fetchedAt) / 1000)) : null;
   const sourceAge = state.modifiedAt ? Math.max(0, Math.floor((now - state.modifiedAt) / 1000)) : null;
-  return { ...state, age, sourceAge, stale: age === null || age > 45 || (sourceAge !== null && sourceAge > 60), expired: age === null || age > 180 || (sourceAge !== null && sourceAge > 180) };
+  return { ...state, vehicles:state.vehicles.filter(v=>!v.fixAt||(Number.isFinite(Date.parse(v.fixAt))&&now-Date.parse(v.fixAt)<=180000)), age, sourceAge, stale: age === null || age > 45 || (sourceAge !== null && sourceAge > 60), expired: age === null || age > 180 || (sourceAge !== null && sourceAge > 180) };
 }

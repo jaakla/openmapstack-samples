@@ -3,8 +3,8 @@ schema: openmapstack-findings/v1
 project_id: tallinn-transit
 question: Loo Tallinna ühistranspordi kaart ja uksest ukseni reisiplaneerija koos
   aadressiotsingu, sõidukite asukohtade, päris jalgsimarsruutide ning võrguta kasutamisega.
-run_id: run-20261029-060740
-scope: Tallinna ühistranspordi fikseeritud GTFS-i ja OSM-i andmepakett
+run_id: run-20261029-074340
+scope: Tallinna linnatranspordi, Elroni ja OSM-i fikseeritud andmepakett
 validation:
   status: warning
   checks:
@@ -28,12 +28,14 @@ validation:
     status: passed
   - id: route_modes_known
     status: passed
+  - id: rail_network
+    status: passed
   - id: live_fix_time
     status: warning
   - id: walking_network
     status: passed
 validation_report: validation/latest-report.json
-context_sha256: sha256:807c4ec91d877022aa268d786344ad29602458d028fc4bfd768fe3dbc0ee433b
+context_sha256: sha256:db7a4ccaa5717815e548bac326bc24b21ff1265a3e64a65270253077438fa7ec
 assumptions:
 - id: A1
   statement: Sama peatuse lähestikku paiknevad platvormid koondatakse kuni 400 m vahedega.
@@ -57,20 +59,28 @@ assumptions:
   statement: Veebirežiimis uuendatakse GPS-i iga 10 sekundi järel. Võrguta režiimi
     valimine salvestab kogu andmepaketi ja eemaldab GPS-asukohad. Paus peatab uuendamise,
     jätkamine küsib asukohad kohe uuesti.
-  rationale: GPS vajab võrguühendust. Üksiksõidukite asukohamõõtmise aeg ja hilinemised
-    ei ole teada.
+  rationale: GPS vajab võrguühendust. Tallinn ei anna üksiksõiduki mõõtmisaega; Elron
+    annab selle Europe/Tallinn ajavööndis.
 - id: A5
   statement: Hoone või platvorm ühendatakse lähima sobiva teelõiguga kuni 70 m piires.
     Edasine teekond järgib olemasolevat võrku. Arvestatakse foot/access piiranguid,
     suletud tõkkeid ja oneway:foot suundi.
   rationale: Hoone viitepunkt ei ole alati sissepääs. Viimaste meetrite ühendus võib
     olla ligikaudne; ligipääsetavus ja ajutised sulgemised vajavad kohapealset kontrolli.
+- id: A6
+  statement: Rongid osalevad samas sõiduplaanipõhises teekonnaotsingus bussi ja trammiga.
+    Elroni GTFS-i peatus Tallinn on koondatud Balti jaamaga; säilivad eri suundade
+    peatused ja tegelikud jalgsikäigud. Puuduvaid perrooni numbreid ei tuletata peatuse
+    ID-st.
+  rationale: Linna sees võib rong anda kiireima ühenduse, ent ümberistumine peab järgima
+    jalgteid.
 warnings:
 - id: LIVE-001
   severity: medium
   issue: fix_time_unknown
-  statement: GPS näitab sõidukite viimati saadud asukohti. Üksiksõidukite mõõtmisaeg,
-    hilinemised ja prognoositavad saabumised pole teada.
+  statement: Tallinna busside ja trammide GPS ei anna üksiksõiduki mõõtmisaega. Elroni
+    rongide mõõtmisaeg on teada ja üle 3 minuti vanad asukohad eemaldatakse. Teekonna
+    ajad lähtuvad sõiduplaanist, mitte GPS-ist.
   mitigation: Aegunud asukohad tuhmuvad ja eemaldatakse; teekonna ajad lähtuvad sõiduplaanist.
 - id: WALK-001
   severity: medium
@@ -91,16 +101,25 @@ warnings:
   statement: Tallinna ühistranspordivood on avalikud, kuid nende standardset edasilevitamise
     litsentsi ei leitud. Allikaviited on säilitatud.
   mitigation: Laiema edasilevitamise tingimused tuleb linnaga täpsustada.
+- id: RAIL-001
+  severity: medium
+  issue: rail_coverage_and_snapshot
+  statement: Elron on kaasatud olemasoleva Tallinna ja lähiümbruse kaardi piires,
+    kuni Valingu, Saku ja Kullini. Rongisõiduplaani lähteversioon on 01.10.2026; hilisemad
+    ajutised muudatused ei pruugi selles sisalduda. Kontrolli enne rongireisi Elroni
+    teateid.
+  mitigation: Värskenda GTFS-i kontrollitud lähtevoost; ära pikenda katvust ilma kaartide
+    ja jalgsivõrgu uuendamiseta.
 findings:
 - id: network
-  statement: Andmepakett sisaldab 80 liini, 517 koondatud peatust, 1118 platvormi
-    ja 20048 sõiduplaanireisi. Teenindus sõltub valitud kuupäevast.
+  statement: Andmepakett sisaldab 104 liini, 532 koondatud peatust, 1166 platvormi
+    ja 21500 sõiduplaanireisi. Teenindus sõltub valitud kuupäevast.
   evidence:
   - stops
   - stations
   - routes
 - id: transfers
-  statement: Ümberistumiste võrk sisaldab 9864 suunatud OSM-i jalgsimarsruuti pikkusega
+  statement: Ümberistumiste võrk sisaldab 10386 suunatud OSM-i jalgsimarsruuti pikkusega
     kuni 600 meetrit, mõõdetuna EPSG:3301 süsteemis.
   evidence:
   - stops
@@ -114,8 +133,8 @@ findings:
   evidence:
   - routes
   limitations:
-  - GPS-i voos puudub üksiksõiduki mõõtmisaeg. Hiljuti saadud vastus võib sisaldada
-    vanemaid asukohti.
+  - Tallinna GPS-i voos puudub üksiksõiduki mõõtmisaeg. Elron annab mõõtmisaja; üle
+    180 s vanad rongiasukohad jäetakse välja.
 evidence:
   stops:
     definition:
@@ -125,7 +144,7 @@ evidence:
       crs: EPSG:4326
     files:
     - path: data/derived/stops.geojson
-      sha256: sha256:8b9c0cf1bbfbf339364477473f36f67c39e21feaf803d083ab64021f55bff2ff
+      sha256: sha256:106fb1f0a81b5b1a3294fc7dcdc8b7368d0e95de52224fed2d6000426b2df43f
   stations:
     definition:
       path: data/derived/stations.geojson
@@ -134,7 +153,7 @@ evidence:
       crs: EPSG:4326
     files:
     - path: data/derived/stations.geojson
-      sha256: sha256:e326e936d63bb03b1067109ed9cc3f66b3355308d48d20c2ded8a85b307f4366
+      sha256: sha256:cb6367ee4af9e66a583dd3f2fc2dedb7131589acc9507dd23102ce9aa5839e66
   routes:
     definition:
       path: data/derived/routes.geojson
@@ -143,17 +162,17 @@ evidence:
       crs: EPSG:4326
     files:
     - path: data/derived/routes.geojson
-      sha256: sha256:e72a7497c1fa5c505aefb3b80f0ece70201c84a8197f716be25707b8e6405491
+      sha256: sha256:fdc4123bc335ea867c2c5fa6195399c51d32e468799fe84242383d82026a9ebe
 ---
 # Findings
 
 Loo Tallinna ühistranspordi kaart ja uksest ukseni reisiplaneerija koos aadressiotsingu, sõidukite asukohtade, päris jalgsimarsruutide ning võrguta kasutamisega.
 
-Scope: Tallinna ühistranspordi fikseeritud GTFS-i ja OSM-i andmepakett. Run: `run-20261029-060740`. Validation: **warning**.
+Scope: Tallinna linnatranspordi, Elroni ja OSM-i fikseeritud andmepakett. Run: `run-20261029-074340`. Validation: **warning**.
 
 ## network
 
-Andmepakett sisaldab 80 liini, 517 koondatud peatust, 1118 platvormi ja 20048 sõiduplaanireisi. Teenindus sõltub valitud kuupäevast.
+Andmepakett sisaldab 104 liini, 532 koondatud peatust, 1166 platvormi ja 21500 sõiduplaanireisi. Teenindus sõltub valitud kuupäevast.
 
 Evidence:
 
@@ -163,7 +182,7 @@ Evidence:
 
 ## transfers
 
-Ümberistumiste võrk sisaldab 9864 suunatud OSM-i jalgsimarsruuti pikkusega kuni 600 meetrit, mõõdetuna EPSG:3301 süsteemis.
+Ümberistumiste võrk sisaldab 10386 suunatud OSM-i jalgsimarsruuti pikkusega kuni 600 meetrit, mõõdetuna EPSG:3301 süsteemis.
 
 Evidence:
 
@@ -179,19 +198,21 @@ Evidence:
 
 - [routes](data/derived/routes.geojson)
 
-Limitation: GPS-i voos puudub üksiksõiduki mõõtmisaeg. Hiljuti saadud vastus võib sisaldada vanemaid asukohti.
+Limitation: Tallinna GPS-i voos puudub üksiksõiduki mõõtmisaeg. Elron annab mõõtmisaja; üle 180 s vanad rongiasukohad jäetakse välja.
 
 ## Assumptions and limitations
 
 - Sama peatuse lähestikku paiknevad platvormid koondatakse kuni 400 m vahedega. Nimesid „Balti jaam 1” ja „Balti jaam” käsitletakse ühise peatusena ainult siis, kui numbrita nimi on lähteandmetes olemas. Loendid ja kaugvaade näitavad peatust; sõidujuhised määravad täpse platvormi. Veebis lisanduvad In-ADS-i aadressid. Üks peatus võib teenindada mitut suunda. Eraldi kaugel paiknevaid samanimelisi peatusi ei ühendata.
 - Kõnniteed järgitakse OpenStreetMapi jalakäijate teedevõrgus. Vaikimisi võrreldakse kõiki kuni 1000 m jalgsikäigu kaugusel platvorme; ümberistumiste jalgsitee võib olla kuni 600 m. Kõndimise kiirus on 1,25 m/s; ümberistumisel lisandub 120 sekundit varuaega. Pikem jalgsikäik võib anda kiirema ühenduse. Lähim peatus ei ole ainus kandidaat.
 - Kuupäev ja kellaaeg käivad Europe/Tallinn ajavööndi järgi. Arvesse lähevad kalendrierandid, südaööd ületavad reisid ning eelmine, valitud ja järgmine teeninduspäev. Teekond peab jääma õigeks ka välismaa ajavööndis seadmes.
-- Veebirežiimis uuendatakse GPS-i iga 10 sekundi järel. Võrguta režiimi valimine salvestab kogu andmepaketi ja eemaldab GPS-asukohad. Paus peatab uuendamise, jätkamine küsib asukohad kohe uuesti. GPS vajab võrguühendust. Üksiksõidukite asukohamõõtmise aeg ja hilinemised ei ole teada.
+- Veebirežiimis uuendatakse GPS-i iga 10 sekundi järel. Võrguta režiimi valimine salvestab kogu andmepaketi ja eemaldab GPS-asukohad. Paus peatab uuendamise, jätkamine küsib asukohad kohe uuesti. GPS vajab võrguühendust. Tallinn ei anna üksiksõiduki mõõtmisaega; Elron annab selle Europe/Tallinn ajavööndis.
 - Hoone või platvorm ühendatakse lähima sobiva teelõiguga kuni 70 m piires. Edasine teekond järgib olemasolevat võrku. Arvestatakse foot/access piiranguid, suletud tõkkeid ja oneway:foot suundi. Hoone viitepunkt ei ole alati sissepääs. Viimaste meetrite ühendus võib olla ligikaudne; ligipääsetavus ja ajutised sulgemised vajavad kohapealset kontrolli.
-- GPS näitab sõidukite viimati saadud asukohti. Üksiksõidukite mõõtmisaeg, hilinemised ja prognoositavad saabumised pole teada.
+- Rongid osalevad samas sõiduplaanipõhises teekonnaotsingus bussi ja trammiga. Elroni GTFS-i peatus Tallinn on koondatud Balti jaamaga; säilivad eri suundade peatused ja tegelikud jalgsikäigud. Puuduvaid perrooni numbreid ei tuletata peatuse ID-st. Linna sees võib rong anda kiireima ühenduse, ent ümberistumine peab järgima jalgteid.
+- Tallinna busside ja trammide GPS ei anna üksiksõiduki mõõtmisaega. Elroni rongide mõõtmisaeg on teada ja üle 3 minuti vanad asukohad eemaldatakse. Teekonna ajad lähtuvad sõiduplaanist, mitte GPS-ist.
 - Jalgsikäigud järgivad OpenStreetMapi teedevõrku. Hoone või platvormi viimased kuni 70 meetrit võivad olla ligikaudsed; ratastooliga ligipääsetavus ja ajutised sulgemised pole kinnitatud.
 - Sõiduplaan ja teedevõrk on fikseeritud andmepaketis. Hilisemad muudatused ei lisandu automaatselt; sõiduplaani tuleb vähemalt kord nädalas uuendada.
 - Tallinna ühistranspordivood on avalikud, kuid nende standardset edasilevitamise litsentsi ei leitud. Allikaviited on säilitatud.
+- Elron on kaasatud olemasoleva Tallinna ja lähiümbruse kaardi piires, kuni Valingu, Saku ja Kullini. Rongisõiduplaani lähteversioon on 01.10.2026; hilisemad ajutised muudatused ei pruugi selles sisalduda. Kontrolli enne rongireisi Elroni teateid.
 
 [Project, sources and definitions](project.yaml)
  · [Validation report](validation/latest-report.json)

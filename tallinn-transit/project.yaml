@@ -1,14 +1,14 @@
 schema: openmapstack-project/v1
 runs:
   latest:
-    id: run-20261029-060740
-    started_at: '2026-10-29T06:07:40.870233+00:00'
-    completed_at: '2026-10-29T06:08:11.767278+00:00'
+    id: run-20261029-074340
+    started_at: '2026-10-29T07:43:40.093149+00:00'
+    completed_at: '2026-10-29T07:44:11.130457+00:00'
     status: warning
-    inputs_hash: sha256:a2aea036fa019b4b85850295dbb3961efecf9aa4236fdcb63301b54af63ae1b1
-    outputs_hash: sha256:7e442aa003dbc4d48bdeac2517153694cc314652d1d9eba9e5d121f6994affd6
+    inputs_hash: sha256:1fb7455550ca69381176815138e7e4ff7699b2decae37a805783c6f78900d117
+    outputs_hash: sha256:dbdbb8fba40d2c8f244c359eb90f0435f1760f0de8c609ffc0ece083d18bc453
     record:
-      path: runs/run-20261029-060740.json
+      path: runs/run-20261029-074340.json
     validation_report:
       path: validation/latest-report.json
 delivery:
@@ -29,7 +29,7 @@ project:
   question: Loo Tallinna ühistranspordi kaart ja uksest ukseni reisiplaneerija koos aadressiotsingu, sõidukite
     asukohtade, päris jalgsimarsruutide ning võrguta kasutamisega.
   created_at: '2026-10-28T20:57:21.105924+00:00'
-  updated_at: '2026-10-29T06:08:11.767278+00:00'
+  updated_at: '2026-10-29T07:44:11.130457+00:00'
   status: warning
   aoi:
     bbox:
@@ -69,12 +69,18 @@ interpretation:
     statement: Veebirežiimis uuendatakse GPS-i iga 10 sekundi järel. Võrguta režiimi valimine salvestab
       kogu andmepaketi ja eemaldab GPS-asukohad. Paus peatab uuendamise, jätkamine küsib asukohad kohe
       uuesti.
-    rationale: GPS vajab võrguühendust. Üksiksõidukite asukohamõõtmise aeg ja hilinemised ei ole teada.
+    rationale: GPS vajab võrguühendust. Tallinn ei anna üksiksõiduki mõõtmisaega; Elron annab selle Europe/Tallinn
+      ajavööndis.
   - id: A5
     statement: Hoone või platvorm ühendatakse lähima sobiva teelõiguga kuni 70 m piires. Edasine teekond
       järgib olemasolevat võrku. Arvestatakse foot/access piiranguid, suletud tõkkeid ja oneway:foot suundi.
     rationale: Hoone viitepunkt ei ole alati sissepääs. Viimaste meetrite ühendus võib olla ligikaudne;
       ligipääsetavus ja ajutised sulgemised vajavad kohapealset kontrolli.
+  - id: A6
+    statement: Rongid osalevad samas sõiduplaanipõhises teekonnaotsingus bussi ja trammiga. Elroni GTFS-i
+      peatus Tallinn on koondatud Balti jaamaga; säilivad eri suundade peatused ja tegelikud jalgsikäigud.
+      Puuduvaid perrooni numbreid ei tuletata peatuse ID-st.
+    rationale: Linna sees võib rong anda kiireima ühenduse, ent ümberistumine peab järgima jalgteid.
 sources:
   gtfs:
     role: authoritative_input
@@ -257,6 +263,57 @@ sources:
       - name
     rationale: Kogu linna päris jalgteed on vajalikud nii aadressipõhiseks planeerimiseks kui võrguta
       kasutamiseks. Väike fikseeritud OSM-i väljavõte asendab sirgjoonelised jalgsikäigu lähendid.
+  elron_gtfs:
+    role: authoritative_input
+    provider: Elron / Regionaal- ja Põllumajandusministeerium
+    dataset: elron_gtfs
+    source_url: https://eu-gtfs.remix.com/elron.zip
+    access:
+      method: https
+      retrieved_at: '2026-10-29T07:29:50.256742+00:00'
+      file:
+        name: elron-gtfs.zip
+        format: zip
+        size_bytes: 1290597
+      request_spec: https://eu-gtfs.remix.com/elron.zip
+    version:
+      identifier: 'Updated: Oct 1, 2026, 3:09 PM'
+    pin:
+      class: local_snapshot
+      path: data/source/elron-gtfs.zip
+      sha256: sha256:e76e0675df53c373b24f0b28c30fce60079b3382aa90daf04948e6ea90bf4208
+      captured_at: '2026-10-29T07:29:50.256742+00:00'
+    selection:
+      bbox:
+      - 24.45
+      - 59.28
+      - 25.04
+      - 59.57
+      filter: Rail (route_type=2), only contiguous spans of at least two stops inside the existing offline
+        map coverage. Preserve source calendar, times, boarding restrictions, headsigns and rail shape
+        vertices; namespace all identifiers elron:. Tallinn rail station aliases Balti jaam; original
+        source names retained.
+    license:
+      name: Public national GTFS export; publisher attribution retained; standard license not verified
+        for this distribution
+      url: https://mobilitydatabase.org/feeds/gtfs/mdb-3153
+    schema:
+      crs: EPSG:4326
+      key: trip_id
+      columns:
+      - route_id
+      - route_type
+      - trip_id
+      - service_id
+      - stop_id
+      - stop_name
+      - stop_lat
+      - stop_lon
+      - arrival_time
+      - departure_time
+      - shape_id
+    rationale: MobilityData identifies this producer URL as the official Elron GTFS feed. Existing compact
+      Tallinn map and pedestrian graph bound train coverage.
 overrides: []
 processing:
   analysis_crs: EPSG:3301
@@ -264,7 +321,9 @@ processing:
   steps:
   - id: load_gtfs
     operation: parse_gtfs
-    input: gtfs
+    inputs:
+    - gtfs
+    - elron_gtfs
     output: gtfs_parsed
   - id: compile_walk
     operation: compile_pedestrian_topology
@@ -470,6 +529,7 @@ runtime:
     - wrangler.jsonc
     - README.md
     - walking.py
+    - gtfs_sources.py
   environment:
     python: '3.14'
     packages:
@@ -483,8 +543,9 @@ warnings:
 - id: LIVE-001
   severity: medium
   issue: fix_time_unknown
-  statement: GPS näitab sõidukite viimati saadud asukohti. Üksiksõidukite mõõtmisaeg, hilinemised ja prognoositavad
-    saabumised pole teada.
+  statement: Tallinna busside ja trammide GPS ei anna üksiksõiduki mõõtmisaega. Elroni rongide mõõtmisaeg
+    on teada ja üle 3 minuti vanad asukohad eemaldatakse. Teekonna ajad lähtuvad sõiduplaanist, mitte
+    GPS-ist.
   mitigation: Aegunud asukohad tuhmuvad ja eemaldatakse; teekonna ajad lähtuvad sõiduplaanist.
 - id: WALK-001
   severity: medium
@@ -504,3 +565,11 @@ warnings:
   statement: Tallinna ühistranspordivood on avalikud, kuid nende standardset edasilevitamise litsentsi
     ei leitud. Allikaviited on säilitatud.
   mitigation: Laiema edasilevitamise tingimused tuleb linnaga täpsustada.
+- id: RAIL-001
+  severity: medium
+  issue: rail_coverage_and_snapshot
+  statement: Elron on kaasatud olemasoleva Tallinna ja lähiümbruse kaardi piires, kuni Valingu, Saku ja
+    Kullini. Rongisõiduplaani lähteversioon on 01.10.2026; hilisemad ajutised muudatused ei pruugi selles
+    sisalduda. Kontrolli enne rongireisi Elroni teateid.
+  mitigation: Värskenda GTFS-i kontrollitud lähtevoost; ära pikenda katvust ilma kaartide ja jalgsivõrgu
+    uuendamiseta.

@@ -38,6 +38,7 @@ test('live map positions survive pause/resume, layer toggles and repeated style 
   // Route interception must run outside a service worker; offline behavior has
   // a separate full-pack test with service workers enabled.
   const context=await browser.newContext({serviceWorkers:'block'}),page=await context.newPage();
+  await page.route(/\/trains(?:\?|$)/,route=>route.fulfill({json:{version:1,vehicles:[]},headers:{'Last-Modified':new Date().toUTCString()}}));
   let requests=0;
   await page.route(/\/(?:api\/)?(?:gps|vehicles)(?:\?|$)/,route=>{requests++;return route.fulfill({contentType:'text/plain',body:'3,T2,24740000,59438000,,138,501,Z,179,Lennujaam',headers:{'Last-Modified':new Date().toUTCString()}});});
   await ready(page);await morning(page);await expect.poll(()=>vehicleCount(page)).toBe(1);
@@ -113,6 +114,7 @@ test('deployed GPS relay supports the browser HTTP cache without renewing valida
 
 test('vehicle arrows follow map direction and estimated average speed is clearly labelled',async({browser})=>{
   const context=await browser.newContext({serviceWorkers:'block'}),page=await context.newPage();
+  await page.route(/\/trains(?:\?|$)/,route=>route.fulfill({json:{version:1,vehicles:[]},headers:{'Last-Modified':new Date().toUTCString()}}));
   await page.route(/\/vehicles(?:\?|$)/,route=>route.fulfill({json:{version:1,vehicles:[{id:'motion-test',route:'T2',mode:'tram',lon:24.74,lat:59.438,bearing:90,bearingSource:'feed',speed:22,speedSource:'estimated',speedWindowSeconds:30,motionObservedAt:new Date().toISOString(),headsign:'Lennujaam'}]},headers:{'Last-Modified':new Date().toUTCString()}}));
   await ready(page);await expect.poll(()=>vehicleCount(page)).toBe(1);
   await page.locator('.map-canvas').evaluate(el=>el.__tallinnMap.jumpTo({center:[24.74,59.438],zoom:15,bearing:35}));
@@ -123,4 +125,33 @@ test('vehicle arrows follow map direction and estimated average speed is clearly
   await page.locator('.map-canvas').click({position});await expect(page.locator('.map-inspection')).toContainText('Hinnanguline keskmine kiirus: ~22 km/h (30 s)');
   await expect(page.locator('.map-inspection')).not.toContainText(/undefined|null/);await expect(page.locator('.map-error')).toHaveCount(0);
   await context.close();
+});
+
+test('Elron trains join the planner, share Balti jaam and remain available offline',async({page,context})=>{
+  const errors=[];page.on('pageerror',e=>errors.push(e.message));
+  await ready(page);
+  const from=page.getByRole('combobox',{name:'Lähtekoht',exact:true}),to=page.getByRole('combobox',{name:'Sihtkoht',exact:true});
+  await from.fill('Balti jaam');const balti=page.getByRole('option').filter({hasText:'Peatus ·'}).filter({has:page.locator('strong',{hasText:/^Balti jaam$/})});await expect(balti).toHaveCount(1);await balti.click();
+  await to.fill('Nõmme');await page.getByRole('option').filter({hasText:'Peatus ·'}).filter({has:page.locator('strong',{hasText:/^Nõmme$/})}).click();
+  await page.getByLabel('Kuupäev',{exact:true}).fill('2026-10-29');await page.getByLabel('Väljumine',{exact:true}).fill('08:00');
+  await page.locator('.journey-options>summary').click();await page.getByLabel('Liikumisviis',{exact:true}).selectOption('train');
+  await page.getByRole('button',{name:'Leia teekond',exact:true}).click();await expect(page.locator('.itinerary')).toContainText('Rong');await expect(page.locator('.journey-result').first()).toContainText('08:17');
+  const rail=await page.locator('.map-canvas').evaluate(async el=>{const m=el.__tallinnMap;return{features:(await m.getSource('journey').getData()).features,paint:m.getPaintProperty('journey-line','line-color')};});
+  expect(rail.features.some(f=>f.properties.mode==='train'&&f.geometry.coordinates.length>10)).toBe(true);expect(JSON.stringify(rail.paint)).toContain('#c05a12');
+  await page.getByRole('button',{name:'Võrguta',exact:true}).click();await expect(page.getByRole('button',{name:'Võrguta',exact:true})).toHaveAttribute('aria-pressed','true',{timeout:60000});await expect.poll(()=>vehicleCount(page)).toBe(0);
+  await context.setOffline(true);await page.reload();await expect(page.getByRole('button',{name:'Leia teekond',exact:true})).toBeEnabled({timeout:45000});
+  await page.getByRole('combobox',{name:'Sihtkoht',exact:true}).fill('Nõmme');await page.getByRole('option').filter({hasText:'Peatus ·'}).filter({has:page.locator('strong',{hasText:/^Nõmme$/})}).click();
+  await page.getByLabel('Kuupäev',{exact:true}).fill('2026-10-29');await page.getByLabel('Väljumine',{exact:true}).fill('08:00');await page.getByRole('button',{name:'Leia teekond',exact:true}).click();await expect(page.locator('.journey-result').first()).toContainText('08:17');await expect(page.locator('.itinerary')).toContainText('Rong');expect(errors).toEqual([]);
+  await context.setOffline(false);
+});
+
+test('Elron native arrows, fix age and its layer survive theme/pause changes without invented fields',async({browser})=>{
+  const context=await browser.newContext({serviceWorkers:'block'}),page=await context.newPage();
+  await page.route(/\/vehicles(?:\?|$)/,route=>route.fulfill({json:{vehicles:[]},headers:{'Last-Modified':new Date().toUTCString()}}));
+  let requests=0;await page.route(/\/trains(?:\?|$)/,route=>{requests++;return route.fulfill({json:{vehicles:[{id:'elron:101',route:'101',mode:'train',lon:24.74,lat:59.438,bearing:90,bearingSource:'feed',speed:null,fixAt:new Date().toISOString(),headsign:'Tartu-Tallinn'},{id:'elron:stale',route:'999',mode:'train',lon:24.74,lat:59.439,fixAt:new Date(Date.now()-181000).toISOString()}]},headers:{'Last-Modified':new Date().toUTCString()}});});
+  await ready(page);await expect.poll(()=>vehicleCount(page)).toBe(1);await page.getByRole('checkbox',{name:'Rongid',exact:true}).uncheck();await expect.poll(()=>vehicleCount(page)).toBe(0);await page.getByRole('checkbox',{name:'Rongid',exact:true}).check();await expect.poll(()=>vehicleCount(page)).toBe(1);
+  const initial=requests;await page.getByRole('button',{name:'Peata asukohtade uuendamine'}).click();await page.getByRole('button',{name:'Lülitu tumedale kaardile'}).click();await expect.poll(()=>vehicleCount(page)).toBe(1);await page.getByRole('button',{name:'Jätka asukohtade uuendamist'}).click();await expect.poll(()=>requests).toBeGreaterThan(initial);
+  await page.locator('.map-canvas').evaluate(el=>el.__tallinnMap.jumpTo({center:[24.74,59.438],zoom:15}));
+  await page.waitForFunction(()=>document.querySelector('.map-canvas').__tallinnMap.queryRenderedFeatures({layers:['vehicle-directions']}).some(f=>f.properties.id==='elron:101'));
+  const position=await page.locator('.map-canvas').evaluate(el=>{const p=el.__tallinnMap.project([24.74,59.438]);return{x:p.x,y:p.y};});await page.locator('.map-canvas').click({position});await expect(page.locator('.map-inspection')).toContainText('Rong 101');await expect(page.locator('.map-inspection')).toContainText('Asukoht kell');await expect(page.locator('.map-inspection')).not.toContainText(/undefined|null|km\/h/);await expect(page.locator('.map-error')).toHaveCount(0);await context.close();
 });

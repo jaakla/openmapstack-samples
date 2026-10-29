@@ -1,15 +1,17 @@
 import { geocode } from './services.mjs';
 import { GpsFeedCache, GPS_TTL, gpsResponse, gpsError } from './gps-cache.mjs';
+import { ElronFeedCache } from './elron-feed.mjs';
 
 // Cache API is POP-local. One named Durable Object caps upstream traffic globally.
 export class GpsFeed {
   constructor(ctx) {
     ctx.blockConcurrencyWhile(async () => {
       this.feed = new GpsFeedCache({ storage: ctx.storage, state: await ctx.storage.get('feed') });
+      this.trains = new ElronFeedCache({ storage: ctx.storage, state: await ctx.storage.get('elron') });
     });
   }
   async fetch(request) {
-    try { return gpsResponse(await this.feed.get(), request); }
+    try { return gpsResponse(await (new URL(request.url).pathname.endsWith('/trains')?this.trains:this.feed).get(), request); }
     catch (error) { return gpsError(error); }
   }
 }
@@ -28,7 +30,7 @@ export async function handleRequest(request, env, ctx, edgeCache = globalThis.ca
     return new Response(response.body, { status: response.status, headers });
   };
   const url = new URL(request.url);
-  if (!['/gps', '/api/gps', '/geocode', '/api/geocode', '/vehicles', '/api/vehicles'].includes(url.pathname)) return reply(new Response('Not found', { status: 404, headers: { 'Cache-Control': 'no-store' } }));
+  if (!['/gps', '/api/gps', '/geocode', '/api/geocode', '/vehicles', '/api/vehicles', '/trains', '/api/trains'].includes(url.pathname)) return reply(new Response('Not found', { status: 404, headers: { 'Cache-Control': 'no-store' } }));
   if (request.method === 'OPTIONS') return reply(new Response(null, { status: 204, headers: {
     'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS', 'Access-Control-Allow-Headers': 'If-None-Match, If-Modified-Since', 'Access-Control-Max-Age': '86400',
   } }));
@@ -40,8 +42,9 @@ export async function handleRequest(request, env, ctx, edgeCache = globalThis.ca
     } catch { return reply(Response.json({ error: 'Aadressiotsing pole saadaval.' }, { status: 502, headers: { 'Cache-Control': 'no-store' } })); }
   }
   // No query strings, conditionals or Origin in this key. CORS follows lookup.
-  const enriched = url.pathname.endsWith('/vehicles');
-  const key = new Request(`${url.origin}/__gps_feed_v2${enriched?'-vehicles':''}`);
+  const trains = url.pathname.endsWith('/trains');
+  const enriched = trains || url.pathname.endsWith('/vehicles');
+  const key = new Request(`${url.origin}/__gps_feed_v3${trains?'-trains':enriched?'-vehicles':''}`);
   let raw = await edgeCache?.match(key);
   let cached = false;
   if (raw) {
@@ -50,8 +53,8 @@ export async function handleRequest(request, env, ctx, edgeCache = globalThis.ca
     else raw = null;
   }
   if (!raw) {
-    const id = env.GPS_FEED.idFromName('tallinn-public-gps-v1');
-    raw = await env.GPS_FEED.get(id, { locationHint: 'eeur' }).fetch(`https://gps.internal/${enriched?'vehicles':'gps'}`);
+    const id = env.GPS_FEED.idFromName(trains?'elron-public-gps-v1':'tallinn-public-gps-v1');
+    raw = await env.GPS_FEED.get(id, { locationHint: 'eeur' }).fetch(`https://gps.internal/${trains?'trains':enriched?'vehicles':'gps'}`);
     if (raw.ok && edgeCache) {
       const remaining = Math.floor((Date.parse(raw.headers.get('X-GPS-Validated-At')) + GPS_TTL * 1000 - Date.now()) / 1000);
       if (remaining > 0) {

@@ -4,10 +4,11 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { geocode } from './services.mjs';
 import { GpsFeedCache, gpsResponse, gpsError } from './gps-cache.mjs';
+import { ElronFeedCache } from './elron-feed.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../dist');
 const port = Number(process.env.PORT || 5177);
-const gps = new GpsFeedCache();
+const gps = new GpsFeedCache(),trains=new ElronFeedCache();
 const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.json':'application/json','.geojson':'application/geo+json','.css':'text/css','.svg':'image/svg+xml','.pbf':'application/x-protobuf','.png':'image/png','.woff2':'font/woff2','.webmanifest':'application/manifest+json','.md':'text/markdown; charset=utf-8','.yaml':'text/yaml; charset=utf-8','.pmtiles':'application/octet-stream'};
 const server=http.createServer(async(req,res)=>{
   const url=new URL(req.url,'http://localhost');
@@ -15,9 +16,9 @@ const server=http.createServer(async(req,res)=>{
     try{const items=await geocode(url.searchParams.get('q'));res.writeHead(200,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify(items));}
     catch(e){res.writeHead(502,{'Content-Type':'application/json; charset=utf-8','Cache-Control':'no-store'});res.end(JSON.stringify({error:e.message}));}return;
   }
-  if(url.pathname==='/api/gps'||url.pathname==='/api/vehicles'){
+  if(url.pathname==='/api/gps'||url.pathname==='/api/vehicles'||url.pathname==='/api/trains'){
     let response;
-    try { response = gpsResponse(await gps.get(), new Request(url, { method: req.method, headers: req.headers })); }
+    try { response = gpsResponse(await (url.pathname.endsWith('/trains')?trains:gps).get(), new Request(url, { method: req.method, headers: req.headers })); }
     catch (error) { response = gpsError(error); }
     res.writeHead(response.status, Object.fromEntries(response.headers));
     res.end(req.method === 'HEAD' ? undefined : await response.text()); return;

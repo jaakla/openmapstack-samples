@@ -10,14 +10,17 @@ export class FeedUnavailable extends Error {
   }
 }
 export class GpsFeedCache {
-  constructor({ fetch: fetcher = (...args) => globalThis.fetch(...args), now = Date.now, storage, state } = {}) {
+  constructor({ fetch: fetcher = (...args) => globalThis.fetch(...args), now = Date.now, storage, state,
+    upstream = GPS_UPSTREAM, referer = 'https://transport.tallinn.ee/', parseVehicles, storageKey = 'feed', bypassCache = false } = {}) {
     this.fetcher = fetcher;
     this.now = now;
     this.storage = storage;
+    this.upstream = upstream; this.referer = referer; this.parseVehicles = parseVehicles; this.storageKey = storageKey;
+    this.bypassCache = bypassCache;
     this.state = state || { snapshot: null, nextAttemptAt: 0, upstreamRequests: 0 };
     this.pending = null;
   }
-  async persist() { await this.storage?.put('feed', this.state); }
+  async persist() { await this.storage?.put(this.storageKey, this.state); }
   async get() {
     if (this.state.snapshot && this.now() < this.state.snapshot.validatedAt + GPS_TTL * 1000) return this.state.snapshot;
     if (this.pending) return this.pending;
@@ -32,10 +35,12 @@ export class GpsFeedCache {
     // Persist before I/O: eviction or failure cannot bypass the global cap.
     await this.persist();
     try {
-      const headers = { 'User-Agent': 'Mozilla/5.0', Referer: 'https://transport.tallinn.ee/' };
+      const headers = { 'User-Agent': 'Mozilla/5.0', Referer: this.referer };
       if (previous?.upstreamEtag) headers['If-None-Match'] = previous.upstreamEtag;
       if (previous?.modified) headers['If-Modified-Since'] = previous.modified;
-      const upstream = await this.fetcher(GPS_UPSTREAM, { headers, signal: AbortSignal.timeout(8000) });
+      // Elron's live JSON currently advertises a two-week HTTP lifetime. Bypass
+      // the fetch subrequest cache, while retaining validators and our 10 s cap.
+      const upstream = await this.fetcher(this.upstream, { headers, ...(this.bypassCache?{cache:'no-store'}:{}), signal: AbortSignal.timeout(8000) });
       this.state.lastUpstreamStatus = upstream.status;
       let snapshot;
       if (upstream.status === 304 && previous) {
@@ -44,7 +49,8 @@ export class GpsFeedCache {
       } else {
         if (!upstream.ok) { await upstream.body?.cancel(); throw new FeedUnavailable(); }
         const body = await upstream.text();
-        if (!/^\d+,/.test(body.trim())) throw new FeedUnavailable();
+        if (this.parseVehicles) this.parseVehicles(body, started);
+        else if (!/^\d+,/.test(body.trim())) throw new FeedUnavailable();
         const hash = await contentHash(body);
         snapshot = { body, etag: `W/"${hash}"`, upstreamEtag: upstream.headers.get('etag'), modified: upstream.headers.get('last-modified') };
       }
@@ -53,8 +59,8 @@ export class GpsFeedCache {
       const observedAt = Number.isFinite(sourceTime) ? sourceTime : started;
       const changed = !previous || snapshot.etag !== previous.etag || snapshot.modified !== previous.modified;
       if (changed || !snapshot.vehiclesBody) {
-        const motion = observeVehicles(snapshot.body, observedAt, this.state.motionHistory);
-        this.state.motionHistory = motion.history;
+        const motion = this.parseVehicles ? {vehicles:this.parseVehicles(snapshot.body,started)} : observeVehicles(snapshot.body, observedAt, this.state.motionHistory);
+        if(motion.history)this.state.motionHistory = motion.history;
         snapshot.vehiclesBody = JSON.stringify({ version: 1, observedAt: new Date(observedAt).toISOString(), vehicles: motion.vehicles });
         snapshot.vehiclesEtag = `W/"${await contentHash(snapshot.vehiclesBody)}"`;
       }
@@ -75,10 +81,10 @@ export async function contentHash(body) {
   return [...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('');
 }
 export function gpsResponse(snapshot, request, { now = Date.now(), cache = 'GLOBAL' } = {}) {
-  const enriched = new URL(request.url).pathname.endsWith('/vehicles');
+  const enriched = /\/(vehicles|trains)$/.test(new URL(request.url).pathname);
   // An existing Durable Object may still hold a fresh pre-upgrade CSV snapshot.
   // Serve native fields immediately without bypassing its upstream rate limit.
-  const initial = enriched && !snapshot.vehiclesBody ? observeVehicles(snapshot.body, Date.parse(snapshot.modified) || snapshot.validatedAt).vehicles : null;
+  const initial = enriched && !snapshot.vehiclesBody && request.method !== 'HEAD' ? observeVehicles(snapshot.body, Date.parse(snapshot.modified) || snapshot.validatedAt).vehicles : null;
   const etag = enriched ? snapshot.vehiclesEtag || `W/"vehicles-${snapshot.etag.replace(/[^a-zA-Z0-9]/g,'')}"` : snapshot.etag;
   const body = enriched ? snapshot.vehiclesBody || JSON.stringify({version:1,vehicles:initial}) : snapshot.body;
   const headers = new Headers({

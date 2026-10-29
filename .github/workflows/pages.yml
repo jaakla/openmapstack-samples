@@ -94,7 +94,9 @@ jobs:
         run: /tmp/tallinn-build-env/bin/python pipeline.py
       - name: Test Tallinn transit routing and shared GPS cache
         working-directory: tallinn-transit
-        run: npm test
+        run: |
+          npm test
+          python3 -m unittest discover -s tests -p 'test_*.py'
       - name: Install Chromium for Tallinn transit interaction checks
         working-directory: tallinn-transit
         run: npx playwright install --with-deps chromium

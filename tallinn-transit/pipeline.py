@@ -5,17 +5,14 @@ EPSG:3301 using an indexed DuckDB spatial join; source geometry remains WGS84.
 The only mutable browser feed is GPS, excluded from analytical run claims.
 """
 from pathlib import Path
-import csv
 import datetime as dt
 import hashlib
 import html
-import io
 import json
 import platform
 import re
 import shutil
 import subprocess
-import zipfile
 from collections import defaultdict
 import duckdb
 import yaml
@@ -23,6 +20,7 @@ from openmapstack.credits import credit_payload, html_credits
 from openmapstack.delivery import metadata_json, write_evidence
 from openmapstack.findings import write_findings
 from walking import compile_walk
+from gtfs_sources import combined_feeds
 
 ROOT = Path(__file__).resolve().parent
 
@@ -57,9 +55,9 @@ def main():
 
     # STEP load_gtfs: Tallinn municipal GTFS, acquisition metadata in immutable
     # data/source/acquisition.json. Parse every row, including calendar exceptions.
-    z = zipfile.ZipFile(src / 'gtfs.zip')
+    feed = combined_feeds(src/'gtfs.zip', src/'elron-gtfs.zip', project['sources']['elron_gtfs']['selection']['bbox'])
     def rows(name):
-        return list(csv.DictReader(io.StringIO(z.read(name).decode('utf-8-sig'))))
+        return feed[name.removesuffix('.txt')]
     raw_stops, raw_routes, raw_trips, times = (rows(n) for n in ['stops.txt', 'routes.txt', 'trips.txt', 'stop_times.txt'])
     calendars, exceptions = rows('calendar.txt'), rows('calendar_dates.txt')
     by_trip = defaultdict(list)
@@ -71,9 +69,11 @@ def main():
     route_rows = sorted(raw_routes, key=lambda r: (int(r.get('route_sort_order') or 0), r['route_id']))
     route_index = {r['route_id']: i for i, r in enumerate(route_rows)}
     routes = [{'id': r['route_id'], 'name': r['route_short_name'], 'longName': r['route_long_name'],
-               'mode': ('tram' if r['route_type'] == '0' or 900 <= int(r['route_type']) <= 906 else
+               'source':r.get('source','Tallinn GTFS'), 'mode': ('train' if r['route_type']=='2' else 'tram' if r['route_type'] == '0' or 900 <= int(r['route_type']) <= 906 else
                         'bus' if r['route_type'] in ['3','800'] else 'unknown'), 'gtfsType': r['route_type']} for r in route_rows]
     stops = [{'id': s['stop_id'], 'code': s['stop_code'], 'name': s['stop_name'],
+              'source':s.get('source','Tallinn GTFS'), 'sourceName':s.get('source_name',s['stop_name']),
+              'platformCode':s.get('platform_code',''), 'description':s.get('stop_desc',''), 'mode':s.get('mode',''),
               'lon': float(s['stop_lon']), 'lat': float(s['stop_lat']), 'routes': []} for s in selected]
     def seconds(value):
         h, m, s = map(int, value.split(':'))
@@ -151,15 +151,18 @@ def main():
     for shape, points in sorted(shape_points.items()):
         r = shape_routes[shape]
         shape_features.append({'type': 'Feature', 'id': shape,
-            'properties': {'id': shape, 'route': r, 'name': routes[r]['name'], 'mode': routes[r]['mode'], 'source': 'Tallinn GTFS',
+            'properties': {'id': shape, 'route': r, 'name': routes[r]['name'], 'mode': routes[r]['mode'], 'source': routes[r]['source'],
                            'route_trip_count': sum(t['r'] == r for t in trips)},
             'geometry': {'type': 'LineString', 'coordinates': [[x, y] for _, x, y in sorted(points)]}})
-    stop_features = [{'type': 'Feature', 'id': i, 'properties': {**s, 'index': i, 'routes': ','.join(routes[r]['name'] for r in s['routes']), 'source': 'Tallinn GTFS',
+    stop_features = [{'type': 'Feature', 'id': i, 'properties': {**s, 'index': i, 'routes': ','.join(routes[r]['name'] for r in s['routes']),
                        'outgoing_transfer_count': len(transfers[i])},
                       'geometry': {'type': 'Point', 'coordinates': [s['lon'], s['lat']]}} for i, s in enumerate(stops)]
     network = {'schema': 'tallinn-transit/v1', 'timezone': 'Europe/Tallinn',
         'snapshot': project['sources']['gtfs']['access']['retrieved_at'],
         'sourceSha256': project['sources']['gtfs']['pin']['sha256'],
+        'railSnapshot': project['sources']['elron_gtfs']['access']['retrieved_at'],
+        'railSourceSha256': project['sources']['elron_gtfs']['pin']['sha256'],
+        'railBounds':project['sources']['elron_gtfs']['selection']['bbox'],
         'validFrom': min(c['start_date'] for c in calendars), 'validUntil': max(c['end_date'] for c in calendars),
         'stops': stops, 'stations':stations,'routes': routes, 'trips': trips, 'transfers': transfers,
         'calendar': [{'id': c['service_id'], 'start': c['start_date'], 'end': c['end_date'],
@@ -188,6 +191,8 @@ def main():
         {'id': 'metric_transfer_bound', 'status': 'passed' if all(e[2] <= radius for edges in transfers for e in edges) else 'failed'},
         {'id': 'crs_roundtrip', 'status': 'passed' if roundtrip_error < 1e-7 else 'failed', 'maximum_lon_lat_error': roundtrip_error},
         {'id': 'route_modes_known', 'status': 'passed' if all(r['mode'] != 'unknown' for r in routes) else 'failed'},
+        {'id': 'rail_network', 'status':'passed' if any(r['mode']=='train' for r in routes) and all(t['id'].startswith('elron:') for t in trips if routes[t['r']]['mode']=='train') else 'failed',
+         'routes':sum(r['mode']=='train' for r in routes),'platforms':sum(s['mode']=='train' for s in stops),'trips':sum(routes[t['r']]['mode']=='train' for t in trips)},
         {'id': 'live_fix_time', 'status': 'warning', 'reason': 'GPS export has no per-vehicle fix timestamp or guaranteed trip association; only retrieval age can be shown.'},
         {'id': 'walking_network', 'status': 'passed' if walk_results['snapped']>len(stops)*0.95 else 'warning',
          'vertices':len(walk['vertices']),'edges':len(walk['edges']),'platforms_snapped':walk_results['snapped'],
@@ -242,10 +247,10 @@ def main():
     subprocess.run(['npm','run','build'],cwd=ROOT,check=True)
     write_evidence(ROOT, project)
     # STEP render_findings: durable source-backed counts and limitations.
-    write_findings(ROOT, project, report=report, scope='Tallinna ühistranspordi fikseeritud GTFS-i ja OSM-i andmepakett', findings=[
+    write_findings(ROOT, project, report=report, scope='Tallinna linnatranspordi, Elroni ja OSM-i fikseeritud andmepakett', findings=[
         {'id':'network', 'statement':f"Andmepakett sisaldab {len(routes)} liini, {len(stations)} koondatud peatust, {len(stops)} platvormi ja {len(trips)} sõiduplaanireisi. Teenindus sõltub valitud kuupäevast.", 'evidence':['stops','stations','routes']},
         {'id':'transfers', 'statement':f"Ümberistumiste võrk sisaldab {sum(map(len,transfers))} suunatud OSM-i jalgsimarsruuti pikkusega kuni {radius} meetrit, mõõdetuna EPSG:3301 süsteemis.", 'evidence':['stops'], 'limitations':['Arvestatakse jalgsi liikumise piiranguid ja ühiseid OSM-i sõlmi. Viimase kuni 70 m ühendus hoone või platvormiga võib olla ligikaudne; ajutised sulgemised ja ratastooliga ligipääsetavus pole kinnitatud.']},
-        {'id':'live', 'statement':'Sõidukite asukohti küsitakse sõiduplaanist sõltumatult. Need ei määra hilinemist ega prognoositavat saabumisaega.', 'evidence':['routes'], 'limitations':['GPS-i voos puudub üksiksõiduki mõõtmisaeg. Hiljuti saadud vastus võib sisaldada vanemaid asukohti.']}
+        {'id':'live', 'statement':'Sõidukite asukohti küsitakse sõiduplaanist sõltumatult. Need ei määra hilinemist ega prognoositavat saabumisaega.', 'evidence':['routes'], 'limitations':['Tallinna GPS-i voos puudub üksiksõiduki mõõtmisaeg. Elron annab mõõtmisaja; üle 180 s vanad rongiasukohad jäetakse välja.']}
     ])
     # Ship inspectable metadata along with the static view.
     for path in ['findings.md','project.yaml']:

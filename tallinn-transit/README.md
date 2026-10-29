@@ -40,7 +40,7 @@ lõplikuks kasutamiseks käivita alati `pipeline.py` ja allpool toodud kontrolli
   üks peatus. Lähivaates on näha üksikplatvormide asukohad; platvormikoodid ilmuvad
   täpsetes reisijuhistes. Üle 400 m lahus olevad samanimelised kohad ei ühine
   automaatselt üheks peatuseks.
-- Bussilõigud on sinised ja trammilõigud korallpunased nii kaardil kui juhistes.
+- Bussilõigud on sinised, trammilõigud korallpunased ja rongilõigud oranžid nii kaardil kui juhistes.
   Kaardil korduvad valitud teekonna liininumbrid. Jalgsikäigud on katkendjoonega.
 - Sõiduki klõps avab ainult olemasolevad andmed. Puuduvat kiirust ega muid
   `undefined`/`null` väärtusi ei kuvata. GPS-i paus säilitab viimased asukohad;
@@ -84,7 +84,7 @@ Kanooniliste ümberistumiste ja kasutaja valitud punktide marsruutimiseks kasuta
 sama **ngraph.path A\*** teeki. Kaalud on meetrites ning heuristik on samas kohalikus
 projektsioonis. Teekonna pikkus tuleb võrgu servadest, mitte sirgjoonelisest
 kaugusest. Kõndimise ajahinnang põhineb kiirusel 1,25 m/s. Ümberistumisel lisandub
-120 s varuaega. Võrgu põhjal moodustub 9864 suunatud kuni 600 m ümberistumisteed.
+120 s varuaega. Ümberistumiste võrk sisaldab ka rongi ja linnatranspordi jalgsikäike.
 
 Hoone aadressi viitepunkt ei pruugi olla sissepääs. Alg- ja lõpp-punkt ühendatakse
 sobiva teelõiguga kuni 70 m piires; selle viimase ühenduse läbitavus võib olla
@@ -105,18 +105,59 @@ rakendus ei nimeta sirgjoont jalgsimarsruudiks.
   Fondid, stiilid ja sümbolid on kohalikud. © OpenStreetMapi kaasautorid,
   Protomaps tiles by goplex.ee. Interi font: SIL OFL.
 
-GPS-i CSV ei anna kinnitatud reisiidentifikaatorit ega üksiksõiduki mõõtmisaega.
+Tallinna GPS-i CSV ei anna kinnitatud reisiidentifikaatorit ega üksiksõiduki mõõtmisaega.
 Seetõttu ei tuletata sellest hilinemist või prognoositavat saabumist. Sõiduplaani
 ajatempel ja hoiatus üle seitsme päeva vana paketi kohta jäävad nähtavaks.
 Tallinna voogude standardset edasilevitamise litsentsi ei tuvastatud; allikad ja
 see piirang on projekti päritoluinfos säilitatud.
+
+## Elroni rongid
+
+Rongid osalevad samas seadmes töötavas teekonnaotsingus, koos bussi ja trammiga.
+Lisandusid 24 rongiliini, 48 suunapõhist peatuspunkti ja 1452 sõiduplaanireisi.
+Katvus jääb olemasoleva kaardi piiridesse `[24.45,59.28,25.04,59.57]`, kuni
+Valingu, Saku ja Kullini. See ei ole kogu Eesti rongiplaneerija.
+
+Sõiduplaan pärineb [MobilityData poolt ametlikuks märgitud Elroni GTFS-ist](https://mobilitydatabase.org/feeds/gtfs/mdb-3153),
+[tootja URL-ist](https://eu-gtfs.remix.com/elron.zip). Avaldaja on Regionaal- ja
+Põllumajandusministeerium. Muutmata ZIP, räsi ja hankimise kirje on `data/source/` all.
+Allika versioon on **01.10.2026**, kalendrid ulatuvad 31.12.2026-ni; ajutised
+muudatused ei pruugi sisalduda. Enne reisi kontrolli [Elroni teateid](https://elron.ee/).
+Staatilisi lähtevooge tuleb värskendada ja uuesti avaldada; rakendus neid taustal ei uuenda.
+
+`gtfs_sources.py` lisab rongi-ID-dele `elron:` prefiksi, säilitab kellaajad,
+kalendrierandid ning peale-/mahamineku piirangud. Kaardi piiridest väljuv reis
+jaotatakse katvuse piires järjestikusteks lõikudeks; väljasõitu ja tagasitulekut
+ei liideta lühiteeks. Raudteeliinid kasutavad allika tegelikke kujupunkte.
+Elroni **Tallinn** kuvatakse **Balti jaamana**, säilitades algse nime päritoluinfos.
+Lähestikku sama nimega rongi- ja linnatranspordi peatused on koondatud; platvormide
+vahelised ümberistumised kasutavad tegelikke jalgsiradu. Puuduvaid perrooni numbreid
+ei asendata GTFS-i peatuse ID-ga: juhistes näidatakse lähteandmete suunakirjeldust.
+
+Reaalajaallikas on Elroni enda kaardil kasutatav
+[`map_data.json`](https://elron.ee/map_data.json). See annab reisinumbri, asukoha,
+kiiruse, suuna ja `asukoha_uuendus` mõõtmisaja. Aeg tõlgendatakse **Europe/Tallinn**
+ajavööndis koos suveajaga. Puuduvad väljad jäetakse välja. Üle 180 s vanad,
+tulevikus olevad ja katvusest väljas asukohad jäetakse välja, ka pausil ja HTTP-vahemälust.
+GPS-reisinumber (nt 101) erineb GTFS-liininumbrist (nt RE34); kinnitamata vastavust
+ei oletata. Valitud rongiliini kõrval jäävad nähtavaks piirkonna rongide asukohad.
+Rongipiletid järgivad [Elroni tingimusi](https://elron.ee/piletiinfo/piletid).
+
+Elroni GPS-vastusel on praegu `Cache-Control: max-age=1209600` (14 päeva).
+Vahendaja kasutab fikseeritud URL-i ja tingimuslikke päringuid, kuid `fetch`
+alampäringu vahemälu on `no-store`, et see ei külmutaks asukohti kaheks nädalaks.
+Globaalne nõudluspõhine piir on üks päring 10 sekundi kohta; brauserile ja Workers
+Cache'ile antakse 10 s eluiga. Allikate olekud ja vead on eraldi: Elroni tõrge ei
+peida linnatransporti. Võrguta pakett sisaldab ka rongi sõiduplaane, peatusi,
+raudtee geomeetriat ja ümberistumisi; **mõlema allika GPS eemaldatakse**.
 
 ## Server ja avaldamine
 
 Tootmisversioon kasutab avaldatud serverless API-t:
 **https://tallinn-transit-api.jaak-laineste.workers.dev/**.
 `GET /gps` säilitab Tallinna algse CSV-voo, `GET /vehicles` tagastab sõidukid koos
-suuna ja hinnangulise keskmise kiirusega JSON-kujul; `GET /geocode?q=...` otsib In-ADS-i aadresse.
+suuna ja hinnangulise keskmise kiirusega JSON-kujul; `GET /trains` annab Elroni rongid;
+`GET /geocode?q=...` otsib In-ADS-i aadresse.
 `dist/` avaldatakse hoidla GitHub Pagesi töövoos alamkataloogi `tallinn-transit/`.
 Töövoog koostab kanoonilise andmepaketi ja käivitab ühik- ning brauseritestid.
 GPS-i ja aadressiotsingu Worker on eraldi avaldatud. Teekonnad arvutatakse
@@ -138,7 +179,7 @@ välja lülitatud. API võtmeid rakenduse kasutamiseks ei vaja.
 
 ### GPS-i 10-sekundiline vahemälu
 
-- Üks püsiva olekuga Durable Object ühendab kogu maailma päringud. Algallikat
+- Kummalgi GPS-allikal on oma Durable Object, mis ühendab kogu maailma päringud. Üht algallikat
   küsitakse nõudluse korral kõige sagedamini kord 10 sekundi jooksul ehk kuni
   kuus korda minutis; taustal tühja liikluse korral päringuid ei tehta. Sama piir
   kehtib tõrgete ja Workeri taaskäivituste korral.
@@ -153,7 +194,7 @@ välja lülitatud. API võtmeid rakenduse kasutamiseks ei vaja.
   Workeri sees säilib `caches.default` piirkondliku vahemäluna ja Durable Object
   globaalse algallikapiiranguna. Brauseri HTTP-vahemälu väldib ka CDN-päringut.
 - Algallikale saadetakse eelmine `If-None-Match` ja `If-Modified-Since`.
-  2026-10-29 päriskontroll kinnitas `304 Not Modified` tuge, null andmebaidiga.
+  Tallinna voo 2026-10-29 päriskontroll kinnitas `304 Not Modified` tuge, null andmebaidiga.
   Algallikas andis `ETag`-i ja `Last-Modified` päised, kuid mitte `Cache-Control`-i.
 - Allavoolule antakse `Cache-Control: public, max-age=10, s-maxage=10,
   must-revalidate`, sisu räsi põhine `ETag`, algallika `Last-Modified` ja vastuse
@@ -186,7 +227,7 @@ ja voo vaatlusaegade põhjal ning kuvatakse kujul **Hinnanguline keskmine kiirus
 Puuduv või ebaselge väärtus jäetakse välja. Algallika tegelik kiirus, kui see on
 olemas, on eelistatud. Seisva sõiduki GPS-värinast ei tehta nullkiiruse mõõtmist.
 
-Need on voo vaatluste põhjal arvutatud hinnangud: voos puudub sõiduki enda
+Tallinna bussi- ja trammikiirused on voo vaatluste põhjal arvutatud hinnangud: voos puudub sõiduki enda
 mõõtmise ajatempel. Need ei ole mõõdetud hetkkiirus ega saabumisprognoos.
 HTTP 304 ja vahemälutabamused ei lisa vaatluspunkti. Üle 60 s paus, liinivahetus
 või üle 120 km/h eeldav asukohahüpe alustab uut seeriat; kadunud sõidukite ajalugu
@@ -197,6 +238,7 @@ algallikasse ei tehta. Üle 45 s vanu hinnangulisi kiirusi brauser enam ei kuva.
 
 ```sh
 npm test
+python3 -m unittest discover -s tests -p 'test_*.py'
 npx playwright install chromium
 npm run test:browser
 .venv/bin/openmapstack validate project.yaml

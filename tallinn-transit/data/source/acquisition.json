@@ -65,5 +65,23 @@
     "tile_count": 1040,
     "sha256": "18ea851437db6c32c41a8dfd000eb26505d603eb55bc2615abda865d958203f6",
     "headers": {}
+  },
+  {
+    "path": "elron-gtfs.zip",
+    "url": "https://eu-gtfs.remix.com/elron.zip",
+    "retrieved_at": "2026-10-29T07:29:50.256742+00:00",
+    "sha256": "e76e0675df53c373b24f0b28c30fce60079b3382aa90daf04948e6ea90bf4208",
+    "identification": "https://mobilitydatabase.org/feeds/gtfs/mdb-3153",
+    "version": "Updated: Oct 1, 2026, 3:09 PM"
+  },
+  {
+    "path": "elron-gps-snapshot.json",
+    "url": "https://elron.ee/map_data.json",
+    "retrieved_at": "2026-10-29T07:30:22+00:00",
+    "sha256": "9a5d9642143cf2c7af60a75b255fbf4f3086ff195999d45b9c5110ed3807fd41",
+    "purpose": "Parser test fixture only, never a runtime fallback",
+    "schema_verified_against": "Elron home page live map JavaScript; polls map_data.json every 2 seconds; native speed/bearing and per-train local fix time",
+    "upstream_cache_control": "max-age=1209600",
+    "relay_policy": "fixed URL, conditional requests, bypass subrequest cache, one request per 10 seconds globally; downstream TTL 10 seconds; reject fixes older than 180 seconds"
   }
 ]

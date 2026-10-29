@@ -1,18 +1,18 @@
 {
   "worker": "tallinn-transit-api",
-  "versionId": "c14b29a5-4266-4c92-9623-87824a39508c",
+  "versionId": "51f22baa-52da-4da8-be00-afe40abbd575",
   "verification": {
-    "checkedAt": "2026-10-29T06:05:11.754Z",
+    "checkedAt": "2026-10-29T07:40:56.689Z",
     "base": "https://tallinn-transit-api.jaak-laineste.workers.dev/",
     "passed": true,
     "clientsInBurst": 20,
-    "initialUpstreamRequests": 28,
-    "finalUpstreamRequests": 29,
+    "initialUpstreamRequests": 390,
+    "finalUpstreamRequests": 391,
     "conditionalStatus": 304,
     "conditionalBytes": 0,
     "cacheControl": "public, max-age=10, s-maxage=10, must-revalidate",
-    "initialValidatedAt": "2026-10-29T06:05:01.451Z",
-    "nextValidatedAt": "2026-10-29T06:05:11.611Z",
+    "initialValidatedAt": "2026-10-29T07:40:46.424Z",
+    "nextValidatedAt": "2026-10-29T07:40:56.567Z",
     "geocoder": "Vabaduse väljak 7"
   },
   "upstreamProbe": {
@@ -80,5 +80,22 @@
       "sourceRequests": "27",
       "cache": "EXPIRED"
     }
-  ]
+  ],
+  "elronVerification": {
+    "checkedAt": "2026-10-29T07:43:03.660Z",
+    "passed": true,
+    "clientsInBurst": 20,
+    "vehicles": 7,
+    "nativeBearings": 6,
+    "initialUpstreamRequests": "15",
+    "finalUpstreamRequests": "16",
+    "conditionalStatus": 304,
+    "conditionalBytes": 0,
+    "headStatus": 200,
+    "cacheStatus": "HIT",
+    "cacheControl": "public, max-age=10, s-maxage=10, must-revalidate",
+    "source": "https://elron.ee/map_data.json",
+    "bypassUpstreamCache": true,
+    "reason": "Source advertises a 14-day lifetime for live GPS; relay uses native per-train fix timestamps and a 10-second global/downstream TTL."
+  }
 }

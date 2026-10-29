@@ -27,12 +27,17 @@
           {
             "id": "A4",
             "statement": "Veebirežiimis uuendatakse GPS-i iga 10 sekundi järel. Võrguta režiimi valimine salvestab kogu andmepaketi ja eemaldab GPS-asukohad. Paus peatab uuendamise, jätkamine küsib asukohad kohe uuesti.",
-            "rationale": "GPS vajab võrguühendust. Üksiksõidukite asukohamõõtmise aeg ja hilinemised ei ole teada."
+            "rationale": "GPS vajab võrguühendust. Tallinn ei anna üksiksõiduki mõõtmisaega; Elron annab selle Europe/Tallinn ajavööndis."
           },
           {
             "id": "A5",
             "statement": "Hoone või platvorm ühendatakse lähima sobiva teelõiguga kuni 70 m piires. Edasine teekond järgib olemasolevat võrku. Arvestatakse foot/access piiranguid, suletud tõkkeid ja oneway:foot suundi.",
             "rationale": "Hoone viitepunkt ei ole alati sissepääs. Viimaste meetrite ühendus võib olla ligikaudne; ligipääsetavus ja ajutised sulgemised vajavad kohapealset kontrolli."
+          },
+          {
+            "id": "A6",
+            "statement": "Rongid osalevad samas sõiduplaanipõhises teekonnaotsingus bussi ja trammiga. Elroni GTFS-i peatus Tallinn on koondatud Balti jaamaga; säilivad eri suundade peatused ja tegelikud jalgsikäigud. Puuduvaid perrooni numbreid ei tuletata peatuse ID-st.",
+            "rationale": "Linna sees võib rong anda kiireima ühenduse, ent ümberistumine peab järgima jalgteid."
           }
         ]
       },
@@ -255,6 +260,62 @@
             ]
           },
           "rationale": "Kogu linna päris jalgteed on vajalikud nii aadressipõhiseks planeerimiseks kui võrguta kasutamiseks. Väike fikseeritud OSM-i väljavõte asendab sirgjoonelised jalgsikäigu lähendid."
+        },
+        "elron_gtfs": {
+          "role": "authoritative_input",
+          "provider": "Elron / Regionaal- ja Põllumajandusministeerium",
+          "dataset": "elron_gtfs",
+          "source_url": "https://eu-gtfs.remix.com/elron.zip",
+          "access": {
+            "method": "https",
+            "retrieved_at": "2026-10-29T07:29:50.256742+00:00",
+            "file": {
+              "name": "elron-gtfs.zip",
+              "format": "zip",
+              "size_bytes": 1290597
+            },
+            "request_spec": "https://eu-gtfs.remix.com/elron.zip"
+          },
+          "version": {
+            "identifier": "Updated: Oct 1, 2026, 3:09 PM"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/elron-gtfs.zip",
+            "sha256": "sha256:e76e0675df53c373b24f0b28c30fce60079b3382aa90daf04948e6ea90bf4208",
+            "captured_at": "2026-10-29T07:29:50.256742+00:00"
+          },
+          "selection": {
+            "bbox": [
+              24.45,
+              59.28,
+              25.04,
+              59.57
+            ],
+            "filter": "Rail (route_type=2), only contiguous spans of at least two stops inside the existing offline map coverage. Preserve source calendar, times, boarding restrictions, headsigns and rail shape vertices; namespace all identifiers elron:. Tallinn rail station aliases Balti jaam; original source names retained."
+          },
+          "license": {
+            "name": "Public national GTFS export; publisher attribution retained; standard license not verified for this distribution",
+            "url": "https://mobilitydatabase.org/feeds/gtfs/mdb-3153"
+          },
+          "schema": {
+            "crs": "EPSG:4326",
+            "key": "trip_id",
+            "columns": [
+              "route_id",
+              "route_type",
+              "trip_id",
+              "service_id",
+              "stop_id",
+              "stop_name",
+              "stop_lat",
+              "stop_lon",
+              "arrival_time",
+              "departure_time",
+              "shape_id"
+            ]
+          },
+          "rationale": "MobilityData identifies this producer URL as the official Elron GTFS feed. Existing compact Tallinn map and pedestrian graph bound train coverage."
         }
       },
       "overrides": [],
@@ -265,7 +326,10 @@
           {
             "id": "load_gtfs",
             "operation": "parse_gtfs",
-            "input": "gtfs",
+            "inputs": [
+              "gtfs",
+              "elron_gtfs"
+            ],
             "output": "gtfs_parsed"
           },
           {
@@ -412,7 +476,7 @@
           "id": "LIVE-001",
           "severity": "medium",
           "issue": "fix_time_unknown",
-          "statement": "GPS näitab sõidukite viimati saadud asukohti. Üksiksõidukite mõõtmisaeg, hilinemised ja prognoositavad saabumised pole teada.",
+          "statement": "Tallinna busside ja trammide GPS ei anna üksiksõiduki mõõtmisaega. Elroni rongide mõõtmisaeg on teada ja üle 3 minuti vanad asukohad eemaldatakse. Teekonna ajad lähtuvad sõiduplaanist, mitte GPS-ist.",
           "mitigation": "Aegunud asukohad tuhmuvad ja eemaldatakse; teekonna ajad lähtuvad sõiduplaanist."
         },
         {
@@ -435,14 +499,21 @@
           "issue": "license_unverified",
           "statement": "Tallinna ühistranspordivood on avalikud, kuid nende standardset edasilevitamise litsentsi ei leitud. Allikaviited on säilitatud.",
           "mitigation": "Laiema edasilevitamise tingimused tuleb linnaga täpsustada."
+        },
+        {
+          "id": "RAIL-001",
+          "severity": "medium",
+          "issue": "rail_coverage_and_snapshot",
+          "statement": "Elron on kaasatud olemasoleva Tallinna ja lähiümbruse kaardi piires, kuni Valingu, Saku ja Kullini. Rongisõiduplaani lähteversioon on 01.10.2026; hilisemad ajutised muudatused ei pruugi selles sisalduda. Kontrolli enne rongireisi Elroni teateid.",
+          "mitigation": "Värskenda GTFS-i kontrollitud lähtevoost; ära pikenda katvust ilma kaartide ja jalgsivõrgu uuendamiseta."
         }
       ]
     },
     "analytical_outputs": {
-      "stops": "sha256:8b9c0cf1bbfbf339364477473f36f67c39e21feaf803d083ab64021f55bff2ff",
-      "routes": "sha256:e72a7497c1fa5c505aefb3b80f0ece70201c84a8197f716be25707b8e6405491",
-      "stations": "sha256:e326e936d63bb03b1067109ed9cc3f66b3355308d48d20c2ded8a85b307f4366"
+      "stops": "sha256:106fb1f0a81b5b1a3294fc7dcdc8b7368d0e95de52224fed2d6000426b2df43f",
+      "routes": "sha256:fdc4123bc335ea867c2c5fa6195399c51d32e468799fe84242383d82026a9ebe",
+      "stations": "sha256:cb6367ee4af9e66a583dd3f2fc2dedb7131589acc9507dd23102ce9aa5839e66"
     }
   },
-  "view_sha256": "sha256:9244395d26897a5914cf8f9bb8d1a89dbc37fd713b16c8c15908e91e705648dc"
+  "view_sha256": "sha256:22b351bc66de4bc124bc53948cfb3cf0a5dc6fb863865bfccbff553ba6af2880"
 }

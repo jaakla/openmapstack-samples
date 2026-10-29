@@ -103,7 +103,7 @@ test('regional cache shares all origins and query variants without extending fre
   assert.equal(c.status, 304);assert.equal(await c.text(), '');assert.equal(f.objectCalls(), 1);
   for (const entry of f.entries.values()) {
     const headers = new Headers(entry.headers);headers.set('X-GPS-Validated-At', new Date(Date.now() - 11000).toISOString());
-    f.entries.set('https://relay.example/__gps_feed_v2', new Response(body, { headers }));
+    f.entries.set('https://relay.example/__gps_feed_v3', new Response(body, { headers }));
   }
   const d = await f.send();assert.equal(d.headers.get('X-GPS-Cache'), 'GLOBAL');assert.equal(f.objectCalls(), 2);assert.equal(f.calls.length, 1);
 });
