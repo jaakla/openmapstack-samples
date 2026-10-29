@@ -2,6 +2,14 @@
 
 Source-backed geospatial applications built with [OpenMapStack](https://github.com/jaakla/openmapstack-skills).
 
+## Tallinn liigub
+
+Tallinn bus and tram map with live GPS vehicles, route and platform search, scheduled departures, and local departure-time/arrival-deadline journey planning. Save the app, GTFS schedules and city basemap for offline use. A small relay handles public GPS requests; journeys stay on the device.
+
+- [Run locally, sources, tests and reproducible pipeline](tallinn-transit/README.md)
+- [Open the public app](https://jaakla.github.io/openmapstack-samples/tallinn-transit/)
+- GPS and address search use the deployed Cloudflare Worker; maps, timetables and walking routes also work offline after downloading the app's data package.
+
 ## Detailplaneering · Idaringtee 21
 
 Explore the Idaringtee 21 detailed plan in Tartu in 3D, with 32 proposed main-building masses, official terrain, aerial imagery and 1,115 existing building footprints within 1 km. Compare the proposal with the existing situation and inspect the original georeferenced drawing. The interface is in Estonian, with light/dark OSM basemaps and switchable utility and functional-context layers.

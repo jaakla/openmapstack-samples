@@ -31,6 +31,7 @@ jobs:
             toompea-3d/package-lock.json
             battlefield-visibility/package-lock.json
             pv-location/package-lock.json
+            tallinn-transit/package-lock.json
       - name: Install dependencies
         working-directory: toompea-3d
         run: npm ci
@@ -78,12 +79,35 @@ jobs:
           /tmp/pv-build-env/bin/python pipeline.py
       - name: Prepare verified Idaringtee 21 planning atlas
         run: node detailplaneering/scripts/prepare-pages.mjs _site/detailplaneering
+      - name: Set up Python for Tallinn transit
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.14'
+      - name: Install Tallinn transit dependencies
+        working-directory: tallinn-transit
+        run: |
+          npm ci
+          python3 -m venv /tmp/tallinn-build-env
+          /tmp/tallinn-build-env/bin/pip install -r requirements.lock
+      - name: Build Tallinn transit with provenance and offline package
+        working-directory: tallinn-transit
+        run: /tmp/tallinn-build-env/bin/python pipeline.py
+      - name: Test Tallinn transit routing and shared GPS cache
+        working-directory: tallinn-transit
+        run: npm test
+      - name: Install Chromium for Tallinn transit interaction checks
+        working-directory: tallinn-transit
+        run: npx playwright install --with-deps chromium
+      - name: Test Tallinn transit online and offline workflows
+        working-directory: tallinn-transit
+        run: npm run test:browser
       - name: Assemble the site
         run: |
-          mkdir -p _site/toompea-3d _site/battlefield-visibility _site/pv-location _site/gallery
+          mkdir -p _site/toompea-3d _site/battlefield-visibility _site/pv-location _site/tallinn-transit _site/gallery
           cp -a toompea-3d/dist/. _site/toompea-3d/
           cp -a battlefield-visibility/dist/. _site/battlefield-visibility/
           cp -a pv-location/dist/. _site/pv-location/
+          cp -a tallinn-transit/dist/. _site/tallinn-transit/
           cp index.html _site/index.html
           cp -a gallery/. _site/gallery/
           cp toompea-3d/docs/toompea-preview.png _site/gallery/toompea-preview.png

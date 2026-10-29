@@ -1,0 +1,15 @@
+{
+  "url": "https://download.bbbike.org/osm/bbbike/Tallinn/Tallinn.osm.pbf",
+  "retrieved_at": "2026-10-28T21:35:19.543345+00:00",
+  "headers": {
+    "Content-Type": "application/x-pbf",
+    "ETag": "\"1226880987\"",
+    "Last-Modified": "Sat, 24 Oct 2026 16:34:18 GMT",
+    "Content-Length": "23767559",
+    "Accept-Ranges": "bytes",
+    "Connection": "close",
+    "Date": "Wed, 28 Oct 2026 21:47:00 GMT",
+    "Server": "httpd/1.4.x dev2 Alexandria (Unix)"
+  },
+  "sha256": "57150708d5cb2b3157ab037019ea2c866127d7aedc5c6e920d762995d8442710"
+}

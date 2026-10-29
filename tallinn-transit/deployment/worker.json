@@ -1,0 +1,39 @@
+{
+  "worker": "tallinn-transit-api",
+  "versionId": "744a5bbc-3e0c-4026-87d3-1e13e2e6bcfc",
+  "verification": {
+    "checkedAt": "2026-10-29T04:44:40.435Z",
+    "base": "https://tallinn-transit-api.jaak-laineste.workers.dev/",
+    "passed": true,
+    "clientsInBurst": 20,
+    "initialUpstreamRequests": 3,
+    "finalUpstreamRequests": 4,
+    "conditionalStatus": 304,
+    "conditionalBytes": 0,
+    "cacheControl": "public, max-age=10, s-maxage=10, must-revalidate",
+    "initialValidatedAt": "2026-10-29T04:44:30.164Z",
+    "nextValidatedAt": "2026-10-29T04:44:40.333Z",
+    "geocoder": "Vabaduse väljak 7"
+  },
+  "upstreamProbe": {
+    "checkedAt": "2026-10-29T04:40:53.532580+00:00",
+    "url": "https://transport.tallinn.ee/gps.txt?x=1",
+    "initial": {
+      "status": 200,
+      "etag": "W/\"428a-65ef348cd08e8-gzip\"",
+      "lastModified": "Thu, 29 Oct 2026 04:40:51 GMT",
+      "cacheControl": null,
+      "bytes": 17034,
+      "sha256": "c0bab457be2a79a448f04273df6af70c69722ff416bd7a3443b1524bb13161b4"
+    },
+    "conditional": {
+      "status": 304,
+      "bytes": 0,
+      "etag": "\"428a-65ef348cd08e8-gzip\""
+    }
+  },
+  "references": [
+    "https://developers.cloudflare.com/workers/runtime-apis/cache/",
+    "https://developers.cloudflare.com/durable-objects/best-practices/access-durable-objects-storage/"
+  ]
+}

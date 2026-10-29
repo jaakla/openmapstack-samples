@@ -1,0 +1,17 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tallinn-transit-api",
+  "main": "scripts/gps-worker.js",
+  "account_id": "1770d998d043a2778e06edafa880a877",
+  "compatibility_date": "2026-10-28",
+  "workers_dev": true,
+  "preview_urls": false,
+  "vars": {
+    "ALLOWED_ORIGINS": "https://jaakla.github.io,http://127.0.0.1:5177,http://localhost:5177"
+  },
+  "durable_objects": {
+    "bindings": [{ "name": "GPS_FEED", "class_name": "GpsFeed" }]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["GpsFeed"] }],
+  "observability": { "enabled": false }
+}

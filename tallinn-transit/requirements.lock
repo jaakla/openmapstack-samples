@@ -1,0 +1,17 @@
+attrs==26.1.0
+certifi==2026.10.23
+charset-normalizer==3.5.2
+duckdb==2.0.0
+idna==3.20
+jsonschema==4.26.0
+jsonschema-specifications==2025.9.1
+openmapstack==0.5.0
+osmium==4.2.0
+packaging==26.3
+pmtiles==3.7.0
+pyproj==3.7.2
+pyyaml==6.0.3
+referencing==0.37.0
+requests==2.34.2
+rpds-py==2026.9.1
+urllib3==2.8.0
