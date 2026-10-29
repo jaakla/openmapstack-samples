@@ -266,3 +266,5 @@ aadresse, millega Chromium ei laadi Vite'i ES-mooduleid. Need CLI kontrollid on
 
 Avaliku teenuse iganädalane kontroll ja Better Stacki ühendus:
 [nädalakontrolli juhend](docs/maintenance-health.md).
+Sama juhend kirjeldab ka igapäevast andmete värskuse kontrolli ning
+`BETTERSTACK_DATA_HEARTBEAT_URL` ühendust.

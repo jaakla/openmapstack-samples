@@ -67,5 +67,52 @@ node scripts/maintenance-summary.mjs
 ```
 
 Browser plugin not available: valideerimiseks kasutatakse olemasolevat Playwrighti.
-Kohalik test ei saada Better Stacki teadet. See töö ei uuenda GTFS-i, OSM-i ega
-teeke; nende staging- ja avaldamistööd tuleb luua eraldi.
+Kohalik test ei saada Better Stacki teadet. Need kontrollid ei uuenda GTFS-i,
+OSM-i ega teeke; nende staging- ja avaldamistööd tuleb luua eraldi.
+
+## Igapäevane andmete värskuse kontroll
+
+Töövoog `.github/workflows/maintenance-data.yml` käivitub iga päev kell 09.31
+(`Europe/Tallinn`), samuti käsitsi **Actions → Tallinn transit daily data freshness**.
+See kasutab olemasolevat secret'it `BETTERSTACK_DATA_HEARTBEAT_URL`.
+Better Stacki intervall: 1 päev; grace: 6 tundi.
+
+Iga päev kontrollitakse avaldatud sõiduplaani katvust tänasest järgmise 14 päevani
+ning kooskõla avaliku päritolukirjeldusega. Tallinna ja Elroni GTFS-i lähteversioone
+kontrollitakse kord seitsme päeva jooksul, OSM-i jalgsivõrgu lähteversiooni kord
+kalendrikuus. Esimesel käivitamisel kontrollitakse kõiki allikaid kohe. Järgnevad
+kontrollid kasutavad võimalusel ETag/Last-Modified tingimuslikke päringuid.
+GTFS-i ZIP-i pelk ümberpakkimine ei loe uuenduseks, kui tabelite sisu on sama ja
+kohaliku võrdlusfaili räsi vastab päriselt avaldatud versioonile.
+
+Kontrollimise aega ei võrdsustata allalaadimise või avaldamise ajaga. Muutumatu
+kehtiv allikas võib olla vana: kinnitatud sisuvastavus hoiab seire rohelisena.
+Uue versiooni leidmisel on seis `update_available`. Kui avaldatud versioon pole
+enam allikaga sama ning viimasest kinnitatud vastavusest (selle puudumisel
+allalaadimisest) möödub GTFS-i puhul üle 8 või OSM-i puhul üle 40 päeva, on seis
+`overdue` ning töö ebaõnnestub. Uue versiooni korduv leidmine tähtaega ei pikenda.
+Võrgutõrge ei kirjuta varasemat edukat kontrolliaega üle.
+
+Kontroll on kirjutuskaitstud: `update_available` ei tähenda, et uuendus on
+staging'us testitud või production'is avaldatud. Aadressid tulevad endiselt
+otse In-ADS-ist; aadressiotsingu toimimist kontrollib olemasolev nädalakontroll.
+Taustakaardi uute planet-versioonide avastamine pole selle töö osa.
+
+**Summary** näitab allikate seisud ja tähtajad. **Artifacts → tallinn-transit-data-state**
+sisaldab `report.json`, `state.json` ja `summary.md`; seal on ajatemplid, räsid ja
+suurused. Artefakte säilitatakse 90 päeva ning järgmine töö taastab viimase
+selle sama töövoo lõpetatud `main`-käivituse oleku ka siis, kui andmeaudit leidis vea.
+Ajaloo puudumisel tehakse uus tegelik allikakontroll; seda ei käsitleta varasema
+eduka kontrolli tõendina. GitHubi API tõrget ei peideta puuduva ajaloo taha.
+
+Edukas audit saadab heartbeat'i. Hilinenud uuendus, puuduv sõiduplaanikatvus või
+ebaõnnestunud kontroll saadab `/fail` koos raporti lingiga. Teavitussaladus on
+ainult eraldi teavitustööl. Tavakontroll ei vaja npm-i, brauserit ega LLM-i.
+
+Kohalik käivitamine (ei saada teavitusi):
+
+```sh
+cd tallinn-transit
+python3 -m unittest discover -s tests -p 'test_data_freshness.py'
+python3 scripts/check-data-freshness.py
+```

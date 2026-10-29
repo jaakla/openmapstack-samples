@@ -1,0 +1,86 @@
+name: Tallinn transit daily data freshness
+
+on:
+  schedule:
+    - cron: '31 9 * * *'
+      timezone: Europe/Tallinn
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tallinn-transit-maintenance-data
+  cancel-in-progress: false
+
+jobs:
+  freshness:
+    if: github.repository == 'jaakla/openmapstack-samples' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      actions: read
+    defaults:
+      run:
+        working-directory: tallinn-transit
+    env:
+      TZ: Europe/Tallinn
+    steps:
+      - name: Check out audit code and pinned source archives
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          lfs: false
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.14'
+      - name: Restore the latest recorded source checks
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: python scripts/check-data-freshness.py --restore-state
+      - name: Check published coverage, source changes and update deadlines
+        id: audit
+        run: python scripts/check-data-freshness.py
+      - name: Preserve source check history and report
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: tallinn-transit-data-state
+          path: tallinn-transit/test-results/data-freshness/output/
+          if-no-files-found: warn
+          retention-days: 90
+
+  # Only this job receives the external notification secret; it runs no repo code.
+  heartbeat:
+    needs: freshness
+    if: >-
+      always() && !cancelled() &&
+      github.repository == 'jaakla/openmapstack-samples' &&
+      github.ref == 'refs/heads/main' &&
+      (needs.freshness.result == 'success' || needs.freshness.result == 'failure')
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    permissions: {}
+    steps:
+      - name: Send data audit outcome to Better Stack
+        env:
+          HEARTBEAT_URL: ${{ secrets.BETTERSTACK_DATA_HEARTBEAT_URL }}
+          AUDIT_RESULT: ${{ needs.freshness.result }}
+          REPORT_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$HEARTBEAT_URL" ]]; then
+            echo '::error::BETTERSTACK_DATA_HEARTBEAT_URL is missing; data freshness alerting is not configured.'
+            exit 1
+          fi
+          target="$HEARTBEAT_URL"
+          if [[ "$AUDIT_RESULT" != 'success' ]]; then
+            target="${HEARTBEAT_URL%/}/fail"
+          fi
+          curl --fail --silent --show-error --max-time 15 --retry 2 \
+            --output /dev/null --data "Andmete kontroll: $AUDIT_RESULT. Raport: $REPORT_URL" "$target"
+          echo "Better Stackile saadetud tulemus: $AUDIT_RESULT. [Raport]($REPORT_URL)" >> "$GITHUB_STEP_SUMMARY"
