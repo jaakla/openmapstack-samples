@@ -9,7 +9,7 @@ const feed=new GpsFeedCache(),trains=new ElronFeedCache();
 // Fixed public GPS and In-ADS endpoints; journey calculations stay in the browser.
 export default defineConfig({
   base: './',
-  plugins: [react(),analyticsPlugin('tallinn-transit', '6cdeb1e0afb19e2ddc566d5221100a3fb3a13c2d681af5f0beb7d17570c6cc7d'),{name:'tallinn-address-search',configureServer(server){
+  plugins: [react(),analyticsPlugin('tallinn-transit', 'c6ec946da4cb946f2c013ba8546505b4687421730c5259da5850cb20dc44930b'),{name:'tallinn-address-search',configureServer(server){
     for(const endpoint of ['/api/gps','/api/vehicles','/api/trains'])server.middlewares.use(endpoint,async(req,res)=>{
       let response;try{response=gpsResponse(await (endpoint.endsWith('/trains')?trains:feed).get(),new Request(`http://localhost${endpoint}`,{method:req.method,headers:req.headers}));}catch(error){response=gpsError(error);}
       res.writeHead(response.status,Object.fromEntries(response.headers));res.end(req.method==='HEAD'?undefined:await response.text());

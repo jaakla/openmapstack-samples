@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { analyticsPlugin } from '../shared/vite-analytics.mjs';
 export default defineConfig({
-  plugins: [react(), analyticsPlugin('pv-location', '6cdeb1e0afb19e2ddc566d5221100a3fb3a13c2d681af5f0beb7d17570c6cc7d')],
+  plugins: [react(), analyticsPlugin('pv-location', 'c6ec946da4cb946f2c013ba8546505b4687421730c5259da5850cb20dc44930b')],
   base: "./",
   // These libraries are used on demand. Prepare them before the first area/PDF
   // action so dependency discovery cannot invalidate an in-flight dev import.

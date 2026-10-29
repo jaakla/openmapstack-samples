@@ -26,7 +26,7 @@ function publicationAttribution(){
 }
 export default defineConfig({
   base:'./',
-  plugins:[react(),publicationAttribution(),analyticsPlugin('toompea-3d', '6cdeb1e0afb19e2ddc566d5221100a3fb3a13c2d681af5f0beb7d17570c6cc7d')],
+  plugins:[react(),publicationAttribution(),analyticsPlugin('toompea-3d', 'c6ec946da4cb946f2c013ba8546505b4687421730c5259da5850cb20dc44930b')],
   server:{host:'0.0.0.0'},
   build:{
     chunkSizeWarningLimit:900,

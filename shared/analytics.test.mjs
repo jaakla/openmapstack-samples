@@ -104,3 +104,24 @@ test('blocked analytics cannot break interactions or grow the SDK queue', () => 
   for (let i = 0; i < 100; i++) window.omsAnalytics.track('route_search_completed', { status: 'success' });
   assert.equal(window.posthog.length, 0);
 });
+
+test('every allowed event explicitly disables person processing after sanitization', () => {
+  const { config } = boot();
+  for (const flag of [undefined, true, false]) {
+    const properties = flag === undefined ? {} : { $process_person_profile: flag };
+    for (const event of ['$pageview', '$pageleave', '$web_vitals', 'map_ready', 'route_search_completed']) {
+      assert.equal(config.before_send({ event, properties }).properties.$process_person_profile, false);
+    }
+  }
+});
+
+
+test('gallery exits send immediately without changing batching of ordinary activity', () => {
+  const { window } = boot({site: 'gallery'});
+  window.omsAnalytics.track('demo_opened', {target_site: 'tallinn-transit'});
+  const options = window.posthog.at(-1)[3];
+  assert.equal(options.transport, 'sendBeacon');
+  assert.equal(options.send_instantly, true);
+  window.omsAnalytics.track('feature_used', {feature: 'stops'});
+  assert.equal(window.posthog.at(-1)[3], undefined);
+});

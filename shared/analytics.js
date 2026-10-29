@@ -57,13 +57,15 @@
     }
     if (properties.$session_entry_url) clean.$session_entry_url = safeURL(properties.$session_entry_url);
     clean.site = site; clean.environment = 'production'; clean.release = release;
+    clean.$process_person_profile = false;
     return { ...event, properties: clean };
   }
   function track(name, properties = {}, onlyOnce = false) {
     try {
       if (!permitted() || !events.has(name) || (onlyOnce && once.has(name))) return;
       if (onlyOnce) once.add(name);
-      window.posthog?.capture(name, cleanProperties(properties));
+      const options = name === 'demo_opened' ? { transport: 'sendBeacon', send_instantly: true } : undefined;
+      window.posthog?.capture(name, cleanProperties(properties), options);
     } catch { /* Analytics must never interrupt a rider flow or calculation. */ }
   }
   window.omsAnalytics = { track, once: (name, properties) => track(name, properties, true), site };
