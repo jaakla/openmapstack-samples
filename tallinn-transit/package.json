@@ -9,6 +9,7 @@
     "preview": "vite preview --host 127.0.0.1",
     "test": "node --test tests/*.test.js",
     "test:browser": "playwright test",
+    "test:maintenance": "playwright test --config playwright.maintenance.config.js",
     "data": "python pipeline.py",
     "start": "node scripts/server.mjs",
     "worker:dev": "wrangler dev",

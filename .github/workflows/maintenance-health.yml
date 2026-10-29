@@ -1,0 +1,90 @@
+name: Tallinn transit weekly health
+
+on:
+  schedule:
+    - cron: '17 9 * * 1'
+      timezone: Europe/Tallinn
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tallinn-transit-maintenance-health
+  cancel-in-progress: false
+
+jobs:
+  health:
+    if: github.repository == 'jaakla/openmapstack-samples' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: tallinn-transit
+    env:
+      PLAYWRIGHT_BASE_URL: https://jaakla.github.io/openmapstack-samples/tallinn-transit/
+      TZ: Europe/Tallinn
+    steps:
+      - name: Check out monitoring code
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          lfs: false
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: tallinn-transit/package-lock.json
+      - name: Install pinned monitoring dependencies
+        run: npm ci --ignore-scripts
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Check public services and desktop and mobile rider flows
+        id: smoke
+        run: npm run test:maintenance
+      - name: Summarize checks, timings and source versions
+        if: always()
+        run: node scripts/maintenance-summary.mjs
+      - name: Preserve reports, screenshots and failure traces
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: tallinn-transit-health-${{ github.run_id }}-${{ github.run_attempt }}
+          path: tallinn-transit/test-results/maintenance/
+          if-no-files-found: error
+          retention-days: 30
+
+  # Untrusted page contents and test dependencies never receive this secret.
+  heartbeat:
+    needs: health
+    if: >-
+      always() && !cancelled() &&
+      github.repository == 'jaakla/openmapstack-samples' &&
+      github.ref == 'refs/heads/main' &&
+      (needs.health.result == 'success' || needs.health.result == 'failure')
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    permissions: {}
+    steps:
+      - name: Send health outcome to Better Stack
+        env:
+          HEARTBEAT_URL: ${{ secrets.BETTERSTACK_WEEKLY_HEARTBEAT_URL }}
+          HEALTH_RESULT: ${{ needs.health.result }}
+          REPORT_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ -z "$HEARTBEAT_URL" ]]; then
+            echo '::warning::BETTERSTACK_WEEKLY_HEARTBEAT_URL is missing; external health alerting is not configured.'
+            echo '### Better Stack: seadistamata' >> "$GITHUB_STEP_SUMMARY"
+            echo 'Lisa repository secret BETTERSTACK_WEEKLY_HEARTBEAT_URL.' >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          target="$HEARTBEAT_URL"
+          if [[ "$HEALTH_RESULT" != 'success' ]]; then
+            target="${HEARTBEAT_URL%/}/fail"
+          fi
+          curl --fail --silent --show-error --max-time 15 --retry 2 \
+            --output /dev/null --data "Nadalakontroll: $HEALTH_RESULT. Raport: $REPORT_URL" "$target"
+          echo "Better Stackile saadetud tulemus: $HEALTH_RESULT. [Raport]($REPORT_URL)" >> "$GITHUB_STEP_SUMMARY"

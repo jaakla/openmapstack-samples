@@ -261,3 +261,8 @@ eestikeelse telefoni-UI ja täieliku võrguta laadimise.
 OpenMapStack 0.5.0 valikulised Pythoni brauserikontrollid kasutavad `file://`
 aadresse, millega Chromium ei laadi Vite'i ES-mooduleid. Need CLI kontrollid on
 `not_testable`; tegeliku brauserikäitumise tõend annab ülaltoodud HTTP-testide komplekt.
+
+## Haldusseire
+
+Avaliku teenuse iganädalane kontroll ja Better Stacki ühendus:
+[nädalakontrolli juhend](docs/maintenance-health.md).
