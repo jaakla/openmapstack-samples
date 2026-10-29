@@ -39,7 +39,9 @@ The two externally hosted Worker demos linked from the gallery are not instrumen
 their outbound gallery clicks are counted.
 
 Run `node --test shared/analytics.test.mjs` to check the collection guards and
-payload filtering. Those checks also run in the Pages workflow.
+payload filtering. Those checks also run in the Pages workflow. After assembly,
+`node shared/verify-analytics-builds.mjs _site` checks the final canonical/standalone
+pages, including inline script execution mode and site/release attribution.
 
 ## Tallinn liigub
 

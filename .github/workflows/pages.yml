@@ -119,6 +119,8 @@ jobs:
           cp toompea-3d/docs/toompea-preview.png _site/gallery/toompea-preview.png
           cp battlefield-visibility/docs/uav-visibility-preview.png _site/gallery/uav-visibility-preview.png
           touch _site/.nojekyll
+      - name: Verify RUM in final canonical and standalone pages
+        run: node shared/verify-analytics-builds.mjs _site
       - name: Upload the prepared static site
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:

@@ -398,7 +398,10 @@ def main():
         script_path = (path.parent / match.group(1)).resolve()
         script = re.sub(r"</script", lambda closing: "<\\/" + closing.group(0)[2:],
                         script_path.read_text(), flags=re.IGNORECASE)
-        return f'<script type="module">{script}</script>'
+        # Preserve classic-script execution and bootstrap data attributes.
+        # Module conversion would make document.currentScript unavailable.
+        opening = re.sub(r'\s+src="[^"]+"', "", match.group(0).split(">", 1)[0])
+        return f'{opening}>{script}</script>'
 
     document = re.sub(r'<script\b[^>]*\bsrc="([^"]+)"[^>]*></script>', inline_script, document)
 
