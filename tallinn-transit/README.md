@@ -153,6 +153,8 @@ tulevikus olevad ja katvusest väljas asukohad jäetakse välja, ka pausil ja HT
 GPS-reisinumber (nt 101) erineb GTFS-liininumbrist (nt RE34); kinnitamata vastavust
 ei oletata. Valitud rongiliini kõrval jäävad nähtavaks piirkonna rongide asukohad.
 Rongipiletid järgivad [Elroni tingimusi](https://elron.ee/piletiinfo/piletid).
+Rongimärgised saavad kattuvate bussi- ja trammimärgiste ees paigutusprioriteedi,
+et need ei kaoks tiheda liiklusega kohtades ainult väikesteks asukohapunktideks.
 
 Elroni GPS-vastusel on praegu `Cache-Control: max-age=1209600` (14 päeva).
 Vahendaja kasutab fikseeritud URL-i ja tingimuslikke päringuid, kuid `fetch`
