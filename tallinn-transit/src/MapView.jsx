@@ -5,6 +5,7 @@ import { Protocol } from 'pmtiles';
 import { LocateFixed, RotateCcw } from 'lucide-react';
 import { asset } from './offline.js';
 import { cleanVehicle } from './transit.js';
+import { visibleStationIds } from './station-list.js';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
 const protocol = new Protocol();
@@ -34,9 +35,9 @@ function nearestIndex(points, stop, min = 0) {
   }
   return index;
 }
-export default memo(function MapView({ data, shapes, theme, layers, route, journey, inspection, nearbyPaths, vehicles, stale, onInspect, onUsePoint,onCloseInspect, onMapReady }) {
+export default memo(function MapView({ data, shapes, theme, layers, route, journey, inspection, nearbyPaths, vehicles, stale, onInspect, onUsePoint,onCloseInspect, onMapReady, onViewportChange }) {
   const host = useRef(null), instance = useRef(null), popup=useRef(null),generation=useRef(0),fitted=useRef(null),callbacks = useRef({});
-  callbacks.current = {onInspect,onUsePoint,onCloseInspect,onMapReady};
+  callbacks.current = {onInspect,onUsePoint,onCloseInspect,onMapReady,onViewportChange};
   const [loaded, setLoaded] = useState(0), [error, setError] = useState('');
   useEffect(() => {
     const map = new maplibregl.Map({ container: host.current, style: { version:8,sources:{},layers:[] },locale:{'NavigationControl.ZoomIn':'Suurenda','NavigationControl.ZoomOut':'Vähenda','AttributionControl.ToggleAttribution':'Kaardi allikad'},
@@ -45,6 +46,14 @@ export default memo(function MapView({ data, shapes, theme, layers, route, journ
     map.addControl(new maplibregl.AttributionControl({ compact:true }));
     map.addControl(new maplibregl.NavigationControl({ showCompass:false }), 'bottom-right');
     map.addControl(new maplibregl.ScaleControl({ maxWidth:110 }), 'bottom-left');
+    const reportViewport = () => {
+      const canvas = map.getCanvas();
+      callbacks.current.onViewportChange?.(visibleStationIds(data, point => map.project([point.lon, point.lat]), canvas.clientWidth, canvas.clientHeight));
+    };
+    map.on('load', reportViewport);
+    map.on('moveend', reportViewport);
+    map.on('resize', reportViewport);
+    reportViewport();
     map.on('click', e => {
       const ids=['vehicles','vehicle-directions','vehicle-points','stops','stations'].filter(id=>map.getLayer(id));
       const hit=map.queryRenderedFeatures(e.point,{layers:ids})[0];
@@ -130,10 +139,11 @@ export default memo(function MapView({ data, shapes, theme, layers, route, journ
     map.setFilter('route-highlight', ['==',['get','route'],route ?? -1]);
     const visible = vehicles.filter(v => layers[v.mode] && (route === null || (v.mode===data.routes[route]?.mode&&(v.mode==='train'||v.route===data.routes[route]?.name))));
     map.getSource('vehicles').setData({type:'FeatureCollection',features:visible.map(v => feature([v.lon,v.lat],v))});
-    map.setPaintProperty('vehicle-directions','icon-opacity',stale?0.42:1);
-    map.setPaintProperty('vehicles','icon-opacity',stale?0.42:1);
-    map.setPaintProperty('vehicles','text-opacity',stale?0.65:1);
-    map.setPaintProperty('vehicle-points','circle-opacity',stale?0.42:1);
+    const faded=['any',stale,['boolean',['get','dataStale'],false]];
+    map.setPaintProperty('vehicle-directions','icon-opacity',['case',faded,0.42,1]);
+    map.setPaintProperty('vehicles','icon-opacity',['case',faded,0.42,1]);
+    map.setPaintProperty('vehicles','text-opacity',['case',faded,0.65,1]);
+    map.setPaintProperty('vehicle-points','circle-opacity',['case',faded,0.42,1]);
   }, [loaded,layers,route,vehicles,stale,data]);
   useEffect(() => {
     const map = instance.current;
@@ -165,7 +175,8 @@ export default memo(function MapView({ data, shapes, theme, layers, route, journ
     if (points.length&&fitted.current!==journey) {
       fitted.current=journey;
       const bounds = points.reduce((b,p)=>b.extend(p),new maplibregl.LngLatBounds(points[0],points[0]));
-      map.fitBounds(bounds,{padding:{top:125,bottom:85,left:45,right:45},maxZoom:14,duration:700});
+      const padding=map.getCanvas().clientHeight<350?{top:96,bottom:44,left:24,right:44}:{top:125,bottom:85,left:45,right:45};
+      map.fitBounds(bounds,{padding,maxZoom:14,duration:700});
     }
   },[loaded,journey,shapes,data]);
   useEffect(()=>{

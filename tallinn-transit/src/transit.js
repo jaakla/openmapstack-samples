@@ -28,9 +28,10 @@ export function activeServices(data, date) {
   return set;
 }
 export function serviceTrips(data, date, mode = 'all') {
+  const modes = new Set(Array.isArray(mode) ? mode : mode === 'all' ? ['bus', 'tram', 'train'] : [mode]);
   return [-1, 0, 1].flatMap(day => {
     const services = activeServices(data, addDays(date, day));
-    return data.trips.filter(t => services.has(t.service) && (mode === 'all' || data.routes[t.r].mode === mode))
+    return data.trips.filter(t => services.has(t.service) && modes.has(data.routes[t.r].mode))
       .map(trip => ({ trip, offset: day * DAY }));
   });
 }

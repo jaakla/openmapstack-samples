@@ -107,7 +107,8 @@ test('today: interactive map, address-to-address walking and transit, arrival ro
     await page.getByRole('button', { name: 'Väljun kell', exact: true }).click();
     await page.getByLabel('Väljumine', { exact: true }).fill('08:00');
     await page.locator('.journey-options > summary').click();
-    await page.getByLabel('Liikumisviis', { exact: true }).selectOption('train');
+    await page.getByRole('group', { name: 'Liikumisviisid', exact: true }).getByRole('checkbox', { name: 'Buss', exact: true }).uncheck();
+    await page.getByRole('group', { name: 'Liikumisviisid', exact: true }).getByRole('checkbox', { name: 'Tramm', exact: true }).uncheck();
     await find.click(); await expect(find).toBeEnabled({ timeout: 30000 });
     await expect(page.locator('.itinerary')).toContainText('Rong');
     await expect(page.locator('.map-error, .error-message, .vite-error-overlay')).toHaveCount(0);

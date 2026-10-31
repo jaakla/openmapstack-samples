@@ -134,7 +134,7 @@ test('Elron trains join the planner, share Balti jaam and remain available offli
   await from.fill('Balti jaam');const balti=page.getByRole('option').filter({hasText:'Peatus ·'}).filter({has:page.locator('strong',{hasText:/^Balti jaam$/})});await expect(balti).toHaveCount(1);await balti.click();
   await to.fill('Nõmme');await page.getByRole('option').filter({hasText:'Peatus ·'}).filter({has:page.locator('strong',{hasText:/^Nõmme$/})}).click();
   await page.getByLabel('Kuupäev',{exact:true}).fill('2026-10-29');await page.getByLabel('Väljumine',{exact:true}).fill('08:00');
-  await page.locator('.journey-options>summary').click();await page.getByLabel('Liikumisviis',{exact:true}).selectOption('train');
+  await page.locator('.journey-options>summary').click();await page.getByRole('group',{name:'Liikumisviisid',exact:true}).getByRole('checkbox',{name:'Buss',exact:true}).uncheck();await page.getByRole('group',{name:'Liikumisviisid',exact:true}).getByRole('checkbox',{name:'Tramm',exact:true}).uncheck();
   await page.getByRole('button',{name:'Leia teekond',exact:true}).click();await expect(page.locator('.itinerary')).toContainText('Rong');await expect(page.locator('.journey-result').first()).toContainText('08:17');
   const rail=await page.locator('.map-canvas').evaluate(async el=>{const m=el.__tallinnMap;return{features:(await m.getSource('journey').getData()).features,paint:m.getPaintProperty('journey-line','line-color')};});
   expect(rail.features.some(f=>f.properties.mode==='train'&&f.geometry.coordinates.length>10)).toBe(true);expect(JSON.stringify(rail.paint)).toContain('#c05a12');

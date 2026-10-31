@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { asset, registerOffline } from './offline.js';
-import { parseGPS, gpsValidatedAt, cleanVehicle } from './transit.js';
+import { parseGPS, cleanVehicle } from './transit.js';
+import { liveMetadata, liveDataState } from './live-data.js';
+
+const EMPTY_LIVE = { vehicles: [], fetchedAt: null, dataAt: undefined, modifiedAt: null, serverStatus: null, upstreamError: null, error: '', loading: true };
 
 export function useNetwork() {
   const [state, setState] = useState({ data: null, shapes: null, project: null, error: '' });
@@ -50,11 +53,11 @@ export function useRouter(data,walking) {
 }
 
 export function useLive(paused, endpoint,enabled=true) {
-  const [state, setState] = useState({ vehicles: [], fetchedAt: null, modifiedAt: null, error: '', loading: true });
+  const [state, setState] = useState(EMPTY_LIVE);
   const [now, setNow] = useState(Date.now());
   useEffect(() => { if(!enabled)return;const timer = setInterval(() => setNow(Date.now()), 1000); return () => clearInterval(timer); }, [enabled]);
   useEffect(() => {
-    if(!enabled){setState({vehicles:[],fetchedAt:null,modifiedAt:null,error:'',loading:false});return;}
+    if(!enabled){setState({...EMPTY_LIVE,loading:false});return;}
     if (paused) return;
     let cancelled = false, timer;
     const controller = new AbortController();
@@ -62,20 +65,23 @@ export function useLive(paused, endpoint,enabled=true) {
       if (document.visibilityState === 'hidden' || !navigator.onLine) { timer = setTimeout(poll, 10000); return; }
       try {
         const response = await fetch(endpoint, { cache: 'default', credentials: 'omit', signal: AbortSignal.any([controller.signal, AbortSignal.timeout(12000)]) });
+        const metadata = liveMetadata(response.headers);
+        if (metadata.serverStatus === 'unavailable') {
+          if (!cancelled) { setNow(Date.now()); setState({ ...EMPTY_LIVE, ...metadata, loading: false }); }
+          return;
+        }
         if (!response.ok) throw new Error('Sõidukite asukohti ei õnnestunud uuendada.');
         const json=response.headers.get('content-type')?.includes('application/json');
-        const vehicles=json?(await response.json()).vehicles.map(v=>cleanVehicle(v)):parseGPS(await response.text());
-        const modifiedAt = Date.parse(response.headers.get('last-modified'));
-        if (!cancelled) {setNow(Date.now());setState({ vehicles, fetchedAt: gpsValidatedAt(response.headers), modifiedAt: Number.isFinite(modifiedAt) ? modifiedAt : null, error: '', loading: false });}
+        const body = json ? await response.json() : await response.text();
+        const vehicles=json?body.vehicles.map(v=>cleanVehicle(v)):body.trim()?parseGPS(body):[];
+        if (!cancelled) {setNow(Date.now());setState({ vehicles, ...metadata, error: '', loading: false });}
       } catch (error) {
         if (!cancelled) setState(s => ({ ...s, error:'Sõidukite asukohad pole praegu kättesaadavad. Sõiduplaan töötab edasi.', loading: false }));
       }
-      if (!cancelled) timer = setTimeout(poll, 10000);
+      finally { if (!cancelled) timer = setTimeout(poll, 10000); }
     }
     poll();
     return () => { cancelled = true; clearTimeout(timer); controller.abort(); };
   }, [paused, endpoint,enabled]);
-  const age = state.fetchedAt ? Math.max(0, Math.floor((now - state.fetchedAt) / 1000)) : null;
-  const sourceAge = state.modifiedAt ? Math.max(0, Math.floor((now - state.modifiedAt) / 1000)) : null;
-  return { ...state, vehicles:state.vehicles.filter(v=>!v.fixAt||(Number.isFinite(Date.parse(v.fixAt))&&now-Date.parse(v.fixAt)<=180000)), age, sourceAge, stale: age === null || age > 45 || (sourceAge !== null && sourceAge > 60), expired: age === null || age > 180 || (sourceAge !== null && sourceAge > 180) };
+  return liveDataState(state, now);
 }

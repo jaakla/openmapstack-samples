@@ -45,16 +45,17 @@ test('cache hits preserve Age and validation time; conditional GET/HEAD transfer
   assert.equal(a.headers.get('Set-Cookie'), null);
   const b = gpsResponse(snapshot, req({ 'If-None-Match': `"different", ${snapshot.etag}` }), { now: f.now() });
   assert.equal(b.status, 304);assert.equal(await b.text(), '');assert.equal(b.headers.get('Age'), '7');
-  assert.equal(gpsResponse(snapshot, req({ 'If-Modified-Since': modified })).status, 304);
-  assert.equal(gpsResponse(snapshot, req({ 'If-None-Match': '"different"', 'If-Modified-Since': modified })).status, 200);
+  assert.equal(gpsResponse(snapshot, req({ 'If-Modified-Since': modified }), { now: f.now() }).status, 304);
+  assert.equal(gpsResponse(snapshot, req({ 'If-None-Match': '"different"', 'If-Modified-Since': modified }), { now: f.now() }).status, 200);
   assert.equal(await gpsResponse(snapshot, new Request('https://relay.example/gps', { method: 'HEAD' })).text(), '');
 });
 
 test('failures are rate-limited, uncached and never renew the old snapshot', async () => {
   let broken = false;const f = fixture(async () => broken ? new Response('<html>blocked</html>') : source());
   const first = await f.cache.get();broken = true;f.advance(10000);
-  await assert.rejects(() => f.cache.get());
-  await Promise.all(Array.from({ length: 100 }, () => assert.rejects(() => f.cache.get())));
+  const fallback = await f.cache.get();
+  assert.equal(fallback.body, first.body);assert.equal(fallback.upstreamError, 'invalid_response');
+  await Promise.all(Array.from({ length: 100 }, () => f.cache.get()));
   assert.equal(f.calls.length, 2);assert.equal(f.cache.state.snapshot.validatedAt, first.validatedAt);
   const err = gpsError({ retryAfter: 8 });assert.equal(err.status, 503);assert.equal(err.headers.get('Cache-Control'), 'no-store');assert.equal(err.headers.get('Retry-After'), '8');
   f.advance(10000);broken = false;await f.cache.get();assert.equal(f.calls.length, 3);
@@ -66,17 +67,17 @@ test('persisted snapshots and failed-attempt throttle survive object eviction', 
   const first = await f.cache.get();
   const restarted = new GpsFeedCache({ state: saved, now: f.now, fetch: async () => { throw new Error('must not fetch'); } });
   assert.deepEqual(await restarted.get(), first);
-  broken = true;f.advance(10000);await assert.rejects(() => f.cache.get());
+  broken = true;f.advance(10000);await f.cache.get();
   // Rehydrate the pre-I/O reservation, including a restart during an upstream call.
   assert.equal(saved.snapshot.validatedAt, first.validatedAt);assert.equal(saved.nextAttemptAt, f.now() + 10000);
   let attempts = 0;
   const duringAttempt = new GpsFeedCache({ state: saved, now: f.now, fetch: async () => { attempts++;return source(); } });
-  await assert.rejects(() => duringAttempt.get());
+  assert.equal((await duringAttempt.get()).body, first.body);
   assert.equal(attempts, 0);
 });
 
 function workerFixture() {
-  const f = fixture(), entries = new Map(), work = [];let objectCalls = 0;
+  const f = fixture(async () => new Response(body, { headers: { ETag: 'W/"source-v1"', 'Last-Modified': new Date().toUTCString() } })), entries = new Map(), work = [];let objectCalls = 0;
   const edge = { match: async req => entries.get(req.url)?.clone(), put: async (req, res) => { entries.set(req.url, res.clone()); } };
   const env = { ALLOWED_ORIGINS: 'https://jaakla.github.io,http://localhost:5177', GPS_FEED: {
     idFromName: name => { assert.equal(name, 'tallinn-public-gps-v1');return 'one-global-id'; },
@@ -103,7 +104,7 @@ test('regional cache shares all origins and query variants without extending fre
   assert.equal(c.status, 304);assert.equal(await c.text(), '');assert.equal(f.objectCalls(), 1);
   for (const entry of f.entries.values()) {
     const headers = new Headers(entry.headers);headers.set('X-GPS-Validated-At', new Date(Date.now() - 11000).toISOString());
-    f.entries.set('https://relay.example/__gps_feed_v3', new Response(body, { headers }));
+    f.entries.set('https://relay.example/__gps_feed_v4', new Response(body, { headers }));
   }
   const d = await f.send();assert.equal(d.headers.get('X-GPS-Cache'), 'GLOBAL');assert.equal(f.objectCalls(), 2);assert.equal(f.calls.length, 1);
 });

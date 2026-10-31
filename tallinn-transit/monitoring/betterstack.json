@@ -1,0 +1,38 @@
+[
+  {
+    "pronounceable_name": "Tallinn liigub – Worker",
+    "url": "https://tallinn-transit-api.jaak-laineste.workers.dev/health/live",
+    "monitor_type": "status",
+    "check_frequency": 180,
+    "request_timeout": 10,
+    "confirmation_period": 300,
+    "recovery_period": 180,
+    "regions": ["eu"],
+    "email": true,
+    "sms": false,
+    "call": false,
+    "push": false,
+    "critical_alert": false,
+    "policy_id": null,
+    "team_wait": null,
+    "paused": false
+  },
+  {
+    "pronounceable_name": "Tallinn liigub – reaalajaandmed",
+    "url": "https://tallinn-transit-api.jaak-laineste.workers.dev/health/data",
+    "monitor_type": "status",
+    "check_frequency": 180,
+    "request_timeout": 10,
+    "confirmation_period": 300,
+    "recovery_period": 180,
+    "regions": ["eu"],
+    "email": true,
+    "sms": false,
+    "call": false,
+    "push": false,
+    "critical_alert": false,
+    "policy_id": null,
+    "team_wait": null,
+    "paused": false
+  }
+]

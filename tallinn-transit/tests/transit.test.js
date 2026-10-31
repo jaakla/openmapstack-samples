@@ -48,6 +48,10 @@ test('mode filtering and walking transfer graph affect actual journeys',()=>{
  d.transfers[1]=[[3,120,110]];d.transfers[3]=[[1,120,110]];
  const j=planJourney(d,query)[0];assert.equal(j.legs.length,3);assert.equal(j.legs[1].type,'walk');assert.equal(j.arrival,505*60);
  assert.equal(planJourney(d,{...query,mode:'bus'}).length,0);
+ assert.equal(planJourney(d,{...query,mode:['bus','tram']})[0].arrival,505*60);
+ assert.equal(planJourney(d,{...query,mode:['bus','train']}).length,0);
+ assert.equal(planJourney(d,{...query,mode:[]}).length,0);
+ assert.equal(planJourney(d,{...query,arriveBy:true,time:'08:30',mode:['bus','tram']})[0].departure,480*60);
  const reverse=planJourney(d,{...query,arriveBy:true,time:'08:30'})[0];assert.equal(reverse.departure,480*60);
 });
 test('Tallinn timezone is explicit across DST and foreign device zones',()=>{

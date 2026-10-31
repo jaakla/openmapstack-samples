@@ -47,11 +47,13 @@ test('development, automation, privacy preferences and offline mode never load t
   }
 });
 
-test('production SDK uses EU, replay off, web vitals on and no automatic input collection', () => {
+test('production SDK assets and events use the proxy, with EU UI and privacy settings retained', () => {
   const { scripts, config, context } = boot();
   assert.equal(scripts.length, 1);
   assert.equal(scripts[0].async, true);
-  assert.equal(config.api_host, 'https://eu.i.posthog.com');
+  assert.equal(config.api_host, 'https://a.trigonaut.ai');
+  assert.equal(config.ui_host, 'https://eu.posthog.com');
+  assert.equal(scripts[0].src, 'https://a.trigonaut.ai/static/array.js');
   assert.equal(config.autocapture, false);
   assert.equal(config.disable_session_recording, true);
   assert.equal(config.capture_performance.web_vitals, true);

@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 const base = process.argv[2] || 'https://tallinn-transit-api.jaak-laineste.workers.dev/';
 const origin = 'https://jaakla.github.io';
 const get = (path, headers = {}) => fetch(new URL(path, base), { headers: { Origin: origin, ...headers } });
+const liveness = await get('health/live');assert.equal(liveness.status, 200);
+assert.equal(liveness.headers.get('Cache-Control'), 'no-store');assert.equal((await liveness.json()).status, 'ok');
 const first = await get('gps');
 assert.equal(first.status, 200, `GPS status ${first.status}: ${await first.clone().text()}`);
 const text = await first.text();assert(/^\s*\d+,/.test(text));
@@ -11,6 +13,10 @@ const stamp = first.headers.get('X-GPS-Validated-At');
 assert.equal(first.headers.get('Access-Control-Allow-Origin'), origin);
 assert.equal(first.headers.get('Cache-Control'), 'public, max-age=10, s-maxage=10, must-revalidate');
 assert.equal(first.headers.get('Set-Cookie'), null);
+assert(['fresh','stale'].includes(first.headers.get('X-Data-Status')));
+assert(Number.isFinite(Date.parse(first.headers.get('X-Data-Timestamp'))));
+assert(Number(first.headers.get('X-Data-Age')) <= 180);
+assert(first.headers.get('Access-Control-Expose-Headers').includes('X-Data-Status'));
 const burst = await Promise.all(Array.from({ length: 20 }, (_, i) => get(`gps?client=${i}`)));
 for (const r of burst) {
   assert.equal(r.status, 200);assert.equal(Number(r.headers.get('X-GPS-Upstream-Requests')), count);
@@ -29,9 +35,17 @@ const next = await get('gps');assert.equal(next.status, 200);
 assert.equal(Number(next.headers.get('X-GPS-Upstream-Requests')), count + 1);
 assert(Date.parse(next.headers.get('X-GPS-Validated-At')) >= Date.parse(stamp) + 10000);
 await next.arrayBuffer();
+// Read-only health checks must not cause a further source refresh.
+await get('trains');
+const dataHealth = await get('health/data'), health = await dataHealth.json();
+assert.equal(dataHealth.headers.get('Cache-Control'), 'no-store');
+assert(['fresh','stale','unavailable'].includes(health.status));
+assert(health.sources.tallinn);assert(health.sources.elron);
+assert.equal(health.sources.tallinn.lastAttempt.upstreamStatus, Number(next.headers.get('X-GPS-Upstream-Status')));
 console.log(JSON.stringify({ checkedAt: new Date().toISOString(), base, passed: true,
   clientsInBurst: burst.length, initialUpstreamRequests: count, finalUpstreamRequests: count + 1,
   conditionalStatus: conditional.status, conditionalBytes: 0,
   cacheControl: first.headers.get('Cache-Control'), initialValidatedAt: stamp,
   nextValidatedAt: next.headers.get('X-GPS-Validated-At'), geocoder: 'Vabaduse väljak 7',
+  livenessStatus: liveness.status, dataHealthStatus: dataHealth.status,
 }, null, 2));

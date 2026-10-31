@@ -1,10 +1,13 @@
-import { useCallback,useEffect,useMemo,useRef,useState } from 'react';
+import { memo,useCallback,useEffect,useMemo,useRef,useState } from 'react';
 import { Activity,ArrowDownUp,ArrowRight,BusFront,ChevronDown,ChevronRight,Circle,Clock3,Download,MapPin,Moon,Pause,Play,Route,Search,Settings2,Sun,TrainFront,TramFront,Wifi,WifiOff,X } from 'lucide-react';
 import MapView from './MapView.jsx';
 import PlaceSearch from './PlaceSearch.jsx';
 import { useLive,useNetwork,useRouter } from './useTransit.js';
-import { activeServices,clock,normalize,searchStations,tallinnNow } from './transit.js';
+import { activeServices,clock,normalize,tallinnNow } from './transit.js';
 import { api,asset,downloadOffline,setOfflineMode } from './offline.js';
+import { stationGroups } from './station-list.js';
+
+const TRANSPORT_MODES=[['bus','Buss',BusFront],['tram','Tramm',TramFront],['train','Rong',TrainFront]];
 
 export function RouteBadge({route}) {
   const Icon=route.mode==='train'?TrainFront:route.mode==='tram'?TramFront:BusFront;
@@ -53,6 +56,23 @@ function StopDetail({station,data,router,date,time,onUsePoint,onClose}) {
     {router.ready&&!list.length?<p className="muted">Järgmise nelja tunni jooksul väljumisi ei leitud.</p>:null}
   </section>;
 }
+function StopButtons({stops,data,onInspect}) {
+  return <div className="stop-list">{stops.map(station=><button key={station.id} onClick={()=>onInspect({...station,kind:'station',focus:true})}><MapPin size={17}/><span><strong>{station.name}</strong><small>{station.routes.map(r=>data.routes[r].name).join(', ')}</small></span><ChevronRight size={15}/></button>)}</div>;
+}
+const StopList=memo(function StopList({data,visibleIds,onInspect}) {
+  const [query,setQuery]=useState(''),[visibleLimit,setVisibleLimit]=useState(40),[otherLimit,setOtherLimit]=useState(40);
+  const groups=useMemo(()=>stationGroups(data,query,visibleIds),[data,query,visibleIds]);
+  useEffect(()=>{setVisibleLimit(40);setOtherLimit(40);},[query,visibleIds]);
+  return <><h2>Leia oma peatus</h2><p className="muted">Esmalt peatused kaardialas. Loend muutub koos kaardiga.</p>
+    <div className="input-with-icon"><Search size={18}/><input aria-label="Otsi peatust" value={query} placeholder="Peatuse nimi" onChange={e=>setQuery(e.target.value)}/></div>
+    <section className="viewport-stops" aria-label="Peatused kaardialas"><h3 className="stop-group-title">Kaardialas <span>{groups.visible.length}</span></h3>
+      {groups.visible.length?<StopButtons stops={groups.visible.slice(0,visibleLimit)} data={data} onInspect={onInspect}/>:<p className="stop-list-note">{query.trim()?'Selle nimega peatust kaardialas ei ole.':'Kaardialas peatusi ei ole. Liiguta kaarti või otsi nime järgi.'}</p>}
+      {groups.visible.length>visibleLimit?<button className="text-button show-more-stops" onClick={()=>setVisibleLimit(n=>n+40)}>Näita veel kaardiala peatusi ({groups.visible.length-visibleLimit})</button>:null}
+    </section>
+    {groups.other.length?<details className="other-stops" open={Boolean(query.trim())}><summary>Teised peatused ({groups.other.length})</summary><StopButtons stops={groups.other.slice(0,otherLimit)} data={data} onInspect={onInspect}/>{groups.other.length>otherLimit?<button className="text-button show-more-stops" onClick={()=>setOtherLimit(n=>n+40)}>Näita veel peatusi ({groups.other.length-otherLimit})</button>:null}</details>:null}
+    {!groups.visible.length&&!groups.other.length?<p className="stop-list-note">Ühtegi vastet ei leitud. Proovi teist nime.</p>:null}
+  </>;
+});
 function Sources({data,project,offline,progress,notice,onSwitchMode}) {
   return <div className="sources-view"><h2>Tallinn sinu taskus.</h2><p className="muted">Teekonnad arvutatakse sinu seadmes. Aadressiotsing saadab ainult otsinguteksti In-ADS-i.</p>
     <details open><summary>Veebis või võrguta</summary><div className="detail-body"><p>Veebis on saadaval aadressiotsing ja sõidukite asukohad. Võrguta režiimi valimisel salvestatakse kaart, sõiduplaan ja jalakäijate teedevõrk automaatselt.</p><button className="primary" disabled={progress!==null} onClick={()=>onSwitchMode(offline?'online':'offline')}>{progress!==null?`Salvestan ${progress}%`:offline?'Lülitu veebirežiimi':'Lülitu võrguta režiimi'}</button>{notice?<p>{notice}</p>:null}</div></details>
@@ -68,9 +88,10 @@ function TransitApp({data,shapes,project,walking}) {
   const [tab,setTab]=useState('journey'),[from,setFrom]=useState({...initialFrom,kind:'station'}),[to,setTo]=useState({...initialTo,kind:'station'});
   const [fromText,setFromText]=useState(initialFrom?.name||''),[toText,setToText]=useState(initialTo?.name||'');
   const [date,setDate]=useState(initialNow.date),[time,setTime]=useState(initialNow.time),[arriveBy,setArriveBy]=useState(false);
-  const [maxTransfers,setMaxTransfers]=useState(2),[maxWalk,setMaxWalk]=useState(1000),[transport,setTransport]=useState('all');
+  const [maxTransfers,setMaxTransfers]=useState(2),[maxWalk,setMaxWalk]=useState(1000),[transport,setTransport]=useState(['bus','tram','train']);
   const [results,setResults]=useState([]),[selectedJourney,setSelectedJourney]=useState(null),[busy,setBusy]=useState(false),[searched,setSearched]=useState(false),[error,setError]=useState(''),[dirty,setDirty]=useState(false);
-  const [route,setRoute]=useState(null),[routeQuery,setRouteQuery]=useState(''),[globalQuery,setGlobalQuery]=useState(''),[stopQuery,setStopQuery]=useState('');
+  const [route,setRoute]=useState(null),[routeQuery,setRouteQuery]=useState(''),[globalQuery,setGlobalQuery]=useState('');
+  const [mapStationIds,setMapStationIds]=useState([]);
   const [inspection,setInspection]=useState(null),[station,setStation]=useState(null),[nearbyPaths,setNearbyPaths]=useState([]);
   const [layers,setLayers]=useState({bus:true,tram:true,train:true,stops:true,routes:false});
   const [theme,setTheme]=useState(()=>localStorage.getItem('tallinn-theme')||'light');
@@ -101,8 +122,10 @@ function TransitApp({data,shapes,project,walking}) {
   }
   const doSearch=useCallback(async()=>{
     if(!from||!to){setError('Vali lähte- ja sihtkoht otsingutulemustest või kaardilt.');return;}
+    if(!transport.length){setError('Vali vähemalt üks liikumisviis.');return;}
+    const analyticsMode=transport.length===3?'all':transport.length===1?transport[0]:undefined;
     const initialSearch=!initialized.current,started=performance.now(),id=++latestSearch.current;setBusy(true);setError('');setSearched(true);setDirty(false);setTab('journey');setRoute(null);setInspection(null);setNearbyPaths([]);
-    try{const items=await router.request({type:'plan',request:{from,to,date,time,arriveBy,maxTransfers,maxWalk,mode:transport}});if(id===latestSearch.current){setResults(items.map(j=>({...j,fromPlace:from,toPlace:to})));setSelectedJourney(items.length?0:null);window.omsAnalytics?.track('route_search_completed',{duration_ms:performance.now()-started,result_count:items.length,status:items.length?'success':'no_results',arrive_by:arriveBy,mode:transport,initial:initialSearch});}}
+    try{const items=await router.request({type:'plan',request:{from,to,date,time,arriveBy,maxTransfers,maxWalk,mode:transport}});if(id===latestSearch.current){setResults(items.map(j=>({...j,fromPlace:from,toPlace:to})));setSelectedJourney(items.length?0:null);window.omsAnalytics?.track('route_search_completed',{duration_ms:performance.now()-started,result_count:items.length,status:items.length?'success':'no_results',arrive_by:arriveBy,mode:analyticsMode,initial:initialSearch});}}
     catch(e){if(id===latestSearch.current){setError(e.message);setResults([]);setSelectedJourney(null);window.omsAnalytics?.track('route_search_completed',{duration_ms:performance.now()-started,status:'error'});}}finally{if(id===latestSearch.current)setBusy(false);}
   },[from,to,date,time,arriveBy,maxTransfers,maxWalk,transport,router.request]);
   const initialized=useRef(false);
@@ -122,16 +145,18 @@ function TransitApp({data,shapes,project,walking}) {
   },[]);
   const closeInspect=useCallback(()=>{setInspection(null);setNearbyPaths([]);},[]);
   const onMapReady=useCallback(()=>{setMapReady(true);window.omsAnalytics?.once('map_ready',{duration_ms:performance.now()});},[]);
+  const onViewportChange=useCallback(ids=>setMapStationIds(previous=>previous.length===ids.length&&previous.every((id,i)=>id===ids[i])?previous:ids),[]);
   const change=(fn,value)=>{fn(value);setDirty(true);};
   const filteredRoutes=useMemo(()=>data.routes.map((r,index)=>({...r,index})).filter(r=>normalize(`${r.name} ${r.longName}`).includes(normalize(routeQuery))),[data,routeQuery]);
-  const stops=useMemo(()=>stopQuery?searchStations(data,stopQuery,80):data.stations.filter(s=>['Balti jaam','Viru','Hobujaama','Estonia','Vabaduse väljak','Lennujaam','Bussijaam'].includes(s.name)).map(s=>({...s,kind:'station'})),[data,stopQuery]);
   const services=useMemo(()=>activeServices(data,date),[data,date]);
   const routeTrip=route===null?null:data.trips.find(t=>t.r===route&&services.has(t.service))||data.trips.find(t=>t.r===route);
   const routeStations=routeTrip?[...new Set(routeTrip.stops.map(i=>data.stops[i].stationId))].map(id=>data.stations.find(s=>s.id===id)):[];
   const selectedItinerary=selectedJourney===null?null:results[selectedJourney];
-  const vehicles=online?[...(!live.expired?live.vehicles:[]),...(!railLive.expired?railLive.vehicles:[])]:[];
-  const liveReady=(!live.stale&&!live.error)||(!railLive.stale&&!railLive.error);
-  const liveAge=Math.min(live.age??Infinity,railLive.age??Infinity);
+  const vehicles=online?[...live.vehicles.map(v=>({...v,dataStale:live.stale})),...railLive.vehicles.map(v=>({...v,dataStale:railLive.stale}))]:[];
+  const feeds=[['Tallinna',live],['Elroni',railLive]];
+  const liveReady=feeds.every(([,feed])=>feed.status==='fresh');
+  const liveAvailable=feeds.some(([,feed])=>!feed.expired);
+  const liveAge=Math.max(...feeds.filter(([,feed])=>!feed.expired).map(([,feed])=>feed.dataAge??Infinity));
   const snapshotAge=(Date.now()-Date.parse(data.snapshot))/86400000;
   const tabs=[['journey','Teekond',Route],['routes','Liinid',BusFront],['stops','Peatused',MapPin],['sources','Info',Settings2]];
   return <div className="app-shell">
@@ -144,8 +169,9 @@ function TransitApp({data,shapes,project,walking}) {
           <button type="button" className="swap" aria-label="Vaheta lähte- ja sihtkoht" onClick={()=>{setFrom(to);setTo(from);setFromText(toText);setToText(fromText);setDirty(true);}}><ArrowDownUp size={18}/></button></div>
           <div className="date-time"><label>Kuupäev<input type="date" value={date} required onChange={e=>change(setDate,e.target.value)}/></label><label>{arriveBy?'Saabumine':'Väljumine'}<input type="time" value={time} required onChange={e=>change(setTime,e.target.value)}/></label></div>
           <div className="time-options"><div className="segmented" role="group" aria-label="Aja valik"><button type="button" aria-pressed={!arriveBy} onClick={()=>change(setArriveBy,false)}>Väljun kell</button><button type="button" aria-pressed={arriveBy} onClick={()=>change(setArriveBy,true)}>Saabun hiljemalt</button></div><button type="button" className="text-button" onClick={()=>{const n=tallinnNow();setDate(n.date);setTime(n.time);setArriveBy(false);setDirty(true);}}>Praegu</button></div>
-          <details className="journey-options"><summary>Teekonna valikud <Settings2 size={14}/></summary><div className="options-row"><label>Ümberistumisi<select value={maxTransfers} onChange={e=>change(setMaxTransfers,Number(e.target.value))}><option value={0}>Ainult otseliin</option><option value={1}>Kuni 1</option><option value={2}>Kuni 2</option><option value={3}>Kuni 3</option></select></label><label>Liikumisviis<select aria-label="Liikumisviis" value={transport} onChange={e=>change(setTransport,e.target.value)}><option value="all">Kõik ühistransport</option><option value="bus">Buss</option><option value="tram">Tramm</option><option value="train">Rong</option></select></label><label>Jalgsi peatuseni<select value={maxWalk} onChange={e=>change(setMaxWalk,Number(e.target.value))}>{[300,600,1000,1500].map(m=><option key={m} value={m}>Kuni {m} m</option>)}</select></label></div></details>
-          <button className="primary find-button" type="submit" disabled={!router.ready||busy}><Search size={19}/>{busy?'Otsin teekonda…':!router.ready?'Laadin teedevõrku…':'Leia teekond'}</button>
+          <fieldset className="transport-options"><legend>Liikumisviisid</legend><div className="transport-choices">{TRANSPORT_MODES.map(([id,label,Icon])=><label key={id} className={`transport-choice ${id}`}><input type="checkbox" checked={transport.includes(id)} onChange={e=>{setTransport(previous=>e.target.checked?[...previous,id]:previous.filter(mode=>mode!==id));setDirty(true);}}/><Icon size={16}/><span>{label}</span></label>)}</div>{!transport.length?<p className="mode-note" role="status">Vali vähemalt üks liikumisviis.</p>:null}</fieldset>
+          <details className="journey-options"><summary>Teekonna valikud <Settings2 size={14}/></summary><div className="options-row"><label>Ümberistumisi<select value={maxTransfers} onChange={e=>change(setMaxTransfers,Number(e.target.value))}><option value={0}>Ainult otseliin</option><option value={1}>Kuni 1</option><option value={2}>Kuni 2</option><option value={3}>Kuni 3</option></select></label><label>Jalgsi peatuseni<select value={maxWalk} onChange={e=>change(setMaxWalk,Number(e.target.value))}>{[300,600,1000,1500].map(m=><option key={m} value={m}>Kuni {m} m</option>)}</select></label></div></details>
+          <button className="primary find-button" type="submit" disabled={!router.ready||busy||!transport.length}><Search size={19}/>{busy?'Otsin teekonda…':!router.ready?'Laadin teedevõrku…':'Leia teekond'}</button>
         </form>{error?<p className="error-message" role="alert">{error}</p>:null}{dirty&&searched?<p className="dirty-note">Valikud muutusid. Tulemuste uuendamiseks otsi teekonda uuesti.</p>:null}</div>
         <JourneyResults results={results} selected={selectedJourney} onSelect={i=>{setSelectedJourney(i);setRoute(null);setInspection(null);}} data={data} busy={busy} searched={searched}/>
       </section>
@@ -153,14 +179,13 @@ function TransitApp({data,shapes,project,walking}) {
         {route!==null?<div className="route-detail"><div className="panel-heading"><RouteBadge route={data.routes[route]}/><button className="text-button" onClick={()=>setRoute(null)}>Kõik liinid</button></div><h3>{data.routes[route].longName}</h3>{data.routes[route].mode==='train'?<p className="muted">Oranžidel asukohamärgistel on rongi reisinumber.</p>:null}<details><summary>Peatused ühes suunas</summary><ol className="route-stops">{routeStations.map(s=><li key={s.id}><button onClick={()=>inspect({...s,kind:'station',focus:true})}>{s.name}<ChevronRight size={13}/></button></li>)}</ol></details></div>:null}
         <div className="route-list">{filteredRoutes.map(r=><button className={route===r.index?'active':''} key={r.id} onClick={()=>{setRoute(r.index);setSelectedJourney(null);setInspection(null);}}><RouteBadge route={r}/><span>{r.longName}</span><ChevronRight size={15}/></button>)}</div>
       </section>
-      <section id="panel-stops" role="tabpanel" aria-labelledby="tab-stops" hidden={tab!=='stops'} className="list-panel">{station?<StopDetail station={station} data={data} router={router} date={date} time={time} onUsePoint={usePoint} onClose={()=>setStation(null)}/>:<><h2>Leia oma peatus</h2><p className="muted">Ühe peatuse kõik suunad on ühes kohas.</p><div className="input-with-icon"><Search size={18}/><input aria-label="Otsi peatust" value={stopQuery} placeholder="Peatuse nimi" onChange={e=>setStopQuery(e.target.value)}/></div><div className="stop-list">{stops.map(s=><button key={s.id} onClick={()=>inspect({...s,kind:'station',focus:true})}><MapPin size={18}/><span><strong>{s.name}</strong><small>{s.routes.map(r=>data.routes[r].name).join(', ')}</small></span><ChevronRight size={15}/></button>)}</div></>}</section>
+      <section id="panel-stops" role="tabpanel" aria-labelledby="tab-stops" hidden={tab!=='stops'} className="list-panel">{station?<StopDetail station={station} data={data} router={router} date={date} time={time} onUsePoint={usePoint} onClose={()=>setStation(null)}/>:<StopList data={data} visibleIds={mapStationIds} onInspect={inspect}/>}</section>
       <section id="panel-sources" role="tabpanel" aria-labelledby="tab-sources" hidden={tab!=='sources'} className="list-panel"><Sources data={data} project={project} offline={mode==='offline'} progress={progress} notice={notice} onSwitchMode={switchMode}/></section>
       </div><button className="sidebar-bottom" onClick={()=>setTab('sources')}><Download size={16}/><span>Allikad ja võrguta kasutamine</span><ChevronRight size={15}/></button></aside>
-      <section className="map-area" aria-label="Ühistranspordi kaart"><MapView data={data} shapes={shapes} theme={theme} layers={layers} route={route} journey={selectedItinerary} inspection={inspection} nearbyPaths={nearbyPaths} vehicles={vehicles} stale={live.stale||paused} onInspect={inspect} onUsePoint={usePoint} onCloseInspect={closeInspect} onMapReady={onMapReady}/>
+      <section className="map-area" aria-label="Ühistranspordi kaart"><MapView data={data} shapes={shapes} theme={theme} layers={layers} route={route} journey={selectedItinerary} inspection={inspection} nearbyPaths={nearbyPaths} vehicles={vehicles} stale={paused} onInspect={inspect} onUsePoint={usePoint} onCloseInspect={closeInspect} onMapReady={onMapReady} onViewportChange={onViewportChange}/>
         <div className="map-search"><PlaceSearch data={data} value={globalQuery} onChange={setGlobalQuery} online={online} onSelect={p=>{if(p){inspect({...p,focus:true});setGlobalQuery('');}}} onRoute={i=>{setRoute(i);setSelectedJourney(null);setTab('routes');setGlobalQuery('');}}/></div>
-        <div className={`live-card ${online&&!paused&&liveReady?'':'unavailable'}`}><div><strong><span className="live-dot"/>{progress!==null?'Salvestan võrguta andmeid…':!online?'Võrguühenduseta':paused?'Asukohtade uuendus pausil':live.loading&&railLive.loading?'Ühendan sõidukite vooga…':!liveReady?'Asukohad pole saadaval':'Sõidukid reaalajas'}</strong><small>{!online?'Kaart, sõiduplaan ja jalgteed sinu seadmes':Number.isFinite(liveAge)?`${vehicles.length} sõidukit · uuendatud ${liveAge} s tagasi`:'Sõiduplaani järgi saab teekondi otsida'}</small></div>{online?<button className="icon-button" aria-label={paused?'Jätka asukohtade uuendamist':'Peata asukohtade uuendamine'} onClick={()=>setPaused(p=>!p)}>{paused?<Play size={17}/>:<Pause size={17}/>}</button>:null}</div>
-        {railLive.error&&online&&!paused?<div className="rail-error" role="status">Rongide asukohad pole praegu saadaval. Rongide sõiduplaan töötab edasi.</div>:null}
-        {live.error&&online&&!paused?<div className="live-error" role="status">{live.error}</div>:null}
+        <div className={`live-card ${online&&!paused&&liveReady?'':'unavailable'}`}><div><strong><span className="live-dot"/>{progress!==null?'Salvestan võrguta andmeid…':!online?'Võrguühenduseta':paused?'Asukohtade uuendus pausil':live.loading&&railLive.loading?'Ühendan sõidukite vooga…':!liveAvailable?'Reaalajaandmed pole saadaval':!liveReady?'Reaalajaandmed osaliselt saadaval':'Sõidukid reaalajas'}</strong><small>{!online?'Kaart, sõiduplaan ja jalgteed sinu seadmes':Number.isFinite(liveAge)?`${vehicles.length} sõidukit · andmete vanus kuni ${liveAge} s`:'Sõiduplaani järgi saab teekondi otsida'}</small></div>{online?<button className="icon-button" aria-label={paused?'Jätka asukohtade uuendamist':'Peata asukohtade uuendamine'} onClick={()=>setPaused(p=>!p)}>{paused?<Play size={17}/>:<Pause size={17}/>}</button>:null}</div>
+        {online&&!paused?<div className="live-notices">{feeds.map(([name,feed],i)=>!feed.loading&&feed.status!=='fresh'?<div key={name} className={i?'rail-error':'live-error'} role="status" data-status={feed.status}>{name} {feed.status==='stale'?`asukohad on viimasest teadaolevast seisust (${feed.dataAge??feed.age} s vanad).`:'reaalajaandmed pole praegu saadaval.'} Sõiduplaan töötab edasi.</div>:null)}</div>:null}
         {!mapReady?<div className="map-loading"><Activity size={20}/> Laadin Tallinna kaarti…</div>:null}
         <div className="layer-bar" role="group" aria-label="Kaardikihid">{[['bus','Bussid',BusFront],['tram','Trammid',TramFront],['train','Rongid',TrainFront],['stops','Peatused',Circle],['routes','Liinid',Route]].map(([id,label,Icon])=><label key={id} className={id}><input type="checkbox" checked={layers[id]} onChange={e=>setLayers(s=>({...s,[id]:e.target.checked}))}/><Icon size={16}/><span>{label}</span></label>)}</div>
       </section>

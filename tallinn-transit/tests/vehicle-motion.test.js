@@ -45,9 +45,9 @@ test('304 and cache hits never create observation points; raw CSV stays unchange
  const feed=new GpsFeedCache({now:()=>now,fetch:async()=>++calls===1?new Response(row({bearing:45}),{headers:{'Last-Modified':new Date(start).toUTCString(),ETag:'"a"'}}):new Response(null,{status:304})});
  const a=await feed.get();now+=10000;const b=await feed.get();
  assert.equal(JSON.parse(b.vehiclesBody).vehicles[0].samples,1);assert.equal(a.vehiclesBody,b.vehiclesBody);
- assert.equal(await gpsResponse(b,new Request('https://relay/gps')).text(),row({bearing:45}));
- const res=gpsResponse(b,new Request('https://relay/vehicles'));assert(res.headers.get('Content-Type').includes('application/json'));assert.equal((await res.json()).vehicles[0].bearing,45);
- assert.notEqual(gpsResponse(b,new Request('https://relay/gps')).headers.get('ETag'),gpsResponse(b,new Request('https://relay/vehicles')).headers.get('ETag'));
+ assert.equal(await gpsResponse(b,new Request('https://relay/gps'),{now}).text(),row({bearing:45}));
+ const res=gpsResponse(b,new Request('https://relay/vehicles'),{now});assert(res.headers.get('Content-Type').includes('application/json'));assert.equal((await res.json()).vehicles[0].bearing,45);
+ assert.notEqual(gpsResponse(b,new Request('https://relay/gps'),{now}).headers.get('ETag'),gpsResponse(b,new Request('https://relay/vehicles'),{now}).headers.get('ETag'));
 });
 test('old persistent CSV snapshot upgrades without an extra source request',async()=>{
  const snapshot={body:row({bearing:45}),etag:'W/"native"',validatedAt:start,upstreamRequests:1,upstreamStatus:200};

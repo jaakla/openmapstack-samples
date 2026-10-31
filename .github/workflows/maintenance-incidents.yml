@@ -1,0 +1,47 @@
+name: Tallinn transit incident digest
+
+on:
+  schedule:
+    - cron: '20 9 * * *'
+      timezone: Europe/Tallinn
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tallinn-transit-incident-digest
+  cancel-in-progress: false
+
+jobs:
+  digest:
+    if: >-
+      github.repository == 'jaakla/openmapstack-samples' && github.ref == 'refs/heads/main' &&
+      (vars.MONITORING_DIGEST_ENABLED == 'true' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          lfs: false
+          persist-credentials: false
+      - name: Export incident history and current monitor states
+        env:
+          BETTERSTACK_API_TOKEN: ${{ secrets.BETTERSTACK_API_TOKEN }}
+          BETTERSTACK_TEAM_NAME: ${{ vars.BETTERSTACK_TEAM_NAME }}
+        run: python3 tallinn-transit/scripts/betterstack-monitoring.py report --output /tmp/incident-digest.txt
+      - name: Keep daily incident report
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: tallinn-transit-incidents-${{ github.run_id }}
+          path: /tmp/incident-digest.txt
+          retention-days: 90
+      - name: Send morning summary by email
+        env:
+          MONITORING_EMAIL_FROM: ${{ secrets.MONITORING_EMAIL_FROM }}
+          MONITORING_EMAIL_TO: ${{ secrets.MONITORING_EMAIL_TO }}
+          MONITORING_SMTP_HOST: ${{ secrets.MONITORING_SMTP_HOST }}
+          MONITORING_SMTP_PORT: ${{ vars.MONITORING_SMTP_PORT }}
+          MONITORING_SMTP_USERNAME: ${{ secrets.MONITORING_SMTP_USERNAME }}
+          MONITORING_SMTP_PASSWORD: ${{ secrets.MONITORING_SMTP_PASSWORD }}
+        run: python3 tallinn-transit/scripts/betterstack-monitoring.py send --input /tmp/incident-digest.txt

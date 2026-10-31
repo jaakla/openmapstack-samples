@@ -1,19 +1,21 @@
 {
   "worker": "tallinn-transit-api",
-  "versionId": "51f22baa-52da-4da8-be00-afe40abbd575",
+  "versionId": "772da246-9725-4f3b-84ea-31b2a6da7271",
   "verification": {
-    "checkedAt": "2026-10-29T07:40:56.689Z",
+    "checkedAt": "2026-10-31T05:35:38.462Z",
     "base": "https://tallinn-transit-api.jaak-laineste.workers.dev/",
     "passed": true,
     "clientsInBurst": 20,
-    "initialUpstreamRequests": 390,
-    "finalUpstreamRequests": 391,
+    "initialUpstreamRequests": 5172,
+    "finalUpstreamRequests": 5173,
     "conditionalStatus": 304,
     "conditionalBytes": 0,
     "cacheControl": "public, max-age=10, s-maxage=10, must-revalidate",
-    "initialValidatedAt": "2026-10-29T07:40:46.424Z",
-    "nextValidatedAt": "2026-10-29T07:40:56.567Z",
-    "geocoder": "Vabaduse väljak 7"
+    "initialValidatedAt": "2026-10-31T05:35:27.561Z",
+    "nextValidatedAt": "2026-10-31T05:35:37.768Z",
+    "geocoder": "Vabaduse väljak 7",
+    "livenessStatus": 200,
+    "dataHealthStatus": 200
   },
   "upstreamProbe": {
     "checkedAt": "2026-10-29T04:40:53.532580+00:00",
@@ -97,5 +99,86 @@
     "source": "https://elron.ee/map_data.json",
     "bypassUpstreamCache": true,
     "reason": "Source advertises a 14-day lifetime for live GPS; relay uses native per-train fix timestamps and a 10-second global/downstream TTL."
+  },
+  "previousVersionId": "51f22baa-52da-4da8-be00-afe40abbd575",
+  "dataHealthVerification": {
+    "checkedAt": "2026-10-31T05:35:31.368Z",
+    "base": "https://tallinn-transit-api.jaak-laineste.workers.dev/",
+    "checks": [
+      {
+        "path": "health/live",
+        "status": 200,
+        "dataStatus": null,
+        "dataTimestamp": null,
+        "ageSeconds": null,
+        "upstreamError": null,
+        "body": {
+          "status": "ok"
+        }
+      },
+      {
+        "path": "vehicles",
+        "status": 200,
+        "dataStatus": "fresh",
+        "dataTimestamp": "2026-10-31T05:35:26.000Z",
+        "ageSeconds": "4",
+        "upstreamError": "none",
+        "vehicles": 236
+      },
+      {
+        "path": "trains",
+        "status": 200,
+        "dataStatus": "fresh",
+        "dataTimestamp": "2026-10-31T05:35:30.000Z",
+        "ageSeconds": "1",
+        "upstreamError": "none",
+        "vehicles": 6
+      },
+      {
+        "path": "health/data",
+        "status": 200,
+        "dataStatus": null,
+        "dataTimestamp": null,
+        "ageSeconds": null,
+        "upstreamError": null,
+        "body": {
+          "status": "fresh",
+          "sources": {
+            "tallinn": {
+              "status": "fresh",
+              "timestamp": "2026-10-31T05:35:26.000Z",
+              "ageSeconds": 5,
+              "upstreamError": null,
+              "validatedAt": "2026-10-31T05:35:27.561Z",
+              "vehicleCount": 236,
+              "lastAttempt": {
+                "at": "2026-10-31T05:35:27.561Z",
+                "outcome": "success",
+                "errorClass": null,
+                "reason": null,
+                "upstreamStatus": 200,
+                "durationMs": 106
+              }
+            },
+            "elron": {
+              "status": "fresh",
+              "timestamp": "2026-10-31T05:35:30.000Z",
+              "ageSeconds": 1,
+              "upstreamError": null,
+              "validatedAt": "2026-10-31T05:35:31.083Z",
+              "vehicleCount": 6,
+              "lastAttempt": {
+                "at": "2026-10-31T05:35:31.083Z",
+                "outcome": "success",
+                "errorClass": null,
+                "reason": null,
+                "upstreamStatus": 200,
+                "durationMs": 134
+              }
+            }
+          }
+        }
+      }
+    ]
   }
 }

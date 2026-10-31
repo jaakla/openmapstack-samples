@@ -3,7 +3,7 @@
   'use strict';
   if (window.omsAnalytics) return;
   const token = 'phc_xD88zcSqjcjF2znkMUib6vjghN4CmLpn7CJz3kScQKNz';
-  const host = 'https://eu.i.posthog.com';
+  const host = 'https://a.trigonaut.ai';
   const prefix = '/openmapstack-samples/';
   const sites = new Set(['gallery', 'tallinn-transit', 'pv-location', 'toompea-3d', 'battlefield-visibility', 'detailplaneering']);
   const script = document.currentScript;
@@ -80,12 +80,12 @@
     posthog.__SV = 1;
     const sdk = document.createElement('script');
     sdk.async = true; sdk.crossOrigin = 'anonymous';
-    sdk.src = 'https://eu-assets.i.posthog.com/static/array.js';
+    sdk.src = `${host}/static/array.js`;
     sdk.onerror = () => { posthog.length = 0; posthog.capture = () => {}; };
     document.head.append(sdk);
   }
   posthog.init(token, {
-    api_host: host, defaults: '2026-08-30',
+    api_host: host, ui_host: 'https://eu.posthog.com', defaults: '2026-08-30',
     autocapture: false, capture_pageview: false, capture_pageleave: true,
     capture_performance: { web_vitals: true, network_timing: false },
     disable_session_recording: true, disable_surveys: true,

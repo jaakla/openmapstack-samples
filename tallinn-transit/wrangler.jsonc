@@ -14,5 +14,8 @@
     "bindings": [{ "name": "GPS_FEED", "class_name": "GpsFeed" }]
   },
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["GpsFeed"] }],
-  "observability": { "enabled": false }
+  "observability": {
+    "enabled": true,
+    "logs": { "enabled": true, "invocation_logs": false, "head_sampling_rate": 1 }
+  }
 }

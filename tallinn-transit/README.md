@@ -36,6 +36,16 @@ lõplikuks kasutamiseks käivita alati `pipeline.py` ja allpool toodud kontrolli
 - Valida saab väljumisaja või saabumistähtaja, kuupäeva, liikumisviisi ja kuni
   kolm ümberistumist. Kõik ajad on **Europe/Tallinn** ajavööndis, sõltumata seadmest.
   Arvestatakse kalendrierandeid, peale-/mahamineku piiranguid ja üle 24:00 reise.
+- **Liikumisviisid** on linnukestega eraldi valitavad: buss, tramm ja rong.
+  Otsing võib ühendada kõiki valitud liikumisviise, näiteks ainult bussi ja trammi.
+  Vähemalt üks liikumisviis peab jääma valituks. Täpsemad ümberistumiste ja
+  jalgsikäigu piirid asuvad **Teekonna valikute** all.
+- **Leia oma peatus** pakub esmalt kaardi nähtava ala peatusi, keskmele lähemad
+  eespool. Loend uueneb kaarti liigutades, suumides ja pöörates; lähivaates piisab
+  ka ühe koondatud peatuse platvormi nähtavusest. Otsing leiab ka ülejäänud
+  peatused. Pikas loendis saab järgmised peatused avada nupuga **Näita veel**.
+- Telefonis on kaart ja vorm kompaktsemad: väiksemad vahed, madalam kaart ning
+  põhivalikud kohe nähtaval. Veahoiatuste korral saab kaart vajalikku kõrgust juurde.
 - Sama nimega lähestikku paiknevad platvormid on loendites ja kaugvaate kaardil
   üks peatus. Lähivaates on näha üksikplatvormide asukohad; platvormikoodid ilmuvad
   täpsetes reisijuhistes. Üle 400 m lahus olevad samanimelised kohad ei ühine
@@ -43,9 +53,10 @@ lõplikuks kasutamiseks käivita alati `pipeline.py` ja allpool toodud kontrolli
 - Bussilõigud on sinised, trammilõigud korallpunased ja rongilõigud oranžid nii kaardil kui juhistes.
   Kaardil korduvad valitud teekonna liininumbrid. Jalgsikäigud on katkendjoonega.
 - Sõiduki klõps avab ainult olemasolevad andmed. Puuduvat kiirust ega muid
-  `undefined`/`null` väärtusi ei kuvata. GPS-i paus säilitab viimased asukohad;
+  `undefined`/`null` väärtusi ei kuvata. GPS-i paus säilitab kuni 180 s vanad asukohad;
   jätkamine küsib andmed kohe uuesti. Kaardistiili ja kihtide muutmine taastab
-  viimase sõidukikihi. Vananenud asukohad tuhmuvad ning eemaldatakse.
+  viimase sõidukikihi. Üle 60 s vanad või varuandmetena antud asukohad tuhmuvad;
+  üle 180 s vanad eemaldatakse ka pausil. Allikate hoiatused kuvatakse eraldi.
 
 ## Veebis ja võrguta
 
@@ -158,6 +169,9 @@ Tootmisversioon kasutab avaldatud serverless API-t:
 `GET /gps` säilitab Tallinna algse CSV-voo, `GET /vehicles` tagastab sõidukid koos
 suuna ja hinnangulise keskmise kiirusega JSON-kujul; `GET /trains` annab Elroni rongid;
 `GET /geocode?q=...` otsib In-ADS-i aadresse.
+`GET /health/live` kontrollib Workerit sõltumata algallikatest ja andmesalvestusest;
+`GET /health/data` annab mõlema GPS-allika viimase teadaoleva andmekvaliteedi.
+Tervisekontrollid ei käivita algallikapäringuid ega kasuta HTTP-vahemälu.
 `dist/` avaldatakse hoidla GitHub Pagesi töövoos alamkataloogi `tallinn-transit/`.
 Töövoog koostab kanoonilise andmepaketi ja käivitab ühik- ning brauseritestid.
 GPS-i ja aadressiotsingu Worker on eraldi avaldatud. Teekonnad arvutatakse
@@ -174,8 +188,10 @@ Worker avaldatakse käsuga `npm run worker:deploy`. Seaded on `wrangler.jsonc`:
 CORS lubab `https://jaakla.github.io` ja kohaliku rakenduse pordi 5177;
 `ALLOWED_ORIGINS` on komadega eraldatud lubatud origin'ide loend. API on avalike
 andmete teenus; CORS ei ole autentimine. Suvalisi lähte-URL-e vahendada ei saa.
-Aadressipäringuid ei salvestata vahemällu ega logita; Workeri päringulogid on
-välja lülitatud. API võtmeid rakenduse kasutamiseks ei vaja.
+Aadressipäringuid ei salvestata vahemällu ega logita; Workeri automaatsed päringulogid on
+välja lülitatud. Struktureeritud GPS-i vea- ja tühja vastuse logid on sisse lülitatud
+ning sisaldavad allikat, veaklassi, HTTP olekut ja kestust, mitte päringu sisu.
+API võtmeid rakenduse kasutamiseks ei vaja.
 
 ### GPS-i 10-sekundiline vahemälu
 
@@ -203,8 +219,24 @@ välja lülitatud. API võtmeid rakenduse kasutamiseks ei vaja.
 - Brauser kasutab tavalist HTTP-vahemälu, mitte `no-store` päringuid.
   `X-GPS-Validated-At` säilitab algse kontrolliaja ka brauseri vahemälutabamuse
   korral. Algallika asukohtade vanust hinnatakse eraldi `Last-Modified` järgi.
-- Tõrge annab `503`, `Cache-Control: no-store` ja `Retry-After`; vana GPS-i ei
-  esitata uue kinnitusajaga. Algallika küpsiseid edasi ei saadeta.
+- Mõlemad algallikapäringud kasutavad `cache: no-store`, et algallika või
+  alampäringu HTTP-vahemälu ei külmutaks asukohti. Kümnesekundiline ühine piir säilib.
+- Vastuste päised `X-Data-Status`, `X-Data-Timestamp`, `X-Data-Age` ja
+  `X-Upstream-Error` annavad andmete oleku, algse aja, vanuse sekundites ja viimase
+  vea klassi. CSV ja sõidukite JSON-i senine kuju säilivad. Päised on CORS-is nähtavad.
+- Kuni 60 s vanad andmed on `fresh`; üle 60 ja kuni 180 s on `stale`. Upstream'i
+  vea korral antakse olemasolevast Durable Objecti cache'ist viimased edukad andmed
+  kohe olekuga `stale`, ka alla 60 s vanuselt. `stale` vastust ei salvestata HTTP-cache'i.
+- Üle 180 s vanad andmed või viimase eduka seisu puudumine annavad `unavailable`,
+  HTTP `503`, `Cache-Control: no-store` ja `Retry-After`. Aegunud sõidukeid ega
+  tingimuslikku `304` vastust sel juhul ei anta. Algallika küpsiseid edasi ei saadeta.
+- Ajatempel on Tallinna voo `Last-Modified`, selle puudumisel sisu esmakordne
+  vaatlus. Sama sisu `200`, `304`, cache-tabamus ega viga ei muuda asukohti nooremaks.
+  Korrektne tühi voog on eraldi edukas tühi vaatlus, mitte transpordiviga;
+  selle kinnitamine võib uuendada tühja seisu aega. Tallinna üksikmõõtmise aeg
+  jääb teadmata. Elroni andmete ajatempel on katvuses olevate rongide uusim
+  mõõtmisaeg; kõigi asukohtade vananemist ei esitata terve tühja voona.
+  Elroni üksiksõidukite mõõtmisaega kontrollib lisaks brauser.
 
 Kontrollimiseks: `node scripts/verify-worker.mjs`. See teeb 20 samaaegset
 kasutajapäringut, kontrollib ühist algallikapäringute loendurit, allavoolu `304`
@@ -268,3 +300,6 @@ Avaliku teenuse iganädalane kontroll ja Better Stacki ühendus:
 [nädalakontrolli juhend](docs/maintenance-health.md).
 Sama juhend kirjeldab ka igapäevast andmete värskuse kontrolli ning
 `BETTERSTACK_DATA_HEARTBEAT_URL` ühendust.
+Eraldi Workeri ja GPS-andmetervise monitoride seadistus, 5 minuti confirmation,
+3 minuti recovery ning vaikne teavitamine ja hommikune intsidendikoond on
+[reaalajaseire juhendis](docs/maintenance-health.md#reaalajaseire-ja-vaiksed-teavitused).

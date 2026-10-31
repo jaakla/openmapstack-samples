@@ -32,6 +32,20 @@ export function parseElron(body,now=Date.now()) {
       speedSource:'feed',bearingSource:'feed',source:'Elron'}];
   });
 }
+// An out-of-area/empty result is valid, but in-area expired fixes must not
+// become a healthy empty feed merely because parseElron filters them out.
+export function elronObservation(body, now = Date.now()) {
+  const payload = JSON.parse(body);
+  if (!Array.isArray(payload?.data)) throw new FeedUnavailable();
+  const rows = payload.data.filter(row => {
+    const lon = finiteNumber(row.longitude), lat = finiteNumber(row.latitude);
+    return row.reis && lon !== null && lat !== null && lon >= RAIL_BOUNDS[0] && lon <= RAIL_BOUNDS[2] && lat >= RAIL_BOUNDS[1] && lat <= RAIL_BOUNDS[3];
+  });
+  if (!rows.length) return { empty: true, timestamp: null };
+  const timestamps = rows.map(row => elronTime(row.asukoha_uuendus, now));
+  if (timestamps.some(at => at === null || at > now + 30000)) throw new FeedUnavailable(10, 200, 'invalid_response', 'invalid_fix_timestamp');
+  return { empty: false, timestamp: Math.max(...timestamps) };
+}
 export class ElronFeedCache extends GpsFeedCache {
-  constructor(options={}){super({...options,upstream:ELRON_UPSTREAM,referer:'https://elron.ee/',parseVehicles:parseElron,storageKey:'elron',bypassCache:true});}
+  constructor(options={}){super({...options,upstream:ELRON_UPSTREAM,referer:'https://elron.ee/',parseVehicles:parseElron,sourceObservation:elronObservation,storageKey:'elron'});}
 }

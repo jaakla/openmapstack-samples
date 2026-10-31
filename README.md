@@ -8,6 +8,11 @@ The gallery and the five GitHub Pages apps use one EU PostHog project. The share
 configuration is [shared/analytics.js](shared/analytics.js). Its project token is
 a public browser credential, not an administrative API key.
 
+SDK assets and events use the proxy at `https://a.trigonaut.ai`; the loader fetches
+`/static/array.js` there and sets the same origin as `api_host`. `ui_host` remains
+`https://eu.posthog.com`. The proxy must forward both SDK assets and event requests
+to the EU PostHog service and allow the GitHub Pages origin via CORS.
+
 - Collection runs only at `jaakla.github.io/openmapstack-samples/`, excluding
   localhost, automated/headless browsers, offline mode and Do Not Track/GPC.
 - Each event has a `site` field: `gallery`, `tallinn-transit`, `pv-location`,
