@@ -14,6 +14,15 @@ export async function registerOffline() {
 export async function restoreOfflineMode(){
   const stored=localStorage.getItem('tallinn-mode')||'online';
   if(!navigator.onLine)return {mode:'offline',recovered:false};
+  const url=new URL(location.href);
+  if(url.searchParams.get('online')==='1'){
+    await setOfflineMode(false);
+    if('caches' in window)await caches.delete('tallinn-mode-state');
+    // The recovery link is a one-time override, not a permanent preference
+    // that would undo a later explicit choice to use a saved offline pack.
+    url.searchParams.delete('online');history.replaceState(history.state,'',url);
+    return {mode:'online',recovered:stored==='offline'};
+  }
   await registerOffline();
   const worker=navigator.serviceWorker?.controller;
   if(!worker)return {mode:stored,recovered:false};

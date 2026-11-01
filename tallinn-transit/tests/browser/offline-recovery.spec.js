@@ -68,9 +68,12 @@ test('missing map worker in a saved pack falls back to network and restores a fu
   const context = await browser.newContext(); await fakeLive(context);
   const page = await context.newPage(), errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.goto('./'); await ready(page);
+  await page.goto('./?online=1'); await ready(page);
+  await expect.poll(()=>new URL(page.url()).searchParams.has('online')).toBe(false);
   await page.getByRole('button', { name: 'Võrguta', exact: true }).click();
   await expect(page.locator('.toast')).toContainText('Salvestatud', { timeout: 90000 });
+  expect((await page.reload()).status()).toBe(200); await ready(page);
+  await expect(page.getByRole('button', { name: 'Võrguta', exact: true })).toHaveAttribute('aria-pressed', 'true');
   const missing = await page.evaluate(async () => {
     const saved = JSON.parse(localStorage.getItem('tallinn-offline'));
     const cache = await caches.open(saved.cache);
@@ -117,7 +120,8 @@ test('recovery outside the legacy worker scope restores the map and preserves ot
     await expect(page.getByRole('heading', { name: 'Taasta Tallinn liigub veebirežiim' })).toBeVisible();
     await page.screenshot({ path: '/tmp/tallinn-recovery-page.png' }); legacy = false;
     await page.getByRole('button', { name: 'Taasta veebirežiim', exact: true }).click();
-    await page.waitForURL('**/tallinn-transit/?online=1'); await ready(page);
+    await page.waitForURL(url=>url.pathname==='/tallinn-transit/'); await ready(page);
+    await expect.poll(()=>new URL(page.url()).searchParams.has('online')).toBe(false);
     await expect(page.getByRole('button', { name: 'Veebis', exact: true })).toHaveAttribute('aria-pressed', 'true');
     const preserved = await page.evaluate(async () => ({ other: localStorage.getItem('other-app-value'), caches: await caches.keys(), registrations: (await navigator.serviceWorker.getRegistrations()).map(r => new URL(r.scope).pathname) }));
     expect(preserved.other).toBe('keep'); expect(preserved.caches).toContain('other-app-cache');
