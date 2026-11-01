@@ -32,7 +32,7 @@ export class LocationArchive {
   reserveSample(source, scheduledTime) {
     const slot = Math.floor(scheduledTime / SAMPLE_INTERVAL_MS);
     const key = `sample:${source}`;
-    if (slot <= this.meta(key, -1)) return false;
+    if (!Number.isFinite(scheduledTime) || slot !== Math.floor(this.now() / SAMPLE_INTERVAL_MS) || slot <= this.meta(key, -1)) return false;
     this.storage.transactionSync(() => {
       this.setMeta(key, slot); // Reserve before upstream I/O, including cron retries.
       this.setMeta('lastBackgroundSampleAt', scheduledTime);
@@ -117,7 +117,8 @@ export class LocationArchive {
 }
 
 export async function collectBackground(event, env, now = Date.now()) {
-  if (!env.GPS_ARCHIVE || !backgroundWindow(env, now).active || !backgroundWindow(env, event.scheduledTime).active) return;
+  if (!env.GPS_ARCHIVE || !backgroundWindow(env, now).active || !backgroundWindow(env, event.scheduledTime).active ||
+    Math.floor(event.scheduledTime / SAMPLE_INTERVAL_MS) !== Math.floor(now / SAMPLE_INTERVAL_MS)) return;
   const results = await Promise.allSettled([
     ['tallinn-public-gps-v1', 'vehicles'], ['elron-public-gps-v1', 'trains'],
   ].map(async ([name, feed]) => {

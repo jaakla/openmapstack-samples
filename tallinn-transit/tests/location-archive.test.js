@@ -161,6 +161,7 @@ test('trial is bounded to 14 days, ends exactly at deadline, and cannot reset on
   assert.equal(backgroundWindow({ ...trial, GPS_ARCHIVE_BACKGROUND_UNTIL: new Date(start + 15 * 86400_000).toISOString() }, start).active, false);
   const f = fixture(); assert.equal(f.archive.reserveSample('feed', start), true);
   assert.equal(new LocationArchive(f.saved, f.stream, f.options).reserveSample('feed', start + 299999), false);
+  f.advance(300000);
   assert.equal(f.archive.reserveSample('feed', start + 300000), true);
   assert.equal(f.archive.health().backgroundSamples, 2);
   assert.equal(f.archive.health().lastBackgroundSampleAt, new Date(start + 300000).toISOString());
@@ -175,7 +176,17 @@ test('five-minute collector calls both shared feeds, no upstream/DO requests aft
   assert(calls[1].url.endsWith('/archive/background/trains'));
   await collectBackground({ scheduledTime: start + 14 * 86400_000 }, env, start + 14 * 86400_000);
   await collectBackground({ scheduledTime: start }, env, start + 14 * 86400_000); // Late event fails closed.
+  await collectBackground({ scheduledTime: start }, env, start + 300000); // Missed slots never catch up in a burst.
   assert.equal(calls.length, 2);
+});
+
+test('a restarted object rejects delayed sampling slots instead of replaying a backlog', () => {
+  const f = fixture(); f.advance(900000);
+  assert.equal(f.archive.reserveSample('feed', start), false);
+  assert.equal(f.archive.reserveSample('feed', start + 300000), false);
+  assert.equal(f.archive.reserveSample('feed', start + 600000), false);
+  assert.equal(f.archive.reserveSample('feed', f.now()), true);
+  assert.equal(f.archive.health().backgroundSamples, 1);
 });
 
 test('background collection paths are not exposed by the public proxy', async () => {
@@ -195,7 +206,7 @@ test('shared Durable Object reserves each five-minute slot and stops polling at 
   await GpsFeed.prototype.fetch.call(state, request());
   await GpsFeed.prototype.fetch.call(state, request());
   assert.deepEqual(calls, ['background']);
-  now += 300000; await GpsFeed.prototype.fetch.call(state, request());
+  now += 300000; f.advance(300000); await GpsFeed.prototype.fetch.call(state, request());
   assert.deepEqual(calls, ['background', 'background']);
   now = start + 14 * 86400_000; await GpsFeed.prototype.fetch.call(state, request());
   assert.equal(calls.length, 2);

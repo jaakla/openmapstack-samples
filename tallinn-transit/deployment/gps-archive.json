@@ -30,10 +30,10 @@
   },
   "delivery": "at least once; deduplicate event_id when reading",
   "health": "https://tallinn-transit-api.jaak-laineste.workers.dev/health/archive",
-  "workerVersionId": "2e0bf4a7-31f1-4f38-979b-15de68fd0857",
+  "workerVersionId": "674e3c0a-6dd2-4cc3-bf3e-e1949225d9a6",
   "verification": {
     "health": {
-      "checkedAt": "2026-11-01T07:34:42.248Z",
+      "checkedAt": "2026-11-01T07:42:33.798Z",
       "httpStatus": 200,
       "status": "ok",
       "background": {
@@ -47,36 +47,36 @@
           "status": "ok",
           "pending": 0,
           "stats": {
-            "queued": 1517,
-            "delivered": 1517,
-            "user": 1302,
-            "background": 215,
-            "duplicates": 293,
+            "queued": 3557,
+            "delivered": 3557,
+            "user": 2899,
+            "background": 658,
+            "duplicates": 853,
             "rejected": 0
           },
-          "backgroundSamples": 0,
-          "lastBackgroundSampleAt": null,
+          "backgroundSamples": 2,
+          "lastBackgroundSampleAt": "2026-11-01T07:40:25.374Z",
           "oldestPendingAt": null,
-          "lastCaptureAt": "2026-11-01T07:32:58.192Z",
-          "lastDeliveryAt": "2026-11-01T07:32:59.917Z",
+          "lastCaptureAt": "2026-11-01T07:42:26.006Z",
+          "lastDeliveryAt": "2026-11-01T07:42:27.658Z",
           "lastError": null
         },
         "elron": {
           "status": "ok",
           "pending": 0,
           "stats": {
-            "queued": 42,
-            "delivered": 42,
-            "user": 35,
-            "background": 7,
+            "queued": 104,
+            "delivered": 104,
+            "user": 84,
+            "background": 20,
             "duplicates": 0,
             "rejected": 0
           },
-          "backgroundSamples": 0,
-          "lastBackgroundSampleAt": null,
+          "backgroundSamples": 2,
+          "lastBackgroundSampleAt": "2026-11-01T07:40:25.374Z",
           "oldestPendingAt": null,
-          "lastCaptureAt": "2026-11-01T07:33:18.557Z",
-          "lastDeliveryAt": "2026-11-01T07:33:20.016Z",
+          "lastCaptureAt": "2026-11-01T07:42:26.075Z",
+          "lastDeliveryAt": "2026-11-01T07:42:27.660Z",
           "lastError": null
         }
       }

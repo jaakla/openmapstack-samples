@@ -1,14 +1,14 @@
 schema: openmapstack-project/v1
 runs:
   latest:
-    id: run-20261101-073029
-    started_at: '2026-11-01T07:30:29.953701+00:00'
-    completed_at: '2026-11-01T07:31:01.197797+00:00'
+    id: run-20261101-074026
+    started_at: '2026-11-01T07:40:26.177803+00:00'
+    completed_at: '2026-11-01T07:40:57.039637+00:00'
     status: warning
-    inputs_hash: sha256:e7fd1f95c175396c0a6fe8cd644d2c3970e0bc733c508e2be17d509bdacf5925
-    outputs_hash: sha256:f26e39f1e94f0b01027e396e7d25b39036ab00d1f77734064aa31b61ddc43f3c
+    inputs_hash: sha256:bcebdbea55bd038237136866a8a35b20841367ea8742a22613176c1f169ce7e0
+    outputs_hash: sha256:fe81c91bb09ac6b5ebe986140f7344e7db457abd07302dda76f493870347d003
     record:
-      path: runs/run-20261101-073029.json
+      path: runs/run-20261101-074026.json
     validation_report:
       path: validation/latest-report.json
 delivery:
@@ -29,7 +29,7 @@ project:
   question: Loo Tallinna ühistranspordi kaart ja uksest ukseni reisiplaneerija koos aadressiotsingu, sõidukite
     asukohtade, päris jalgsimarsruutide ning võrguta kasutamisega.
   created_at: '2026-10-28T20:57:21.105924+00:00'
-  updated_at: '2026-11-01T07:31:01.197797+00:00'
+  updated_at: '2026-11-01T07:40:57.039637+00:00'
   status: warning
   aoi:
     bbox:

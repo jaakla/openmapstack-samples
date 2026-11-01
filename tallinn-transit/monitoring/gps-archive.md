@@ -23,6 +23,8 @@ a completed day's files with the compaction command below.
   and cooldown. A recent user refresh satisfies that sample without an extra
   upstream request. Each five-minute slot is reserved durably before I/O, so
   duplicate cron delivery cannot create extra requests in that slot. There are
+  no catch-up requests: delayed events from older slots are discarded.
+  There are
   at most 576 extra source requests/day across Tallinn and Elron combined.
 - The background trial runs from **2026-11-01 07:21:59 UTC** until
   **2026-11-15 07:21:59 UTC** (09:21:59 Europe/Tallinn). Absolute dates are in
