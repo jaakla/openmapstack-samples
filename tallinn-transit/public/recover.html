@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="et">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Tallinn liigub · taasta veebirežiim</title>
+  <style>
+    body{margin:0;background:#f2f6fa;color:#173149;font:16px/1.6 system-ui,sans-serif;min-height:100dvh;display:grid;place-items:center}
+    main{max-width:440px;padding:28px;margin:18px;background:white;border:1px solid #dce5ed;border-radius:14px}
+    h1{font-size:26px;line-height:1.2;margin:0 0 18px}p{margin:14px 0}button{font:inherit;font-weight:600;color:white;background:#0866ed;border:0;border-radius:8px;padding:12px 18px;cursor:pointer}button:disabled{opacity:.65}small{display:block;color:#566b7d;margin-top:18px}#status{color:#8a4200}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Taasta Tallinn liigub veebirežiim</h1>
+    <p>Kui kaart ei avane või võrguta andmepakett puudub, saad rakenduse uuesti internetist laadida.</p>
+    <button id="restore">Taasta veebirežiim</button>
+    <p id="status" role="status"></p>
+    <small>Salvestatud andmepakette ei kustutata. Teiste näidete seadeid ei muudeta.</small>
+  </main>
+  <script>
+    // Publish beside the application to bypass an old service worker's scope.
+    const appURL=new URL(location.pathname.endsWith('/recover.html')?'./':'./tallinn-transit/',location.href);
+    document.querySelector('#restore').addEventListener('click',async()=>{
+      const button=document.querySelector('#restore');button.disabled=true;
+      document.querySelector('#status').textContent='Taastan ühenduse…';
+      try{
+        if('serviceWorker' in navigator)for(const registration of await navigator.serviceWorker.getRegistrations()){
+          if(registration.scope===appURL.href)await registration.unregister();
+        }
+        if('caches' in window)await caches.delete('tallinn-mode-state');
+        localStorage.setItem('tallinn-mode','online');
+        appURL.searchParams.set('online','1');location.replace(appURL.href);
+      }catch{
+        document.querySelector('#status').textContent='Taastamine ei õnnestunud. Proovi rakendust privaatses aknas.';button.disabled=false;
+      }
+    });
+  </script>
+</body>
+</html>

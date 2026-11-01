@@ -7,9 +7,23 @@ const API_BASE = import.meta.env.VITE_API_BASE_URL || (import.meta.env.PROD
 export const api = path => `${API_BASE}${path}`;
 export async function registerOffline() {
   if ('serviceWorker' in navigator && import.meta.env.PROD) {
-    await navigator.serviceWorker.register(asset('sw.js'), { scope: BASE });
+    await navigator.serviceWorker.register(asset('sw.js'), { scope: BASE, updateViaCache: 'none' });
     await navigator.serviceWorker.ready;
   }
+}
+export async function restoreOfflineMode(){
+  const stored=localStorage.getItem('tallinn-mode')||'online';
+  if(!navigator.onLine)return {mode:'offline',recovered:false};
+  await registerOffline();
+  const worker=navigator.serviceWorker?.controller;
+  if(!worker)return {mode:stored,recovered:false};
+  const mode=await new Promise(resolve=>{
+    const channel=new MessageChannel(),timer=setTimeout(()=>{channel.port1.close();resolve(stored);},3000);
+    channel.port1.onmessage=event=>{clearTimeout(timer);channel.port1.close();resolve(event.data?.mode==='offline'?'offline':'online');};
+    worker.postMessage({type:'GET_MODE'},[channel.port2]);
+  });
+  localStorage.setItem('tallinn-mode',mode);
+  return {mode,recovered:stored==='offline'&&mode==='online'};
 }
 export async function downloadOffline(onProgress) {
   if (!('caches' in window)) throw new Error('Võrguühenduseta režiim vajab HTTPS-i või localhosti.');

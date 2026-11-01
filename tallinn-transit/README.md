@@ -74,7 +74,11 @@ Service worker teenindab ka PMTilesi baidivahemikke. Veebirežiimis eelistatakse
 võrgust värsket faili; võrguta kasutatakse ainult täielikult salvestatud paketti.
 
 **Veebis** taastab GPS-i ja aadressiotsingu. Kui internet kaob, eemaldatakse
-GPS-asukohad automaatselt. Ühenduse taastudes saab veebirežiimi ise sisse lülitada.
+GPS-asukohad automaatselt. Ajutine ühendusekatkestus ei salvesta püsivat võrguta
+valikut: ühenduse taastudes jätkub veebirežiim. Ise valitud **Võrguta** režiim
+säilib, kui andmepakett on olemas. Kui brauser on paketi või mõne selle faili
+eemaldanud, taastatakse võimalusel veebirežiim. Juba kinni jäänud vana versiooni
+saab avada [veebirežiimi taastamise lehega](https://jaakla.github.io/openmapstack-samples/tallinn-transit-recover.html).
 Aadressiotsing saadab teenusepakkujale otsinguteksti; kuupäevi, reisiplaane ega
 seadme GPS-jälgi serverisse ei saadeta.
 

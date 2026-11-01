@@ -219,7 +219,7 @@ export default memo(function MapView({ data, shapes, theme, layers, route, journ
   },[loaded,route,shapes,journey]);
   return <div className="map-wrapper">
     <div ref={host} className="map-canvas" aria-label="Tallinna ühistranspordi kaart" role="region" />
-    {error ? <div className="map-error" role="status">{error}</div> : null}
+    {error ? <div className="map-error" role="status">{error}<br/><a href={asset('recover.html')}>Taasta veebirežiim</a></div> : null}
     <div className="map-extra-controls">
       <button title="Minu asukoht" aria-label="Minu asukoht" onClick={()=>{
         navigator.geolocation?.getCurrentPosition(p=>{

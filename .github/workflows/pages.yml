@@ -112,6 +112,7 @@ jobs:
           cp -a battlefield-visibility/dist/. _site/battlefield-visibility/
           cp -a pv-location/dist/. _site/pv-location/
           cp -a tallinn-transit/dist/. _site/tallinn-transit/
+          cp tallinn-transit/dist/recover.html _site/tallinn-transit-recover.html
           cp index.html _site/index.html
           mkdir -p _site/shared
           cp shared/analytics.js _site/shared/analytics.js

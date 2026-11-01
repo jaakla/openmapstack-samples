@@ -4,7 +4,7 @@ import MapView from './MapView.jsx';
 import PlaceSearch from './PlaceSearch.jsx';
 import { useLive,useNetwork,useRouter } from './useTransit.js';
 import { activeServices,clock,normalize,tallinnNow } from './transit.js';
-import { api,asset,downloadOffline,setOfflineMode } from './offline.js';
+import { api,asset,downloadOffline,setOfflineMode,restoreOfflineMode } from './offline.js';
 import { stationGroups } from './station-list.js';
 
 const TRANSPORT_MODES=[['bus','Buss',BusFront],['tram','Tramm',TramFront],['train','Rong',TrainFront]];
@@ -103,10 +103,16 @@ function TransitApp({data,shapes,project,walking}) {
   const latestSearch=useRef(0);
   useEffect(()=>{document.documentElement.dataset.theme=theme;localStorage.setItem('tallinn-theme',theme);},[theme]);
   useEffect(()=>{
-    const update=()=>{setConnected(navigator.onLine);if(!navigator.onLine){setMode('offline');setOfflineMode(true);setInspection(i=>i?.kind==='vehicle'?null:i);}};
+    let active=true;
+    const recovered=()=>{localStorage.setItem('tallinn-mode','online');setMode('online');setNotice('Võrguta andmepakett puudus või oli poolik. Taastasin veebirežiimi.');};
+    const message=event=>{if(event.data?.type==='MODE_RECOVERED')recovered();};
+    navigator.serviceWorker?.addEventListener('message',message);
+    restoreOfflineMode().then(state=>{if(active){if(state.recovered)recovered();else setMode(state.mode);}}).catch(()=>{});
+    // A temporary connection failure is not a persistent offline preference.
+    const update=()=>{setConnected(navigator.onLine);if(!navigator.onLine){setMode('offline');setInspection(i=>i?.kind==='vehicle'?null:i);}else if(localStorage.getItem('tallinn-mode')!=='offline')setMode('online');};
     window.addEventListener('online',update);window.addEventListener('offline',update);
     const escape=e=>{if(e.key==='Escape'){setInspection(null);setNearbyPaths([]);}};window.addEventListener('keydown',escape);
-    return()=>{window.removeEventListener('online',update);window.removeEventListener('offline',update);window.removeEventListener('keydown',escape);};
+    return()=>{active=false;navigator.serviceWorker?.removeEventListener('message',message);window.removeEventListener('online',update);window.removeEventListener('offline',update);window.removeEventListener('keydown',escape);};
   },[]);
   async function switchMode(next){
     if(next===mode||progress!==null)return;
@@ -195,7 +201,7 @@ function TransitApp({data,shapes,project,walking}) {
 }
 export default function App(){
   const {data,shapes,project,walking,error}=useNetwork();
-  if(error)return <div className="boot"><h1>Andmepaketi laadimine ei õnnestunud.</h1><p>{error}</p><button className="primary" onClick={()=>location.reload()}>Proovi uuesti</button></div>;
+  if(error)return <div className="boot"><h1>Andmepaketi laadimine ei õnnestunud.</h1><p>{error}</p><button className="primary" onClick={()=>location.reload()}>Proovi uuesti</button><p><a href={asset('recover.html')}>Taasta veebirežiim</a></p></div>;
   if(!data||!shapes||!project||!walking)return <div className="boot"><Activity size={28}/><h1>Laadin Tallinna liikumisvõrku…</h1><p>Sõiduplaanid, peatused ja jalgteed sinu seadmes.</p></div>;
   return <TransitApp data={data} shapes={shapes} project={project} walking={walking}/>;
 }
