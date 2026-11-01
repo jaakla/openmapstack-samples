@@ -38,6 +38,11 @@
             "id": "A6",
             "statement": "Rongid osalevad samas sõiduplaanipõhises teekonnaotsingus bussi ja trammiga. Elroni GTFS-i peatus Tallinn on koondatud Balti jaamaga; säilivad eri suundade peatused ja tegelikud jalgsikäigud. Puuduvaid perrooni numbreid ei tuletata peatuse ID-st.",
             "rationale": "Linna sees võib rong anda kiireima ühenduse, ent ümberistumine peab järgima jalgteid."
+          },
+          {
+            "id": "A7",
+            "statement": "Värsked avalikud sõidukiasukohad arhiveeritakse kasutajapäringu käivitatud algallikauuendusel. Kordused eemaldatakse olemasolevas Durable Objectis ja andmed säilivad privaatses R2 Parquet-arhiivis. Lisanduv viieminutiline taustakogumine lõpeb automaatselt 15.11.2026 kell 09:21:59 Europe/Tallinn; kasutajapäringutest kogumine ja ajalugu säilivad.",
+            "rationale": "Nõudluspõhisele ajaloole lisatakse ajaliselt piiratud võrdlusandmed. Tallinnal puudub üksiksõiduki mõõtmisaeg; Elroni reisinumber ei ole füüsilise rongi identifikaator."
           }
         ]
       },
@@ -515,5 +520,5 @@
       "stations": "sha256:cb6367ee4af9e66a583dd3f2fc2dedb7131589acc9507dd23102ce9aa5839e66"
     }
   },
-  "view_sha256": "sha256:36c037a2be1f8103fefa59272e94a25288af8e5397a06a201ace12d28a7409a0"
+  "view_sha256": "sha256:b31c91606a94b91c2095c395b6831d0d29e1a28fcfbee72f053db0f026b529d9"
 }

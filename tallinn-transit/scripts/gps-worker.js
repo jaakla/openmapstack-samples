@@ -2,22 +2,46 @@ import { geocode } from './services.mjs';
 import { GpsFeedCache, GPS_TTL, gpsResponse, gpsError } from './gps-cache.mjs';
 import { ElronFeedCache } from './elron-feed.mjs';
 import { healthResponse, jsonHealth, internalError } from './data-health.mjs';
+import { LocationArchive, backgroundWindow, collectBackground } from './location-archive.mjs';
 
 // Cache API is POP-local. One named Durable Object caps upstream traffic globally.
 export class GpsFeed {
-  constructor(ctx) {
+  constructor(ctx, env = {}) {
+    this.env = env;
     ctx.blockConcurrencyWhile(async () => {
-      this.feed = new GpsFeedCache({ storage: ctx.storage, state: await ctx.storage.get('feed') });
-      this.trains = new ElronFeedCache({ storage: ctx.storage, state: await ctx.storage.get('elron') });
+      if (env.GPS_ARCHIVE) {
+        try {
+          this.archive = new LocationArchive(ctx.storage, env.GPS_ARCHIVE);
+          await this.archive.resume();
+        } catch {
+          this.archiveInitError = true;
+          console.error(JSON.stringify({ event: 'gps_archive_error', reason: 'initialization_failed' }));
+        }
+      }
+      const capture = source => this.archive ? async (snapshot, reason) => {
+        try { await this.archive.capture(snapshot, { source, reason }); }
+        catch (error) { this.archive.failure(error); throw error; }
+      } : undefined;
+      this.feed = new GpsFeedCache({ storage: ctx.storage, state: await ctx.storage.get('feed'), onSnapshot: capture('tallinn') });
+      this.trains = new ElronFeedCache({ storage: ctx.storage, state: await ctx.storage.get('elron'), onSnapshot: capture('elron') });
     });
   }
+  async alarm() { await this.archive?.flush(); }
   async fetch(request) {
     const started = Date.now();
     const path = new URL(request.url).pathname;
     const feed = path.endsWith('/trains') ? this.trains : this.feed;
     try {
+      if (path.startsWith('/health/archive')) return jsonHealth(this.archive?.health() || { status: this.archiveInitError ? 'unavailable' : 'disabled' }, request);
       if (path.startsWith('/health/data')) return jsonHealth(feed.health(), request);
-      return gpsResponse(await feed.get(), request);
+      if (path.startsWith('/archive/background/')) {
+        const scheduled = Number(request.headers.get('X-Scheduled-Time'));
+        if (request.method !== 'POST' || !this.archive || !backgroundWindow(this.env).active ||
+          !backgroundWindow(this.env, scheduled).active || !this.archive.reserveSample(feed.storageKey, scheduled)) return new Response(null, { status: 204 });
+        await feed.get('background');
+        return new Response(null, { status: 204 });
+      }
+      return gpsResponse(await feed.get('user'), request);
     } catch (error) {
       if (!error.retryAfter) { internalError('worker', started); error.errorClass = 'internal_error'; }
       return gpsError(error, request);
@@ -40,12 +64,24 @@ export async function handleRequest(request, env, ctx, edgeCache = globalThis.ca
     return new Response(response.body, { status: response.status, headers });
   };
   const url = new URL(request.url);
-  if (!['/gps', '/api/gps', '/geocode', '/api/geocode', '/vehicles', '/api/vehicles', '/trains', '/api/trains', '/health/live', '/health/data', '/api/health/live', '/api/health/data'].includes(url.pathname)) return reply(new Response('Not found', { status: 404, headers: { 'Cache-Control': 'no-store' } }));
+  if (!['/gps', '/api/gps', '/geocode', '/api/geocode', '/vehicles', '/api/vehicles', '/trains', '/api/trains', '/health/live', '/health/data', '/health/archive', '/api/health/live', '/api/health/data', '/api/health/archive'].includes(url.pathname)) return reply(new Response('Not found', { status: 404, headers: { 'Cache-Control': 'no-store' } }));
   if (request.method === 'OPTIONS') return reply(new Response(null, { status: 204, headers: {
     'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS', 'Access-Control-Allow-Headers': 'If-None-Match, If-Modified-Since', 'Access-Control-Max-Age': '86400',
   } }));
   if (!['GET', 'HEAD'].includes(request.method)) return reply(new Response('Method not allowed', { status: 405, headers: { Allow: 'GET, HEAD, OPTIONS', 'Cache-Control': 'no-store' } }));
   if (url.pathname.endsWith('/health/live')) return reply(jsonHealth({ status: 'ok' }, request));
+  if (url.pathname.endsWith('/health/archive')) {
+    const sources = Object.fromEntries(await Promise.all(['tallinn', 'elron'].map(async source => {
+      try {
+        const name = source === 'tallinn' ? 'tallinn-public-gps-v1' : 'elron-public-gps-v1';
+        const response = await env.GPS_FEED.get(env.GPS_FEED.idFromName(name), { locationHint: 'eeur' }).fetch('https://gps.internal/health/archive');
+        if (!response.ok) throw new Error('archive_health_failed');
+        return [source, await response.json()];
+      } catch { return [source, { status: 'unavailable' }]; }
+    })));
+    const status = Object.values(sources).every(source => source.status === 'ok') ? 'ok' : 'degraded';
+    return reply(jsonHealth({ status, background: backgroundWindow(env), sources }, request, status === 'ok' ? 200 : 503));
+  }
   if (url.pathname.endsWith('/health/data')) {
     const sources = Object.fromEntries(await Promise.all([
       ['tallinn', 'tallinn-public-gps-v1', '/health/data'],
@@ -105,4 +141,4 @@ export async function handleRequest(request, env, ctx, edgeCache = globalThis.ca
     return reply(gpsError({ errorClass: 'internal_error' }, request));
   }
 }
-export default { fetch: handleRequest };
+export default { fetch: handleRequest, scheduled: (event, env, ctx) => ctx.waitUntil(collectBackground(event, env)) };

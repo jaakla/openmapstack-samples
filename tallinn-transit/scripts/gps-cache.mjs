@@ -1,7 +1,7 @@
 import { observeVehicles } from './vehicle-motion.mjs';
 import { parseGPS } from '../src/transit.js';
 import { dataStatus, dataHeaders, DATA_FRESH_SECONDS } from '../src/data-status.js';
-// Shared, demand-driven feed: concurrent requests and failures obey the same cap.
+// Shared feed: user demand, scheduled samples and failures obey the same cap.
 export const GPS_TTL = 10;
 export const GPS_UPSTREAM = 'https://transport.tallinn.ee/gps.txt?x=1';
 export class FeedUnavailable extends Error {
@@ -15,13 +15,14 @@ export class FeedUnavailable extends Error {
 }
 export class GpsFeedCache {
   constructor({ fetch: fetcher = (...args) => globalThis.fetch(...args), now = Date.now, storage, state,
-    upstream = GPS_UPSTREAM, referer = 'https://transport.tallinn.ee/', parseVehicles, sourceObservation, storageKey = 'feed',
+    upstream = GPS_UPSTREAM, referer = 'https://transport.tallinn.ee/', parseVehicles, sourceObservation, onSnapshot, storageKey = 'feed',
     log = entry => console[entry.outcome === 'error' ? 'error' : 'info'](JSON.stringify(entry)) } = {}) {
     this.fetcher = fetcher;
     this.now = now;
     this.storage = storage;
     this.upstream = upstream; this.referer = referer; this.parseVehicles = parseVehicles; this.storageKey = storageKey;
     this.sourceObservation = sourceObservation;
+    this.onSnapshot = onSnapshot;
     this.log = log;
     this.state = state || { snapshot: null, nextAttemptAt: 0, upstreamRequests: 0 };
     this.pending = null;
@@ -47,14 +48,14 @@ export class GpsFeedCache {
     error.snapshot = snapshot;
     throw error;
   }
-  async get() {
+  async get(reason = 'user') {
     if (this.state.snapshot && this.now() < this.state.snapshot.validatedAt + GPS_TTL * 1000) return this.latest();
     if (this.pending) return this.pending;
     if (this.now() < this.state.nextAttemptAt) return this.fallback();
-    this.pending = this.refresh();
+    this.pending = this.refresh(reason);
     try { return await this.pending; } finally { this.pending = null; }
   }
-  async refresh() {
+  async refresh(reason = 'user') {
     const started = this.now(), previous = this.state.snapshot;
     this.state.nextAttemptAt = started + GPS_TTL * 1000;
     this.state.upstreamRequests++;
@@ -120,6 +121,12 @@ export class GpsFeedCache {
         errorClass: null, reason: empty ? 'empty_response' : expiredFixes ? 'expired_fixes' : null,
         upstreamStatus: upstream.status, durationMs: Math.max(0, this.now() - started) };
       await this.persist();
+      // Archiving has its own failure domain; live GPS must remain available
+      // when history delivery or its local outbox fails.
+      if (upstream.status === 200 && changed && this.onSnapshot) {
+        try { await this.onSnapshot(this.state.snapshot, reason); }
+        catch { this.log({ event: 'gps_archive_error', feed: this.storageKey, reason: 'capture_failed' }); }
+      }
       if (snapshot.vehicleCount === 0) this.log({ event: 'gps_upstream', feed: this.storageKey, ...this.state.lastAttempt });
       return this.state.snapshot;
     } catch (error) {

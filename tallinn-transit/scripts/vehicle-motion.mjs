@@ -1,7 +1,7 @@
 import { parseGPS } from '../src/transit.js';
 
 // These are estimates from feed observations, not timestamped vehicle fixes.
-// Six samples and a two-minute expiry bound persistent state; no background poll.
+// Six samples and a two-minute expiry bound persistent state; no polling timer.
 export const MOTION_WINDOW_MS = 40000;
 const GAP_MS = 60000, KEEP_MS = 120000, MIN_MOVE_M = 15, MAX_KMH = 120;
 const rad = degrees => degrees * Math.PI / 180;

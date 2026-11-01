@@ -3,7 +3,7 @@ schema: openmapstack-findings/v1
 project_id: tallinn-transit
 question: Loo Tallinna ühistranspordi kaart ja uksest ukseni reisiplaneerija koos
   aadressiotsingu, sõidukite asukohtade, päris jalgsimarsruutide ning võrguta kasutamisega.
-run_id: run-20261031-171734
+run_id: run-20261101-073029
 scope: Tallinna linnatranspordi, Elroni ja OSM-i fikseeritud andmepakett
 validation:
   status: warning
@@ -35,7 +35,7 @@ validation:
   - id: walking_network
     status: passed
 validation_report: validation/latest-report.json
-context_sha256: sha256:db7a4ccaa5717815e548bac326bc24b21ff1265a3e64a65270253077438fa7ec
+context_sha256: sha256:91e949d348cb43aa187e9f8629283faabb27b54d7ebaebb57f33d62cfe7badab
 assumptions:
 - id: A1
   statement: Sama peatuse lähestikku paiknevad platvormid koondatakse kuni 400 m vahedega.
@@ -74,6 +74,15 @@ assumptions:
     ID-st.
   rationale: Linna sees võib rong anda kiireima ühenduse, ent ümberistumine peab järgima
     jalgteid.
+- id: A7
+  statement: Värsked avalikud sõidukiasukohad arhiveeritakse kasutajapäringu käivitatud
+    algallikauuendusel. Kordused eemaldatakse olemasolevas Durable Objectis ja andmed
+    säilivad privaatses R2 Parquet-arhiivis. Lisanduv viieminutiline taustakogumine
+    lõpeb automaatselt 15.11.2026 kell 09:21:59 Europe/Tallinn; kasutajapäringutest
+    kogumine ja ajalugu säilivad.
+  rationale: Nõudluspõhisele ajaloole lisatakse ajaliselt piiratud võrdlusandmed.
+    Tallinnal puudub üksiksõiduki mõõtmisaeg; Elroni reisinumber ei ole füüsilise
+    rongi identifikaator.
 warnings:
 - id: LIVE-001
   severity: medium
@@ -168,7 +177,7 @@ evidence:
 
 Loo Tallinna ühistranspordi kaart ja uksest ukseni reisiplaneerija koos aadressiotsingu, sõidukite asukohtade, päris jalgsimarsruutide ning võrguta kasutamisega.
 
-Scope: Tallinna linnatranspordi, Elroni ja OSM-i fikseeritud andmepakett. Run: `run-20261031-171734`. Validation: **warning**.
+Scope: Tallinna linnatranspordi, Elroni ja OSM-i fikseeritud andmepakett. Run: `run-20261101-073029`. Validation: **warning**.
 
 ## network
 
@@ -208,6 +217,7 @@ Limitation: Tallinna GPS-i voos puudub üksiksõiduki mõõtmisaeg. Elron annab 
 - Veebirežiimis uuendatakse GPS-i iga 10 sekundi järel. Võrguta režiimi valimine salvestab kogu andmepaketi ja eemaldab GPS-asukohad. Paus peatab uuendamise, jätkamine küsib asukohad kohe uuesti. GPS vajab võrguühendust. Tallinn ei anna üksiksõiduki mõõtmisaega; Elron annab selle Europe/Tallinn ajavööndis.
 - Hoone või platvorm ühendatakse lähima sobiva teelõiguga kuni 70 m piires. Edasine teekond järgib olemasolevat võrku. Arvestatakse foot/access piiranguid, suletud tõkkeid ja oneway:foot suundi. Hoone viitepunkt ei ole alati sissepääs. Viimaste meetrite ühendus võib olla ligikaudne; ligipääsetavus ja ajutised sulgemised vajavad kohapealset kontrolli.
 - Rongid osalevad samas sõiduplaanipõhises teekonnaotsingus bussi ja trammiga. Elroni GTFS-i peatus Tallinn on koondatud Balti jaamaga; säilivad eri suundade peatused ja tegelikud jalgsikäigud. Puuduvaid perrooni numbreid ei tuletata peatuse ID-st. Linna sees võib rong anda kiireima ühenduse, ent ümberistumine peab järgima jalgteid.
+- Värsked avalikud sõidukiasukohad arhiveeritakse kasutajapäringu käivitatud algallikauuendusel. Kordused eemaldatakse olemasolevas Durable Objectis ja andmed säilivad privaatses R2 Parquet-arhiivis. Lisanduv viieminutiline taustakogumine lõpeb automaatselt 15.11.2026 kell 09:21:59 Europe/Tallinn; kasutajapäringutest kogumine ja ajalugu säilivad. Nõudluspõhisele ajaloole lisatakse ajaliselt piiratud võrdlusandmed. Tallinnal puudub üksiksõiduki mõõtmisaeg; Elroni reisinumber ei ole füüsilise rongi identifikaator.
 - Tallinna busside ja trammide GPS ei anna üksiksõiduki mõõtmisaega. Elroni rongide mõõtmisaeg on teada ja üle 3 minuti vanad asukohad eemaldatakse. Teekonna ajad lähtuvad sõiduplaanist, mitte GPS-ist.
 - Jalgsikäigud järgivad OpenStreetMapi teedevõrku. Hoone või platvormi viimased kuni 70 meetrit võivad olla ligikaudsed; ratastooliga ligipääsetavus ja ajutised sulgemised pole kinnitatud.
 - Sõiduplaan ja teedevõrk on fikseeritud andmepaketis. Hilisemad muudatused ei lisandu automaatselt; sõiduplaani tuleb vähemalt kord nädalas uuendada.

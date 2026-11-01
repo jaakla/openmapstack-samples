@@ -78,6 +78,13 @@ GPS-asukohad automaatselt. Ühenduse taastudes saab veebirežiimi ise sisse lül
 Aadressiotsing saadab teenusepakkujale otsinguteksti; kuupäevi, reisiplaane ega
 seadme GPS-jälgi serverisse ei saadeta.
 
+Avalike sõidukite värsked asukohad säilitatakse analüüsiks privaatses R2 Parquet-
+arhiivis, kordused eemaldatakse. Kasutajapäringutele lisandub kahenädalane proov:
+iga viie minuti järel tehakse taustapäring kuni **15.11.2026 kell 09:21:59**
+(Europe/Tallinn). Seejärel lõpevad taustapäringud automaatselt; kogutud ajalugu
+ja kasutajapäringutest salvestamine säilivad. Seadistus, andmete tähendus,
+`/health/archive` ja päevafailide eksport: [GPS-arhiivi juhend](monitoring/gps-archive.md).
+
 ## Jalakäijate teedevõrk
 
 Allikas on [BBBike'i Tallinna OSM-i väljavõte](https://download.bbbike.org/osm/bbbike/Tallinn/),
@@ -199,8 +206,9 @@ API võtmeid rakenduse kasutamiseks ei vaja.
 
 - Kummalgi GPS-allikal on oma Durable Object, mis ühendab kogu maailma päringud. Üht algallikat
   küsitakse nõudluse korral kõige sagedamini kord 10 sekundi jooksul ehk kuni
-  kuus korda minutis; taustal tühja liikluse korral päringuid ei tehta. Sama piir
-  kehtib tõrgete ja Workeri taaskäivituste korral.
+  kuus korda minutis. Arhiivi kahenädalase proovi ajal lisandub nõudluse puudumisel
+  üks taustapäring viie minuti kohta. Sama globaalne piir kehtib ka taustapäringute,
+  tõrgete ja Workeri taaskäivituste korral.
 - Piirkondlik Cloudflare Cache API hoiab jagatud vastust alles ainult selle
   algsest 10-sekundilisest aknast järele jäänud aja. Päringuparameetrid ja lubatud
   origin'id ei tekita eraldi GPS-koopiaid. Cache API üksi pole globaalne, mistõttu
@@ -272,7 +280,7 @@ algallikasse ei tehta. Üle 45 s vanu hinnangulisi kiirusi brauser enam ei kuva.
 
 ```sh
 npm test
-python3 -m unittest discover -s tests -p 'test_*.py'
+.venv/bin/python -m unittest discover -s tests -p 'test_*.py'
 npx playwright install chromium
 npm run test:browser
 .venv/bin/openmapstack validate project.yaml

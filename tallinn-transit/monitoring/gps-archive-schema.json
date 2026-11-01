@@ -1,0 +1,89 @@
+{
+  "fields": [
+    {
+      "name": "schema_version",
+      "type": "int32",
+      "required": true
+    },
+    {
+      "name": "event_id",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "source",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "entity_id",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "mode",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "route",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "headsign",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "capture_reason",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "collected_at_ms",
+      "type": "int64",
+      "required": true
+    },
+    {
+      "name": "observed_at_ms",
+      "type": "int64",
+      "required": true
+    },
+    {
+      "name": "longitude",
+      "type": "float64",
+      "required": true
+    },
+    {
+      "name": "latitude",
+      "type": "float64",
+      "required": true
+    },
+    {
+      "name": "source_fix_at_ms",
+      "type": "int64",
+      "required": false
+    },
+    {
+      "name": "speed_kmh",
+      "type": "float64",
+      "required": false
+    },
+    {
+      "name": "speed_source",
+      "type": "string",
+      "required": false
+    },
+    {
+      "name": "bearing_degrees",
+      "type": "float64",
+      "required": false
+    },
+    {
+      "name": "bearing_source",
+      "type": "string",
+      "required": false
+    }
+  ]
+}

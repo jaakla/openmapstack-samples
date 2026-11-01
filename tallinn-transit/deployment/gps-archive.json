@@ -1,0 +1,116 @@
+{
+  "accountId": "1770d998d043a2778e06edafa880a877",
+  "bucket": "project-archives",
+  "prefix": "tallinn-transit/gps/positions",
+  "publicAccess": false,
+  "stream": {
+    "name": "tallinn_gps_locations",
+    "id": "fb702029f11f4b448ee5e4dfa376e6a8",
+    "httpEnabled": false
+  },
+  "sink": {
+    "name": "tallinn_gps_parquet",
+    "id": "ff86f58b74ff401ab63faf67ee4186cf",
+    "format": "parquet",
+    "compression": "zstd",
+    "rollIntervalSeconds": 3600,
+    "rollSizeBytes": 67108864,
+    "partition": "year=%Y/month=%m/day=%d"
+  },
+  "pipeline": {
+    "name": "tallinn_gps_archive",
+    "id": "958c11276f324f18b18ef88c453f5b94",
+    "sql": "INSERT INTO tallinn_gps_parquet SELECT * FROM tallinn_gps_locations"
+  },
+  "background": {
+    "cron": "*/5 * * * *",
+    "start": "2026-11-01T07:21:59Z",
+    "until": "2026-11-15T07:21:59Z",
+    "retainHistoryAfterTrial": true
+  },
+  "delivery": "at least once; deduplicate event_id when reading",
+  "health": "https://tallinn-transit-api.jaak-laineste.workers.dev/health/archive",
+  "workerVersionId": "2e0bf4a7-31f1-4f38-979b-15de68fd0857",
+  "verification": {
+    "health": {
+      "checkedAt": "2026-11-01T07:34:42.248Z",
+      "httpStatus": 200,
+      "status": "ok",
+      "background": {
+        "active": true,
+        "start": "2026-11-01T07:21:59.000Z",
+        "until": "2026-11-15T07:21:59.000Z",
+        "intervalSeconds": 300
+      },
+      "sources": {
+        "tallinn": {
+          "status": "ok",
+          "pending": 0,
+          "stats": {
+            "queued": 1517,
+            "delivered": 1517,
+            "user": 1302,
+            "background": 215,
+            "duplicates": 293,
+            "rejected": 0
+          },
+          "backgroundSamples": 0,
+          "lastBackgroundSampleAt": null,
+          "oldestPendingAt": null,
+          "lastCaptureAt": "2026-11-01T07:32:58.192Z",
+          "lastDeliveryAt": "2026-11-01T07:32:59.917Z",
+          "lastError": null
+        },
+        "elron": {
+          "status": "ok",
+          "pending": 0,
+          "stats": {
+            "queued": 42,
+            "delivered": 42,
+            "user": 35,
+            "background": 7,
+            "duplicates": 0,
+            "rejected": 0
+          },
+          "backgroundSamples": 0,
+          "lastBackgroundSampleAt": null,
+          "oldestPendingAt": null,
+          "lastCaptureAt": "2026-11-01T07:33:18.557Z",
+          "lastDeliveryAt": "2026-11-01T07:33:20.016Z",
+          "lastError": null
+        }
+      }
+    },
+    "pipelineMetrics": {
+      "data": {
+        "viewer": {
+          "accounts": [
+            {
+              "pipelinesOperatorAdaptiveGroups": [
+                {
+                  "sum": {
+                    "decodeErrors": 0,
+                    "recordsIn": 1338
+                  }
+                }
+              ],
+              "pipelinesSinkAdaptiveGroups": [
+                {
+                  "sum": {
+                    "bytesWritten": 0,
+                    "filesWritten": 0,
+                    "recordsWritten": 669
+                  }
+                }
+              ],
+              "pipelinesUserErrorsAdaptiveGroups": []
+            }
+          ]
+        }
+      },
+      "errors": null,
+      "checkedAt": "2026-11-01T07:31:02.601205+00:00"
+    },
+    "parquetObjectCheck": "First hourly flush pending; accepted sink rows and zero decode/schema errors verified."
+  }
+}
