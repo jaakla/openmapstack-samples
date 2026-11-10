@@ -1,0 +1,13 @@
+variant,school_set,walk_minutes,schools,population,pop_served,pop_unserved,pct_unserved,canonical
+basic_all_5,basic_all,5,23,99425,20324,79101,79.56,False
+basic_all_10,basic_all,10,23,99425,63326,36099,36.31,False
+basic_all_15,basic_all,15,23,99425,82732,16693,16.79,True
+basic_all_20,basic_all,20,23,99425,87390,12035,12.1,False
+municipal_basic_5,municipal_basic,5,16,99425,16371,83054,83.53,False
+municipal_basic_10,municipal_basic,10,16,99425,59550,39875,40.11,False
+municipal_basic_15,municipal_basic,15,16,99425,80318,19107,19.22,False
+municipal_basic_20,municipal_basic,20,16,99425,85875,13550,13.63,False
+all_schools_5,all_schools,5,40,99425,23607,75818,76.26,False
+all_schools_10,all_schools,10,40,99425,67791,31634,31.82,False
+all_schools_15,all_schools,15,40,99425,84692,14733,14.82,False
+all_schools_20,all_schools,20,40,99425,87822,11603,11.67,False

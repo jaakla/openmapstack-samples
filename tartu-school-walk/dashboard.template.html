@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__</title>
+<link rel="stylesheet" href="vendor/maplibre-gl.css">
+<style>
+:root {
+  color-scheme: light;
+  --surface: #fcfcfb; --surface-2: #f3f2ef; --line: #dddcd6; --text: #0b0b0b; --text-2: #52514e; --text-3: #7a7973;
+  --accent: #1c5cab; --served: #2a78d6; --over1: #f08f80; --over2: #dd5a52; --over3: #8e1f1f;
+  --warn-bg: #fff4d6; --warn-line: #eda100; --ok: #0ca30c; --crit: #d03b3b;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --surface: #1a1a19; --surface-2: #252523; --line: #3a3a37; --text: #f0efec; --text-2: #c3c2b7; --text-3: #8f8e86;
+  --accent: #86b6ef; --served: #3987e5; --warn-bg: #3a2f10;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; color: var(--text); background: var(--surface); display: flex; flex-direction: column; }
+header { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+header h1 { font-size: 16px; margin: 0; font-weight: 650; }
+.badge { font-size: 12px; padding: 2px 8px; border-radius: 10px; border: 1px solid var(--line); color: var(--text-2); white-space: nowrap; }
+.badge.ok::before { content: "✓ "; color: var(--ok); } .badge.warning::before { content: "⚠ "; color: var(--warn-line); } .badge.failed::before { content: "✕ "; color: var(--crit); }
+#exploratory { display: none; background: var(--warn-bg); border: 1px solid var(--warn-line); border-radius: 6px; padding: 3px 8px; font-size: 12.5px; align-items: center; gap: 8px; }
+#exploratory.on { display: inline-flex; }
+button, select { font: inherit; color: inherit; }
+button { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+button:hover { border-color: var(--text-3); }
+button[aria-pressed="true"], button.on { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+main { flex: 1; display: flex; min-height: 0; }
+aside { width: 440px; max-width: 100%; display: flex; flex-direction: column; border-right: 1px solid var(--line); min-height: 0; }
+#controls { padding: 10px 16px; border-bottom: 1px solid var(--line); display: grid; gap: 8px; background: var(--surface-2); }
+#controls .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+#controls label { font-size: 12px; color: var(--text-2); min-width: 92px; }
+#controls select { flex: 1; min-width: 0; width: 0; padding: 4px 6px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+.seg { display: inline-flex; gap: 4px; }
+nav.tabs { display: flex; border-bottom: 1px solid var(--line); }
+nav.tabs button { flex: 1; border: 0; border-radius: 0; border-bottom: 2px solid transparent; padding: 9px 4px; background: none; color: var(--text-2); }
+nav.tabs button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; background: none; }
+.panel { display: none; overflow: auto; padding: 4px 16px 24px; flex: 1; }
+.panel.on { display: block; }
+details { border-bottom: 1px solid var(--line); padding: 8px 0; }
+details > summary { cursor: pointer; font-weight: 600; padding: 4px 0; }
+.lead { font-size: 15px; margin: 6px 0 10px; }
+.lead b { font-size: 17px; }
+.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0; }
+.tile { background: var(--surface-2); border-radius: 8px; padding: 10px 12px; }
+.tile .v { font-size: 24px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.tile .l { font-size: 12px; color: var(--text-2); }
+.meter { height: 12px; border-radius: 4px; overflow: hidden; display: flex; gap: 2px; margin: 10px 0 4px; }
+.meter span { display: block; height: 100%; }
+.small { font-size: 12.5px; color: var(--text-2); }
+ol.pockets { list-style: none; padding: 0; margin: 6px 0; }
+ol.pockets li { display: grid; grid-template-columns: 26px 1fr auto; gap: 8px; align-items: baseline; padding: 6px 4px; border-radius: 6px; cursor: pointer; }
+ol.pockets li:hover { background: var(--surface-2); }
+ol.pockets .n { color: var(--text-3); font-variant-numeric: tabular-nums; }
+ol.pockets .pop { font-weight: 600; font-variant-numeric: tabular-nums; }
+.tablewrap { max-height: 380px; overflow: auto; border: 1px solid var(--line); border-radius: 6px; margin-top: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+th, td { padding: 5px 8px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+th { position: sticky; top: 0; background: var(--surface-2); cursor: pointer; user-select: none; font-weight: 600; z-index: 2; }
+th:first-child, td:first-child { text-align: left; position: sticky; left: 0; background: var(--surface); z-index: 1; }
+th:first-child { z-index: 3; background: var(--surface-2); }
+tr.current td { background: var(--warn-bg); }
+tr.clickable { cursor: pointer; }
+.bar { display: inline-block; height: 8px; border-radius: 0 4px 4px 0; background: var(--over2); vertical-align: middle; margin-right: 6px; }
+.dl a { margin-right: 10px; }
+a { color: var(--accent); }
+.layer { display: flex; align-items: center; gap: 8px; padding: 5px 0; }
+.sw { width: 18px; height: 12px; border-radius: 3px; flex: none; border: 1px solid transparent; }
+.sw.dot { width: 12px; height: 12px; border-radius: 50%; margin: 0 3px; }
+.legend-row { display: flex; align-items: center; gap: 8px; padding: 2px 0; font-size: 12.5px; }
+.warn { background: var(--warn-bg); border-left: 3px solid var(--warn-line); padding: 6px 10px; margin: 6px 0; border-radius: 0 6px 6px 0; font-size: 12.5px; }
+.card { border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; margin: 6px 0; font-size: 12.5px; }
+.card h4 { margin: 0 0 2px; font-size: 13px; }
+.kv { color: var(--text-2); }
+.check { display: grid; grid-template-columns: 18px 1fr; gap: 6px; padding: 3px 0; font-size: 12.5px; }
+.check .s-passed { color: var(--ok); } .check .s-warning, .check .s-not_testable { color: var(--warn-line); } .check .s-failed { color: var(--crit); }
+#mapwrap { flex: 1; position: relative; min-width: 0; }
+#map { position: absolute; inset: 0; }
+#legend { position: absolute; left: 10px; bottom: 34px; background: color-mix(in srgb, var(--surface) 94%, transparent); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-size: 12px; max-width: 250px; }
+#legend h5 { margin: 0 0 4px; font-size: 12px; }
+#tip { position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; font-size: 12px; max-width: 280px; display: none; box-shadow: 0 2px 8px rgba(0,0,0,.18); z-index: 5; }
+.maplibregl-popup-content { background: var(--surface); color: var(--text); font: 12.5px/1.4 system-ui, sans-serif; max-width: 300px; }
+.maplibregl-popup-content h4 { margin: 0 0 4px; font-size: 13px; }
+@media (max-width: 860px) {
+  main { flex-direction: column-reverse; }
+  aside { width: 100%; height: 52%; border-right: 0; border-top: 1px solid var(--line); }
+  #legend { display: none; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title"></h1>
+  <span class="badge" id="status"></span>
+  <span class="badge" id="runbadge"></span>
+  <span id="exploratory"><span>Exploratory view – not the accepted run</span><button id="reset" type="button">Reset to accepted run</button></span>
+</header>
+<main>
+  <aside>
+    <div id="controls">
+      <div class="row"><label id="lbl-min"></label><div class="seg" id="minutes" role="group" aria-labelledby="lbl-min"></div></div>
+      <div class="row"><label for="schoolset" id="lbl-set"></label><select id="schoolset"></select></div>
+    </div>
+    <nav class="tabs" role="tablist" id="tabs"></nav>
+    <section class="panel" id="tab-analysis"></section>
+    <section class="panel" id="tab-map"></section>
+    <section class="panel" id="tab-provenance"></section>
+  </aside>
+  <div id="mapwrap"><div id="map"></div><div id="legend"></div><div id="tip"></div></div>
+</main>
+<script src="vendor/maplibre-gl.js"></script>
+<script>
+"use strict";
+const P = /*__PAYLOAD__*/null;
+const $ = (id) => document.getElementById(id);
+const fmt = (n, d = 0) => Number(n).toLocaleString("en-GB", { maximumFractionDigits: d, minimumFractionDigits: d });
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const MPM = P.metres_per_minute;
+const SETS = Object.fromEntries(P.school_sets.map((s) => [s.id, s]));
+const CANON = { minutes: P.canonical.walk_minutes, set: P.canonical.school_set };
+const state = { minutes: CANON.minutes, set: CANON.set, theme: "auto", groups: {} };
+const B = P.data.buildings.features;
+const TOTAL_POP = B.reduce((sum, f) => sum + f.properties.p, 0);
+const variant = () => `${state.set}_${state.minutes}`;
+const isCanonical = () => state.minutes === CANON.minutes && state.set === CANON.set;
+const matrixRow = (v) => P.tables.coverage_matrix.rows.find((r) => r.variant === v);
+
+// ---------- header ----------
+$("title").textContent = P.project.title;
+const st = P.run.status;
+$("status").textContent = st === "passed" ? "Validated" : st === "warning" ? "Validated with warnings" : "Validation failed";
+$("status").classList.add(st === "passed" ? "ok" : st);
+$("runbadge").textContent = P.run.id;
+$("reset").onclick = () => { state.minutes = CANON.minutes; state.set = CANON.set; refresh(); };
+
+// ---------- controls: open at the accepted run ----------
+const limitCtl = P.controls.filters.find((f) => f.id === "walk_minutes");
+const setCtl = P.controls.views.find((v) => v.id === "school_set");
+$("lbl-min").textContent = limitCtl.label;
+$("lbl-set").textContent = setCtl.label;
+limitCtl.options.forEach((m) => {
+  const b = document.createElement("button");
+  b.type = "button"; b.textContent = `${m} min`; b.dataset.m = m;
+  b.onclick = () => { state.minutes = m; refresh(); };
+  $("minutes").append(b);
+});
+setCtl.options.forEach((id) => {
+  const o = document.createElement("option");
+  o.value = id; o.textContent = `${SETS[id].label} (${SETS[id].schools})`;
+  $("schoolset").append(o);
+});
+$("schoolset").onchange = (e) => { state.set = e.target.value; refresh(); };
+
+// ---------- tabs ----------
+P.layout.sidebar.tabs.forEach((t, i) => {
+  const b = document.createElement("button");
+  b.type = "button"; b.role = "tab"; b.textContent = t.title; b.dataset.tab = t.id;
+  b.setAttribute("aria-selected", i === 0);
+  b.onclick = () => {
+    document.querySelectorAll("#tabs button").forEach((x) => x.setAttribute("aria-selected", x === b));
+    document.querySelectorAll(".panel").forEach((x) => x.classList.toggle("on", x.id === `tab-${t.id}`));
+  };
+  $("tabs").append(b);
+});
+$("tab-analysis").classList.add("on");
+const section = (id, title, open = true) => `<details ${open ? "open" : ""} id="sec-${id}"><summary>${esc(title)}</summary><div class="body"></div></details>`;
+const body = (id) => document.querySelector(`#sec-${id} .body`);
+
+$("tab-analysis").innerHTML = section("summary", "Answer") + section("unserved_areas", "Where the unserved residents live")
+  + section("area_table", P.tables.area_summary.title) + section("sensitivity", P.tables.coverage_matrix.title, false)
+  + section("assumptions", "Assumptions", false) + section("warnings", "Known limits", false);
+$("tab-map").innerHTML = section("layer_controls", "Layers") + section("legend", "Legend") + section("basemap", "Basemap and theme");
+$("tab-provenance").innerHTML = section("credits", "Credits") + section("provenance", "Sources") + section("overrides", "Manual exclusions")
+  + section("validation", "Validation") + section("outputs", "Outputs", false) + section("run_record", "Run record and processing steps", false);
+
+// ---------- rule re-applied to measured values (never re-measured) ----------
+function compute() {
+  const col = SETS[state.set].column, limit = state.minutes * MPM;
+  let far = 0, farBuildings = 0;
+  const classes = [0, 0, 0, 0];
+  for (const f of B) {
+    const over = f.properties[col] - limit, p = f.properties.p;
+    if (over > 0) { far += p; farBuildings++; }
+    classes[over <= 0 ? 0 : over <= 5 * MPM ? 1 : over <= 15 * MPM ? 2 : 3] += p;
+  }
+  return { far, served: TOTAL_POP - far, pct: 100 * far / TOTAL_POP, farBuildings, classes };
+}
+
+function renderSummary() {
+  const c = compute(), row = matrixRow(variant()), s = SETS[state.set];
+  // Headline numbers are the pipeline's own row for this variant (coverage-matrix.csv);
+  // the browser only re-applies the limit to measured distances for the class bar.
+  const far = row.pop_unserved, pct = row.pct_unserved;
+  const total = row.population, served = total - far;
+  const cls = ["--served", "--over1", "--over2", "--over3"];
+  body("summary").innerHTML = `
+    <p class="lead"><b>${fmt(pct, 1)} %</b> of Tartu residents – about <b>${fmt(far)}</b> of ${fmt(total)} – live more than a
+      ${state.minutes}-minute walk from the nearest school.</p>
+    <div class="meter" title="Residents by walking time">${c.classes.map((v, i) => `<span style="width:${100 * v / TOTAL_POP}%;background:var(${cls[i]})"></span>`).join("")}</div>
+    <div class="small">${legendLabels().map((l, i) => `${l}: ${fmt(100 * c.classes[i] / TOTAL_POP, 1)} %`).join(" · ")}</div>
+    <div class="tiles">
+      <div class="tile"><div class="v">${fmt(pct, 1)} %</div><div class="l">of residents not served</div></div>
+      <div class="tile"><div class="v">${fmt(far)}</div><div class="l">residents beyond ${state.minutes} min</div></div>
+      <div class="tile"><div class="v">${fmt(served)}</div><div class="l">residents within ${state.minutes} min</div></div>
+      <div class="tile"><div class="v">${s.schools}</div><div class="l">schools counted</div></div>
+    </div>
+    <p class="small">Schools counted: ${esc(s.label.toLowerCase())}. Walking speed ${P.canonical.walk_speed_kmh} km/h, so ${state.minutes} minutes is
+      ${fmt(state.minutes * MPM)} m along paths. Residents per building are estimated from the official 1 km population grid
+      (${esc(P.facts.population.reference_period.replace("1.1.", "").split(" ")[0])}).</p>`;
+}
+
+function renderPockets() {
+  const list = P.data.unserved.features.filter((f) => f.properties.variant === variant()).slice(0, 12);
+  const rows = list.map((f) => {
+    const q = f.properties;
+    return `<li data-id="${q.area_id}"><span class="n">${q.rank}</span><span><b>${esc(q.areas)}</b><br>
+      <span class="small">median ${fmt(q.median_walk_min, 0)} min to ${esc(q.nearest_school)} · ${fmt(q.buildings)} buildings</span></span>
+      <span class="pop">${fmt(q.pop_unserved)}</span></li>`;
+  }).join("");
+  body("unserved_areas").innerHTML = `<p class="small">Largest clusters of homes beyond the limit, by estimated residents. Click to zoom.</p>
+    <ol class="pockets">${rows || "<li>No unserved cluster of 10 or more residents.</li>"}</ol>`;
+  body("unserved_areas").querySelectorAll("li[data-id]").forEach((li) => li.onclick = () => {
+    const f = P.data.unserved.features.find((x) => x.properties.area_id === li.dataset.id);
+    map.fitBounds(bboxOf(f.geometry), { padding: 60, maxZoom: 15.5 });
+  });
+}
+
+// ---------- tables: rows come from the files the downloads link to ----------
+const sortState = {};
+function renderTable(key, target, opts = {}) {
+  const t = P.tables[key];
+  const s = sortState[key] ??= { col: t.default_sort, dir: key === "area_summary" ? -1 : 1 };
+  const rows = [...t.rows].sort((a, b) => {
+    const x = a[s.col], y = b[s.col];
+    return (x == null) - (y == null) || (typeof x === "number" ? (x - y) : String(x).localeCompare(String(y))) * s.dir;
+  });
+  const head = t.columns.map((c) => `<th data-c="${c.name}" title="Sort">${esc(c.label || c.name)}${c.unit ? ` <span class="small">${esc(c.unit)}</span>` : ""}${s.col === c.name ? (s.dir > 0 ? " ▲" : " ▼") : ""}</th>`).join("");
+  const maxBar = Math.max(...t.rows.map((r) => r[opts.bar] || 0), 1);
+  const cell = (r, c) => {
+    const v = r[c.name];
+    if (v == null) return "–";
+    if (c.type === "boolean") return v ? "✓" : "";
+    if (c.type === "string") return esc(opts.labels?.[c.name]?.[v] ?? v);
+    const text = fmt(v, c.type === "number" ? (c.unit === "%" && key === "coverage_matrix" ? 2 : 1) : 0);
+    return c.name === opts.bar ? `<span class="bar" style="width:${Math.round(40 * v / maxBar)}px"></span>${text}` : text;
+  };
+  const bodyRows = rows.map((r) => `<tr class="${opts.current?.(r) ? "current" : ""} ${opts.onRow ? "clickable" : ""}" data-k="${esc(r[t.columns[0].name])}">${t.columns.map((c) => `<td>${cell(r, c)}</td>`).join("")}</tr>`).join("");
+  target.innerHTML = `${opts.note ? `<p class="small">${opts.note}</p>` : ""}
+    <div class="dl small">${rows.length} rows · Download: ${t.downloads.map((d) => `<a href="${d.href}" download>${d.format.toUpperCase()}</a>`).join("")}</div>
+    <div class="tablewrap"><table><thead><tr>${head}</tr></thead><tbody>${bodyRows}</tbody></table></div>`;
+  target.querySelectorAll("th").forEach((th) => th.onclick = () => {
+    s.dir = s.col === th.dataset.c ? -s.dir : (t.columns.find((c) => c.name === th.dataset.c).type === "string" ? 1 : -1);
+    s.col = th.dataset.c; renderTable(key, target, opts);
+  });
+  if (opts.onRow) target.querySelectorAll("tbody tr").forEach((tr) => tr.onclick = () => opts.onRow(tr.dataset.k));
+}
+function renderTables() {
+  renderTable("area_summary", body("area_table"), {
+    bar: "pop_unserved_15min", labels: { area_type: { city_district: "City district", settlement: "Settlement" } },
+    note: `Accepted run (${CANON.minutes} min, basic schools), as written by the pipeline${isCanonical() ? "" : " – this table does not follow the controls"}. Click a row to zoom.`,
+    onRow: (name) => { const f = P.data.areas.features.find((x) => x.properties.area_name === name); if (f) map.fitBounds(bboxOf(f.geometry), { padding: 40 }); },
+  });
+  renderTable("coverage_matrix", body("sensitivity"), {
+    labels: { school_set: Object.fromEntries(P.school_sets.map((s) => [s.id, s.label])) }, current: (r) => r.variant === variant(),
+    note: "Every school set and walk limit the pipeline measured. Click a row to show it on the map.",
+    onRow: (v) => { const r = matrixRow(v); state.set = r.school_set; state.minutes = r.walk_minutes; refresh(); },
+  });
+}
+
+body("assumptions").innerHTML = `<p class="small"><b>Objective.</b> ${esc(P.interpretation.objective)}</p>` + P.interpretation.assumptions.map((a) =>
+  `<div class="card"><h4>${esc(a.id)}</h4>${esc(a.statement)}<div class="kv">Why: ${esc(a.rationale)}</div></div>`).join("");
+body("warnings").innerHTML = P.warnings.map((w) => `<div class="warn"><b>${esc(w.id)} · ${esc(w.severity)}</b> – ${esc(w.statement)}<br><span class="kv">Mitigation: ${esc(w.mitigation)}</span></div>`).join("");
+
+// ---------- provenance ----------
+const dt = new Date(P.run.completed_at);
+const pad = (n) => String(n).padStart(2, "0");
+const offMin = -dt.getTimezoneOffset(), off = `UTC${offMin >= 0 ? "+" : "-"}${pad(Math.floor(Math.abs(offMin) / 60))}:${pad(Math.abs(offMin) % 60)}`;
+const when = `${pad(dt.getDate())}.${pad(dt.getMonth() + 1)}.${dt.getFullYear()} ${pad(dt.getHours())}:${pad(dt.getMinutes())} (${off})`;
+const au = P.project.author;
+body("credits").innerHTML = `<p>Made with AI using the free <a href="${esc(P.project.generated_with.url)}" target="_blank" rel="noopener">OpenMapStack toolkit</a>.</p>
+  <p>Analysis made: ${when}</p>
+  <p>Author: ${esc(au.name)}, <a href="mailto:${esc(au.email)}">${esc(au.email)}</a>${au.url ? ` · <a href="${esc(au.url)}" target="_blank" rel="noopener">${esc(au.url.replace("https://", ""))}</a>` : ""}</p>`;
+body("provenance").innerHTML = P.sources.map((s) => `<div class="card"><h4>${esc(s.dataset)}</h4>${esc(s.provider)}
+  <div class="kv">Version: ${esc(s.version)} · retrieved ${esc(s.retrieved_at.slice(0, 16).replace("T", " "))} UTC · ${fmt(s.rows)} rows · <code>data/source/${esc(s.file)}</code></div>
+  <div class="kv">Licence: ${s.license_url ? `<a href="${esc(s.license_url)}" target="_blank" rel="noopener">${esc(s.license)}</a>` : esc(s.license)}
+   · <a href="${esc(s.url.startsWith("s3://") ? "https://docs.overturemaps.org/" : s.url)}" target="_blank" rel="noopener">source</a></div>
+  <div class="kv">Why this source: ${esc(s.rationale)}</div></div>`).join("");
+body("overrides").innerHTML = `<p class="small">Source records are never edited. These records stay in the city's layer but are not counted as schools.</p>` +
+  P.overrides.map((o) => `<div class="card"><h4>${esc(o.id)} · ${esc(o.target.feature_name)} <span class="badge">${esc(o.result?.status || "?")}</span></h4>${esc(o.rationale)}
+  <div class="kv">Evidence: ${o.evidence.map((e) => `<a href="${esc(e.value)}" target="_blank" rel="noopener">${esc(e.value)}</a>`).join(", ")} · by ${esc(o.created_by)}, ${esc(String(o.created_at).slice(0, 10))}</div></div>`).join("");
+const sym = { passed: "✓", warning: "⚠", not_testable: "?", failed: "✕" };
+body("validation").innerHTML = `<p class="small">Run status: <b>${esc(P.validation.status)}</b>. ${P.validation.checks.length} checks; “?” means could not be tested here, never a pass.</p>` +
+  P.validation.checks.map((c) => `<div class="check"><span class="s-${c.status}">${sym[c.status]}</span><span><b>${esc(c.id)}</b> – ${esc(c.status)}${c.reason ? `<br><span class="kv">${esc(c.reason)}</span>` : ""}${c.problems?.length ? `<br><span class="kv">${esc(c.problems.join("; "))}</span>` : ""}</span></div>`).join("");
+body("outputs").innerHTML = P.outputs.map((o) => `<div class="check"><span></span><span><a href="${esc(o.path)}">${esc(o.path)}</a> – ${esc(o.format)}${o.role !== "result" ? ` <span class="badge">${esc(o.role.replace("_", " "))}</span>` : ""}</span></div>`).join("")
+  + `<p class="small">QGIS: open <a href="project.qgz">project.qgz</a> from the project folder (same layers and styles, EPSG:3301).</p>`;
+const nf = P.facts.network, pf = P.facts.population;
+body("run_record").innerHTML = `<div class="card"><h4>${esc(P.run.id)}</h4><div class="kv">Record: <a href="runs/${esc(P.run.id)}.json">runs/${esc(P.run.id)}.json</a> ·
+  report: <a href="validation/latest-report.json">validation/latest-report.json</a></div>
+  <div class="kv">Network: ${fmt(nf.network_km)} km walkable, ${fmt(nf.routing_nodes)} routing nodes, ${fmt(100 * nf.main_component_length_share, 1)} % in the connected network;
+  ${fmt(nf.foot_denied_segments_excluded)} segments closed to pedestrians excluded.</div>
+  <div class="kv">Population: ${fmt(pf.tartu_population_est)} residents estimated in ${fmt(pf.tartu_residential_buildings)} inhabited buildings, from ${fmt(pf.grid_cells_in_frame)} grid cells.</div></div>
+  <ol class="small">${P.steps.map((s) => `<li><code>${esc(s.id)}</code> – ${esc(s.operation.replaceAll("_", " "))}${s.crs ? ` (${esc(s.crs)})` : ""}</li>`).join("")}</ol>`;
+
+// ---------- map ----------
+const C = P.style;
+const dark = () => state.theme === "dark" || (state.theme === "auto" && matchMedia("(prefers-color-scheme: dark)").matches);
+const styleUrl = () => (dark() ? P.basemap.dark_url : P.basemap.url);
+function bboxOf(geometry) {
+  let b = [180, 90, -180, -90];
+  const walk = (c) => typeof c[0] === "number" ? (b = [Math.min(b[0], c[0]), Math.min(b[1], c[1]), Math.max(b[2], c[0]), Math.max(b[3], c[1])]) : c.forEach(walk);
+  walk(geometry.coordinates); return [[b[0], b[1]], [b[2], b[3]]];
+}
+const cityBounds = bboxOf({ coordinates: P.data.areas.features.filter((f) => f.properties.area_type === "city_district").map((f) => f.geometry.coordinates) });
+document.documentElement.dataset.theme = dark() ? "dark" : "light";
+const map = new maplibregl.Map({ container: "map", style: styleUrl(), bounds: cityBounds, fitBoundsOptions: { padding: 30 }, attributionControl: false });
+map.addControl(new maplibregl.AttributionControl({ compact: false, customAttribution: `${P.basemap.attribution} · Analysis data: Tartu City Government, Statistics Estonia, Overture Maps` }));
+map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
+map.addControl(new maplibregl.ScaleControl({ unit: "metric" }), "bottom-right");
+
+// Analysis overlays use their own "oms-" namespace so a basemap style reload never collides with them.
+const GROUP_LAYERS = {
+  context: ["oms-areas-line", "oms-areas-label", "oms-grid-line", "oms-grid-label"],
+  walkshed: ["oms-walkshed-fill", "oms-walkshed-line"],
+  buildings: ["oms-buildings"],
+  unserved: ["oms-unserved-fill", "oms-unserved-line", "oms-unserved-label"],
+  schools: ["oms-schools", "oms-schools-label"],
+  overrides: ["oms-excluded"],
+};
+const DEFAULT_OFF = new Set(["oms-grid-line", "oms-grid-label"]);
+P.layer_groups.forEach((g) => state.groups[g.id] = true);
+state.grid = false;
+
+function buildingColour() {
+  const col = SETS[state.set].column, limit = state.minutes * MPM;
+  return ["step", ["-", ["get", col], limit], C.served, 0.5, C.over_0_5, 5 * MPM, C.over_5_15, 15 * MPM, C.over_15];
+}
+function addOverlays() {
+  const fontLayer = map.getStyle().layers.find((l) => l.layout && l.layout["text-font"]);
+  const font = fontLayer ? fontLayer.layout["text-font"] : ["Noto Sans Regular"];
+  const ink = dark() ? "#f0efec" : "#0b0b0b", halo = dark() ? "#1a1a19" : "#ffffff";
+  const src = (id, data) => { if (!map.getSource(id)) map.addSource(id, { type: "geojson", data }); };
+  src("oms-areas", P.data.areas); src("oms-grid", P.data.grid); src("oms-walkshed", P.data.walksheds);
+  src("oms-buildings", P.data.buildings); src("oms-unserved", P.data.unserved); src("oms-schools", P.data.schools);
+  const add = (layer) => { if (!map.getLayer(layer.id)) map.addLayer(layer); };
+  add({ id: "oms-areas-line", type: "line", source: "oms-areas", paint: { "line-color": dark() ? "#c3c2b7" : C.admin_line, "line-width": 1, "line-opacity": 0.7 } });
+  add({ id: "oms-grid-line", type: "line", source: "oms-grid", paint: { "line-color": C.grid_line, "line-width": 0.8, "line-dasharray": [2, 2] } });
+  add({ id: "oms-walkshed-fill", type: "fill", source: "oms-walkshed", paint: { "fill-color": C.walkshed_fill, "fill-opacity": 0.14 } });
+  add({ id: "oms-walkshed-line", type: "line", source: "oms-walkshed", paint: { "line-color": dark() ? "#86b6ef" : C.walkshed_line, "line-width": 1.2 } });
+  add({ id: "oms-buildings", type: "fill", source: "oms-buildings", paint: { "fill-color": buildingColour(), "fill-opacity": 0.92 } });
+  add({ id: "oms-unserved-fill", type: "fill", source: "oms-unserved", paint: { "fill-color": C.unserved_fill, "fill-opacity": 0.08 } });
+  add({ id: "oms-unserved-line", type: "line", source: "oms-unserved", paint: { "line-color": dark() ? "#e66767" : C.unserved_line, "line-width": 1.6, "line-dasharray": [3, 2] } });
+  add({ id: "oms-areas-label", type: "symbol", source: "oms-areas", minzoom: 10.5, layout: { "text-field": ["get", "area_name"], "text-font": font, "text-size": 11, "text-letter-spacing": 0.05, "text-transform": "uppercase" },
+        paint: { "text-color": dark() ? "#c3c2b7" : "#52514e", "text-halo-color": halo, "text-halo-width": 1.4 } });
+  add({ id: "oms-grid-label", type: "symbol", source: "oms-grid", minzoom: 11.5, layout: { "text-field": ["to-string", ["get", "population"]], "text-font": font, "text-size": 11 },
+        paint: { "text-color": C.grid_line, "text-halo-color": halo, "text-halo-width": 1.2 } });
+  add({ id: "oms-unserved-label", type: "symbol", source: "oms-unserved", filter: ["all", ["<=", ["get", "rank"], 12]],
+        layout: { "text-field": ["concat", "#", ["to-string", ["get", "rank"]], " · ", ["to-string", ["round", ["get", "pop_unserved"]]]], "text-font": font, "text-size": 12, "text-allow-overlap": false },
+        paint: { "text-color": ink, "text-halo-color": halo, "text-halo-width": 1.6 } });
+  add({ id: "oms-schools", type: "circle", source: "oms-schools", filter: ["==", ["get", "status"], "active"],
+        paint: { "circle-radius": ["interpolate", ["linear"], ["zoom"], 10, 4, 15, 8], "circle-stroke-width": 2, "circle-color": C.school, "circle-stroke-color": "#ffffff" } });
+  add({ id: "oms-excluded", type: "circle", source: "oms-schools", filter: ["==", ["get", "status"], "excluded_by_override"],
+        paint: { "circle-radius": 6, "circle-color": C.school_excluded, "circle-stroke-width": 2, "circle-stroke-color": "#0b0b0b" } });
+  add({ id: "oms-schools-label", type: "symbol", source: "oms-schools", minzoom: 13, filter: ["==", ["get", "status"], "active"],
+        layout: { "text-field": ["get", "name"], "text-font": font, "text-size": 11, "text-offset": [0, 1.1], "text-anchor": "top", "text-optional": true },
+        paint: { "text-color": ink, "text-halo-color": halo, "text-halo-width": 1.5 } });
+  applyState();
+}
+function applyState() {
+  if (!map.getLayer("oms-buildings")) return;
+  const v = variant(), flag = `in_${state.set}`;
+  map.setPaintProperty("oms-buildings", "fill-color", buildingColour());
+  ["oms-walkshed-fill", "oms-walkshed-line", "oms-unserved-fill", "oms-unserved-line"].forEach((id) => map.setFilter(id, ["==", ["get", "variant"], v]));
+  map.setFilter("oms-unserved-label", ["all", ["==", ["get", "variant"], v], ["<=", ["get", "rank"], 12]]);
+  map.setPaintProperty("oms-schools", "circle-color", ["case", ["get", flag], C.school, "#ffffff"]);
+  map.setPaintProperty("oms-schools", "circle-stroke-color", ["case", ["get", flag], "#ffffff", C.school_other]);
+  map.setLayoutProperty("oms-schools", "circle-sort-key", ["case", ["get", flag], 1, 0]);
+  for (const [group, ids] of Object.entries(GROUP_LAYERS)) {
+    ids.forEach((id) => map.setLayoutProperty(id, "visibility", state.groups[group] && (!DEFAULT_OFF.has(id) || state.grid) ? "visible" : "none"));
+  }
+}
+map.on("style.load", addOverlays);
+
+// ---------- hover + click ----------
+const tip = $("tip");
+const HOVER = ["oms-schools", "oms-excluded", "oms-buildings", "oms-unserved-fill"];
+function describe(f) {
+  const q = f.properties, s = SETS[state.set];
+  if (f.layer.id === "oms-buildings") {
+    const m = q[s.column], over = m > state.minutes * MPM;
+    return { title: `${over ? "Beyond" : "Within"} ${state.minutes} min`, lines: [`${fmt(m / MPM, 1)} min walk (${fmt(m)} m) to ${P.school_names[q[s.nearest]]}`, `About ${fmt(q.p, q.p < 10 ? 1 : 0)} residents (estimate) · ${P.area_names[q.a]}`],
+      source: `Footprint: Overture Maps 2026-10-21.0, id ${q.id}. Residents: Statistics Estonia 1 km grid 2024, shared by floor area.` };
+  }
+  if (f.layer.id === "oms-unserved-fill") return { title: `Unserved area #${q.rank}: ${q.areas}`, lines: [`About ${fmt(q.pop_unserved)} residents in ${fmt(q.buildings)} buildings`, `Median ${fmt(q.median_walk_min, 0)} min, up to ${fmt(q.max_walk_min, 0)} min; nearest school ${q.nearest_school}`],
+    source: "Derived: homes beyond the limit, buffered 60 m and merged (pipeline step delineate_unserved_areas)." };
+  const counted = q[`in_${state.set}`];
+  return { title: q.name, lines: [`${q.type_label} · ${q.ownership}`, q.address.replace("Tartu maakond, Tartu linn, ", ""), q.status === "excluded_by_override" ? `Not counted: ${q.override_id}` : counted ? "Counted in this school set" : "Not counted in this school set"],
+    source: `Tartu City Government GIS, Haridusasutus layer, retrieved ${P.sources[0].retrieved_at.slice(0, 10)}; id ${q.source_id}.`, badge: q.override_id };
+}
+map.on("mousemove", (e) => {
+  const layers = HOVER.filter((id) => map.getLayer(id));
+  const f = layers.length ? map.queryRenderedFeatures(e.point, { layers })[0] : null;
+  map.getCanvas().style.cursor = f ? "pointer" : "";
+  if (!f) { tip.style.display = "none"; return; }
+  const d = describe(f);
+  tip.innerHTML = `<b>${esc(d.title)}</b><br>${d.lines.map(esc).join("<br>")}`;
+  tip.style.display = "block";
+  tip.style.left = Math.min(e.point.x + 14, $("mapwrap").clientWidth - 290) + "px";
+  tip.style.top = (e.point.y + 14) + "px";
+});
+map.on("mouseout", () => tip.style.display = "none");
+map.on("click", (e) => {
+  const layers = HOVER.filter((id) => map.getLayer(id));
+  const f = layers.length ? map.queryRenderedFeatures(e.point, { layers })[0] : null;
+  if (!f) return;
+  const d = describe(f);
+  new maplibregl.Popup({ maxWidth: "300px" }).setLngLat(e.lngLat).setHTML(
+    `<h4>${esc(d.title)}${d.badge ? ` <span class="badge">override ${esc(d.badge)}</span>` : ""}</h4>${d.lines.map(esc).join("<br>")}<div class="kv small" style="margin-top:6px">Source: ${esc(d.source)}</div>`).addTo(map);
+});
+
+// ---------- legend + layer controls ----------
+const legendLabels = () => [`Within ${state.minutes} min`, `${state.minutes}–${state.minutes + 5} min`, `${state.minutes + 5}–${state.minutes + 15} min`, `Over ${state.minutes + 15} min`];
+function legendHtml() {
+  const cols = [C.served, C.over_0_5, C.over_5_15, C.over_15];
+  return `<h5>Homes by walk to nearest school</h5>` + legendLabels().map((l, i) => `<div class="legend-row"><span class="sw" style="background:${cols[i]}"></span>${l}</div>`).join("")
+    + `<div class="legend-row"><span class="sw dot" style="background:${C.school};border-color:#fff;box-shadow:0 0 0 1px ${C.school}"></span>School counted</div>
+       <div class="legend-row"><span class="sw dot" style="background:#fff;border-color:${C.school_other}"></span>School not counted</div>
+       <div class="legend-row"><span class="sw dot" style="background:${C.school_excluded};border-color:#0b0b0b"></span>Excluded by override</div>
+       <div class="legend-row"><span class="sw" style="background:${C.walkshed_fill}33;border-color:${C.walkshed_line}"></span>Walkshed (network reach)</div>
+       <div class="legend-row"><span class="sw" style="background:${C.unserved_fill}22;border:1.5px dashed ${C.unserved_line}"></span>Unserved area (# rank · residents)</div>`;
+}
+const SWATCH = { unserved: `background:${C.unserved_fill}22;border:1.5px dashed ${C.unserved_line}`, buildings: `background:linear-gradient(90deg,${C.served} 50%,${C.over_5_15} 50%)`,
+  schools: `background:${C.school}`, overrides: `background:${C.school_excluded};border-color:#0b0b0b`, walkshed: `background:${C.walkshed_fill}33;border-color:${C.walkshed_line}`, context: `border-color:${C.admin_line}` };
+function renderLayerControls() {
+  const roles = {}; P.layers.forEach((l) => (roles[l.group] ??= new Set()).add(l.semantic_role.replace("_", " ")));
+  body("layer_controls").innerHTML = P.layer_groups.map((g) => `<label class="layer"><input type="checkbox" data-g="${g.id}" ${state.groups[g.id] ? "checked" : ""}>
+    <span class="sw" style="${SWATCH[g.id]}"></span><span>${esc(g.title)}<br><span class="small">${[...roles[g.id]].join(", ")}</span></span></label>`).join("")
+    + `<label class="layer" style="padding-left:26px"><input type="checkbox" id="gridtoggle" ${state.grid ? "checked" : ""}><span class="sw" style="border:1px dashed ${C.grid_line}"></span><span>Population grid 1 km (source, 2024)</span></label>`;
+  body("layer_controls").querySelectorAll("input[data-g]").forEach((i) => i.onchange = () => { state.groups[i.dataset.g] = i.checked; applyState(); });
+  $("gridtoggle").onchange = (e) => { state.grid = e.target.checked; if (state.grid) state.groups.context = true; renderLayerControls(); applyState(); };
+}
+body("basemap").innerHTML = `<div class="seg" id="theme">${["auto", "light", "dark"].map((t) => `<button type="button" data-t="${t}">${t[0].toUpperCase() + t.slice(1)}</button>`).join("")}</div>
+  <p class="small">${esc(P.basemap.attribution)}. ${esc(P.basemap.note)}</p>`;
+function setTheme(t) {
+  state.theme = t;
+  document.documentElement.dataset.theme = dark() ? "dark" : "light";
+  document.querySelectorAll("#theme button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.t === t));
+  if (map._omsStyle !== styleUrl()) { map._omsStyle = styleUrl(); map.setStyle(styleUrl(), { diff: false }); map.once("idle", addOverlays); }
+}
+document.querySelectorAll("#theme button").forEach((b) => b.onclick = () => setTheme(b.dataset.t));
+map._omsStyle = styleUrl();
+document.querySelectorAll("#theme button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.t === "auto"));
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => setTheme(state.theme));
+
+// ---------- refresh ----------
+function refresh() {
+  document.querySelectorAll("#minutes button").forEach((b) => b.setAttribute("aria-pressed", Number(b.dataset.m) === state.minutes));
+  $("schoolset").value = state.set;
+  $("exploratory").classList.toggle("on", !isCanonical());
+  renderSummary(); renderPockets(); renderTables();
+  $("legend").innerHTML = legendHtml(); body("legend").innerHTML = legendHtml();
+  applyState();
+}
+renderLayerControls();
+refresh();
+window.__oms = { state, compute, map, isCanonical, variant };
+</script>
+</body>
+</html>
