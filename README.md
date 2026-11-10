@@ -40,7 +40,8 @@ configuration; update all four pins when either shared source changes.
 The planning atlas retains its accepted canonical snapshot in `published/`;
 `prepare-pages.mjs` records the added script's source/served HTML hashes in
 `delivery-transform.json` without altering analytical inputs or geometries.
-The two externally hosted Worker demos linked from the gallery are not instrumented;
+The two externally hosted Worker demos linked from the gallery and the Tartu school walking
+coverage dashboard (a committed pipeline output) are not instrumented;
 their outbound gallery clicks are counted.
 
 Run `node --test shared/analytics.test.mjs` to check the collection guards and
@@ -63,6 +64,15 @@ Explore the Idaringtee 21 detailed plan in Tartu in 3D, with 32 proposed main-bu
 [![Idaringtee 21 detailed plan](gallery/detailplaneering-preview.png)](https://jaakla.github.io/openmapstack-samples/detailplaneering/)
 
 - [Run the atlas, sources and reproducible pipeline](detailplaneering/README.md)
+
+## Tartu school walking coverage
+
+Which parts of Tartu are beyond a 15-minute walk from a school, and how many people live there? About 16.8 % of residents (roughly 16,700 of 99,400), mostly in Raadi-Kruusamäe, Ihaste, Ränilinna and the rural settlements. Homes are coloured by measured walking time along the pedestrian network; the walk limit and the set of schools counted are live controls. Residents per building are estimated from Statistics Estonia's 1 km population grid.
+
+[![Tartu homes coloured by walking time to the nearest school, with unserved areas outlined](gallery/tartu-school-walk-preview.png)](https://jaakla.github.io/openmapstack-samples/tartu-school-walk/)
+
+- [Open the dashboard](https://jaakla.github.io/openmapstack-samples/tartu-school-walk/)
+- [Method, limits, sources and reproducible pipeline](tartu-school-walk/README.md)
 
 ## Solar Atlas
 
@@ -108,7 +118,7 @@ Explore a kriged temperature surface, census block groups, model settings and he
 
 ## Publishing
 
-The shared `Deploy GitHub Pages` workflow tests and builds the existing demos and verifies the prepared Idaringtee 21 publication on pull requests and pushes to `main`. Pushes to `main` publish the prepared browser assets under `detailplaneering/`, `pv-location/`, `toompea-3d/` and `battlefield-visibility/`; the [site root](https://jaakla.github.io/openmapstack-samples/) is a gallery linking these local demos and the external Cloudflare demos. Solar Atlas also runs browser interaction tests and rebuilds its canonical analysis and provenance from committed source snapshots.
+The shared `Deploy GitHub Pages` workflow tests and builds the existing demos and verifies the prepared Idaringtee 21 publication on pull requests and pushes to `main`. Pushes to `main` publish the prepared browser assets under `detailplaneering/`, `pv-location/`, `toompea-3d/`, `battlefield-visibility/` and `tartu-school-walk/`; the [site root](https://jaakla.github.io/openmapstack-samples/) is a gallery linking these local demos and the external Cloudflare demos. Solar Atlas also runs browser interaction tests and rebuilds its canonical analysis and provenance from committed source snapshots.
 
 Normal Pages builds use committed browser assets and skip raw Git LFS downloads. Toompea's original large LAZ survey files use Git LFS; full GIS recompilation requires `git lfs pull` and the numerical/desktop dependencies documented in that project. UAV visibility's raw acquisitions are excluded from normal git; its project documentation describes acquisition and full recompilation.
 

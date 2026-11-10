@@ -1,0 +1,329 @@
+{
+  "run_id": "run-20261110-131318",
+  "status": "warning",
+  "checks": [
+    {
+      "id": "geometry_valid",
+      "status": "passed",
+      "features_checked": 15341,
+      "invalid_or_empty": {
+        "residential_buildings": 0,
+        "schools": 0,
+        "walkshed_variants": 0,
+        "unserved_area_variants": 0,
+        "admin_areas": 0,
+        "population_grid_cells": 0
+      }
+    },
+    {
+      "id": "crs_known",
+      "status": "passed",
+      "analysis_crs": "EPSG:3301",
+      "storage_crs": "EPSG:4326 (GeoJSON, RFC 7946)",
+      "files": {
+        "residential-buildings.parquet": "EPSG:3301",
+        "residential-buildings.gpkg": "EPSG:3301",
+        "schools.geojson": "EPSG:4326",
+        "walkshed-15min.geojson": "EPSG:4326",
+        "walkshed-variants.geojson": "EPSG:4326",
+        "unserved-areas.geojson": "EPSG:4326",
+        "unserved-area-variants.geojson": "EPSG:4326",
+        "admin-areas.geojson": "EPSG:4326",
+        "population-grid.geojson": "EPSG:4326"
+      },
+      "known_location": {
+        "feature": "Hugo Treffneri Gümnaasium",
+        "lon": 26.72047,
+        "lat": 58.38228,
+        "metres_from_tartu_town_hall": 263,
+        "matches_reference": true
+      },
+      "buildings_within_study_frame": true
+    },
+    {
+      "id": "row_count_gt_zero",
+      "status": "passed",
+      "rows": {
+        "residential_buildings": 14228,
+        "schools": 42,
+        "walkshed_variants": 12,
+        "unserved_area_variants": 832,
+        "admin_areas": 30,
+        "population_grid_cells": 197,
+        "walkshed_15min": 1,
+        "unserved_areas": 70,
+        "area_summary": 30,
+        "coverage_matrix": 12
+      }
+    },
+    {
+      "id": "no_duplicate_building_id",
+      "status": "passed",
+      "duplicates": 0
+    },
+    {
+      "id": "no_null_building_id",
+      "status": "passed",
+      "nulls": 0
+    },
+    {
+      "id": "source_semantics_verified",
+      "status": "passed",
+      "school_type_codes_seen": [
+        1,
+        2,
+        3,
+        4,
+        6
+      ],
+      "schools_with_closing_date": 0,
+      "schools_without_type": 0,
+      "parcels_all_residential_use": true,
+      "buildings_unknown_class_kept_unknown": "unclassed footprints count only with parcel evidence inside Tartu"
+    },
+    {
+      "id": "source_result_complete",
+      "status": "passed",
+      "sources": {
+        "schools": {
+          "matched": 42,
+          "returned": 42
+        },
+        "tartu-boundary": {
+          "matched": 1,
+          "returned": 1
+        },
+        "tartu-districts": {
+          "matched": 18,
+          "returned": 18
+        },
+        "tartu-settlements": {
+          "matched": 12,
+          "returned": 12
+        },
+        "residential_parcels": {
+          "matched": 12486,
+          "returned": 12486
+        },
+        "population_grid": {
+          "matched": 644,
+          "returned": 644
+        },
+        "overture_segments": {
+          "matched": null,
+          "returned": 23581
+        },
+        "overture_buildings": {
+          "matched": null,
+          "returned": 55416
+        }
+      },
+      "incomplete": [],
+      "hash_mismatch": []
+    },
+    {
+      "id": "source_licenses_resolved",
+      "status": "warning",
+      "unresolved": [
+        "schools",
+        "admin_boundary",
+        "admin_districts",
+        "admin_settlements"
+      ],
+      "reason": "The Tartu city ArcGIS services publish no licence text for: schools, admin_boundary, admin_districts, admin_settlements. Reuse terms must be confirmed with the city before redistribution."
+    },
+    {
+      "id": "overrides_applied",
+      "status": "passed",
+      "results": [
+        {
+          "id": "OVERRIDE-001",
+          "action": "hide_source_feature",
+          "status": "applied",
+          "feature": "Tartu Ülikooli teaduskool"
+        },
+        {
+          "id": "OVERRIDE-002",
+          "action": "hide_source_feature",
+          "status": "applied",
+          "feature": "Tartu Täiskasvanute Gümnaasium (P)"
+        }
+      ]
+    },
+    {
+      "id": "manifest_graph_resolves",
+      "status": "passed",
+      "steps": 15,
+      "problems": []
+    },
+    {
+      "id": "view_controls_match_pipeline",
+      "status": "passed",
+      "canonical": {
+        "walk_minutes": 15,
+        "school_set": "basic_all"
+      },
+      "variants_materialised": 12,
+      "problems": []
+    },
+    {
+      "id": "qgis_project_static_valid",
+      "status": "passed",
+      "layers_checked": 9,
+      "vector_layers": 7,
+      "problems": []
+    },
+    {
+      "id": "qgis_runtime_load",
+      "qgis_version": "3.34.4-Prizren",
+      "layers": [
+        {
+          "name": "Excluded by override",
+          "valid": true,
+          "crs": "EPSG:4326",
+          "features": 2,
+          "painted_pixels": 72
+        },
+        {
+          "name": "Schools",
+          "valid": true,
+          "crs": "EPSG:4326",
+          "features": 40,
+          "painted_pixels": 793
+        },
+        {
+          "name": "Unserved areas (beyond 15 min)",
+          "valid": true,
+          "crs": "EPSG:4326",
+          "features": 70,
+          "painted_pixels": 3311
+        },
+        {
+          "name": "Homes by walking time to school",
+          "valid": true,
+          "crs": "EPSG:3301",
+          "features": 14228,
+          "painted_pixels": 3862
+        },
+        {
+          "name": "15-minute walkshed (network reach)",
+          "valid": true,
+          "crs": "EPSG:4326",
+          "features": 1,
+          "painted_pixels": 4187
+        },
+        {
+          "name": "Population grid 1 km (2024)",
+          "valid": true,
+          "crs": "EPSG:4326",
+          "features": 197,
+          "painted_pixels": 2974
+        },
+        {
+          "name": "Districts and settlements",
+          "valid": true,
+          "crs": "EPSG:4326",
+          "features": 30,
+          "painted_pixels": 3153
+        }
+      ],
+      "basemaps": [
+        {
+          "name": "Maa- ja Ruumiamet base map (WMS)",
+          "found": true,
+          "valid": true,
+          "crs": "EPSG:3301",
+          "crs_valid": true,
+          "painted_pixels": 804,
+          "checked": true
+        },
+        {
+          "name": "OpenStreetMap (XYZ)",
+          "found": true,
+          "valid": true,
+          "crs": "EPSG:3857",
+          "crs_valid": true,
+          "painted_pixels": 0,
+          "checked": false
+        }
+      ],
+      "problems": [],
+      "status": "passed"
+    },
+    {
+      "id": "population_conserved",
+      "status": "passed",
+      "grid_population_in_frame": 128098.0,
+      "allocated_in_frame": 127455.0,
+      "unallocated_in_frame": 643.0,
+      "unallocated_cells_touching_tartu": 0,
+      "note": "Unallocated residents in the frame are in cells outside Tartu with no building footprint."
+    },
+    {
+      "id": "tartu_population_plausible",
+      "status": "passed",
+      "tartu_population_est": 99424.6,
+      "expected_band": [
+        90000,
+        108000
+      ],
+      "note": "Plausibility band around the roughly 98-100 thousand residents Statistics Estonia reports for Tartu city; not an attested expectation."
+    },
+    {
+      "id": "school_snap_distance",
+      "status": "passed",
+      "max_gap_m": 69.3,
+      "schools_checked": 40
+    },
+    {
+      "id": "network_connected",
+      "status": "passed",
+      "main_component_length_share": 0.981,
+      "segments_in_source": 23581,
+      "road_segments_used": 21290,
+      "foot_denied_segments_excluded": 2166,
+      "routing_nodes": 236560,
+      "routing_edges": 246831,
+      "network_km": 3124.7
+    },
+    {
+      "id": "walk_distance_finite",
+      "status": "passed",
+      "buildings": 14228,
+      "max_walk_min": 140.8
+    },
+    {
+      "id": "coverage_monotonic",
+      "status": "passed",
+      "monotonic_in_minutes": true,
+      "monotonic_in_school_set": true
+    },
+    {
+      "id": "table_totals_consistent",
+      "status": "passed",
+      "area_summary_population": 99422,
+      "matrix_population": 99425,
+      "area_summary_unserved": 16692,
+      "matrix_unserved": 16693,
+      "note": "Area rows are rounded individually, so sums may differ from the city total by rounding only."
+    },
+    {
+      "id": "manifest_report_parity",
+      "status": "passed",
+      "declared": 21,
+      "reported": 21,
+      "missing_or_repeated": [],
+      "undeclared": []
+    }
+  ],
+  "headline": {
+    "population": 99425,
+    "pop_unserved": 16693,
+    "pct_unserved": 16.79,
+    "schools": 23,
+    "school_set": "basic_all",
+    "walk_minutes": 15
+  },
+  "inputs_hash": "sha256:ca9d1ce7e2ef193a1da7ff8043749251e76206c7b773d68debda14435299a3e0",
+  "outputs_hash": "sha256:04496f7acb770a5da14f5c5c3674f4d865082bda9dc16d3e606d7c85a23fef96"
+}

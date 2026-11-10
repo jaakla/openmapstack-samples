@@ -1,0 +1,148 @@
+{
+  "acquired_at": "2026-11-10T12:15:08+00:00",
+  "frame_epsg3301": [
+    641000,
+    6465000,
+    667000,
+    6486000
+  ],
+  "sources": {
+    "schools": {
+      "file": "tartu-schools.geojson",
+      "url": "https://gis.tartulv.ee/arcgis/rest/services/Haridus/LU_haridus_avalik/MapServer/0",
+      "where": "Jaotus = 3",
+      "out_fields": "OBJECTID,GlobalID,Nimi,Jaotus,Liik,Omand,Aadress,Koduleht,Kood,Lopetamise_kp",
+      "out_sr": "EPSG:4326",
+      "retrieved_at": "2026-11-10T12:15:09+00:00",
+      "matched": 42,
+      "returned": 42,
+      "page_size": 1000,
+      "pages": 1,
+      "size_bytes": 17242,
+      "sha256": "sha256:d37bfaaf10a7b0b6ef325093cdcf84c26d5e3e86b0433bc462ada7d8fe8f28c8"
+    },
+    "tartu-boundary": {
+      "file": "tartu-boundary.geojson",
+      "url": "https://gis.tartulv.ee/arcgis/rest/services/Aluskaardid/KT_haldusjaotus/MapServer/0",
+      "where": "1=1",
+      "out_fields": "OBJECTID,ONIMI",
+      "out_sr": "EPSG:4326",
+      "retrieved_at": "2026-11-10T12:15:11+00:00",
+      "matched": 1,
+      "returned": 1,
+      "page_size": 1000,
+      "pages": 1,
+      "size_bytes": 48261,
+      "sha256": "sha256:c7b56b696293445f0a36175e28e85faa89a45c1268878654e58d821bd7044f64"
+    },
+    "tartu-districts": {
+      "file": "tartu-districts.geojson",
+      "url": "https://gis.tartulv.ee/arcgis/rest/services/Aluskaardid/KT_haldusjaotus/MapServer/1",
+      "where": "1=1",
+      "out_fields": "OBJECTID,NIMI",
+      "out_sr": "EPSG:4326",
+      "retrieved_at": "2026-11-10T12:15:12+00:00",
+      "matched": 18,
+      "returned": 18,
+      "page_size": 1000,
+      "pages": 1,
+      "size_bytes": 24844,
+      "sha256": "sha256:b21814e4c5af93bf17e6ce19e67073ae871cb6d8f6d8a0d9e1357e72288fb08a"
+    },
+    "tartu-settlements": {
+      "file": "tartu-settlements.geojson",
+      "url": "https://gis.tartulv.ee/arcgis/rest/services/Aluskaardid/KT_haldusjaotus/MapServer/2",
+      "where": "1=1",
+      "out_fields": "OBJECTID,ANIMI",
+      "out_sr": "EPSG:4326",
+      "retrieved_at": "2026-11-10T12:15:14+00:00",
+      "matched": 12,
+      "returned": 12,
+      "page_size": 1000,
+      "pages": 1,
+      "size_bytes": 110256,
+      "sha256": "sha256:402648634186147aed4414db388435edade35d7e0aecd8edffb905542e0c54b7"
+    },
+    "residential_parcels": {
+      "file": "tartu-residential-parcels.geojson",
+      "url": "https://gis.tartulv.ee/arcgis/rest/services/Aluskaardid/KT_kataster/MapServer/0",
+      "where": "SIHT1 = 'ELAMUMAA' OR SIHT2 = 'ELAMUMAA' OR SIHT3 = 'ELAMUMAA'",
+      "out_fields": "OBJECTID,TUNNUS,SIHT1,SIHT2,SIHT3,SO_PRTS1,SO_PRTS2,SO_PRTS3,MUUDET",
+      "out_sr": "EPSG:4326",
+      "retrieved_at": "2026-11-10T12:15:28+00:00",
+      "matched": 12486,
+      "returned": 12486,
+      "page_size": 1000,
+      "pages": 13,
+      "size_bytes": 5633848,
+      "sha256": "sha256:b88ecbd66188bf9f3f0d0f0e35706122fc20bd96b22c744b03e5941796dde5c1"
+    },
+    "population_grid": {
+      "file": "population-grid-1km.gml",
+      "url": "https://inspire.geoportaal.ee/geoserver/PD_rahvastikutihedus/wfs",
+      "typename": "PD_rahvastikutihedus:PD.StatisticalDistribution_",
+      "bbox": "6465000,641000,6486000,667000,urn:ogc:def:crs:EPSG::3301",
+      "retrieved_at": "2026-11-10T12:15:30+00:00",
+      "matched": 644,
+      "returned": 644,
+      "page_size": 1000,
+      "pages": 1,
+      "dataset_last_update": "2025-05-07",
+      "reference_periods": [
+        "\n      ",
+        "1.1.2024 - 31.12.2024"
+      ],
+      "size_bytes": 2957599,
+      "sha256": "sha256:af974a8e887bd9c8968291bf43f8277d4960a1100067d91d466002ea57f7e499"
+    },
+    "overture_segments": {
+      "file": "overture-segments.parquet",
+      "url": "s3://overturemaps-us-west-2/release/2026-10-21.0/theme=transportation/type=segment/",
+      "release": "2026-10-21.0",
+      "bbox_overlap_4326": [
+        26.4,
+        58.27,
+        26.9,
+        58.48
+      ],
+      "columns": [
+        "id",
+        "geometry",
+        "subtype",
+        "class",
+        "subclass",
+        "connectors",
+        "access_restrictions",
+        "sources"
+      ],
+      "retrieved_at": "2026-11-10T12:15:47+00:00",
+      "returned": 23581,
+      "size_bytes": 4829393,
+      "sha256": "sha256:aad46285298f59b08172a2832bc62c18d73fcd53d417e495f5dd146086c99c8f"
+    },
+    "overture_buildings": {
+      "file": "overture-buildings.parquet",
+      "url": "s3://overturemaps-us-west-2/release/2026-10-21.0/theme=buildings/type=building/",
+      "release": "2026-10-21.0",
+      "bbox_overlap_4326": [
+        26.4,
+        58.27,
+        26.9,
+        58.48
+      ],
+      "columns": [
+        "id",
+        "geometry",
+        "subtype",
+        "class",
+        "height",
+        "num_floors",
+        "sources"
+      ],
+      "retrieved_at": "2026-11-10T12:16:31+00:00",
+      "returned": 55416,
+      "size_bytes": 6183232,
+      "sha256": "sha256:0111e5f677574153bbb587f4f89e494b93c2ce3698a5cc5b8f30d0ebd372bbfa"
+    }
+  }
+}

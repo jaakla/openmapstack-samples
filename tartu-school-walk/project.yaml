@@ -1,0 +1,1154 @@
+schema: openmapstack-project/v1
+project:
+  id: tartu-school-walk
+  title: Tartu schools – 15-minute walking coverage
+  question: 'Map dashboard showing Tartu schools within 15-minute walking coverage: what areas and what
+    share of the population are not served?'
+  created_at: '2026-11-10T12:15:00+00:00'
+  updated_at: '2026-11-10T13:13:42.291535+00:00'
+  status: warning
+  author:
+    name: Jaak Laineste
+    email: jaak.laineste@gmail.com
+    url: https://github.com/jaakla
+  generated_with:
+    tool: OpenMapStack
+    url: https://github.com/jaakla/openmapstack-skills
+interpretation:
+  objective: For every inhabited residential building in Tartu municipality, measure the walking distance
+    along the pedestrian network to the nearest basic school, estimate how many residents live in it,
+    and report the residents and the areas beyond a 15-minute walk.
+  assumptions:
+  - id: A1
+    statement: '"Tartu" is the whole municipality (Tartu linn): the 18 city districts plus the 12 settlements
+      of the former Tähtvere parish, as drawn in the city''s own administrative layer.'
+    rationale: The city government is responsible for schooling in the whole municipality, and its population
+      figures cover it. Results are also reported per district and settlement, so the urban core can be
+      read separately.
+  - id: A2
+    statement: 'A 15-minute walk is 1200 m of network distance: 4.8 km/h (80 m per minute), including
+      the straight-line gap between a building centroid and the nearest path and between the school point
+      and the nearest path.'
+    rationale: 4.8 km/h is a common planning speed for adults; children walk slower, so 15 minutes is
+      optimistic for the youngest pupils. Thresholds of 5, 10 and 20 minutes are also materialised so
+      the reader can test the sensitivity.
+  - id: A3
+    statement: '"School" means a general-education school that teaches the basic stage (grades 1-9) to
+      school-age children and has open enrolment: the city layer''s types 1 (school of residence), 2 (citywide
+      municipal school) and 4 (other Tartu school, mostly private). Special-needs schools (type 3) and
+      records that describe only an upper-secondary stage (type 6) do not count in the accepted result.
+      Two alternative school sets are materialised for comparison.'
+    rationale: The question is about everyday walking access to school for children. A gymnasium stage
+      or a special-needs school is not a school an ordinary 7-15-year-old can attend. Private schools
+      are kept because they are real basic schools; the municipal-only variant shows the result without
+      them.
+  - id: A4
+    statement: 'Residents are estimated per building: the population of each Statistics Estonia 1 km grid
+      cell (reference year 2024) is shared among the residential building footprints whose centroid lies
+      in the cell, in proportion to footprint area times estimated floors.'
+    rationale: No open dataset gives residents per building. The official grid fixes the totals per square
+      kilometre; footprint volume is the best available proxy for dwellings inside a cell.
+  - id: A5
+    statement: A footprint is residential when Overture classes it as a dwelling, or when it has no use
+      class and its centroid lies on a cadastral parcel whose intended use includes residential land (ELAMUMAA).
+      Footprints under 40 m² and footprints with a non-residential class get no residents. Outside Tartu,
+      where the parcel layer does not exist, unclassed footprints count.
+    rationale: 85 % of the footprints carry no use class, so land-use evidence from the cadastre is needed
+      to keep residents out of industrial and commercial buildings.
+  - id: A6
+    statement: A building is served when its own measured walking distance is within the limit. The walkshed
+      polygons are a drawing of the network reach (reached paths plus up to 50 m beside them) and never
+      decide whether a building is served.
+    rationale: Polygon overlap would count a large building as served when only a corner is in range.
+  - id: A7
+    statement: Only schools inside Tartu municipality are considered, as listed by the city.
+    rationale: The city layer holds no schools of neighbouring municipalities. Residents near the border
+      (for example Märja, next to Tõrvandi and Ülenurme) may have a closer school outside Tartu, so their
+      walking time is an upper bound.
+sources:
+  schools:
+    role: authoritative_input
+    provider: Tartu City Government (Tartu Linnavalitsus) GIS
+    dataset: Education institutions (Haridusasutus), public layer
+    source_url: https://gis.tartulv.ee/arcgis/rest/services/Haridus/LU_haridus_avalik/MapServer/0
+    access:
+      method: api
+      retrieved_at: '2026-11-10T12:15:09+00:00'
+      downloaded_at: '2026-11-10T12:15:09+00:00'
+      file:
+        name: tartu-schools.geojson
+        format: GeoJSON (EPSG:4326)
+        size_bytes: 17242
+        row_count: 42
+        column_count: 10
+      request_spec: ArcGIS REST query, where "Jaotus = 3", outSR=4326, f=geojson, ordered by OBJECTID,
+        paged with resultOffset until returned equals returnCountOnly. See acquire.py.
+    version:
+      identifier: LU_haridus_avalik layer 0, snapshot 2026-11-10
+      published_at: '2026-11-10'
+    pin:
+      class: local_snapshot
+      path: data/source/tartu-schools.geojson
+      sha256: sha256:d37bfaaf10a7b0b6ef325093cdcf84c26d5e3e86b0433bc462ada7d8fe8f28c8
+      captured_at: '2026-11-10T12:15:09+00:00'
+    selection:
+      filter: Jaotus = 3; the pipeline then keeps Lopetamise_kp IS NULL and Liik by school set
+      semantic_predicates:
+      - field: Jaotus
+        domain_value: 3 = Kool (school)
+      - field: Liik
+        domain_value: 1 = Elukohajärgne kool; 2 = Ülelinnaline kool; 3 = HEV kool; 4 = Muu Tartu kool;
+          6 = Gümnaasium
+      - field: Omand
+        domain_value: 1 = munitsipaal; 2 = riigi; 3 = era
+      - field: Lopetamise_kp
+        domain_value: closing date; NULL = operating
+      completeness:
+        matched: 42
+        returned: 42
+        page_size: 1000
+        pages: 1
+    license:
+      name: Tartu city open spatial data; licence not stated in the service metadata
+      url: https://gis.tartulv.ee/arcgis/rest/services
+    schema:
+      crs: EPSG:4326 (service native EPSG:3301)
+      key: GlobalID
+      type_field: Liik
+      name_field: Nimi
+      columns:
+      - OBJECTID
+      - GlobalID
+      - Nimi
+      - Jaotus
+      - Liik
+      - Omand
+      - Aadress
+      - Koduleht
+      - Kood
+      - Lopetamise_kp
+      - geometry
+    rationale: The city's own register of schools with coded type and ownership fields. Preferred over
+      OpenStreetMap or Overture places, which do not separate school stages or special-needs schools and
+      are not maintained by the school authority.
+  admin_boundary:
+    role: authoritative_input
+    provider: Tartu City Government GIS
+    dataset: Administrative division – municipal boundary (linnapiir)
+    source_url: https://gis.tartulv.ee/arcgis/rest/services/Aluskaardid/KT_haldusjaotus/MapServer/0
+    access:
+      method: api
+      retrieved_at: '2026-11-10T12:15:11+00:00'
+      downloaded_at: '2026-11-10T12:15:11+00:00'
+      file:
+        name: tartu-boundary.geojson
+        format: GeoJSON (EPSG:4326)
+        size_bytes: 48261
+        row_count: 1
+        column_count: 2
+      request_spec: ArcGIS REST query, where 1=1, outSR=4326, f=geojson (acquire.py).
+    version:
+      identifier: KT_haldusjaotus layer 0, snapshot 2026-11-10
+      published_at: '2026-11-10'
+    pin:
+      class: local_snapshot
+      path: data/source/tartu-boundary.geojson
+      sha256: sha256:c7b56b696293445f0a36175e28e85faa89a45c1268878654e58d821bd7044f64
+      captured_at: '2026-11-10T12:15:11+00:00'
+    selection:
+      filter: all features
+      completeness:
+        matched: 1
+        returned: 1
+        page_size: 1000
+        pages: 1
+    license:
+      name: Tartu city open spatial data; licence not stated in the service metadata
+      url: https://gis.tartulv.ee/arcgis/rest/services
+    schema:
+      crs: EPSG:4326 (service native EPSG:3301)
+      key: OBJECTID
+      columns:
+      - OBJECTID
+      - ONIMI
+      - geometry
+    rationale: Defines the study area exactly as the city draws it.
+  admin_districts:
+    role: authoritative_input
+    provider: Tartu City Government GIS
+    dataset: Administrative division – city districts (linnaosa piir)
+    source_url: https://gis.tartulv.ee/arcgis/rest/services/Aluskaardid/KT_haldusjaotus/MapServer/1
+    access:
+      method: api
+      retrieved_at: '2026-11-10T12:15:12+00:00'
+      downloaded_at: '2026-11-10T12:15:12+00:00'
+      file:
+        name: tartu-districts.geojson
+        format: GeoJSON (EPSG:4326)
+        size_bytes: 24844
+        row_count: 18
+        column_count: 2
+      request_spec: ArcGIS REST query, where 1=1, outSR=4326, f=geojson (acquire.py).
+    version:
+      identifier: KT_haldusjaotus layer 1, snapshot 2026-11-10
+      published_at: '2026-11-10'
+    pin:
+      class: local_snapshot
+      path: data/source/tartu-districts.geojson
+      sha256: sha256:b21814e4c5af93bf17e6ce19e67073ae871cb6d8f6d8a0d9e1357e72288fb08a
+      captured_at: '2026-11-10T12:15:12+00:00'
+    selection:
+      filter: all features
+      completeness:
+        matched: 18
+        returned: 18
+        page_size: 1000
+        pages: 1
+    license:
+      name: Tartu city open spatial data; licence not stated in the service metadata
+      url: https://gis.tartulv.ee/arcgis/rest/services
+    schema:
+      crs: EPSG:4326 (service native EPSG:3301)
+      key: NIMI
+      columns:
+      - OBJECTID
+      - NIMI
+      - geometry
+    rationale: Reporting units inside the city proper.
+  admin_settlements:
+    role: authoritative_input
+    provider: Tartu City Government GIS
+    dataset: Administrative division – settlements outside the city proper (asustusüksuse piir)
+    source_url: https://gis.tartulv.ee/arcgis/rest/services/Aluskaardid/KT_haldusjaotus/MapServer/2
+    access:
+      method: api
+      retrieved_at: '2026-11-10T12:15:14+00:00'
+      downloaded_at: '2026-11-10T12:15:14+00:00'
+      file:
+        name: tartu-settlements.geojson
+        format: GeoJSON (EPSG:4326)
+        size_bytes: 110256
+        row_count: 12
+        column_count: 2
+      request_spec: ArcGIS REST query, where 1=1, outSR=4326, f=geojson (acquire.py).
+    version:
+      identifier: KT_haldusjaotus layer 2, snapshot 2026-11-10
+      published_at: '2026-11-10'
+    pin:
+      class: local_snapshot
+      path: data/source/tartu-settlements.geojson
+      sha256: sha256:402648634186147aed4414db388435edade35d7e0aecd8edffb905542e0c54b7
+      captured_at: '2026-11-10T12:15:14+00:00'
+    selection:
+      filter: all features
+      completeness:
+        matched: 12
+        returned: 12
+        page_size: 1000
+        pages: 1
+    license:
+      name: Tartu city open spatial data; licence not stated in the service metadata
+      url: https://gis.tartulv.ee/arcgis/rest/services
+    schema:
+      crs: EPSG:4326 (service native EPSG:3301)
+      key: ANIMI
+      columns:
+      - OBJECTID
+      - ANIMI
+      - geometry
+    rationale: Reporting units for the rural part of the municipality.
+  residential_parcels:
+    role: authoritative_input
+    provider: Tartu City Government GIS (cadastral data of Maa- ja Ruumiamet)
+    dataset: Cadastral parcels with residential intended use
+    source_url: https://gis.tartulv.ee/arcgis/rest/services/Aluskaardid/KT_kataster/MapServer/0
+    access:
+      method: api
+      retrieved_at: '2026-11-10T12:15:28+00:00'
+      downloaded_at: '2026-11-10T12:15:28+00:00'
+      file:
+        name: tartu-residential-parcels.geojson
+        format: GeoJSON (EPSG:4326)
+        size_bytes: 5633848
+        row_count: 12486
+        column_count: 10
+      request_spec: ArcGIS REST query, where "SIHT1 = 'ELAMUMAA' OR SIHT2 = 'ELAMUMAA' OR SIHT3 = 'ELAMUMAA'",
+        outSR=4326, geometryPrecision=6, f=geojson, ordered by OBJECTID, 13 pages of 1000 until returned
+        equals returnCountOnly (acquire.py).
+    version:
+      identifier: KT_kataster layer 0, snapshot 2026-11-10
+      published_at: '2026-11-10'
+    pin:
+      class: local_snapshot
+      path: data/source/tartu-residential-parcels.geojson
+      sha256: sha256:b88ecbd66188bf9f3f0d0f0e35706122fc20bd96b22c744b03e5941796dde5c1
+      captured_at: '2026-11-10T12:15:28+00:00'
+    selection:
+      filter: SIHT1 = 'ELAMUMAA' OR SIHT2 = 'ELAMUMAA' OR SIHT3 = 'ELAMUMAA'
+      semantic_predicates:
+      - field: SIHT1, SIHT2, SIHT3
+        domain_value: ELAMUMAA = residential land (intended use of the cadastral unit)
+      completeness:
+        matched: 12486
+        returned: 12486
+        page_size: 1000
+        pages: 13
+    license:
+      name: Estonian cadastral open data (CC BY 4.0, Maa- ja Ruumiamet), served by Tartu city
+      url: https://geoportaal.maaruum.ee/eng/spatial-data/cadastral-data-p310.html
+    schema:
+      crs: EPSG:4326 (service native EPSG:3301)
+      key: TUNNUS
+      land_use_field: SIHT1
+      columns:
+      - OBJECTID
+      - TUNNUS
+      - SIHT1
+      - SIHT2
+      - SIHT3
+      - SO_PRTS1
+      - SO_PRTS2
+      - SO_PRTS3
+      - MUUDET
+      - geometry
+    rationale: Legal land-use designation is the only authoritative open evidence of which unclassed building
+      footprints are dwellings.
+  population_grid:
+    role: authoritative_input
+    provider: Statistics Estonia (Statistikaamet), served by Maa- ja Ruumiamet INSPIRE geoportal
+    dataset: Population of Estonia on a 1 km x 1 km grid (INSPIRE Population Distribution), EPSG:3301
+      edition
+    source_url: https://inspire.geoportaal.ee/geoserver/PD_rahvastikutihedus/wfs
+    portal_page: https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30
+    access:
+      method: WFS
+      retrieved_at: '2026-11-10T12:15:30+00:00'
+      downloaded_at: '2026-11-10T12:15:30+00:00'
+      file:
+        name: population-grid-1km.gml
+        table_name: PD_rahvastikutihedus:PD.StatisticalDistribution_
+        format: GML 3.2 (EPSG:3301, axis order northing-easting)
+        size_bytes: 2957599
+        row_count: 644
+        column_count: 27
+      request_spec: WFS 2.0.0 GetFeature, typeNames=PD_rahvastikutihedus:PD.StatisticalDistribution_,
+        bbox=6465000,641000,6486000,667000,urn:ogc:def:crs:EPSG::3301, sortBy=gml_id, count=1000, startIndex
+        paged until returned equals numberMatched (acquire.py).
+    version:
+      identifier: Reference period 1.1.2024 - 31.12.2024; dataset last update 2025-05-07
+      published_at: '2025-05-07'
+    pin:
+      class: local_snapshot
+      path: data/source/population-grid-1km.gml
+      sha256: sha256:af974a8e887bd9c8968291bf43f8277d4960a1100067d91d466002ea57f7e499
+      captured_at: '2026-11-10T12:15:30+00:00'
+    selection:
+      bbox:
+      - 641000
+      - 6465000
+      - 667000
+      - 6486000
+      filter: cells intersecting the study frame (municipal extent plus at least 2 km, aligned to the
+        grid)
+      completeness:
+        matched: 644
+        returned: 644
+        page_size: 1000
+        pages: 1
+    license:
+      name: CC0 1.0
+      url: https://creativecommons.org/publicdomain/zero/1.0/
+    schema:
+      crs: EPSG:3301 (L-EST97)
+      key: gml_id
+      value_field: value_statisticalvalue_value
+      columns:
+      - gml_id
+      - value_statisticalvalue_value
+      - value_statisticalvalue_specialvalue_xlink_title
+      - periodofreference_xlink_title
+      - geom
+    rationale: The official register-based population count, georeferenced by Statistics Estonia to the
+      building and aggregated to 1 km cells. Preferred over modelled global products (WorldPop, Meta HRSL,
+      GHSL). A finer official grid is not published as open data.
+  overture_segments:
+    role: authoritative_input
+    provider: Overture Maps Foundation (OpenStreetMap contributors, TomTom)
+    dataset: Overture transportation segments
+    source_url: s3://overturemaps-us-west-2/release/2026-10-21.0/theme=transportation/type=segment/
+    portal_page: https://docs.overturemaps.org/guides/transportation/
+    access:
+      method: s3
+      retrieved_at: '2026-11-10T12:15:47+00:00'
+      downloaded_at: '2026-11-10T12:15:47+00:00'
+      file:
+        name: overture-segments.parquet
+        format: Parquet (WKB geometry, EPSG:4326)
+        size_bytes: 4829393
+        row_count: 23581
+        column_count: 8
+      request_spec: Anonymous S3 read with bbox-overlap pushdown, lon 26.40-26.90, lat 58.27-58.48; columns
+        id, geometry, subtype, class, subclass, connectors, access_restrictions, sources (acquire.py).
+    version:
+      identifier: Overture release 2026-10-21.0
+      published_at: '2026-10-21'
+    pin:
+      class: local_snapshot
+      path: data/source/overture-segments.parquet
+      sha256: sha256:aad46285298f59b08172a2832bc62c18d73fcd53d417e495f5dd146086c99c8f
+      captured_at: '2026-11-10T12:15:47+00:00'
+    selection:
+      bbox:
+      - 26.4
+      - 58.27
+      - 26.9
+      - 58.48
+      filter: bbox overlap; the pipeline keeps subtype = road, class <> motorway, pedestrian access not
+        denied
+      semantic_predicates:
+      - field: subtype
+        domain_value: road
+      - field: access_restrictions.access_type
+        domain_value: denied (for foot, or for all modes) = not walkable
+    license:
+      name: ODbL 1.0 (© OpenStreetMap contributors, Overture Maps Foundation)
+      url: https://docs.overturemaps.org/attribution/
+    schema:
+      crs: EPSG:4326
+      key: id
+      class_field: class
+      columns:
+      - id
+      - geometry
+      - subtype
+      - class
+      - subclass
+      - connectors
+      - access_restrictions
+      - sources
+    rationale: A routable, release-pinned network with explicit connectors, built from OpenStreetMap (footways,
+      paths, steps and crossings included). The city's road register has no routable topology; OSM extract
+      mirrors were not reachable from the build environment.
+  overture_buildings:
+    role: authoritative_input
+    provider: Overture Maps Foundation (OpenStreetMap contributors, Microsoft ML Buildings)
+    dataset: Overture building footprints
+    source_url: s3://overturemaps-us-west-2/release/2026-10-21.0/theme=buildings/type=building/
+    portal_page: https://docs.overturemaps.org/guides/buildings/
+    access:
+      method: s3
+      retrieved_at: '2026-11-10T12:16:31+00:00'
+      downloaded_at: '2026-11-10T12:16:31+00:00'
+      file:
+        name: overture-buildings.parquet
+        format: Parquet (WKB geometry, EPSG:4326)
+        size_bytes: 6183232
+        row_count: 55416
+        column_count: 7
+      request_spec: Anonymous S3 read with bbox-overlap pushdown, lon 26.40-26.90, lat 58.27-58.48; columns
+        id, geometry, subtype, class, height, num_floors, sources (acquire.py).
+    version:
+      identifier: Overture release 2026-10-21.0
+      published_at: '2026-10-21'
+    pin:
+      class: local_snapshot
+      path: data/source/overture-buildings.parquet
+      sha256: sha256:0111e5f677574153bbb587f4f89e494b93c2ce3698a5cc5b8f30d0ebd372bbfa
+      captured_at: '2026-11-10T12:16:31+00:00'
+    selection:
+      bbox:
+      - 26.4
+      - 58.27
+      - 26.9
+      - 58.48
+      filter: bbox overlap; the pipeline keeps residential candidates (assumption A5)
+      semantic_predicates:
+      - field: class
+        domain_value: house, apartments, detached, semidetached_house, terrace, residential, dormitory,
+          bungalow, farm, cabin, static_caravan, hut = dwelling; NULL = unknown (never defaulted to dwelling
+          without parcel evidence inside Tartu)
+    license:
+      name: ODbL 1.0 (© OpenStreetMap contributors, Overture Maps Foundation; includes Microsoft ML Buildings)
+      url: https://docs.overturemaps.org/attribution/
+    schema:
+      crs: EPSG:4326
+      key: id
+      class_field: class
+      columns:
+      - id
+      - geometry
+      - subtype
+      - class
+      - height
+      - num_floors
+      - sources
+    rationale: Complete footprint coverage with heights for most buildings. The national building register
+      and topographic database were not reachable from the build environment.
+overrides:
+- id: OVERRIDE-001
+  action: hide_source_feature
+  target:
+    source: schools
+    feature_id: 24C7F5AF-33FC-4F56-8D2D-6AD97D4AC85B
+    feature_name: Tartu Ülikooli teaduskool
+  rationale: The University of Tartu Youth Academy offers extracurricular courses and olympiad training.
+    It is not a general-education school a child attends daily, although the city layer lists it as a
+    school of type 4.
+  evidence:
+  - type: url
+    value: https://teaduskool.ut.ee/et
+  created_at: '2026-11-10T12:50:00+00:00'
+  created_by: analyst
+- id: OVERRIDE-002
+  action: hide_source_feature
+  target:
+    source: schools
+    feature_id: 1454848D-C4B9-4D5A-A4CC-E6E7D863C9D0
+    feature_name: Tartu Täiskasvanute Gümnaasium (P)
+  rationale: The basic-school stage of Tartu Adult Gymnasium teaches adult learners in flexible study.
+    It is not a school for school-age children, although the city layer lists it as type 4.
+  evidence:
+  - type: url
+    value: https://www.ag.tartu.ee/
+  created_at: '2026-11-10T12:50:00+00:00'
+  created_by: analyst
+processing:
+  analysis_crs: EPSG:3301
+  storage_crs: EPSG:4326
+  parameters:
+    walk_speed_kmh: 4.8
+    walk_minutes:
+    - 5
+    - 10
+    - 15
+    - 20
+    canonical_walk_minutes: 15
+    school_sets:
+      basic_all:
+        liik:
+        - 1
+        - 2
+        - 4
+        label: Basic schools – municipal and private
+      municipal_basic:
+        liik:
+        - 1
+        - 2
+        label: Municipal basic schools only
+      all_schools:
+        liik:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 6
+        label: Every school record – incl. special-needs and upper-secondary
+    canonical_school_set: basic_all
+    network_step_m: 20
+    off_path_allowance_m: 50
+    walkshed_cell_m: 10
+    min_footprint_m2: 40
+    floor_height_m: 3
+    unserved_buffer_m: 60
+    unserved_min_pop: 10
+  steps:
+  - id: load_admin
+    operation: read
+    inputs:
+    - admin_boundary
+    - admin_districts
+    - admin_settlements
+    crs: EPSG:3301
+    output: admin_areas_raw
+  - id: load_schools
+    operation: read
+    source: schools
+    crs: EPSG:3301
+    output: schools_raw
+  - id: apply_school_overrides
+    operation: apply_override
+    input: schools_raw
+    overrides:
+    - OVERRIDE-001
+    - OVERRIDE-002
+    verify: target id and name must match the immutable source before a record is hidden
+    expression: active = Lopetamise_kp IS NULL AND not hidden; school sets by Liik
+    output: schools_effective
+  - id: load_population_grid
+    operation: read
+    source: population_grid
+    crs: EPSG:3301
+    note: gml:posList axis order (northing, easting) is swapped to x,y and checked against 1 km cells
+    output: grid_cells
+  - id: select_residential_buildings
+    operation: spatial_join_filter
+    inputs:
+    - overture_buildings
+    - residential_parcels
+    - grid_cells
+    - admin_areas_raw
+    crs: EPSG:3301
+    expression: footprint_m2 >= 40 AND (class IN dwelling classes OR (class IS NULL AND (centroid within
+      ELAMUMAA parcel OR centroid outside Tartu)))
+    reference_geometry: building centroid
+    output: residential_candidates
+  - id: allocate_population
+    operation: dasymetric_allocation
+    inputs:
+    - grid_cells
+    - residential_candidates
+    crs: EPSG:3301
+    weight: footprint_m2 * floors_est (num_floors, else height / 3 m, else class default)
+    fallback: unclassed footprints when a populated cell has no residential candidate; otherwise reported
+      unallocated
+    output: buildings_population
+  - id: build_walk_network
+    operation: build_routing_graph
+    source: overture_segments
+    crs: EPSG:3301
+    expression: subtype = 'road' AND class <> 'motorway' AND pedestrian access not denied
+    network_step_m: 20
+    component: largest connected component only
+    output: walk_network
+  - id: route_to_schools
+    operation: multi_source_shortest_path
+    inputs:
+    - walk_network
+    - schools_effective
+    crs: EPSG:3301
+    walk_speed_kmh: 4.8
+    direction: undirected (walking)
+    output: node_distances
+  - id: draw_walksheds
+    operation: network_service_area
+    input: node_distances
+    crs: EPSG:3301
+    minutes:
+    - 5
+    - 10
+    - 15
+    - 20
+    canonical_minutes: 15
+    off_path_allowance_m: 50
+    cell_m: 10
+    output: walksheds
+  - id: measure_buildings
+    operation: network_distance_join
+    inputs:
+    - buildings_population
+    - node_distances
+    - walk_network
+    - admin_areas_raw
+    crs: EPSG:3301
+    distance_basis: building centroid to nearest routing node (straight line) plus network distance to
+      the nearest school
+    max_walk_minutes: 15
+    output: residential_buildings
+  - id: delineate_unserved_areas
+    operation: buffer_dissolve
+    input: residential_buildings
+    crs: EPSG:3301
+    expression: walk distance > minutes * 80 m
+    buffer_m: 60
+    min_population: 10
+    output: unserved_area_polygons
+  - id: summarise
+    operation: aggregate
+    inputs:
+    - residential_buildings
+    - admin_areas_raw
+    - grid_cells
+    output: summaries
+  - id: export
+    operation: export
+    inputs:
+    - residential_buildings
+    - schools_effective
+    - walksheds
+    - unserved_area_polygons
+    - summaries
+    formats:
+    - GeoParquet
+    - GeoJSON
+    - GeoPackage
+    - CSV
+    - XLSX
+    output: exported_files
+  - id: build_qgis_project
+    operation: render
+    input: exported_files
+    output: qgis_project_file
+  - id: render_dashboard
+    operation: render
+    input: exported_files
+    output: dashboard_file
+outputs:
+  residential_buildings:
+    path: data/derived/residential-buildings.parquet
+    format: GeoParquet (EPSG:3301)
+    generated_by: measure_buildings
+  schools:
+    path: data/derived/schools.geojson
+    format: GeoJSON (EPSG:4326)
+    generated_by: apply_school_overrides
+  walkshed_15min:
+    path: data/derived/walkshed-15min.geojson
+    format: GeoJSON (EPSG:4326)
+    generated_by: draw_walksheds
+  walkshed_variants:
+    path: data/derived/walkshed-variants.geojson
+    format: GeoJSON (EPSG:4326)
+    generated_by: draw_walksheds
+    role: exploratory_companion
+    note: Precomputed walksheds for every school set and time threshold the view offers. Never the accepted
+      result; walkshed_15min is.
+  unserved_areas:
+    path: data/derived/unserved-areas.geojson
+    format: GeoJSON (EPSG:4326)
+    generated_by: delineate_unserved_areas
+  unserved_area_variants:
+    path: data/derived/unserved-area-variants.geojson
+    format: GeoJSON (EPSG:4326)
+    generated_by: delineate_unserved_areas
+    role: exploratory_companion
+    note: Precomputed unserved areas for every school set and time threshold the view offers. Never the
+      accepted result; unserved_areas is.
+  admin_areas:
+    path: data/derived/admin-areas.geojson
+    format: GeoJSON (EPSG:4326)
+    generated_by: summarise
+  population_grid_cells:
+    path: data/derived/population-grid.geojson
+    format: GeoJSON (EPSG:4326)
+    generated_by: summarise
+  area_summary:
+    path: data/derived/area-summary.csv
+    format: CSV
+    kind: table
+    generated_by: summarise
+    table:
+      key:
+      - area_name
+      columns:
+      - name: area_name
+        type: string
+        label: Area
+      - name: area_type
+        type: string
+        label: Type
+      - name: population
+        type: integer
+        unit: residents
+        label: Residents (est.)
+      - name: residential_buildings
+        type: integer
+        label: Inhabited buildings
+      - name: pop_unserved_15min
+        type: integer
+        unit: residents
+        label: Beyond 15 min
+      - name: pct_unserved_15min
+        type: number
+        unit: '%'
+        label: Beyond 15 min
+      - name: share_of_city_unserved_pct
+        type: number
+        unit: '%'
+        label: Share of all unserved
+      - name: pct_unserved_10min
+        type: number
+        unit: '%'
+        label: Beyond 10 min
+      - name: pct_unserved_20min
+        type: number
+        unit: '%'
+        label: Beyond 20 min
+      - name: median_walk_min
+        type: number
+        unit: min
+        label: Median walk
+    downloads:
+    - csv
+    - xlsx
+  coverage_matrix:
+    path: data/derived/coverage-matrix.csv
+    format: CSV
+    kind: table
+    generated_by: summarise
+    table:
+      key:
+      - variant
+      columns:
+      - name: variant
+        type: string
+        label: Variant
+      - name: school_set
+        type: string
+        label: School set
+      - name: walk_minutes
+        type: integer
+        unit: min
+        label: Walk limit
+      - name: schools
+        type: integer
+        label: Schools
+      - name: population
+        type: integer
+        unit: residents
+        label: Residents (est.)
+      - name: pop_served
+        type: integer
+        unit: residents
+        label: Within limit
+      - name: pop_unserved
+        type: integer
+        unit: residents
+        label: Beyond limit
+      - name: pct_unserved
+        type: number
+        unit: '%'
+        label: Beyond limit
+      - name: canonical
+        type: boolean
+        label: Accepted result
+    downloads:
+    - csv
+    - xlsx
+  area_summary_xlsx:
+    path: data/derived/area-summary.xlsx
+    format: XLSX
+    kind: table
+    generated_by: summarise
+    role: download_format
+    note: Spreadsheet copy of area_summary, written from the same rows in the same step.
+  coverage_matrix_xlsx:
+    path: data/derived/coverage-matrix.xlsx
+    format: XLSX
+    kind: table
+    generated_by: summarise
+    role: download_format
+    note: Spreadsheet copy of coverage_matrix, written from the same rows in the same step.
+  residential_buildings_gpkg:
+    path: data/derived/residential-buildings.gpkg
+    format: GeoPackage (EPSG:3301)
+    generated_by: export
+    note: QGIS-readable copy of residential_buildings (same rows and columns).
+  qgis_project:
+    path: project.qgz
+    format: QGIS project
+    kind: document
+    generated_by: build_qgis_project
+  dashboard:
+    path: dashboard.html
+    format: HTML
+    kind: document
+    generated_by: render_dashboard
+validation:
+  required:
+  - geometry_valid
+  - crs_known
+  - row_count_gt_zero
+  - no_duplicate_building_id
+  - no_null_building_id
+  - source_semantics_verified
+  - source_result_complete
+  - source_licenses_resolved
+  - overrides_applied
+  - manifest_graph_resolves
+  - view_controls_match_pipeline
+  - qgis_project_static_valid
+  - qgis_runtime_load
+  - manifest_report_parity
+  domain_checks:
+  - name: population_conserved
+    expression: allocated residents = grid residents in every cell touching Tartu (no unallocated cell)
+  - name: tartu_population_plausible
+    expression: 90000 <= SUM(pop_est) <= 108000
+  - name: school_snap_distance
+    expression: MAX(network_gap_m) <= 150 for schools in any set
+  - name: network_connected
+    expression: main component holds >= 95 % of the walkable network length
+  - name: walk_distance_finite
+    expression: walk_m_basic_all is finite and >= 0 for every inhabited building
+  - name: coverage_monotonic
+    expression: served population never falls when minutes rise or when a school set gains schools
+  - name: table_totals_consistent
+    expression: area_summary totals = coverage_matrix canonical row = building-level sums
+presentation:
+  intent: analytical_workspace
+  primary_view: map
+  language: en
+  layout:
+    type: map_with_sidebar
+    sidebar:
+      position: left
+      width: large
+      organization: tabs
+      section_state: collapsible
+      tabs:
+      - id: analysis
+        title: Analysis
+        sections:
+        - summary
+        - metrics
+        - unserved_areas
+        - area_table
+        - assumptions
+        - warnings
+      - id: map
+        title: Map
+        sections:
+        - scenario_controls
+        - layer_controls
+        - legend
+        - basemap
+      - id: provenance
+        title: Provenance
+        sections:
+        - credits
+        - provenance
+        - overrides
+        - validation
+        - outputs
+        - run_record
+  tables:
+  - output: area_summary
+    title: Districts and settlements
+    downloads:
+    - csv
+    - xlsx
+    default_sort: pop_unserved_15min
+  - output: coverage_matrix
+    title: Sensitivity – school set and walk limit
+    downloads:
+    - csv
+    - xlsx
+    default_sort: variant
+  controls:
+    reconfigurable: true
+    canonical_reset: true
+    off_canonical_labelling: required
+    filters:
+    - id: walk_minutes
+      label: Walking time limit
+      type: choice
+      fields:
+      - walk_m_basic_all
+      - walk_m_municipal_basic
+      - walk_m_all_schools
+      unit: minutes
+      canonical: 15
+      options:
+      - 5
+      - 10
+      - 15
+      - 20
+      redraws:
+      - walkshed_variants
+      - unserved_area_variants
+      note: Re-applies the limit to the walking distance the pipeline measured for each building; polygons
+        switch between precomputed variants.
+    views:
+    - id: school_set
+      label: Schools counted
+      options:
+      - basic_all
+      - municipal_basic
+      - all_schools
+      canonical: basic_all
+      output: coverage_matrix
+      fields:
+        basic_all:
+        - pop_served
+        - pop_unserved
+        - pct_unserved
+        municipal_basic:
+        - pop_served
+        - pop_unserved
+        - pct_unserved
+        all_schools:
+        - pop_served
+        - pop_unserved
+        - pct_unserved
+  map:
+    engine_preference: maplibre
+    interaction:
+      feature_select: true
+      hover_tooltip: true
+      zoom_to_selection: true
+    basemap:
+      id: goplex-protomaps
+      kind: vector-style
+      url: https://tiles.goplex.ee/styles/5.7.2/white.json
+      dark_url: https://tiles.goplex.ee/styles/5.7.2/dark.json
+      tilejson: https://tiles.goplex.ee/planet-20261006.json
+      attribution: © OpenStreetMap contributors, Protomaps tiles by goplex.ee
+      default_visible: true
+      note: Reference background only, not an analysis input. The QGIS companion uses the Maa- ja Ruumiamet
+        base map WMS, with OpenStreetMap XYZ as an unchecked alternative.
+    layer_groups:
+    - id: unserved
+      title: Unserved areas
+      default_open: true
+    - id: buildings
+      title: Homes by walking time
+      default_open: true
+    - id: schools
+      title: Schools
+      default_open: true
+    - id: overrides
+      title: Manual exclusions
+      default_open: true
+    - id: walkshed
+      title: Walkshed
+      default_open: true
+    - id: context
+      title: Districts and population grid
+      default_open: false
+    layers:
+    - source: admin_areas
+      group: context
+      semantic_role: context
+      geometry: polygon
+      style:
+        visual_priority: muted
+        outline: solid
+    - source: population_grid_cells
+      group: context
+      semantic_role: source
+      geometry: polygon
+      default_visible: false
+      style:
+        visual_priority: muted
+    - source: walkshed_15min
+      group: walkshed
+      semantic_role: constraint
+      geometry: polygon
+      note: Network reach, drawn with up to 50 m beside reached paths; not the served/unserved rule (A6).
+      style:
+        visual_priority: muted
+        opacity: 0.16
+    - source: residential_buildings_gpkg
+      group: buildings
+      semantic_role: secondary_result
+      geometry: polygon
+      style:
+        visual_priority: secondary
+        classes: coverage_class
+    - source: unserved_areas
+      group: unserved
+      semantic_role: primary_result
+      geometry: polygon
+      style:
+        visual_priority: primary
+        outline: dashed
+    - source: schools
+      group: schools
+      semantic_role: source
+      geometry: point
+      filter: status = 'active'
+      style:
+        visual_priority: primary
+    - source: schools
+      group: overrides
+      semantic_role: user_override
+      geometry: point
+      filter: status = 'excluded_by_override'
+      note: OVERRIDE-001 and OVERRIDE-002, source records not counted as schools.
+      style:
+        visual_priority: secondary
+        outline: emphasised
+  legend:
+    visible: true
+    mode: semantic
+  provenance_ui:
+    feature_source_on_click: true
+    show_source_timestamp: true
+    show_override_badge: true
+    show_assumptions: true
+    credits:
+      generated_with: true
+      analysis_timestamp: runs.latest.completed_at
+      author: true
+  editing:
+    allow_draw_geometry: false
+    allow_attribute_override: false
+    allow_hide_source_feature: false
+    allow_add_annotation: false
+warnings:
+- id: METHOD-001
+  severity: medium
+  layer: residential_buildings
+  issue: population_is_estimated
+  statement: Residents per building are estimated by sharing each 1 km grid cell's official 2024 population
+    among residential footprints by floor area. Totals per cell are exact; the split inside a cell is
+    a model. Counts for small pockets are indicative.
+  mitigation: Read percentages at district level or above with confidence; verify individual buildings
+    against the population register before consequential decisions.
+- id: METHOD-002
+  severity: medium
+  layer: walkshed_15min
+  issue: network_model_limitations
+  statement: Walking distances depend on OpenStreetMap paths, crossings and access tags as packaged by
+    Overture. School locations are the city's points, not verified gates; the door-side leg is a straight
+    line. Fences, missing footpaths or informal shortcuts are not modelled.
+  mitigation: Check access on the ground for pockets close to the 15-minute limit.
+- id: DATA-001
+  severity: medium
+  layer: schools
+  issue: schools_outside_tartu_missing
+  statement: Schools in neighbouring municipalities are not in the city layer, so walking times for border
+    areas (Märja, parts of Raadi-Kruusamäe and Ihaste) are upper bounds.
+  mitigation: Add neighbouring schools as an override layer if cross-border attendance matters.
+- id: DATA-002
+  severity: low
+  layer: schools
+  issue: license_not_stated
+  statement: The Tartu city ArcGIS services do not publish explicit licence text for these layers.
+  mitigation: Confirm reuse terms with Tartu City Government before redistributing the source snapshots.
+- id: DATA-003
+  severity: low
+  layer: residential_buildings
+  issue: temporal_mismatch
+  statement: Population refers to 2024, schools and parcels to November 2026, network and footprints to
+    October 2026. Homes built after 2024 carry no residents here.
+  mitigation: Rerun when Statistics Estonia publishes a newer grid.
+runtime:
+  implementation:
+    preferred_engine: geopandas + shapely (GEOS) + scipy
+    pipeline: pipeline.py
+    dependencies:
+    - view.py
+    - qgis_build.py
+    - dashboard.template.html
+    - requirements.txt
+    - vendor/maplibre-gl.js
+    - vendor/maplibre-gl.css
+  environment:
+    python: '3.13'
+    gdal: bundled with pyogrio wheels
+    proj: bundled with pyproj wheels
+    qgis: 3.34 (optional; PyQGIS builds and verifies project.qgz when present)
+    packages:
+    - geopandas==1.2.0
+    - shapely==2.2.0
+    - pyproj==3.8.0
+    - pyogrio==0.13.0
+    - pyarrow==26.0.1
+    - scipy==1.18.1
+    - numpy==2.5.3
+    - pandas==3.0.5
+    - openpyxl==3.1.5
+    - PyYAML==6.0.3
+runs:
+  latest:
+    id: run-20261110-131318
+    started_at: '2026-11-10T13:13:18.910397+00:00'
+    completed_at: '2026-11-10T13:13:42.291535+00:00'
+    status: warning
+    inputs_hash: sha256:ca9d1ce7e2ef193a1da7ff8043749251e76206c7b773d68debda14435299a3e0
+    outputs_hash: sha256:04496f7acb770a5da14f5c5c3674f4d865082bda9dc16d3e606d7c85a23fef96
+    record:
+      path: runs/run-20261110-131318.json
+    validation_report:
+      path: validation/latest-report.json

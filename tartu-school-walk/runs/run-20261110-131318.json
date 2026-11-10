@@ -1,0 +1,156 @@
+{
+  "run_id": "run-20261110-131318",
+  "started_at": "2026-11-10T13:13:18.910397+00:00",
+  "completed_at": "2026-11-10T13:13:42.291535+00:00",
+  "status": "warning",
+  "inputs_hash": "sha256:ca9d1ce7e2ef193a1da7ff8043749251e76206c7b773d68debda14435299a3e0",
+  "outputs_hash": "sha256:04496f7acb770a5da14f5c5c3674f4d865082bda9dc16d3e606d7c85a23fef96",
+  "validation_report": "validation/latest-report.json",
+  "environment": {
+    "python": "3.13.18",
+    "geopandas": "1.2.0",
+    "shapely": "2.2.0",
+    "geos": "3.14.1",
+    "pyproj": "3.8.0",
+    "proj": "9.8.1",
+    "scipy": "1.18.1",
+    "numpy": "2.5.3",
+    "pandas": "3.0.5"
+  },
+  "headline": {
+    "population": 99425,
+    "pop_unserved": 16693,
+    "pct_unserved": 16.79,
+    "schools": 23,
+    "school_set": "basic_all",
+    "walk_minutes": 15
+  },
+  "inputs": [
+    {
+      "path": "dashboard.template.html",
+      "sha256": "sha256:ce61cb007e5d659dc35c25cb7d72813e770564d453e2829c6ecd26420f7c6e1d"
+    },
+    {
+      "path": "data/source/acquisition.json",
+      "sha256": "sha256:84d35ff853c764c9abbdb4f80395a249824bdeb32f961d64a023eb9522907fa0"
+    },
+    {
+      "path": "data/source/overture-buildings.parquet",
+      "sha256": "sha256:0111e5f677574153bbb587f4f89e494b93c2ce3698a5cc5b8f30d0ebd372bbfa"
+    },
+    {
+      "path": "data/source/overture-segments.parquet",
+      "sha256": "sha256:aad46285298f59b08172a2832bc62c18d73fcd53d417e495f5dd146086c99c8f"
+    },
+    {
+      "path": "data/source/population-grid-1km.gml",
+      "sha256": "sha256:af974a8e887bd9c8968291bf43f8277d4960a1100067d91d466002ea57f7e499"
+    },
+    {
+      "path": "data/source/tartu-boundary.geojson",
+      "sha256": "sha256:c7b56b696293445f0a36175e28e85faa89a45c1268878654e58d821bd7044f64"
+    },
+    {
+      "path": "data/source/tartu-districts.geojson",
+      "sha256": "sha256:b21814e4c5af93bf17e6ce19e67073ae871cb6d8f6d8a0d9e1357e72288fb08a"
+    },
+    {
+      "path": "data/source/tartu-residential-parcels.geojson",
+      "sha256": "sha256:b88ecbd66188bf9f3f0d0f0e35706122fc20bd96b22c744b03e5941796dde5c1"
+    },
+    {
+      "path": "data/source/tartu-schools.geojson",
+      "sha256": "sha256:d37bfaaf10a7b0b6ef325093cdcf84c26d5e3e86b0433bc462ada7d8fe8f28c8"
+    },
+    {
+      "path": "data/source/tartu-settlements.geojson",
+      "sha256": "sha256:402648634186147aed4414db388435edade35d7e0aecd8edffb905542e0c54b7"
+    },
+    {
+      "path": "pipeline.py",
+      "sha256": "sha256:f9d054fde12829a1ae0e7ee4536bcc8eeb0b3d4f8521674bfa2090e55492daa5"
+    },
+    {
+      "path": "qgis_build.py",
+      "sha256": "sha256:3341e655892a409cb427fcdbb3662563424394ade9dc4669aaae69b4120ec61b"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "sha256:aff3d96da0e4198346edc78f2fd2a1d634b23a683dfd618124228e24b1ef8c45"
+    },
+    {
+      "path": "vendor/maplibre-gl.css",
+      "sha256": "sha256:792ac997dcf6ae6f643eb4e2dee4630c85e7056526bd8fb85ffe83c67d6c41b4"
+    },
+    {
+      "path": "vendor/maplibre-gl.js",
+      "sha256": "sha256:07e6ca71a5b6d835a7c3803fb484f0a6e5f0dcbfa131407666edb9e9316564f9"
+    },
+    {
+      "path": "view.py",
+      "sha256": "sha256:160dede1aa40bb7af27e46228b147a510e7929e2a5f55582feba0b666488ffe6"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "dashboard.html",
+      "sha256": "sha256:26a37b872a5942635472c19b7d07ffef91e36df06a88dbe2255c53301652a4b9"
+    },
+    {
+      "path": "data/derived/admin-areas.geojson",
+      "sha256": "sha256:355b055afc3587fca76c50786d6cb6783e7744e8d0b36e5f621a642f122add3f"
+    },
+    {
+      "path": "data/derived/area-summary.csv",
+      "sha256": "sha256:e29ddd3c773911328f5ae9c10d9ecbb4b6b1a30da5979fcf4cb3a6cc4aa8607c"
+    },
+    {
+      "path": "data/derived/area-summary.xlsx",
+      "sha256": "sha256:24590533aa0dfcf20c9126cec55af7d89ee30a72db0a208aa4b646ea15daa765"
+    },
+    {
+      "path": "data/derived/coverage-matrix.csv",
+      "sha256": "sha256:dd2c5a1d2e092d00a82954648496af8ffb8bfc1d35a3d4643ec04c4d6bddc4b2"
+    },
+    {
+      "path": "data/derived/coverage-matrix.xlsx",
+      "sha256": "sha256:2c8967924a5e40c2bc6ce0224e5235531c7b71238f76a0fab476888410068eb2"
+    },
+    {
+      "path": "data/derived/population-grid.geojson",
+      "sha256": "sha256:c5f78475f88ef32f1a77b38be8720a23b9e54b52d481a8d03b91727ac6764029"
+    },
+    {
+      "path": "data/derived/residential-buildings.gpkg",
+      "sha256": "sha256:edc88e59c625530db6fbfd560526ce6e5bae1129dd50ecfac749275948ba2538"
+    },
+    {
+      "path": "data/derived/residential-buildings.parquet",
+      "sha256": "sha256:6206d2e34e31754b5a1111134e77fbe6c66393035282e66b122a01cd4ae14eef"
+    },
+    {
+      "path": "data/derived/schools.geojson",
+      "sha256": "sha256:72ef3a3d23f3dad3d8eef8d89fef305b4c1b1500c0f4e580f9602ec3b0f38fc4"
+    },
+    {
+      "path": "data/derived/unserved-area-variants.geojson",
+      "sha256": "sha256:b6f808959d1fbd5d8b680112830596116b0bc9e1bfe9394d381d5390be3d2994"
+    },
+    {
+      "path": "data/derived/unserved-areas.geojson",
+      "sha256": "sha256:66a084424969541e93db185417dc6a5b608b80de9aa72ab0320429e6fbe58b26"
+    },
+    {
+      "path": "data/derived/walkshed-15min.geojson",
+      "sha256": "sha256:b37a5720d958235de402fa5351875c7b5e3388bc4d8f46ccfbbaeb798671dfa6"
+    },
+    {
+      "path": "data/derived/walkshed-variants.geojson",
+      "sha256": "sha256:0ec752607c32a5723e830f1afab01c16d4e22f7c0625bf655d43bfc80d52d2fd"
+    },
+    {
+      "path": "project.qgz",
+      "sha256": "sha256:7cddfbd740504969ee32001260b0dddf7884ca81f7c1223db1bd8b776f7b5cff"
+    }
+  ]
+}

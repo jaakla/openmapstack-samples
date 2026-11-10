@@ -105,6 +105,11 @@ jobs:
       - name: Test Tallinn transit online and offline workflows
         working-directory: tallinn-transit
         run: npm run test:browser
+      - name: Verify the committed Tartu school walking coverage run
+        run: |
+          python3 -m venv /tmp/tartu-school-env
+          /tmp/tartu-school-env/bin/pip install 'openmapstack==0.4.0'
+          /tmp/tartu-school-env/bin/openmapstack validate tartu-school-walk/project.yaml
       - name: Assemble the site
         run: |
           mkdir -p _site/toompea-3d _site/battlefield-visibility _site/pv-location _site/tallinn-transit _site/gallery
@@ -114,6 +119,11 @@ jobs:
           cp -a tallinn-transit/dist/. _site/tallinn-transit/
           cp tallinn-transit/dist/recover.html _site/tallinn-transit-recover.html
           cp index.html _site/index.html
+          mkdir -p _site/tartu-school-walk/data
+          cp tartu-school-walk/dashboard.html _site/tartu-school-walk/index.html
+          cp tartu-school-walk/project.qgz _site/tartu-school-walk/
+          cp -a tartu-school-walk/vendor tartu-school-walk/runs tartu-school-walk/validation _site/tartu-school-walk/
+          cp -a tartu-school-walk/data/derived _site/tartu-school-walk/data/
           mkdir -p _site/shared
           cp shared/analytics.js _site/shared/analytics.js
           cp -a gallery/. _site/gallery/
