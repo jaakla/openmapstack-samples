@@ -1,0 +1,421 @@
+{
+  "run_id": "run-20261122-175153",
+  "status": "warning",
+  "checks": [
+    {
+      "id": "geometry_valid",
+      "status": "passed",
+      "features_checked": 641823,
+      "invalid_or_empty": {
+        "candidate_areas": 0,
+        "official_sites": 0,
+        "reference_features": 0
+      }
+    },
+    {
+      "id": "crs_known",
+      "status": "passed",
+      "analysis_crs": "EPSG:3301",
+      "grid_crs": "EPSG:3857 (alignment only; no measurement)",
+      "files": {
+        "candidate-areas.geojson": "EPSG:4326",
+        "official-sites.geojson": "EPSG:4326",
+        "reference-features.geojson": "EPSG:4326",
+        "screening-grid.parquet": "EPSG:3301"
+      },
+      "known_locations": {
+        "tallinn_town_hall_cell": {
+          "municipality": "Tallinn",
+          "county": "Harju maakond",
+          "densely_built_up": true
+        },
+        "suur_munamagi_dtm_m": 310.1
+      }
+    },
+    {
+      "id": "layers_within_aoi",
+      "status": "passed",
+      "aoi_epsg3301": [
+        300000,
+        6300000,
+        800000,
+        6700000
+      ],
+      "layers_checked": 42,
+      "outside": {}
+    },
+    {
+      "id": "row_count_gt_zero",
+      "status": "passed",
+      "rows": {
+        "screening_grid": 641370,
+        "candidate_areas": 95,
+        "official_sites": 6,
+        "reference_features": 352,
+        "criteria_catalogue": 53,
+        "county_summary": 15
+      }
+    },
+    {
+      "id": "no_duplicate_cell",
+      "status": "passed",
+      "cells": 641370
+    },
+    {
+      "id": "source_semantics_verified",
+      "status": "passed",
+      "values_seen": {
+        "protected_areas.tyyp": [
+          "KLKA",
+          "KMKA",
+          "KP",
+          "KRP",
+          "PS",
+          "VK",
+          "VP"
+        ],
+        "key_habitats.staatus": [
+          "Ei ole kehtivat lepingut",
+          "On kehtiv leping"
+        ],
+        "mining_claims.MAA_ALUNE": [
+          "0",
+          "1"
+        ],
+        "mining_claims.ME_OLEK": [
+          "aktiivne"
+        ],
+        "hazardous_plants.tyypnimi": [
+          "ohtlik käitis ohtlikkus A",
+          "ohtlik käitis ohtlikkus B",
+          "ohtlik käitis ohtlikkus C"
+        ],
+        "airfields.tyypnimi": [
+          "endine lennuväli",
+          "eralennuväli kõvakattega",
+          "lennuväli mururajaga",
+          "mittekasutatav lennuväli",
+          "riiklik lennuväli",
+          "sõjaväelennuväli"
+        ],
+        "defence_objects.nahtus_id_vaartus": [
+          "Riigikaitseline ehitis",
+          "Riigipiir"
+        ],
+        "defence_zones.voond_liik_id_vaartus": [
+          "Piiririba",
+          "Piirivöönd ja piiriveekogu",
+          "Riigikaitselise ehitise piiranguvöönd",
+          "Sõjahaua kaitsevöönd"
+        ],
+        "power_lines_hv.nimipinge": [
+          "110",
+          "330"
+        ],
+        "ports.tyypnimi": [
+          "mitteametlik sadam",
+          "sadam",
+          "väikesadam",
+          "väikesadam tasuliste teenusteta"
+        ],
+        "main_roads.tyyp": [
+          "10"
+        ],
+        "railways.tyyp": [
+          "10"
+        ]
+      },
+      "problems": [],
+      "unknown_kept_unknown": "Mining claims with no underground flag are not treated as underground; airfields of other types are not counted as aerodromes in use."
+    },
+    {
+      "id": "source_result_complete",
+      "status": "passed",
+      "sources": {
+        "counties": {
+          "matched": 15,
+          "returned": 15
+        },
+        "municipalities": {
+          "matched": 78,
+          "returned": 78
+        },
+        "dense_settlements": {
+          "matched": 246,
+          "returned": 246
+        },
+        "sea": {
+          "matched": 472,
+          "returned": 472
+        },
+        "protected_areas": {
+          "matched": 841,
+          "returned": 841
+        },
+        "conservation_areas": {
+          "matched": 306,
+          "returned": 306
+        },
+        "natura_birds": {
+          "matched": 66,
+          "returned": 66
+        },
+        "natura_habitats": {
+          "matched": 539,
+          "returned": 539
+        },
+        "key_habitats": {
+          "matched": 17480,
+          "returned": 17480
+        },
+        "karst": {
+          "matched": 952,
+          "returned": 952
+        },
+        "flood_hazard": {
+          "matched": 16,
+          "returned": 16
+        },
+        "flood_risk_2024": {
+          "matched": 44,
+          "returned": 44
+        },
+        "groundwater_unprotected": {
+          "matched": 1208,
+          "returned": 1208
+        },
+        "green_network": {
+          "matched": 2210,
+          "returned": 2210
+        },
+        "karst_fields": {
+          "matched": 68,
+          "returned": 68
+        },
+        "faults_bedrock": {
+          "matched": 95,
+          "returned": 95
+        },
+        "faults_basement": {
+          "matched": 148,
+          "returned": 148
+        },
+        "mineral_deposits": {
+          "matched": 1023,
+          "returned": 1023
+        },
+        "mining_claims": {
+          "matched": 817,
+          "returned": 817
+        },
+        "undermined_oil_shale": {
+          "matched": 4458,
+          "returned": 4458
+        },
+        "undermined_phosphorite": {
+          "matched": 9,
+          "returned": 9
+        },
+        "hazardous_plants": {
+          "matched": 235,
+          "returned": 235
+        },
+        "airfields": {
+          "matched": 40,
+          "returned": 40
+        },
+        "defence_objects": {
+          "matched": 78,
+          "returned": 78
+        },
+        "defence_zones": {
+          "matched": 78,
+          "returned": 78
+        },
+        "heritage_monuments": {
+          "matched": 12520,
+          "returned": 12520
+        },
+        "power_lines_hv": {
+          "matched": 552,
+          "returned": 552
+        },
+        "ports": {
+          "matched": 266,
+          "returned": 266
+        },
+        "population_grid": {
+          "matched": 45668,
+          "returned": 45668
+        },
+        "main_roads": {
+          "matched": 7795,
+          "returned": 7795
+        },
+        "railways": {
+          "matched": 3637,
+          "returned": 3637
+        },
+        "gas_transmission_359": {
+          "matched": 68,
+          "returned": 68
+        },
+        "gas_transmission_3514": {
+          "matched": 20,
+          "returned": 20
+        },
+        "gas_transmission_3516": {
+          "matched": 56,
+          "returned": 56
+        },
+        "lakes": {
+          "matched": 2830,
+          "returned": 2830
+        },
+        "single_object_zones": {
+          "matched": 997,
+          "returned": 997
+        },
+        "heritage_zones": {
+          "matched": 14358,
+          "returned": 14358
+        },
+        "mires": {
+          "matched": 11514,
+          "returned": 11514
+        },
+        "dwellings": {
+          "matched": 285677,
+          "returned": 285677
+        },
+        "rep_sites": {
+          "matched": 6,
+          "returned": 6
+        },
+        "rep_site_areas": {
+          "matched": 6,
+          "returned": 6
+        },
+        "rep_planning_area": {
+          "matched": 1,
+          "returned": 1
+        }
+      },
+      "incomplete": [],
+      "hash_mismatch": [],
+      "records_dropped_as_unplaceable": {
+        "heritage_zones": 4
+      }
+    },
+    {
+      "id": "source_licenses_resolved",
+      "status": "warning",
+      "unresolved": [
+        "rep_sites",
+        "rep_site_areas",
+        "rep_planning_area"
+      ],
+      "reason": "No licence text is published for: rep_sites, rep_site_areas, rep_planning_area. Reuse terms must be confirmed with the publisher before redistribution."
+    },
+    {
+      "id": "overrides_applied",
+      "status": "passed",
+      "results": [],
+      "note": "The project declares no overrides."
+    },
+    {
+      "id": "manifest_graph_resolves",
+      "status": "passed",
+      "steps": 12,
+      "problems": []
+    },
+    {
+      "id": "view_controls_match_pipeline",
+      "status": "passed",
+      "controls": 53,
+      "problems": []
+    },
+    {
+      "id": "land_area_plausible",
+      "status": "passed",
+      "grid_km2": 43468.5,
+      "boundary_polygons_km2": 43464.4,
+      "ratio": 1.00009,
+      "note": "Geodesic area of the land cells against the planar EPSG:3301 area of the county polygons."
+    },
+    {
+      "id": "stored_units_reproduce_rules",
+      "status": "passed",
+      "differing_cells": {},
+      "note": "Distances are stored in whole units rounded down; every offered threshold is a multiple of its unit."
+    },
+    {
+      "id": "screen_monotonic",
+      "status": "passed",
+      "violations": [],
+      "thresholds_tested": 51,
+      "criteria_dropped": 13
+    },
+    {
+      "id": "candidate_areas_consistent",
+      "status": "passed",
+      "candidate_cells": 6914,
+      "areas": 95,
+      "smallest_area_ha": 97.1,
+      "areas_sum_ha": 46208.1,
+      "grid_sum_ha": 46207.9
+    },
+    {
+      "id": "official_sites_located",
+      "status": "passed",
+      "sites": 6,
+      "inside_planning_area": 6,
+      "max_sea_km": 3.71,
+      "note": "All six official sites lie in the official planning area and within 5 km of the sea, as the plan describes them."
+    },
+    {
+      "id": "manifest_report_parity",
+      "status": "passed",
+      "declared": 17,
+      "reported": 17,
+      "missing_or_repeated": [],
+      "undeclared": []
+    }
+  ],
+  "headline": {
+    "criteria_applied": [
+      "cooling_sea",
+      "underground_mining",
+      "faults",
+      "heritage",
+      "protected_areas",
+      "natura",
+      "conservation_areas",
+      "single_objects",
+      "key_habitats",
+      "dwellings",
+      "defence",
+      "water_bodies",
+      "land_border",
+      "land_area"
+    ],
+    "thresholds": {
+      "cooling_sea": 3,
+      "faults": 5,
+      "dwellings": 0.35,
+      "land_border": 5,
+      "land_area": 95
+    },
+    "land_km2": 43468.5,
+    "remaining_km2": 564.42,
+    "candidate_km2": 462.08,
+    "candidate_m2": 462079365,
+    "remaining_m2": 564416520,
+    "candidate_cells": 6914,
+    "remaining_cells": 8438,
+    "candidate_areas": 95,
+    "candidate_pct_of_land": 1.063
+  },
+  "inputs_hash": "sha256:976b0d88155d9193a8a75d400dc050f4874e216949069cc3979be49358eecdbd",
+  "outputs_hash": "sha256:4151fef6b5b7a94e9a182d950ef01fed29b9c060be14a8b4a0de9cb746a0a8d4"
+}

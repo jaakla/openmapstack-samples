@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en" data-oms-state="canonical">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__</title>
+<link rel="stylesheet" href="vendor/maplibre-gl.css">
+<style>
+/* openmapstack-views/0.1 · workspace · new: criterion row (switch + threshold + show-on-map), screening raster drawn from measured cell values */
+:root {
+  color-scheme: light;
+  --oms-bg: #f6f5f1; --oms-surface: #ffffff; --oms-surface-2: #efeee8; --oms-border: #d9d7ce; --oms-text: #15171a; --oms-text-muted: #5a5d63;
+  --oms-accent: #0b5cad; --oms-ok: #12805c; --oms-warn: #b86e00; --oms-error: #c2362f; --oms-exploratory: #8a4b00;
+  --oms-role-primary-result: #12805c; --oms-role-secondary-result: #8fd0b1; --oms-role-constraint: #c2362f; --oms-role-excluded: #4b5563;
+  --oms-role-source: #a3129b; --oms-role-context: #374151; --oms-role-warning: #b86e00;
+  --oms-entity-exclusion: #c2362f; --oms-entity-consideration: #c77700; --oms-entity-suitability: #2c6fbb;
+  --oms-ramp-seq-1: #d8efe4; --oms-ramp-seq-2: #8fd0b1; --oms-ramp-seq-3: #12805c;
+  --oms-font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --oms-font-data: ui-monospace, "SF Mono", Menlo, Consolas, monospace; --oms-font-display: var(--oms-font-body);
+  --oms-space-1: 4px; --oms-space-2: 8px; --oms-space-3: 12px; --oms-space-4: 16px; --oms-radius: 6px;
+  --explore-bg: #fff1d6;
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --oms-bg: #141516; --oms-surface: #1c1e20; --oms-surface-2: #26292c; --oms-border: #3a3e42; --oms-text: #ecebe6; --oms-text-muted: #a9acb1;
+  --oms-accent: #7db4ee; --oms-ok: #4cc79b; --oms-warn: #f0b04a; --oms-error: #f0827b; --oms-exploratory: #f0b04a;
+  --oms-role-primary-result: #35b98a; --oms-role-secondary-result: #2b6f58; --oms-role-constraint: #f0827b; --oms-role-excluded: #9aa3af;
+  --oms-role-source: #e58be0; --oms-role-context: #c3c7cd; --oms-role-warning: #f0b04a;
+  --oms-entity-exclusion: #f0827b; --oms-entity-consideration: #f0b04a; --oms-entity-suitability: #7db4ee;
+  --explore-bg: #3b2e12;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --oms-bg: #141516; --oms-surface: #1c1e20; --oms-surface-2: #26292c; --oms-border: #3a3e42; --oms-text: #ecebe6; --oms-text-muted: #a9acb1;
+    --oms-accent: #7db4ee; --oms-ok: #4cc79b; --oms-warn: #f0b04a; --oms-error: #f0827b; --oms-exploratory: #f0b04a;
+    --oms-role-primary-result: #35b98a; --oms-role-secondary-result: #2b6f58; --oms-role-constraint: #f0827b; --oms-role-excluded: #9aa3af;
+    --oms-role-source: #e58be0; --oms-role-context: #c3c7cd; --oms-role-warning: #f0b04a;
+    --oms-entity-exclusion: #f0827b; --oms-entity-consideration: #f0b04a; --oms-entity-suitability: #7db4ee;
+    --explore-bg: #3b2e12;
+  }
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { font: 14px/1.45 var(--oms-font-body); color: var(--oms-text); background: var(--oms-bg); display: flex; flex-direction: column; overflow: hidden; }
+header { display: flex; align-items: center; gap: var(--oms-space-3); padding: 9px var(--oms-space-4); border-bottom: 1px solid var(--oms-border); background: var(--oms-surface); flex-wrap: wrap; }
+header h1 { font-size: 16px; margin: 0; font-weight: 650; }
+.badge { font-size: 12px; padding: 2px 8px; border-radius: 10px; border: 1px solid var(--oms-border); color: var(--oms-text-muted); white-space: nowrap; }
+.badge.ok::before { content: "✓ "; color: var(--oms-ok); } .badge.warning::before { content: "⚠ "; color: var(--oms-warn); } .badge.failed::before { content: "✕ "; color: var(--oms-error); }
+[data-oms-exploratory] { display: none; background: var(--explore-bg); border: 1px solid var(--oms-exploratory); border-radius: var(--oms-radius); padding: 3px 8px; font-size: 12.5px; align-items: center; gap: 8px; }
+html[data-oms-state="exploratory"] [data-oms-exploratory] { display: inline-flex; }
+button, select, input { font: inherit; color: inherit; }
+button { background: var(--oms-surface); border: 1px solid var(--oms-border); border-radius: var(--oms-radius); padding: 3px 9px; cursor: pointer; }
+button:hover { border-color: var(--oms-text-muted); }
+button[aria-pressed="true"] { background: var(--oms-accent); border-color: var(--oms-accent); color: var(--oms-surface); }
+select { background: var(--oms-surface); border: 1px solid var(--oms-border); border-radius: var(--oms-radius); padding: 2px 4px; max-width: 100%; }
+a { color: var(--oms-accent); }
+main { flex: 1; display: flex; min-height: 0; }
+aside { width: 470px; max-width: 100%; display: flex; flex-direction: column; border-right: 1px solid var(--oms-border); min-height: 0; background: var(--oms-surface); }
+[role="tablist"] { display: flex; border-bottom: 1px solid var(--oms-border); }
+[role="tab"] { flex: 1; border: 0; border-radius: 0; border-bottom: 2px solid transparent; padding: 9px 4px; background: none; color: var(--oms-text-muted); }
+[role="tab"][aria-selected="true"] { color: var(--oms-text); border-bottom-color: var(--oms-accent); font-weight: 600; }
+[role="tabpanel"] { overflow: auto; padding: 4px var(--oms-space-4) 28px; flex: 1; min-height: 0; }
+[role="tabpanel"][hidden] { display: none; }
+details { border-bottom: 1px solid var(--oms-border); padding: 7px 0; }
+details > summary { cursor: pointer; font-weight: 600; padding: 3px 0; }
+.lead { font-size: 15px; margin: 8px 0 10px; }
+.lead b { font-size: 17px; }
+.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0; }
+.tile { background: var(--oms-surface-2); border-radius: 8px; padding: 9px 12px; }
+.tile .v { font-size: 22px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.tile .l { font-size: 12px; color: var(--oms-text-muted); }
+.small { font-size: 12.5px; color: var(--oms-text-muted); }
+.warn { background: var(--explore-bg); border-left: 3px solid var(--oms-warn); padding: 6px 10px; margin: 6px 0; border-radius: 0 6px 6px 0; font-size: 12.5px; }
+.chip { display: inline-block; font-size: 11px; line-height: 1.5; padding: 0 6px; border-radius: 9px; border: 1px solid currentColor; white-space: nowrap; }
+.chip.exclusion { color: var(--oms-entity-exclusion); } .chip.consideration { color: var(--oms-entity-consideration); } .chip.suitability { color: var(--oms-entity-suitability); }
+.chip.proxy, .chip.not_mapped, .chip.mapped { color: var(--oms-text-muted); }
+.group-title { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--oms-text-muted); margin: 12px 0 2px; }
+.crit { border-bottom: 1px solid var(--oms-border); padding: 7px 0; position: relative; }
+.crit .top { display: grid; grid-template-columns: 34px 1fr auto; gap: 8px; align-items: start; }
+.crit .name { font-weight: 550; }
+.crit .meta { font-size: 12px; color: var(--oms-text-muted); margin-top: 2px; display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.crit details { border: 0; padding: 2px 0 0; }
+.crit details summary { font-weight: 400; font-size: 12px; color: var(--oms-text-muted); }
+.crit details p { margin: 3px 0; font-size: 12.5px; }
+.crit.off .name { color: var(--oms-text-muted); }
+.switch { position: relative; width: 32px; height: 18px; display: inline-block; margin-top: 2px; }
+.switch input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; z-index: 1; }
+.switch span { position: absolute; inset: 0; background: var(--oms-border); border-radius: 9px; transition: background .12s; }
+.switch span::after { content: ""; position: absolute; left: 2px; top: 2px; width: 14px; height: 14px; border-radius: 50%; background: var(--oms-surface); transition: transform .12s; }
+.switch input:checked + span { background: var(--oms-accent); }
+.switch input:checked + span::after { transform: translateX(14px); }
+.switch input:focus-visible + span { outline: 2px solid var(--oms-accent); outline-offset: 2px; }
+.row { display: flex; align-items: center; gap: 8px; padding: 4px 0; }
+.sw { width: 18px; height: 12px; border-radius: 3px; flex: none; border: 1px solid transparent; }
+.bars { display: grid; grid-template-columns: auto 1fr auto; gap: 3px 8px; align-items: center; font-size: 12.5px; }
+.bars .bar { height: 8px; border-radius: 0 4px 4px 0; background: var(--oms-role-primary-result); min-width: 1px; }
+.bars .num { font-variant-numeric: tabular-nums; text-align: right; }
+ol.areas { list-style: none; padding: 0; margin: 6px 0; }
+ol.areas li { display: grid; grid-template-columns: 26px 1fr auto; gap: 8px; align-items: baseline; padding: 5px 4px; border-radius: 6px; cursor: pointer; }
+ol.areas li:hover { background: var(--oms-surface-2); }
+ol.areas .n { color: var(--oms-text-muted); font-variant-numeric: tabular-nums; }
+ol.areas .a { font-weight: 600; font-variant-numeric: tabular-nums; }
+.tablewrap { max-height: 360px; overflow: auto; border: 1px solid var(--oms-border); border-radius: 6px; margin-top: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+th, td { padding: 5px 8px; border-bottom: 1px solid var(--oms-border); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; max-width: 340px; overflow: hidden; text-overflow: ellipsis; }
+th { position: sticky; top: 0; background: var(--oms-surface-2); cursor: pointer; user-select: none; font-weight: 600; z-index: 2; }
+td.t, th.t { text-align: left; }
+th:first-child, td:first-child { text-align: left; position: sticky; left: 0; background: var(--oms-surface); z-index: 1; }
+th:first-child { z-index: 3; background: var(--oms-surface-2); }
+tr.clickable { cursor: pointer; }
+.dl a { margin-right: 10px; }
+.card { border: 1px solid var(--oms-border); border-radius: 6px; padding: 8px 10px; margin: 6px 0; font-size: 12.5px; }
+.card h4 { margin: 0 0 2px; font-size: 13px; }
+.kv { color: var(--oms-text-muted); }
+.check { display: grid; grid-template-columns: 18px 1fr; gap: 6px; padding: 3px 0; font-size: 12.5px; }
+.s-passed { color: var(--oms-ok); } .s-warning, .s-not_testable { color: var(--oms-warn); } .s-failed { color: var(--oms-error); }
+#mapwrap { flex: 1; position: relative; min-width: 0; }
+#map { position: absolute; inset: 0; }
+#legend { position: absolute; left: 10px; bottom: 34px; background: color-mix(in srgb, var(--oms-surface) 94%, transparent); border: 1px solid var(--oms-border); border-radius: 8px; padding: 8px 10px; font-size: 12px; max-width: 260px; }
+#legend h5 { margin: 0 0 4px; font-size: 12px; }
+#legend .row { padding: 1px 0; }
+#busy { position: absolute; left: 50%; top: 12px; transform: translateX(-50%); background: var(--oms-surface); border: 1px solid var(--oms-border); border-radius: 14px; padding: 3px 12px; font-size: 12.5px; z-index: 4; }
+.maplibregl-popup-content { background: var(--oms-surface); color: var(--oms-text); font: 12.5px/1.4 var(--oms-font-body); max-width: 320px; max-height: 320px; overflow: auto; }
+.maplibregl-popup-content h4 { margin: 0 0 4px; font-size: 13px; }
+.maplibregl-popup-content ul { margin: 4px 0; padding-left: 16px; }
+.maplibregl-ctrl-attrib { background: color-mix(in srgb, var(--oms-surface) 85%, transparent) !important; color: var(--oms-text); }
+.maplibregl-ctrl-attrib a { color: var(--oms-text); }
+@media (max-width: 860px) {
+  html, body { height: auto; }
+  body { overflow: auto; display: block; }
+  main { flex-direction: column-reverse; }
+  #mapwrap { flex: none; height: 56vh; position: relative; }
+  aside { width: 100%; border-right: 0; border-top: 1px solid var(--oms-border); min-height: 60vh; }
+  #legend { display: none; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">__TITLE__</h1>
+  <span class="badge" id="status"></span>
+  <span class="badge" id="runbadge"></span>
+  <span data-oms-exploratory><span>Exploratory view – not the accepted run</span><button type="button" data-oms-reset>Reset to accepted run</button></span>
+</header>
+<main>
+  <aside>
+    <div role="tablist" aria-label="Sections">
+      <button role="tab" id="tabbtn-result" aria-controls="tab-result" aria-selected="true">Result</button>
+      <button role="tab" id="tabbtn-criteria" aria-controls="tab-criteria" aria-selected="false">Criteria</button>
+      <button role="tab" id="tabbtn-map" aria-controls="tab-map" aria-selected="false">Map</button>
+      <button role="tab" id="tabbtn-provenance" aria-controls="tab-provenance" aria-selected="false">Provenance</button>
+    </div>
+    <section role="tabpanel" id="tab-result" aria-labelledby="tabbtn-result">
+      <div id="summary"></div>
+      <details open><summary>Official sites of the state special plan</summary><div id="sites"></div></details>
+      <details open><summary>Largest remaining areas</summary><div id="arealist"></div></details>
+      <details><summary>Remaining land by county</summary><div id="counties"></div></details>
+      <details><summary>Candidate areas of the accepted run (table)</summary><div id="tbl-candidate_areas_table"></div></details>
+      <details><summary>Download the tables</summary><div class="dl small">__DOWNLOADS__</div></details>
+      <details open><summary>Limits and sources of this screen</summary><div data-openmapstack-provenance><div data-testid="warnings">__WARNINGS__</div>
+        <p class="small"><b>Source providers:</b> __PROVIDERS__.</p>
+        <p class="small"><a href="findings.md">Findings of this run (findings.md)</a> · <a href="project.yaml">project.yaml</a> · <a href="criteria.yaml">criteria.yaml</a> · <a href="validation/latest-report.json">validation report</a></p></div></details>
+    </section>
+    <section role="tabpanel" id="tab-criteria" aria-labelledby="tabbtn-criteria" hidden>
+      <p class="small">Switch a criterion on to apply it to the screen. <b>Show</b> draws the cells that fail it. The accepted run applies the mapped exclusion criteria.</p>
+      <div class="row"><label for="focus" class="small">Shown on the map</label><select id="focus" data-oms-control="focus_criterion"></select></div>
+      <div id="critlist"></div>
+      <details><summary>Official criteria that are not mapped</summary><div id="unmapped"></div></details>
+      <details><summary>Criteria catalogue (table)</summary><div id="tbl-criteria_catalogue"></div></details>
+    </section>
+    <section role="tabpanel" id="tab-map" aria-labelledby="tabbtn-map" hidden>
+      <details open><summary>Layers</summary><div id="layers"></div></details>
+      <details open><summary>Legend</summary><div id="legend2"></div></details>
+      <details open><summary>Basemap</summary>
+        <div class="row" role="group" aria-label="Theme" id="theme"><button type="button" data-theme-value="auto" aria-pressed="true">Auto</button><button type="button" data-theme-value="light" aria-pressed="false">Light</button><button type="button" data-theme-value="dark" aria-pressed="false">Dark</button></div>
+        <p class="small" id="basemapnote"></p></details>
+    </section>
+    <section role="tabpanel" id="tab-provenance" aria-labelledby="tabbtn-provenance" hidden>
+      <div data-testid="provenance">
+        <!--__CREDITS__-->
+        <details><summary>Official documents behind the criteria</summary><div id="official"></div></details>
+        <details><summary>Sources</summary><div id="sourcelist"></div></details>
+        <details><summary>Assumptions</summary><div id="assumptions"></div></details>
+        <details><summary>Processing steps</summary><div id="steps"></div></details>
+        <details open><summary>Validation</summary><div id="validation"></div></details>
+        <details><summary>Official sites check (table)</summary><div id="tbl-official_sites_check"></div></details>
+        <details><summary>Counties (table)</summary><div id="tbl-county_summary"></div></details>
+        <details><summary>Outputs</summary><div id="outputs"></div></details>
+      </div>
+    </section>
+  </aside>
+  <div id="mapwrap"><div id="map"></div><div id="busy">Loading the screening grid…</div><div id="legend" data-testid="legend"></div></div>
+</main>
+<script id="openmapstack-view" type="application/json">/*__VIEW_METADATA__*/</script>
+<script src="vendor/maplibre-gl.js"></script>
+<script>
+"use strict";
+const P = /*__PAYLOAD__*/null;
+const GRID_BLOB = "__GRID_BLOB__";
+const $ = (id) => document.getElementById(id);
+const fmt = (n, d = 0) => Number(n).toLocaleString("en-GB", { maximumFractionDigits: d, minimumFractionDigits: d });
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const G = P.grid, ROWS = G.rows, COLS = G.cols, RA = G.row_area_m2;
+const CRIT = P.criteria.filter((c) => c.status !== "not_mapped");
+const CELL_RULES = CRIT.filter((c) => c.rule.kind !== "min_area");
+const AREA_RULE = CRIT.find((c) => c.rule.kind === "min_area");
+const BY_ID = Object.fromEntries(CRIT.map((c) => [c.id, c]));
+const CLASS_LABEL = { exclusion: "Exclusion", consideration: "Consideration", suitability: "Suitability" };
+const CANON = { apply: {}, threshold: {}, focus: "none" };
+for (const c of CRIT) { CANON.apply[c.id] = !!c.canonical; if (c.rule.options) CANON.threshold[c.id] = c.rule.threshold; }
+const state = { apply: { ...CANON.apply }, threshold: { ...CANON.threshold }, focus: "none", theme: "auto", groups: {} };
+for (const g of P.layer_groups) state.groups[g.id] = true;
+state.groups.reference = false;
+let D = null, N = 0, LR, LC, IDX, result = null, map = null, mapReady = false;
+
+// ---------- header ----------
+const st = P.run.status;
+$("status").textContent = st === "passed" ? "Validated" : st === "warning" ? "Validated with warnings" : "Validation failed";
+$("status").classList.add(st === "passed" ? "ok" : st);
+$("runbadge").textContent = P.run.id;
+
+// ---------- tabs ----------
+const tabs = [...document.querySelectorAll('[role="tab"]')];
+function openTab(id) {
+  for (const t of tabs) { const on = t.id === "tabbtn-" + id; t.setAttribute("aria-selected", on); $(t.getAttribute("aria-controls")).hidden = !on; }
+}
+tabs.forEach((t) => t.addEventListener("click", () => openTab(t.id.slice(7))));
+
+// ---------- grid data ----------
+async function loadGrid() {
+  const bin = Uint8Array.from(atob(GRID_BLOB), (ch) => ch.charCodeAt(0));
+  const buf = await new Response(new Blob([bin]).stream().pipeThrough(new DecompressionStream("gzip"))).arrayBuffer();
+  const T = { uint8: Uint8Array, uint16: Uint16Array, uint32: Uint32Array };
+  const out = {};
+  for (const a of G.layout) out[a.name] = new T[a.dtype](buf, a.offset, a.length);
+  return out;
+}
+function indexLand() {
+  IDX = new Int32Array(ROWS * COLS).fill(-1);
+  let n = 0;
+  for (let k = 0; k < ROWS * COLS; k++) if (D.land[k >> 3] & (128 >> (k & 7))) IDX[k] = n++;
+  N = n; LR = new Uint16Array(N); LC = new Uint16Array(N);
+  for (let k = 0; k < ROWS * COLS; k++) { const i = IDX[k]; if (i >= 0) { LR[i] = (k / COLS) | 0; LC[i] = k % COLS; } }
+}
+
+// ---------- rules: re-applied to the values the pipeline measured ----------
+const failCache = {};
+function failArray(c, threshold) {
+  const key = c.id + "@" + threshold;
+  if (failCache[key]) return failCache[key];
+  const out = new Uint8Array(N), r = c.rule;
+  if (r.kind === "flag") { const bit = 1 << G.flags.indexOf(r.measure), f = D.flags; for (let i = 0; i < N; i++) out[i] = f[i] & bit ? 1 : 0; }
+  else if (r.kind === "closer_than" || r.kind === "farther_than") {
+    const q = D[r.measure], steps = Math.round(threshold * 1000 / G.distance_unit_m[r.measure]);
+    if (r.kind === "closer_than") for (let i = 0; i < N; i++) out[i] = q[i] < steps ? 1 : 0;
+    else for (let i = 0; i < N; i++) out[i] = q[i] >= steps ? 1 : 0;
+  } else if (r.kind === "at_least") {
+    const v = D[r.measure], t = r.measure === "pop_5km" ? threshold / G.pop_5km_unit : threshold;
+    for (let i = 0; i < N; i++) out[i] = v[i] >= t ? 1 : 0;
+  }
+  return (failCache[key] = out);
+}
+const thresholdOf = (c) => (c.rule.options ? state.threshold[c.id] : null);
+function failArea(c) { const f = failArray(c, thresholdOf(c)); let m2 = 0; for (let i = 0; i < N; i++) if (f[i]) m2 += RA[LR[i]]; return m2; }
+
+function compute() {
+  const count = new Uint8Array(N);
+  for (const c of CELL_RULES) if (state.apply[c.id]) { const f = failArray(c, thresholdOf(c)); for (let i = 0; i < N; i++) count[i] += f[i]; }
+  // Enough contiguous land: remaining cells joined edge to edge.
+  const label = new Int32Array(N).fill(-1), stack = new Int32Array(N), comps = [];
+  for (let s = 0; s < N; s++) {
+    if (count[s] || label[s] >= 0) continue;
+    let top = 0, area = 0, cells = 0, sr = 0, sc = 0;
+    const id = comps.length; stack[top++] = s; label[s] = id;
+    while (top) {
+      const i = stack[--top], r = LR[i], c = LC[i]; area += RA[r]; cells++; sr += r; sc += c;
+      let j;
+      if (r > 0 && (j = IDX[(r - 1) * COLS + c]) >= 0 && !count[j] && label[j] < 0) { label[j] = id; stack[top++] = j; }
+      if (r < ROWS - 1 && (j = IDX[(r + 1) * COLS + c]) >= 0 && !count[j] && label[j] < 0) { label[j] = id; stack[top++] = j; }
+      if (c > 0 && (j = IDX[r * COLS + c - 1]) >= 0 && !count[j] && label[j] < 0) { label[j] = id; stack[top++] = j; }
+      if (c < COLS - 1 && (j = IDX[r * COLS + c + 1]) >= 0 && !count[j] && label[j] < 0) { label[j] = id; stack[top++] = j; }
+    }
+    comps.push({ id, area, cells, r: sr / cells, c: sc / cells, first: s });
+  }
+  const minM2 = state.apply[AREA_RULE.id] ? state.threshold[AREA_RULE.id] * 10000 : 0;
+  const keep = comps.map((k) => k.area >= minM2);
+  let remainingM2 = 0, candidateM2 = 0, landM2 = 0;
+  const county = new Float64Array(G.counties.length);
+  for (let i = 0; i < N; i++) {
+    const a = RA[LR[i]]; landM2 += a;
+    if (!count[i]) { remainingM2 += a; if (keep[label[i]]) { candidateM2 += a; county[D.county[i]] += a; } }
+  }
+  const areas = comps.filter((k, n) => keep[n]).sort((a, b) => b.area - a.area || a.first - b.first);
+  return { count, label, keep, comps, areas, remainingM2, candidateM2, landM2, county };
+}
+
+// ---------- state ----------
+function isCanonical() {
+  return CRIT.every((c) => state.apply[c.id] === CANON.apply[c.id] && (!c.rule.options || state.threshold[c.id] === CANON.threshold[c.id]));
+}
+function reset() { state.apply = { ...CANON.apply }; state.threshold = { ...CANON.threshold }; state.focus = "none"; refresh(); }
+document.querySelector("[data-oms-reset]").addEventListener("click", reset);
+
+function refresh() {
+  if (!D) return;
+  result = compute();
+  document.documentElement.dataset.omsState = isCanonical() ? "canonical" : "exploratory";
+  syncControls(); renderSummary(); renderAreaList(); renderCounties(); renderLegend(); drawRasters(); applyVisibility();
+}
+
+// ---------- map drawing ----------
+const hex = (h) => [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)];
+const canvases = { screen: document.createElement("canvas"), focus: document.createElement("canvas") };
+for (const c of Object.values(canvases)) { c.width = COLS; c.height = ROWS; }
+const B = G.bounds, CORNERS = [[B[0], B[3]], [B[2], B[3]], [B[2], B[1]], [B[0], B[1]]];
+function paint(canvas, colourOf) {
+  const ctx = canvas.getContext("2d"), img = ctx.createImageData(COLS, ROWS), px = img.data;
+  for (let i = 0; i < N; i++) { const col = colourOf(i); if (!col) continue; const o = (LR[i] * COLS + LC[i]) * 4; px[o] = col[0]; px[o + 1] = col[1]; px[o + 2] = col[2]; px[o + 3] = col[3]; }
+  ctx.putImageData(img, 0, 0);
+  return canvas.toDataURL("image/png");
+}
+function drawRasters() {
+  if (!mapReady || !result) return;
+  const cand = [...hex(P.style.candidate), 235], small = [...hex(P.style.remaining_small), 215], excl = [...hex(P.style.excluded), 70];
+  const { count, label, keep } = result;
+  setRaster("screen", paint(canvases.screen, (i) => (count[i] ? excl : keep[label[i]] ? cand : small)), 0.8);
+  // The selected-criterion overlay exists only while a criterion is selected.
+  if (state.focus === "none") { if (map.getLayer("focus")) { map.removeLayer("focus"); map.removeSource("focus"); } return; }
+  const c = BY_ID[state.focus], f = failArray(c, thresholdOf(c)), col = [...hex(P.style[c.class]), 150];
+  setRaster("focus", paint(canvases.focus, (i) => (f[i] ? col : null)), 0.9);
+}
+function setRaster(id, url, opacity) {
+  if (map.getSource(id)) { map.getSource(id).updateImage({ url, coordinates: CORNERS }); return; }
+  map.addSource(id, { type: "image", url, coordinates: CORNERS });
+  // Below the vector layers; the selected criterion above the screening result.
+  map.addLayer({ id, type: "raster", source: id, paint: { "raster-resampling": "nearest", "raster-opacity": opacity, "raster-fade-duration": 0 } },
+    id === "screen" && map.getLayer("focus") ? "focus" : "areas-line");
+}
+const darkNow = () => state.theme === "dark" || (state.theme === "auto" && matchMedia("(prefers-color-scheme: dark)").matches);
+const LAYERS_OF = { screen: ["screen"], areas: ["areas-line"], sites: ["planning-line", "sites-fill", "sites-line", "sites-label"], reference: ["ref-grid", "ref-fault", "ref-point"] };
+function addLayers() {
+  const S = P.style;
+  map.addSource("areas", { type: "geojson", data: P.data.areas });
+  map.addSource("sites", { type: "geojson", data: P.data.sites });
+  map.addSource("reference", { type: "geojson", data: P.data.reference });
+  map.addLayer({ id: "areas-line", type: "line", source: "areas", paint: { "line-color": darkNow() ? "#d8efe4" : S.area_outline, "line-width": ["interpolate", ["linear"], ["zoom"], 6, 0.6, 11, 1.6] } });
+  map.addLayer({ id: "ref-grid", type: "line", source: "reference", filter: ["==", ["get", "kind"], "330 kV line"], paint: { "line-color": "#6d28d9", "line-width": 1.3 } });
+  map.addLayer({ id: "ref-fault", type: "line", source: "reference", filter: ["==", ["get", "kind"], "Bedrock fault"], paint: { "line-color": "#92400e", "line-width": 1.3, "line-dasharray": [3, 2] } });
+  map.addLayer({ id: "ref-point", type: "circle", source: "reference", filter: ["==", ["geometry-type"], "Point"],
+    paint: { "circle-radius": 4.5, "circle-stroke-width": 1.2, "circle-stroke-color": "#ffffff",
+      "circle-color": ["match", ["get", "kind"], "Hazardous establishment (A or B)", "#b45309", "Port", "#0369a1", "State or military aerodrome", "#111827", "#6b7280"] } });
+  map.addLayer({ id: "planning-line", type: "line", source: "reference", filter: ["==", ["get", "kind"], "REP planning area"], paint: { "line-color": S.planning_area, "line-width": 1.4, "line-dasharray": [4, 3] } });
+  map.addLayer({ id: "sites-fill", type: "fill", source: "sites", paint: { "fill-color": ["match", ["get", "rep_status"], "under assessment", S.site_active, S.site_dropped], "fill-opacity": 0.12 } });
+  map.addLayer({ id: "sites-line", type: "line", source: "sites", paint: { "line-color": ["match", ["get", "rep_status"], "under assessment", S.site_active, S.site_dropped], "line-width": 2.2 } });
+  map.addLayer({ id: "sites-label", type: "symbol", source: "sites", minzoom: 8, layout: { "text-field": ["get", "site"], "text-size": 12, "text-offset": [0, 1.6], "text-font": ["Noto Sans Medium"] },
+    paint: { "text-color": darkNow() ? "#f5d0f3" : "#6b0f66", "text-halo-color": darkNow() ? "#141516" : "#ffffff", "text-halo-width": 1.4 } });
+  mapReady = true; drawRasters(); applyVisibility();
+}
+function applyVisibility() {
+  if (!mapReady) return;
+  for (const [group, ids] of Object.entries(LAYERS_OF)) for (const id of ids) {
+    // The outlines belong to the accepted run; off it, the raster alone shows the areas.
+    const on = state.groups[group] && !(group === "areas" && !isCanonical());
+    if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", on ? "visible" : "none");
+  }
+}
+function initMap() {
+  map = new maplibregl.Map({ container: "map", style: darkNow() ? P.basemap.dark_url : P.basemap.url, bounds: [[21.6, 57.45], [28.35, 59.75]], attributionControl: false });
+  map.addControl(new maplibregl.AttributionControl({ compact: false, customAttribution: P.basemap.attribution }));
+  map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
+  map.addControl(new maplibregl.ScaleControl({ unit: "metric" }), "bottom-right");
+  map.on("style.load", () => { mapReady = false; addLayers(); });
+  map.on("click", onMapClick);
+  // A redraw that overtakes an image still loading aborts that load; that is not an error.
+  map.on("error", (e) => { if (!/abort/i.test(String(e.error && e.error.message))) console.error(e.error); });
+  window.__map = map;
+}
+const R = 6378137;
+const lonLatOf = (r, c) => { const x = G.x0 + (c + 0.5) * G.cell, y = G.y1 - (r + 0.5) * G.cell; return [x / R * 180 / Math.PI, Math.atan(Math.sinh(y / R)) * 180 / Math.PI]; };
+function cellAt(lngLat) {
+  const x = lngLat.lng * Math.PI / 180 * R, y = Math.log(Math.tan(Math.PI / 4 + lngLat.lat * Math.PI / 360)) * R;
+  const c = Math.floor((x - G.x0) / G.cell), r = Math.floor((G.y1 - y) / G.cell);
+  return r >= 0 && r < ROWS && c >= 0 && c < COLS ? IDX[r * COLS + c] : -1;
+}
+function distanceText(c, i) {
+  const u = G.distance_unit_m[c.rule.measure], q = D[c.rule.measure][i];
+  return q >= G.distance_cap ? "at least " + fmt(q * u / 1000, 1) + " km" : fmt(q * u / 1000, u < 100 ? 2 : 1) + "–" + fmt((q + 1) * u / 1000, u < 100 ? 2 : 1) + " km";
+}
+function onMapClick(e) {
+  if (!D) return;
+  const hits = map.queryRenderedFeatures(e.point, { layers: ["sites-fill", "ref-point"].filter((l) => map.getLayer(l)) });
+  let html = "";
+  for (const f of hits.slice(0, 2)) {
+    if (f.layer.id === "sites-fill") {
+      const row = P.tables.official_sites_check.rows.find((r) => r.site === f.properties.site);
+      html += `<h4>Official site: ${esc(row.site)}</h4><div class="kv">${esc(row.rep_status)} · ${esc(row.municipality)}</div><div>${fmt(row.share_remaining_pct, 0)} % of its 95 ha area remains in the accepted run.</div>` +
+        (row.main_exclusions_in_area ? `<div class="kv">Exclusions inside: ${esc(row.main_exclusions_in_area)}</div>` : "") + `<div class="kv">Source: state special plan map service (Skepast&amp;Puhkim for MKM)</div><hr>`;
+    } else html += `<h4>${esc(f.properties.name)}</h4><div class="kv">${esc(f.properties.kind)}</div><hr>`;
+  }
+  const i = cellAt(e.lngLat);
+  if (i >= 0) {
+    const failed = CELL_RULES.filter((c) => failArray(c, thresholdOf(c))[i]);
+    const applied = failed.filter((c) => state.apply[c.id]), other = failed.filter((c) => !state.apply[c.id]);
+    const comp = result.count[i] ? null : result.comps[result.label[i]];
+    const verdict = result.count[i] ? `<b style="color:var(--oms-role-constraint)">Excluded</b> by ${applied.length} applied criteri${applied.length === 1 ? "on" : "a"}`
+      : result.keep[result.label[i]] ? `<b style="color:var(--oms-role-primary-result)">Remaining</b>, in an area of ${fmt(comp.area / 1e4, 0)} ha`
+      : `Remaining, but its area is only ${fmt(comp.area / 1e4, 0)} ha`;
+    const line = (c) => `<li>${c.class === "suitability" ? "Not met: " : ""}${esc(c.name)}${c.rule.measure && c.rule.measure.startsWith("d_") ? ` <span class="kv">(${distanceText(c, i)})</span>` : ""}</li>`;
+    html += `<h4>Grid cell · ${esc(G.municipalities[D.muni[i]] ?? "")}, ${esc(G.counties[D.county[i]])}</h4><div>${verdict}</div>` +
+      (applied.length ? `<ul>${applied.map(line).join("")}</ul>` : "") +
+      (other.length ? `<div class="kv">Also fails, not applied:</div><ul>${other.map(line).join("")}</ul>` : "") +
+      `<div class="kv">Sea ${distanceText(BY_ID.cooling_sea, i)} · height ${D.elevation_m[i]} m · ${fmt(D.pop_5km[i] * G.pop_5km_unit)} residents within 5 km · nearest dwelling ${distanceText(BY_ID.dwellings, i)}</div>` +
+      `<div class="kv">Measured at the cell centre, EPSG:3301 · run ${esc(P.run.id)}</div>`;
+  }
+  if (html) new maplibregl.Popup({ maxWidth: "320px" }).setLngLat(e.lngLat).setHTML(html).addTo(map);
+}
+
+// ---------- result tab ----------
+function renderSummary() {
+  const r = result, canon = isCanonical(), applied = CRIT.filter((c) => state.apply[c.id]);
+  const minArea = state.apply[AREA_RULE.id] ? state.threshold[AREA_RULE.id] : 0;
+  const pub = P.facts.canonical;
+  const match = canon ? (Math.round(r.candidateM2) === pub.candidate_m2 && Math.round(r.remainingM2) === pub.remaining_m2 && r.areas.length === pub.candidate_areas) : null;
+  document.documentElement.dataset.recompute = match === null ? "exploratory" : match ? "ok" : "mismatch";
+  $("summary").innerHTML = `
+    <p class="lead"><b>${fmt(r.candidateM2 / 1e6)} km²</b> of Estonia's land (${fmt(100 * r.candidateM2 / r.landM2, 2)} %) remains when ${applied.length} criteri${applied.length === 1 ? "on is" : "a are"} applied, in <b>${fmt(r.areas.length)}</b> area${r.areas.length === 1 ? "" : "s"}${minArea ? ` of at least ${minArea} ha` : ""}.</p>
+    <div class="tiles">
+      <div class="tile"><div class="v">${fmt(r.landM2 / 1e6)}</div><div class="l">km² of land screened</div></div>
+      <div class="tile"><div class="v">${fmt(r.remainingM2 / 1e6)}</div><div class="l">km² pass every applied cell criterion</div></div>
+      <div class="tile"><div class="v">${fmt(r.candidateM2 / 1e6)}</div><div class="l">km² in areas large enough</div></div>
+      <div class="tile"><div class="v">${fmt(r.areas.length)}</div><div class="l">contiguous areas</div></div>
+    </div>
+    <p class="small">${canon ? "Accepted run: every mapped exclusion criterion at its official threshold. " + (match ? "Recomputed in this page from the measured cell values; it matches the pipeline's result." : '<b class="s-failed">The page\'s recomputation differs from the pipeline result.</b>')
+      : "Exploratory: the criteria or thresholds differ from the accepted run."} A remaining cell has not failed a mapped criterion; it is not thereby a suitable site.</p>`;
+}
+function flyToCell(r, c, zoom = 10.5) { map.flyTo({ center: lonLatOf(r, c), zoom }); }
+function renderAreaList() {
+  const top = result.areas.slice(0, 15);
+  const cell = (k) => { const i = IDX[Math.round(k.r) * COLS + Math.round(k.c)]; const j = i >= 0 ? i : k.first; return `${esc(G.municipalities[D.muni[j]] ?? "")}, ${esc(G.counties[D.county[j]])}`; };
+  $("arealist").innerHTML = top.length ? `<ol class="areas">${top.map((k, n) => `<li data-r="${k.r}" data-c="${k.c}"><span class="n">${n + 1}</span><span>${cell(k)}</span><span class="a">${fmt(k.area / 1e4)} ha</span></li>`).join("")}</ol>
+    <p class="small">${result.areas.length > 15 ? `The 15 largest of ${fmt(result.areas.length)}. ` : ""}Size is not suitability. Click to zoom.</p>` : '<p class="small">No area remains.</p>';
+  $("arealist").querySelectorAll("li").forEach((li) => li.addEventListener("click", () => flyToCell(+li.dataset.r, +li.dataset.c)));
+}
+function renderCounties() {
+  const rows = G.counties.map((name, i) => ({ name, km2: result.county[i] / 1e6 })).sort((a, b) => b.km2 - a.km2);
+  const max = Math.max(1e-9, rows[0].km2);
+  $("counties").innerHTML = `<div class="bars">${rows.map((r) => `<span>${esc(r.name)}</span><span class="bar" style="width:${(100 * r.km2 / max).toFixed(1)}%"></span><span class="num">${fmt(r.km2, 1)} km²</span>`).join("")}</div>`;
+}
+function renderSites() {
+  const rows = [...P.tables.official_sites_check.rows].sort((a, b) => (a.rep_status !== "under assessment") - (b.rep_status !== "under assessment") || a.site.localeCompare(b.site));
+  $("sites").innerHTML = `<p class="small">The six candidate sites published for the state special plan, checked against the accepted run. Each is a 95 ha area.</p>` +
+    rows.map((r) => `<div class="card" data-lon="${r.lon}" data-lat="${r.lat}" style="cursor:pointer;border-left:3px solid ${r.rep_status === "under assessment" ? P.style.site_active : P.style.site_dropped}">
+      <h4>${esc(r.site)} <span class="kv">· ${esc(r.municipality)} · ${esc(r.rep_status)}</span></h4>
+      <div><b>${fmt(r.share_remaining_pct, 0)} %</b> of the area remains (${r.cells_remaining} of ${r.cells_in_95ha_area} cells)${r.centre_fails ? ` · centre fails: ${esc(r.centre_fails)}` : ""}</div>
+      <div class="kv">Sea ${fmt(r.sea_km, 2)} km · height ${r.elevation_m} m · 330 kV line ${fmt(r.grid_330kv_km, 1)} km · ${fmt(r.residents_5km)} residents within 5 km</div></div>`).join("");
+  $("sites").querySelectorAll(".card").forEach((el) => el.addEventListener("click", () => map.flyTo({ center: [+el.dataset.lon, +el.dataset.lat], zoom: 11.5 })));
+}
+
+// ---------- criteria tab ----------
+function buildCriteria() {
+  $("focus").innerHTML = `<option value="none">No single criterion</option>` + CELL_RULES.map((c) => `<option value="${c.id}">${esc(c.name)}</option>`).join("");
+  $("focus").addEventListener("change", (e) => { state.focus = e.target.value; refresh(); });
+  let html = "";
+  for (const g of P.groups) {
+    const list = CRIT.filter((c) => c.group === g.id);
+    if (!list.length) continue;
+    html += `<div class="group-title">${esc(g.title)}</div>`;
+    for (const c of list) {
+      const r = c.rule, isArea = r.kind === "min_area";
+      const select = r.options ? `<select data-oms-control="threshold_${c.id}" aria-label="Threshold: ${esc(c.name)}">${r.options.map((o) => `<option value="${o}">${o} ${esc(r.unit)}</option>`).join("")}</select>` : "";
+      const word = { closer_than: "closer than", farther_than: "farther than", at_least: "at least", min_area: "area below" }[r.kind];
+      html += `<div class="crit" id="crit-${c.id}"><div class="top">
+          <label class="switch"><input type="checkbox" data-oms-control="apply_${c.id}" aria-label="Apply: ${esc(c.name)}"><span></span></label>
+          <div><div class="name">${esc(c.name)}</div>
+            <div class="meta"><span class="chip ${c.class}">${CLASS_LABEL[c.class]}</span>${c.status === "proxy" ? '<span class="chip proxy">stand-in data</span>' : ""}
+              ${word ? `<span>fails when ${word}</span>${select}` : ""}<span id="fails-${c.id}"></span></div></div>
+          ${isArea ? "" : `<button type="button" data-show="${c.id}" aria-pressed="false" title="Draw the cells that fail this criterion">Show</button>`}
+        </div>
+        <details><summary>${c.origin === "rep_screening" ? `Official screening table, row ${c.ref}` : c.origin === "analysis_2023" ? `2023 nationwide analysis, criterion ${c.ref}` : "Added by this project"} · details</summary>
+          <p><i>${esc(c.name_et)}</i></p><p><b>Official threshold:</b> ${esc(c.official_threshold)}</p><p><b>How it is mapped here:</b> ${esc(c.note)}</p>
+          <p class="kv">Sources: ${c.sources.length ? c.sources.map(esc).join(", ") : "derived from the other criteria"}</p></details></div>`;
+    }
+  }
+  $("critlist").innerHTML = html;
+  for (const c of CRIT) {   // controls open at the accepted run before the grid has loaded
+    document.querySelector(`[data-oms-control="apply_${c.id}"]`).checked = state.apply[c.id];
+    const sel = document.querySelector(`[data-oms-control="threshold_${c.id}"]`); if (sel) sel.value = String(state.threshold[c.id]);
+  }
+  $("critlist").addEventListener("change", (e) => {
+    const id = e.target.dataset.omsControl; if (!id) return;
+    if (id.startsWith("apply_")) state.apply[id.slice(6)] = e.target.checked;
+    else if (id.startsWith("threshold_")) state.threshold[id.slice(10)] = Number(e.target.value);
+    refresh();
+  });
+  $("critlist").addEventListener("click", (e) => {
+    const id = e.target.dataset.show; if (!id) return;
+    state.focus = state.focus === id ? "none" : id; refresh();
+  });
+  const not = P.criteria.filter((c) => c.status === "not_mapped");
+  $("unmapped").innerHTML = `<p class="small">${not.length} criteria of the official tables play no part in this screen. ${not.filter((c) => c.class === "exclusion").length} of them are exclusion criteria.</p>` +
+    not.map((c) => `<div class="card"><h4>${esc(c.name)} <span class="chip ${c.class}">${CLASS_LABEL[c.class]}</span></h4><div class="kv"><i>${esc(c.name_et)}</i>${c.origin === "rep_screening" ? ` · screening table row ${c.ref}` : ` · 2023 analysis criterion ${c.ref}`}</div>
+      <div><b>Official threshold:</b> ${esc(c.official_threshold)}</div><div><b>Why not mapped:</b> ${esc(c.note)}</div></div>`).join("");
+}
+function syncControls() {
+  for (const c of CRIT) {
+    const box = document.querySelector(`[data-oms-control="apply_${c.id}"]`); box.checked = state.apply[c.id];
+    $("crit-" + c.id).classList.toggle("off", !state.apply[c.id]);
+    const sel = document.querySelector(`[data-oms-control="threshold_${c.id}"]`); if (sel) sel.value = String(state.threshold[c.id]);
+    const show = document.querySelector(`[data-show="${c.id}"]`); if (show) show.setAttribute("aria-pressed", state.focus === c.id);
+    const out = $("fails-" + c.id);
+    if (c.rule.kind !== "min_area") out.textContent = `· ${fmt(100 * failArea(c) / result.landM2, 1)} % of land fails`;
+    else out.textContent = `· removes ${fmt((result.remainingM2 - result.candidateM2) / 1e6, 1)} km²`;
+  }
+  $("focus").value = state.focus;
+  document.querySelectorAll("[data-oms-layer-group]").forEach((b) => { b.checked = state.groups[b.dataset.omsLayerGroup]; });
+}
+
+// ---------- map tab ----------
+function buildLayers() {
+  $("layers").innerHTML = P.layer_groups.map((g) => `<div class="row"><label class="switch"><input type="checkbox" data-oms-layer-group="${g.id}" aria-label="${esc(g.title)}"><span></span></label><span>${esc(g.title)}</span></div>`).join("") +
+    `<p class="small">Area outlines are drawn for the accepted run only. Click the map for the measured values of a cell.</p>`;
+  $("layers").addEventListener("change", (e) => { const g = e.target.dataset.omsLayerGroup; if (!g) return; state.groups[g] = e.target.checked; applyVisibility(); renderLegend(); });
+  $("theme").addEventListener("click", (e) => {
+    const v = e.target.dataset.themeValue; if (!v) return;
+    state.theme = v; $("theme").querySelectorAll("button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.themeValue === v));
+    if (v === "auto") delete document.documentElement.dataset.theme; else document.documentElement.dataset.theme = v;
+    map.setStyle(darkNow() ? P.basemap.dark_url : P.basemap.url);
+  });
+  $("basemapnote").textContent = P.basemap.attribution + ". " + P.basemap.note;
+}
+function renderLegend() {
+  const S = P.style, row = (css, text) => `<div class="row"><span class="sw" style="${css}"></span><span>${text}</span></div>`;
+  let h = "<h5>Screening result</h5>" +
+    row(`background:${S.candidate}`, "Remaining, in an area large enough") + row(`background:${S.remaining_small}`, "Remaining, area too small") +
+    row(`background:${S.excluded};opacity:.35`, "Excluded by an applied criterion");
+  if (state.focus !== "none") { const c = BY_ID[state.focus]; h += `<h5 style="margin-top:6px">Selected criterion</h5>` + row(`background:${S[c.class]};opacity:.7`, `Fails: ${esc(c.name)}`); }
+  h += `<h5 style="margin-top:6px">Official plan (source, not a result)</h5>` + row(`border:2px solid ${S.site_active}`, "Site under assessment (95 ha)") + row(`border:2px solid ${S.site_dropped}`, "Site dropped in October 2026") +
+    row(`border:1.5px dashed ${S.planning_area}`, "Planning area");
+  if (state.groups.reference) h += `<h5 style="margin-top:6px">Reference features</h5>` + row("background:#6d28d9;height:3px", "330 kV line") + row("border-top:2px dashed #92400e;height:0", "Bedrock fault") +
+    row("background:#b45309;border-radius:50%;width:10px;height:10px", "Hazardous establishment (A or B)") + row("background:#111827;border-radius:50%;width:10px;height:10px", "State or military aerodrome") +
+    row("background:#6b7280;border-radius:50%;width:10px;height:10px", "Other airfield") + row("background:#0369a1;border-radius:50%;width:10px;height:10px", "Port");
+  $("legend").innerHTML = h; $("legend2").innerHTML = h;
+}
+
+// ---------- tables ----------
+function buildTable(key, onRow) {
+  const T = P.tables[key], host = $("tbl-" + key); let sort = T.default_sort, dir = key === "county_summary" ? -1 : 1, filter = "";
+  const isText = (c) => c.type === "string" || c.type === "boolean";
+  function draw() {
+    const q = filter.toLowerCase();
+    const rows = T.rows.filter((r) => !q || T.columns.some((c) => String(r[c.name] ?? "").toLowerCase().includes(q)))
+      .sort((a, b) => { const x = a[sort], y = b[sort]; return (x == null) - (y == null) || (typeof x === "number" && typeof y === "number" ? x - y : String(x).localeCompare(String(y))) * dir; });
+    host.querySelector("tbody").innerHTML = rows.map((r, n) => `<tr class="${onRow ? "clickable" : ""}" data-n="${T.rows.indexOf(r)}">${T.columns.map((c) => {
+      const v = r[c.name]; const text = v == null ? "–" : c.type === "number" ? fmt(v, Number.isInteger(v) ? 0 : (Math.abs(v) < 10 ? 2 : 1)) : c.type === "boolean" ? (v ? "yes" : "no") : esc(v);
+      return `<td class="${isText(c) ? "t" : ""}" title="${isText(c) ? esc(v ?? "") : ""}">${text}</td>`; }).join("")}</tr>`).join("");
+    host.querySelector(".count").textContent = `${rows.length} of ${T.rows.length} rows`;
+  }
+  host.innerHTML = `<p class="small">${esc(T.title)}. <span class="count"></span></p>${T.rows.length > 20 ? '<input type="search" placeholder="Find in table" aria-label="Find in table" style="width:100%;padding:3px 6px;border:1px solid var(--oms-border);border-radius:6px;background:var(--oms-surface)">' : ""}
+    <div class="tablewrap"><table><thead><tr>${T.columns.map((c) => `<th class="${isText(c) ? "t" : ""}" data-col="${c.name}">${esc(c.label)}${c.unit ? ` <span class="kv">${esc(c.unit)}</span>` : ""}</th>`).join("")}</tr></thead><tbody></tbody></table></div>
+    <p class="dl small">Download: ${T.downloads.map((d) => `<a href="${d.href}" download>${d.format.toUpperCase()}</a>`).join("")}</p>`;
+  host.querySelector("thead").addEventListener("click", (e) => { const th = e.target.closest("th"); if (!th) return; dir = sort === th.dataset.col ? -dir : 1; sort = th.dataset.col; draw(); });
+  const search = host.querySelector('input[type="search"]'); if (search) search.addEventListener("input", () => { filter = search.value; draw(); });
+  if (onRow) host.querySelector("tbody").addEventListener("click", (e) => { const tr = e.target.closest("tr"); if (tr) onRow(T.rows[+tr.dataset.n]); });
+  draw();
+}
+
+// ---------- provenance tab ----------
+function buildProvenance() {
+  const O = P.official_sources, names = { rep_screening: "State special plan: screening criteria table (4 Nov 2026)", rep_comparison: "State special plan: comparison criteria table (4 Nov 2026)",
+    rep_programme: "State special plan: initial positions and assessment programme (4 Nov 2026)", analysis_2023: "Nationwide spatial analysis of potential sites, final report (2023)",
+    analysis_2023_interim: "Nationwide spatial analysis, interim report with thresholds (2023)", iaea_ssg35: "IAEA SSG-35, Site Survey and Site Selection for Nuclear Installations" };
+  $("official").innerHTML = `<ul>${Object.entries(O).map(([k, u]) => `<li><a href="${esc(u)}" target="_blank" rel="noopener">${esc(names[k] ?? k)}</a></li>`).join("")}</ul>
+    <p class="small">The criteria, classes and thresholds are quoted from these documents; English names are this project's translations. The plan documents are a draft under consultation.</p>`;
+  $("sourcelist").innerHTML = P.sources.map((s) => `<div class="card"><h4>${esc(s.dataset)}</h4><div class="kv">${esc(s.provider)}</div>
+    <div class="kv">Retrieved ${esc(s.retrieved_at)}${s.rows != null ? ` · ${fmt(s.rows)} features` : ""} · ${esc(s.version)}</div>
+    <div class="kv">Licence: ${s.license_url ? `<a href="${esc(s.license_url)}" target="_blank" rel="noopener">${esc(s.license)}</a>` : esc(s.license)}</div><div>${esc(s.rationale)}</div></div>`).join("");
+  $("assumptions").innerHTML = P.interpretation.assumptions.map((a) => `<div class="card"><h4>${esc(a.id)}</h4><div>${esc(a.statement)}</div><div class="kv">${esc(a.rationale)}</div></div>`).join("");
+  $("steps").innerHTML = `<ol>${P.steps.map((s) => `<li><code>${esc(s.id)}</code> <span class="kv">${esc(s.operation)}${s.crs ? " · " + esc(s.crs) : ""}</span></li>`).join("")}</ol>`;
+  const icon = { passed: "✓", warning: "⚠", failed: "✕", not_testable: "?" };
+  $("validation").innerHTML = `<p class="small">Run ${esc(P.run.id)} · status <b>${esc(P.run.status)}</b> · ${P.validation.checks.length} checks</p>` +
+    P.validation.checks.map((c) => `<div class="check"><span class="s-${c.status}">${icon[c.status]}</span><span><code>${esc(c.id)}</code>${c.reason ? ` <span class="kv">${esc(c.reason)}</span>` : c.note ? ` <span class="kv">${esc(c.note)}</span>` : ""}</span></div>`).join("");
+  $("outputs").innerHTML = `<ul>${P.outputs.map((o) => `<li><a href="${esc(o.path)}">${esc(o.path)}</a> <span class="kv">${esc(o.format)}</span></li>`).join("")}</ul>`;
+}
+
+// ---------- start ----------
+buildCriteria(); buildLayers(); buildProvenance(); renderSites();
+buildTable("candidate_areas_table", (r) => map.flyTo({ center: [r.lon, r.lat], zoom: 10.5 }));
+buildTable("criteria_catalogue"); buildTable("official_sites_check", (r) => map.flyTo({ center: [r.lon, r.lat], zoom: 11.5 })); buildTable("county_summary");
+initMap();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => { if (state.theme === "auto") map.setStyle(darkNow() ? P.basemap.dark_url : P.basemap.url); });
+loadGrid().then((arrays) => { D = arrays; indexLand(); $("busy").remove(); refresh(); window.__ready = true; })
+  .catch((err) => { $("busy").textContent = "The screening grid could not be loaded: " + err.message; });
+</script>
+</body>
+</html>

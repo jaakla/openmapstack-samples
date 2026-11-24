@@ -1,0 +1,7 @@
+site,rep_status,municipality,cells_in_95ha_area,cells_remaining,cells_in_candidate_area,share_remaining_pct,centre_passes,centre_fails,main_exclusions_in_area,sea_km,elevation_m,grid_330kv_km,residents_5km,lon,lat
+Aa - mets,dropped in October 2026,Lüganuse vald,14,0,0,0.0,False,Distance to the sea (cooling water),Distance to the sea (cooling water) 100 %,3.71,47,1.4,895,27.18224,59.40703
+Aa - rand,dropped in October 2026,Lüganuse vald,13,5,0,38.5,True,,Distance from dwellings 62 %,0.02,6,5.0,320,27.15682,59.43734
+Letipea,under assessment,Viru-Nigula vald,15,14,14,93.3,True,,Protected areas 7 %; Natura 2000 areas 7 %,1.01,6,17.7,176,26.60542,59.53176
+Madala,under assessment,Viru-Nigula vald,13,12,12,92.3,True,,Woodland key habitats 8 %,0.16,1,16.0,3269,26.56126,59.51887
+Malla,under assessment,Viru-Nigula vald,16,14,14,87.5,True,,Distance from dwellings 12 %,1.53,42,14.9,3298,26.57175,59.50699
+Moldova,dropped in October 2026,Lüganuse vald,12,0,0,0.0,False,Distance from bedrock faults,Distance from bedrock faults 100 %; Distance from dwellings 17 %,0.18,9,5.4,485,27.09046,59.43413

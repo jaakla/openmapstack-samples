@@ -41,7 +41,7 @@ The planning atlas retains its accepted canonical snapshot in `published/`;
 `prepare-pages.mjs` records the added script's source/served HTML hashes in
 `delivery-transform.json` without altering analytical inputs or geometries.
 The two externally hosted Worker demos linked from the gallery, the Tartu school walking
-coverage dashboard and the Tallinn tram options dashboard (committed pipeline outputs) are not instrumented;
+coverage dashboard, the Tallinn tram options dashboard and the Estonia nuclear site screening dashboard (committed pipeline outputs) are not instrumented;
 their outbound gallery clicks are counted.
 
 Run `node --test shared/analytics.test.mjs` to check the collection guards and
@@ -82,6 +82,15 @@ Which parts of Tartu are beyond a 15-minute walk from a school, and how many peo
 
 - [Open the dashboard](https://jaakla.github.io/openmapstack-samples/tartu-school-walk/)
 - [Method, limits, sources and reproducible pipeline](tartu-school-walk/README.md)
+
+## Estonia nuclear site screening
+
+Which land is left for a nuclear power plant when Estonia's official siting criteria are applied? The dashboard catalogues the 47-row screening table of the state special plan and the 2023 nationwide analysis, measures the 34 criteria that open data can support on a 260 m grid, and lets each one be switched on or off with its threshold. With the 14 mapped exclusion criteria, 462 km² (1.06 % of the land) remains in 95 coastal areas; the three official sites still under assessment near Kunda keep 88–93 % of their area. It is a desk screen, not a site assessment: four official exclusion criteria and the non-public security criteria are not mapped.
+
+[![Map of Estonia with the coastal areas that remain after the mapped exclusion criteria and the official candidate sites near Kunda](gallery/nuclear-siting-preview.png)](https://jaakla.github.io/openmapstack-samples/nuclear-siting/)
+
+- [Open the dashboard](https://jaakla.github.io/openmapstack-samples/nuclear-siting/)
+- [Criteria prestudy, method, limits, sources and reproducible pipeline](nuclear-siting/README.md)
 
 ## Solar Atlas
 

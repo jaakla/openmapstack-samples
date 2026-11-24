@@ -1,0 +1,692 @@
+# Siting criteria catalogue for the Estonian nuclear power plant screening.
+#
+# This file is analyst knowledge held as data: pipeline.py reads it, the dashboard
+# renders it and criteria-catalogue.csv is written from it. It lists every row of the
+# official screening table of the state special plan (REP, version 4 Nov 2026), the
+# extra spatial criteria of the 2023 nationwide analysis, and a few criteria this
+# project adds. English names are this project's translations; Estonian names are
+# quoted from the official tables.
+#
+# class     exclusion      "välistav": the area cannot hold the plant
+#           consideration  "kaalutluskoht": weighed case by case, used for ranking
+#           suitability    "kaalutluskoht (positiivne)": nearness is an advantage
+# status    mapped         reproduced from open data as the official rule states it
+#           proxy          mapped with a stand-in dataset or an assumed distance (see note)
+#           not_mapped     no open nationwide data, not spatial, or not public
+# origin    rep_screening  row of the REP screening table (ref = row number)
+#           analysis_2023  criterion of the 2023 spatial analysis only (ref = its number)
+#           project        added by this project; not in an official table
+# rule      flag           cell fails when the measure is true at the cell centre
+#           closer_than    cell fails when the measured distance is below the threshold
+#           farther_than   cell fails when the measured distance is at or above the threshold
+#           at_least       cell fails when the measured value is at or above the threshold
+#           min_area       remaining cells joined edge to edge must reach the area
+# canonical true = applied in the accepted run. The accepted run applies every mapped
+#           exclusion criterion and no consideration or suitability criterion.
+
+schema: nuclear-siting-criteria/v1
+official_sources:
+  rep_screening: https://riigiplaneering.ee/sites/default/files/documents/2026-11/3.%20Screening%20kriteeriumite%20tabel_T%C3%A4iendatud.pdf
+  rep_comparison: https://riigiplaneering.ee/sites/default/files/documents/2026-11/2.%20V%C3%B5rdluskriteeriumite%20tabel_t%C3%A4iendatud.pdf
+  rep_programme: https://riigiplaneering.ee/sites/default/files/documents/2026-11/LS-programm.pdf
+  analysis_2023: https://kliimaministeerium.ee/sites/default/files/documents/2023-04/Tuumaelektrijaama%20ja%20kasutatud%20tuumk%C3%BCtuse%20l%C3%B5ppladustuspaiga%20potentsiaalsete%20asukohtade%20ruumianal%C3%BC%C3%BCs.pdf
+  analysis_2023_interim: https://kliimaministeerium.ee/sites/default/files/documents/2023-01/Ruumianal%C3%BC%C3%BCsi%20vahearuanne.pdf
+  iaea_ssg35: https://www.iaea.org/publications/10696/site-survey-and-site-selection-for-nuclear-installations
+
+groups:
+  - {id: hydrography, title: Cooling water and terrain}
+  - {id: demography, title: Population}
+  - {id: human_hazards, title: Man-made hazards}
+  - {id: geotechnics, title: Ground conditions}
+  - {id: geology, title: Geology and mining}
+  - {id: natural_hazards, title: Natural hazards}
+  - {id: heritage, title: Cultural heritage}
+  - {id: nature, title: Nature protection}
+  - {id: infrastructure, title: Infrastructure}
+  - {id: land_use, title: Land use and defence}
+  - {id: nuclear_safety, title: Nuclear safety}
+
+criteria:
+  # ---------------------------------------------------------------- hydrography
+  - id: elevation
+    origin: rep_screening
+    ref: 1
+    group: hydrography
+    name: Ground elevation
+    name_et: Maapinna absoluutne kõrgus
+    class: consideration
+    status: mapped
+    rule: {kind: at_least, measure: elevation_m, unit: m, options: [20, 50], threshold: 20}
+    canonical: false
+    sources: [dtm]
+    official_threshold: Below 20 m for open-cycle cooling, below 50 m for closed-cycle.
+    note: Terrain height at the cell centre from the national 25 m model resampled to 100 m.
+  - id: depth_10m
+    origin: rep_screening
+    ref: 2
+    group: hydrography
+    name: Distance to 10 m sea depth
+    name_et: Veetaseme sügavus 10 m saavutatakse
+    class: consideration
+    status: not_mapped
+    official_threshold: Within 2 km of the shoreline (open cycle) or 5 km (closed cycle).
+    note: Needs bathymetry; no depth dataset is pinned in this project.
+  - id: cooling_sea
+    origin: rep_screening
+    ref: 3
+    group: hydrography
+    name: Distance to the sea (cooling water)
+    name_et: 'Jahutusvesi: kaugus sobivast veekogust'
+    class: exclusion
+    status: mapped
+    rule: {kind: farther_than, measure: d_sea, unit: km, options: [1, 3, 5, 10], threshold: 3}
+    canonical: true
+    sources: [sea]
+    official_threshold: Within 3 km (open cycle) or 10 km (closed cycle) of a suitable water body.
+    note: The sea is the only suitable water body (no Estonian river has the flow). Straight-line distance to the ETAK sea polygons.
+  - id: shore_ban
+    origin: analysis_2023
+    ref: 39
+    group: hydrography
+    name: Shore building-ban zone
+    name_et: Ranna ja kalda ehituskeeluvöönd
+    class: consideration
+    status: proxy
+    rule: {kind: closer_than, measure: d_sea, unit: km, options: [0.1, 0.2], threshold: 0.1}
+    canonical: false
+    sources: [sea]
+    official_threshold: Legal zone, 100 m on the mainland sea coast and 200 m on sea islands, wider on some shores.
+    note: Drawn as a fixed distance from the sea; the legal zone varies by shore type and does not bind a state special plan. Narrower than one grid cell, so read it as indicative.
+  # ---------------------------------------------------------------- demography
+  - id: pop_density
+    origin: rep_screening
+    ref: 4
+    group: demography
+    name: Very dense population
+    name_et: Jätta eelistatavatest aladest välja väga tiheda rahvastikuga alad
+    class: consideration
+    status: mapped
+    rule: {kind: at_least, measure: pop_density, unit: residents/km², options: [100, 200, 500], threshold: 200}
+    canonical: false
+    sources: [population_grid]
+    official_threshold: 200 residents per km² (the equivalent of US NRC RG 4.7's 500 per square mile). Proposed for ranking only.
+    note: Residents of the 1 km statistical grid cell that holds the cell centre.
+  - id: pop_5km
+    origin: project
+    ref: null
+    group: demography
+    name: Residents within 5 km
+    name_et: Elanikkond kiireloomuliste kaitsemeetmete rakendamise alal (lähend)
+    class: consideration
+    status: proxy
+    rule: {kind: at_least, measure: pop_5km, unit: residents, options: [1000, 5000, 20000], threshold: 5000}
+    canonical: false
+    sources: [population_grid]
+    official_threshold: The REP names "population and sensitive objects in the urgent protective action area" a priority comparison criterion; it sets no radius or count.
+    note: Sum of the 1 km grid cells whose centre lies within 5 km. Radius and counts are this project's assumption.
+  - id: dense_settlement
+    origin: project
+    ref: null
+    group: demography
+    name: Densely built-up settlement
+    name_et: Tiheasustusala
+    class: consideration
+    status: mapped
+    rule: {kind: flag, measure: f_dense}
+    canonical: false
+    sources: [dense_settlements]
+    official_threshold: A comparison criterion of the REP ("Tiheasustusala"); no distance.
+    note: Official densely populated areas (tiheasustusalad).
+  - id: town_proximity
+    origin: analysis_2023
+    ref: 5
+    group: demography
+    name: Distance to towns of 10,000 or more
+    name_et: Kaugus üle 10 000 elanikuga linnadest
+    class: consideration
+    status: not_mapped
+    official_threshold: Within 20 or 50 km of a town of at least 10,000 residents (workforce and services).
+    note: Dropped from the REP screening table; not reproduced.
+  # ---------------------------------------------------------------- man-made hazards
+  - id: hazardous_plants
+    origin: rep_screening
+    ref: 5
+    group: human_hazards
+    name: Hazardous establishments
+    name_et: Ohtlikud ettevõtted ja ohualad
+    class: consideration
+    status: proxy
+    rule: {kind: closer_than, measure: d_hazard, unit: km, options: [1, 2, 5, 8], threshold: 5}
+    canonical: false
+    sources: [hazardous_plants]
+    official_threshold: Each establishment's own danger zone (30 m to about 800 m in the planning area).
+    note: Distance to category A and B establishments of the Rescue Board register. 5 km is IAEA SSG-35's example screening distance for flammable, toxic or explosive storage, not an Estonian rule.
+  - id: tanker_traffic
+    origin: rep_screening
+    ref: 6
+    group: human_hazards
+    name: Dense tanker traffic
+    name_et: Suurema tankerite liiklustihedusega alad
+    class: consideration
+    status: not_mapped
+    official_threshold: None; the experts found it does not affect the choice of site.
+    note: Not reproduced.
+  - id: airport_main
+    origin: rep_screening
+    ref: 7
+    group: human_hazards
+    name: State and military aerodromes
+    name_et: Lennujaama lähenemis ja õhkutõusu alad, KV radarid
+    class: consideration
+    status: proxy
+    rule: {kind: closer_than, measure: d_air_main, unit: km, options: [10, 15, 30], threshold: 15}
+    canonical: false
+    sources: [airfields]
+    official_threshold: 15 km buffer around approach and take-off areas and Defence Forces radars.
+    note: Distance to the reference point of the seven state aerodromes and Ämari air base. Radar positions are not public.
+  - id: airport_small
+    origin: rep_screening
+    ref: 8
+    group: human_hazards
+    name: Other airfields in use
+    name_et: Lennujaamade puhvrid
+    class: consideration
+    status: proxy
+    rule: {kind: closer_than, measure: d_air_small, unit: km, options: [5, 10], threshold: 10}
+    canonical: false
+    sources: [airfields]
+    official_threshold: Traffic-based IAEA SSG-35 formula for large airports; 10 km for small airports.
+    note: Distance to private paved and grass airfields. Former and unused airfields are left out.
+  - id: aerodrome_zones
+    origin: rep_screening
+    ref: 9
+    group: human_hazards
+    name: Aerodrome protection zones and limitation surfaces
+    name_et: Lennujaamade kaitsevööndid ja piirangupiirkonnad
+    class: exclusion
+    status: not_mapped
+    official_threshold: The legal zones.
+    note: No open nationwide layer of the limitation surfaces was found. The two airfield criteria above are the nearest stand-in and are not exclusions.
+  - id: gas_pipelines
+    origin: rep_screening
+    ref: 10
+    group: human_hazards
+    name: Gas transmission pipelines
+    name_et: Gaasitorustikud ja piiranguvööndid
+    class: consideration
+    status: proxy
+    rule: {kind: closer_than, measure: d_gas, unit: km, options: [0.5, 1, 2], threshold: 1}
+    canonical: false
+    sources: [gas_transmission]
+    official_threshold: The legal protection zones (tens of metres).
+    note: Distance to category D (transmission) gas installations in the restrictions register. The 1 km distance is this project's assumption for a screening grid.
+  # ---------------------------------------------------------------- geotechnics
+  - id: slopes
+    origin: rep_screening
+    ref: 11
+    group: geotechnics
+    name: Slope stability
+    name_et: Nõlvade stabiilsus (massiivsed maalihked)
+    class: consideration
+    status: not_mapped
+    official_threshold: Slopes steeper than 10° (2023 analysis).
+    note: Needs the 1 to 10 m terrain model; the 100 m model used here cannot show such slopes.
+  - id: liquefaction
+    origin: rep_screening
+    ref: 12
+    group: geotechnics
+    name: Soil liquefaction
+    name_et: Oluline pinna vedeldumine
+    class: consideration
+    status: not_mapped
+    official_threshold: Saturated sand layer thicker than 8 m (2023 analysis).
+    note: Needs borehole and Quaternary thickness data.
+  - id: karst
+    origin: rep_screening
+    ref: 13
+    group: geotechnics
+    name: Karst
+    name_et: Olulised karstialad
+    class: consideration
+    status: mapped
+    rule: {kind: flag, measure: f_karst}
+    canonical: false
+    sources: [karst, karst_fields]
+    official_threshold: Karst layer of the 1:50 000 geological map.
+    note: Karst areas of the nature register (EELIS) and karst fields of the hydrogeological map. Point karst forms are not gridded.
+  - id: bearing_capacity
+    origin: rep_screening
+    ref: 14
+    group: geotechnics
+    name: Weak ground (mires and peat)
+    name_et: Minimaalne kandevõime (Qult)
+    class: consideration
+    status: proxy
+    rule: {kind: flag, measure: f_mire}
+    canonical: false
+    sources: [mires]
+    official_threshold: Peat, mud and clay areas (2023 analysis).
+    note: Mires of the national mire inventory only; mud and clay areas are not included.
+  # ---------------------------------------------------------------- geology
+  - id: buried_valleys
+    origin: rep_screening
+    ref: 15
+    group: geology
+    name: Buried valleys
+    name_et: Ürgorud
+    class: consideration
+    status: not_mapped
+    official_threshold: None.
+    note: Not reproduced.
+  - id: surface_mining
+    origin: rep_screening
+    ref: 16
+    group: geology
+    name: Mineral deposits and surface mining
+    name_et: Maavarade pealmaa kaevandamine (aktiivsed, taotletavad, korrastatud alad)
+    class: consideration
+    status: mapped
+    rule: {kind: flag, measure: f_mining}
+    canonical: false
+    sources: [mineral_deposits, mining_claims]
+    official_threshold: None.
+    note: Registered deposits and active mining claims.
+  - id: underground_mining
+    origin: rep_screening
+    ref: 17
+    group: geology
+    name: Underground mining
+    name_et: Maavarade allmaa kaevandamine (aktiivsed ja mahajäetud kaevandused)
+    class: exclusion
+    status: mapped
+    rule: {kind: flag, measure: f_undermined}
+    canonical: true
+    sources: [undermined_oil_shale, undermined_phosphorite, mining_claims]
+    official_threshold: Active and abandoned underground mines.
+    note: Undermined oil-shale and phosphorite areas and underground mining claims.
+  - id: faults
+    origin: rep_screening
+    ref: 18
+    group: geology
+    name: Distance from bedrock faults
+    name_et: Kaugus aktiivsetest geoloogistest riketest
+    class: exclusion
+    status: proxy
+    rule: {kind: closer_than, measure: d_fault, unit: km, options: [1, 2, 5, 8], threshold: 5}
+    canonical: true
+    sources: [faults_bedrock]
+    official_threshold: 5 km from an active fault (REP, from the site centre); the 2023 analysis buffered every known fault by 5 km. IAEA SSG-35 quotes 8 km as an example.
+    note: No Estonian fault is proven active. As in the 2023 screening, every mapped bedrock fault of the 1:400 000 geological map is buffered, so this is conservative.
+  - id: faults_basement
+    origin: project
+    ref: null
+    group: geology
+    name: Distance from basement faults
+    name_et: Kaugus aluskorra riketest
+    class: consideration
+    status: proxy
+    rule: {kind: closer_than, measure: d_fault_basement, unit: km, options: [1, 2, 5, 8], threshold: 5}
+    canonical: false
+    sources: [faults_basement]
+    official_threshold: The 2023 analysis names "confirmed and inferred basement faults cutting sedimentary rock".
+    note: Faults of the crystalline basement map (1:400 000). Whether they cut the sedimentary cover is not recorded, so they are offered separately.
+  # ---------------------------------------------------------------- natural hazards
+  - id: flood
+    origin: rep_screening
+    ref: 19
+    group: natural_hazards
+    name: Flood-prone areas
+    name_et: Üleujutusohuga alad, paisutatud jõed
+    class: consideration
+    status: proxy
+    rule: {kind: flag, measure: f_flood}
+    canonical: false
+    sources: [flood_hazard, flood_risk_2024]
+    official_threshold: 1-in-1000-year flood. Exclusionary in 2023, a consideration in the REP.
+    note: Flood risk areas of the 2024 assessment and the register's flood-hazard areas. These cover known risk areas, not the full 1-in-1000-year extent.
+  - id: erosion
+    origin: rep_screening
+    ref: 20
+    group: natural_hazards
+    name: Erosion
+    name_et: Erosioon
+    class: consideration
+    status: not_mapped
+    official_threshold: Eroding coasts and eroded soils (2023 analysis).
+    note: Not reproduced.
+  # ---------------------------------------------------------------- heritage
+  - id: heritage
+    origin: rep_screening
+    ref: 21
+    group: heritage
+    name: Heritage monuments and their protection zones
+    name_et: Muinsuskaitseobjektid ja nende piirangualad
+    class: exclusion
+    status: mapped
+    rule: {kind: flag, measure: f_heritage}
+    canonical: true
+    sources: [heritage_monuments, heritage_zones]
+    official_threshold: The monuments and their legal zones.
+    note: Immovable monuments, heritage conservation areas and their protection zones from the national register.
+  # ---------------------------------------------------------------- nature
+  - id: protected_areas
+    origin: rep_screening
+    ref: 22
+    group: nature
+    name: Protected areas
+    name_et: Loodusreservaat, rahvuspark, looduskaitsealad, maastikukaitsealad
+    class: exclusion
+    status: mapped
+    rule: {kind: flag, measure: f_protected}
+    canonical: true
+    sources: [protected_areas]
+    official_threshold: Rows 22 to 25 of the screening table (strict reserves, national parks, nature and landscape protection areas).
+    note: All protected areas (kaitsealad) of the nature register, including protected parks and stands.
+  - id: natura
+    origin: rep_screening
+    ref: 26
+    group: nature
+    name: Natura 2000 areas
+    name_et: Natura 2000 alad
+    class: exclusion
+    status: mapped
+    rule: {kind: flag, measure: f_natura}
+    canonical: true
+    sources: [natura_birds, natura_habitats]
+    official_threshold: Bird and habitat areas.
+    note: Land cells only; cooling-water effects on marine Natura areas are not assessed.
+  - id: conservation_areas
+    origin: analysis_2023
+    ref: 41
+    group: nature
+    name: Limited-conservation areas
+    name_et: Hoiualad
+    class: exclusion
+    status: mapped
+    rule: {kind: flag, measure: f_hoiuala}
+    canonical: true
+    sources: [conservation_areas]
+    official_threshold: A consideration in 2023; an exclusion layer of the REP's public map.
+    note: Hoiualad of the nature register.
+  - id: single_objects
+    origin: rep_screening
+    ref: 27
+    group: nature
+    name: Protected single objects and their zones
+    name_et: Kaitsealused üksikobjektid ja nende piiranguvööndid
+    class: exclusion
+    status: mapped
+    rule: {kind: flag, measure: f_single}
+    canonical: true
+    sources: [single_object_zones]
+    official_threshold: The objects and their legal zones.
+    note: Zones are mostly 50 m in radius, smaller than a grid cell; read as indicative.
+  - id: key_habitats
+    origin: rep_screening
+    ref: 28
+    group: nature
+    name: Woodland key habitats
+    name_et: Vääriselupaigad riigimaal ja lepingutega vääriselupaigad eramaal
+    class: exclusion
+    status: proxy
+    rule: {kind: flag, measure: f_keyhab}
+    canonical: true
+    sources: [key_habitats]
+    official_threshold: Key habitats on state land and contracted ones on private land.
+    note: All registered key habitats; the register does not give land ownership, so uncontracted habitats on private land are included too.
+  - id: species_sites
+    origin: rep_screening
+    ref: 29
+    group: nature
+    name: Species protection sites
+    name_et: Püsielupaigad
+    class: exclusion
+    status: not_mapped
+    official_threshold: The sites.
+    note: The layer is served only to authorised users.
+  - id: green_network
+    origin: rep_screening
+    ref: 30
+    group: nature
+    name: Green network
+    name_et: Rohevõrgustikku kuuluvad alad
+    class: consideration
+    status: mapped
+    rule: {kind: flag, measure: f_green}
+    canonical: false
+    sources: [green_network]
+    official_threshold: None.
+    note: Green network areas of the comprehensive plans (polygons only).
+  - id: protected_plants
+    origin: rep_screening
+    ref: 31
+    group: nature
+    name: Protected plants, fungi and lichens
+    name_et: Kaitsealuste taimede, seente ja samblike leiukohad (I–III kat.)
+    class: consideration
+    status: not_mapped
+    official_threshold: 60 m buffer on point records.
+    note: Category I and II records are not public.
+  - id: protected_animals_2_3
+    origin: rep_screening
+    ref: 32
+    group: nature
+    name: Category II and III animals
+    name_et: II ja III kaitsekategooria loomaliikide leiukohad
+    class: consideration
+    status: not_mapped
+    official_threshold: None.
+    note: Records are not public.
+  - id: protected_animals_1
+    origin: rep_screening
+    ref: 33
+    group: nature
+    name: Category I animals
+    name_et: I kaitsekategooria loomaliikide leiukohad
+    class: exclusion
+    status: not_mapped
+    official_threshold: None.
+    note: Records are not public.
+  - id: salmon_rivers
+    origin: rep_screening
+    ref: 34
+    group: nature
+    name: Salmon rivers
+    name_et: Lõhejõed ja neid mõjutavad veekogud
+    class: consideration
+    status: not_mapped
+    official_threshold: Exclusionary in 2023, a consideration in the REP.
+    note: Not reproduced.
+  - id: groundwater
+    origin: project
+    ref: null
+    group: nature
+    name: Unprotected groundwater
+    name_et: Kaitsmata põhjaveega alad
+    class: consideration
+    status: mapped
+    rule: {kind: flag, measure: f_groundwater}
+    canonical: false
+    sources: [groundwater_unprotected]
+    official_threshold: Not a row of the official tables; groundwater was a main concern in the 2026 public feedback.
+    note: Areas mapped as having unprotected groundwater.
+  # ---------------------------------------------------------------- infrastructure
+  - id: grid
+    origin: rep_screening
+    ref: 35
+    group: infrastructure
+    name: 330 kV grid within reach
+    name_et: Elektrivõrguga liitumise võimalused
+    class: suitability
+    status: proxy
+    rule: {kind: farther_than, measure: d_grid, unit: km, options: [10, 20, 50], threshold: 20}
+    canonical: false
+    sources: [power_lines_hv]
+    official_threshold: Two to three 330 kV connections to substations; distance bands 1, 10 and 100 km.
+    note: Distance to the nearest 330 kV line of the topographic database, not to a substation.
+  - id: roads
+    origin: rep_screening
+    ref: 36
+    group: infrastructure
+    name: Main road within reach
+    name_et: Teedevõrgustiku lähedus
+    class: suitability
+    status: mapped
+    rule: {kind: farther_than, measure: d_road, unit: km, options: [5, 10], threshold: 5}
+    canonical: false
+    sources: [main_roads]
+    official_threshold: Main road within 5 km (10 km in 2023).
+    note: Distance to the nearest state main road (põhimaantee).
+  - id: railways
+    origin: rep_screening
+    ref: 37
+    group: infrastructure
+    name: Railway within reach
+    name_et: Raudteede lähedus
+    class: suitability
+    status: mapped
+    rule: {kind: farther_than, measure: d_rail, unit: km, options: [10, 20], threshold: 20}
+    canonical: false
+    sources: [railways]
+    official_threshold: 20 km. The REP notes it is not a realistic requirement.
+    note: Distance to the nearest broad-gauge track.
+  - id: ports
+    origin: rep_screening
+    ref: 38
+    group: infrastructure
+    name: Port within reach
+    name_et: Kaubasadamate lähedus
+    class: suitability
+    status: proxy
+    rule: {kind: farther_than, measure: d_port, unit: km, options: [10, 20, 50], threshold: 20}
+    canonical: false
+    sources: [ports]
+    official_threshold: Cargo port within 20 km.
+    note: Distance to the nearest registered port of class "sadam"; the layer does not separate cargo ports from passenger and fishing ports.
+  - id: infrastructure_zones
+    origin: rep_screening
+    ref: 39
+    group: infrastructure
+    name: Infrastructure restriction zones
+    name_et: Infrastruktuuri ja teised piiranguvööndid
+    class: consideration
+    status: not_mapped
+    official_threshold: The legal zones, including water-intake sanitary protection zones.
+    note: Narrow zones that matter at site scale, not on a screening grid.
+  # ---------------------------------------------------------------- land use and defence
+  - id: dwellings
+    origin: rep_screening
+    ref: 40
+    group: land_use
+    name: Distance from dwellings
+    name_et: Olemasolevad ehitised
+    class: exclusion
+    status: mapped
+    rule: {kind: closer_than, measure: d_dwelling, unit: km, options: [0.1, 0.35, 0.5, 1], threshold: 0.35}
+    canonical: true
+    sources: [dwellings]
+    official_threshold: Existing dwellings and their plots are excluded; 350 m from dwellings to the reactor; 100 m around residential and public buildings.
+    note: Distance from the cell centre to the nearest residential building footprint. Public buildings and plot boundaries are not included.
+  - id: defence
+    origin: rep_screening
+    ref: 41
+    group: land_use
+    name: Defence sites and their restriction zones
+    name_et: Riigikaitseliste objektid ja puhvrid
+    class: exclusion
+    status: mapped
+    rule: {kind: flag, measure: f_defence}
+    canonical: true
+    sources: [defence_objects, defence_zones]
+    official_threshold: Regulation no. 16 of the Minister of Defence.
+    note: Public defence structures, training areas and their restriction zones. Non-public security criteria removed the three Lüganuse sites in October 2026 and cannot be reproduced.
+  - id: defence_considerations
+    origin: rep_screening
+    ref: 42
+    group: land_use
+    name: Ministry of Defence consideration areas
+    name_et: Riigikaitselised piirangud (Kaitseministeeriumi esitatud kaalutlusalad)
+    class: consideration
+    status: not_mapped
+    official_threshold: Not public.
+    note: Not public.
+  - id: land_value
+    origin: rep_screening
+    ref: 43
+    group: land_use
+    name: Land value
+    name_et: Maa väärtus
+    class: consideration
+    status: not_mapped
+    official_threshold: None.
+    note: Not reproduced.
+  - id: land_use_existing
+    origin: rep_screening
+    ref: 44
+    group: land_use
+    name: Existing land use
+    name_et: Olemasolev maakasutus (nt Corine kaardid)
+    class: consideration
+    status: not_mapped
+    official_threshold: None.
+    note: Not reproduced.
+  - id: land_use_other
+    origin: rep_screening
+    ref: 45
+    group: land_use
+    name: One further land-use row
+    name_et: (nimetus ei olnud dokumendist loetav)
+    class: consideration
+    status: not_mapped
+    official_threshold: Unknown.
+    note: The row's name could not be read from the published PDF.
+  - id: water_bodies
+    origin: analysis_2023
+    ref: 57
+    group: land_use
+    name: Lakes and reservoirs
+    name_et: Veekogud
+    class: exclusion
+    status: mapped
+    rule: {kind: flag, measure: f_lake}
+    canonical: true
+    sources: [lakes]
+    official_threshold: Water bodies.
+    note: Lakes and reservoirs of the nature register.
+  - id: land_border
+    origin: analysis_2023
+    ref: 6
+    group: land_use
+    name: Distance from the land border
+    name_et: Kaugus maismaa riigipiirist 5 km ja piiriveekogud
+    class: exclusion
+    status: mapped
+    rule: {kind: closer_than, measure: d_border, unit: km, options: [5, 10, 20], threshold: 5}
+    canonical: true
+    sources: [defence_objects]
+    official_threshold: 5 km from the land border and border water bodies.
+    note: Distance to the state border line of the restrictions register (land, lake and river border with Russia and Latvia).
+  # ---------------------------------------------------------------- nuclear safety
+  - id: emergency_plan
+    origin: rep_screening
+    ref: 46
+    group: nuclear_safety
+    name: Emergency plan cannot be implemented
+    name_et: Hädaolukorraplaani rakendada ei ole võimalik
+    class: exclusion
+    status: not_mapped
+    official_threshold: Expert assessment.
+    note: An assessment, not a map layer. "Residents within 5 km" is offered as a rough indicator.
+  - id: land_area
+    origin: rep_screening
+    ref: 47
+    group: nuclear_safety
+    name: Enough contiguous land
+    name_et: Piisav maa olemasolu (vastavalt jaama jalajäljele)
+    class: exclusion
+    status: mapped
+    rule: {kind: min_area, unit: ha, options: [20, 50, 95, 200], threshold: 95}
+    canonical: true
+    sources: []
+    official_threshold: 95 ha for two BWRX-300 units with their buffer.
+    note: Remaining cells joined edge to edge must add up to the area. Applied after every other selected criterion.
