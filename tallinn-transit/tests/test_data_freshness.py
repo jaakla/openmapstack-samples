@@ -50,14 +50,14 @@ class FreshnessTests(unittest.TestCase):
     def test_changed_recent_data_has_a_deadline_not_an_immediate_alarm(self):
         result = audit.check_source('gtfs', source(gtfs(), 1), {}, NOW, response(gtfs('changed')))
         self.assertEqual(result['status'], 'update_available')
-        self.assertEqual(result['updateDeadlineAt'], audit.stamp(NOW + dt.timedelta(days=7)))
+        self.assertEqual(result['updateDeadlineAt'], audit.stamp(NOW + dt.timedelta(days=44)))
 
     def test_changed_old_data_is_overdue(self):
-        result = audit.check_source('gtfs', source(gtfs(), 10), {}, NOW, response(gtfs('changed')))
+        result = audit.check_source('gtfs', source(gtfs(), 46), {}, NOW, response(gtfs('changed')))
         self.assertEqual(result['status'], 'overdue')
 
     def test_304_updates_check_time_without_moving_update_deadline(self):
-        deployed = source(gtfs(), 7)
+        deployed = source(gtfs(), 44)
         prior = audit.check_source('gtfs', deployed, {}, NOW, response(gtfs('changed')))
         later = NOW + dt.timedelta(days=2)
         prior['status'] = 'error'  # A failed probe is retried regardless of cadence.
@@ -71,14 +71,52 @@ class FreshnessTests(unittest.TestCase):
         self.assertEqual(result['updateDeadlineAt'], prior['updateDeadlineAt'])
         self.assertEqual(result['status'], 'overdue')
 
-    def test_daily_deadline_check_does_not_redownload_weekly_source(self):
+    def test_daily_deadline_check_does_not_redownload_monthly_source(self):
         body = gtfs()
         prior = audit.check_source('gtfs', source(body), {}, NOW, response(body))
         def unexpected(*_):
-            self.fail('Source was requested before weekly deadline')
+            self.fail('Source was requested before monthly deadline')
         result = audit.check_source('gtfs', source(body), prior, NOW + dt.timedelta(days=1), unexpected)
         self.assertFalse(result['checkPerformed'])
         self.assertEqual(result['lastCheckedAt'], prior['lastCheckedAt'])
+        self.assertEqual(result['nextCheckAt'], audit.stamp(audit.next_month(NOW)))
+
+    def test_both_gtfs_feeds_expire_only_after_45_days(self):
+        for key in ['gtfs', 'elron_gtfs']:
+            for age, status in [(31, 'update_available'), (45, 'update_available'), (46, 'overdue')]:
+                with self.subTest(key=key, age=age):
+                    result = audit.check_source(key, source(gtfs(), age), {}, NOW, response(gtfs('changed')))
+                    self.assertEqual(result['status'], status)
+
+    def test_unchanged_monthly_acquisition_uses_new_retrieval_deadline(self):
+        body = gtfs()
+        prior = audit.check_source('gtfs', source(body, 100), {}, NOW, response(body))
+        # Same source hash reacquired a month later, followed by an upstream change.
+        deployed = source(body, -31)
+        later = NOW + dt.timedelta(days=32)
+        result = audit.check_source('gtfs', deployed, prior, later, response(gtfs('changed')))
+        self.assertEqual(result['updateDeadlineAt'], audit.stamp(NOW + dt.timedelta(days=76)))
+
+    def test_built_package_gate_rejects_source_hash_mismatch(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(audit, 'ROOT', Path(directory)):
+            root = Path(directory)
+            (root / 'public/data').mkdir(parents=True)
+            (root / 'data/source').mkdir(parents=True)
+            sources = {}
+            network = timetable()
+            for key, field in [('gtfs', 'sourceSha256'), ('elron_gtfs', 'railSourceSha256')]:
+                path = f'data/source/{key}.zip'
+                (root / path).write_bytes(b'archive')
+                network[field] = 'sha256:' + audit.digest(b'archive')
+                sources[key] = {'pin': {'sha256': network[field], 'path': path}}
+            (root / 'public/data/project.json').write_text(json.dumps({'sources': sources}))
+            network_path = root / 'public/data/network.json'
+            network_path.write_text(json.dumps(network))
+            with contextlib.redirect_stdout(io.StringIO()):
+                audit.check_built()
+            (root / 'data/source/elron_gtfs.zip').write_bytes(b'wrong archive')
+            with self.assertRaisesRegex(ValueError, 'hashes disagree'):
+                audit.check_built()
 
     def test_monthly_osm_check_handles_short_month(self):
         self.assertEqual(audit.next_month(NOW.replace(month=1, day=31)), NOW.replace(month=2, day=28))

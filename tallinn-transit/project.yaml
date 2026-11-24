@@ -565,9 +565,9 @@ warnings:
 - id: FRESH-001
   severity: medium
   issue: snapshot_freshness
-  statement: Sõiduplaan ja teedevõrk on fikseeritud andmepaketis. Hilisemad muudatused ei lisandu automaatselt;
-    sõiduplaani tuleb vähemalt kord nädalas uuendada.
-  mitigation: Rakendus märgib üle seitsme päeva vana sõiduplaani.
+  statement: Sõiduplaani andmepaketti uuendatakse kord kuus; hilisemad muudatused ei pruugi kohe kajastuda.
+    Teedevõrk on fikseeritud väljavõte.
+  mitigation: Rakendus märgib üle 45 päeva vana sõiduplaani. Enne reisi kontrolli vedaja teateid.
 - id: LICENSE-001
   severity: low
   issue: license_unverified

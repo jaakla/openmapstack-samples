@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import { timetableDate } from './timetable-date.js';
 import { activeServices, addDays, clock, departures, parseGPS, planJourney, searchStops,searchStations,cleanVehicle, tallinnNow } from '../src/transit.js';
 
 // Minimal synthetic timetable fixtures test algorithms, never the delivered map.
@@ -67,10 +68,10 @@ test('real source snapshot builds searchable stops and valid journeys',()=>{
  const d=JSON.parse(fs.readFileSync(new URL('../data/derived/network.json',import.meta.url)));
  assert.equal(d.routes.find(r=>r.name==='T1').mode,'tram');
  const stop=q=>searchStops(d,q,100).find(s=>s.name===q).index;
- const j=planJourney(d,{...query,from:stop('Balti jaam'),to:stop('Lennujaam'),time:'08:00'});
+ const j=planJourney(d,{...query,date:timetableDate,from:stop('Balti jaam'),to:stop('Lennujaam'),time:'08:00'});
  assert(j.length>0);assert(j.every(x=>x.arrival>=x.departure&&x.legs.some(l=>l.type==='ride')));
  for(const x of j)for(const l of x.legs.filter(l=>l.type==='ride')){const t=d.trips.find(t=>t.id===l.trip);assert.equal(t.stops[l.fromSeq],l.from);assert.equal(t.stops[l.toSeq],l.to);}
- assert(departures(d,stop('Balti jaam'),'2026-10-28','08:00').length>0);
+ assert(departures(d,stop('Balti jaam'),timetableDate,'08:00').length>0);
  assert(searchStops(d,'Balti').length>0);
  assert(parseGPS(fs.readFileSync(new URL('../data/source/gps-snapshot.txt',import.meta.url),'utf8')).length>0);
 });

@@ -129,7 +129,7 @@ rakendus ei nimeta sirgjoont jalgsimarsruudiks.
 
 Tallinna GPS-i CSV ei anna kinnitatud reisiidentifikaatorit ega üksiksõiduki mõõtmisaega.
 Seetõttu ei tuletata sellest hilinemist või prognoositavat saabumist. Sõiduplaani
-ajatempel ja hoiatus üle seitsme päeva vana paketi kohta jäävad nähtavaks.
+ajatempel ja hoiatus üle 45 päeva vana paketi kohta jäävad nähtavaks.
 Tallinna voogude standardset edasilevitamise litsentsi ei tuvastatud; allikad ja
 see piirang on projekti päritoluinfos säilitatud.
 
@@ -143,9 +143,12 @@ Valingu, Saku ja Kullini. See ei ole kogu Eesti rongiplaneerija.
 Sõiduplaan pärineb [MobilityData poolt ametlikuks märgitud Elroni GTFS-ist](https://mobilitydatabase.org/feeds/gtfs/mdb-3153),
 [tootja URL-ist](https://eu-gtfs.remix.com/elron.zip). Avaldaja on Regionaal- ja
 Põllumajandusministeerium. Muutmata ZIP, räsi ja hankimise kirje on `data/source/` all.
-Allika versioon on **01.10.2026**, kalendrid ulatuvad 31.12.2026-ni; ajutised
-muudatused ei pruugi sisalduda. Enne reisi kontrolli [Elroni teateid](https://elron.ee/).
-Staatilisi lähtevooge tuleb värskendada ja uuesti avaldada; rakendus neid taustal ei uuenda.
+Mõlemad GTFS-id uuendatakse, kontrollitakse ja avaldatakse automaatselt iga kuu
+1. kuupäeval GitHub Actionsiga. Täpne versioon, hankimisaeg ja katvus on paketi
+päritoluinfos. Päevane audit annab vea, kui uuemast allikast erineva GTFS-i
+uuendamine hilineb üle 45 päeva või sõiduplaanikatvus puudub. Ajutised muudatused
+ei pruugi GTFS-is sisalduda; enne reisi kontrolli [Elroni teateid](https://elron.ee/).
+Töövoog ja käsitsi käivitamine: [hooldusjuhend](docs/maintenance-health.md#igakuine-gtfs-i-uuendamine).
 
 `gtfs_sources.py` lisab rongi-ID-dele `elron:` prefiksi, säilitab kellaajad,
 kalendrierandid ning peale-/mahamineku piirangud. Kaardi piiridest väljuv reis

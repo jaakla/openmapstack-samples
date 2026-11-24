@@ -1,0 +1,89 @@
+name: Tallinn transit monthly GTFS update
+
+on:
+  schedule:
+    - cron: '43 7 1 * *'
+      timezone: Europe/Tallinn
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tallinn-transit-maintenance-gtfs
+  cancel-in-progress: false
+
+jobs:
+  update:
+    if: github.repository == 'jaakla/openmapstack-samples' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: write
+      actions: write
+    defaults:
+      run:
+        working-directory: tallinn-transit
+    env:
+      TZ: Europe/Tallinn
+    steps:
+      - name: Check out main with pinned sources
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: main
+          lfs: false
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: tallinn-transit/package-lock.json
+      - name: Set up Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.14'
+      - name: Install pinned dependencies
+        run: |
+          npm ci
+          python -m pip install -r requirements.lock
+      - name: Acquire and repin both GTFS feeds
+        run: python scripts/update-gtfs.py
+      - name: Build the canonical package and validate coverage
+        run: |
+          python pipeline.py
+          python scripts/check-data-freshness.py --check-built
+      - name: Test routing, data updates and GPS
+        run: |
+          npm test
+          python -m unittest discover -s tests -p 'test_*.py'
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Test browser workflows against the new timetable
+        run: npm run test:browser
+      - name: Preserve validation evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: tallinn-transit-gtfs-update
+          path: |
+            tallinn-transit/validation/latest-report.json
+            tallinn-transit/test-results/
+            tallinn-transit/playwright-report/
+          retention-days: 90
+      - name: Commit the validated Tallinn package
+        run: |
+          set -euo pipefail
+          git diff --check
+          git add -- data/source/gtfs.zip data/source/elron-gtfs.zip data/source/acquisition.json \
+            project.yaml data/derived public/data index.html findings.md delivery runs validation
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'Update Tallinn and Elron GTFS snapshots'
+          # A concurrent main update rejects this push; never force or rebase tested data.
+          git push origin HEAD:main
+      - name: Dispatch Pages build and publication
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        # GITHUB_TOKEN pushes do not trigger push workflows. Dispatch explicitly.
+        run: gh workflow run pages.yml --ref main
