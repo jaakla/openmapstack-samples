@@ -54,22 +54,22 @@
           "source_url": "https://transport.tallinn.ee/data/gtfs.zip",
           "access": {
             "method": "https",
-            "retrieved_at": "2026-10-28T20:47:31.294314+00:00",
+            "retrieved_at": "2026-11-24T11:24:23.610329+00:00",
             "file": {
               "name": "gtfs.zip",
               "format": "zip",
-              "size_bytes": 2629267
+              "size_bytes": 2639890
             },
             "request_spec": "https://transport.tallinn.ee/data/gtfs.zip?download=1"
           },
           "version": {
-            "identifier": "0d3de862ba1aed7724f3e0d14f112018d3c6dfd8eac574dffc4d17e727bf7899"
+            "identifier": "86bcd13585ac18e63e10347c23945dacd7ba5f1df1e1ca05322629620023e52f"
           },
           "pin": {
             "class": "local_snapshot",
             "path": "data/source/gtfs.zip",
-            "sha256": "sha256:0d3de862ba1aed7724f3e0d14f112018d3c6dfd8eac574dffc4d17e727bf7899",
-            "captured_at": "2026-10-28T20:47:31.294314+00:00"
+            "sha256": "sha256:86bcd13585ac18e63e10347c23945dacd7ba5f1df1e1ca05322629620023e52f",
+            "captured_at": "2026-11-24T11:24:23.610329+00:00"
           },
           "selection": {
             "filter": "Complete municipal archive; only stops referenced by trips are retained.",
@@ -273,22 +273,22 @@
           "source_url": "https://eu-gtfs.remix.com/elron.zip",
           "access": {
             "method": "https",
-            "retrieved_at": "2026-10-29T07:29:50.256742+00:00",
+            "retrieved_at": "2026-11-24T11:24:24.940027+00:00",
             "file": {
               "name": "elron-gtfs.zip",
               "format": "zip",
-              "size_bytes": 1290597
+              "size_bytes": 1285824
             },
             "request_spec": "https://eu-gtfs.remix.com/elron.zip"
           },
           "version": {
-            "identifier": "Updated: Oct 1, 2026, 3:09 PM"
+            "identifier": "349756bcb20d16d5aa1a82b9e7f298294df44315bc34bf5672e3613b8c8dac53"
           },
           "pin": {
             "class": "local_snapshot",
             "path": "data/source/elron-gtfs.zip",
-            "sha256": "sha256:e76e0675df53c373b24f0b28c30fce60079b3382aa90daf04948e6ea90bf4208",
-            "captured_at": "2026-10-29T07:29:50.256742+00:00"
+            "sha256": "sha256:349756bcb20d16d5aa1a82b9e7f298294df44315bc34bf5672e3613b8c8dac53",
+            "captured_at": "2026-11-24T11:24:24.940027+00:00"
           },
           "selection": {
             "bbox": [
@@ -495,8 +495,8 @@
           "id": "FRESH-001",
           "severity": "medium",
           "issue": "snapshot_freshness",
-          "statement": "Sõiduplaan ja teedevõrk on fikseeritud andmepaketis. Hilisemad muudatused ei lisandu automaatselt; sõiduplaani tuleb vähemalt kord nädalas uuendada.",
-          "mitigation": "Rakendus märgib üle seitsme päeva vana sõiduplaani."
+          "statement": "Sõiduplaani andmepaketti uuendatakse kord kuus; hilisemad muudatused ei pruugi kohe kajastuda. Teedevõrk on fikseeritud väljavõte.",
+          "mitigation": "Rakendus märgib üle 45 päeva vana sõiduplaani. Enne reisi kontrolli vedaja teateid."
         },
         {
           "id": "LICENSE-001",
@@ -515,10 +515,10 @@
       ]
     },
     "analytical_outputs": {
-      "stops": "sha256:106fb1f0a81b5b1a3294fc7dcdc8b7368d0e95de52224fed2d6000426b2df43f",
-      "routes": "sha256:fdc4123bc335ea867c2c5fa6195399c51d32e468799fe84242383d82026a9ebe",
-      "stations": "sha256:cb6367ee4af9e66a583dd3f2fc2dedb7131589acc9507dd23102ce9aa5839e66"
+      "stops": "sha256:8d180a67f614c56ebb15ac0ce3956f78245c3d0d5eb11d821aae01872b6eb86a",
+      "routes": "sha256:1bed0330dbcfe634b009154be7c8c7e386de7bf532697fb6911e9d962a01c88a",
+      "stations": "sha256:3a91da02685826a02475a5759648ab2cd23e5117a2567bd3f11584436cf1eafc"
     }
   },
-  "view_sha256": "sha256:7c06caef636e48768b1e8fa02932795677f7a7b2d9b8bd443202e8fe86b97dcd"
+  "view_sha256": "sha256:b6134d4f4ae4684ea5bf0a533e8f0131985ae624b72dff7038a2bc6bc95ff03b"
 }

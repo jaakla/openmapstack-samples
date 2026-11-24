@@ -2,26 +2,12 @@
   {
     "path": "gtfs.zip",
     "url": "https://transport.tallinn.ee/data/gtfs.zip?download=1",
-    "retrieved_at": "2026-10-28T20:47:31.294314+00:00",
-    "sha256": "0d3de862ba1aed7724f3e0d14f112018d3c6dfd8eac574dffc4d17e727bf7899",
+    "retrieved_at": "2026-11-24T11:24:23.610329+00:00",
+    "sha256": "86bcd13585ac18e63e10347c23945dacd7ba5f1df1e1ca05322629620023e52f",
     "headers": {
-      "Date": "Wed, 28 Oct 2026 20:47:31 GMT",
-      "Content-Type": "application/zip",
-      "Content-Length": "2629267",
-      "Connection": "close",
-      "strict-transport-security": "max-age=31536000",
-      "last-modified": "Wed, 28 Oct 2026 09:15:58 GMT",
-      "etag": "\"281e93-65ee302cf6f80\"",
-      "Accept-Ranges": "bytes",
-      "x-content-type-options": "nosniff",
-      "content-security-policy": "frame-ancestors 'self';",
-      "Server": "cloudflare",
-      "Age": "50",
-      "cf-cache-status": "HIT",
-      "Vary": "accept-encoding",
-      "Server-Timing": "cfCacheStatus;desc=\"HIT\"",
-      "CF-RAY": "a51ccbcc4b5a3d51-HEL",
-      "alt-svc": "h3=\":443\"; ma=86400"
+      "etag": "\"284812-65fd752155100\"",
+      "last-modified": "Mon, 09 Nov 2026 12:44:20 GMT",
+      "content-type": "application/zip"
     }
   },
   {
@@ -69,10 +55,14 @@
   {
     "path": "elron-gtfs.zip",
     "url": "https://eu-gtfs.remix.com/elron.zip",
-    "retrieved_at": "2026-10-29T07:29:50.256742+00:00",
-    "sha256": "e76e0675df53c373b24f0b28c30fce60079b3382aa90daf04948e6ea90bf4208",
+    "retrieved_at": "2026-11-24T11:24:24.940027+00:00",
+    "sha256": "349756bcb20d16d5aa1a82b9e7f298294df44315bc34bf5672e3613b8c8dac53",
     "identification": "https://mobilitydatabase.org/feeds/gtfs/mdb-3153",
-    "version": "Updated: Oct 1, 2026, 3:09 PM"
+    "headers": {
+      "etag": "\"52cf24af15d26c4a9ad21a2360bbea9e\"",
+      "last-modified": "Mon, 16 Nov 2026 09:56:04 GMT",
+      "content-type": "application/zip"
+    }
   },
   {
     "path": "elron-gps-snapshot.json",

@@ -3,7 +3,7 @@ schema: openmapstack-findings/v1
 project_id: tallinn-transit
 question: Loo Tallinna ühistranspordi kaart ja uksest ukseni reisiplaneerija koos
   aadressiotsingu, sõidukite asukohtade, päris jalgsimarsruutide ning võrguta kasutamisega.
-run_id: run-20261101-094131
+run_id: run-20261124-112425
 scope: Tallinna linnatranspordi, Elroni ja OSM-i fikseeritud andmepakett
 validation:
   status: warning
@@ -35,7 +35,7 @@ validation:
   - id: walking_network
     status: passed
 validation_report: validation/latest-report.json
-context_sha256: sha256:91e949d348cb43aa187e9f8629283faabb27b54d7ebaebb57f33d62cfe7badab
+context_sha256: sha256:b5f066eb909833e3573d41764856eb9e744a938a7784d76c863e7c58a565cded
 assumptions:
 - id: A1
   statement: Sama peatuse lähestikku paiknevad platvormid koondatakse kuni 400 m vahedega.
@@ -101,9 +101,10 @@ warnings:
 - id: FRESH-001
   severity: medium
   issue: snapshot_freshness
-  statement: Sõiduplaan ja teedevõrk on fikseeritud andmepaketis. Hilisemad muudatused
-    ei lisandu automaatselt; sõiduplaani tuleb vähemalt kord nädalas uuendada.
-  mitigation: Rakendus märgib üle seitsme päeva vana sõiduplaani.
+  statement: Sõiduplaani andmepaketti uuendatakse kord kuus; hilisemad muudatused
+    ei pruugi kohe kajastuda. Teedevõrk on fikseeritud väljavõte.
+  mitigation: Rakendus märgib üle 45 päeva vana sõiduplaani. Enne reisi kontrolli
+    vedaja teateid.
 - id: LICENSE-001
   severity: low
   issue: license_unverified
@@ -121,14 +122,14 @@ warnings:
     ja jalgsivõrgu uuendamiseta.
 findings:
 - id: network
-  statement: Andmepakett sisaldab 104 liini, 532 koondatud peatust, 1166 platvormi
-    ja 21500 sõiduplaanireisi. Teenindus sõltub valitud kuupäevast.
+  statement: Andmepakett sisaldab 104 liini, 534 koondatud peatust, 1170 platvormi
+    ja 21549 sõiduplaanireisi. Teenindus sõltub valitud kuupäevast.
   evidence:
   - stops
   - stations
   - routes
 - id: transfers
-  statement: Ümberistumiste võrk sisaldab 10386 suunatud OSM-i jalgsimarsruuti pikkusega
+  statement: Ümberistumiste võrk sisaldab 10410 suunatud OSM-i jalgsimarsruuti pikkusega
     kuni 600 meetrit, mõõdetuna EPSG:3301 süsteemis.
   evidence:
   - stops
@@ -153,7 +154,7 @@ evidence:
       crs: EPSG:4326
     files:
     - path: data/derived/stops.geojson
-      sha256: sha256:106fb1f0a81b5b1a3294fc7dcdc8b7368d0e95de52224fed2d6000426b2df43f
+      sha256: sha256:8d180a67f614c56ebb15ac0ce3956f78245c3d0d5eb11d821aae01872b6eb86a
   stations:
     definition:
       path: data/derived/stations.geojson
@@ -162,7 +163,7 @@ evidence:
       crs: EPSG:4326
     files:
     - path: data/derived/stations.geojson
-      sha256: sha256:cb6367ee4af9e66a583dd3f2fc2dedb7131589acc9507dd23102ce9aa5839e66
+      sha256: sha256:3a91da02685826a02475a5759648ab2cd23e5117a2567bd3f11584436cf1eafc
   routes:
     definition:
       path: data/derived/routes.geojson
@@ -171,17 +172,17 @@ evidence:
       crs: EPSG:4326
     files:
     - path: data/derived/routes.geojson
-      sha256: sha256:fdc4123bc335ea867c2c5fa6195399c51d32e468799fe84242383d82026a9ebe
+      sha256: sha256:1bed0330dbcfe634b009154be7c8c7e386de7bf532697fb6911e9d962a01c88a
 ---
 # Findings
 
 Loo Tallinna ühistranspordi kaart ja uksest ukseni reisiplaneerija koos aadressiotsingu, sõidukite asukohtade, päris jalgsimarsruutide ning võrguta kasutamisega.
 
-Scope: Tallinna linnatranspordi, Elroni ja OSM-i fikseeritud andmepakett. Run: `run-20261101-094131`. Validation: **warning**.
+Scope: Tallinna linnatranspordi, Elroni ja OSM-i fikseeritud andmepakett. Run: `run-20261124-112425`. Validation: **warning**.
 
 ## network
 
-Andmepakett sisaldab 104 liini, 532 koondatud peatust, 1166 platvormi ja 21500 sõiduplaanireisi. Teenindus sõltub valitud kuupäevast.
+Andmepakett sisaldab 104 liini, 534 koondatud peatust, 1170 platvormi ja 21549 sõiduplaanireisi. Teenindus sõltub valitud kuupäevast.
 
 Evidence:
 
@@ -191,7 +192,7 @@ Evidence:
 
 ## transfers
 
-Ümberistumiste võrk sisaldab 10386 suunatud OSM-i jalgsimarsruuti pikkusega kuni 600 meetrit, mõõdetuna EPSG:3301 süsteemis.
+Ümberistumiste võrk sisaldab 10410 suunatud OSM-i jalgsimarsruuti pikkusega kuni 600 meetrit, mõõdetuna EPSG:3301 süsteemis.
 
 Evidence:
 
@@ -220,7 +221,7 @@ Limitation: Tallinna GPS-i voos puudub üksiksõiduki mõõtmisaeg. Elron annab 
 - Värsked avalikud sõidukiasukohad arhiveeritakse kasutajapäringu käivitatud algallikauuendusel. Kordused eemaldatakse olemasolevas Durable Objectis ja andmed säilivad privaatses R2 Parquet-arhiivis. Lisanduv viieminutiline taustakogumine lõpeb automaatselt 15.11.2026 kell 09:21:59 Europe/Tallinn; kasutajapäringutest kogumine ja ajalugu säilivad. Nõudluspõhisele ajaloole lisatakse ajaliselt piiratud võrdlusandmed. Tallinnal puudub üksiksõiduki mõõtmisaeg; Elroni reisinumber ei ole füüsilise rongi identifikaator.
 - Tallinna busside ja trammide GPS ei anna üksiksõiduki mõõtmisaega. Elroni rongide mõõtmisaeg on teada ja üle 3 minuti vanad asukohad eemaldatakse. Teekonna ajad lähtuvad sõiduplaanist, mitte GPS-ist.
 - Jalgsikäigud järgivad OpenStreetMapi teedevõrku. Hoone või platvormi viimased kuni 70 meetrit võivad olla ligikaudsed; ratastooliga ligipääsetavus ja ajutised sulgemised pole kinnitatud.
-- Sõiduplaan ja teedevõrk on fikseeritud andmepaketis. Hilisemad muudatused ei lisandu automaatselt; sõiduplaani tuleb vähemalt kord nädalas uuendada.
+- Sõiduplaani andmepaketti uuendatakse kord kuus; hilisemad muudatused ei pruugi kohe kajastuda. Teedevõrk on fikseeritud väljavõte.
 - Tallinna ühistranspordivood on avalikud, kuid nende standardset edasilevitamise litsentsi ei leitud. Allikaviited on säilitatud.
 - Elron on kaasatud olemasoleva Tallinna ja lähiümbruse kaardi piires, kuni Valingu, Saku ja Kullini. Rongisõiduplaani lähteversioon on 01.10.2026; hilisemad ajutised muudatused ei pruugi selles sisalduda. Kontrolli enne rongireisi Elroni teateid.
 
