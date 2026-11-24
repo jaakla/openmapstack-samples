@@ -115,6 +115,11 @@ jobs:
           python3 -m venv /tmp/tallinn-tram-env
           /tmp/tallinn-tram-env/bin/pip install 'openmapstack==0.5.0'
           /tmp/tallinn-tram-env/bin/openmapstack validate tallinn-tram-options/project.yaml
+      - name: Verify the committed Estonia nuclear site screening run
+        run: |
+          python3 -m venv /tmp/nuclear-siting-env
+          /tmp/nuclear-siting-env/bin/pip install 'openmapstack==0.5.0'
+          /tmp/nuclear-siting-env/bin/openmapstack validate nuclear-siting/project.yaml
       - name: Assemble the site
         run: |
           mkdir -p _site/toompea-3d _site/battlefield-visibility _site/pv-location _site/tallinn-transit _site/gallery
@@ -134,6 +139,11 @@ jobs:
           cp tallinn-tram-options/findings.md tallinn-tram-options/project.yaml _site/tallinn-tram-options/
           cp -a tallinn-tram-options/vendor tallinn-tram-options/runs tallinn-tram-options/validation tallinn-tram-options/scenarios _site/tallinn-tram-options/
           cp -a tallinn-tram-options/data/derived tallinn-tram-options/data/overrides _site/tallinn-tram-options/data/
+          mkdir -p _site/nuclear-siting/data
+          cp nuclear-siting/dashboard.html _site/nuclear-siting/index.html
+          cp nuclear-siting/findings.md nuclear-siting/project.yaml nuclear-siting/criteria.yaml _site/nuclear-siting/
+          cp -a nuclear-siting/vendor nuclear-siting/runs nuclear-siting/validation nuclear-siting/delivery _site/nuclear-siting/
+          cp -a nuclear-siting/data/derived _site/nuclear-siting/data/
           mkdir -p _site/shared
           cp shared/analytics.js _site/shared/analytics.js
           cp -a gallery/. _site/gallery/

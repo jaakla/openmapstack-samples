@@ -1,0 +1,1700 @@
+{
+ "counties": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "ehak:maakondade_piirid",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:54:29+00:00",
+  "matched": 15,
+  "returned": 15,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "counties.parquet",
+  "size_bytes": 11188884,
+  "sha256": "sha256:f34c4a7234587b0c5538c48712adc665cdcd1194468130eaaf17ab734b7619d0",
+  "columns": [
+   "geometry",
+   "fid",
+   "ehak_kood",
+   "maakond",
+   "tyyp",
+   "vers_algus",
+   "vers_lopp",
+   "seaduslik_alus"
+  ],
+  "geometry_types": [
+   "MultiPolygon"
+  ],
+  "bounds_epsg3301": [
+   369033.8,
+   6377141.1,
+   739152.8,
+   6634018.9
+  ]
+ },
+ "municipalities": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "ehak:omavalitsuste_piirid",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:54:32+00:00",
+  "matched": 78,
+  "returned": 78,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "municipalities.parquet",
+  "size_bytes": 12760465,
+  "sha256": "sha256:aad7956eefe8c56d75b2d229a63befac99bbca4c02681d1040b05aff77de464d",
+  "columns": [
+   "geometry",
+   "fid",
+   "ehak_kood",
+   "omavalitsus",
+   "tyyp",
+   "maakond_kood",
+   "maakond",
+   "vers_algus",
+   "vers_lopp",
+   "seaduslik_alus"
+  ],
+  "geometry_types": [
+   "MultiPolygon"
+  ],
+  "bounds_epsg3301": [
+   369033.8,
+   6377141.1,
+   739152.8,
+   6634018.9
+  ]
+ },
+ "dense_settlements": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "baasandmed:ehak_tiheasustus",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:54:33+00:00",
+  "matched": 246,
+  "returned": 246,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "dense_settlements.parquet",
+  "size_bytes": 1530882,
+  "sha256": "sha256:39e35c94aa71df1f172cb7712586177f551a02fb42310fdc8b73ff855219f779",
+  "columns": [
+   "geometry",
+   "sys_id",
+   "objectid",
+   "kood",
+   "nimi",
+   "okood",
+   "onimi",
+   "mnimi",
+   "imp_stamp"
+  ],
+  "geometry_types": [
+   "MultiPolygon"
+  ],
+  "bounds_epsg3301": [
+   384206.1,
+   6388103.4,
+   739152.8,
+   6607531.2
+  ]
+ },
+ "sea": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "etak:e_201_meri_a",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:54:36+00:00",
+  "matched": 472,
+  "returned": 472,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "sea.parquet",
+  "size_bytes": 8784182,
+  "sha256": "sha256:8f50db04f9d4a1e2c9fcb47107c93f4f27a0107dd18765969a67fa92953f5eba",
+  "columns": [
+   "geometry",
+   "fid",
+   "etak_id",
+   "kood",
+   "kood_tekst",
+   "markused",
+   "vajalik",
+   "vajalik_tekst",
+   "andmeallika_id",
+   "korgusallika_id",
+   "ruumikujuallika_id",
+   "muutmisaeg",
+   "geom_muutmisaeg"
+  ],
+  "geometry_types": [
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   346624.2,
+   6382965.6,
+   729156.3,
+   6647057.4
+  ]
+ },
+ "protected_areas": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "eelis:kr_kaitseala",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:54:38+00:00",
+  "matched": 841,
+  "returned": 841,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "protected_areas.parquet",
+  "size_bytes": 4008148,
+  "sha256": "sha256:7ad19f7e7744a3bded41d5ec9a2eb20bd05474e9a4e07c101782180944fc2054",
+  "columns": [
+   "geometry",
+   "sys_id",
+   "versioon",
+   "id",
+   "nimi",
+   "tyyp",
+   "kr_kood",
+   "valitseja",
+   "aluskaart"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   338348.1,
+   6377413.4,
+   738894.4,
+   6621370.9
+  ]
+ },
+ "conservation_areas": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "eelis:kr_hoiuala",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:54:39+00:00",
+  "matched": 306,
+  "returned": 306,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "conservation_areas.parquet",
+  "size_bytes": 4495084,
+  "sha256": "sha256:19f5a826177d44efcfa746a0cfb8bc7e57926b2322f85c542d1e1e708d5c6112",
+  "columns": [
+   "geometry",
+   "sys_id",
+   "versioon",
+   "id",
+   "nimi",
+   "tyyp",
+   "kr_kood",
+   "valitseja",
+   "aluskaart"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   361892.5,
+   6383950.6,
+   739207.6,
+   6634274.9
+  ]
+ },
+ "natura_birds": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "eelis:kr_linnuala",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:54:40+00:00",
+  "matched": 66,
+  "returned": 66,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "natura_birds.parquet",
+  "size_bytes": 2446605,
+  "sha256": "sha256:251d1e1a29a4bcfdb5bd9125d756695b2e49ae4ee5b8644c216097231f892c90",
+  "columns": [
+   "geometry",
+   "sys_id",
+   "versioon",
+   "id",
+   "nimi",
+   "tyyp",
+   "kr_kood",
+   "rah_kood"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   361830.3,
+   6380088.8,
+   721743.7,
+   6634274.9
+  ]
+ },
+ "natura_habitats": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "eelis:kr_loodusala",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:54:42+00:00",
+  "matched": 539,
+  "returned": 539,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "natura_habitats.parquet",
+  "size_bytes": 5669466,
+  "sha256": "sha256:06fd68f8a15b0bef935372713e29ef1e33aaeca0a9a88a160c2f4f7e639ec9d2",
+  "columns": [
+   "geometry",
+   "sys_id",
+   "versioon",
+   "id",
+   "nimi",
+   "tyyp",
+   "kr_kood",
+   "rah_kood"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   365594.8,
+   6380088.8,
+   739207.6,
+   6621370.9
+  ]
+ },
+ "key_habitats": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "eelis:kr_vep",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:54:48+00:00",
+  "matched": 17480,
+  "returned": 17480,
+  "page_size": 2000,
+  "pages": 9,
+  "file": "key_habitats.parquet",
+  "size_bytes": 5533619,
+  "sha256": "sha256:518696ea6227ae05dbe747bae2e4df32a04b7da5544e040ae928ec8692d56737",
+  "columns": [
+   "geometry",
+   "sys_id",
+   "versioon",
+   "id",
+   "nimi",
+   "tyyp",
+   "kr_kood",
+   "staatus",
+   "veptyyp",
+   "vepkaasnev"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   372779.2,
+   6377527.9,
+   732225.3,
+   6613108.4
+  ]
+ },
+ "karst": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "eelis:kr_karst",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:54:49+00:00",
+  "matched": 952,
+  "returned": 952,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "karst.parquet",
+  "size_bytes": 3458129,
+  "sha256": "sha256:c7d7666c55dcc118917ce93af5f4839db9d37b1a7c159261617698548bddd055",
+  "columns": [
+   "geometry",
+   "sys_id",
+   "versioon",
+   "id",
+   "nimi",
+   "kr_kood",
+   "tyyp"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Point",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   391449.2,
+   6431632.6,
+   672359.1,
+   6589834.8
+  ]
+ },
+ "flood_hazard": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "eelis:kr_yleujutusohuga_ala",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:54:50+00:00",
+  "matched": 16,
+  "returned": 16,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "flood_hazard.parquet",
+  "size_bytes": 1414023,
+  "sha256": "sha256:9b58ae9143b2933bfa8ff4538e13a88fc1b3388e440a914b1c5c2f5311bae4ca",
+  "columns": [
+   "geometry",
+   "sys_id",
+   "versioon",
+   "id",
+   "nimi",
+   "kr_kood",
+   "vveekogu",
+   "sveekogu",
+   "tyyp"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   386407.4,
+   6416212.1,
+   716826.0,
+   6552236.5
+  ]
+ },
+ "flood_risk_2024": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "keskkonnaportaal:riskipiirkonnad_2024",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:54:55+00:00",
+  "matched": 44,
+  "returned": 44,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "flood_risk_2024.parquet",
+  "size_bytes": 14522751,
+  "sha256": "sha256:360e7460d375be1423f9dc135584f675e3c0b3bc2e7bb78f7b71e3a2f15400ca",
+  "columns": [
+   "geometry",
+   "sys_id",
+   "versioon",
+   "id",
+   "nimi",
+   "uleujutus_liik",
+   "haigla_arv",
+   "haridusasutus_arv",
+   "hoolekandeasutus_arv",
+   "hoone_arv",
+   "kkkompleks_ettevote_arv",
+   "kiirabi_arv",
+   "kultuurimalestis_ala_pindala",
+   "kultuurimalestis_punkt_arv",
+   "natura_2000_linnuala_pindala",
+   "natura_2000_loodusala_pindala",
+   "politseiasutus_arv",
+   "paastekomando_arv",
+   "roobastee_pindala",
+   "tee_pindala",
+   "yle_2000ie_puhastid_arv",
+   "kkr_kaitse",
+   "tee_liik_a"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   403485.9,
+   6412922.4,
+   730000.1,
+   6609779.0
+  ]
+ },
+ "groundwater_unprotected": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "maaamet:pv_kaitsmata",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:54:59+00:00",
+  "matched": 1208,
+  "returned": 1208,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "groundwater_unprotected.parquet",
+  "size_bytes": 9584600,
+  "sha256": "sha256:15e8c9965e54b54779b82b70c58aefc4f88040d87475832f2484e84dcbf60f7d",
+  "columns": [
+   "geometry",
+   "sys_id"
+  ],
+  "geometry_types": [
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   369032.4,
+   6404535.2,
+   739057.9,
+   6611071.9
+  ]
+ },
+ "green_network": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "planeeringud:yld_plan_rohev",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:55:03+00:00",
+  "matched": 2210,
+  "returned": 2210,
+  "page_size": 2000,
+  "pages": 2,
+  "file": "green_network.parquet",
+  "size_bytes": 6930924,
+  "sha256": "sha256:fea522020b554104c03e468d59cbcbfdc7f6f8cccaf63f69ef3bfab410bf7d03",
+  "columns": [
+   "geometry",
+   "sys_id",
+   "objectid",
+   "planid",
+   "plank_id",
+   "tyvikiht",
+   "kiht",
+   "kihi_nimi",
+   "maakond",
+   "omavalitsus",
+   "okood",
+   "allikas",
+   "stamp_upd"
+  ],
+  "geometry_types": [
+   "LineString",
+   "MultiLineString",
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   445758.7,
+   6386960.2,
+   726456.3,
+   6594671.6
+  ]
+ },
+ "karst_fields": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "maaamet:geol_hydrogeoloogia_allikadkarstivormid_karstivali",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:55:04+00:00",
+  "matched": 68,
+  "returned": 68,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "karst_fields.parquet",
+  "size_bytes": 1214429,
+  "sha256": "sha256:fe24b37c2c31b94416754f51d7af47a9d0b42a93652ad10654840bafdf7aa53c",
+  "columns": [
+   "geometry",
+   "objectid",
+   "kood",
+   "objekt",
+   "objekt_en",
+   "kirjeldus",
+   "nimi",
+   "info",
+   "viide"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   371202.1,
+   6431654.3,
+   672553.1,
+   6598848.8
+  ]
+ },
+ "faults_bedrock": {
+  "endpoint": "https://teenus.maaamet.ee/ows/geoloogia400k",
+  "typename": "ms:G400_AP_RIKE",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:55:55+00:00",
+  "matched": 95,
+  "returned": 95,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "faults_bedrock.parquet",
+  "size_bytes": 31520,
+  "sha256": "sha256:08b4fed583acf508fa1914f9663ec21d96825803ac4a8f47662c429303706523",
+  "columns": [
+   "Stiil",
+   "SHAPE_Leng",
+   "geometry"
+  ],
+  "geometry_types": [
+   "LineString"
+  ],
+  "bounds_epsg3301": [
+   378882.7,
+   6426155.5,
+   730571.2,
+   6604439.7
+  ]
+ },
+ "faults_basement": {
+  "endpoint": "https://teenus.maaamet.ee/ows/geoloogia400k",
+  "typename": "ms:G400_AK_RIKKED",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:55:55+00:00",
+  "matched": 148,
+  "returned": 148,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "faults_basement.parquet",
+  "size_bytes": 59804,
+  "sha256": "sha256:c605afd3947dcba5cd2844435a6c38c69eb0e776cb488e1cba9986a842efa644",
+  "columns": [
+   "geometry"
+  ],
+  "geometry_types": [
+   "LineString"
+  ],
+  "bounds_epsg3301": [
+   392452.6,
+   6380666.2,
+   735677.8,
+   6604513.2
+  ]
+ },
+ "mineral_deposits": {
+  "endpoint": "https://teenus.maaamet.ee/ows/maardlad",
+  "typename": "ms:maardlapiir",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:55:57+00:00",
+  "matched": 1023,
+  "returned": 1023,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "mineral_deposits.parquet",
+  "size_bytes": 5749672,
+  "sha256": "sha256:5f12f4be96d88c39c5ee0e3667962e520ecd231cc9c88449791a5361ac9f21fb",
+  "columns": [
+   "MAARDLA_ID",
+   "REG_KAART",
+   "INDEKS",
+   "EGF_NR",
+   "NIMETUS",
+   "MAARDLA_OS",
+   "MAAVARA",
+   "PINDALA",
+   "VEEKORVALD",
+   "VEEPUHASTU",
+   "VEEKAITSE",
+   "VEEMUUDAND",
+   "MAETEHN_TI",
+   "POHIMAAVAR",
+   "KAASMAAVAR",
+   "GEOOKOL_TI",
+   "STAATUS",
+   "ALUSPOHJA",
+   "UUEND_KPV",
+   "EKSPORDITI",
+   "geometry"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   374289.9,
+   6377541.2,
+   735908.0,
+   6617994.5
+  ]
+ },
+ "mining_claims": {
+  "endpoint": "https://teenus.maaamet.ee/ows/maardlad",
+  "typename": "ms:maeeraldis_aktiivne",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:55:58+00:00",
+  "matched": 817,
+  "returned": 817,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "mining_claims.parquet",
+  "size_bytes": 310868,
+  "sha256": "sha256:84c7148f6a196f0f1fb16ea79f8ab34da7c1025720f8ec581e351f16c04a594c",
+  "columns": [
+   "ME_ID",
+   "ME_KOOD",
+   "NIMETUS",
+   "REG_KAART",
+   "LOA_NUMBER",
+   "LOA_ALGUS",
+   "LOA_VALJAS",
+   "KAEVANDAJA",
+   "PINDALA",
+   "ERALD_VARU",
+   "KAS_EESM",
+   "LOA_LOPP",
+   "REKULT",
+   "STAATUS",
+   "ME_OLEK",
+   "LOA_OMANIK",
+   "KLIS_MENET",
+   "ASUB_MERES",
+   "MAA_ALUNE",
+   "MAAVARA",
+   "UUEND_KPV",
+   "EKSPORDITI",
+   "geometry"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   387908.0,
+   6384956.8,
+   735908.0,
+   6615039.4
+  ]
+ },
+ "undermined_oil_shale": {
+  "endpoint": "https://teenus.maaamet.ee/ows/maardlad",
+  "typename": "ms:PK_altkaevandatud",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:56:01+00:00",
+  "matched": 4458,
+  "returned": 4458,
+  "page_size": 2000,
+  "pages": 3,
+  "file": "undermined_oil_shale.parquet",
+  "size_bytes": 3549958,
+  "sha256": "sha256:86f9df4b22475897b89292e16d80fa7acdc0d1254a6b59340901215b4f0d442c",
+  "columns": [
+   "OBJECTID",
+   "Tyyp",
+   "Klass",
+   "Lisainfo",
+   "SHAPE_Leng",
+   "SHAPE_Area",
+   "geometry"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   636894.2,
+   6563646.9,
+   710693.5,
+   6590276.0
+  ]
+ },
+ "undermined_phosphorite": {
+  "endpoint": "https://teenus.maaamet.ee/ows/maardlad",
+  "typename": "ms:EP_altkaevandatud",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:56:02+00:00",
+  "matched": 9,
+  "returned": 9,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "undermined_phosphorite.parquet",
+  "size_bytes": 21708,
+  "sha256": "sha256:a3a7626c64b49ee572b4eb2f6879f083f21c08231c6f5a08d7f4b8dca7caaa9b",
+  "columns": [
+   "OBJECTID",
+   "Shape_Leng",
+   "Shape_Area",
+   "Kood",
+   "geometry"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   664044.0,
+   6573592.1,
+   701712.6,
+   6588280.9
+  ]
+ },
+ "hazardous_plants": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "huvipunkt:ohtlik_ettevote",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:56:02+00:00",
+  "matched": 235,
+  "returned": 235,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "hazardous_plants.parquet",
+  "size_bytes": 60130,
+  "sha256": "sha256:c958acb957200da6e395701c5c7f5ebe0ea09d1c2edfd3a2e688e5549aea4181",
+  "columns": [
+   "geometry",
+   "fid",
+   "nimi",
+   "alias",
+   "ylemgrupp",
+   "grupp",
+   "alamgrupp",
+   "tyypnimi",
+   "markus",
+   "aadress",
+   "adrid",
+   "adsoid",
+   "mk",
+   "ov",
+   "ay",
+   "www",
+   "url",
+   "email",
+   "telefon",
+   "allikas",
+   "andmeseis",
+   "poi_id",
+   "id",
+   "vid",
+   "tyyp",
+   "x",
+   "y",
+   "pikkus",
+   "laius",
+   "kiht"
+  ],
+  "geometry_types": [
+   "Point"
+  ],
+  "bounds_epsg3301": [
+   388761.6,
+   6403721.0,
+   737844.7,
+   6600813.7
+  ]
+ },
+ "airfields": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "huvipunkt:lennuvali",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:56:02+00:00",
+  "matched": 40,
+  "returned": 40,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "airfields.parquet",
+  "size_bytes": 30716,
+  "sha256": "sha256:b3b58d66ecc752c962e802b88262388642b39d027a0b5aa9e12368964a96079e",
+  "columns": [
+   "geometry",
+   "fid",
+   "nimi",
+   "alias",
+   "ylemgrupp",
+   "grupp",
+   "alamgrupp",
+   "tyypnimi",
+   "markus",
+   "aadress",
+   "adrid",
+   "adsoid",
+   "mk",
+   "ov",
+   "ay",
+   "www",
+   "url",
+   "email",
+   "telefon",
+   "allikas",
+   "andmeseis",
+   "poi_id",
+   "id",
+   "vid",
+   "tyyp",
+   "x",
+   "y",
+   "pikkus",
+   "laius",
+   "kiht"
+  ],
+  "geometry_types": [
+   "Point"
+  ],
+  "bounds_epsg3301": [
+   398452.0,
+   6391128.7,
+   733498.7,
+   6602136.5
+  ]
+ },
+ "defence_objects": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "kpokitsendused:kpo_avalik_riigikaitse",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:56:03+00:00",
+  "matched": 78,
+  "returned": 78,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "defence_objects.parquet",
+  "size_bytes": 251041,
+  "sha256": "sha256:fc21ad5dde618517ad69a58e1e9798e42385eca0a93c9a251eb1f7ebb66ca2e1",
+  "columns": [
+   "geometry",
+   "vid",
+   "kpo_liik_kood",
+   "kpo_liik_kood_vaartus",
+   "alagrupp_id",
+   "alagrupp_vaartus",
+   "nahtus_id",
+   "nahtus_id_vaartus",
+   "nimetus",
+   "klass",
+   "last_modified_date",
+   "oiguslik_kpv",
+   "omanik_tellija",
+   "tapsusklass",
+   "kpo_asukoht_kood",
+   "kpo_asukoht_kood_vaartus",
+   "seisund_nimetus"
+  ],
+  "geometry_types": [
+   "LineString",
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   412166.1,
+   6377141.1,
+   739208.2,
+   6603626.5
+  ]
+ },
+ "defence_zones": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "kmakitsendused:kma_avalik_riigikaitse",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:56:03+00:00",
+  "matched": 78,
+  "returned": 78,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "defence_zones.parquet",
+  "size_bytes": 769327,
+  "sha256": "sha256:a488a06771239d6f6f80eb91a2d765b48752d1104eae6a52831091b749d8c0b5",
+  "columns": [
+   "geometry",
+   "id",
+   "vid",
+   "nahtus_id",
+   "nahtus_id_vaartus",
+   "voond_liik_id",
+   "voond_liik_id_vaartus",
+   "klass",
+   "nimi",
+   "maksusoodustus",
+   "reegel",
+   "ulatus",
+   "valise_registri_viide",
+   "kitsenduse_objekti_vid",
+   "kpois_viide"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   411866.1,
+   6377131.1,
+   739208.2,
+   6605626.5
+  ]
+ },
+ "heritage_monuments": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "muinsuskaitse:kpo_malestised",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:56:06+00:00",
+  "matched": 12520,
+  "returned": 12520,
+  "page_size": 2000,
+  "pages": 7,
+  "file": "heritage_monuments.parquet",
+  "size_bytes": 1288163,
+  "sha256": "sha256:6acf49f8a7bf9a5c702d70f381708cd1655ea68476b00a94e875d006c890c469",
+  "columns": [
+   "geometry",
+   "id",
+   "vid",
+   "nahtus_id",
+   "nahtuse_liik",
+   "nahtuse_liik_nimi",
+   "nimi",
+   "tyyp",
+   "tyyp_nimi",
+   "vk_registrinumber",
+   "vk_mk_nimi",
+   "vk_ov_nimi",
+   "vk_aadress",
+   "register_url",
+   "last_modified_date"
+  ],
+  "geometry_types": [
+   "LineString",
+   "MultiPolygon",
+   "Point",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   338224.0,
+   6386047.9,
+   739143.0,
+   6637566.0
+  ]
+ },
+ "power_lines_hv": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "etak:e_601_elektriliin_j",
+  "cql_filter": "nimipinge>=110",
+  "retrieved_at": "2026-11-22T16:56:06+00:00",
+  "matched": 552,
+  "returned": 552,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "power_lines_hv.parquet",
+  "size_bytes": 226779,
+  "sha256": "sha256:f09384475eea204f00143a7e957776dca75cd971d7b621b418e88a6f1210f4a3",
+  "columns": [
+   "geometry",
+   "fid",
+   "etak_id",
+   "kood",
+   "kood_tekst",
+   "nimipinge",
+   "ehr_gid",
+   "markused",
+   "vajalik",
+   "vajalik_tekst",
+   "andmeallika_id",
+   "korgusallika_id",
+   "ruumikujuallika_id",
+   "muutmisaeg",
+   "geom_muutmisaeg"
+  ],
+  "geometry_types": [
+   "LineString"
+  ],
+  "bounds_epsg3301": [
+   411436.1,
+   6387457.7,
+   738065.7,
+   6606582.4
+  ]
+ },
+ "ports": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "huvipunkt:sadam",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:56:07+00:00",
+  "matched": 266,
+  "returned": 266,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "ports.parquet",
+  "size_bytes": 53747,
+  "sha256": "sha256:f9c0dd9111aa24bab1a3ba9d3fdc5546af8fe8a81dda9ef825ef1ba62af727d6",
+  "columns": [
+   "geometry",
+   "fid",
+   "nimi",
+   "alias",
+   "ylemgrupp",
+   "grupp",
+   "alamgrupp",
+   "tyypnimi",
+   "markus",
+   "aadress",
+   "adrid",
+   "adsoid",
+   "mk",
+   "ov",
+   "ay",
+   "www",
+   "url",
+   "email",
+   "telefon",
+   "allikas",
+   "andmeseis",
+   "poi_id",
+   "id",
+   "vid",
+   "tyyp",
+   "x",
+   "y",
+   "pikkus",
+   "laius",
+   "kiht"
+  ],
+  "geometry_types": [
+   "Point"
+  ],
+  "bounds_epsg3301": [
+   372003.5,
+   6404462.9,
+   738894.1,
+   6613437.9
+  ]
+ },
+ "population_grid": {
+  "endpoint": "https://inspire.geoportaal.ee/geoserver/PD_rahvastikutihedus/wfs",
+  "typename": "PD_rahvastikutihedus:PD.StatisticalDistribution_",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:56:18+00:00",
+  "matched": 45668,
+  "returned": 45668,
+  "page_size": 2000,
+  "pages": 23,
+  "file": "population_grid.parquet",
+  "size_bytes": 877194,
+  "sha256": "sha256:ca280b61e2ef3cd52ed749cf9f3a0a5539560d6a403e72b1b54bc3be72e19a91",
+  "columns": [
+   "geometry",
+   "gml_id",
+   "gml_metadataproperty_xlink_title",
+   "gml_metadataproperty_xlink_href",
+   "gml_original_coordinate_system",
+   "gml_parent_property",
+   "gml_description",
+   "inspireid_identifier_localid",
+   "inspireid_identifier_namespace",
+   "classification_classification_item_classificationitem_typetitle",
+   "classification_classification_item_classificationitem_typehref",
+   "classification_classification_type_xlink_title",
+   "domain_characterstring",
+   "generalstatus_xlink_href",
+   "generalstatus_xlink_title",
+   "measure_xlink_href",
+   "measure_xlink_title",
+   "measurementmethod_xlink_href",
+   "measurementmethod_xlink_title",
+   "measurementunit_uom",
+   "periodofmeasurement_xlink_title",
+   "periodofreference_xlink_title",
+   "universe_country",
+   "universe_country_codelist",
+   "universe_country_codelistvalue",
+   "value_statisticalvalue_value",
+   "value_statisticalvalue_specialvalue_xlink_href",
+   "value_statisticalvalue_specialvalue_xlink_title",
+   "xml_ns_uri",
+   "beginlifespanversion_xsi_nil"
+  ],
+  "geometry_types": [
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   369000.0,
+   6377000.0,
+   740000.0,
+   6635000.0
+  ]
+ },
+ "main_roads": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "etak:e_501_tee_j",
+  "cql_filter": "tyyp=10",
+  "retrieved_at": "2026-11-22T17:00:24+00:00",
+  "matched": 7795,
+  "returned": 7795,
+  "kept": 7795,
+  "dropped_unplaceable": [],
+  "page_size": 5000,
+  "pages": 2,
+  "file": "main_roads.parquet",
+  "size_bytes": 925700,
+  "sha256": "sha256:4ff2edca46e0a65251cd4566baabfa02d40bbb3fafa2283236ff0364efae952a",
+  "columns": [
+   "geometry",
+   "fid",
+   "sys_id",
+   "etak_id",
+   "kood",
+   "kood_tekst",
+   "tyyp",
+   "tyyp_tekst",
+   "laius",
+   "teekate",
+   "teekate_tekst",
+   "liiklus",
+   "liiklus_tekst",
+   "tee",
+   "teeosa",
+   "soidutee",
+   "soidutee_tekst",
+   "tee_synon",
+   "teeosa_synon",
+   "soidutee_synon",
+   "soidutee_synon_tekst",
+   "tee_synon2",
+   "teeosa_synon2",
+   "soidutee_synon2",
+   "soidutee_synon2_tekst",
+   "nimetus",
+   "a_tasand",
+   "l_tasand",
+   "ads_oid",
+   "ads_nimetus",
+   "karto_nimi",
+   "tahtsus",
+   "tahtsus_tekst",
+   "no_oid",
+   "markused",
+   "vajalik",
+   "vajalik_tekst",
+   "andmeallika_id",
+   "korgusallika_id",
+   "ruumikujuallika_id",
+   "muutmisaeg",
+   "geom_muutmisaeg"
+  ],
+  "geometry_types": [
+   "LineString"
+  ],
+  "bounds_epsg3301": [
+   411072.8,
+   6386236.1,
+   738825.8,
+   6593414.2
+  ]
+ },
+ "railways": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "etak:e_502_roobastee_j",
+  "cql_filter": "tyyp=10",
+  "retrieved_at": "2026-11-22T16:59:53+00:00",
+  "matched": 3637,
+  "returned": 3637,
+  "page_size": 5000,
+  "pages": 1,
+  "file": "railways.parquet",
+  "size_bytes": 698935,
+  "sha256": "sha256:bfa41f5b956340ee750ea0578305f3af2148dc5e96c4ac965f53f43065904b21",
+  "columns": [
+   "geometry",
+   "fid",
+   "etak_id",
+   "kood",
+   "kood_tekst",
+   "tyyp",
+   "tyyp_tekst",
+   "elekter",
+   "elekter_tekst",
+   "tahtsus",
+   "tahtsus_tekst",
+   "markused",
+   "vajalik",
+   "vajalik_tekst",
+   "andmeallika_id",
+   "korgusallika_id",
+   "ruumikujuallika_id",
+   "muutmisaeg",
+   "geom_muutmisaeg"
+  ],
+  "geometry_types": [
+   "LineString"
+  ],
+  "bounds_epsg3301": [
+   472926.5,
+   6404249.7,
+   739096.9,
+   6598327.5
+  ]
+ },
+ "gas_transmission_359": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "kponahtused:kpo_avalik_gaas_359",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:59:53+00:00",
+  "matched": 68,
+  "returned": 68,
+  "page_size": 5000,
+  "pages": 1,
+  "file": "gas_transmission_359.parquet",
+  "size_bytes": 64362,
+  "sha256": "sha256:3ced469535b5e8bcd5079709bdfa7ed60f1f5c3bd1a87bad42298ac74ff83d9c",
+  "columns": [
+   "geometry",
+   "vid",
+   "kpo_liik_kood",
+   "kpo_liik_kood_vaartus",
+   "alagrupp_id",
+   "alagrupp_vaartus",
+   "nahtus_id",
+   "nahtus_id_vaartus",
+   "nimetus",
+   "klass",
+   "last_modified_date",
+   "oiguslik_kpv",
+   "omanik_tellija",
+   "tapsusklass",
+   "kpo_asukoht_kood",
+   "kpo_asukoht_kood_vaartus",
+   "seisund_nimetus"
+  ],
+  "geometry_types": [
+   "LineString",
+   "MultiLineString"
+  ],
+  "bounds_epsg3301": [
+   411282.1,
+   6388370.3,
+   735971.8,
+   6593264.3
+  ]
+ },
+ "gas_transmission_3514": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "kponahtused:kpo_avalik_gaas_3514",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:59:54+00:00",
+  "matched": 20,
+  "returned": 20,
+  "page_size": 5000,
+  "pages": 1,
+  "file": "gas_transmission_3514.parquet",
+  "size_bytes": 127918,
+  "sha256": "sha256:a7eff8915871136a1c645fec3b65fbab57af19340afced34d5e5dc77b0355033",
+  "columns": [
+   "geometry",
+   "vid",
+   "kpo_liik_kood",
+   "kpo_liik_kood_vaartus",
+   "alagrupp_id",
+   "alagrupp_vaartus",
+   "nahtus_id",
+   "nahtus_id_vaartus",
+   "nimetus",
+   "klass",
+   "last_modified_date",
+   "oiguslik_kpv",
+   "omanik_tellija",
+   "tapsusklass",
+   "kpo_asukoht_kood",
+   "kpo_asukoht_kood_vaartus",
+   "seisund_nimetus"
+  ],
+  "geometry_types": [
+   "LineString",
+   "MultiLineString"
+  ],
+  "bounds_epsg3301": [
+   531829.9,
+   6466787.7,
+   735005.3,
+   6595871.8
+  ]
+ },
+ "gas_transmission_3516": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "kponahtused:kpo_avalik_gaas_3516",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:59:54+00:00",
+  "matched": 56,
+  "returned": 56,
+  "page_size": 5000,
+  "pages": 1,
+  "file": "gas_transmission_3516.parquet",
+  "size_bytes": 449941,
+  "sha256": "sha256:083583f30ab736a344f0f8b2ec1b76c82dc3efcff9a9b3b02f7605ae14dc5439",
+  "columns": [
+   "geometry",
+   "vid",
+   "kpo_liik_kood",
+   "kpo_liik_kood_vaartus",
+   "alagrupp_id",
+   "alagrupp_vaartus",
+   "nahtus_id",
+   "nahtus_id_vaartus",
+   "nimetus",
+   "klass",
+   "last_modified_date",
+   "oiguslik_kpv",
+   "omanik_tellija",
+   "tapsusklass",
+   "kpo_asukoht_kood",
+   "kpo_asukoht_kood_vaartus",
+   "seisund_nimetus"
+  ],
+  "geometry_types": [
+   "LineString",
+   "MultiLineString"
+  ],
+  "bounds_epsg3301": [
+   503961.9,
+   6386260.9,
+   734166.7,
+   6595266.6
+  ]
+ },
+ "lakes": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "eelis:kr_jarv",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:59:57+00:00",
+  "matched": 2830,
+  "returned": 2830,
+  "page_size": 5000,
+  "pages": 1,
+  "file": "lakes.parquet",
+  "size_bytes": 9386094,
+  "sha256": "sha256:3619bf1819a403362a7dba1b63351c65c79fe3c633b96dd1b58dd59425e1bcb4",
+  "columns": [
+   "geometry",
+   "sys_id",
+   "versioon",
+   "id",
+   "nimi",
+   "tyyp",
+   "kr_kood",
+   "pindala",
+   "muud_nimed",
+   "avalik",
+   "on_umbjarv"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   374606.4,
+   6381362.4,
+   751682.0,
+   6614183.2
+  ]
+ },
+ "single_object_zones": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "eelis:kr_yksikobjekti_kaitsetsoon",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T16:59:58+00:00",
+  "matched": 997,
+  "returned": 997,
+  "page_size": 5000,
+  "pages": 1,
+  "file": "single_object_zones.parquet",
+  "size_bytes": 484290,
+  "sha256": "sha256:9172feb77c7870e49d1f6244f49c51ae6ff7a9727a1238f4929dc93addf96b0d",
+  "columns": [
+   "geometry",
+   "sys_id",
+   "versioon",
+   "id",
+   "nimi",
+   "ala_id",
+   "voond_ulat"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   378902.5,
+   6385068.4,
+   734409.6,
+   6633526.5
+  ]
+ },
+ "heritage_zones": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "muinsuskaitse:kpo_kaitsevoondid",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T17:00:28+00:00",
+  "matched": 14358,
+  "returned": 14358,
+  "kept": 14354,
+  "dropped_unplaceable": [
+   {
+    "id": "15229318",
+    "vid": "12900",
+    "nahtus_id": "241",
+    "nahtuse_liik": "8.4.2.1",
+    "nahtuse_liik_nimi": "Kinnismälestis",
+    "voond_liik_id": "1008",
+    "piiranguvoond": "602",
+    "piiranguvoond_nimi": "Kinnismälestise kaitsevöönd",
+    "voond_nimi": "Kalmistu ja ohvrikoht Kabelimägi",
+    "register_url": "<a href=\"http://register.muinas.ee/?menuID=monument&amp;action=view&amp;id=12900\" target=\"_blank\">12900</a>"
+   },
+   {
+    "id": "15229317",
+    "vid": "12900",
+    "nahtus_id": "241",
+    "nahtuse_liik": "8.4.2.1",
+    "nahtuse_liik_nimi": "Kinnismälestis",
+    "voond_liik_id": "1007",
+    "piiranguvoond": "601",
+    "piiranguvoond_nimi": "Kinnismälestise ala",
+    "voond_nimi": "Kalmistu ja ohvrikoht Kabelimägi",
+    "register_url": "<a href=\"http://register.muinas.ee/?menuID=monument&amp;action=view&amp;id=12900\" target=\"_blank\">12900</a>"
+   },
+   {
+    "id": "15229327",
+    "vid": NaN,
+    "nahtus_id": "241",
+    "nahtuse_liik": "8.4.2.1",
+    "nahtuse_liik_nimi": "Kinnismälestis",
+    "voond_liik_id": "1007",
+    "piiranguvoond": "601",
+    "piiranguvoond_nimi": "Kinnismälestise ala",
+    "voond_nimi": "Kiviaja asulakoht \"Kullamägi\"",
+    "register_url": "<a href=\"http://register.muinas.ee/?menuID=monument&amp;action=view&amp;id=\" target=\"_blank\"></a>"
+   },
+   {
+    "id": "15229328",
+    "vid": "12855",
+    "nahtus_id": "241",
+    "nahtuse_liik": "8.4.2.1",
+    "nahtuse_liik_nimi": "Kinnismälestis",
+    "voond_liik_id": "1007",
+    "piiranguvoond": "601",
+    "piiranguvoond_nimi": "Kinnismälestise ala",
+    "voond_nimi": "Asulakoht",
+    "register_url": "<a href=\"http://register.muinas.ee/?menuID=monument&amp;action=view&amp;id=12855\" target=\"_blank\">12855</a>"
+   }
+  ],
+  "page_size": 5000,
+  "pages": 3,
+  "file": "heritage_zones.parquet",
+  "size_bytes": 4964208,
+  "sha256": "sha256:82189bee4a426d743500c43871bb3e4df18734ef1f5b4c4ddf84adb3661d16a3",
+  "columns": [
+   "geometry",
+   "id",
+   "vid",
+   "nahtus_id",
+   "nahtuse_liik",
+   "nahtuse_liik_nimi",
+   "voond_liik_id",
+   "piiranguvoond",
+   "piiranguvoond_nimi",
+   "voond_nimi",
+   "register_url"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Point",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   337717.1,
+   6385998.2,
+   739193.0,
+   6637937.0
+  ]
+ },
+ "mires": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "eelis:sood",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T17:00:37+00:00",
+  "matched": 11514,
+  "returned": 11514,
+  "kept": 11514,
+  "dropped_unplaceable": [],
+  "page_size": 5000,
+  "pages": 3,
+  "file": "mires.parquet",
+  "size_bytes": 24565669,
+  "sha256": "sha256:36781c95e59946653c407c09f86438f4fc08faae25796cf4ec4a1c90f0d97c2f",
+  "columns": [
+   "geometry",
+   "kood",
+   "nimi",
+   "paal97",
+   "paal97_kaasnev",
+   "n2k_tyyp",
+   "n2k_kaasnev",
+   "kaasneva_protsent",
+   "lkseisund",
+   "esindusl",
+   "yldhinnang",
+   "invent_kp",
+   "vaatleja",
+   "kuivendamine",
+   "strukt",
+   "funkts",
+   "taast",
+   "kvaliteet",
+   "kaardistus",
+   "sys_id"
+  ],
+  "geometry_types": [
+   "MultiPolygon",
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   373492.1,
+   6377260.3,
+   735057.5,
+   6617641.6
+  ]
+ },
+ "dwellings": {
+  "endpoint": "https://gsavalik.envir.ee/geoserver/ows",
+  "typename": "maaamet:eluhooned",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T17:01:37+00:00",
+  "matched": 285677,
+  "returned": 285677,
+  "kept": 285677,
+  "dropped_unplaceable": [],
+  "page_size": 5000,
+  "pages": 58,
+  "file": "dwellings.parquet",
+  "size_bytes": 36143538,
+  "sha256": "sha256:32086e532dcfe65093440ed694cd1304da75d22d50ae29fe4422237806f501c6",
+  "columns": [
+   "geometry",
+   "ads_oid",
+   "ehr_gid",
+   "ehr_kood",
+   "ehr_url",
+   "etak_id",
+   "taisaadress",
+   "lahiaadress",
+   "kaos_kood",
+   "kaos_nimetus",
+   "unik"
+  ],
+  "geometry_types": [
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   370453.0,
+   6380419.9,
+   738881.7,
+   6633514.3
+  ]
+ },
+ "rep_sites": {
+  "endpoint": "https://gis.skpk.ee/arcgis/rest/services/TEJ_planeering_WEB_avalik/MapServer/0/query",
+  "typename": "layer 0",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T17:01:37+00:00",
+  "matched": 6,
+  "returned": 6,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "rep_sites.parquet",
+  "size_bytes": 12046,
+  "sha256": "sha256:be805d722aa6fdd4f0d15aaa6509714a4763d5d5d684ee57c29866ffc50a1679",
+  "columns": [
+   "geometry",
+   "FID",
+   "id",
+   "nimi"
+  ],
+  "geometry_types": [
+   "Point"
+  ],
+  "bounds_epsg3301": [
+   644959.7,
+   6589743.9,
+   680671.8,
+   6602216.0
+  ]
+ },
+ "rep_site_areas": {
+  "endpoint": "https://gis.skpk.ee/arcgis/rest/services/TEJ_planeering_WEB_avalik/MapServer/1/query",
+  "typename": "layer 1",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T17:01:37+00:00",
+  "matched": 6,
+  "returned": 6,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "rep_site_areas.parquet",
+  "size_bytes": 37412,
+  "sha256": "sha256:f1568ddac46a7d3531d4140948cfdbea3d5023952b71fb450eacba7dfcb32901",
+  "columns": [
+   "geometry",
+   "OBJECTID",
+   "id",
+   "nimi",
+   "BUFF_DIST",
+   "ORIG_FID",
+   "Shape_Length",
+   "Shape_Area"
+  ],
+  "geometry_types": [
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   644537.0,
+   6589194.5,
+   681221.3,
+   6602765.5
+  ]
+ },
+ "rep_planning_area": {
+  "endpoint": "https://gis.skpk.ee/arcgis/rest/services/TEJ_planeering_WEB_avalik/MapServer/2/query",
+  "typename": "layer 2",
+  "cql_filter": null,
+  "retrieved_at": "2026-11-22T17:01:38+00:00",
+  "matched": 1,
+  "returned": 1,
+  "page_size": 2000,
+  "pages": 1,
+  "file": "rep_planning_area.parquet",
+  "size_bytes": 12263,
+  "sha256": "sha256:070bee83899edf365e83c0a29ea64cf4397fe4777af8a8b1cb29eb918964a0f7",
+  "columns": [
+   "geometry",
+   "FID",
+   "Pindala"
+  ],
+  "geometry_types": [
+   "Polygon"
+  ],
+  "bounds_epsg3301": [
+   629413.2,
+   6580771.1,
+   683518.7,
+   6610487.8
+  ]
+ },
+ "dtm": {
+  "endpoint": "https://teenus.maaamet.ee/ows/wcs-dtm",
+  "typename": "dtm-25",
+  "request": {
+   "service": "WCS",
+   "version": "2.0.1",
+   "request": "GetCoverage",
+   "coverageId": "dtm-25",
+   "format": "image/tiff",
+   "scalesize": "x(3750),y(2600)"
+  },
+  "retrieved_at": "2026-11-22T17:01:51+00:00",
+  "width": 3750,
+  "height": 2600,
+  "crs": "EPSG:3301",
+  "bounds": [
+   365000.0,
+   6375000.0,
+   740000.0,
+   6635000.0
+  ],
+  "pixel_m": 100.0,
+  "file": "dtm-100m.tif",
+  "size_bytes": 12799107,
+  "sha256": "sha256:c9d3d21f5adfd3c97254a4e3b112da95c97ebe87b45d2a0f42fe11f1e5071f40"
+ }
+}

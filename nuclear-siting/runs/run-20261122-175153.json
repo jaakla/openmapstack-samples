@@ -1,0 +1,322 @@
+{
+  "run_id": "run-20261122-175153",
+  "started_at": "2026-11-22T17:51:53.194875+00:00",
+  "completed_at": "2026-11-22T17:52:42.865890+00:00",
+  "status": "warning",
+  "inputs_hash": "sha256:976b0d88155d9193a8a75d400dc050f4874e216949069cc3979be49358eecdbd",
+  "outputs_hash": "sha256:4151fef6b5b7a94e9a182d950ef01fed29b9c060be14a8b4a0de9cb746a0a8d4",
+  "validation_report": "validation/latest-report.json",
+  "environment": {
+    "python": "3.13.15",
+    "platform": "Linux-7.0.0-43-generic-x86_64-with-glibc2.43",
+    "packages": {
+      "geopandas": "1.2.0",
+      "shapely": "2.2.0",
+      "numpy": "2.5.5",
+      "pandas": "3.1.1",
+      "rasterio": "1.5.2"
+    }
+  },
+  "headline": {
+    "criteria_applied": [
+      "cooling_sea",
+      "underground_mining",
+      "faults",
+      "heritage",
+      "protected_areas",
+      "natura",
+      "conservation_areas",
+      "single_objects",
+      "key_habitats",
+      "dwellings",
+      "defence",
+      "water_bodies",
+      "land_border",
+      "land_area"
+    ],
+    "thresholds": {
+      "cooling_sea": 3,
+      "faults": 5,
+      "dwellings": 0.35,
+      "land_border": 5,
+      "land_area": 95
+    },
+    "land_km2": 43468.5,
+    "remaining_km2": 564.42,
+    "candidate_km2": 462.08,
+    "candidate_m2": 462079365,
+    "remaining_m2": 564416520,
+    "candidate_cells": 6914,
+    "remaining_cells": 8438,
+    "candidate_areas": 95,
+    "candidate_pct_of_land": 1.063
+  },
+  "inputs": [
+    {
+      "path": "criteria.yaml",
+      "sha256": "sha256:b375f03e204d1492f18e3de48273a5b222d13c56d0c724edcf515a32e773c5cf"
+    },
+    {
+      "path": "dashboard.template.html",
+      "sha256": "sha256:6670102c7edaa66c0113c824d12c8dde357bf5724bfe1146e9ec6804ff7b3fd6"
+    },
+    {
+      "path": "data/source/acquisition.json",
+      "sha256": "sha256:5512a8a46436045f6c29d7411bfc634f4ffbdbb38ec9cbf04183e7347b77c092"
+    },
+    {
+      "path": "data/source/airfields.parquet",
+      "sha256": "sha256:b3b58d66ecc752c962e802b88262388642b39d027a0b5aa9e12368964a96079e"
+    },
+    {
+      "path": "data/source/conservation_areas.parquet",
+      "sha256": "sha256:19f5a826177d44efcfa746a0cfb8bc7e57926b2322f85c542d1e1e708d5c6112"
+    },
+    {
+      "path": "data/source/counties.parquet",
+      "sha256": "sha256:f34c4a7234587b0c5538c48712adc665cdcd1194468130eaaf17ab734b7619d0"
+    },
+    {
+      "path": "data/source/defence_objects.parquet",
+      "sha256": "sha256:fc21ad5dde618517ad69a58e1e9798e42385eca0a93c9a251eb1f7ebb66ca2e1"
+    },
+    {
+      "path": "data/source/defence_zones.parquet",
+      "sha256": "sha256:a488a06771239d6f6f80eb91a2d765b48752d1104eae6a52831091b749d8c0b5"
+    },
+    {
+      "path": "data/source/dense_settlements.parquet",
+      "sha256": "sha256:39e35c94aa71df1f172cb7712586177f551a02fb42310fdc8b73ff855219f779"
+    },
+    {
+      "path": "data/source/dtm-100m.tif",
+      "sha256": "sha256:c9d3d21f5adfd3c97254a4e3b112da95c97ebe87b45d2a0f42fe11f1e5071f40"
+    },
+    {
+      "path": "data/source/dwellings.parquet",
+      "sha256": "sha256:32086e532dcfe65093440ed694cd1304da75d22d50ae29fe4422237806f501c6"
+    },
+    {
+      "path": "data/source/faults_basement.parquet",
+      "sha256": "sha256:c605afd3947dcba5cd2844435a6c38c69eb0e776cb488e1cba9986a842efa644"
+    },
+    {
+      "path": "data/source/faults_bedrock.parquet",
+      "sha256": "sha256:08b4fed583acf508fa1914f9663ec21d96825803ac4a8f47662c429303706523"
+    },
+    {
+      "path": "data/source/flood_hazard.parquet",
+      "sha256": "sha256:9b58ae9143b2933bfa8ff4538e13a88fc1b3388e440a914b1c5c2f5311bae4ca"
+    },
+    {
+      "path": "data/source/flood_risk_2024.parquet",
+      "sha256": "sha256:360e7460d375be1423f9dc135584f675e3c0b3bc2e7bb78f7b71e3a2f15400ca"
+    },
+    {
+      "path": "data/source/gas_transmission_3514.parquet",
+      "sha256": "sha256:a7eff8915871136a1c645fec3b65fbab57af19340afced34d5e5dc77b0355033"
+    },
+    {
+      "path": "data/source/gas_transmission_3516.parquet",
+      "sha256": "sha256:083583f30ab736a344f0f8b2ec1b76c82dc3efcff9a9b3b02f7605ae14dc5439"
+    },
+    {
+      "path": "data/source/gas_transmission_359.parquet",
+      "sha256": "sha256:3ced469535b5e8bcd5079709bdfa7ed60f1f5c3bd1a87bad42298ac74ff83d9c"
+    },
+    {
+      "path": "data/source/green_network.parquet",
+      "sha256": "sha256:fea522020b554104c03e468d59cbcbfdc7f6f8cccaf63f69ef3bfab410bf7d03"
+    },
+    {
+      "path": "data/source/groundwater_unprotected.parquet",
+      "sha256": "sha256:15e8c9965e54b54779b82b70c58aefc4f88040d87475832f2484e84dcbf60f7d"
+    },
+    {
+      "path": "data/source/hazardous_plants.parquet",
+      "sha256": "sha256:c958acb957200da6e395701c5c7f5ebe0ea09d1c2edfd3a2e688e5549aea4181"
+    },
+    {
+      "path": "data/source/heritage_monuments.parquet",
+      "sha256": "sha256:6acf49f8a7bf9a5c702d70f381708cd1655ea68476b00a94e875d006c890c469"
+    },
+    {
+      "path": "data/source/heritage_zones.parquet",
+      "sha256": "sha256:82189bee4a426d743500c43871bb3e4df18734ef1f5b4c4ddf84adb3661d16a3"
+    },
+    {
+      "path": "data/source/karst.parquet",
+      "sha256": "sha256:c7d7666c55dcc118917ce93af5f4839db9d37b1a7c159261617698548bddd055"
+    },
+    {
+      "path": "data/source/karst_fields.parquet",
+      "sha256": "sha256:fe24b37c2c31b94416754f51d7af47a9d0b42a93652ad10654840bafdf7aa53c"
+    },
+    {
+      "path": "data/source/key_habitats.parquet",
+      "sha256": "sha256:518696ea6227ae05dbe747bae2e4df32a04b7da5544e040ae928ec8692d56737"
+    },
+    {
+      "path": "data/source/lakes.parquet",
+      "sha256": "sha256:3619bf1819a403362a7dba1b63351c65c79fe3c633b96dd1b58dd59425e1bcb4"
+    },
+    {
+      "path": "data/source/main_roads.parquet",
+      "sha256": "sha256:4ff2edca46e0a65251cd4566baabfa02d40bbb3fafa2283236ff0364efae952a"
+    },
+    {
+      "path": "data/source/mineral_deposits.parquet",
+      "sha256": "sha256:5f12f4be96d88c39c5ee0e3667962e520ecd231cc9c88449791a5361ac9f21fb"
+    },
+    {
+      "path": "data/source/mining_claims.parquet",
+      "sha256": "sha256:84c7148f6a196f0f1fb16ea79f8ab34da7c1025720f8ec581e351f16c04a594c"
+    },
+    {
+      "path": "data/source/mires.parquet",
+      "sha256": "sha256:36781c95e59946653c407c09f86438f4fc08faae25796cf4ec4a1c90f0d97c2f"
+    },
+    {
+      "path": "data/source/municipalities.parquet",
+      "sha256": "sha256:aad7956eefe8c56d75b2d229a63befac99bbca4c02681d1040b05aff77de464d"
+    },
+    {
+      "path": "data/source/natura_birds.parquet",
+      "sha256": "sha256:251d1e1a29a4bcfdb5bd9125d756695b2e49ae4ee5b8644c216097231f892c90"
+    },
+    {
+      "path": "data/source/natura_habitats.parquet",
+      "sha256": "sha256:06fd68f8a15b0bef935372713e29ef1e33aaeca0a9a88a160c2f4f7e639ec9d2"
+    },
+    {
+      "path": "data/source/population_grid.parquet",
+      "sha256": "sha256:ca280b61e2ef3cd52ed749cf9f3a0a5539560d6a403e72b1b54bc3be72e19a91"
+    },
+    {
+      "path": "data/source/ports.parquet",
+      "sha256": "sha256:f9c0dd9111aa24bab1a3ba9d3fdc5546af8fe8a81dda9ef825ef1ba62af727d6"
+    },
+    {
+      "path": "data/source/power_lines_hv.parquet",
+      "sha256": "sha256:f09384475eea204f00143a7e957776dca75cd971d7b621b418e88a6f1210f4a3"
+    },
+    {
+      "path": "data/source/protected_areas.parquet",
+      "sha256": "sha256:7ad19f7e7744a3bded41d5ec9a2eb20bd05474e9a4e07c101782180944fc2054"
+    },
+    {
+      "path": "data/source/railways.parquet",
+      "sha256": "sha256:bfa41f5b956340ee750ea0578305f3af2148dc5e96c4ac965f53f43065904b21"
+    },
+    {
+      "path": "data/source/rep_planning_area.parquet",
+      "sha256": "sha256:070bee83899edf365e83c0a29ea64cf4397fe4777af8a8b1cb29eb918964a0f7"
+    },
+    {
+      "path": "data/source/rep_site_areas.parquet",
+      "sha256": "sha256:f1568ddac46a7d3531d4140948cfdbea3d5023952b71fb450eacba7dfcb32901"
+    },
+    {
+      "path": "data/source/rep_sites.parquet",
+      "sha256": "sha256:be805d722aa6fdd4f0d15aaa6509714a4763d5d5d684ee57c29866ffc50a1679"
+    },
+    {
+      "path": "data/source/sea.parquet",
+      "sha256": "sha256:8f50db04f9d4a1e2c9fcb47107c93f4f27a0107dd18765969a67fa92953f5eba"
+    },
+    {
+      "path": "data/source/single_object_zones.parquet",
+      "sha256": "sha256:9172feb77c7870e49d1f6244f49c51ae6ff7a9727a1238f4929dc93addf96b0d"
+    },
+    {
+      "path": "data/source/undermined_oil_shale.parquet",
+      "sha256": "sha256:86f9df4b22475897b89292e16d80fa7acdc0d1254a6b59340901215b4f0d442c"
+    },
+    {
+      "path": "data/source/undermined_phosphorite.parquet",
+      "sha256": "sha256:a3a7626c64b49ee572b4eb2f6879f083f21c08231c6f5a08d7f4b8dca7caaa9b"
+    },
+    {
+      "path": "pipeline.py",
+      "sha256": "sha256:7dc7bc07ed6573f5ef7a4a5129f1c73bb2973071d20f7beebc7ab7a9a80d0f43"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "sha256:9a1d7dcea63c5765b7512c5f5fd9bcdd563ed00afcaf8f3da2274ee46b1e7c7c"
+    },
+    {
+      "path": "vendor/maplibre-gl.css",
+      "sha256": "sha256:792ac997dcf6ae6f643eb4e2dee4630c85e7056526bd8fb85ffe83c67d6c41b4"
+    },
+    {
+      "path": "vendor/maplibre-gl.js",
+      "sha256": "sha256:07e6ca71a5b6d835a7c3803fb484f0a6e5f0dcbfa131407666edb9e9316564f9"
+    },
+    {
+      "path": "view.py",
+      "sha256": "sha256:82b1f0ce513b8cf1a4c04ba7d722878ff8c848ab2b6ed3460e82fba184010388"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "dashboard.html",
+      "sha256": "sha256:a151cbf0bfaf332031f6ddab1a3138654047e9cb4e7b3105ed5b913774fefaec"
+    },
+    {
+      "path": "data/derived/candidate-areas.csv",
+      "sha256": "sha256:07e4a0fc8953d6e96da6105ef5197e6da90d88fedf52610917b98c3f7f7bd1ea"
+    },
+    {
+      "path": "data/derived/candidate-areas.geojson",
+      "sha256": "sha256:c783b3354e579318ce36019a32277194bbdf87daa008e81e900352c30b37f129"
+    },
+    {
+      "path": "data/derived/candidate-areas.xlsx",
+      "sha256": "sha256:ba683685471142255e0b593162bf3203721c1115583907d84aa2852dccbd0899"
+    },
+    {
+      "path": "data/derived/county-summary.csv",
+      "sha256": "sha256:2a6a99f9a601f8dee30de97e5099180ddc91d85e46237890de96313cd4054e51"
+    },
+    {
+      "path": "data/derived/county-summary.xlsx",
+      "sha256": "sha256:0cea5d53c28b2624277aa102b0a29696395923371d75fb55d71148d82f2614db"
+    },
+    {
+      "path": "data/derived/criteria-catalogue.csv",
+      "sha256": "sha256:0d2c29e4ef078f8cebbd49259426977c8893e3563000a312d2c0e85394b81faf"
+    },
+    {
+      "path": "data/derived/criteria-catalogue.xlsx",
+      "sha256": "sha256:9d5fbcfab7e23b265db28b93e1d798cea519c631e7961f80c22daa2b369ba260"
+    },
+    {
+      "path": "data/derived/official-sites-check.csv",
+      "sha256": "sha256:ddd8c9ec614d989e49e38f375e27a9775c4a6bcb81793f86f3ebce3c3a342e3e"
+    },
+    {
+      "path": "data/derived/official-sites-check.xlsx",
+      "sha256": "sha256:6c981e51504253da16d2d7df195719826bb5fb5a04895141a9eb95e366e377dd"
+    },
+    {
+      "path": "data/derived/official-sites.geojson",
+      "sha256": "sha256:55475337b556d318b747257528ceb4516f4aa470c4bd1e0fe7304df9a73fa399"
+    },
+    {
+      "path": "data/derived/reference-features.geojson",
+      "sha256": "sha256:5bc59fed318ddb7ce514d44e3bfc75959ac1b63fd38e3b4c4f94b63515c8e76b"
+    },
+    {
+      "path": "data/derived/screening-grid.parquet",
+      "sha256": "sha256:49ab3cc093c744d4b187dcada803b8f3f7114b73caaecdd3159adf65c548d538"
+    },
+    {
+      "path": "delivery/dashboard-evidence.json",
+      "sha256": "sha256:7e2f30887cbae1b2c75b3ebabfe63da68a6affd396f9570a0aa07fd86eed9120"
+    },
+    {
+      "path": "findings.md",
+      "sha256": "sha256:47eda055ac398d9b158d3a92cd54b7cabdd5f7a74f2ca29b41a5241e72e5e2c6"
+    }
+  ]
+}

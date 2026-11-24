@@ -1,0 +1,4551 @@
+{
+  "schema": "openmapstack-delivery-evidence/v1",
+  "metadata": {
+    "schema": "openmapstack-view/v1",
+    "target": "dashboard",
+    "kind": "dashboard",
+    "semantics": {
+      "project_id": "nuclear-siting",
+      "interpretation": {
+        "objective": "Catalogue the siting criteria of the Estonian state special plan for a nuclear power plant and of the 2023 nationwide spatial analysis, with their class and thresholds; measure every criterion that open data can support on a nationwide grid; and report the land that remains when the mapped exclusion criteria are applied, with each criterion switchable in the view.",
+        "assumptions": [
+          {
+            "id": "A1",
+            "statement": "The study area is the land of Estonia: every grid cell whose centre lies inside a county polygon of the official administrative division.",
+            "rationale": "A plant stands on land. County polygons follow the shoreline and include islands; inland lakes are handled by their own criterion."
+          },
+          {
+            "id": "A2",
+            "statement": "The screen is made on a grid aligned to Web Mercator with 500 m steps, about 255 to 270 m on the ground. Every test is made at the cell centre: a cell is inside an area when its centre is, and distances run from the centre.",
+            "rationale": "A fixed grid lets any set of criteria be combined in the view without measuring in the browser. Aligning it to the map projection lets it be drawn exactly. All measuring is done in EPSG:3301."
+          },
+          {
+            "id": "A3",
+            "statement": "The accepted run applies every mapped criterion of class 'exclusion' at the official threshold and no criterion of class 'consideration' or 'suitability'.",
+            "rationale": "The official method removes exclusion areas first and weighs the other criteria site by site, without a summed score. Considerations are reported per candidate area and can be switched on in the view."
+          },
+          {
+            "id": "A4",
+            "statement": "Cooling water is taken from the sea, and the accepted threshold is the open-cycle one: at most 3 km from the sea in a straight line.",
+            "rationale": "The ministry states that no Estonian river has enough flow. The 2023 analysis used 3 km for open-cycle and 10 km for closed-cycle cooling; both are offered."
+          },
+          {
+            "id": "A5",
+            "statement": "Every bedrock fault of the 1:400 000 geological map is buffered by 5 km, as the 2023 screening did, although no Estonian fault is proven active.",
+            "rationale": "The official criterion concerns active faults, which only site investigations can establish. Buffering all mapped faults is the conservative screening choice and is switchable."
+          },
+          {
+            "id": "A6",
+            "statement": "A cell is too close to homes when its centre is nearer than 350 m to a residential building footprint.",
+            "rationale": "The plan keeps 350 m between dwellings and the reactor. Public buildings and plot boundaries, which the plan also excludes, are not in the open layer used."
+          },
+          {
+            "id": "A7",
+            "statement": "Enough land means remaining cells joined edge to edge that add up to at least 95 ha.",
+            "rationale": "The plan estimates 95 ha for two BWRX-300 units with their buffer. Diagonal contact does not join cells."
+          },
+          {
+            "id": "A8",
+            "statement": "Distances are straight lines from the cell centre to points placed every 25 m along the target lines and outlines, and are stored in whole units (50, 100 or 250 m) rounded down.",
+            "rationale": "The error is at most about 13 m, far below the cell size. Every offered threshold is a multiple of the unit, so stored values reproduce each rule exactly."
+          },
+          {
+            "id": "A9",
+            "statement": "Where the official rule needs data that is not open, a stand-in is used and the criterion is marked 'proxy'; where there is no usable stand-in the criterion is listed as 'not mapped' and plays no part.",
+            "rationale": "The catalogue should show the whole official list and be explicit about what this screen can and cannot reproduce."
+          },
+          {
+            "id": "A10",
+            "statement": "Three exclusion criteria come from outside the plan's 47-row screening table: limited-conservation areas (an exclusion layer of the plan's public map), lakes and reservoirs, and 5 km from the land border (both exclusions of the 2023 nationwide analysis).",
+            "rationale": "The plan's table was written for a planning area that these do not touch; a nationwide screen needs them."
+          }
+        ]
+      },
+      "sources": {
+        "counties": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "EHAK county boundaries (maakondade piirid)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:54:29+00:00",
+            "downloaded_at": "2026-11-22T16:54:29+00:00",
+            "file": {
+              "name": "counties.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 11188884,
+              "row_count": 15,
+              "column_count": 8
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=ehak:maakondade_piirid, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "ehak:maakondade_piirid, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/counties.parquet",
+            "sha256": "sha256:f34c4a7234587b0c5538c48712adc665cdcd1194468130eaaf17ab734b7619d0",
+            "captured_at": "2026-11-22T16:54:29+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 15,
+              "returned": 15,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon"
+            ],
+            "columns": [
+              "geometry",
+              "fid",
+              "ehak_kood",
+              "maakond",
+              "tyyp",
+              "vers_algus",
+              "vers_lopp",
+              "seaduslik_alus"
+            ]
+          },
+          "rationale": "Official administrative boundaries define the land of Estonia and the county of each cell."
+        },
+        "municipalities": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "EHAK municipality boundaries (omavalitsuste piirid)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:54:32+00:00",
+            "downloaded_at": "2026-11-22T16:54:32+00:00",
+            "file": {
+              "name": "municipalities.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 12760465,
+              "row_count": 78,
+              "column_count": 10
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=ehak:omavalitsuste_piirid, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "ehak:omavalitsuste_piirid, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/municipalities.parquet",
+            "sha256": "sha256:aad7956eefe8c56d75b2d229a63befac99bbca4c02681d1040b05aff77de464d",
+            "captured_at": "2026-11-22T16:54:32+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 78,
+              "returned": 78,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon"
+            ],
+            "columns": [
+              "geometry",
+              "fid",
+              "ehak_kood",
+              "omavalitsus",
+              "tyyp",
+              "maakond_kood",
+              "maakond",
+              "vers_algus",
+              "vers_lopp",
+              "seaduslik_alus"
+            ]
+          },
+          "rationale": "Names the municipality of each cell and candidate area."
+        },
+        "dense_settlements": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "EHAK densely populated areas (tiheasustusalad)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:54:33+00:00",
+            "downloaded_at": "2026-11-22T16:54:33+00:00",
+            "file": {
+              "name": "dense_settlements.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 1530882,
+              "row_count": 246,
+              "column_count": 9
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=baasandmed:ehak_tiheasustus, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "baasandmed:ehak_tiheasustus, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/dense_settlements.parquet",
+            "sha256": "sha256:39e35c94aa71df1f172cb7712586177f551a02fb42310fdc8b73ff855219f779",
+            "captured_at": "2026-11-22T16:54:33+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 246,
+              "returned": 246,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon"
+            ],
+            "columns": [
+              "geometry",
+              "sys_id",
+              "objectid",
+              "kood",
+              "nimi",
+              "okood",
+              "onimi",
+              "mnimi",
+              "imp_stamp"
+            ]
+          },
+          "rationale": "Official delineation of densely built-up settlements."
+        },
+        "sea": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Estonian Topographic Database (ETAK), sea areas (E_201_meri_a)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:54:36+00:00",
+            "downloaded_at": "2026-11-22T16:54:36+00:00",
+            "file": {
+              "name": "sea.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 8784182,
+              "row_count": 472,
+              "column_count": 13
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=etak:e_201_meri_a, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "etak:e_201_meri_a, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/sea.parquet",
+            "sha256": "sha256:8f50db04f9d4a1e2c9fcb47107c93f4f27a0107dd18765969a67fa92953f5eba",
+            "captured_at": "2026-11-22T16:54:36+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 472,
+              "returned": 472,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "fid",
+              "etak_id",
+              "kood",
+              "kood_tekst",
+              "markused",
+              "vajalik",
+              "vajalik_tekst",
+              "andmeallika_id",
+              "korgusallika_id",
+              "ruumikujuallika_id",
+              "muutmisaeg",
+              "geom_muutmisaeg"
+            ]
+          },
+          "rationale": "The 1:10 000 topographic database gives the shoreline used for the cooling-water distance."
+        },
+        "protected_areas": {
+          "role": "authoritative_input",
+          "provider": "Keskkonnaagentuur (Estonian Environment Agency), EELIS nature register",
+          "dataset": "Protected areas (kr_kaitseala)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:54:38+00:00",
+            "downloaded_at": "2026-11-22T16:54:38+00:00",
+            "file": {
+              "name": "protected_areas.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 4008148,
+              "row_count": 841,
+              "column_count": 9
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=eelis:kr_kaitseala, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "eelis:kr_kaitseala, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/protected_areas.parquet",
+            "sha256": "sha256:7ad19f7e7744a3bded41d5ec9a2eb20bd05474e9a4e07c101782180944fc2054",
+            "captured_at": "2026-11-22T16:54:38+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 841,
+              "returned": 841,
+              "page_size": 2000,
+              "pages": 1
+            },
+            "semantic_predicates": [
+              {
+                "field": "tyyp",
+                "domain_value": "KP, KLKA, KMKA, VP, PS, KRP, VK = protected area types; every type counts",
+                "allowed": [
+                  "KP",
+                  "KLKA",
+                  "KMKA",
+                  "VP",
+                  "PS",
+                  "KRP",
+                  "VK"
+                ],
+                "required_non_null": true
+              }
+            ]
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "sys_id",
+              "versioon",
+              "id",
+              "nimi",
+              "tyyp",
+              "kr_kood",
+              "valitseja",
+              "aluskaart"
+            ]
+          },
+          "rationale": "The legal register of protected nature areas."
+        },
+        "conservation_areas": {
+          "role": "authoritative_input",
+          "provider": "Keskkonnaagentuur (Estonian Environment Agency), EELIS nature register",
+          "dataset": "Limited-conservation areas (kr_hoiuala)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:54:39+00:00",
+            "downloaded_at": "2026-11-22T16:54:39+00:00",
+            "file": {
+              "name": "conservation_areas.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 4495084,
+              "row_count": 306,
+              "column_count": 9
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=eelis:kr_hoiuala, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "eelis:kr_hoiuala, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/conservation_areas.parquet",
+            "sha256": "sha256:19f5a826177d44efcfa746a0cfb8bc7e57926b2322f85c542d1e1e708d5c6112",
+            "captured_at": "2026-11-22T16:54:39+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 306,
+              "returned": 306,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "sys_id",
+              "versioon",
+              "id",
+              "nimi",
+              "tyyp",
+              "kr_kood",
+              "valitseja",
+              "aluskaart"
+            ]
+          },
+          "rationale": "The legal register of hoiualad."
+        },
+        "natura_birds": {
+          "role": "authoritative_input",
+          "provider": "Keskkonnaagentuur (Estonian Environment Agency), EELIS nature register",
+          "dataset": "Natura 2000 bird areas (kr_linnuala)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:54:40+00:00",
+            "downloaded_at": "2026-11-22T16:54:40+00:00",
+            "file": {
+              "name": "natura_birds.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 2446605,
+              "row_count": 66,
+              "column_count": 8
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=eelis:kr_linnuala, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "eelis:kr_linnuala, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/natura_birds.parquet",
+            "sha256": "sha256:251d1e1a29a4bcfdb5bd9125d756695b2e49ae4ee5b8644c216097231f892c90",
+            "captured_at": "2026-11-22T16:54:40+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 66,
+              "returned": 66,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "sys_id",
+              "versioon",
+              "id",
+              "nimi",
+              "tyyp",
+              "kr_kood",
+              "rah_kood"
+            ]
+          },
+          "rationale": "Official Natura 2000 delineation."
+        },
+        "natura_habitats": {
+          "role": "authoritative_input",
+          "provider": "Keskkonnaagentuur (Estonian Environment Agency), EELIS nature register",
+          "dataset": "Natura 2000 habitat areas (kr_loodusala)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:54:42+00:00",
+            "downloaded_at": "2026-11-22T16:54:42+00:00",
+            "file": {
+              "name": "natura_habitats.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 5669466,
+              "row_count": 539,
+              "column_count": 8
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=eelis:kr_loodusala, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "eelis:kr_loodusala, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/natura_habitats.parquet",
+            "sha256": "sha256:06fd68f8a15b0bef935372713e29ef1e33aaeca0a9a88a160c2f4f7e639ec9d2",
+            "captured_at": "2026-11-22T16:54:42+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 539,
+              "returned": 539,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "sys_id",
+              "versioon",
+              "id",
+              "nimi",
+              "tyyp",
+              "kr_kood",
+              "rah_kood"
+            ]
+          },
+          "rationale": "Official Natura 2000 delineation."
+        },
+        "key_habitats": {
+          "role": "authoritative_input",
+          "provider": "Keskkonnaagentuur (Estonian Environment Agency), EELIS nature register",
+          "dataset": "Woodland key habitats (kr_vep)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:54:48+00:00",
+            "downloaded_at": "2026-11-22T16:54:48+00:00",
+            "file": {
+              "name": "key_habitats.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 5533619,
+              "row_count": 17480,
+              "column_count": 10
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=eelis:kr_vep, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "eelis:kr_vep, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/key_habitats.parquet",
+            "sha256": "sha256:518696ea6227ae05dbe747bae2e4df32a04b7da5544e040ae928ec8692d56737",
+            "captured_at": "2026-11-22T16:54:48+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 17480,
+              "returned": 17480,
+              "page_size": 2000,
+              "pages": 9
+            },
+            "semantic_predicates": [
+              {
+                "field": "staatus",
+                "domain_value": "'On kehtiv leping' = contracted; 'Ei ole kehtivat lepingut' = no contract; both count (ownership is not in the layer)",
+                "allowed": [
+                  "On kehtiv leping",
+                  "Ei ole kehtivat lepingut"
+                ]
+              }
+            ]
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "sys_id",
+              "versioon",
+              "id",
+              "nimi",
+              "tyyp",
+              "kr_kood",
+              "staatus",
+              "veptyyp",
+              "vepkaasnev"
+            ]
+          },
+          "rationale": "Register of woodland key habitats."
+        },
+        "karst": {
+          "role": "authoritative_input",
+          "provider": "Keskkonnaagentuur (Estonian Environment Agency), EELIS nature register",
+          "dataset": "Karst areas and forms (kr_karst)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:54:49+00:00",
+            "downloaded_at": "2026-11-22T16:54:49+00:00",
+            "file": {
+              "name": "karst.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 3458129,
+              "row_count": 952,
+              "column_count": 7
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=eelis:kr_karst, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "eelis:kr_karst, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/karst.parquet",
+            "sha256": "sha256:c7d7666c55dcc118917ce93af5f4839db9d37b1a7c159261617698548bddd055",
+            "captured_at": "2026-11-22T16:54:49+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 952,
+              "returned": 952,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Point",
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "sys_id",
+              "versioon",
+              "id",
+              "nimi",
+              "kr_kood",
+              "tyyp"
+            ]
+          },
+          "rationale": "Register of karst features."
+        },
+        "flood_hazard": {
+          "role": "authoritative_input",
+          "provider": "Keskkonnaagentuur (Estonian Environment Agency), EELIS nature register",
+          "dataset": "Flood-hazard areas (kr_yleujutusohuga_ala)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:54:50+00:00",
+            "downloaded_at": "2026-11-22T16:54:50+00:00",
+            "file": {
+              "name": "flood_hazard.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 1414023,
+              "row_count": 16,
+              "column_count": 9
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=eelis:kr_yleujutusohuga_ala, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "eelis:kr_yleujutusohuga_ala, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/flood_hazard.parquet",
+            "sha256": "sha256:9b58ae9143b2933bfa8ff4538e13a88fc1b3388e440a914b1c5c2f5311bae4ca",
+            "captured_at": "2026-11-22T16:54:50+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 16,
+              "returned": 16,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "sys_id",
+              "versioon",
+              "id",
+              "nimi",
+              "kr_kood",
+              "vveekogu",
+              "sveekogu",
+              "tyyp"
+            ]
+          },
+          "rationale": "Register of water bodies with large flood areas."
+        },
+        "flood_risk_2024": {
+          "role": "authoritative_input",
+          "provider": "Keskkonnaagentuur / Ministry of Climate",
+          "dataset": "Flood risk areas of the 2024 assessment (riskipiirkonnad_2024)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:54:55+00:00",
+            "downloaded_at": "2026-11-22T16:54:55+00:00",
+            "file": {
+              "name": "flood_risk_2024.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 14522751,
+              "row_count": 44,
+              "column_count": 23
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=keskkonnaportaal:riskipiirkonnad_2024, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "keskkonnaportaal:riskipiirkonnad_2024, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/flood_risk_2024.parquet",
+            "sha256": "sha256:360e7460d375be1423f9dc135584f675e3c0b3bc2e7bb78f7b71e3a2f15400ca",
+            "captured_at": "2026-11-22T16:54:55+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 44,
+              "returned": 44,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "sys_id",
+              "versioon",
+              "id",
+              "nimi",
+              "uleujutus_liik",
+              "haigla_arv",
+              "haridusasutus_arv",
+              "hoolekandeasutus_arv",
+              "hoone_arv",
+              "kkkompleks_ettevote_arv",
+              "kiirabi_arv",
+              "kultuurimalestis_ala_pindala",
+              "kultuurimalestis_punkt_arv",
+              "natura_2000_linnuala_pindala",
+              "natura_2000_loodusala_pindala",
+              "politseiasutus_arv",
+              "paastekomando_arv",
+              "roobastee_pindala",
+              "tee_pindala",
+              "yle_2000ie_puhastid_arv",
+              "kkr_kaitse",
+              "tee_liik_a"
+            ]
+          },
+          "rationale": "The current official flood risk areas."
+        },
+        "groundwater_unprotected": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Areas of unprotected groundwater (pv_kaitsmata)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:54:59+00:00",
+            "downloaded_at": "2026-11-22T16:54:59+00:00",
+            "file": {
+              "name": "groundwater_unprotected.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 9584600,
+              "row_count": 1208,
+              "column_count": 2
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=maaamet:pv_kaitsmata, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "maaamet:pv_kaitsmata, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/groundwater_unprotected.parquet",
+            "sha256": "sha256:15e8c9965e54b54779b82b70c58aefc4f88040d87475832f2484e84dcbf60f7d",
+            "captured_at": "2026-11-22T16:54:59+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 1208,
+              "returned": 1208,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "sys_id"
+            ]
+          },
+          "rationale": "Official groundwater vulnerability mapping."
+        },
+        "green_network": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Green network of comprehensive plans (yld_plan_rohev)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:55:03+00:00",
+            "downloaded_at": "2026-11-22T16:55:03+00:00",
+            "file": {
+              "name": "green_network.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 6930924,
+              "row_count": 2210,
+              "column_count": 13
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=planeeringud:yld_plan_rohev, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "planeeringud:yld_plan_rohev, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/green_network.parquet",
+            "sha256": "sha256:fea522020b554104c03e468d59cbcbfdc7f6f8cccaf63f69ef3bfab410bf7d03",
+            "captured_at": "2026-11-22T16:55:03+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 2210,
+              "returned": 2210,
+              "page_size": 2000,
+              "pages": 2
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "LineString",
+              "MultiLineString",
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "sys_id",
+              "objectid",
+              "planid",
+              "plank_id",
+              "tyvikiht",
+              "kiht",
+              "kihi_nimi",
+              "maakond",
+              "omavalitsus",
+              "okood",
+              "allikas",
+              "stamp_upd"
+            ]
+          },
+          "rationale": "The planning database's compiled green network."
+        },
+        "karst_fields": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Hydrogeological map, karst fields (karstivali)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:55:04+00:00",
+            "downloaded_at": "2026-11-22T16:55:04+00:00",
+            "file": {
+              "name": "karst_fields.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 1214429,
+              "row_count": 68,
+              "column_count": 9
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=maaamet:geol_hydrogeoloogia_allikadkarstivormid_karstivali, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "maaamet:geol_hydrogeoloogia_allikadkarstivormid_karstivali, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/karst_fields.parquet",
+            "sha256": "sha256:fe24b37c2c31b94416754f51d7af47a9d0b42a93652ad10654840bafdf7aa53c",
+            "captured_at": "2026-11-22T16:55:04+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 68,
+              "returned": 68,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "objectid",
+              "kood",
+              "objekt",
+              "objekt_en",
+              "kirjeldus",
+              "nimi",
+              "info",
+              "viide"
+            ]
+          },
+          "rationale": "Adds mapped karst fields to the register's karst areas."
+        },
+        "faults_bedrock": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Geological base map 1:400 000, bedrock faults (G400_AP_RIKE)",
+          "source_url": "https://teenus.maaamet.ee/ows/geoloogia400k?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:55:55+00:00",
+            "downloaded_at": "2026-11-22T16:55:55+00:00",
+            "file": {
+              "name": "faults_bedrock.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 31520,
+              "row_count": 95,
+              "column_count": 3
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=ms:G400_AP_RIKE, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "ms:G400_AP_RIKE, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/faults_bedrock.parquet",
+            "sha256": "sha256:08b4fed583acf508fa1914f9663ec21d96825803ac4a8f47662c429303706523",
+            "captured_at": "2026-11-22T16:55:55+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 95,
+              "returned": 95,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Maa- ja Ruumiamet open data licence (attribution); service declares no fees and no access constraints",
+            "url": "https://geoportaal.maaamet.ee/avaandmete-litsents"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "LineString"
+            ],
+            "columns": [
+              "Stiil",
+              "SHAPE_Leng",
+              "geometry"
+            ]
+          },
+          "rationale": "The only nationwide open fault layer; the plan's own exclusion map uses bedrock faults."
+        },
+        "faults_basement": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Geological base map 1:400 000, crystalline basement faults (G400_AK_RIKKED)",
+          "source_url": "https://teenus.maaamet.ee/ows/geoloogia400k?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:55:55+00:00",
+            "downloaded_at": "2026-11-22T16:55:55+00:00",
+            "file": {
+              "name": "faults_basement.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 59804,
+              "row_count": 148,
+              "column_count": 1
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=ms:G400_AK_RIKKED, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "ms:G400_AK_RIKKED, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/faults_basement.parquet",
+            "sha256": "sha256:c605afd3947dcba5cd2844435a6c38c69eb0e776cb488e1cba9986a842efa644",
+            "captured_at": "2026-11-22T16:55:55+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 148,
+              "returned": 148,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Maa- ja Ruumiamet open data licence (attribution); service declares no fees and no access constraints",
+            "url": "https://geoportaal.maaamet.ee/avaandmete-litsents"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "LineString"
+            ],
+            "columns": [
+              "geometry"
+            ]
+          },
+          "rationale": "Offered as a separate consideration because the 2023 analysis names basement faults."
+        },
+        "mineral_deposits": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Register of mineral deposits, deposit boundaries (maardlapiir)",
+          "source_url": "https://teenus.maaamet.ee/ows/maardlad?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:55:57+00:00",
+            "downloaded_at": "2026-11-22T16:55:57+00:00",
+            "file": {
+              "name": "mineral_deposits.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 5749672,
+              "row_count": 1023,
+              "column_count": 21
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=ms:maardlapiir, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "ms:maardlapiir, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/mineral_deposits.parquet",
+            "sha256": "sha256:5f12f4be96d88c39c5ee0e3667962e520ecd231cc9c88449791a5361ac9f21fb",
+            "captured_at": "2026-11-22T16:55:57+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 1023,
+              "returned": 1023,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Maa- ja Ruumiamet open data licence (attribution); service declares no fees and no access constraints",
+            "url": "https://geoportaal.maaamet.ee/avaandmete-litsents"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "MAARDLA_ID",
+              "REG_KAART",
+              "INDEKS",
+              "EGF_NR",
+              "NIMETUS",
+              "MAARDLA_OS",
+              "MAAVARA",
+              "PINDALA",
+              "VEEKORVALD",
+              "VEEPUHASTU",
+              "VEEKAITSE",
+              "VEEMUUDAND",
+              "MAETEHN_TI",
+              "POHIMAAVAR",
+              "KAASMAAVAR",
+              "GEOOKOL_TI",
+              "STAATUS",
+              "ALUSPOHJA",
+              "UUEND_KPV",
+              "EKSPORDITI",
+              "geometry"
+            ]
+          },
+          "rationale": "The legal register of deposits."
+        },
+        "mining_claims": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Register of mineral deposits, active mining claims (maeeraldis_aktiivne)",
+          "source_url": "https://teenus.maaamet.ee/ows/maardlad?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:55:58+00:00",
+            "downloaded_at": "2026-11-22T16:55:58+00:00",
+            "file": {
+              "name": "mining_claims.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 310868,
+              "row_count": 817,
+              "column_count": 23
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=ms:maeeraldis_aktiivne, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "ms:maeeraldis_aktiivne, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/mining_claims.parquet",
+            "sha256": "sha256:84c7148f6a196f0f1fb16ea79f8ab34da7c1025720f8ec581e351f16c04a594c",
+            "captured_at": "2026-11-22T16:55:58+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 817,
+              "returned": 817,
+              "page_size": 2000,
+              "pages": 1
+            },
+            "semantic_predicates": [
+              {
+                "field": "MAA_ALUNE",
+                "domain_value": "'1' = underground claim; '0' = surface; NULL = not stated (kept as not underground)",
+                "allowed": [
+                  "0",
+                  "1"
+                ]
+              },
+              {
+                "field": "ME_OLEK",
+                "domain_value": "'aktiivne' = active",
+                "allowed": [
+                  "aktiivne"
+                ],
+                "required_non_null": true
+              }
+            ]
+          },
+          "license": {
+            "name": "Maa- ja Ruumiamet open data licence (attribution); service declares no fees and no access constraints",
+            "url": "https://geoportaal.maaamet.ee/avaandmete-litsents"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "ME_ID",
+              "ME_KOOD",
+              "NIMETUS",
+              "REG_KAART",
+              "LOA_NUMBER",
+              "LOA_ALGUS",
+              "LOA_VALJAS",
+              "KAEVANDAJA",
+              "PINDALA",
+              "ERALD_VARU",
+              "KAS_EESM",
+              "LOA_LOPP",
+              "REKULT",
+              "STAATUS",
+              "ME_OLEK",
+              "LOA_OMANIK",
+              "KLIS_MENET",
+              "ASUB_MERES",
+              "MAA_ALUNE",
+              "MAAVARA",
+              "UUEND_KPV",
+              "EKSPORDITI",
+              "geometry"
+            ]
+          },
+          "rationale": "Active surface and underground claims."
+        },
+        "undermined_oil_shale": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Undermined oil-shale areas (PK_altkaevandatud)",
+          "source_url": "https://teenus.maaamet.ee/ows/maardlad?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:56:01+00:00",
+            "downloaded_at": "2026-11-22T16:56:01+00:00",
+            "file": {
+              "name": "undermined_oil_shale.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 3549958,
+              "row_count": 4458,
+              "column_count": 7
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=ms:PK_altkaevandatud, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "ms:PK_altkaevandatud, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/undermined_oil_shale.parquet",
+            "sha256": "sha256:86f9df4b22475897b89292e16d80fa7acdc0d1254a6b59340901215b4f0d442c",
+            "captured_at": "2026-11-22T16:56:01+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 4458,
+              "returned": 4458,
+              "page_size": 2000,
+              "pages": 3
+            }
+          },
+          "license": {
+            "name": "Maa- ja Ruumiamet open data licence (attribution); service declares no fees and no access constraints",
+            "url": "https://geoportaal.maaamet.ee/avaandmete-litsents"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "OBJECTID",
+              "Tyyp",
+              "Klass",
+              "Lisainfo",
+              "SHAPE_Leng",
+              "SHAPE_Area",
+              "geometry"
+            ]
+          },
+          "rationale": "Official map of land above closed and working oil-shale mines."
+        },
+        "undermined_phosphorite": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Undermined phosphorite areas (EP_altkaevandatud)",
+          "source_url": "https://teenus.maaamet.ee/ows/maardlad?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:56:02+00:00",
+            "downloaded_at": "2026-11-22T16:56:02+00:00",
+            "file": {
+              "name": "undermined_phosphorite.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 21708,
+              "row_count": 9,
+              "column_count": 5
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=ms:EP_altkaevandatud, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "ms:EP_altkaevandatud, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/undermined_phosphorite.parquet",
+            "sha256": "sha256:a3a7626c64b49ee572b4eb2f6879f083f21c08231c6f5a08d7f4b8dca7caaa9b",
+            "captured_at": "2026-11-22T16:56:02+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 9,
+              "returned": 9,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Maa- ja Ruumiamet open data licence (attribution); service declares no fees and no access constraints",
+            "url": "https://geoportaal.maaamet.ee/avaandmete-litsents"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "OBJECTID",
+              "Shape_Leng",
+              "Shape_Area",
+              "Kood",
+              "geometry"
+            ]
+          },
+          "rationale": "Official map of land above the former phosphorite mine."
+        },
+        "hazardous_plants": {
+          "role": "authoritative_input",
+          "provider": "Päästeamet (Rescue Board) open data, published by Maa- ja Ruumiamet",
+          "dataset": "Hazardous establishments (huvipunkt:ohtlik_ettevote)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:56:02+00:00",
+            "downloaded_at": "2026-11-22T16:56:02+00:00",
+            "file": {
+              "name": "hazardous_plants.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 60130,
+              "row_count": 235,
+              "column_count": 30
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=huvipunkt:ohtlik_ettevote, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "huvipunkt:ohtlik_ettevote, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/hazardous_plants.parquet",
+            "sha256": "sha256:c958acb957200da6e395701c5c7f5ebe0ea09d1c2edfd3a2e688e5549aea4181",
+            "captured_at": "2026-11-22T16:56:02+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 235,
+              "returned": 235,
+              "page_size": 2000,
+              "pages": 1
+            },
+            "semantic_predicates": [
+              {
+                "field": "tyypnimi",
+                "domain_value": "'ohtlik käitis ohtlikkus A' and 'B' = major-accident establishments (counted); 'C' = hazardous establishment (not counted)",
+                "allowed": [
+                  "ohtlik käitis ohtlikkus A",
+                  "ohtlik käitis ohtlikkus B",
+                  "ohtlik käitis ohtlikkus C"
+                ],
+                "required_non_null": true
+              }
+            ]
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "Point"
+            ],
+            "columns": [
+              "geometry",
+              "fid",
+              "nimi",
+              "alias",
+              "ylemgrupp",
+              "grupp",
+              "alamgrupp",
+              "tyypnimi",
+              "markus",
+              "aadress",
+              "adrid",
+              "adsoid",
+              "mk",
+              "ov",
+              "ay",
+              "www",
+              "url",
+              "email",
+              "telefon",
+              "allikas",
+              "andmeseis",
+              "poi_id",
+              "id",
+              "vid",
+              "tyyp",
+              "x",
+              "y",
+              "pikkus",
+              "laius",
+              "kiht"
+            ]
+          },
+          "rationale": "The official list of hazardous and major-accident establishments."
+        },
+        "airfields": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Airfields (huvipunkt:lennuvali)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:56:02+00:00",
+            "downloaded_at": "2026-11-22T16:56:02+00:00",
+            "file": {
+              "name": "airfields.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 30716,
+              "row_count": 40,
+              "column_count": 30
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=huvipunkt:lennuvali, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "huvipunkt:lennuvali, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/airfields.parquet",
+            "sha256": "sha256:b3b58d66ecc752c962e802b88262388642b39d027a0b5aa9e12368964a96079e",
+            "captured_at": "2026-11-22T16:56:02+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 40,
+              "returned": 40,
+              "page_size": 2000,
+              "pages": 1
+            },
+            "semantic_predicates": [
+              {
+                "field": "tyypnimi",
+                "domain_value": "'riiklik lennuväli', 'sõjaväelennuväli' = state and military aerodromes; 'eralennuväli kõvakattega', 'lennuväli mururajaga' = other airfields in use; 'endine lennuväli', 'mittekasutatav lennuväli' = not in use (not counted)",
+                "allowed": [
+                  "riiklik lennuväli",
+                  "sõjaväelennuväli",
+                  "eralennuväli kõvakattega",
+                  "lennuväli mururajaga",
+                  "endine lennuväli",
+                  "mittekasutatav lennuväli"
+                ],
+                "required_non_null": true
+              }
+            ]
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "Point"
+            ],
+            "columns": [
+              "geometry",
+              "fid",
+              "nimi",
+              "alias",
+              "ylemgrupp",
+              "grupp",
+              "alamgrupp",
+              "tyypnimi",
+              "markus",
+              "aadress",
+              "adrid",
+              "adsoid",
+              "mk",
+              "ov",
+              "ay",
+              "www",
+              "url",
+              "email",
+              "telefon",
+              "allikas",
+              "andmeseis",
+              "poi_id",
+              "id",
+              "vid",
+              "tyyp",
+              "x",
+              "y",
+              "pikkus",
+              "laius",
+              "kiht"
+            ]
+          },
+          "rationale": "Official point layer of aerodromes with a type."
+        },
+        "defence_objects": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Restrictions register, national defence objects and state border (kpo_avalik_riigikaitse)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:56:03+00:00",
+            "downloaded_at": "2026-11-22T16:56:03+00:00",
+            "file": {
+              "name": "defence_objects.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 251041,
+              "row_count": 78,
+              "column_count": 17
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=kpokitsendused:kpo_avalik_riigikaitse, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "kpokitsendused:kpo_avalik_riigikaitse, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/defence_objects.parquet",
+            "sha256": "sha256:fc21ad5dde618517ad69a58e1e9798e42385eca0a93c9a251eb1f7ebb66ca2e1",
+            "captured_at": "2026-11-22T16:56:03+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 78,
+              "returned": 78,
+              "page_size": 2000,
+              "pages": 1
+            },
+            "semantic_predicates": [
+              {
+                "field": "nahtus_id_vaartus",
+                "domain_value": "'Riigikaitseline ehitis' = defence structure or training area; 'Riigipiir' = state border line",
+                "allowed": [
+                  "Riigikaitseline ehitis",
+                  "Riigipiir"
+                ],
+                "required_non_null": true
+              }
+            ]
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "LineString",
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "vid",
+              "kpo_liik_kood",
+              "kpo_liik_kood_vaartus",
+              "alagrupp_id",
+              "alagrupp_vaartus",
+              "nahtus_id",
+              "nahtus_id_vaartus",
+              "nimetus",
+              "klass",
+              "last_modified_date",
+              "oiguslik_kpv",
+              "omanik_tellija",
+              "tapsusklass",
+              "kpo_asukoht_kood",
+              "kpo_asukoht_kood_vaartus",
+              "seisund_nimetus"
+            ]
+          },
+          "rationale": "The public part of the legal restrictions register."
+        },
+        "defence_zones": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Restrictions register, national defence restriction zones (kma_avalik_riigikaitse)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:56:03+00:00",
+            "downloaded_at": "2026-11-22T16:56:03+00:00",
+            "file": {
+              "name": "defence_zones.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 769327,
+              "row_count": 78,
+              "column_count": 15
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=kmakitsendused:kma_avalik_riigikaitse, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "kmakitsendused:kma_avalik_riigikaitse, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/defence_zones.parquet",
+            "sha256": "sha256:a488a06771239d6f6f80eb91a2d765b48752d1104eae6a52831091b749d8c0b5",
+            "captured_at": "2026-11-22T16:56:03+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 78,
+              "returned": 78,
+              "page_size": 2000,
+              "pages": 1
+            },
+            "semantic_predicates": [
+              {
+                "field": "voond_liik_id_vaartus",
+                "domain_value": "'Riigikaitselise ehitise piiranguvöönd' = restriction zone of a defence structure (counted); 'Piiririba', 'Piirivöönd ja piiriveekogu', 'Sõjahaua kaitsevöönd' = other zones (not counted here; the border has its own criterion)",
+                "allowed": [
+                  "Riigikaitselise ehitise piiranguvöönd",
+                  "Piiririba",
+                  "Piirivöönd ja piiriveekogu",
+                  "Sõjahaua kaitsevöönd"
+                ],
+                "required_non_null": true
+              }
+            ]
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "id",
+              "vid",
+              "nahtus_id",
+              "nahtus_id_vaartus",
+              "voond_liik_id",
+              "voond_liik_id_vaartus",
+              "klass",
+              "nimi",
+              "maksusoodustus",
+              "reegel",
+              "ulatus",
+              "valise_registri_viide",
+              "kitsenduse_objekti_vid",
+              "kpois_viide"
+            ]
+          },
+          "rationale": "The public part of the legal restrictions register."
+        },
+        "heritage_monuments": {
+          "role": "authoritative_input",
+          "provider": "Muinsuskaitseamet (National Heritage Board), published in the restrictions register",
+          "dataset": "Immovable monuments (kpo_malestised)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:56:06+00:00",
+            "downloaded_at": "2026-11-22T16:56:06+00:00",
+            "file": {
+              "name": "heritage_monuments.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 1288163,
+              "row_count": 12520,
+              "column_count": 15
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=muinsuskaitse:kpo_malestised, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "muinsuskaitse:kpo_malestised, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/heritage_monuments.parquet",
+            "sha256": "sha256:6acf49f8a7bf9a5c702d70f381708cd1655ea68476b00a94e875d006c890c469",
+            "captured_at": "2026-11-22T16:56:06+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 12520,
+              "returned": 12520,
+              "page_size": 2000,
+              "pages": 7
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "LineString",
+              "MultiPolygon",
+              "Point",
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "id",
+              "vid",
+              "nahtus_id",
+              "nahtuse_liik",
+              "nahtuse_liik_nimi",
+              "nimi",
+              "tyyp",
+              "tyyp_nimi",
+              "vk_registrinumber",
+              "vk_mk_nimi",
+              "vk_ov_nimi",
+              "vk_aadress",
+              "register_url",
+              "last_modified_date"
+            ]
+          },
+          "rationale": "The legal register of monuments."
+        },
+        "heritage_zones": {
+          "role": "authoritative_input",
+          "provider": "Muinsuskaitseamet (National Heritage Board), published in the restrictions register",
+          "dataset": "Monument areas and protection zones (kpo_kaitsevoondid)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T17:00:28+00:00",
+            "downloaded_at": "2026-11-22T17:00:28+00:00",
+            "file": {
+              "name": "heritage_zones.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 4964208,
+              "row_count": 14354,
+              "column_count": 11
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=muinsuskaitse:kpo_kaitsevoondid, srsName=EPSG:3301, paged by startIndex with count=5000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "muinsuskaitse:kpo_kaitsevoondid, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/heritage_zones.parquet",
+            "sha256": "sha256:82189bee4a426d743500c43871bb3e4df18734ef1f5b4c4ddf84adb3661d16a3",
+            "captured_at": "2026-11-22T17:00:28+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 14358,
+              "returned": 14358,
+              "page_size": 5000,
+              "pages": 3
+            },
+            "note": "4 returned records have coordinates that are not L-EST97 metres and were left out at acquisition; they are listed in data/source/acquisition.json."
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Point",
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "id",
+              "vid",
+              "nahtus_id",
+              "nahtuse_liik",
+              "nahtuse_liik_nimi",
+              "voond_liik_id",
+              "piiranguvoond",
+              "piiranguvoond_nimi",
+              "voond_nimi",
+              "register_url"
+            ]
+          },
+          "rationale": "The legal protection zones of monuments."
+        },
+        "power_lines_hv": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Estonian Topographic Database (ETAK), power lines of 110 kV and above (E_601_elektriliin_j)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:56:06+00:00",
+            "downloaded_at": "2026-11-22T16:56:06+00:00",
+            "file": {
+              "name": "power_lines_hv.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 226779,
+              "row_count": 552,
+              "column_count": 15
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=etak:e_601_elektriliin_j, CQL_FILTER=nimipinge>=110, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "etak:e_601_elektriliin_j, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/power_lines_hv.parquet",
+            "sha256": "sha256:f09384475eea204f00143a7e957776dca75cd971d7b621b418e88a6f1210f4a3",
+            "captured_at": "2026-11-22T16:56:06+00:00"
+          },
+          "selection": {
+            "filter": "nimipinge>=110",
+            "completeness": {
+              "matched": 552,
+              "returned": 552,
+              "page_size": 2000,
+              "pages": 1
+            },
+            "semantic_predicates": [
+              {
+                "field": "nimipinge",
+                "domain_value": "nominal voltage in kV; 330 = transmission backbone (used), 110 = not used",
+                "allowed": [
+                  "110",
+                  "330"
+                ],
+                "required_non_null": true
+              }
+            ]
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "LineString"
+            ],
+            "columns": [
+              "geometry",
+              "fid",
+              "etak_id",
+              "kood",
+              "kood_tekst",
+              "nimipinge",
+              "ehr_gid",
+              "markused",
+              "vajalik",
+              "vajalik_tekst",
+              "andmeallika_id",
+              "korgusallika_id",
+              "ruumikujuallika_id",
+              "muutmisaeg",
+              "geom_muutmisaeg"
+            ]
+          },
+          "rationale": "Nationwide line geometry with nominal voltage; the transmission operator publishes no open line data."
+        },
+        "ports": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Ports (huvipunkt:sadam)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:56:07+00:00",
+            "downloaded_at": "2026-11-22T16:56:07+00:00",
+            "file": {
+              "name": "ports.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 53747,
+              "row_count": 266,
+              "column_count": 30
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=huvipunkt:sadam, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "huvipunkt:sadam, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/ports.parquet",
+            "sha256": "sha256:f9c0dd9111aa24bab1a3ba9d3fdc5546af8fe8a81dda9ef825ef1ba62af727d6",
+            "captured_at": "2026-11-22T16:56:07+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 266,
+              "returned": 266,
+              "page_size": 2000,
+              "pages": 1
+            },
+            "semantic_predicates": [
+              {
+                "field": "tyypnimi",
+                "domain_value": "'sadam' = port (counted); 'väikesadam', 'väikesadam tasuliste teenusteta', 'mitteametlik sadam' = small or unofficial harbour (not counted)",
+                "allowed": [
+                  "sadam",
+                  "väikesadam",
+                  "väikesadam tasuliste teenusteta",
+                  "mitteametlik sadam"
+                ],
+                "required_non_null": true
+              }
+            ]
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "Point"
+            ],
+            "columns": [
+              "geometry",
+              "fid",
+              "nimi",
+              "alias",
+              "ylemgrupp",
+              "grupp",
+              "alamgrupp",
+              "tyypnimi",
+              "markus",
+              "aadress",
+              "adrid",
+              "adsoid",
+              "mk",
+              "ov",
+              "ay",
+              "www",
+              "url",
+              "email",
+              "telefon",
+              "allikas",
+              "andmeseis",
+              "poi_id",
+              "id",
+              "vid",
+              "tyyp",
+              "x",
+              "y",
+              "pikkus",
+              "laius",
+              "kiht"
+            ]
+          },
+          "rationale": "Official point layer of ports with a class."
+        },
+        "main_roads": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Estonian Topographic Database (ETAK), main roads (E_501_tee_j, tyyp = 10)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T17:00:24+00:00",
+            "downloaded_at": "2026-11-22T17:00:24+00:00",
+            "file": {
+              "name": "main_roads.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 925700,
+              "row_count": 7795,
+              "column_count": 42
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=etak:e_501_tee_j, CQL_FILTER=tyyp=10, srsName=EPSG:3301, paged by startIndex with count=5000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "etak:e_501_tee_j, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/main_roads.parquet",
+            "sha256": "sha256:4ff2edca46e0a65251cd4566baabfa02d40bbb3fafa2283236ff0364efae952a",
+            "captured_at": "2026-11-22T17:00:24+00:00"
+          },
+          "selection": {
+            "filter": "tyyp=10",
+            "completeness": {
+              "matched": 7795,
+              "returned": 7795,
+              "page_size": 5000,
+              "pages": 2
+            },
+            "semantic_predicates": [
+              {
+                "field": "tyyp",
+                "domain_value": "10 = Põhimaantee (state main road)",
+                "allowed": [
+                  "10"
+                ],
+                "required_non_null": true
+              }
+            ]
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "LineString"
+            ],
+            "columns": [
+              "geometry",
+              "fid",
+              "sys_id",
+              "etak_id",
+              "kood",
+              "kood_tekst",
+              "tyyp",
+              "tyyp_tekst",
+              "laius",
+              "teekate",
+              "teekate_tekst",
+              "liiklus",
+              "liiklus_tekst",
+              "tee",
+              "teeosa",
+              "soidutee",
+              "soidutee_tekst",
+              "tee_synon",
+              "teeosa_synon",
+              "soidutee_synon",
+              "soidutee_synon_tekst",
+              "tee_synon2",
+              "teeosa_synon2",
+              "soidutee_synon2",
+              "soidutee_synon2_tekst",
+              "nimetus",
+              "a_tasand",
+              "l_tasand",
+              "ads_oid",
+              "ads_nimetus",
+              "karto_nimi",
+              "tahtsus",
+              "tahtsus_tekst",
+              "no_oid",
+              "markused",
+              "vajalik",
+              "vajalik_tekst",
+              "andmeallika_id",
+              "korgusallika_id",
+              "ruumikujuallika_id"
+            ]
+          },
+          "rationale": "State main roads from the topographic database."
+        },
+        "railways": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Estonian Topographic Database (ETAK), railways (E_502_roobastee_j, tyyp = 10)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:59:53+00:00",
+            "downloaded_at": "2026-11-22T16:59:53+00:00",
+            "file": {
+              "name": "railways.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 698935,
+              "row_count": 3637,
+              "column_count": 19
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=etak:e_502_roobastee_j, CQL_FILTER=tyyp=10, srsName=EPSG:3301, paged by startIndex with count=5000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "etak:e_502_roobastee_j, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/railways.parquet",
+            "sha256": "sha256:bfa41f5b956340ee750ea0578305f3af2148dc5e96c4ac965f53f43065904b21",
+            "captured_at": "2026-11-22T16:59:53+00:00"
+          },
+          "selection": {
+            "filter": "tyyp=10",
+            "completeness": {
+              "matched": 3637,
+              "returned": 3637,
+              "page_size": 5000,
+              "pages": 1
+            },
+            "semantic_predicates": [
+              {
+                "field": "tyyp",
+                "domain_value": "10 = Laiarööpmeline (broad gauge)",
+                "allowed": [
+                  "10"
+                ],
+                "required_non_null": true
+              }
+            ]
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "LineString"
+            ],
+            "columns": [
+              "geometry",
+              "fid",
+              "etak_id",
+              "kood",
+              "kood_tekst",
+              "tyyp",
+              "tyyp_tekst",
+              "elekter",
+              "elekter_tekst",
+              "tahtsus",
+              "tahtsus_tekst",
+              "markused",
+              "vajalik",
+              "vajalik_tekst",
+              "andmeallika_id",
+              "korgusallika_id",
+              "ruumikujuallika_id",
+              "muutmisaeg",
+              "geom_muutmisaeg"
+            ]
+          },
+          "rationale": "Broad-gauge railway tracks."
+        },
+        "gas_transmission_359": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Restrictions register, category D gas pipelines (kpo_avalik_gaas_359)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:59:53+00:00",
+            "downloaded_at": "2026-11-22T16:59:53+00:00",
+            "file": {
+              "name": "gas_transmission_359.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 64362,
+              "row_count": 68,
+              "column_count": 17
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=kponahtused:kpo_avalik_gaas_359, srsName=EPSG:3301, paged by startIndex with count=5000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "kponahtused:kpo_avalik_gaas_359, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/gas_transmission_359.parquet",
+            "sha256": "sha256:3ced469535b5e8bcd5079709bdfa7ed60f1f5c3bd1a87bad42298ac74ff83d9c",
+            "captured_at": "2026-11-22T16:59:53+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 68,
+              "returned": 68,
+              "page_size": 5000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "LineString",
+              "MultiLineString"
+            ],
+            "columns": [
+              "geometry",
+              "vid",
+              "kpo_liik_kood",
+              "kpo_liik_kood_vaartus",
+              "alagrupp_id",
+              "alagrupp_vaartus",
+              "nahtus_id",
+              "nahtus_id_vaartus",
+              "nimetus",
+              "klass",
+              "last_modified_date",
+              "oiguslik_kpv",
+              "omanik_tellija",
+              "tapsusklass",
+              "kpo_asukoht_kood",
+              "kpo_asukoht_kood_vaartus",
+              "seisund_nimetus"
+            ]
+          },
+          "rationale": "Transmission pipelines of the gas network."
+        },
+        "gas_transmission_3514": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Restrictions register, category D gas installations (kpo_avalik_gaas_3514)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:59:54+00:00",
+            "downloaded_at": "2026-11-22T16:59:54+00:00",
+            "file": {
+              "name": "gas_transmission_3514.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 127918,
+              "row_count": 20,
+              "column_count": 17
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=kponahtused:kpo_avalik_gaas_3514, srsName=EPSG:3301, paged by startIndex with count=5000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "kponahtused:kpo_avalik_gaas_3514, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/gas_transmission_3514.parquet",
+            "sha256": "sha256:a7eff8915871136a1c645fec3b65fbab57af19340afced34d5e5dc77b0355033",
+            "captured_at": "2026-11-22T16:59:54+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 20,
+              "returned": 20,
+              "page_size": 5000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "LineString",
+              "MultiLineString"
+            ],
+            "columns": [
+              "geometry",
+              "vid",
+              "kpo_liik_kood",
+              "kpo_liik_kood_vaartus",
+              "alagrupp_id",
+              "alagrupp_vaartus",
+              "nahtus_id",
+              "nahtus_id_vaartus",
+              "nimetus",
+              "klass",
+              "last_modified_date",
+              "oiguslik_kpv",
+              "omanik_tellija",
+              "tapsusklass",
+              "kpo_asukoht_kood",
+              "kpo_asukoht_kood_vaartus",
+              "seisund_nimetus"
+            ]
+          },
+          "rationale": "Transmission pipelines of the gas network."
+        },
+        "gas_transmission_3516": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Restrictions register, category D gas installations (kpo_avalik_gaas_3516)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:59:54+00:00",
+            "downloaded_at": "2026-11-22T16:59:54+00:00",
+            "file": {
+              "name": "gas_transmission_3516.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 449941,
+              "row_count": 56,
+              "column_count": 17
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=kponahtused:kpo_avalik_gaas_3516, srsName=EPSG:3301, paged by startIndex with count=5000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "kponahtused:kpo_avalik_gaas_3516, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/gas_transmission_3516.parquet",
+            "sha256": "sha256:083583f30ab736a344f0f8b2ec1b76c82dc3efcff9a9b3b02f7605ae14dc5439",
+            "captured_at": "2026-11-22T16:59:54+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 56,
+              "returned": 56,
+              "page_size": 5000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "LineString",
+              "MultiLineString"
+            ],
+            "columns": [
+              "geometry",
+              "vid",
+              "kpo_liik_kood",
+              "kpo_liik_kood_vaartus",
+              "alagrupp_id",
+              "alagrupp_vaartus",
+              "nahtus_id",
+              "nahtus_id_vaartus",
+              "nimetus",
+              "klass",
+              "last_modified_date",
+              "oiguslik_kpv",
+              "omanik_tellija",
+              "tapsusklass",
+              "kpo_asukoht_kood",
+              "kpo_asukoht_kood_vaartus",
+              "seisund_nimetus"
+            ]
+          },
+          "rationale": "Transmission pipelines of the gas network."
+        },
+        "lakes": {
+          "role": "authoritative_input",
+          "provider": "Keskkonnaagentuur (Estonian Environment Agency), EELIS nature register",
+          "dataset": "Lakes and reservoirs (kr_jarv)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:59:57+00:00",
+            "downloaded_at": "2026-11-22T16:59:57+00:00",
+            "file": {
+              "name": "lakes.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 9386094,
+              "row_count": 2830,
+              "column_count": 11
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=eelis:kr_jarv, srsName=EPSG:3301, paged by startIndex with count=5000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "eelis:kr_jarv, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/lakes.parquet",
+            "sha256": "sha256:3619bf1819a403362a7dba1b63351c65c79fe3c633b96dd1b58dd59425e1bcb4",
+            "captured_at": "2026-11-22T16:59:57+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 2830,
+              "returned": 2830,
+              "page_size": 5000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "sys_id",
+              "versioon",
+              "id",
+              "nimi",
+              "tyyp",
+              "kr_kood",
+              "pindala",
+              "muud_nimed",
+              "avalik",
+              "on_umbjarv"
+            ]
+          },
+          "rationale": "The register of standing water bodies."
+        },
+        "single_object_zones": {
+          "role": "authoritative_input",
+          "provider": "Keskkonnaagentuur (Estonian Environment Agency), EELIS nature register",
+          "dataset": "Restriction zones of protected single objects (kr_yksikobjekti_kaitsetsoon)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:59:58+00:00",
+            "downloaded_at": "2026-11-22T16:59:58+00:00",
+            "file": {
+              "name": "single_object_zones.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 484290,
+              "row_count": 997,
+              "column_count": 7
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=eelis:kr_yksikobjekti_kaitsetsoon, srsName=EPSG:3301, paged by startIndex with count=5000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "eelis:kr_yksikobjekti_kaitsetsoon, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/single_object_zones.parquet",
+            "sha256": "sha256:9172feb77c7870e49d1f6244f49c51ae6ff7a9727a1238f4929dc93addf96b0d",
+            "captured_at": "2026-11-22T16:59:58+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 997,
+              "returned": 997,
+              "page_size": 5000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "sys_id",
+              "versioon",
+              "id",
+              "nimi",
+              "ala_id",
+              "voond_ulat"
+            ]
+          },
+          "rationale": "Legal zones of protected single nature objects."
+        },
+        "mires": {
+          "role": "authoritative_input",
+          "provider": "Keskkonnaagentuur (Estonian Environment Agency), EELIS nature register",
+          "dataset": "National mire inventory (sood)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T17:00:37+00:00",
+            "downloaded_at": "2026-11-22T17:00:37+00:00",
+            "file": {
+              "name": "mires.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 24565669,
+              "row_count": 11514,
+              "column_count": 20
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=eelis:sood, srsName=EPSG:3301, paged by startIndex with count=5000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "eelis:sood, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/mires.parquet",
+            "sha256": "sha256:36781c95e59946653c407c09f86438f4fc08faae25796cf4ec4a1c90f0d97c2f",
+            "captured_at": "2026-11-22T17:00:37+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 11514,
+              "returned": 11514,
+              "page_size": 5000,
+              "pages": 3
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "MultiPolygon",
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "kood",
+              "nimi",
+              "paal97",
+              "paal97_kaasnev",
+              "n2k_tyyp",
+              "n2k_kaasnev",
+              "kaasneva_protsent",
+              "lkseisund",
+              "esindusl",
+              "yldhinnang",
+              "invent_kp",
+              "vaatleja",
+              "kuivendamine",
+              "strukt",
+              "funkts",
+              "taast",
+              "kvaliteet",
+              "kaardistus",
+              "sys_id"
+            ]
+          },
+          "rationale": "Stand-in for peat ground of low bearing capacity."
+        },
+        "dwellings": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Residential buildings (maaamet:eluhooned)",
+          "source_url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T17:01:37+00:00",
+            "downloaded_at": "2026-11-22T17:01:37+00:00",
+            "file": {
+              "name": "dwellings.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 36143538,
+              "row_count": 285677,
+              "column_count": 11
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=maaamet:eluhooned, srsName=EPSG:3301, paged by startIndex with count=5000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "maaamet:eluhooned, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/dwellings.parquet",
+            "sha256": "sha256:32086e532dcfe65093440ed694cd1304da75d22d50ae29fe4422237806f501c6",
+            "captured_at": "2026-11-22T17:01:37+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 285677,
+              "returned": 285677,
+              "page_size": 5000,
+              "pages": 58
+            }
+          },
+          "license": {
+            "name": "Public WFS of the Ministry of Climate's domain; the service declares Fees: NONE, AccessConstraints: NONE",
+            "url": "https://gsavalik.envir.ee/geoserver/ows?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "ads_oid",
+              "ehr_gid",
+              "ehr_kood",
+              "ehr_url",
+              "etak_id",
+              "taisaadress",
+              "lahiaadress",
+              "kaos_kood",
+              "kaos_nimetus",
+              "unik"
+            ]
+          },
+          "rationale": "Footprints of buildings registered as dwellings, joined from the building and address registers."
+        },
+        "population_grid": {
+          "role": "authoritative_input",
+          "provider": "Statistics Estonia, published by Maa- ja Ruumiamet (INSPIRE)",
+          "dataset": "Population on a 1 km grid, 2024 (PD.StatisticalDistribution)",
+          "source_url": "https://inspire.geoportaal.ee/geoserver/PD_rahvastikutihedus/wfs?service=WFS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T16:56:18+00:00",
+            "downloaded_at": "2026-11-22T16:56:18+00:00",
+            "file": {
+              "name": "population_grid.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 877194,
+              "row_count": 45668,
+              "column_count": 30
+            },
+            "request_spec": "WFS 2.0.0 GetFeature, typeNames=PD_rahvastikutihedus:PD.StatisticalDistribution_, srsName=EPSG:3301, paged by startIndex with count=2000 until returned equals numberMatched. See acquire.py."
+          },
+          "version": {
+            "identifier": "PD_rahvastikutihedus:PD.StatisticalDistribution_, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/population_grid.parquet",
+            "sha256": "sha256:ca280b61e2ef3cd52ed749cf9f3a0a5539560d6a403e72b1b54bc3be72e19a91",
+            "captured_at": "2026-11-22T16:56:18+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 45668,
+              "returned": 45668,
+              "page_size": 2000,
+              "pages": 23
+            }
+          },
+          "license": {
+            "name": "Statistics Estonia open data via the Maa- ja Ruumiamet INSPIRE service; the service declares no fees and no access constraints",
+            "url": "https://inspire.geoportaal.ee/geoserver/PD_rahvastikutihedus/wfs?service=WFS&request=GetCapabilities"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "gml_id",
+              "gml_metadataproperty_xlink_title",
+              "gml_metadataproperty_xlink_href",
+              "gml_original_coordinate_system",
+              "gml_parent_property",
+              "gml_description",
+              "inspireid_identifier_localid",
+              "inspireid_identifier_namespace",
+              "classification_classification_item_classificationitem_typetitle",
+              "classification_classification_item_classificationitem_typehref",
+              "classification_classification_type_xlink_title",
+              "domain_characterstring",
+              "generalstatus_xlink_href",
+              "generalstatus_xlink_title",
+              "measure_xlink_href",
+              "measure_xlink_title",
+              "measurementmethod_xlink_href",
+              "measurementmethod_xlink_title",
+              "measurementunit_uom",
+              "periodofmeasurement_xlink_title",
+              "periodofreference_xlink_title",
+              "universe_country",
+              "universe_country_codelist",
+              "universe_country_codelistvalue",
+              "value_statisticalvalue_value",
+              "value_statisticalvalue_specialvalue_xlink_href",
+              "value_statisticalvalue_specialvalue_xlink_title",
+              "xml_ns_uri",
+              "beginlifespanversion_xsi_nil"
+            ]
+          },
+          "rationale": "The official gridded population."
+        },
+        "rep_sites": {
+          "role": "authoritative_input",
+          "provider": "Ministry of Economic Affairs and Communications; Skepast&Puhkim OÜ (plan consultant)",
+          "dataset": "State special plan for a nuclear power plant, site alternatives (points)",
+          "source_url": "https://gis.skpk.ee/arcgis/rest/services/TEJ_planeering_WEB_avalik/MapServer/0/query",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T17:01:37+00:00",
+            "downloaded_at": "2026-11-22T17:01:37+00:00",
+            "file": {
+              "name": "rep_sites.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 12046,
+              "row_count": 6,
+              "column_count": 4
+            },
+            "request_spec": "ArcGIS REST query, where 1=1, outFields=*, outSR=3301, f=geojson; count checked against returnCountOnly."
+          },
+          "version": {
+            "identifier": "layer 0, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/rep_sites.parquet",
+            "sha256": "sha256:be805d722aa6fdd4f0d15aaa6509714a4763d5d5d684ee57c29866ffc50a1679",
+            "captured_at": "2026-11-22T17:01:37+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 6,
+              "returned": 6,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Licence not stated in the service metadata",
+            "url": "https://gis.skpk.ee/arcgis/rest/services/TEJ_planeering_WEB_avalik/MapServer"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "Point"
+            ],
+            "columns": [
+              "geometry",
+              "FID",
+              "id",
+              "nimi"
+            ]
+          },
+          "rationale": "The official candidate sites, used only to compare this screen with the plan."
+        },
+        "rep_site_areas": {
+          "role": "authoritative_input",
+          "provider": "Ministry of Economic Affairs and Communications; Skepast&Puhkim OÜ (plan consultant)",
+          "dataset": "State special plan for a nuclear power plant, estimated land need (95 ha) per site",
+          "source_url": "https://gis.skpk.ee/arcgis/rest/services/TEJ_planeering_WEB_avalik/MapServer/1/query",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T17:01:37+00:00",
+            "downloaded_at": "2026-11-22T17:01:37+00:00",
+            "file": {
+              "name": "rep_site_areas.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 37412,
+              "row_count": 6,
+              "column_count": 8
+            },
+            "request_spec": "ArcGIS REST query, where 1=1, outFields=*, outSR=3301, f=geojson; count checked against returnCountOnly."
+          },
+          "version": {
+            "identifier": "layer 1, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/rep_site_areas.parquet",
+            "sha256": "sha256:f1568ddac46a7d3531d4140948cfdbea3d5023952b71fb450eacba7dfcb32901",
+            "captured_at": "2026-11-22T17:01:37+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 6,
+              "returned": 6,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Licence not stated in the service metadata",
+            "url": "https://gis.skpk.ee/arcgis/rest/services/TEJ_planeering_WEB_avalik/MapServer"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "OBJECTID",
+              "id",
+              "nimi",
+              "BUFF_DIST",
+              "ORIG_FID",
+              "Shape_Length",
+              "Shape_Area"
+            ]
+          },
+          "rationale": "The official 95 ha site polygons."
+        },
+        "rep_planning_area": {
+          "role": "authoritative_input",
+          "provider": "Ministry of Economic Affairs and Communications; Skepast&Puhkim OÜ (plan consultant)",
+          "dataset": "State special plan for a nuclear power plant, planning area",
+          "source_url": "https://gis.skpk.ee/arcgis/rest/services/TEJ_planeering_WEB_avalik/MapServer/2/query",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T17:01:38+00:00",
+            "downloaded_at": "2026-11-22T17:01:38+00:00",
+            "file": {
+              "name": "rep_planning_area.parquet",
+              "format": "GeoParquet (EPSG:3301), attributes as served",
+              "size_bytes": 12263,
+              "row_count": 1,
+              "column_count": 3
+            },
+            "request_spec": "ArcGIS REST query, where 1=1, outFields=*, outSR=3301, f=geojson; count checked against returnCountOnly."
+          },
+          "version": {
+            "identifier": "layer 2, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/rep_planning_area.parquet",
+            "sha256": "sha256:070bee83899edf365e83c0a29ea64cf4397fe4777af8a8b1cb29eb918964a0f7",
+            "captured_at": "2026-11-22T17:01:38+00:00"
+          },
+          "selection": {
+            "filter": "all features",
+            "completeness": {
+              "matched": 1,
+              "returned": 1,
+              "page_size": 2000,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Licence not stated in the service metadata",
+            "url": "https://gis.skpk.ee/arcgis/rest/services/TEJ_planeering_WEB_avalik/MapServer"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "geometry_types": [
+              "Polygon"
+            ],
+            "columns": [
+              "geometry",
+              "FID",
+              "Pindala"
+            ]
+          },
+          "rationale": "The official planning area, shown for context."
+        },
+        "dtm": {
+          "role": "authoritative_input",
+          "provider": "Maa- ja Ruumiamet (Land and Spatial Development Board)",
+          "dataset": "Digital terrain model of Estonia, 25 m (dtm-25), resampled by the service to 100 m",
+          "source_url": "https://teenus.maaamet.ee/ows/wcs-dtm?service=WCS&request=GetCapabilities",
+          "access": {
+            "method": "api",
+            "retrieved_at": "2026-11-22T17:01:51+00:00",
+            "downloaded_at": "2026-11-22T17:01:51+00:00",
+            "file": {
+              "name": "dtm-100m.tif",
+              "format": "GeoTIFF (EPSG:3301), float32 metres",
+              "size_bytes": 12799107
+            },
+            "request_spec": "WCS 2.0.1 GetCoverage, coverageId=dtm-25, format=image/tiff, scalesize=x(3750),y(2600): the whole coverage at 100 m. See acquire.py."
+          },
+          "version": {
+            "identifier": "dtm-25, snapshot 2026-11-22",
+            "published_at": "2026-11-22"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/dtm-100m.tif",
+            "sha256": "sha256:c9d3d21f5adfd3c97254a4e3b112da95c97ebe87b45d2a0f42fe11f1e5071f40",
+            "captured_at": "2026-11-22T17:01:51+00:00"
+          },
+          "selection": {
+            "filter": "whole coverage, x 365000-740000, y 6375000-6635000",
+            "completeness": {
+              "matched": 1,
+              "returned": 1,
+              "page_size": 1,
+              "pages": 1
+            }
+          },
+          "license": {
+            "name": "Maa- ja Ruumiamet open data licence (attribution); service declares no fees and no access constraints",
+            "url": "https://geoportaal.maaamet.ee/avaandmete-litsents"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "pixel_m": 100,
+            "width": 3750,
+            "height": 2600
+          },
+          "rationale": "The official bare-ground terrain model; a surface model would add tree and building heights."
+        }
+      },
+      "overrides": [],
+      "processing": {
+        "analysis_crs": "EPSG:3301",
+        "storage_crs": "EPSG:4326",
+        "parameters": {
+          "cell_mercator_m": 500,
+          "densify_m": 25,
+          "population_radius_m": 5000,
+          "distance_unit_m": {
+            "d_sea": 100,
+            "d_hazard": 100,
+            "d_air_main": 250,
+            "d_air_small": 100,
+            "d_gas": 100,
+            "d_fault": 100,
+            "d_fault_basement": 100,
+            "d_dwelling": 50,
+            "d_border": 100,
+            "d_grid": 250,
+            "d_road": 100,
+            "d_rail": 100,
+            "d_port": 250
+          },
+          "canonical_criteria": [
+            "cooling_sea",
+            "underground_mining",
+            "faults",
+            "heritage",
+            "protected_areas",
+            "natura",
+            "conservation_areas",
+            "single_objects",
+            "key_habitats",
+            "dwellings",
+            "defence",
+            "water_bodies",
+            "land_border",
+            "land_area"
+          ],
+          "canonical_thresholds": {
+            "cooling_sea": 3,
+            "faults": 5,
+            "dwellings": 0.35,
+            "land_border": 5,
+            "land_area": 95
+          },
+          "criteria_file": "criteria.yaml"
+        },
+        "steps": [
+          {
+            "id": "build_grid",
+            "operation": "build_screening_grid",
+            "inputs": [
+              "counties",
+              "municipalities"
+            ],
+            "crs": "EPSG:3857 alignment; cell centres transformed to EPSG:3301",
+            "cell_mercator_m": 500,
+            "membership": "cell centre inside a county polygon",
+            "area": "geodesic (GRS80), one value per grid row",
+            "output": "screening_cells"
+          },
+          {
+            "id": "flag_areas",
+            "operation": "point_in_polygon",
+            "inputs": [
+              "screening_cells",
+              "protected_areas",
+              "natura_birds",
+              "natura_habitats",
+              "conservation_areas",
+              "key_habitats",
+              "single_object_zones",
+              "heritage_monuments",
+              "heritage_zones",
+              "undermined_oil_shale",
+              "undermined_phosphorite",
+              "mining_claims",
+              "defence_objects",
+              "defence_zones",
+              "lakes",
+              "dense_settlements",
+              "karst",
+              "karst_fields",
+              "flood_hazard",
+              "flood_risk_2024",
+              "green_network",
+              "mineral_deposits",
+              "mires",
+              "groundwater_unprotected"
+            ],
+            "crs": "EPSG:3301",
+            "reference_geometry": "cell centre",
+            "output": "cell_flags"
+          },
+          {
+            "id": "measure_distances",
+            "operation": "nearest_distance",
+            "inputs": [
+              "screening_cells",
+              "sea",
+              "hazardous_plants",
+              "airfields",
+              "gas_transmission_359",
+              "gas_transmission_3514",
+              "gas_transmission_3516",
+              "faults_bedrock",
+              "faults_basement",
+              "dwellings",
+              "defence_objects",
+              "power_lines_hv",
+              "main_roads",
+              "railways",
+              "ports"
+            ],
+            "crs": "EPSG:3301",
+            "distance_basis": "straight line from the cell centre to points every 25 m along target lines and outlines",
+            "densify_m": 25,
+            "output": "cell_distances"
+          },
+          {
+            "id": "sample_terrain_and_population",
+            "operation": "sample_and_sum",
+            "inputs": [
+              "screening_cells",
+              "dtm",
+              "population_grid"
+            ],
+            "crs": "EPSG:3301",
+            "population_radius_m": 5000,
+            "output": "cell_values"
+          },
+          {
+            "id": "apply_criteria",
+            "operation": "filter",
+            "inputs": [
+              "cell_flags",
+              "cell_distances",
+              "cell_values"
+            ],
+            "expression": "a cell remains when it fails none of the canonical criteria of criteria.yaml at their thresholds",
+            "output": "cell_screen"
+          },
+          {
+            "id": "require_contiguous_land",
+            "operation": "connected_components",
+            "input": "cell_screen",
+            "connectivity": "4-neighbour",
+            "min_area_ha": 95,
+            "output": "cell_candidates"
+          },
+          {
+            "id": "delineate_candidate_areas",
+            "operation": "polygonize_and_summarise",
+            "inputs": [
+              "cell_candidates",
+              "rep_planning_area"
+            ],
+            "crs": "EPSG:3301 measures; polygons are unions of grid cells",
+            "output": "candidate_area_polygons"
+          },
+          {
+            "id": "check_official_sites",
+            "operation": "overlay",
+            "inputs": [
+              "cell_candidates",
+              "rep_sites",
+              "rep_site_areas"
+            ],
+            "crs": "EPSG:3301",
+            "output": "official_site_check"
+          },
+          {
+            "id": "summarise",
+            "operation": "aggregate",
+            "inputs": [
+              "cell_candidates",
+              "candidate_area_polygons"
+            ],
+            "output": "summaries"
+          },
+          {
+            "id": "export",
+            "operation": "export",
+            "inputs": [
+              "cell_candidates",
+              "candidate_area_polygons",
+              "official_site_check",
+              "summaries",
+              "airfields",
+              "hazardous_plants",
+              "ports",
+              "power_lines_hv",
+              "faults_bedrock",
+              "rep_planning_area"
+            ],
+            "formats": [
+              "GeoParquet",
+              "GeoJSON",
+              "CSV",
+              "XLSX"
+            ],
+            "output": "exported_files"
+          },
+          {
+            "id": "render_dashboard",
+            "operation": "render",
+            "input": "exported_files",
+            "output": "dashboard_file"
+          },
+          {
+            "id": "render_findings",
+            "operation": "render",
+            "input": "exported_files",
+            "output": "findings_file"
+          }
+        ]
+      },
+      "presentation": {
+        "intent": "analytical_workspace",
+        "primary_view": "map",
+        "language": "en",
+        "design_language": "openmapstack-views/0.1",
+        "tables": [
+          {
+            "output": "candidate_areas_table",
+            "title": "Candidate areas of the accepted run",
+            "downloads": [
+              "csv",
+              "xlsx"
+            ],
+            "default_sort": "area_id"
+          },
+          {
+            "output": "official_sites_check",
+            "title": "Official sites of the state special plan in this screen",
+            "downloads": [
+              "csv",
+              "xlsx"
+            ],
+            "default_sort": "site"
+          },
+          {
+            "output": "county_summary",
+            "title": "Counties",
+            "downloads": [
+              "csv",
+              "xlsx"
+            ],
+            "default_sort": "candidate_km2"
+          },
+          {
+            "output": "criteria_catalogue",
+            "title": "Criteria catalogue",
+            "downloads": [
+              "csv",
+              "xlsx"
+            ],
+            "default_sort": "id"
+          }
+        ],
+        "controls": {
+          "reconfigurable": true,
+          "canonical_reset": true,
+          "off_canonical_labelling": "required",
+          "filters": [
+            {
+              "id": "apply_elevation",
+              "label": "Apply: Ground elevation",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "elevation",
+              "class": "consideration"
+            },
+            {
+              "id": "threshold_elevation",
+              "label": "Threshold: Ground elevation",
+              "type": "choice",
+              "unit": "m",
+              "canonical": 20,
+              "options": [
+                20,
+                50
+              ],
+              "criterion": "elevation",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            },
+            {
+              "id": "apply_cooling_sea",
+              "label": "Apply: Distance to the sea (cooling water)",
+              "type": "toggle",
+              "canonical": true,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "cooling_sea",
+              "class": "exclusion"
+            },
+            {
+              "id": "threshold_cooling_sea",
+              "label": "Threshold: Distance to the sea (cooling water)",
+              "type": "choice",
+              "unit": "km",
+              "canonical": 3,
+              "options": [
+                1,
+                3,
+                5,
+                10
+              ],
+              "criterion": "cooling_sea",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            },
+            {
+              "id": "apply_shore_ban",
+              "label": "Apply: Shore building-ban zone",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "shore_ban",
+              "class": "consideration"
+            },
+            {
+              "id": "threshold_shore_ban",
+              "label": "Threshold: Shore building-ban zone",
+              "type": "choice",
+              "unit": "km",
+              "canonical": 0.1,
+              "options": [
+                0.1,
+                0.2
+              ],
+              "criterion": "shore_ban",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            },
+            {
+              "id": "apply_pop_density",
+              "label": "Apply: Very dense population",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "pop_density",
+              "class": "consideration"
+            },
+            {
+              "id": "threshold_pop_density",
+              "label": "Threshold: Very dense population",
+              "type": "choice",
+              "unit": "residents/km²",
+              "canonical": 200,
+              "options": [
+                100,
+                200,
+                500
+              ],
+              "criterion": "pop_density",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            },
+            {
+              "id": "apply_pop_5km",
+              "label": "Apply: Residents within 5 km",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "pop_5km",
+              "class": "consideration"
+            },
+            {
+              "id": "threshold_pop_5km",
+              "label": "Threshold: Residents within 5 km",
+              "type": "choice",
+              "unit": "residents",
+              "canonical": 5000,
+              "options": [
+                1000,
+                5000,
+                20000
+              ],
+              "criterion": "pop_5km",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            },
+            {
+              "id": "apply_dense_settlement",
+              "label": "Apply: Densely built-up settlement",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "dense_settlement",
+              "class": "consideration"
+            },
+            {
+              "id": "apply_hazardous_plants",
+              "label": "Apply: Hazardous establishments",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "hazardous_plants",
+              "class": "consideration"
+            },
+            {
+              "id": "threshold_hazardous_plants",
+              "label": "Threshold: Hazardous establishments",
+              "type": "choice",
+              "unit": "km",
+              "canonical": 5,
+              "options": [
+                1,
+                2,
+                5,
+                8
+              ],
+              "criterion": "hazardous_plants",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            },
+            {
+              "id": "apply_airport_main",
+              "label": "Apply: State and military aerodromes",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "airport_main",
+              "class": "consideration"
+            },
+            {
+              "id": "threshold_airport_main",
+              "label": "Threshold: State and military aerodromes",
+              "type": "choice",
+              "unit": "km",
+              "canonical": 15,
+              "options": [
+                10,
+                15,
+                30
+              ],
+              "criterion": "airport_main",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            },
+            {
+              "id": "apply_airport_small",
+              "label": "Apply: Other airfields in use",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "airport_small",
+              "class": "consideration"
+            },
+            {
+              "id": "threshold_airport_small",
+              "label": "Threshold: Other airfields in use",
+              "type": "choice",
+              "unit": "km",
+              "canonical": 10,
+              "options": [
+                5,
+                10
+              ],
+              "criterion": "airport_small",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            },
+            {
+              "id": "apply_gas_pipelines",
+              "label": "Apply: Gas transmission pipelines",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "gas_pipelines",
+              "class": "consideration"
+            },
+            {
+              "id": "threshold_gas_pipelines",
+              "label": "Threshold: Gas transmission pipelines",
+              "type": "choice",
+              "unit": "km",
+              "canonical": 1,
+              "options": [
+                0.5,
+                1,
+                2
+              ],
+              "criterion": "gas_pipelines",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            },
+            {
+              "id": "apply_karst",
+              "label": "Apply: Karst",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "karst",
+              "class": "consideration"
+            },
+            {
+              "id": "apply_bearing_capacity",
+              "label": "Apply: Weak ground (mires and peat)",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "bearing_capacity",
+              "class": "consideration"
+            },
+            {
+              "id": "apply_surface_mining",
+              "label": "Apply: Mineral deposits and surface mining",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "surface_mining",
+              "class": "consideration"
+            },
+            {
+              "id": "apply_underground_mining",
+              "label": "Apply: Underground mining",
+              "type": "toggle",
+              "canonical": true,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "underground_mining",
+              "class": "exclusion"
+            },
+            {
+              "id": "apply_faults",
+              "label": "Apply: Distance from bedrock faults",
+              "type": "toggle",
+              "canonical": true,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "faults",
+              "class": "exclusion"
+            },
+            {
+              "id": "threshold_faults",
+              "label": "Threshold: Distance from bedrock faults",
+              "type": "choice",
+              "unit": "km",
+              "canonical": 5,
+              "options": [
+                1,
+                2,
+                5,
+                8
+              ],
+              "criterion": "faults",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            },
+            {
+              "id": "apply_faults_basement",
+              "label": "Apply: Distance from basement faults",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "faults_basement",
+              "class": "consideration"
+            },
+            {
+              "id": "threshold_faults_basement",
+              "label": "Threshold: Distance from basement faults",
+              "type": "choice",
+              "unit": "km",
+              "canonical": 5,
+              "options": [
+                1,
+                2,
+                5,
+                8
+              ],
+              "criterion": "faults_basement",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            },
+            {
+              "id": "apply_flood",
+              "label": "Apply: Flood-prone areas",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "flood",
+              "class": "consideration"
+            },
+            {
+              "id": "apply_heritage",
+              "label": "Apply: Heritage monuments and their protection zones",
+              "type": "toggle",
+              "canonical": true,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "heritage",
+              "class": "exclusion"
+            },
+            {
+              "id": "apply_protected_areas",
+              "label": "Apply: Protected areas",
+              "type": "toggle",
+              "canonical": true,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "protected_areas",
+              "class": "exclusion"
+            },
+            {
+              "id": "apply_natura",
+              "label": "Apply: Natura 2000 areas",
+              "type": "toggle",
+              "canonical": true,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "natura",
+              "class": "exclusion"
+            },
+            {
+              "id": "apply_conservation_areas",
+              "label": "Apply: Limited-conservation areas",
+              "type": "toggle",
+              "canonical": true,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "conservation_areas",
+              "class": "exclusion"
+            },
+            {
+              "id": "apply_single_objects",
+              "label": "Apply: Protected single objects and their zones",
+              "type": "toggle",
+              "canonical": true,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "single_objects",
+              "class": "exclusion"
+            },
+            {
+              "id": "apply_key_habitats",
+              "label": "Apply: Woodland key habitats",
+              "type": "toggle",
+              "canonical": true,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "key_habitats",
+              "class": "exclusion"
+            },
+            {
+              "id": "apply_green_network",
+              "label": "Apply: Green network",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "green_network",
+              "class": "consideration"
+            },
+            {
+              "id": "apply_groundwater",
+              "label": "Apply: Unprotected groundwater",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "groundwater",
+              "class": "consideration"
+            },
+            {
+              "id": "apply_grid",
+              "label": "Apply: 330 kV grid within reach",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "grid",
+              "class": "suitability"
+            },
+            {
+              "id": "threshold_grid",
+              "label": "Threshold: 330 kV grid within reach",
+              "type": "choice",
+              "unit": "km",
+              "canonical": 20,
+              "options": [
+                10,
+                20,
+                50
+              ],
+              "criterion": "grid",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            },
+            {
+              "id": "apply_roads",
+              "label": "Apply: Main road within reach",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "roads",
+              "class": "suitability"
+            },
+            {
+              "id": "threshold_roads",
+              "label": "Threshold: Main road within reach",
+              "type": "choice",
+              "unit": "km",
+              "canonical": 5,
+              "options": [
+                5,
+                10
+              ],
+              "criterion": "roads",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            },
+            {
+              "id": "apply_railways",
+              "label": "Apply: Railway within reach",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "railways",
+              "class": "suitability"
+            },
+            {
+              "id": "threshold_railways",
+              "label": "Threshold: Railway within reach",
+              "type": "choice",
+              "unit": "km",
+              "canonical": 20,
+              "options": [
+                10,
+                20
+              ],
+              "criterion": "railways",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            },
+            {
+              "id": "apply_ports",
+              "label": "Apply: Port within reach",
+              "type": "toggle",
+              "canonical": false,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "ports",
+              "class": "suitability"
+            },
+            {
+              "id": "threshold_ports",
+              "label": "Threshold: Port within reach",
+              "type": "choice",
+              "unit": "km",
+              "canonical": 20,
+              "options": [
+                10,
+                20,
+                50
+              ],
+              "criterion": "ports",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            },
+            {
+              "id": "apply_dwellings",
+              "label": "Apply: Distance from dwellings",
+              "type": "toggle",
+              "canonical": true,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "dwellings",
+              "class": "exclusion"
+            },
+            {
+              "id": "threshold_dwellings",
+              "label": "Threshold: Distance from dwellings",
+              "type": "choice",
+              "unit": "km",
+              "canonical": 0.35,
+              "options": [
+                0.1,
+                0.35,
+                0.5,
+                1
+              ],
+              "criterion": "dwellings",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            },
+            {
+              "id": "apply_defence",
+              "label": "Apply: Defence sites and their restriction zones",
+              "type": "toggle",
+              "canonical": true,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "defence",
+              "class": "exclusion"
+            },
+            {
+              "id": "apply_water_bodies",
+              "label": "Apply: Lakes and reservoirs",
+              "type": "toggle",
+              "canonical": true,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "water_bodies",
+              "class": "exclusion"
+            },
+            {
+              "id": "apply_land_border",
+              "label": "Apply: Distance from the land border",
+              "type": "toggle",
+              "canonical": true,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "land_border",
+              "class": "exclusion"
+            },
+            {
+              "id": "threshold_land_border",
+              "label": "Threshold: Distance from the land border",
+              "type": "choice",
+              "unit": "km",
+              "canonical": 5,
+              "options": [
+                5,
+                10,
+                20
+              ],
+              "criterion": "land_border",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            },
+            {
+              "id": "apply_land_area",
+              "label": "Apply: Enough contiguous land",
+              "type": "toggle",
+              "canonical": true,
+              "options": [
+                true,
+                false
+              ],
+              "criterion": "land_area",
+              "class": "exclusion"
+            },
+            {
+              "id": "threshold_land_area",
+              "label": "Threshold: Enough contiguous land",
+              "type": "choice",
+              "unit": "ha",
+              "canonical": 95,
+              "options": [
+                20,
+                50,
+                95,
+                200
+              ],
+              "criterion": "land_area",
+              "note": "Re-applies the rule to the value the pipeline measured for each cell."
+            }
+          ],
+          "variants": [
+            {
+              "id": "focus_criterion",
+              "label": "Criterion shown on the map",
+              "options": [
+                "none",
+                "elevation",
+                "cooling_sea",
+                "shore_ban",
+                "pop_density",
+                "pop_5km",
+                "dense_settlement",
+                "hazardous_plants",
+                "airport_main",
+                "airport_small",
+                "gas_pipelines",
+                "karst",
+                "bearing_capacity",
+                "surface_mining",
+                "underground_mining",
+                "faults",
+                "faults_basement",
+                "flood",
+                "heritage",
+                "protected_areas",
+                "natura",
+                "conservation_areas",
+                "single_objects",
+                "key_habitats",
+                "green_network",
+                "groundwater",
+                "grid",
+                "roads",
+                "railways",
+                "ports",
+                "dwellings",
+                "defence",
+                "water_bodies",
+                "land_border"
+              ],
+              "canonical": "none",
+              "effect": "published",
+              "note": "Draws the cells that fail one criterion. It changes what is drawn, not the screen."
+            }
+          ]
+        },
+        "map": {
+          "basemap": {
+            "id": "goplex-protomaps",
+            "kind": "vector-style",
+            "url": "https://tiles.goplex.ee/styles/5.7.2/white.json",
+            "dark_url": "https://tiles.goplex.ee/styles/5.7.2/dark.json",
+            "tilejson": "https://tiles.goplex.ee/planet-20261006.json",
+            "attribution": "© OpenStreetMap contributors, Protomaps tiles by goplex.ee",
+            "default_visible": true,
+            "note": "Reference background only, not an analysis input."
+          },
+          "layer_groups": [
+            {
+              "id": "screen",
+              "title": "Screening result",
+              "default_open": true
+            },
+            {
+              "id": "areas",
+              "title": "Candidate area outlines (accepted run)",
+              "default_open": true
+            },
+            {
+              "id": "sites",
+              "title": "Official sites and planning area",
+              "default_open": true
+            },
+            {
+              "id": "reference",
+              "title": "Reference features",
+              "default_open": false
+            }
+          ],
+          "layers": [
+            {
+              "source": "screening_grid",
+              "group": "screen",
+              "semantic_role": "primary_result",
+              "geometry": "raster",
+              "note": "Remaining and excluded cells for the criteria switched on.",
+              "style": {
+                "visual_priority": "primary",
+                "opacity": 0.75
+              }
+            },
+            {
+              "source": "screening_grid",
+              "group": "screen",
+              "semantic_role": "constraint",
+              "geometry": "raster",
+              "note": "Cells that fail the criterion chosen for display; drawn only while a criterion is selected.",
+              "style": {
+                "visual_priority": "secondary",
+                "opacity": 0.6
+              }
+            },
+            {
+              "source": "candidate_areas",
+              "group": "areas",
+              "semantic_role": "primary_result",
+              "geometry": "polygon",
+              "style": {
+                "visual_priority": "primary",
+                "outline": "solid"
+              }
+            },
+            {
+              "source": "reference_features",
+              "group": "reference",
+              "semantic_role": "context",
+              "geometry": "mixed",
+              "default_visible": false,
+              "style": {
+                "visual_priority": "muted"
+              }
+            },
+            {
+              "source": "official_sites",
+              "group": "sites",
+              "semantic_role": "source",
+              "geometry": "polygon",
+              "note": "Official candidate sites (95 ha each) of the state special plan; not a result of this screen.",
+              "style": {
+                "visual_priority": "secondary",
+                "outline": "emphasised"
+              }
+            }
+          ]
+        },
+        "legend": {
+          "visible": true,
+          "mode": "semantic"
+        }
+      },
+      "output_definitions": {
+        "screening_grid": {
+          "path": "data/derived/screening-grid.parquet",
+          "format": "GeoParquet (EPSG:3301)",
+          "generated_by": "require_contiguous_land",
+          "note": "One point per land cell (its centre) with every measured value, the result of each criterion and the accepted screen."
+        },
+        "candidate_areas": {
+          "path": "data/derived/candidate-areas.geojson",
+          "format": "GeoJSON (EPSG:4326)",
+          "generated_by": "delineate_candidate_areas"
+        },
+        "official_sites": {
+          "path": "data/derived/official-sites.geojson",
+          "format": "GeoJSON (EPSG:4326)",
+          "generated_by": "check_official_sites"
+        },
+        "reference_features": {
+          "path": "data/derived/reference-features.geojson",
+          "format": "GeoJSON (EPSG:4326)",
+          "generated_by": "export",
+          "note": "Source features drawn for orientation: planning area, 330 kV lines, bedrock faults, aerodromes, hazardous establishments, ports."
+        },
+        "candidate_areas_table": {
+          "path": "data/derived/candidate-areas.csv",
+          "format": "CSV",
+          "kind": "table",
+          "generated_by": "delineate_candidate_areas",
+          "table": {
+            "key": [
+              "area_id"
+            ],
+            "columns": [
+              {
+                "name": "area_id",
+                "type": "integer",
+                "label": "No."
+              },
+              {
+                "name": "county",
+                "type": "string",
+                "label": "County"
+              },
+              {
+                "name": "municipality",
+                "type": "string",
+                "label": "Municipality"
+              },
+              {
+                "name": "area_ha",
+                "type": "number",
+                "label": "Area",
+                "unit": "ha"
+              },
+              {
+                "name": "cells",
+                "type": "integer",
+                "label": "Cells"
+              },
+              {
+                "name": "lon",
+                "type": "number",
+                "label": "Longitude",
+                "unit": "°"
+              },
+              {
+                "name": "lat",
+                "type": "number",
+                "label": "Latitude",
+                "unit": "°"
+              },
+              {
+                "name": "sea_km_min",
+                "type": "number",
+                "label": "Nearest sea",
+                "unit": "km"
+              },
+              {
+                "name": "elevation_m_median",
+                "type": "integer",
+                "label": "Median height",
+                "unit": "m"
+              },
+              {
+                "name": "grid_330kv_km_min",
+                "type": "number",
+                "label": "Nearest 330 kV line",
+                "unit": "km"
+              },
+              {
+                "name": "main_road_km_min",
+                "type": "number",
+                "label": "Nearest main road",
+                "unit": "km"
+              },
+              {
+                "name": "port_km_min",
+                "type": "number",
+                "label": "Nearest port",
+                "unit": "km"
+              },
+              {
+                "name": "dwelling_m_median",
+                "type": "integer",
+                "label": "Median distance to a dwelling",
+                "unit": "m"
+              },
+              {
+                "name": "residents_5km_median",
+                "type": "integer",
+                "label": "Residents within 5 km (median)",
+                "unit": "residents"
+              },
+              {
+                "name": "considerations_flagged",
+                "type": "integer",
+                "label": "Considerations flagged"
+              },
+              {
+                "name": "considerations_list",
+                "type": "string",
+                "label": "Flagged considerations"
+              },
+              {
+                "name": "advantages_met",
+                "type": "integer",
+                "label": "Advantages met"
+              },
+              {
+                "name": "advantages_list",
+                "type": "string",
+                "label": "Advantages"
+              },
+              {
+                "name": "in_rep_planning_area",
+                "type": "boolean",
+                "label": "In the official planning area"
+              }
+            ]
+          },
+          "downloads": [
+            "csv",
+            "xlsx"
+          ]
+        },
+        "criteria_catalogue": {
+          "path": "data/derived/criteria-catalogue.csv",
+          "format": "CSV",
+          "kind": "table",
+          "generated_by": "summarise",
+          "table": {
+            "key": [
+              "id"
+            ],
+            "columns": [
+              {
+                "name": "id",
+                "type": "string",
+                "label": "Id"
+              },
+              {
+                "name": "group",
+                "type": "string",
+                "label": "Group"
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "label": "Criterion"
+              },
+              {
+                "name": "name_et",
+                "type": "string",
+                "label": "Official name (Estonian)"
+              },
+              {
+                "name": "class",
+                "type": "string",
+                "label": "Class"
+              },
+              {
+                "name": "origin",
+                "type": "string",
+                "label": "Origin"
+              },
+              {
+                "name": "official_ref",
+                "type": "number",
+                "label": "Official row"
+              },
+              {
+                "name": "status",
+                "type": "string",
+                "label": "Mapping status"
+              },
+              {
+                "name": "in_accepted_run",
+                "type": "boolean",
+                "label": "In the accepted run"
+              },
+              {
+                "name": "rule",
+                "type": "string",
+                "label": "Rule"
+              },
+              {
+                "name": "threshold",
+                "type": "number",
+                "label": "Threshold"
+              },
+              {
+                "name": "unit",
+                "type": "string",
+                "label": "Unit"
+              },
+              {
+                "name": "fails_km2",
+                "type": "number",
+                "label": "Land failing",
+                "unit": "km²"
+              },
+              {
+                "name": "fails_pct_of_land",
+                "type": "number",
+                "label": "Land failing",
+                "unit": "%"
+              },
+              {
+                "name": "sole_exclusion_km2",
+                "type": "number",
+                "label": "Removed by this criterion alone",
+                "unit": "km²"
+              },
+              {
+                "name": "official_threshold",
+                "type": "string",
+                "label": "Official threshold"
+              },
+              {
+                "name": "note",
+                "type": "string",
+                "label": "Note"
+              }
+            ]
+          },
+          "downloads": [
+            "csv",
+            "xlsx"
+          ]
+        },
+        "county_summary": {
+          "path": "data/derived/county-summary.csv",
+          "format": "CSV",
+          "kind": "table",
+          "generated_by": "summarise",
+          "table": {
+            "key": [
+              "county"
+            ],
+            "columns": [
+              {
+                "name": "county",
+                "type": "string",
+                "label": "County"
+              },
+              {
+                "name": "land_km2",
+                "type": "number",
+                "label": "Land",
+                "unit": "km²"
+              },
+              {
+                "name": "within_cooling_distance_km2",
+                "type": "number",
+                "label": "Within 3 km of the sea",
+                "unit": "km²"
+              },
+              {
+                "name": "remaining_km2",
+                "type": "number",
+                "label": "Remaining",
+                "unit": "km²"
+              },
+              {
+                "name": "candidate_km2",
+                "type": "number",
+                "label": "In candidate areas",
+                "unit": "km²"
+              },
+              {
+                "name": "candidate_areas",
+                "type": "integer",
+                "label": "Candidate areas"
+              },
+              {
+                "name": "largest_area_ha",
+                "type": "number",
+                "label": "Largest area",
+                "unit": "ha"
+              }
+            ]
+          },
+          "downloads": [
+            "csv",
+            "xlsx"
+          ]
+        },
+        "official_sites_check": {
+          "path": "data/derived/official-sites-check.csv",
+          "format": "CSV",
+          "kind": "table",
+          "generated_by": "check_official_sites",
+          "table": {
+            "key": [
+              "site"
+            ],
+            "columns": [
+              {
+                "name": "site",
+                "type": "string",
+                "label": "Official site"
+              },
+              {
+                "name": "rep_status",
+                "type": "string",
+                "label": "Status in the plan"
+              },
+              {
+                "name": "municipality",
+                "type": "string",
+                "label": "Municipality"
+              },
+              {
+                "name": "cells_in_95ha_area",
+                "type": "integer",
+                "label": "Cells in the 95 ha area"
+              },
+              {
+                "name": "cells_remaining",
+                "type": "integer",
+                "label": "Cells remaining"
+              },
+              {
+                "name": "cells_in_candidate_area",
+                "type": "integer",
+                "label": "Cells in a candidate area"
+              },
+              {
+                "name": "share_remaining_pct",
+                "type": "number",
+                "label": "Share remaining",
+                "unit": "%"
+              },
+              {
+                "name": "centre_passes",
+                "type": "boolean",
+                "label": "Centre passes"
+              },
+              {
+                "name": "centre_fails",
+                "type": "string",
+                "label": "Centre fails"
+              },
+              {
+                "name": "main_exclusions_in_area",
+                "type": "string",
+                "label": "Exclusions inside the area"
+              },
+              {
+                "name": "sea_km",
+                "type": "number",
+                "label": "Sea",
+                "unit": "km"
+              },
+              {
+                "name": "elevation_m",
+                "type": "integer",
+                "label": "Height",
+                "unit": "m"
+              },
+              {
+                "name": "grid_330kv_km",
+                "type": "number",
+                "label": "330 kV line",
+                "unit": "km"
+              },
+              {
+                "name": "residents_5km",
+                "type": "integer",
+                "label": "Residents within 5 km",
+                "unit": "residents"
+              },
+              {
+                "name": "lon",
+                "type": "number",
+                "label": "Longitude",
+                "unit": "°"
+              },
+              {
+                "name": "lat",
+                "type": "number",
+                "label": "Latitude",
+                "unit": "°"
+              }
+            ]
+          },
+          "downloads": [
+            "csv",
+            "xlsx"
+          ]
+        }
+      },
+      "warnings": [
+        {
+          "id": "METHOD-001",
+          "severity": "high",
+          "layer": "candidate_areas",
+          "issue": "screening_not_suitability",
+          "statement": "This is a desk screen on open data, not a site assessment. Four official exclusion criteria are not mapped (aerodrome protection zones, species protection sites, category I animals, feasibility of the emergency plan), and the non-public security criteria are absent. A remaining cell is not a suitable site.",
+          "mitigation": "Read candidate areas as land that survives the mapped exclusions. The state special plan and its strategic environmental assessment decide suitability."
+        },
+        {
+          "id": "METHOD-002",
+          "severity": "medium",
+          "layer": "screening_grid",
+          "issue": "grid_resolution",
+          "statement": "Cells are about 260 m across and tested at their centre. Features narrower than a cell, such as single-object zones, monument zones, small key habitats and the shore building-ban zone, are sampled rather than fully represented, and the 350 m dwelling distance is measured from the centre.",
+          "mitigation": "Use the grid for regional comparison. Check any area of interest against the source layers at full detail."
+        },
+        {
+          "id": "METHOD-003",
+          "severity": "medium",
+          "layer": "screening_grid",
+          "issue": "fault_buffer_is_conservative",
+          "statement": "The fault criterion buffers every mapped bedrock fault by 5 km. No Estonian fault is proven active, and the official plan judges faults site by site. This criterion alone removes several hundred square kilometres of coast.",
+          "mitigation": "Switch the criterion off, or change its distance, to see its effect."
+        },
+        {
+          "id": "DATA-001",
+          "severity": "medium",
+          "layer": "official_sites",
+          "issue": "defence_criteria_not_public",
+          "statement": "The plan dropped its three Lüganuse sites in October 2026 on defence grounds that are not public. Public defence sites and their zones are mapped here; the non-public considerations are not.",
+          "mitigation": "Do not read a remaining cell as cleared on defence grounds."
+        },
+        {
+          "id": "DATA-002",
+          "severity": "low",
+          "layer": "official_sites",
+          "issue": "license_not_stated",
+          "statement": "The map service that publishes the official sites and planning area (gis.skpk.ee) states no licence. The geometries are public planning material of a state special plan.",
+          "mitigation": "Confirm reuse terms with the Ministry of Economic Affairs and Communications before redistributing the snapshots."
+        },
+        {
+          "id": "DATA-003",
+          "severity": "low",
+          "layer": "screening_grid",
+          "issue": "source_records_unplaceable",
+          "statement": "Four monument-zone records were served with coordinates that are not L-EST97 metres and were left out at acquisition. They are listed in data/source/acquisition.json.",
+          "mitigation": "Recheck when the heritage register corrects the records."
+        },
+        {
+          "id": "DATA-004",
+          "severity": "low",
+          "layer": "screening_grid",
+          "issue": "temporal_mismatch",
+          "statement": "Population refers to 2024; all other layers are snapshots of 22 November 2026. The criteria follow the plan documents of 4 November 2026, which are a draft under public consultation.",
+          "mitigation": "Rerun acquire.py and the pipeline when the plan or the sources change."
+        }
+      ]
+    },
+    "analytical_outputs": {
+      "screening_grid": "sha256:49ab3cc093c744d4b187dcada803b8f3f7114b73caaecdd3159adf65c548d538",
+      "candidate_areas": "sha256:c783b3354e579318ce36019a32277194bbdf87daa008e81e900352c30b37f129",
+      "official_sites": "sha256:55475337b556d318b747257528ceb4516f4aa470c4bd1e0fe7304df9a73fa399",
+      "reference_features": "sha256:5bc59fed318ddb7ce514d44e3bfc75959ac1b63fd38e3b4c4f94b63515c8e76b",
+      "candidate_areas_table": "sha256:07e4a0fc8953d6e96da6105ef5197e6da90d88fedf52610917b98c3f7f7bd1ea",
+      "criteria_catalogue": "sha256:0d2c29e4ef078f8cebbd49259426977c8893e3563000a312d2c0e85394b81faf",
+      "county_summary": "sha256:2a6a99f9a601f8dee30de97e5099180ddc91d85e46237890de96313cd4054e51",
+      "official_sites_check": "sha256:ddd8c9ec614d989e49e38f375e27a9775c4a6bcb81793f86f3ebce3c3a342e3e"
+    }
+  },
+  "view_sha256": "sha256:a151cbf0bfaf332031f6ddab1a3138654047e9cb4e7b3105ed5b913774fefaec"
+}

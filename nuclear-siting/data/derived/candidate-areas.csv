@@ -1,0 +1,96 @@
+area_id,county,municipality,area_ha,cells,lon,lat,sea_km_min,elevation_m_median,grid_330kv_km_min,main_road_km_min,port_km_min,dwelling_m_median,residents_5km_median,considerations_flagged,considerations_list,advantages_met,advantages_list,in_rep_planning_area
+1,Lääne maakond,Vormsi vald,3797.4,571,23.24731,59.00536,0.0,4,39.8,9.5,0.2,755,150,1,Distance from basement faults,2,Railway within reach; Port within reach,False
+2,Lääne-Viru maakond,Viru-Nigula vald,2478.0,384,26.63458,59.5201,0.01,11,13.0,6.8,0.1,985,110,0,,3,330 kV grid within reach; Railway within reach; Port within reach,True
+3,Harju maakond,Jõelähtme vald,2236.7,346,25.21906,59.49038,0.0,8,13.9,3.1,11.1,986,691,0,,3,330 kV grid within reach; Railway within reach; Port within reach,False
+4,Harju maakond,Lääne-Harju vald,1857.0,285,24.10359,59.35649,0.02,18,17.6,0.0,0.1,956,4043,5,Densely built-up settlement; Hazardous establishments; State and military aerodromes; Gas transmission pipelines; Unprotected groundwater,3,Main road within reach; Railway within reach; Port within reach,False
+5,Saare maakond,Saaremaa vald,1808.4,265,22.38773,58.55555,0.09,13,78.7,22.1,3.2,807,158,1,Distance from basement faults,1,Port within reach,False
+6,Harju maakond,Lääne-Harju vald,1769.0,270,23.96252,59.26236,0.02,7,21.1,7.7,7.0,775,213,2,State and military aerodromes; Distance from basement faults,2,Railway within reach; Port within reach,False
+7,Harju maakond,Lääne-Harju vald,1482.2,226,23.78334,59.24484,0.34,9,29.4,15.5,12.6,766,120,1,Distance from basement faults,2,Railway within reach; Port within reach,False
+8,Ida-Viru maakond,Jõhvi vald,1343.2,207,27.32055,59.42646,0.5,52,0.0,0.0,18.7,723,16051,3,Ground elevation; Residents within 5 km; Green network,3,330 kV grid within reach; Main road within reach; Railway within reach,False
+9,Ida-Viru maakond,Sillamäe linn,1293.1,199,27.69604,59.40299,0.04,37,1.7,0.0,0.6,629,9504,6,Ground elevation; Residents within 5 km; Densely built-up settlement; Hazardous establishments; Distance from basement faults; Unprotected groundwater,4,330 kV grid within reach; Main road within reach; Railway within reach; Port within reach,False
+10,Saare maakond,Saaremaa vald,1144.3,162,22.03516,57.94316,0.12,4,128.6,42.2,3.2,822,98,0,,1,Port within reach,False
+11,Lääne maakond,Haapsalu linn,1095.1,164,23.61855,58.93533,1.07,3,20.9,0.0,4.0,615,10770,2,Residents within 5 km; Green network,3,Main road within reach; Railway within reach; Port within reach,False
+12,Pärnu maakond,Lääneranna vald,1034.6,151,23.72181,58.4852,0.18,8,12.5,12.3,13.4,585,124,0,,2,330 kV grid within reach; Port within reach,False
+13,Hiiu maakond,Hiiumaa vald,1020.6,151,22.65448,58.72452,0.3,3,65.6,24.6,6.8,1120,331,0,,1,Port within reach,False
+14,Lääne maakond,Lääne-Nigula vald,988.0,149,23.46902,59.05643,0.09,3,32.6,11.0,8.6,789,121,3,Other airfields in use; Distance from basement faults; Green network,2,Railway within reach; Port within reach,False
+15,Pärnu maakond,Lääneranna vald,903.7,131,23.86004,58.36422,0.24,5,19.6,27.3,17.8,579,134,0,,0,,False
+16,Pärnu maakond,Lääneranna vald,884.0,130,23.54699,58.61749,0.09,8,15.3,0.0,2.9,602,501,1,Distance from basement faults,3,330 kV grid within reach; Main road within reach; Port within reach,False
+17,Hiiu maakond,Hiiumaa vald,864.3,128,22.52042,58.74107,0.04,3,73.4,29.6,2.4,584,300,0,,1,Port within reach,False
+18,Pärnu maakond,Pärnu linn,852.2,123,24.20483,58.2885,0.02,4,14.8,16.3,6.3,640,308,0,,2,330 kV grid within reach; Port within reach,False
+19,Lääne-Viru maakond,Haljala vald,690.4,107,26.41348,59.52276,0.67,34,12.0,11.2,5.3,532,315,1,Ground elevation,3,330 kV grid within reach; Railway within reach; Port within reach,False
+20,Pärnu maakond,Pärnu linn,635.7,92,23.95383,58.33538,0.01,5,19.6,31.0,12.7,573,590,0,,1,Port within reach,False
+21,Hiiu maakond,Hiiumaa vald,625.4,93,22.48931,58.81307,0.0,9,76.4,37.7,11.4,694,223,0,,1,Port within reach,False
+22,Pärnu maakond,Lääneranna vald,585.4,85,23.75027,58.39371,0.69,9,20.9,21.5,22.2,515,286,0,,0,,False
+23,Hiiu maakond,Hiiumaa vald,568.5,85,22.25774,58.90831,0.91,15,91.7,55.6,27.3,835,124,1,Distance from basement faults,0,,False
+24,Harju maakond,Viimsi vald,541.4,84,24.83634,59.54114,0.06,8,21.4,10.1,1.1,540,19112,3,Residents within 5 km; Hazardous establishments; State and military aerodromes,2,Railway within reach; Port within reach,False
+25,Pärnu maakond,Lääneranna vald,532.7,78,23.70228,58.54382,1.13,2,10.5,7.5,9.6,551,297,1,Distance from basement faults,2,330 kV grid within reach; Port within reach,False
+26,Pärnu maakond,Pärnu linn,511.6,74,24.04621,58.32746,1.41,20,17.1,25.8,8.6,564,598,1,Ground elevation,2,330 kV grid within reach; Port within reach,False
+27,Lääne maakond,Lääne-Nigula vald,505.6,76,23.47529,58.99966,0.03,3,31.7,5.0,2.7,595,350,3,Other airfields in use; Distance from basement faults; Green network,2,Railway within reach; Port within reach,False
+28,Saare maakond,Saaremaa vald,491.7,70,22.13001,58.04232,1.22,18,118.6,30.5,8.3,693,81,0,,1,Port within reach,False
+29,Ida-Viru maakond,Jõhvi vald,487.1,75,27.4765,59.41225,0.3,45,0.6,3.1,13.3,686,1193,2,Ground elevation; Unprotected groundwater,4,330 kV grid within reach; Main road within reach; Railway within reach; Port within reach,False
+30,Saare maakond,Saaremaa vald,367.1,53,22.75361,58.29365,0.79,8,72.4,5.3,15.5,490,510,0,,1,Port within reach,False
+31,Hiiu maakond,Hiiumaa vald,354.1,53,22.15351,58.92456,0.34,21,98.5,60.8,32.4,760,95,2,Ground elevation; Distance from basement faults,0,,False
+32,Pärnu maakond,Pärnu linn,353.5,51,24.14517,58.27911,0.57,6,17.7,19.9,4.7,536,278,0,,2,330 kV grid within reach; Port within reach,False
+33,Harju maakond,Harku vald,350.8,54,24.3337,59.40738,0.09,28,10.4,7.2,14.3,595,3915,3,Ground elevation; Green network; Unprotected groundwater,3,330 kV grid within reach; Railway within reach; Port within reach,False
+34,Lääne maakond,Haapsalu linn,348.2,52,23.50399,58.88622,0.99,5,27.4,2.2,3.1,636,649,2,Green network; Unprotected groundwater,3,Main road within reach; Railway within reach; Port within reach,False
+35,Hiiu maakond,Hiiumaa vald,339.1,51,22.56942,59.00771,1.48,3,79.8,49.5,8.0,502,137,1,State and military aerodromes,1,Port within reach,False
+36,Pärnu maakond,Häädemeeste vald,337.0,48,24.51362,58.05016,1.78,13,25.4,0.0,28.6,580,835,2,Distance from basement faults; Unprotected groundwater,1,Main road within reach,False
+37,Lääne maakond,Lääne-Nigula vald,332.2,50,23.54915,59.01999,1.04,2,28.5,7.8,5.7,707,394,3,Other airfields in use; Distance from basement faults; Green network,2,Railway within reach; Port within reach,False
+38,Harju maakond,Viimsi vald,329.2,51,24.87757,59.51488,0.75,25,17.9,6.4,2.6,610,31268,4,Ground elevation; Residents within 5 km; Hazardous establishments; State and military aerodromes,3,330 kV grid within reach; Railway within reach; Port within reach,False
+39,Lääne maakond,Lääne-Nigula vald,326.0,49,23.54232,58.99724,0.44,4,28.6,5.4,3.2,576,478,3,Other airfields in use; Distance from basement faults; Green network,2,Railway within reach; Port within reach,False
+40,Ida-Viru maakond,Jõhvi vald,318.0,49,27.19141,59.42431,0.28,48,1.6,0.1,29.7,487,857,3,Ground elevation; Hazardous establishments; Mineral deposits and surface mining,3,330 kV grid within reach; Main road within reach; Railway within reach,True
+41,Saare maakond,Saaremaa vald,291.8,42,22.05653,58.23769,0.86,7,112.7,24.5,19.3,652,267,0,,0,,False
+42,Pärnu maakond,Pärnu linn,283.1,41,24.25237,58.34613,0.98,10,8.1,14.3,12.1,538,638,0,,3,330 kV grid within reach; Railway within reach; Port within reach,False
+43,Pärnu maakond,Häädemeeste vald,281.6,40,24.47774,58.00557,0.83,12,30.4,0.0,29.7,542,371,2,Distance from basement faults; Unprotected groundwater,1,Main road within reach,False
+44,Harju maakond,Lääne-Harju vald,280.9,43,24.13476,59.31191,0.24,2,17.2,2.0,2.8,634,455,2,Hazardous establishments; State and military aerodromes,4,330 kV grid within reach; Main road within reach; Railway within reach; Port within reach,False
+45,Pärnu maakond,Pärnu linn,269.9,39,24.63129,58.30686,1.99,7,4.4,0.8,10.9,653,2155,1,Distance from basement faults,4,330 kV grid within reach; Main road within reach; Railway within reach; Port within reach,False
+46,Pärnu maakond,Pärnu linn,263.7,38,24.08561,58.2611,0.17,3,21.5,23.0,2.9,562,266,1,State and military aerodromes,1,Port within reach,False
+47,Harju maakond,Harku vald,259.7,40,24.53748,59.41652,1.8,28,3.2,2.4,4.6,624,21095,4,Ground elevation; Residents within 5 km; Other airfields in use; Unprotected groundwater,4,330 kV grid within reach; Main road within reach; Railway within reach; Port within reach,False
+48,Pärnu maakond,Häädemeeste vald,253.8,36,24.43393,57.9762,0.68,9,34.5,0.1,29.6,473,322,0,,1,Main road within reach,False
+49,Hiiu maakond,Hiiumaa vald,251.8,38,22.60705,59.06584,0.32,9,80.9,49.6,4.7,599,43,1,State and military aerodromes,1,Port within reach,False
+50,Hiiu maakond,Hiiumaa vald,236.7,35,22.50196,58.71498,0.28,3,75.0,30.2,2.0,634,273,0,,1,Port within reach,False
+51,Pärnu maakond,Lääneranna vald,230.7,34,23.53229,58.65933,0.38,9,14.7,4.9,8.2,526,104,1,Distance from basement faults,2,330 kV grid within reach; Port within reach,False
+52,Saare maakond,Saaremaa vald,227.9,33,22.04581,58.34529,1.58,15,108.6,27.1,11.9,537,544,0,,1,Port within reach,False
+53,Hiiu maakond,Hiiumaa vald,227.1,34,22.09684,58.92771,0.04,16,102.0,63.2,34.6,572,52,1,Distance from basement faults,0,,False
+54,Lääne maakond,Lääne-Nigula vald,225.2,34,23.54326,59.07209,0.54,1,30.2,13.3,11.3,586,190,3,Other airfields in use; Distance from basement faults; Green network,2,Railway within reach; Port within reach,False
+55,Hiiu maakond,Hiiumaa vald,220.7,33,22.94004,58.91029,0.73,5,56.1,27.1,6.8,745,431,1,State and military aerodromes,1,Port within reach,False
+56,Lääne-Viru maakond,Viru-Nigula vald,219.6,34,26.47745,59.50851,0.56,38,12.9,12.0,3.1,615,3331,2,Ground elevation; Hazardous establishments,3,330 kV grid within reach; Railway within reach; Port within reach,False
+57,Hiiu maakond,Hiiumaa vald,200.2,30,22.48768,58.94604,0.91,5,81.2,51.8,17.7,791,678,0,,1,Port within reach,False
+58,Pärnu maakond,Lääneranna vald,196.5,29,23.56986,58.68234,1.6,9,13.4,7.0,11.7,640,136,1,Unprotected groundwater,2,330 kV grid within reach; Port within reach,False
+59,Lääne maakond,Haapsalu linn,194.7,29,23.55437,58.83961,0.94,3,22.6,8.3,9.5,560,641,0,,2,Railway within reach; Port within reach,False
+60,Pärnu maakond,Pärnu linn,193.0,28,24.27553,58.38227,0.83,5,4.4,12.4,11.0,558,1390,1,State and military aerodromes,3,330 kV grid within reach; Railway within reach; Port within reach,False
+61,Harju maakond,Lääne-Harju vald,188.7,29,24.28696,59.38306,1.65,29,11.1,4.1,10.9,512,3311,3,Ground elevation; State and military aerodromes; Unprotected groundwater,4,330 kV grid within reach; Main road within reach; Railway within reach; Port within reach,False
+62,Saare maakond,Saaremaa vald,180.3,26,22.67641,58.26945,0.53,4,77.8,5.7,10.3,555,666,1,State and military aerodromes,1,Port within reach,False
+63,Saare maakond,Saaremaa vald,179.6,26,22.90393,58.34396,1.01,9,62.3,9.4,26.2,572,310,0,,0,,False
+64,Pärnu maakond,Lääneranna vald,177.1,26,23.6231,58.58701,1.52,1,13.5,2.6,5.9,603,290,1,Distance from basement faults,3,330 kV grid within reach; Main road within reach; Port within reach,False
+65,Saare maakond,Muhu vald,176.3,26,23.15494,58.6631,0.19,6,37.4,6.5,16.7,638,245,1,Green network,1,Port within reach,False
+66,Lääne maakond,Haapsalu linn,168.2,25,23.56775,58.80366,1.55,3,19.4,12.5,13.5,659,427,0,,3,330 kV grid within reach; Railway within reach; Port within reach,False
+67,Lääne maakond,Lääne-Nigula vald,159.9,24,23.54241,58.9769,0.09,1,28.9,3.1,1.7,498,7853,4,Residents within 5 km; Other airfields in use; Distance from basement faults; Green network,3,Main road within reach; Railway within reach; Port within reach,False
+68,Harju maakond,Harku vald,155.8,24,24.36998,59.41774,0.63,9,10.3,8.7,13.1,429,4690,1,Green network,3,330 kV grid within reach; Railway within reach; Port within reach,False
+69,Lääne maakond,Haapsalu linn,153.6,23,23.50491,58.93574,0.01,1,31.3,0.6,2.1,557,10914,4,Residents within 5 km; Densely built-up settlement; Flood-prone areas; Green network,3,Main road within reach; Railway within reach; Port within reach,False
+70,Saare maakond,Saaremaa vald,152.1,22,22.90684,58.32986,0.4,5,63.3,10.4,26.1,521,279,0,,0,,False
+71,Harju maakond,Lääne-Harju vald,150.5,23,24.15208,59.27944,1.95,12,15.3,5.6,6.9,511,238,2,State and military aerodromes; Distance from basement faults,3,330 kV grid within reach; Railway within reach; Port within reach,False
+72,Ida-Viru maakond,Jõhvi vald,149.5,23,27.54088,59.39915,1.64,37,3.4,1.6,10.9,561,3002,2,Ground elevation; Green network,4,330 kV grid within reach; Main road within reach; Railway within reach; Port within reach,False
+73,Pärnu maakond,Häädemeeste vald,145.1,21,24.58293,58.33282,0.05,2,4.9,0.0,7.2,757,11175,3,Residents within 5 km; State and military aerodromes; Distance from basement faults,4,330 kV grid within reach; Main road within reach; Railway within reach; Port within reach,False
+74,Saare maakond,Saaremaa vald,136.7,20,22.31752,58.53088,0.16,3,88.0,28.6,4.2,1059,147,2,Distance from basement faults; Unprotected groundwater,1,Port within reach,False
+75,Pärnu maakond,Häädemeeste vald,131.8,19,24.53547,58.26415,0.25,1,10.4,0.0,12.9,672,1441,0,,4,330 kV grid within reach; Main road within reach; Railway within reach; Port within reach,False
+76,Lääne maakond,Vormsi vald,126.2,19,23.1497,59.03247,0.08,4,51.3,20.5,10.9,504,33,2,Distance from basement faults; Unprotected groundwater,1,Port within reach,False
+77,Pärnu maakond,Häädemeeste vald,125.3,18,24.51627,58.21063,1.94,4,13.4,1.1,18.0,660,783,0,,3,330 kV grid within reach; Main road within reach; Port within reach,False
+78,Saare maakond,Saaremaa vald,124.6,18,22.82045,58.29807,0.39,4,69.2,8.4,19.9,468,272,0,,0,,False
+79,Saare maakond,Saaremaa vald,124.5,18,22.83118,58.32166,0.87,3,67.7,7.4,21.7,493,397,0,,0,,False
+80,Lääne maakond,Haapsalu linn,120.2,18,23.44528,58.93402,0.02,2,34.7,2.0,2.7,514,1030,1,Unprotected groundwater,3,Main road within reach; Railway within reach; Port within reach,False
+81,Saare maakond,Saaremaa vald,118.4,17,22.11348,58.20101,1.63,6,111.4,22.0,16.1,548,277,0,,1,Port within reach,False
+82,Pärnu maakond,Pärnu linn,117.8,17,24.10087,58.28347,2.3,14,19.2,23.2,5.4,573,276,0,,2,330 kV grid within reach; Port within reach,False
+83,Lääne-Viru maakond,Viru-Nigula vald,116.2,18,26.525,59.51519,0.03,0,15.1,12.5,0.5,632,3360,4,Densely built-up settlement; Hazardous establishments; Mineral deposits and surface mining; Flood-prone areas,3,330 kV grid within reach; Railway within reach; Port within reach,True
+84,Saare maakond,Saaremaa vald,111.2,16,22.69622,58.23292,1.08,8,79.5,9.3,10.8,497,292,2,State and military aerodromes; Unprotected groundwater,1,Port within reach,False
+85,Harju maakond,Kuusalu vald,110.0,17,25.33659,59.47102,2.12,31,20.2,2.7,20.5,417,1814,2,Ground elevation; Other airfields in use,2,Main road within reach; Railway within reach,False
+86,Hiiu maakond,Hiiumaa vald,106.6,16,22.79082,58.97622,1.98,6,67.2,37.1,6.4,628,3488,1,State and military aerodromes,1,Port within reach,False
+87,Pärnu maakond,Häädemeeste vald,105.7,15,24.46547,57.98746,1.9,12,33.0,0.0,30.9,448,290,1,Unprotected groundwater,1,Main road within reach,False
+88,Pärnu maakond,Pärnu linn,103.9,15,24.05374,58.29723,0.11,3,19.7,26.5,7.7,409,285,0,,1,Port within reach,False
+89,Saare maakond,Saaremaa vald,103.5,15,23.01139,58.36781,0.11,3,55.9,13.8,29.9,522,162,1,Unprotected groundwater,0,,False
+90,Saare maakond,Saaremaa vald,102.5,15,22.21429,58.53514,0.23,12,93.9,32.7,0.8,500,37,1,Unprotected groundwater,1,Port within reach,False
+91,Hiiu maakond,Hiiumaa vald,100.4,15,22.18135,58.8883,0.03,10,96.5,57.3,28.8,512,96,1,Distance from basement faults,0,,False
+92,Hiiu maakond,Hiiumaa vald,100.3,15,22.18973,58.91753,0.97,35,97.2,59.5,31.1,552,105,2,Ground elevation; Distance from basement faults,0,,False
+93,Lääne maakond,Haapsalu linn,100.0,15,23.61925,58.96388,0.09,1,24.6,1.3,5.1,699,4796,1,Other airfields in use,3,Main road within reach; Railway within reach; Port within reach,False
+94,Saare maakond,Saaremaa vald,97.4,14,22.0761,58.20599,0.68,4,113.3,24.1,18.4,490,236,0,,1,Port within reach,False
+95,Saare maakond,Saaremaa vald,97.1,14,22.69016,58.26021,0.08,4,78.1,7.1,11.3,472,582,1,State and military aerodromes,1,Port within reach,False
