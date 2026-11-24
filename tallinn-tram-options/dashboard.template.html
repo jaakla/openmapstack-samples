@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="en" data-oms-state="canonical">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>__TITLE__</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="vendor/maplibre-gl.css">
+<style>
+/* openmapstack-views/0.1 · workspace · new: ranked score bars with criterion breakdown */
+:root {
+  color-scheme: light;
+  --oms-bg: #fcfcfb; --oms-surface: #fcfcfb; --oms-surface-2: #f3f2ef; --oms-border: #dddcd6;
+  --oms-text: #0b0b0b; --oms-text-muted: #52514e; --oms-text-faint: #7a7973;
+  --oms-accent: #1c5cab; --oms-ok: #0a7a0a; --oms-warn: #b77a00; --oms-error: #c62f2f; --oms-exploratory: #fff4d6;
+  --oms-role-hypothetical: #0b0b0b; --oms-role-context: #1f2937; --oms-role-source: #868e96; --oms-role-planned: #b5651d;
+  --oms-role-secondary-result: #1c5cab; --oms-role-constraint: #6b7280; --oms-role-selected-feature: #0b0b0b;
+  --oms-entity-lasnamae: #2a78d6; --oms-entity-city-centre: #eb6834; --oms-entity-pohja-tallinn: #1baf7a;
+  --oms-entity-south: #eda100; --oms-entity-west: #e87ba4;
+  --oms-font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; --oms-font-data: var(--oms-font-body); --oms-font-display: var(--oms-font-body);
+  --oms-space-1: 4px; --oms-space-2: 8px; --oms-space-3: 12px; --oms-space-4: 16px; --oms-radius: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+    --oms-bg: #1a1a19; --oms-surface: #1a1a19; --oms-surface-2: #252523; --oms-border: #3a3a37;
+    --oms-text: #f0efec; --oms-text-muted: #c3c2b7; --oms-text-faint: #8f8e86;
+    --oms-accent: #86b6ef; --oms-ok: #3fbf3f; --oms-warn: #e0a100; --oms-error: #e66767; --oms-exploratory: #3a2f10;
+    --oms-role-hypothetical: #f0efec; --oms-role-context: #d6d5cf; --oms-role-source: #8f8e86; --oms-role-planned: #d08a45;
+    --oms-role-secondary-result: #86b6ef; --oms-role-constraint: #9a9992; --oms-role-selected-feature: #f0efec;
+    --oms-entity-lasnamae: #3987e5; --oms-entity-city-centre: #d95926; --oms-entity-pohja-tallinn: #199e70;
+    --oms-entity-south: #c98500; --oms-entity-west: #d55181;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --oms-bg: #1a1a19; --oms-surface: #1a1a19; --oms-surface-2: #252523; --oms-border: #3a3a37;
+  --oms-text: #f0efec; --oms-text-muted: #c3c2b7; --oms-text-faint: #8f8e86;
+  --oms-accent: #86b6ef; --oms-ok: #3fbf3f; --oms-warn: #e0a100; --oms-error: #e66767; --oms-exploratory: #3a2f10;
+  --oms-role-hypothetical: #f0efec; --oms-role-context: #d6d5cf; --oms-role-source: #8f8e86; --oms-role-planned: #d08a45;
+  --oms-role-secondary-result: #86b6ef; --oms-role-constraint: #9a9992; --oms-role-selected-feature: #f0efec;
+  --oms-entity-lasnamae: #3987e5; --oms-entity-city-centre: #d95926; --oms-entity-pohja-tallinn: #199e70;
+  --oms-entity-south: #c98500; --oms-entity-west: #d55181;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { font: 14px/1.45 var(--oms-font-body); color: var(--oms-text); background: var(--oms-bg); display: flex; flex-direction: column; }
+header { display: flex; align-items: center; gap: 6px 12px; padding: 8px 16px; border-bottom: 1px solid var(--oms-border); flex-wrap: wrap; }
+header h1 { font-size: 16px; margin: 0; font-weight: 650; }
+header .prov { flex-basis: 100%; font-size: 11.5px; color: var(--oms-text-faint); margin: 0; }
+.badge { font-size: 12px; padding: 2px 8px; border-radius: 10px; border: 1px solid var(--oms-border); color: var(--oms-text-muted); white-space: nowrap; }
+.badge.ok::before { content: "✓ "; color: var(--oms-ok); } .badge.warning::before { content: "⚠ "; color: var(--oms-warn); } .badge.failed::before { content: "✕ "; color: var(--oms-error); }
+[data-oms-exploratory] { display: none; background: var(--oms-exploratory); border: 1px solid var(--oms-warn); border-radius: var(--oms-radius); padding: 3px 8px; font-size: 12.5px; align-items: center; gap: 8px; }
+html[data-oms-state="exploratory"] [data-oms-exploratory] { display: inline-flex; }
+button, select { font: inherit; color: inherit; }
+button { background: var(--oms-surface); border: 1px solid var(--oms-border); border-radius: var(--oms-radius); padding: 4px 10px; cursor: pointer; }
+button:hover { border-color: var(--oms-text-faint); }
+.seg button[aria-pressed="true"] { background: var(--oms-accent); border-color: var(--oms-accent); color: var(--oms-bg); }
+main { flex: 1; display: flex; min-height: 0; }
+aside { width: 470px; max-width: 100%; display: flex; flex-direction: column; border-right: 1px solid var(--oms-border); min-height: 0; }
+#controls { padding: 10px 16px; border-bottom: 1px solid var(--oms-border); display: grid; gap: 8px; background: var(--oms-surface-2); }
+#controls .row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+#controls label, #controls .lbl { font-size: 12px; color: var(--oms-text-muted); min-width: 92px; }
+#controls select { flex: 1; min-width: 0; padding: 4px 6px; border: 1px solid var(--oms-border); border-radius: var(--oms-radius); background: var(--oms-surface); }
+.seg { display: inline-flex; gap: 4px; flex-wrap: wrap; }
+[role="tablist"] { display: flex; border-bottom: 1px solid var(--oms-border); }
+[role="tab"] { flex: 1; border: 0; border-radius: 0; border-bottom: 2px solid transparent; padding: 9px 4px; background: none; color: var(--oms-text-muted); }
+[role="tab"][aria-selected="true"] { color: var(--oms-text); border-bottom-color: var(--oms-accent); font-weight: 600; }
+[role="tabpanel"] { overflow: auto; padding: 4px 16px 24px; flex: 1; }
+[role="tabpanel"][hidden] { display: none; }
+details { border-bottom: 1px solid var(--oms-border); padding: 8px 0; }
+details > summary { cursor: pointer; font-weight: 600; padding: 4px 0; }
+.lead { font-size: 15px; margin: 6px 0 10px; }
+.small { font-size: 12.5px; color: var(--oms-text-muted); }
+.rank { list-style: none; padding: 0; margin: 6px 0; }
+.rank li { display: grid; grid-template-columns: 20px 1fr 46px; gap: 2px 8px; align-items: center; padding: 6px 6px; border-radius: var(--oms-radius); cursor: pointer; border: 1px solid transparent; }
+.rank li:hover { background: var(--oms-surface-2); }
+.rank li[aria-current="true"] { border-color: var(--oms-text); background: var(--oms-surface-2); }
+.rank .n { color: var(--oms-text-faint); font-variant-numeric: tabular-nums; }
+.rank .name { font-weight: 600; }
+.rank .sub { grid-column: 2 / 4; font-size: 12px; color: var(--oms-text-muted); }
+.rank .score { text-align: right; font-weight: 650; font-variant-numeric: tabular-nums; }
+.track { grid-column: 2 / 4; height: 10px; display: flex; gap: 2px; }
+.track span { display: block; height: 100%; border-radius: 0 4px 4px 0; min-width: 0; }
+.track span + span { border-radius: 0; opacity: .55; }
+.dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; vertical-align: baseline; }
+.tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 8px 0; }
+.tile { background: var(--oms-surface-2); border-radius: 8px; padding: 8px 12px; }
+.tile .v { font-size: 21px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.tile .l { font-size: 12px; color: var(--oms-text-muted); }
+.crit { display: grid; grid-template-columns: 150px 1fr 38px; gap: 4px 8px; align-items: center; font-size: 12.5px; margin: 6px 0; }
+.crit .bar { height: 8px; background: var(--oms-surface-2); border-radius: 0 4px 4px 0; }
+.crit .bar span { display: block; height: 100%; border-radius: 0 4px 4px 0; background: var(--oms-text-muted); }
+.crit .num { text-align: right; font-variant-numeric: tabular-nums; }
+.tablewrap { max-height: 380px; overflow: auto; border: 1px solid var(--oms-border); border-radius: var(--oms-radius); margin-top: 6px; }
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; }
+th, td { padding: 5px 8px; border-bottom: 1px solid var(--oms-border); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+th { position: sticky; top: 0; background: var(--oms-surface-2); cursor: pointer; user-select: none; font-weight: 600; z-index: 2; }
+th:first-child, td:first-child { text-align: left; position: sticky; left: 0; background: var(--oms-surface); z-index: 1; }
+th:first-child { z-index: 3; background: var(--oms-surface-2); }
+td.txt, th.txt { text-align: left; }
+tr.current td { background: var(--oms-surface-2); font-weight: 600; }
+tr.clickable { cursor: pointer; }
+.dl a { margin-right: 10px; }
+a { color: var(--oms-accent); }
+.layer { display: flex; align-items: center; gap: 8px; padding: 5px 0; }
+.sw { width: 18px; height: 12px; border-radius: 3px; flex: none; border: 1px solid transparent; display: inline-block; }
+.sw.dotm { width: 11px; height: 11px; border-radius: 50%; margin: 0 3px; }
+.sw.line { height: 0; border: 0; border-top: 3px solid; border-radius: 0; }
+.legend-row { display: flex; align-items: center; gap: 8px; padding: 2px 0; font-size: 12.5px; }
+.warn { background: var(--oms-exploratory); border-left: 3px solid var(--oms-warn); padding: 6px 10px; margin: 6px 0; border-radius: 0 6px 6px 0; font-size: 12.5px; }
+.card { border: 1px solid var(--oms-border); border-radius: var(--oms-radius); padding: 8px 10px; margin: 6px 0; font-size: 12.5px; }
+.card h4 { margin: 0 0 2px; font-size: 13px; }
+.kv { color: var(--oms-text-muted); }
+.check { display: grid; grid-template-columns: 18px 1fr; gap: 6px; padding: 3px 0; font-size: 12.5px; }
+.s-passed { color: var(--oms-ok); } .s-warning, .s-not_testable { color: var(--oms-warn); } .s-failed, .s-rejected { color: var(--oms-error); }
+[data-openmapstack-credits] p { margin: 2px 0; font-size: 13px; }
+#mapwrap { flex: 1; position: relative; min-width: 0; }
+#map { position: absolute; inset: 0; }
+#legend { position: absolute; left: 10px; bottom: 34px; background: color-mix(in srgb, var(--oms-surface) 94%, transparent); border: 1px solid var(--oms-border); border-radius: 8px; padding: 8px 10px; font-size: 12px; max-width: 250px; }
+#legend h5 { margin: 0 0 4px; font-size: 12px; }
+#legend .legend-row { font-size: 11.5px; padding: 1px 0; }
+#tip { position: absolute; pointer-events: none; background: var(--oms-surface); border: 1px solid var(--oms-border); border-radius: var(--oms-radius); padding: 6px 8px; font-size: 12px; max-width: 280px; display: none; box-shadow: 0 2px 8px rgba(0,0,0,.18); z-index: 5; }
+.maplibregl-popup-content { background: var(--oms-surface); color: var(--oms-text); font: 12.5px/1.4 var(--oms-font-body); max-width: 300px; }
+.maplibregl-popup-content h4 { margin: 0 0 4px; font-size: 13px; }
+.maplibregl-ctrl-attrib { background: color-mix(in srgb, var(--oms-surface) 85%, transparent) !important; color: var(--oms-text-muted); }
+.maplibregl-ctrl-attrib a { color: var(--oms-text-muted); }
+@media (max-width: 860px) {
+  html, body { height: auto; }
+  main { flex-direction: column-reverse; }
+  #mapwrap { height: 62vh; flex: none; }
+  aside { width: 100%; border-right: 0; border-top: 1px solid var(--oms-border); }
+  [role="tabpanel"] { overflow: visible; }
+  #legend { display: none; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title"></h1>
+  <span class="badge" id="status"></span>
+  <span class="badge" id="runbadge"></span>
+  <span data-oms-exploratory><span>Exploratory view – not the accepted setting</span><button data-oms-reset id="reset" type="button">Reset to the accepted setting</button></span>
+  <p class="prov" data-openmapstack-provenance>All proposed lines are hypothetical, modelled from public descriptions. Data: <!--__PROVIDERS__-->. Sources, limits and run record: Provenance tab; statements: <a href="findings.md">findings.md</a>.</p>
+</header>
+<main>
+  <aside>
+    <div id="controls">
+      <div class="row"><span class="lbl" id="lbl-reach"></span><div class="seg" id="reach" role="group" aria-labelledby="lbl-reach" data-oms-control="catchment_m"></div></div>
+      <div class="row"><label for="profile" id="lbl-profile"></label><select id="profile" data-oms-control="profile"></select></div>
+    </div>
+    <div role="tablist" id="tabs" aria-label="Sections">
+      <button type="button" role="tab" id="tabbtn-analysis" aria-controls="tab-analysis" aria-selected="true">Analysis</button>
+      <button type="button" role="tab" id="tabbtn-map" aria-controls="tab-map" aria-selected="false">Map</button>
+      <button type="button" role="tab" id="tabbtn-provenance" aria-controls="tab-provenance" aria-selected="false">Provenance</button>
+    </div>
+    <section role="tabpanel" id="tab-analysis" aria-labelledby="tabbtn-analysis">
+      <div id="analysis-dynamic"></div>
+      <details open data-testid="warnings"><summary>Known limits</summary><ul class="small" style="padding-left:18px;margin:4px 0"><!--__WARNINGS__--></ul>
+        <p class="small">What to do about each limit: Assumptions and the manifest, <a href="project.yaml">project.yaml</a>.</p></details>
+      <div id="analysis-more"></div>
+    </section>
+    <section role="tabpanel" id="tab-map" aria-labelledby="tabbtn-map" hidden></section>
+    <section role="tabpanel" id="tab-provenance" aria-labelledby="tabbtn-provenance" data-testid="provenance" hidden>
+      <details open><summary>Credits</summary><!--__CREDITS__-->
+        <p class="small">Findings: <a href="findings.md">findings.md</a> · manifest: <a href="project.yaml">project.yaml</a></p></details>
+      <details open><summary>Result tables</summary><ul class="small" style="padding-left:18px;margin:4px 0"><!--__DOWNLOADS__--></ul></details>
+      <div id="prov-dynamic"></div>
+    </section>
+  </aside>
+  <div id="mapwrap"><div id="map"></div><div id="legend" data-testid="legend"></div><div id="tip"></div></div>
+</main>
+<script id="openmapstack-view" type="application/json">/*__VIEW_METADATA__*/</script>
+<script src="vendor/maplibre-gl.js"></script>
+<script>
+"use strict";
+const P = /*__PAYLOAD__*/null;
+const $ = (id) => document.getElementById(id);
+const fmt = (n, d = 0) => n == null ? "–" : Number(n).toLocaleString("en-GB", { maximumFractionDigits: d, minimumFractionDigits: d });
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const CANON = { reach: P.canonical.catchment_m, profile: P.canonical.profile };
+const state = { reach: CANON.reach, profile: CANON.profile, option: null, theme: "auto", groups: {} };
+const OPT = Object.fromEntries(P.options.map((o) => [o.id, o]));
+const PROFILE = Object.fromEntries(P.profiles.map((p) => [p.id, p]));
+const isCanonical = () => state.reach === CANON.reach && state.profile === CANON.profile;
+const dark = () => state.theme === "dark" || (state.theme === "auto" && matchMedia("(prefers-color-scheme: dark)").matches);
+const colour = (o) => OPT[o].colour[dark() ? "dark" : "light"];
+// Rows the pipeline computed; the browser only picks the row for the chosen setting.
+const M = {}, S = {};
+P.tables.option_matrix.rows.forEach((r) => M[`${r.option}|${r.catchment_m}`] = r);
+P.tables.option_scores.rows.forEach((r) => S[`${r.option}|${r.catchment_m}|${r.profile}`] = r);
+const mrow = (o) => M[`${o}|${state.reach}`];
+const srow = (o) => S[`${o}|${state.reach}|${state.profile}`];
+const ranked = () => P.options.map((o) => o.id).sort((a, b) => srow(a).rank - srow(b).rank || a.localeCompare(b));
+const existingRow = () => P.tables.existing_tram_coverage.rows.find((r) => r.catchment_m === state.reach);
+
+// ---------- header ----------
+$("title").textContent = P.project.title;
+const st = P.run.status;
+$("status").textContent = st === "passed" ? "Validated" : st === "warning" ? "Validated with warnings" : "Validation failed";
+$("status").classList.add(st === "passed" ? "ok" : st);
+$("runbadge").textContent = P.run.id;
+$("reset").onclick = () => { state.reach = CANON.reach; state.profile = CANON.profile; refresh(); };
+
+// ---------- controls: open at the accepted setting ----------
+const reachCtl = P.controls.filters.find((f) => f.id === "catchment_m");
+const profCtl = P.controls.variants.find((v) => v.id === "profile");
+$("lbl-reach").textContent = reachCtl.label;
+$("lbl-profile").textContent = profCtl.label;
+reachCtl.options.forEach((m) => {
+  const b = document.createElement("button");
+  b.type = "button"; b.textContent = `${m} m`; b.dataset.omsValue = m; b.setAttribute("aria-pressed", m === state.reach);
+  b.onclick = () => { state.reach = m; refresh(); };
+  $("reach").append(b);
+});
+profCtl.options.forEach((id) => {
+  const o = document.createElement("option");
+  o.value = id; o.textContent = PROFILE[id].label + (id === CANON.profile ? " (accepted)" : "");
+  $("profile").append(o);
+});
+$("profile").value = state.profile;
+$("profile").onchange = (e) => { state.profile = e.target.value; refresh(); };
+
+// ---------- tabs (ARIA) ----------
+const tabButtons = [...document.querySelectorAll('[role="tab"]')];
+function openTab(id) {
+  tabButtons.forEach((b) => { const on = b.getAttribute("aria-controls") === id; b.setAttribute("aria-selected", on); $(b.getAttribute("aria-controls")).hidden = !on; });
+}
+tabButtons.forEach((b) => b.onclick = () => openTab(b.getAttribute("aria-controls")));
+const section = (id, title, open = true) => `<details ${open ? "open" : ""} id="sec-${id}"><summary>${esc(title)}</summary><div class="body"></div></details>`;
+const body = (id) => document.querySelector(`#sec-${id} .body`);
+$("analysis-dynamic").innerHTML = section("summary", "Answer") + section("selected_option", "Selected line") + section("ranking", "Ranking of the options");
+$("analysis-more").innerHTML = section("comparison_table", "Tables", false) + section("assumptions", "Assumptions", false);
+$("tab-map").innerHTML = section("layer_controls", "Layers") + section("legend", "Legend") + section("basemap", "Basemap and theme");
+$("prov-dynamic").innerHTML = section("provenance", "Sources") + section("overrides", "Scenario definitions (hypothetical lines)")
+  + section("validation", "Validation") + section("outputs", "Outputs", false) + section("run_record", "Run record and processing steps", false);
+
+// ---------- analysis ----------
+function renderSummary() {
+  const order = ranked(), top = order.slice(0, 3), ex = existingRow();
+  const funded = P.options.find((o) => o.status === "funded");
+  const winners = P.profiles.map((p) => ({ p, o: P.options.map((o) => o.id).sort((a, b) => S[`${a}|${state.reach}|${p.id}`].rank - S[`${b}|${state.reach}|${p.id}`].rank)[0] }));
+  body("summary").innerHTML = `<p class="lead">With the <b>${esc(PROFILE[state.profile].label.toLowerCase())}</b> weighting and a <b>${state.reach} m</b> walk to a stop,
+    <b>${esc(OPT[top[0]].title)}</b> scores highest of ${P.options.length} options (${fmt(srow(top[0]).score, 1)} of 100), ahead of ${esc(OPT[top[1]].short)} (${fmt(srow(top[1]).score, 1)}) and ${esc(OPT[top[2]].short)} (${fmt(srow(top[2]).score, 1)}).</p>
+    <p class="small">The only funded line, <b>${esc(funded.short)}</b>, ranks ${srow(funded.id).rank} of ${P.options.length}: it reaches ${fmt(mrow(funded.id).residents)} residents, ${fmt(mrow(funded.id).residents_new)} of them not near a tram today.
+    Today ${fmt(ex.residents)} residents (${fmt(ex.share_of_city_pct, 1)} % of the city) live within ${state.reach} m of a tram stop.</p>
+    <p class="small">Top option by weighting: ${winners.map((w) => `${esc(w.p.label)} – <b>${esc(OPT[w.o].short)}</b>`).join("; ")}.</p>
+    <p class="small">Every line is <b>hypothetical</b>: routed from public descriptions with stops modelled every 500 m. The score is a declared weighting of reach and plan indicators, not a cost-benefit result. Full statements: <a href="findings.md">findings.md</a>.</p>`;
+}
+function renderRanking() {
+  const w = PROFILE[state.profile].weights;
+  body("ranking").innerHTML = `<p class="small">Bar: score out of 100. Solid part: residents and workplaces reached; lighter part: services, growth, value per km and strategy fit. Colour: part of the city. Select a line to see it on the map.</p>
+    <ol class="rank">${ranked().map((id) => {
+      const o = OPT[id], s = srow(id), m = mrow(id);
+      const reachPart = 100 * (w.new_residents * s.c_new_residents + w.residents * s.c_residents + w.workplaces * s.c_workplaces);
+      return `<li data-o="${id}" aria-current="${state.option === id}" title="${esc(o.title)}">
+        <span class="n">${s.rank}</span><span class="name">${esc(o.title)}</span><span class="score">${fmt(s.score, 1)}</span>
+        <span class="track" role="img" aria-label="Score ${fmt(s.score, 1)} of 100"><span style="width:${reachPart}%;background:${colour(id)}"></span><span style="width:${Math.max(0, s.score - reachPart)}%;background:${colour(id)}"></span></span>
+        <span class="sub">${esc(o.family)} · ${fmt(m.length_km, 1)} km · ${fmt(m.residents_new)} new of ${fmt(m.residents)} residents · ${esc(o.status_label)}</span></li>`;
+    }).join("")}</ol>`;
+  body("ranking").querySelectorAll("li").forEach((li) => {
+    li.onclick = () => select(li.dataset.o === state.option ? null : li.dataset.o, true);
+    li.onmouseenter = () => hoverLine(li.dataset.o); li.onmouseleave = () => hoverLine(null);
+  });
+}
+function renderSelected() {
+  const el = body("selected_option");
+  if (!state.option) { el.innerHTML = `<p class="small">No line selected. Click a line in the ranking or on the map. Press Esc to clear a selection.</p>`; return; }
+  const o = OPT[state.option], m = mrow(o.id), s = srow(o.id), w = PROFILE[state.profile].weights, pub = o.published;
+  const svc = Object.entries(P.service_labels).map(([k, l]) => [l, m[`svc_${k}`]]).filter(([, v]) => v > 0).map(([l, v]) => `${v} ${l.toLowerCase()}${v > 1 ? "s" : ""}`).join(", ");
+  el.innerHTML = `<div class="card"><h4><span class="dot" style="background:${colour(o.id)}"></span>${esc(o.title)} <span class="badge">hypothetical</span>
+      <button type="button" id="clearsel" style="float:right" aria-label="Clear selection">✕</button></h4>
+    <div class="kv">${esc(o.status_label)} · ${esc(o.family)}</div><p style="margin:6px 0">${esc(o.description)}</p>
+    ${o.geometry_note ? `<div class="warn">${esc(o.geometry_note)}</div>` : ""}</div>
+    <div class="tiles">
+      <div class="tile"><div class="v">${fmt(m.residents_new)}</div><div class="l">residents newly within ${state.reach} m of a tram (of ${fmt(m.residents)} in reach)</div></div>
+      <div class="tile"><div class="v">${fmt(m.workplace_floor_m2 / 1000)}k m²</div><div class="l">workplace floor area in reach (${fmt(m.workplace_floor_new_m2 / 1000)}k m² new)</div></div>
+      <div class="tile"><div class="v">${fmt(m.length_km, 2)} km</div><div class="l">new track as modelled · ${m.stops_new} new stops${pub.length_km ? ` · published ${fmt(pub.length_km, 1)} km` : ""}</div></div>
+      <div class="tile"><div class="v">${fmt(m.residents_per_km)}</div><div class="l">residents in reach per km</div></div>
+      <div class="tile"><div class="v">${fmt(m.services)}</div><div class="l">public services in reach${svc ? `: ${esc(svc)}` : ""}</div></div>
+      <div class="tile"><div class="v">${fmt(m.plans_in_process_ha, 1)} ha</div><div class="l">detailed plans in process · ${fmt(m.pipeline_home_m2)} m² of homes planned or being built</div></div>
+    </div>
+    <p class="small">Along the line today: ${fmt(m.bus_departures_weekday)} bus and trolleybus departures per weekday at stops within 150 m (straight line).
+      ${pub.cost_meur ? `Published cost estimate: €${fmt(pub.cost_meur, 1)}M (${pub.cost_year} prices), not used in the score.` : "No cost estimate published for this extent."} ${esc(pub.cost_note || "")}</p>
+    <h4 style="margin:10px 0 2px;font-size:13px">Score ${fmt(s.score, 1)} of 100 · rank ${s.rank} (${esc(PROFILE[state.profile].label)})</h4>
+    <div class="crit">${P.criteria.map((c) => `<span>${esc(P.criterion_labels[c])} <span class="kv">×${fmt(100 * w[c])}%</span></span>
+      <span class="bar" title="${fmt(100 * s[`c_${c}`])} % of the best option"><span style="width:${100 * s[`c_${c}`]}%"></span></span><span class="num">${fmt(100 * s[`c_${c}`])}</span>`).join("")}</div>
+    <p class="small">Each bar: this line's value as a percentage of the best option's value at ${state.reach} m.</p>
+    <h4 style="margin:10px 0 2px;font-size:13px">Strategy fit ${fmt(o.strategy_fit, 2)} of 3</h4>
+    ${[["sump", "Mobility plan SUMP 2035"], ["study_2019", "2019 feasibility study"], ["city_2026", "City position in 2026"]].map(([k, l]) =>
+      `<div class="check"><span class="kv">${fmt(o.strategy[k].score, 2)}</span><span><b>${l}</b> – ${esc(o.strategy[k].note)}</span></div>`).join("")}
+    <p class="small">Measured against the city's own drawings: ${fmt(100 * o.plan_corridor_share)} % of the routed line lies within 75 m of a rail corridor in a planning document, ${fmt(100 * o.study_2019_share)} % within 75 m of a 2019 study corridor.</p>
+    <p class="small"><b>How the line was drawn</b> (${esc(o.override_id)}): ${o.follows ? "along the city's published 2019 study corridor" : `shortest path over the street network along ${esc(o.streets.join(", "))}`}
+      ${o.stand_in_streets.length ? ` (stand-in for an unmapped corridor: ${esc(o.stand_in_streets.join(", "))})` : ""}, through ${esc(o.waypoints.join(" → "))}. ${fmt(100 * o.declared_street_share)} % of its length is on the declared streets.</p>
+    <p class="small"><b>Evidence:</b> ${o.evidence.map((e) => `<a href="${esc(e.value)}" target="_blank" rel="noopener">${esc(e.title || e.value)}</a>`).join(" · ")}</p>`;
+  $("clearsel").onclick = () => select(null);
+}
+const sortState = {};
+function renderTables() {
+  const keys = ["option_summary", "option_matrix", "option_scores", "existing_tram_coverage"];
+  body("comparison_table").innerHTML = keys.map((k) => `<h4 style="margin:12px 0 2px;font-size:13px">${esc(P.tables[k].title)}</h4><div id="tbl-${k}"></div>`).join("");
+  keys.forEach(drawTable);
+}
+function drawTable(key) {
+  const t = P.tables[key], sort = sortState[key] ??= { col: t.default_sort, dir: 1 };
+  let rows = t.rows;
+  if (key === "option_matrix") rows = rows.filter((r) => r.catchment_m === state.reach);
+  if (key === "option_scores") rows = rows.filter((r) => r.catchment_m === state.reach && r.profile === state.profile);
+  rows = [...rows].sort((a, b) => { const x = a[sort.col], y = b[sort.col]; return (typeof x === "string" ? String(x).localeCompare(String(y)) : (x ?? -Infinity) - (y ?? -Infinity)) * sort.dir; });
+  const cell = (c, v) => v == null ? "–" : c.type === "string" ? esc(c.name === "option" && OPT[v] ? OPT[v].short : v) : c.type === "boolean" ? (v ? "yes" : "") : fmt(v, Number.isInteger(v) ? 0 : v < 10 ? 2 : 1);
+  const filtered = key === "option_matrix" || key === "option_scores";
+  $(`tbl-${key}`).innerHTML = `<div class="small">${rows.length} rows${filtered ? ` (walk ${state.reach} m${key === "option_scores" ? `, ${esc(PROFILE[state.profile].label)}` : ""}; the files hold every setting)` : ""} ·
+    <span class="dl">${t.downloads.map((d) => `<a href="${esc(d.href)}" download>${d.format.toUpperCase()}</a>`).join("")}</span></div>
+    <div class="tablewrap"><table><thead><tr>${t.columns.map((c) => `<th data-c="${c.name}" class="${c.type === "string" ? "txt" : ""}" title="${esc(c.name)}">${esc(c.label)}${c.unit ? `<br><span class="kv">${esc(c.unit)}</span>` : ""}${sort.col === c.name ? (sort.dir > 0 ? " ▲" : " ▼") : ""}</th>`).join("")}</tr></thead>
+    <tbody>${rows.map((r) => `<tr class="${r.option ? "clickable" : ""} ${r.option && r.option === state.option ? "current" : ""}" data-o="${r.option || ""}">${t.columns.map((c) => `<td class="${c.type === "string" ? "txt" : ""}">${cell(c, r[c.name])}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+  $(`tbl-${key}`).querySelectorAll("th").forEach((th) => th.onclick = () => { sort.dir = sort.col === th.dataset.c ? -sort.dir : 1; sort.col = th.dataset.c; drawTable(key); });
+  $(`tbl-${key}`).querySelectorAll("tr[data-o]").forEach((tr) => { if (tr.dataset.o) tr.onclick = () => select(tr.dataset.o, true); });
+}
+body("assumptions").innerHTML = `<p class="small"><b>Objective.</b> ${esc(P.interpretation.objective)}</p>` +
+  P.interpretation.assumptions.map((a) => `<div class="card"><h4>${esc(a.id)}</h4>${esc(a.statement)}<div class="kv">Why: ${esc(a.rationale)}</div></div>`).join("") +
+  `<div class="card"><h4>Weightings</h4><div class="tablewrap"><table><thead><tr><th class="txt">Criterion</th>${P.profiles.map((p) => `<th>${esc(p.label)}</th>`).join("")}</tr></thead><tbody>
+  ${P.criteria.map((c) => `<tr><td class="txt">${esc(P.criterion_labels[c])}</td>${P.profiles.map((p) => `<td>${fmt(100 * p.weights[c])} %</td>`).join("")}</tr>`).join("")}</tbody></table></div></div>`;
+
+// ---------- provenance ----------
+body("provenance").innerHTML = P.sources.map((s) => `<div class="card"><h4>${esc(s.dataset)}</h4>
+  <div class="kv">${esc(s.provider)} · ${esc(s.role.replace("_", " "))}</div>
+  <div class="kv">Version: ${esc(s.version)} · retrieved ${esc(String(s.retrieved_at).slice(0, 16).replace("T", " "))} UTC · ${fmt(s.rows)} rows · <code>${esc(s.file)}</code></div>
+  <div class="kv">Licence: ${s.license_url ? `<a href="${esc(s.license_url)}" target="_blank" rel="noopener">${esc(s.license)}</a>` : esc(s.license)}
+   · <a href="${esc(String(s.url).startsWith("s3://") ? "https://docs.overturemaps.org/" : s.url)}" target="_blank" rel="noopener">source</a></div>
+  <div class="kv">Why this source: ${esc(s.rationale)}</div></div>`).join("");
+body("overrides").innerHTML = `<p class="small">The lines are not source data. Each is declared in <a href="scenarios/tram-options.yaml">scenarios/tram-options.yaml</a> by named waypoints and streets, routed by the pipeline, and stored as scenario geometry. An option whose waypoints do not resolve, or that leaves its declared streets, is rejected.</p>` +
+  P.facts.overrides.map((r) => `<div class="card"><h4>${esc(r.id)} <span class="badge s-${esc(r.status)}">${esc(r.status)}</span></h4>
+  ${r.reason ? esc(r.reason) : `${fmt(r.length_km, 2)} km · ${fmt(100 * r.declared_street_share)} % on declared streets${r.stand_in_street_share ? ` (${fmt(100 * r.stand_in_street_share)} % on a stand-in street)` : ""}${r.follows ? " · follows the published 2019 study corridor" : ""} · stored geometry within ${fmt(r.stored_geometry_gap_m, 2)} m of the routed definition`}
+  <div class="kv">Waypoints: ${(r.waypoints || []).map((w) => `${esc(w.label)} (${esc(w.kind.replace("_", " "))}, ${fmt(w.snap_m, 0)} m snap)`).join(" → ")}</div></div>`).join("");
+const sym = { passed: "✓", warning: "⚠", not_testable: "?", failed: "✕" };
+body("validation").innerHTML = `<p class="small">Run status: <b>${esc(P.validation.status)}</b>. ${P.validation.checks.length} checks; “?” means could not be tested here, never a pass.</p>` +
+  P.validation.checks.map((c) => `<div class="check"><span class="s-${c.status}">${sym[c.status]}</span><span><b>${esc(c.id)}</b> – ${esc(c.status)}${c.reason ? `<br><span class="kv">${esc(c.reason)}</span>` : ""}${c.problems?.length ? `<br><span class="kv">${esc(c.problems.join("; "))}</span>` : ""}</span></div>`).join("");
+body("outputs").innerHTML = P.outputs.map((o) => `<div class="check"><span></span><span><a href="${esc(o.path)}">${esc(o.path)}</a> – ${esc(o.format)}${o.role !== "result" ? ` <span class="badge">${esc(o.role.replace("_", " "))}</span>` : ""}</span></div>`).join("");
+const nf = P.facts.network, pf = P.facts.population;
+body("run_record").innerHTML = `<div class="card"><h4>${esc(P.run.id)}</h4><div class="kv">Record: <a href="runs/${esc(P.run.id)}.json">runs/${esc(P.run.id)}.json</a> ·
+  report: <a href="validation/latest-report.json">validation/latest-report.json</a></div>
+  <div class="kv">Network: ${fmt(nf.network_km)} km walkable, ${fmt(nf.routing_nodes)} routing nodes, ${fmt(100 * nf.main_component_length_share, 1)} % in the connected network.</div>
+  <div class="kv">Population: ${fmt(pf.tallinn_population_est)} residents estimated in ${fmt(pf.inhabited_buildings)} buildings (city register: ${fmt(pf.register_population)}); grid reference period ${esc(pf.reference_period)}.</div>
+  <div class="kv">Timetables: service day ${esc(String(P.facts.gtfs.service_day))}, ${P.facts.gtfs.tram_stops} tram stops, ${P.facts.gtfs.tram_lines} tram lines.</div></div>
+  <ol class="small">${P.steps.map((s) => `<li><code>${esc(s.id)}</code> – ${esc(s.operation.replaceAll("_", " "))}${s.crs ? ` (${esc(s.crs)})` : ""}</li>`).join("")}</ol>`;
+
+// ---------- map ----------
+const C = P.style;
+const styleUrl = () => (dark() ? P.basemap.dark_url : P.basemap.url);
+function bboxOf(geometry) {
+  let b = [180, 90, -180, -90];
+  const walk = (c) => typeof c[0] === "number" ? (b = [Math.min(b[0], c[0]), Math.min(b[1], c[1]), Math.max(b[2], c[0]), Math.max(b[3], c[1])]) : c.forEach(walk);
+  walk(geometry.coordinates); return [[b[0], b[1]], [b[2], b[3]]];
+}
+const allBounds = bboxOf({ coordinates: P.data.options.features.map((f) => f.geometry.coordinates) });
+document.documentElement.dataset.theme = dark() ? "dark" : "light";
+const map = new maplibregl.Map({ container: "map", style: styleUrl(), bounds: allBounds, fitBoundsOptions: { padding: innerWidth > 860 ? { top: 40, bottom: 40, left: 270, right: 40 } : 30 }, attributionControl: false });
+map.addControl(new maplibregl.AttributionControl({ compact: false, customAttribution: `${P.basemap.attribution} · Analysis data: Tallinn City Government, Statistics Estonia, Overture Maps` }));
+map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
+map.addControl(new maplibregl.ScaleControl({ unit: "metric" }), "bottom-right");
+
+// Analysis overlays use their own "oms-" namespace so a basemap style reload never collides with them.
+const GROUP_LAYERS = {
+  plans: ["oms-districts", "oms-corridors"],
+  development: ["oms-plans-fill", "oms-plans-line", "oms-pipeline"],
+  existing: ["oms-excatch", "oms-tramlines", "oms-tramstops"],
+  catchment: ["oms-catch-fill", "oms-catch-line"],
+  people: ["oms-buildings"],
+  services: ["oms-services"],
+  options: ["oms-options-halo", "oms-options", "oms-options-sel", "oms-stops", "oms-options-label"],
+};
+P.layer_groups.forEach((g) => state.groups[g.id] = !["services", "development", "plans"].includes(g.id));
+const famColour = () => ["match", ["get", "family"], ...Object.entries(P.family_colours).flatMap(([k, v]) => [k, v[dark() ? "dark" : "light"]]), "#888"];
+function buildingColour() {
+  // Rule re-applied to distances the pipeline measured: reach of the selected line, reach of the existing network.
+  const near = ["all", [">=", ["get", "e"], 0], ["<=", ["get", "e"], state.reach]];
+  if (!state.option) return ["case", near, C.reach_existing, C.outside];
+  const col = OPT[state.option].column, inReach = ["all", [">=", ["get", col], 0], ["<=", ["get", col], state.reach]];
+  return ["case", ["all", inReach, ["!", near]], colour(state.option), inReach, C.reach_both, near, C.reach_existing, C.outside];
+}
+function addOverlays() {
+  const fontLayer = map.getStyle().layers.find((l) => l.layout && l.layout["text-font"]);
+  const font = fontLayer ? fontLayer.layout["text-font"] : ["Noto Sans Regular"];
+  const ink = dark() ? "#f0efec" : "#0b0b0b", halo = dark() ? "#1a1a19" : "#ffffff";
+  const src = (id, data) => { if (!map.getSource(id)) map.addSource(id, { type: "geojson", data }); };
+  src("oms-districts", P.data.districts); src("oms-corridors", P.data.corridors); src("oms-plans", P.data.plans); src("oms-pipeline", P.data.pipeline_buildings);
+  src("oms-excatch", P.data.existing_catchments); src("oms-catch", P.data.catchments); src("oms-buildings", P.data.buildings); src("oms-services", P.data.services);
+  src("oms-tramlines", P.data.tram_lines); src("oms-tramstops", P.data.tram_stops); src("oms-options", P.data.options); src("oms-stops", P.data.stops);
+  const add = (layer) => { if (!map.getLayer(layer.id)) map.addLayer(layer); };
+  add({ id: "oms-districts", type: "line", source: "oms-districts", paint: { "line-color": dark() ? "#c3c2b7" : C.admin_line, "line-width": 1, "line-opacity": 0.6 } });
+  add({ id: "oms-corridors", type: "line", source: "oms-corridors", paint: { "line-color": ["match", ["get", "layer"], "study_2019", C.corridor_study, C.corridor_plan], "line-width": 5, "line-opacity": 0.35 } });
+  add({ id: "oms-plans-fill", type: "fill", source: "oms-plans", paint: { "fill-color": C.plan, "fill-opacity": 0.18 } });
+  add({ id: "oms-plans-line", type: "line", source: "oms-plans", paint: { "line-color": C.plan, "line-width": 1, "line-dasharray": [2, 2] } });
+  add({ id: "oms-excatch", type: "fill", source: "oms-excatch", paint: { "fill-color": C.existing_catchment, "fill-opacity": 0.13 } });
+  add({ id: "oms-catch-fill", type: "fill", source: "oms-catch", paint: { "fill-color": "#888", "fill-opacity": 0.14 } });
+  add({ id: "oms-catch-line", type: "line", source: "oms-catch", paint: { "line-color": "#888", "line-width": 1.4 } });
+  add({ id: "oms-buildings", type: "fill", source: "oms-buildings", paint: { "fill-color": buildingColour(), "fill-opacity": 0.9 } });
+  add({ id: "oms-pipeline", type: "fill", source: "oms-pipeline", minzoom: 11.5, paint: { "fill-color": C.pipeline, "fill-opacity": 0.85 } });
+  add({ id: "oms-tramlines", type: "line", source: "oms-tramlines", layout: { "line-cap": "round" }, paint: { "line-color": dark() ? "#d6d5cf" : C.existing_tram, "line-width": 2.2 } });
+  add({ id: "oms-tramstops", type: "circle", source: "oms-tramstops", minzoom: 11.5, paint: { "circle-radius": 3, "circle-color": halo, "circle-stroke-color": dark() ? "#d6d5cf" : C.existing_tram, "circle-stroke-width": 1.5 } });
+  add({ id: "oms-services", type: "circle", source: "oms-services", paint: { "circle-radius": ["match", ["get", "category"], ["hospital", "higher_education", "shopping"], 5, 3.5], "circle-color": C.service, "circle-stroke-color": halo, "circle-stroke-width": 1.5 } });
+  add({ id: "oms-options-halo", type: "line", source: "oms-options", layout: { "line-cap": "round" }, paint: { "line-color": halo, "line-width": 8, "line-opacity": 0.9 } });
+  add({ id: "oms-options", type: "line", source: "oms-options", paint: { "line-color": famColour(), "line-width": 4, "line-dasharray": [2.2, 1] } });
+  add({ id: "oms-options-sel", type: "line", source: "oms-options", filter: ["==", ["get", "option"], ""], layout: { "line-cap": "round" }, paint: { "line-color": ink, "line-width": 2, "line-gap-width": 5 } });
+  add({ id: "oms-stops", type: "circle", source: "oms-stops", minzoom: 11.5, paint: { "circle-radius": 4, "circle-color": halo, "circle-stroke-color": ink, "circle-stroke-width": 2 } });
+  add({ id: "oms-options-label", type: "symbol", source: "oms-options", layout: { "symbol-placement": "line-center", "text-field": ["get", "short"], "text-font": font, "text-size": 12.5, "text-allow-overlap": false, "text-offset": [0, -1], "text-rotation-alignment": "viewport" },
+        paint: { "text-color": ink, "text-halo-color": halo, "text-halo-width": 2 } });
+  applyState();
+}
+function applyState() {
+  if (!map.getLayer("oms-buildings")) return;
+  map.setPaintProperty("oms-buildings", "fill-color", buildingColour());
+  map.setFilter("oms-excatch", ["==", ["get", "catchment_m"], state.reach]);
+  const sel = state.option || "";
+  // No line selected: the reach of every line; a line selected: its reach only.
+  const which = state.option ? ["all", ["==", ["get", "option"], sel], ["==", ["get", "catchment_m"], state.reach]] : ["==", ["get", "catchment_m"], state.reach];
+  ["oms-catch-fill", "oms-catch-line"].forEach((id) => map.setFilter(id, which));
+  map.setPaintProperty("oms-catch-fill", "fill-color", famColour()); map.setPaintProperty("oms-catch-line", "line-color", famColour());
+  map.setPaintProperty("oms-catch-fill", "fill-opacity", state.option ? 0.16 : 0.1);
+  map.setFilter("oms-options-sel", ["==", ["get", "option"], state.hover || sel]);
+  map.setPaintProperty("oms-options", "line-opacity", state.option ? ["case", ["==", ["get", "option"], sel], 1, 0.45] : 1);
+  map.setFilter("oms-stops", state.option ? ["==", ["get", "option"], sel] : ["==", ["get", "kind"], "modelled_stop"]);
+  for (const [group, ids] of Object.entries(GROUP_LAYERS)) ids.forEach((id) => map.setLayoutProperty(id, "visibility", state.groups[group] ? "visible" : "none"));
+}
+map.on("style.load", addOverlays);
+function hoverLine(id) { state.hover = id; if (map.getLayer("oms-options-sel")) map.setFilter("oms-options-sel", ["==", ["get", "option"], id || state.option || ""]); }
+function select(id, zoom) {
+  state.option = id;
+  if (id && zoom) { const f = P.data.options.features.find((x) => x.properties.option === id); map.fitBounds(bboxOf(f.geometry), { padding: 90, maxZoom: 14.5 }); }
+  refresh();
+}
+document.addEventListener("keydown", (e) => { if (e.key === "Escape") select(null); });
+
+// ---------- hover + click ----------
+const tip = $("tip");
+const HOVER = ["oms-options", "oms-stops", "oms-services", "oms-tramstops", "oms-pipeline", "oms-buildings", "oms-plans-fill"];
+const src = (key) => P.sources.find((s) => s.key === key);
+function describe(f) {
+  const q = f.properties, id = f.layer.id;
+  if (id === "oms-options") { const m = mrow(q.option), s = srow(q.option); return { option: q.option, title: `${q.title} (hypothetical)`, lines: [`${OPT[q.option].status_label}`, `${fmt(m.length_km, 2)} km · ${fmt(m.residents_new)} new of ${fmt(m.residents)} residents within ${state.reach} m`, `Score ${fmt(s.score, 1)}, rank ${s.rank} (${PROFILE[state.profile].label})`],
+    source: `Scenario ${OPT[q.option].override_id}, routed by the pipeline from scenarios/tram-options.yaml.`, badge: "scenario" }; }
+  if (id === "oms-stops") return { option: q.option, title: q.kind === "existing_tram_stop" ? `Existing tram stop ${q.existing_stop_name}` : `Modelled stop ${q.seq} · ${OPT[q.option].short}`, lines: [`${fmt(q.at_m)} m along the line`, q.kind === "modelled_stop" ? "Placed every 500 m by rule; not a planned stop." : "Where the line meets the existing network."], source: "Pipeline step route_options (assumption A3).", badge: "scenario" };
+  if (id === "oms-services") return { title: q.name, lines: [P.service_labels[q.category]], source: `Tallinn City Government web map layer (${q.source_file}), retrieved ${src("svc_hospitals").retrieved_at.slice(0, 10)}.` };
+  if (id === "oms-tramstops") return { title: `Tram stop ${q.stop_name}`, lines: [`Lines ${q.tram_lines}`, `${fmt(q.tram_departures_weekday)} departures per weekday`], source: `Tallinn Transport Department GTFS, ${src("gtfs").version}.` };
+  if (id === "oms-pipeline") return { title: "Building planned or under construction", lines: [q.use_label || "", `${fmt(q.floor_m2)} m² net floor area`], source: `Building Register status via Tallinn City GIS, id ${q.id}.` };
+  if (id === "oms-plans-fill") return { title: q.name, lines: [`Detailed plan ${q.regnr} · ${q.plan_status} (${q.status_date})`, `${fmt(q.area_ha, 1)} ha`], source: "Tallinn Planning Register.", link: q.register_url };
+  const lines = [q.u || "Building", q.p > 0 ? `About ${fmt(q.p, q.p < 10 ? 1 : 0)} residents (estimate)` : "", q.w > 0 ? `${fmt(q.w)} m² workplace floor area` : "", q.e >= 0 ? `${fmt(q.e)} m walk to an existing tram stop` : `More than ${Math.max(...P.catchments)} m from a tram stop`];
+  if (state.option) { const d = q[OPT[state.option].column]; lines.push(d >= 0 ? `${fmt(d)} m walk to a stop of ${OPT[state.option].short}` : `Beyond ${Math.max(...P.catchments)} m of ${OPT[state.option].short}`); }
+  return { title: q.s || "Building", lines: lines.filter(Boolean), source: `Building Register and ETAK via Tallinn City GIS, id ${q.id}. Residents: Statistics Estonia 1 km grid 2024, shared by dwelling floor area.` };
+}
+const hit = (e) => { const layers = HOVER.filter((id) => map.getLayer(id)); return layers.length ? map.queryRenderedFeatures([[e.point.x - 4, e.point.y - 4], [e.point.x + 4, e.point.y + 4]], { layers })[0] : null; };
+map.on("mousemove", (e) => {
+  const f = hit(e);
+  map.getCanvas().style.cursor = f ? "pointer" : "";
+  if (!f) { tip.style.display = "none"; return; }
+  const d = describe(f);
+  tip.innerHTML = `<b>${esc(d.title)}</b><br>${d.lines.map(esc).join("<br>")}`;
+  tip.style.display = "block";
+  tip.style.left = Math.min(e.point.x + 14, $("mapwrap").clientWidth - 290) + "px";
+  tip.style.top = (e.point.y + 14) + "px";
+});
+map.on("mouseout", () => tip.style.display = "none");
+let popup = null;
+map.on("click", (e) => {
+  const f = hit(e);
+  if (!f) return;
+  const d = describe(f);
+  if (d.option && f.layer.id === "oms-options") { select(d.option); openTab("tab-analysis"); }
+  popup?.remove();
+  popup = new maplibregl.Popup({ maxWidth: "300px" }).setLngLat(e.lngLat).setHTML(
+    `<h4>${esc(d.title)}${d.badge ? ` <span class="badge">${esc(d.badge)}</span>` : ""}</h4>${d.lines.map(esc).join("<br>")}${d.link ? `<br><a href="${esc(d.link)}" target="_blank" rel="noopener">Planning register</a>` : ""}<div class="kv small" style="margin-top:6px">Source: ${esc(d.source)}</div>`).addTo(map);
+});
+
+// ---------- legend + layer controls ----------
+function legendHtml() {
+  const fam = Object.entries(P.family_colours).map(([k, v]) => `<div class="legend-row"><span class="sw line" style="border-top-style:dashed;border-top-color:${v[dark() ? "dark" : "light"]}"></span>${esc(k)}</div>`).join("");
+  const sel = state.option ? `<div class="legend-row"><span class="sw" style="background:${colour(state.option)}"></span>Newly within ${state.reach} m of a tram (${esc(OPT[state.option].short)})</div>
+    <div class="legend-row"><span class="sw" style="background:${C.reach_both}"></span>In reach of the line and of today's network</div>` : "";
+  return `<h5>Proposed lines (hypothetical), by part of the city</h5>${fam}
+    <div class="legend-row"><span class="sw dotm" style="border:2px solid var(--oms-text)"></span>Modelled stop</div>
+    <div class="legend-row"><span class="sw line" style="border-top-color:var(--oms-role-context)"></span>Existing tram line</div>
+    <h5 style="margin-top:6px">Buildings with residents or workplaces</h5>${sel}
+    <div class="legend-row"><span class="sw" style="background:${C.reach_existing}"></span>Within ${state.reach} m of a tram stop today</div>
+    <div class="legend-row"><span class="sw" style="background:${C.outside}"></span>Further away</div>`;
+}
+const SWATCH = { options: "border-top:3px dashed var(--oms-text);height:0;border-radius:0", catchment: "background:var(--oms-accent);opacity:.35", existing: "border-top:3px solid var(--oms-role-context);height:0;border-radius:0",
+  people: `background:linear-gradient(90deg,${C.reach_existing} 50%,${C.outside} 50%)`, services: `background:${C.service};border-radius:50%;width:12px`, development: `background:${C.plan};opacity:.6`, plans: `border-top:4px solid ${C.corridor_study};height:0;border-radius:0` };
+const GROUP_NOTE = { options: "Scenario geometry and modelled stops", catchment: "Network reach at the chosen walking distance; all lines until one is selected", existing: "Lines, stops and their reach", people: "Registered buildings; residents estimated",
+  services: "Schools, kindergartens, higher education, hospitals, pharmacies, shopping, libraries", development: "Detailed plans in process; buildings planned or under construction", plans: "City drawings of study corridors (yellow) and plan corridors (blue); districts" };
+function renderLayerControls() {
+  body("layer_controls").innerHTML = P.layer_groups.map((g) => `<label class="layer"><input type="checkbox" data-oms-layer-group="${g.id}" ${state.groups[g.id] ? "checked" : ""}>
+    <span class="sw" style="${SWATCH[g.id]}"></span><span>${esc(g.title)}<br><span class="small">${esc(GROUP_NOTE[g.id])}</span></span></label>`).join("");
+  body("layer_controls").querySelectorAll("input").forEach((i) => i.onchange = () => { state.groups[i.dataset.omsLayerGroup] = i.checked; applyState(); });
+}
+body("basemap").innerHTML = `<div class="seg" id="theme" role="group" aria-label="Theme">${["auto", "light", "dark"].map((t) => `<button type="button" data-t="${t}" aria-pressed="${t === "auto"}">${t[0].toUpperCase() + t.slice(1)}</button>`).join("")}</div>
+  <p class="small">${esc(P.basemap.attribution)}. ${esc(P.basemap.note)}</p>`;
+function setTheme(t) {
+  state.theme = t;
+  document.documentElement.dataset.theme = dark() ? "dark" : "light";
+  document.querySelectorAll("#theme button").forEach((b) => b.setAttribute("aria-pressed", b.dataset.t === t));
+  if (map._omsStyle !== styleUrl()) { map._omsStyle = styleUrl(); map.setStyle(styleUrl(), { diff: false }); map.once("idle", addOverlays); }
+  refresh();
+}
+document.querySelectorAll("#theme button").forEach((b) => b.onclick = () => setTheme(b.dataset.t));
+map._omsStyle = styleUrl();
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => setTheme(state.theme));
+
+// ---------- refresh ----------
+function refresh() {
+  document.querySelectorAll("#reach button").forEach((b) => b.setAttribute("aria-pressed", Number(b.dataset.omsValue) === state.reach));
+  $("profile").value = state.profile;
+  document.documentElement.dataset.omsState = isCanonical() ? "canonical" : "exploratory";
+  renderSummary(); renderRanking(); renderSelected(); renderTables();
+  $("legend").innerHTML = legendHtml(); body("legend").innerHTML = legendHtml();
+  applyState();
+}
+renderLayerControls();
+refresh();
+window.__oms = { state, map, isCanonical, select };
+</script>
+</body>
+</html>
