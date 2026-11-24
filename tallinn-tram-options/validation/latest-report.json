@@ -1,0 +1,552 @@
+{
+  "run_id": "run-20261124-072758",
+  "status": "warning",
+  "checks": [
+    {
+      "id": "geometry_valid",
+      "status": "passed",
+      "features_checked": 31951,
+      "invalid_or_empty": {
+        "tram_options": 0,
+        "tram_option_stops": 0,
+        "option_catchment_variants": 0,
+        "buildings": 0,
+        "services": 0,
+        "plans_in_process": 0,
+        "pipeline_buildings": 0,
+        "subdistricts": 0,
+        "districts": 0,
+        "published_corridors": 0,
+        "existing_tram_lines": 0,
+        "existing_tram_stops": 0
+      }
+    },
+    {
+      "id": "crs_known",
+      "status": "passed",
+      "analysis_crs": "EPSG:3301",
+      "storage_crs": "EPSG:4326 (GeoJSON, RFC 7946)",
+      "files": {
+        "buildings.parquet": "EPSG:3301",
+        "districts.geojson": "EPSG:4326",
+        "existing-tram-catchments.geojson": "EPSG:4326",
+        "existing-tram-lines.geojson": "EPSG:4326",
+        "existing-tram-stops.geojson": "EPSG:4326",
+        "option-catchment-variants.geojson": "EPSG:4326",
+        "option-catchments.geojson": "EPSG:4326",
+        "pipeline-buildings.geojson": "EPSG:4326",
+        "plans-in-process.geojson": "EPSG:4326",
+        "published-corridors.geojson": "EPSG:4326",
+        "services.geojson": "EPSG:4326",
+        "subdistricts.geojson": "EPSG:4326",
+        "tram-option-stops.geojson": "EPSG:4326",
+        "tram-options.geojson": "EPSG:4326"
+      },
+      "known_location": {
+        "feature": "tram stop Viru",
+        "lon": 24.74967,
+        "lat": 59.43547,
+        "metres_from_viru_valjak": 99,
+        "matches_reference": true
+      },
+      "options_within_aoi": true
+    },
+    {
+      "id": "row_count_gt_zero",
+      "status": "passed",
+      "rows": {
+        "tram_options": 13,
+        "tram_option_stops": 114,
+        "option_catchment_variants": 70,
+        "buildings": 29201,
+        "services": 482,
+        "plans_in_process": 329,
+        "pipeline_buildings": 1446,
+        "subdistricts": 84,
+        "districts": 8,
+        "published_corridors": 117,
+        "existing_tram_lines": 6,
+        "existing_tram_stops": 81,
+        "option_catchments": 13,
+        "existing_tram_catchments": 5,
+        "option_summary": 13,
+        "option_matrix": 65,
+        "option_scores": 325,
+        "existing_tram_coverage": 5
+      }
+    },
+    {
+      "id": "no_duplicate_option",
+      "status": "passed",
+      "duplicates": 0
+    },
+    {
+      "id": "no_null_option",
+      "status": "passed",
+      "nulls": 0
+    },
+    {
+      "id": "source_semantics_verified",
+      "status": "passed",
+      "building_status_values_seen": [
+        "",
+        "Kavandatav",
+        "Kustutatud",
+        "Lammutamisel",
+        "Lammutatud",
+        "Olemas",
+        "Püstitamisel"
+      ],
+      "building_use_codes_are_5_digit_kaos": true,
+      "buildings_without_register_record_kept_unknown": 16741,
+      "plan_status_values_seen": [
+        "algatatud",
+        "kehtetu",
+        "kehtiv",
+        "lõpetatud",
+        "osaliselt kehtiv",
+        "taotletav",
+        "vastuvõetud"
+      ],
+      "plans_without_status_not_counted": 801,
+      "gtfs_route_types_seen": [
+        3,
+        800,
+        900
+      ]
+    },
+    {
+      "id": "source_result_complete",
+      "status": "passed",
+      "sources": {
+        "districts": {
+          "matched": 8,
+          "returned": 8
+        },
+        "subdistricts": {
+          "matched": 84,
+          "returned": 84
+        },
+        "buildings": {
+          "matched": 50525,
+          "returned": 50525
+        },
+        "detailed_plans": {
+          "matched": 4603,
+          "returned": 4603
+        },
+        "tram_tracks": {
+          "matched": 182,
+          "returned": 182
+        },
+        "svc_schools_municipal": {
+          "matched": 48,
+          "returned": 48
+        },
+        "svc_schools_private_state": {
+          "matched": 35,
+          "returned": 35
+        },
+        "svc_kindergartens": {
+          "matched": 246,
+          "returned": 246
+        },
+        "svc_universities": {
+          "matched": 23,
+          "returned": 23
+        },
+        "svc_vocational_schools": {
+          "matched": 11,
+          "returned": 11
+        },
+        "svc_libraries": {
+          "matched": 63,
+          "returned": 63
+        },
+        "svc_hospitals": {
+          "matched": 31,
+          "returned": 31
+        },
+        "svc_pharmacies": {
+          "matched": 126,
+          "returned": 126
+        },
+        "svc_markets": {
+          "matched": 9,
+          "returned": 9
+        },
+        "svc_shopping_centres": {
+          "matched": 19,
+          "returned": 19
+        },
+        "population_grid": {
+          "matched": 580,
+          "returned": 580
+        },
+        "gtfs": {
+          "matched": null,
+          "returned": 1
+        },
+        "overture_segments": {
+          "matched": null,
+          "returned": 73364
+        },
+        "study_corridors_2019": {
+          "matched": 37,
+          "returned": 37
+        },
+        "plan_corridors": {
+          "matched": 80,
+          "returned": 80
+        }
+      },
+      "incomplete": [],
+      "hash_mismatch": []
+    },
+    {
+      "id": "source_licenses_resolved",
+      "status": "warning",
+      "unresolved": [
+        "districts",
+        "subdistricts",
+        "buildings",
+        "detailed_plans",
+        "tram_tracks",
+        "svc_schools_municipal",
+        "svc_schools_private_state",
+        "svc_kindergartens",
+        "svc_universities",
+        "svc_vocational_schools",
+        "svc_libraries",
+        "svc_hospitals",
+        "svc_pharmacies",
+        "svc_markets",
+        "svc_shopping_centres",
+        "gtfs",
+        "study_corridors_2019",
+        "plan_corridors"
+      ],
+      "reason": "18 Tallinn city layers and the GTFS feed publish no licence text. Reuse terms must be confirmed with the city before redistribution."
+    },
+    {
+      "id": "overrides_applied",
+      "status": "passed",
+      "results": [
+        {
+          "id": "SCENARIO-pelguranna_d",
+          "status": "applied",
+          "length_km": 1.83,
+          "declared_street_share": 0.791,
+          "stand_in_street_share": 0.207,
+          "stored_geometry_gap_m": 0.0
+        },
+        {
+          "id": "SCENARIO-pelguranna_a",
+          "status": "applied",
+          "length_km": 2.11,
+          "declared_street_share": 0.92,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.0
+        },
+        {
+          "id": "SCENARIO-sole",
+          "status": "applied",
+          "length_km": 4.05,
+          "declared_street_share": 0.968,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.0
+        },
+        {
+          "id": "SCENARIO-kalaranna",
+          "status": "applied",
+          "length_km": 3.61,
+          "declared_street_share": 0.889,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.0
+        },
+        {
+          "id": "SCENARIO-liivalaia",
+          "status": "applied",
+          "length_km": 1.34,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.0
+        },
+        {
+          "id": "SCENARIO-liivalaia_kristiine",
+          "status": "applied",
+          "length_km": 2.32,
+          "declared_street_share": 0.997,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.0
+        },
+        {
+          "id": "SCENARIO-kaarli_estonia",
+          "status": "applied",
+          "length_km": 1.91,
+          "declared_street_share": 0.926,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.0
+        },
+        {
+          "id": "SCENARIO-jarve",
+          "status": "applied",
+          "length_km": 1.7,
+          "declared_street_share": 0.931,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.0
+        },
+        {
+          "id": "SCENARIO-lasnamae_rahu",
+          "status": "applied",
+          "length_km": 6.41,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.01,
+          "follows": "study_corridors_2019"
+        },
+        {
+          "id": "SCENARIO-lasnamae_narva",
+          "status": "applied",
+          "length_km": 7.56,
+          "declared_street_share": 0.875,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.0
+        },
+        {
+          "id": "SCENARIO-lasnamae_laagna",
+          "status": "applied",
+          "length_km": 7.04,
+          "declared_street_share": 0.982,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.0
+        },
+        {
+          "id": "SCENARIO-mustamae",
+          "status": "applied",
+          "length_km": 4.98,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.0
+        },
+        {
+          "id": "SCENARIO-haabersti",
+          "status": "applied",
+          "length_km": 5.28,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.0
+        }
+      ]
+    },
+    {
+      "id": "manifest_graph_resolves",
+      "status": "passed",
+      "steps": 14,
+      "problems": []
+    },
+    {
+      "id": "view_controls_match_pipeline",
+      "status": "passed",
+      "canonical": {
+        "catchment_m": 500,
+        "profile": "balanced"
+      },
+      "variants_materialised": 325,
+      "problems": []
+    },
+    {
+      "id": "population_conserved",
+      "status": "warning",
+      "unallocated_cells": 7,
+      "unallocated_population": 2487.0,
+      "reason": "7 populated grid cells touching Tallinn hold no registered dwelling (2487 residents, mostly in neighbouring municipalities); they are not allocated."
+    },
+    {
+      "id": "tallinn_population_plausible",
+      "status": "passed",
+      "tallinn_population_est": 454042.1,
+      "expected_band": [
+        430000,
+        480000
+      ],
+      "note": "Plausibility band around the roughly 450-460 thousand residents reported for Tallinn; not an attested expectation."
+    },
+    {
+      "id": "population_matches_register",
+      "status": "passed",
+      "subdistricts": 84,
+      "correlation": 0.9967,
+      "estimated_over_register": 1.0029,
+      "median_abs_relative_difference": 0.071,
+      "note": "Independent check: the city's register population per sub-district is not used in the model."
+    },
+    {
+      "id": "network_connected",
+      "status": "passed",
+      "segments_in_source": 73364,
+      "road_segments": 72347,
+      "foot_denied_or_motorway_excluded": 7095,
+      "routing_nodes": 628588,
+      "routing_edges": 661228,
+      "network_km": 7176.5,
+      "main_component_length_share": 0.9657
+    },
+    {
+      "id": "options_follow_declared_streets",
+      "status": "passed",
+      "declared_street_share": {
+        "pelguranna_d": 0.791,
+        "pelguranna_a": 0.92,
+        "sole": 0.968,
+        "kalaranna": 0.889,
+        "liivalaia": 1.0,
+        "liivalaia_kristiine": 0.997,
+        "kaarli_estonia": 0.926,
+        "jarve": 0.931,
+        "lasnamae_rahu": 1.0,
+        "lasnamae_narva": 0.875,
+        "lasnamae_laagna": 0.982,
+        "mustamae": 1.0,
+        "haabersti": 1.0
+      },
+      "stand_in_street_share": {
+        "pelguranna_d": 0.207
+      },
+      "below_threshold": []
+    },
+    {
+      "id": "options_match_published_corridors",
+      "status": "warning",
+      "share_within_75_m": {
+        "pelguranna_d": {
+          "study_2019": 0.701,
+          "planning_documents": 0.861
+        },
+        "pelguranna_a": {
+          "study_2019": 0.794,
+          "planning_documents": 0.933
+        },
+        "sole": {
+          "study_2019": 0.868,
+          "planning_documents": 1.0
+        },
+        "kalaranna": {
+          "study_2019": 0.86,
+          "planning_documents": 0.626
+        },
+        "liivalaia": {
+          "study_2019": 1.0,
+          "planning_documents": 1.0
+        },
+        "liivalaia_kristiine": {
+          "study_2019": 0.996,
+          "planning_documents": 0.996
+        },
+        "kaarli_estonia": {
+          "study_2019": 0.757,
+          "planning_documents": 1.0
+        },
+        "jarve": {
+          "study_2019": 0.7,
+          "planning_documents": 0.739
+        },
+        "lasnamae_rahu": {
+          "study_2019": 1.0,
+          "planning_documents": 1.0
+        },
+        "lasnamae_narva": {
+          "study_2019": 0.426,
+          "planning_documents": 0.413
+        },
+        "lasnamae_laagna": {
+          "study_2019": 0.997,
+          "planning_documents": 0.996
+        },
+        "mustamae": {
+          "study_2019": 1.0,
+          "planning_documents": 1.0
+        },
+        "haabersti": {
+          "study_2019": 0.842,
+          "planning_documents": 0.686
+        }
+      },
+      "below_60_pct": [
+        "lasnamae_narva"
+      ],
+      "reason": "Less than 60 % of these routed lines lies within 75 m of a corridor the city has published: lasnamae_narva. They follow a described street variant the city's drawings do not show."
+    },
+    {
+      "id": "option_length_plausible",
+      "status": "passed",
+      "relative_difference_from_published": {
+        "pelguranna_d": -0.037,
+        "pelguranna_a": 0.172,
+        "sole": 0.095,
+        "kalaranna": 0.165,
+        "liivalaia_kristiine": -0.275,
+        "kaarli_estonia": -0.17,
+        "jarve": -0.227,
+        "lasnamae_rahu": -0.11,
+        "lasnamae_narva": 0.05,
+        "lasnamae_laagna": -0.172,
+        "mustamae": -0.004
+      },
+      "options_without_published_length": [
+        "liivalaia",
+        "haabersti"
+      ],
+      "beyond_30_pct": []
+    },
+    {
+      "id": "option_stops_on_network",
+      "status": "passed",
+      "note": "The gap is walked in a straight line and counted in every distance; the largest gaps are on the unbuilt Rahu tee corridor.",
+      "max_gap_m": 61.7,
+      "stops_checked": 114
+    },
+    {
+      "id": "catchments_monotonic",
+      "status": "passed",
+      "rows": 65
+    },
+    {
+      "id": "new_not_more_than_total",
+      "status": "passed"
+    },
+    {
+      "id": "scores_consistent",
+      "status": "passed",
+      "profiles": 5,
+      "max_abs_difference_points": 0.08,
+      "note": "Criteria are stored to 3 decimals, so a recomputed score may differ by rounding only."
+    },
+    {
+      "id": "table_totals_consistent",
+      "status": "passed",
+      "options": 13,
+      "building_level_sums_match": true,
+      "summary_matches_matrix": true
+    },
+    {
+      "id": "manifest_report_parity",
+      "status": "passed",
+      "declared": 24,
+      "reported": 24,
+      "missing_or_repeated": [],
+      "undeclared": []
+    }
+  ],
+  "headline": {
+    "options": 13,
+    "top_option": "lasnamae_laagna",
+    "top_title": "Lasnamäe – Gonsiori and Laagna tee",
+    "top_score": 67.1,
+    "catchment_m": 500,
+    "profile": "balanced",
+    "tallinn_population_est": 454042
+  },
+  "inputs_hash": "sha256:95e952f1a0a49a1cae8d811a3a1d25f8964a2a9a7a585e1a25409f8ab44566a1",
+  "outputs_hash": "sha256:a4278d016791e0b2c2f943d5aa04d9a0b2aaa4d10f8dadcc07bd827302b70063"
+}

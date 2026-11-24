@@ -1,0 +1,373 @@
+# Proposed Tallinn tram lines compared in this project  --  HYPOTHETICAL scenario definitions.
+#
+# Nothing here is a fact of a geodata source. Each option is an analyst's reading of
+# public documents and news (see `evidence`), declared as:
+#   waypoints  ordered; an existing public transport stop in the pinned GTFS feed
+#              ({stop: NAME, mode: tram|any}), the meeting point of two named streets
+#              ({junction: [A, B]}) or a registered building address ({address: A}).
+#              No coordinate is typed by hand.
+#   streets    street names (as in the street network) the line follows.
+#   stand_in_streets  mapped streets used where the described corridor has no street of its
+#              own (a former railway, a park); reported per option, with a geometry_note.
+# pipeline.py (step 7) resolves the waypoints against the immutable sources and routes
+# the line along the street network; an option that does not resolve is rejected.
+#
+# `strategy` is a documented judgement, scored with one rubric for every option:
+#   sump        Tallinn sustainable urban mobility plan 2035, Table 1:
+#               1 = "planned" tram line, 0.5 = "prospective corridor", 0 = not listed
+#   study_2019  Tallinn & Harju light-rail feasibility and cost-benefit study, stage of the corridor:
+#               1 = stage 1-2, 0.5 = stage 3 or stage not stated in the text, 0.25 = stage 4-5, 0 = not studied
+#   city_2026   position of the city government in 2026:
+#               1 = funded and proceeding, 0.5 = named by the city as a candidate for the next extension,
+#               0.25 = no stated position, 0 = decided against (or another mode chosen for the corridor)
+# strategy fit = sum of the three (0-3).
+#
+# `published` figures are quoted for reference only and are never used in the score.
+# Costs are infrastructure estimates in the price level of the year given.
+schema: tallinn-tram-options/v1
+created_at: 2026-11-24T09:00:00+02:00
+created_by: agent
+documents:
+  P1: {title: "Trammiteede tänavaruumi uuring (2022), Liikuvusagentuur / T-Model for Tallinna Strateegiakeskus", url: "https://uuringud.tallinn.ee/file_download/1509"}
+  P2: {title: "Tallinna ja Harjumaa kergrööbastranspordi teostatavus- ja tasuvusanalüüs (2019)", url: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf"}
+  P3: {title: "Tallinna jätkusuutliku linnaliikuvuse kava 2035 (SUMP, 2023)", url: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20jatkusuutliku%20linnaliikuvuse%20kava%202035.pdf"}
+  P5: {title: "Pelguranna trammitrassi valiku põhjendus (Tallinn, 2025)", url: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Pelguranna%20trammitrassi%20valiku%20p%C3%B5hjendus.pdf"}
+options:
+  - id: pelguranna_d
+    title: Pelguranna – Putukaväil to Kolde pst
+    short: Pelguranna D
+    family: Põhja-Tallinn
+    status: funded
+    status_label: Funded, in design (opening target 2029)
+    description: >-
+      Branch of the Kopli line from the Krulli stop through the former Kopli goods-station railway
+      corridor and the Putukaväil linear park, across Sõle, to a loop at Kolde puiestee. Route approved
+      by the city government on 18 February 2026; EU funding confirmed by the state on 23 November 2026.
+    waypoints:
+      - {stop: Krulli, mode: tram}
+      - {junction: [Putukaväil, Sõle]}
+      - {address: Puhangu tn 45}
+    streets: [Kopli, Putukaväil, Ristiku, Kolde pst]
+    stand_in_streets: [Puhangu]
+    geometry_note: >-
+      Beyond Sõle the approved route runs in the Putukaväil corridor behind the Puhangu garages, which
+      has no mapped street. The parallel part of Puhangu street, up to 100 m away, stands in for it;
+      the terminus is placed at the Puhangu tn 45 property named in the city's decision.
+    published: {length_km: 1.9, cost_meur: 27.9, cost_year: 2026, riders_per_day: 6498,
+                cost_note: "€27.9M with up to €19.5M ERDF (state decision, Nov 2026); city ridership estimate 6,498 per day."}
+    strategy:
+      sump: {score: 1, note: "SUMP 2035 Table 1 lists the Pelguranna tram as a planned branch of the Kopli line."}
+      study_2019: {score: 0.5, note: "Corridor 9B (Pelguranna), stage 3 of the 2019 study."}
+      city_2026: {score: 1, note: "Route approved 18 Feb 2026; revised project approved for EU funding 23 Nov 2026."}
+    evidence:
+      - {type: url, value: "https://news.err.ee/1610203789", title: "ERR News, 23 Nov 2026: revised Pelguranna route approved for EU funding"}
+      - {type: url, value: "https://web.archive.org/web/20260219084640/https://www.tallinn.ee/et/uudis/tallinna-linnavalitsus-kiitis-heaks-pelguranna-trammitrassi-muutmise", title: "Tallinn city release, 18 Feb 2026"}
+      - {type: url, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Pelguranna%20trammitrassi%20valiku%20p%C3%B5hjendus.pdf", title: "Pelguranna trammitrassi valiku põhjendus"}
+
+  - id: pelguranna_a
+    title: Pelguranna – Puhangu to Stroomi park
+    short: Pelguranna A
+    family: Põhja-Tallinn
+    status: dropped
+    status_label: Dropped in February 2026 (earlier design basis)
+    description: >-
+      The alignment designed until 2025: the same railway corridor from Krulli across Sõle, then along
+      Puhangu street in the carriageway to a loop by Stroomi beach park at the Pelguranna street end.
+    waypoints:
+      - {stop: Krulli, mode: tram}
+      - {junction: [Putukaväil, Sõle]}
+      - {junction: [Puhangu, Pelguranna]}
+    streets: [Kopli, Putukaväil, Ristiku, Puhangu]
+    published: {length_km: 1.8, cost_meur: 30.5, cost_year: 2025, riders_per_day: 6200,
+                cost_note: "€28M to more than €33M (city note, 2025; midpoint shown); ridership estimate 6,200 per day."}
+    strategy:
+      sump: {score: 1, note: "SUMP 2035 Table 1 lists the Pelguranna tram as a planned branch of the Kopli line."}
+      study_2019: {score: 0.5, note: "Corridor 9B (Pelguranna), stage 3 of the 2019 study."}
+      city_2026: {score: 0, note: "Replaced by the Putukaväil – Kolde pst route in February 2026."}
+    evidence:
+      - {type: url, value: "https://www.err.ee/1609923482", title: "ERR: coalition changes the Pelguranna tram route"}
+      - {type: url, value: "https://uuringud.tallinn.ee/file_download/1155", title: "K-Projekt, Pelguranna trammi eskiis"}
+      - {type: url, value: "https://web.archive.org/web/20250910211500/https://www.tallinn.ee/et/pelgurannatramm", title: "City project page, Sep 2025"}
+
+  - id: sole
+    title: Sõle – Kristiine to Kopli line
+    short: Sõle
+    family: Põhja-Tallinn
+    status: study
+    status_label: Study corridor (2019), prospective in SUMP 2035
+    description: >-
+      Corridor 15 of the 2019 study: from the Endla railway viaduct at Kristiine along Madara and Sõle
+      to the Kopli line at the Maleva stop. Ranked in the first stage in 2019; no project since.
+    waypoints:
+      - {junction: [Endla, Tehnika]}
+      - {junction: [Endla, Madara]}
+      - {junction: [Sõle, Paldiski mnt]}
+      - {stop: Maleva, mode: tram}
+    streets: [Endla, Madara, Sõle, Kopli]
+    published: {length_km: 3.7, cost_meur: 19.2, cost_year: 2019,
+                cost_note: "€19.2M infrastructure (2019 study, 2019 prices); 33,409 residents within 500 m per the study."}
+    strategy:
+      sump: {score: 0.5, note: "SUMP 2035 names the Sõle tram line as a prospective corridor."}
+      study_2019: {score: 1, note: "Corridor 15, stage 1; called the strongest of the Põhja-Tallinn alternatives."}
+      city_2026: {score: 0.25, note: "No stated position found for 2026."}
+    evidence:
+      - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf", title: "2019 feasibility study, Trass 15"}
+      - {type: url, value: "https://www.err.ee/1609568233", title: "ERR: Põhja-Tallinn comprehensive plan and rail links"}
+
+  - id: kalaranna
+    title: Kalaranna – Tööstuse to Kopli
+    short: Kalaranna
+    family: Põhja-Tallinn
+    status: study
+    status_label: Studied 2019 and 2022, prospective in SUMP 2035
+    description: >-
+      Corridor 9A of the 2019 study: from the existing track at Linnahall along Kalaranna, past
+      Lennusadam and along Tööstuse to Kopli street. The 2022 street-space study drew only the first
+      part, to a loop at Lennusadam.
+    waypoints:
+      - {stop: Linnahall, mode: tram}
+      - {stop: Lennusadam, mode: any}
+      - {junction: [Tööstuse, Kopli]}
+    streets: [Kalaranna, Tööstuse, Põhja pst, Küti]
+    published: {length_km: 3.1, cost_meur: 18.0, cost_year: 2019,
+                cost_note: "€18.0M infrastructure (2019 study, 2019 prices); 14,199 residents within 500 m per the study."}
+    strategy:
+      sump: {score: 0.5, note: "SUMP 2035 names Kalaranna as a prospective extension of the Vanasadam track."}
+      study_2019: {score: 0.5, note: "Corridor 9A, stage 3."}
+      city_2026: {score: 0.25, note: "No stated position found for 2026."}
+    evidence:
+      - {type: document, value: "https://uuringud.tallinn.ee/file_download/1509", title: "2022 street-space study, section 3.4 Kalaranna"}
+      - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf", title: "2019 feasibility study, Trass 9A"}
+
+  - id: liivalaia
+    title: Liivalaia – Pärnu mnt to Tartu mnt
+    short: Liivalaia
+    family: City centre
+    status: dropped
+    status_label: Designed 2024–25, abandoned by the coalition in December 2025
+    description: >-
+      Stage 1 as designed: double track along Liivalaia between the Pärnu mnt / Suur-Ameerika junction
+      and the Tartu mnt junction, joining the existing tracks at both ends. Ranked highest-potential
+      in 2022 and chosen for EU funding in 2024; the 2025 coalition agreement dropped it.
+    waypoints:
+      - {junction: [Liivalaia, Pärnu mnt]}
+      - {junction: [Liivalaia, Tartu mnt]}
+    streets: [Liivalaia]
+    published: {length_km: null, cost_meur: null,
+                cost_note: "No separate length or cost published; the EU grant for the Liivalaia track was about €15.5M."}
+    strategy:
+      sump: {score: 1, note: "SUMP 2035 Table 1: Liivalaia tram from Tartu mnt to the Kristiine node (planned)."}
+      study_2019: {score: 1, note: "Part of corridor 10A, stage 1; 33,446 residents within 500 m of the full corridor."}
+      city_2026: {score: 0, note: "Coalition agreement of 1 Dec 2025 abandons the Liivalaia tram; the 2027 budget does not mention it."}
+    evidence:
+      - {type: url, value: "https://www.err.ee/1609852230", title: "ERR, 7 Nov 2025: coalition will not continue the Liivalaia tram"}
+      - {type: url, value: "https://www.err.ee/1609805946", title: "ERR: K-Projekt mobility analysis of the Liivalaia tram"}
+      - {type: url, value: "https://www.err.ee/1608673720", title: "ERR, 2022: Liivalaia ranked highest of five lines"}
+
+  - id: liivalaia_kristiine
+    title: Kristiine – Endla, Suur-Ameerika, Liivalaia
+    short: Kristiine–Liivalaia
+    family: City centre
+    status: dropped
+    status_label: Full 2022 alignment; shelved with the Liivalaia tram
+    description: >-
+      The full Tehnika–Liivalaia alignment of the 2022 study: from the Endla / Tehnika junction by the
+      railway viaduct (Kristiine hub) along Endla and Suur-Ameerika to Liivalaia and on to Tartu mnt.
+      In 2026 the deputy mayor called a version of this, in a cutting, "not buried".
+    waypoints:
+      - {junction: [Endla, Tehnika]}
+      - {junction: [Endla, Suur-Ameerika]}
+      - {junction: [Liivalaia, Pärnu mnt]}
+      - {junction: [Liivalaia, Tartu mnt]}
+    streets: [Endla, Suur-Ameerika, Liivalaia]
+    published: {length_km: 3.2, cost_meur: 22.2, cost_year: 2019,
+                cost_note: "Corridor 10A of the 2019 study: 3.2 km and €22.2M (2019 prices), but that corridor ends via Pronksi at Jõe rather than at Tartu mnt."}
+    strategy:
+      sump: {score: 1, note: "SUMP 2035 Table 1: Liivalaia tram from Tartu mnt to the Kristiine node (planned)."}
+      study_2019: {score: 1, note: "Corridor 10A, stage 1."}
+      city_2026: {score: 0, note: "Abandoned with the Liivalaia tram; a corridor is kept in the Kristiine junction design."}
+    evidence:
+      - {type: document, value: "https://uuringud.tallinn.ee/file_download/1509", title: "2022 street-space study, Tehnika–Liivalaia"}
+      - {type: url, value: "https://www.err.ee/1609978326", title: "ERR, Apr 2026: the Liivalaia idea is not buried"}
+      - {type: url, value: "https://www.err.ee/1609872367", title: "ERR: Kristiine junction keeps a tram corridor"}
+
+  - id: kaarli_estonia
+    title: Kristiine – Kaarli pst, Estonia pst, Gonsiori
+    short: Kaarli–Estonia
+    family: City centre
+    status: idea
+    status_label: Alternative from the 2025 analysis and the draft Kesklinn plan
+    description: >-
+      East–west link through the centre instead of Liivalaia: from Kristiine along Endla, Tõnismägi and
+      Kaarli puiestee to Vabaduse väljak, then Estonia puiestee to the existing track on Gonsiori.
+      Proposed by the 2025 K-Projekt analysis; similar to corridor 10B of the 2019 study.
+    waypoints:
+      - {junction: [Endla, Tehnika]}
+      - {junction: [Kaarli pst, Tõnismägi]}
+      - {stop: Vabaduse väljak, mode: tram}
+      - {junction: [Estonia pst, Gonsiori]}
+    streets: [Endla, Tõnismägi, Kaarli pst, Estonia pst, Gonsiori]
+    published: {length_km: 2.3, cost_meur: 9.7, cost_year: 2019,
+                cost_note: "Corridor 10B of the 2019 study (ending via Kentmanni and Rävala): 2.3 km, €9.7M (2019 prices)."}
+    strategy:
+      sump: {score: 0.5, note: "SUMP 2035 names Toompuiestee and Kaarli pst sections, closing a city-centre ring, as prospective."}
+      study_2019: {score: 0.5, note: "Close to corridor 10B; its stage is not stated in the study text."}
+      city_2026: {score: 0.5, note: "A Kristiine link is one of the candidates the city named in 2026; this alignment is in the draft Kesklinn plan."}
+    evidence:
+      - {type: url, value: "https://www.err.ee/1609805946", title: "ERR: analysis proposes Gonsiori – Estonia pst – Kaarli pst – Endla instead"}
+      - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf", title: "2019 feasibility study, Trass 10B"}
+
+  - id: jarve
+    title: Järve – Tondi to Järve keskus
+    short: Järve
+    family: South
+    status: study
+    status_label: Planned in SUMP 2035; no decision or funding
+    description: >-
+      Extension of the Pärnu mnt track from the Tondi junction along Pärnu maantee, over the railway
+      viaduct and past Järvevana tee, to a loop at Järve keskus. Named by the city in 2026 as an example
+      of a stepwise extension with the new bidirectional trams.
+    waypoints:
+      - {junction: [Pärnu mnt, Tondi]}
+      - {stop: Järve, mode: any}
+    streets: [Pärnu mnt]
+    published: {length_km: 2.2, cost_meur: 13.8, cost_year: 2019,
+                cost_note: "Corridor 6A of the 2019 study: 2.2 km, €13.8M (2019 prices)."}
+    strategy:
+      sump: {score: 1, note: "SUMP 2035 Table 1: Järve tram from Tondi to Järve keskus with a hub (planned)."}
+      study_2019: {score: 0.25, note: "Corridor 6A, stage 5 (lowest priority, parallel to the railway and buses)."}
+      city_2026: {score: 0.5, note: "Named in May 2026 as a possible stepwise extension; discussed, no commitment."}
+    evidence:
+      - {type: document, value: "https://uuringud.tallinn.ee/file_download/1509", title: "2022 street-space study, section 3.2 Järve–Tondi"}
+      - {type: url, value: "https://www.err.ee/1610029198", title: "ERR, May 2026: 22 bidirectional trams and stepwise extensions"}
+      - {type: url, value: "https://www.err.ee/1609082042", title: "ERR, 2023: three preferred tram lines"}
+
+  - id: lasnamae_rahu
+    title: Lasnamäe – Narva mnt and the Rahu tee corridor
+    short: Lasnamäe (Rahu tee)
+    family: Lasnamäe
+    status: study
+    status_label: Study corridor (2019); named as a candidate in 2026
+    description: >-
+      Extension of the Kadriorg line from the J. Poska stop along Narva maantee up to Lasnamäe and on
+      through the planned Rahu tee corridor to Priisle, ending at the Ussimäe tee stops (corridor 2A' of the 2019 study, its preferred
+      northern Lasnamäe variant). Rahu tee is not built, so the line follows the corridor as the city
+      has drawn it from the study.
+    follow: study_corridors_2019
+    waypoints:
+      - {stop: J. Poska, mode: tram}
+      - {stop: Ussimäe tee, mode: any}
+    streets: []
+    geometry_note: >-
+      Follows the city's published drawing of the 2019 study corridors, not the street network: most
+      of the Rahu tee corridor has no street yet.
+    published: {length_km: 7.2, cost_meur: 39.7, cost_year: 2019,
+                cost_note: "2019 study: Russalka – Lasnamäe end €35.6M plus Poska – Russalka €4.1M (2019 prices); 7.2 km is given for variant 2A."}
+    strategy:
+      sump: {score: 0.5, note: "SUMP 2035 prospective: Narva mnt tram to Tallinna haigla and the Rahu tee tram."}
+      study_2019: {score: 1, note: "Corridor 2A', stage 2; preferred over 2A, which is too tight between buildings."}
+      city_2026: {score: 0.5, note: "Deputy mayor (2026): a tram would come from Kadriorg via Narva mnt towards Rahu tee; needs state or EU money."}
+    evidence:
+      - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf", title: "2019 feasibility study, Trass 2A'"}
+      - {type: url, value: "https://www.err.ee/1609978326", title: "ERR, Apr 2026: tram options after the trolleybus decision"}
+      - {type: url, value: "https://www.err.ee/1608129160", title: "ERR, 2021: the Lasnamäe hospital tram line in Tallinn 2035"}
+
+  - id: lasnamae_narva
+    title: Lasnamäe – Narva mnt, Lavamaa, Läänemere tee
+    short: Lasnamäe (Lavamaa)
+    family: Lasnamäe
+    status: study
+    status_label: Study variant (2019), judged too tight between buildings
+    description: >-
+      Extension of the Kadriorg line from the J. Poska stop along Narva maantee up to Lasnamäe, then
+      Lavamaa, Paasiku and Läänemere tee to Priisle (corridor 2A of the 2019 study). The study prefers a
+      variant in the planned Rahu tee corridor (the option above).
+    waypoints:
+      - {stop: J. Poska, mode: tram}
+      - {junction: [Narva mnt, Lavamaa]}
+      - {stop: Priisle, mode: any}
+    streets: [Narva mnt, Lavamaa, Paasiku, Läänemere tee]
+    published: {length_km: 7.2, cost_meur: 39.7, cost_year: 2019,
+                cost_note: "2019 study: Russalka – Lasnamäe end €35.6M plus Poska – Russalka €4.1M (2019 prices), 7.2 km."}
+    strategy:
+      sump: {score: 0.5, note: "SUMP 2035 prospective: Narva mnt tram to Tallinna haigla and the Rahu tee tram."}
+      study_2019: {score: 1, note: "Corridors 2A / 2A', stage 2."}
+      city_2026: {score: 0.25, note: "The 2026 statements point to the Rahu tee corridor, not this street variant."}
+    evidence:
+      - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf", title: "2019 feasibility study, Trass 2A"}
+      - {type: url, value: "https://www.err.ee/1609978326", title: "ERR, Apr 2026: tram options after the trolleybus decision"}
+
+  - id: lasnamae_laagna
+    title: Lasnamäe – Gonsiori and Laagna tee
+    short: Laagna tee
+    family: Lasnamäe
+    status: study
+    status_label: Study corridor (2019); trolleybus chosen for Laagna tee
+    description: >-
+      Corridor 3A of the 2019 study with its Gonsiori connector: from the existing track at A. Laikmaa
+      along Gonsiori and the Laagna tee cutting to Mustakivi tee. The city has since chosen battery
+      trolleybuses for this corridor (in service 2029–2030).
+    waypoints:
+      - {stop: A. Laikmaa, mode: tram}
+      - {junction: [Gonsiori, Laagna tee]}
+      - {stop: Mustakivi, mode: any}
+    streets: [Gonsiori, Laagna tee]
+    published: {length_km: 8.5, cost_meur: 46.4, cost_year: 2019,
+                cost_note: "2019 study: Laagna tee 6.9 km €37.8M plus Gonsiori connector 1.6 km €8.6M (2019 prices); 77,315 residents within 500 m of the Laagna tee part."}
+    strategy:
+      sump: {score: 0, note: "Not in the SUMP 2035 tram lists; the plan treats the battery trolleybus as an interim stage."}
+      study_2019: {score: 1, note: "Corridor 3A, stage 1."}
+      city_2026: {score: 0, note: "Trolleybus infrastructure on Laagna tee is in the 2027 budget."}
+    evidence:
+      - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf", title: "2019 feasibility study, Trass 3A and 17"}
+      - {type: url, value: "https://www.err.ee/1609543882", title: "ERR, Dec 2024: a trolleybus suits Lasnamäe better than a tram"}
+      - {type: url, value: "https://www.err.ee/1610192605", title: "ERR: 2027 city budget"}
+
+  - id: mustamae
+    title: Mustamäe – Sõpruse pst to Ehitajate tee
+    short: Mustamäe
+    family: West
+    status: study
+    status_label: Study corridor (2019), prospective in SUMP 2035
+    description: >-
+      Corridor 7A of the 2019 study: from the Kristiine hub along Endla and Sõpruse puiestee to the
+      Ehitajate tee junction. Current city policy is trolleybuses on this corridor.
+    waypoints:
+      - {junction: [Endla, Tehnika]}
+      - {junction: [Endla, Sõpruse pst]}
+      - {junction: [Sõpruse pst, Ehitajate tee]}
+    streets: [Endla, Sõpruse pst]
+    published: {length_km: 5.0, cost_meur: null, cost_year: 2019,
+                cost_note: "5.0 km in the 2019 study; cost published only together with corridor 7B (€48.6M, 2019 prices)."}
+    strategy:
+      sump: {score: 0.5, note: "SUMP 2035 prospective: Liivalaia tram extension from Kristiine towards Mustamäe and Õismäe."}
+      study_2019: {score: 0.5, note: "Corridor 7A (preferred Mustamäe variant); its stage is not stated in the study text."}
+      city_2026: {score: 0, note: "Trolleybuses are the chosen mode on the Mustamäe corridors."}
+    evidence:
+      - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf", title: "2019 feasibility study, Trass 7A"}
+      - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20jatkusuutliku%20linnaliikuvuse%20kava%202035.pdf", title: "SUMP 2035, prospective corridors"}
+
+  - id: haabersti
+    title: Haabersti – Paldiski mnt
+    short: Haabersti
+    family: West
+    status: study
+    status_label: Study corridor (2019); trolleybus chosen for Paldiski mnt
+    description: >-
+      Corridor 8A of the 2019 study as far as Haabersti: from the Kristiine hub to Paldiski maantee and
+      along it to the Haabersti junction. The study does not name the streets between Kristiine and
+      Paldiski mnt; Tehnika is used here. Trolleybus infrastructure on Paldiski mnt is in the 2027 budget.
+    waypoints:
+      - {junction: [Endla, Tehnika]}
+      - {junction: [Tehnika, Paldiski mnt]}
+      - {stop: Haabersti, mode: any}
+    streets: [Tehnika, Paldiski mnt]
+    published: {length_km: null, cost_meur: 23.4, cost_year: 2019,
+                cost_note: "2019 study: Kristiine – Paldiski mnt – Haabersti €23.4M (2019 prices); length not stated separately."}
+    strategy:
+      sump: {score: 0.5, note: "SUMP 2035 names the Paldiski maantee tram as a prospective corridor."}
+      study_2019: {score: 0.5, note: "Corridor 8A, stage 3."}
+      city_2026: {score: 0, note: "Trolleybus infrastructure on Paldiski mnt is in the 2027 budget."}
+    evidence:
+      - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf", title: "2019 feasibility study, Trass 8A"}
+      - {type: url, value: "https://www.err.ee/1610192605", title: "ERR: 2027 city budget (trolleybus infrastructure)"}

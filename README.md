@@ -40,8 +40,8 @@ configuration; update all four pins when either shared source changes.
 The planning atlas retains its accepted canonical snapshot in `published/`;
 `prepare-pages.mjs` records the added script's source/served HTML hashes in
 `delivery-transform.json` without altering analytical inputs or geometries.
-The two externally hosted Worker demos linked from the gallery and the Tartu school walking
-coverage dashboard (a committed pipeline output) are not instrumented;
+The two externally hosted Worker demos linked from the gallery, the Tartu school walking
+coverage dashboard and the Tallinn tram options dashboard (committed pipeline outputs) are not instrumented;
 their outbound gallery clicks are counted.
 
 Run `node --test shared/analytics.test.mjs` to check the collection guards and
@@ -64,6 +64,15 @@ Explore the Idaringtee 21 detailed plan in Tartu in 3D, with 32 proposed main-bu
 [![Idaringtee 21 detailed plan](gallery/detailplaneering-preview.png)](https://jaakla.github.io/openmapstack-samples/detailplaneering/)
 
 - [Run the atlas, sources and reproducible pipeline](detailplaneering/README.md)
+
+## Tallinn new tram line options
+
+Which of the tram lines Tallinn has been discussing would serve the most people, and how do they stand in the city's plans? Thirteen alignments, from the funded Pelguranna branch to the abandoned Liivalaia line and the Lasnamäe and Mustamäe corridors, are routed along the real street network and measured by residents, workplace floor area, public services and development within a walk of modelled stops. Walking distance and the weighting of the criteria are live controls; each line shows the documents behind its strategy fit. The lines are hypothetical readings of public descriptions, not designed alignments.
+
+[![Tallinn with thirteen proposed tram lines and their walking catchments beside a ranking of the options](gallery/tallinn-tram-options-preview.png)](https://jaakla.github.io/openmapstack-samples/tallinn-tram-options/)
+
+- [Open the dashboard](https://jaakla.github.io/openmapstack-samples/tallinn-tram-options/)
+- [Results, method, limits, sources and reproducible pipeline](tallinn-tram-options/README.md)
 
 ## Tartu school walking coverage
 
