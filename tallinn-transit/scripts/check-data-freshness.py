@@ -22,8 +22,8 @@ BASE = 'https://jaakla.github.io/openmapstack-samples/tallinn-transit/'
 SCHEMA = 'openmapstack-data-freshness/v1'
 ARTIFACT = 'tallinn-transit-data-state'
 SOURCES = {
-    'gtfs': ('https://transport.tallinn.ee/data/gtfs.zip?download=1', 'data/source/gtfs.zip', 7, 8),
-    'elron_gtfs': ('https://eu-gtfs.remix.com/elron.zip', 'data/source/elron-gtfs.zip', 7, 8),
+    'gtfs': ('https://transport.tallinn.ee/data/gtfs.zip?download=1', 'data/source/gtfs.zip', None, 45),
+    'elron_gtfs': ('https://eu-gtfs.remix.com/elron.zip', 'data/source/elron-gtfs.zip', None, 45),
     'walk_osm': ('https://download.bbbike.org/osm/bbbike/Tallinn/Tallinn.osm.pbf', 'data/source/tallinn-walk.osm.pbf', None, 40),
 }
 
@@ -166,6 +166,18 @@ def coverage(network, today):
     return {'status': 'passed', 'from': checked[0], 'through': checked[-1]}
 
 
+def check_built():
+    """Gate a newly built package before committing or publishing it; no network."""
+    project = json.loads((ROOT / 'public/data/project.json').read_text())
+    network = json.loads((ROOT / 'public/data/network.json').read_text())
+    for key, field in [('gtfs', 'sourceSha256'), ('elron_gtfs', 'railSourceSha256')]:
+        source = project['sources'][key]
+        if network[field] != source['pin']['sha256'] or 'sha256:' + digest((ROOT / source['pin']['path']).read_bytes()) != network[field]:
+            raise ValueError(f'{key}: built timetable and source hashes disagree')
+    result = coverage(network, dt.datetime.now(ZoneInfo('Europe/Tallinn')).date())
+    print(json.dumps(result))
+
+
 def check_source(key, deployed, previous, now, fetcher=fetch):
     url, local_path, days, grace_days = SOURCES[key]
     deployed_hash = deployed['pin']['sha256'].removeprefix('sha256:')
@@ -212,7 +224,9 @@ def check_source(key, deployed, previous, now, fetcher=fetch):
             matches = result.get('latestContentSha256') == gtfs_content_digest(body)
     if matches:
         result['lastMatchedAt'] = result['lastCheckedAt']
-    anchor = instant(result.get('lastMatchedAt') or stamp(retrieved))
+    # A monthly acquisition may download the identical ZIP again. Its real
+    # retrieval time is newer evidence than the previous audit's match time.
+    anchor = max(retrieved, instant(result['lastMatchedAt'])) if result.get('lastMatchedAt') else retrieved
     deadline = anchor + dt.timedelta(days=grace_days)
     result.update(status='current' if matches else 'overdue' if now > deadline else 'update_available',
                   lastMatchedAt=result.get('lastMatchedAt'), nextCheckAt=stamp(next_check),
@@ -278,7 +292,9 @@ def audit(now=None, fetcher=fetch, prior_path=PRIOR, output=OUTPUT):
 if __name__ == '__main__':
     if sys.argv[1:] == ['--restore-state']:
         restore_state()
+    elif sys.argv[1:] == ['--check-built']:
+        check_built()
     elif sys.argv[1:]:
-        raise SystemExit('Usage: check-data-freshness.py [--restore-state]')
+        raise SystemExit('Usage: check-data-freshness.py [--restore-state | --check-built]')
     else:
         raise SystemExit(audit())

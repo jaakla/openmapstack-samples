@@ -1,3 +1,4 @@
+import { timetableDate } from '../timetable-date.js';
 import { test, expect } from '@playwright/test';
 import fs from 'node:fs';
 const data = JSON.parse(fs.readFileSync(new URL('../../data/derived/network.json', import.meta.url)));
@@ -31,7 +32,7 @@ for (const width of [1440, 390]) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
     await page.screenshot({ path: `/tmp/tallinn-compact-${width}.png` });
     await group.getByRole('checkbox', { name: 'Rong', exact: true }).uncheck();
-    await page.getByLabel('Kuupäev', { exact: true }).fill('2026-10-29');
+    await page.getByLabel('Kuupäev', { exact: true }).fill(timetableDate);
     await page.getByLabel('Väljumine', { exact: true }).fill('08:00');
     await page.getByRole('button', { name: 'Leia teekond', exact: true }).click();
     await expect(page.locator('.journey-result').first()).toBeVisible();

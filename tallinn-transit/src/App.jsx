@@ -163,7 +163,7 @@ function TransitApp({data,shapes,project,walking}) {
   const liveReady=feeds.every(([,feed])=>feed.status==='fresh');
   const liveAvailable=feeds.some(([,feed])=>!feed.expired);
   const liveAge=Math.max(...feeds.filter(([,feed])=>!feed.expired).map(([,feed])=>feed.dataAge??Infinity));
-  const snapshotAge=(Date.now()-Date.parse(data.snapshot))/86400000;
+  const snapshotAge=(Date.now()-Math.min(Date.parse(data.snapshot),Date.parse(data.railSnapshot||data.snapshot)))/86400000;
   const tabs=[['journey','Teekond',Route],['routes','Liinid',BusFront],['stops','Peatused',MapPin],['sources','Info',Settings2]];
   return <div className="app-shell">
     <header className="app-header"><a className="brand" href="./"><img src={asset('icon.svg')} alt=""/><strong>Tallinn liigub</strong></a><span className="tagline">Vähem ootamist. Rohkem Tallinna.</span>
@@ -195,7 +195,7 @@ function TransitApp({data,shapes,project,walking}) {
         {!mapReady?<div className="map-loading"><Activity size={20}/> Laadin Tallinna kaarti…</div>:null}
         <div className="layer-bar" role="group" aria-label="Kaardikihid">{[['bus','Bussid',BusFront],['tram','Trammid',TramFront],['train','Rongid',TrainFront],['stops','Peatused',Circle],['routes','Liinid',Route]].map(([id,label,Icon])=><label key={id} className={id}><input type="checkbox" checked={layers[id]} onChange={e=>setLayers(s=>({...s,[id]:e.target.checked}))}/><Icon size={16}/><span>{label}</span></label>)}</div>
       </section>
-    </main>{snapshotAge>7?<div className="stale-schedule" role="status">Sõiduplaani andmepakett on {Math.floor(snapshotAge)} päeva vana. Uuenda seda enne reisi.</div>:null}
+    </main>{snapshotAge>45?<div className="stale-schedule" role="status">Sõiduplaani andmepakett on {Math.floor(snapshotAge)} päeva vana. Uuenda seda enne reisi.</div>:null}
     {notice?<div className="toast" role="status"><span>{notice}</span><button aria-label="Sulge teade" onClick={()=>setNotice('')}><X size={16}/></button></div>:null}
   </div>;
 }

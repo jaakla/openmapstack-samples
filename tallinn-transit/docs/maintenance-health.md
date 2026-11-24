@@ -67,8 +67,54 @@ node scripts/maintenance-summary.mjs
 ```
 
 Browser plugin not available: valideerimiseks kasutatakse olemasolevat Playwrighti.
-Kohalik test ei saada Better Stacki teadet. Need kontrollid ei uuenda GTFS-i,
-OSM-i ega teeke; nende staging- ja avaldamistööd tuleb luua eraldi.
+Kohalik test ei saada Better Stacki teadet. Nädalakontroll ei uuenda lähteandmeid
+ega teeke. GTFS-i uuendab allpool kirjeldatud eraldi igakuine töövoog.
+
+## Igakuine GTFS-i uuendamine
+
+Töövoog `.github/workflows/maintenance-gtfs.yml` käivitub iga kuu 1. kuupäeval
+kell 07.43 (`Europe/Tallinn`), samuti käsitsi **Actions → Tallinn transit monthly
+GTFS update → Run workflow → main**. See töötab ainult `jaakla/openmapstack-samples`
+repositooriumi `main` harus.
+
+`scripts/update-gtfs.py` hangib Tallinna ja Elroni ametlikud GTFS-id. Mõlema ZIP-i
+kontroll peab õnnestuma enne kohalike failide muutmist. Uuendatakse arhiivid,
+tegelikud hankimisajad, suurused, SHA-256 räsid ja `acquisition.json` päritolukirjed.
+Ka muutumatu arhiivi uus tegelik allalaadimine kajastub hankimisajas.
+Versioonitunnus on arhiivi sisu räsi.
+
+Seejärel koostatakse `pipeline.py` abil kanooniline pakett, kontrollitakse mõlema
+arhiivi räsivastavust ning bussi-, trammi- ja rongireiside katvust tänasest
+järgmise 14 päevani. Käivitatakse Pythoni, Node'i ja brauseritestid. Päris
+sõiduplaani testid valivad kuupäeva hangitud paketist; sünteetilised parseri- ja
+algoritmitestid säilitavad oma fikseeritud testkuupäevad.
+
+Ainult kõigi kontrollide õnnestumisel salvestab bot lähtefailid, päritolu ja
+genereeritud tulemused `main` harusse ning käivitab olemasoleva `pages.yml`
+töövoo, mis kontrollib ja avaldab kogu saidi. `GITHUB_TOKEN`-iga tehtud push
+ei käivita push-töövoogu, seetõttu kasutatakse selgesõnalist `workflow_dispatch`
+käivitust ([GitHubi juhend](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/trigger-a-workflow)).
+Uuendustöö vajab `contents: write` ja `actions: write`; uusi saladusi pole vaja.
+`main` haru reeglid peavad lubama selle boti push'i. Vahepealne muudatus `main`
+harus peatab push'i; testimata ühendamist ega sundkirjutamist ei tehta.
+Ebaõnnestunud töö saab pärast vea lahendamist käsitsi uuesti käivitada.
+
+Töö peab ajastuse aktiveerimiseks jõudma `main` harusse. Esimese uuenduse saab
+käivitada käsitsi kohe pärast ühendamist. Kontrollide artefakt säilib 90 päeva;
+avalikku versiooni ja teavitusi kontrollib jätkuvalt päevane andmeaudit.
+OSM-i, taustakaarti, GPS-i testkoopiaid ega Workeri seadistust see töö ei uuenda.
+
+Kohalik kontroll (muudab kohalikke GTFS-faile, ei avalda):
+
+```sh
+cd tallinn-transit
+.venv/bin/python scripts/update-gtfs.py
+.venv/bin/python pipeline.py
+.venv/bin/python scripts/check-data-freshness.py --check-built
+npm test
+.venv/bin/python -m unittest discover -s tests -p 'test_*.py'
+npm run test:browser
+```
 
 ## Igapäevane andmete värskuse kontroll
 
@@ -78,9 +124,9 @@ See kasutab olemasolevat secret'it `BETTERSTACK_DATA_HEARTBEAT_URL`.
 Better Stacki intervall: 1 päev; grace: 6 tundi.
 
 Iga päev kontrollitakse avaldatud sõiduplaani katvust tänasest järgmise 14 päevani
-ning kooskõla avaliku päritolukirjeldusega. Tallinna ja Elroni GTFS-i lähteversioone
-kontrollitakse kord seitsme päeva jooksul, OSM-i jalgsivõrgu lähteversiooni kord
-kalendrikuus. Esimesel käivitamisel kontrollitakse kõiki allikaid kohe. Järgnevad
+ning kooskõla avaliku päritolukirjeldusega. Tallinna ja Elroni GTFS-i ning OSM-i
+jalgsivõrgu lähteversioone kontrollitakse kord kalendrikuus. Esimesel käivitamisel
+kontrollitakse kõiki allikaid kohe. Järgnevad
 kontrollid kasutavad võimalusel ETag/Last-Modified tingimuslikke päringuid.
 GTFS-i ZIP-i pelk ümberpakkimine ei loe uuenduseks, kui tabelite sisu on sama ja
 kohaliku võrdlusfaili räsi vastab päriselt avaldatud versioonile.
@@ -88,8 +134,8 @@ kohaliku võrdlusfaili räsi vastab päriselt avaldatud versioonile.
 Kontrollimise aega ei võrdsustata allalaadimise või avaldamise ajaga. Muutumatu
 kehtiv allikas võib olla vana: kinnitatud sisuvastavus hoiab seire rohelisena.
 Uue versiooni leidmisel on seis `update_available`. Kui avaldatud versioon pole
-enam allikaga sama ning viimasest kinnitatud vastavusest (selle puudumisel
-allalaadimisest) möödub GTFS-i puhul üle 8 või OSM-i puhul üle 40 päeva, on seis
+enam allikaga sama ning viimasest hankimisest või sellele järgnenud kinnitatud
+sisuvastavusest möödub GTFS-i puhul üle 45 või OSM-i puhul üle 40 päeva, on seis
 `overdue` ning töö ebaõnnestub. Uue versiooni korduv leidmine tähtaega ei pikenda.
 Võrgutõrge ei kirjuta varasemat edukat kontrolliaega üle.
 

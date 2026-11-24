@@ -1,3 +1,4 @@
+import { timetableDate } from '../timetable-date.js';
 import {test,expect} from '@playwright/test';
 
 async function ready(page){
@@ -5,7 +6,7 @@ async function ready(page){
   await expect(page.getByRole('button',{name:'Leia teekond',exact:true})).toBeEnabled({timeout:45000});
 }
 async function morning(page){
-  await page.getByLabel('Kuupäev',{exact:true}).fill('2026-10-28');await page.getByLabel('Väljumine',{exact:true}).fill('08:00');
+  await page.getByLabel('Kuupäev',{exact:true}).fill(timetableDate);await page.getByLabel('Väljumine',{exact:true}).fill('08:00');
   await page.getByRole('button',{name:'Leia teekond',exact:true}).click();await expect(page.locator('.journey-result').first()).toBeVisible({timeout:20000});
   await expect(page.getByRole('button',{name:'Leia teekond',exact:true})).toBeEnabled({timeout:20000});
 }
@@ -133,15 +134,15 @@ test('Elron trains join the planner, share Balti jaam and remain available offli
   const from=page.getByRole('combobox',{name:'Lähtekoht',exact:true}),to=page.getByRole('combobox',{name:'Sihtkoht',exact:true});
   await from.fill('Balti jaam');const balti=page.getByRole('option').filter({hasText:'Peatus ·'}).filter({has:page.locator('strong',{hasText:/^Balti jaam$/})});await expect(balti).toHaveCount(1);await balti.click();
   await to.fill('Nõmme');await page.getByRole('option').filter({hasText:'Peatus ·'}).filter({has:page.locator('strong',{hasText:/^Nõmme$/})}).click();
-  await page.getByLabel('Kuupäev',{exact:true}).fill('2026-10-29');await page.getByLabel('Väljumine',{exact:true}).fill('08:00');
+  await page.getByLabel('Kuupäev',{exact:true}).fill(timetableDate);await page.getByLabel('Väljumine',{exact:true}).fill('08:00');
   await page.locator('.journey-options>summary').click();await page.getByRole('group',{name:'Liikumisviisid',exact:true}).getByRole('checkbox',{name:'Buss',exact:true}).uncheck();await page.getByRole('group',{name:'Liikumisviisid',exact:true}).getByRole('checkbox',{name:'Tramm',exact:true}).uncheck();
-  await page.getByRole('button',{name:'Leia teekond',exact:true}).click();await expect(page.locator('.itinerary')).toContainText('Rong');await expect(page.locator('.journey-result').first()).toContainText('08:17');
+  await page.getByRole('button',{name:'Leia teekond',exact:true}).click();await expect(page.locator('.itinerary')).toContainText('Rong');const onlineResult=await page.locator('.journey-result').first().innerText();
   const rail=await page.locator('.map-canvas').evaluate(async el=>{const m=el.__tallinnMap;return{features:(await m.getSource('journey').getData()).features,paint:m.getPaintProperty('journey-line','line-color')};});
   expect(rail.features.some(f=>f.properties.mode==='train'&&f.geometry.coordinates.length>10)).toBe(true);expect(JSON.stringify(rail.paint)).toContain('#c05a12');
   await page.getByRole('button',{name:'Võrguta',exact:true}).click();await expect(page.getByRole('button',{name:'Võrguta',exact:true})).toHaveAttribute('aria-pressed','true',{timeout:60000});await expect.poll(()=>vehicleCount(page)).toBe(0);
   await context.setOffline(true);await page.reload();await expect(page.getByRole('button',{name:'Leia teekond',exact:true})).toBeEnabled({timeout:45000});
   await page.getByRole('combobox',{name:'Sihtkoht',exact:true}).fill('Nõmme');await page.getByRole('option').filter({hasText:'Peatus ·'}).filter({has:page.locator('strong',{hasText:/^Nõmme$/})}).click();
-  await page.getByLabel('Kuupäev',{exact:true}).fill('2026-10-29');await page.getByLabel('Väljumine',{exact:true}).fill('08:00');await page.getByRole('button',{name:'Leia teekond',exact:true}).click();await expect(page.locator('.journey-result').first()).toContainText('08:17');await expect(page.locator('.itinerary')).toContainText('Rong');expect(errors).toEqual([]);
+  await page.getByLabel('Kuupäev',{exact:true}).fill(timetableDate);await page.getByLabel('Väljumine',{exact:true}).fill('08:00');await page.getByRole('button',{name:'Leia teekond',exact:true}).click();await expect(page.locator('.journey-result').first()).toHaveText(onlineResult,{useInnerText:true});await expect(page.locator('.itinerary')).toContainText('Rong');expect(errors).toEqual([]);
   await context.setOffline(false);
 });
 

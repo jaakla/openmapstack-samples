@@ -29,7 +29,9 @@ class RailSelection(unittest.TestCase):
             source = original_times[(row['trip_id'].removeprefix('elron:'),row['stop_sequence'])]
             for field in ['arrival_time','departure_time','pickup_type','drop_off_type']:
                 self.assertEqual(row.get(field),source.get(field))
-        self.assertEqual(len(result['stops']),48)
+        referenced_stops = {r['stop_id'] for r in result['stop_times']}
+        self.assertGreater(len(referenced_stops), 0)
+        self.assertEqual({s['stop_id'] for s in result['stops']}, referenced_stops)
         self.assertTrue(all(s['stop_name']=='Balti jaam' for s in result['stops'] if s['source_name']=='Tallinn'))
         self.assertTrue(all(len([r for r in result['stop_times'] if r['trip_id']==t['trip_id']])>=2 for t in result['trips']))
 
