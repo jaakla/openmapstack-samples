@@ -1,0 +1,345 @@
+{
+  "run_id": "run-20261125-181144",
+  "started_at": "2026-11-25T18:11:44.096045+00:00",
+  "completed_at": "2026-11-25T18:12:11.178661+00:00",
+  "status": "warning",
+  "inputs_hash": "sha256:0a849afb389fa090c05f5fa1ab53713620f8c6de105780b1554b9490a97b54eb",
+  "outputs_hash": "sha256:9fddcd0a5f3e5a5333c6a2d7e832f16d3b552716ccc8d41757099a28181c602b",
+  "validation_report": "validation/latest-report.json",
+  "environment": {
+    "python": "3.12.14",
+    "geopandas": "1.2.0",
+    "shapely": "2.2.0",
+    "geos": "3.14.1",
+    "pyproj": "3.8.0",
+    "proj": "9.8.1",
+    "scipy": "1.18.1",
+    "numpy": "2.5.3",
+    "pandas": "3.0.5"
+  },
+  "headline": {
+    "options": 23,
+    "top_option": "lasnamae_laagna",
+    "top_title": "Lasnamäe – Gonsiori and Laagna tee",
+    "top_score": 67.1,
+    "catchment_m": 500,
+    "profile": "balanced",
+    "tallinn_population_est": 454042
+  },
+  "inputs": [
+    {
+      "path": "acquire.py",
+      "sha256": "sha256:24bab79fc94061b71f07f2c5bd56913217615e6080176956a2e786a35da4dba1"
+    },
+    {
+      "path": "build_scenarios.py",
+      "sha256": "sha256:e9ae7c4fe5e395bf50795dca730254a101d7360201807bf8d26cabd22deabb17"
+    },
+    {
+      "path": "dashboard.template.html",
+      "sha256": "sha256:bd93b087f9e8fca32e397d1383743b35fd3b8be76e0084aa24bbfd19c0427499"
+    },
+    {
+      "path": "data/overrides/options/akadeemia.geojson",
+      "sha256": "sha256:b4a7ed4901b65df755419cd7c619f5d097361cbafe93778fff7e5068e5020f0b"
+    },
+    {
+      "path": "data/overrides/options/astangu.geojson",
+      "sha256": "sha256:ef6301ae0e8cbbf996eba54dfe8c9077994955ad4f4b0735589727b9be997466"
+    },
+    {
+      "path": "data/overrides/options/haabersti.geojson",
+      "sha256": "sha256:3720679ceda55aac3c73503e44756ac9290385ca41e7847ad0ddd2ba70f83fb3"
+    },
+    {
+      "path": "data/overrides/options/jarve.geojson",
+      "sha256": "sha256:9202694cb857585aaee3d95cdc4ea3067c58c43a8b0a9ee3948236699423bdcd"
+    },
+    {
+      "path": "data/overrides/options/kaarli_estonia.geojson",
+      "sha256": "sha256:628fca662cc1eec0dca638a68be519348e7028277046bbf443062b94bf9bf509"
+    },
+    {
+      "path": "data/overrides/options/kalaranna.geojson",
+      "sha256": "sha256:93a4042df49bc85d9fd10d35b6ca6aadc89c810909ce92eaa7bae7624b9fb5da"
+    },
+    {
+      "path": "data/overrides/options/lasnamae_laagna.geojson",
+      "sha256": "sha256:03e68c54d42b4991917342abf2bdd3915218e7f3d4438dbd2e61b29e533bdfcc"
+    },
+    {
+      "path": "data/overrides/options/lasnamae_narva.geojson",
+      "sha256": "sha256:d23b1ab823a11c5ca4ecb01eb1f0262767f8e9ba7c0c0a904e6bb99dbb18e9ef"
+    },
+    {
+      "path": "data/overrides/options/lasnamae_rahu.geojson",
+      "sha256": "sha256:bed401065992f19d8dda24ff61c4b05908a593ef821e4e76b7a9603d14261a52"
+    },
+    {
+      "path": "data/overrides/options/liivalaia.geojson",
+      "sha256": "sha256:9ec1f21c018ba89a442498023c9be84fc9a2d7f2008643e00b3596e1d2aa0515"
+    },
+    {
+      "path": "data/overrides/options/liivalaia_kristiine.geojson",
+      "sha256": "sha256:d7275f3f55805e11e4b1c39a4a765168cfdd3990d8e335f9435be28acab4a7ce"
+    },
+    {
+      "path": "data/overrides/options/liivalaia_laagna.geojson",
+      "sha256": "sha256:7c93222db2baa74100e59e95197c5dd16e177dd6fb118465d3bddceba587bab3"
+    },
+    {
+      "path": "data/overrides/options/majaka.geojson",
+      "sha256": "sha256:9f2d1dda0fa154434246fa4918820fc3def978a39f7fffebfbcbc6135b7bbf6c"
+    },
+    {
+      "path": "data/overrides/options/mustamae.geojson",
+      "sha256": "sha256:23c54a92c38150c01a9ecb18fc9bcf7dd187e80a3b4c65085afc056855a98cd6"
+    },
+    {
+      "path": "data/overrides/options/pelguranna_a.geojson",
+      "sha256": "sha256:37fe7e210aa3612bec216dddf70b516314d27c0049186d081c015f705e479073"
+    },
+    {
+      "path": "data/overrides/options/pelguranna_d.geojson",
+      "sha256": "sha256:3be87b5dddbb1f65a19f03e582355c0c9cfbbaf2742b2f3b6af29a0d856b0f8e"
+    },
+    {
+      "path": "data/overrides/options/peterburi.geojson",
+      "sha256": "sha256:04c3809186135e5bff7fdea08fcac8de409cea456252315ac6578e2ec511abb9"
+    },
+    {
+      "path": "data/overrides/options/pirita.geojson",
+      "sha256": "sha256:1aef1c3f6f7ae50f38a51f1e709f5c48dd8f0b27e61f85a2f6f7fe32f1682c56"
+    },
+    {
+      "path": "data/overrides/options/sole.geojson",
+      "sha256": "sha256:03fdb559f29c782796fc26a6741d556ca4602a4be11e48519c93b3b828490bcf"
+    },
+    {
+      "path": "data/overrides/options/tammsaare.geojson",
+      "sha256": "sha256:d4d6975d1951ee9962309cbea66169da257bfa24ca7383de84a063457c0b92f2"
+    },
+    {
+      "path": "data/overrides/options/tervise.geojson",
+      "sha256": "sha256:399afb4866be4e7150d47e477149d257fea5afedbc36e84563296fdd9d106124"
+    },
+    {
+      "path": "data/overrides/options/toompuiestee.geojson",
+      "sha256": "sha256:f02e3f01ba6f02773b39c6fbc39fc90ccdaa4e935acc702611b88a12b118297a"
+    },
+    {
+      "path": "data/overrides/options/valukoja.geojson",
+      "sha256": "sha256:1f35f2780bd83c96e01835552dd7895c845c293eb3ebe6e86ad9670ee7a3965d"
+    },
+    {
+      "path": "data/source/acquisition.json",
+      "sha256": "sha256:6477733e0fa4cc634c42d8408f58bad91fe9848f56c399bb4c13fc36a4fecd9e"
+    },
+    {
+      "path": "data/source/corridors-feasibility-study-2019.geojson",
+      "sha256": "sha256:8834a482be963107cb4e8b9ceb7bec18016ef431418582e255f05dae9b80790b"
+    },
+    {
+      "path": "data/source/corridors-planning-documents.geojson",
+      "sha256": "sha256:c5863146eb2dbdcc60f48e7f9e0f2165f601281ed7cdedc6f1764313ae5a1d07"
+    },
+    {
+      "path": "data/source/overture-segments.parquet",
+      "sha256": "sha256:659f502ea084ae4e3761c6074e418e679aa4c64e17d81924af996ad2b3808f44"
+    },
+    {
+      "path": "data/source/population-grid-1km.gml",
+      "sha256": "sha256:8b8c5216acba8341bf9ca39d6e093c5703006452ad7678ca916a1f2e90bdca1c"
+    },
+    {
+      "path": "data/source/svc-hospitals.geojson",
+      "sha256": "sha256:d6a51cbafa131fc16faf44a80227324c1b72959ecf4093bdf95e068e9f1ccd4b"
+    },
+    {
+      "path": "data/source/svc-kindergartens.geojson",
+      "sha256": "sha256:19dd7ba122f9e34f5f4381323d9f6fd2413cd658cf5715fa4b2668165c3528b1"
+    },
+    {
+      "path": "data/source/svc-libraries.geojson",
+      "sha256": "sha256:183810c95926b7a6ece0e4d8b1c65d96e3d429f289273f966e0e8a7a8157acda"
+    },
+    {
+      "path": "data/source/svc-markets.geojson",
+      "sha256": "sha256:db1ce3efb50a7f1543cfb3b96cc6d7edea57682855b8a6ad5d186339f52d7db7"
+    },
+    {
+      "path": "data/source/svc-pharmacies.geojson",
+      "sha256": "sha256:b74bdf70c374845febda619e10830d0d4083f82ca0666c582d3c1a6dc46021fd"
+    },
+    {
+      "path": "data/source/svc-schools-municipal.geojson",
+      "sha256": "sha256:98de3007ad7dc423f9bb6153adc0e2e8482d0856d642895c833b4a09bdad8220"
+    },
+    {
+      "path": "data/source/svc-schools-private-state.geojson",
+      "sha256": "sha256:e8171a387007364c12eb2af01e6bebc3226e004c1a228c41a3850858e2d03821"
+    },
+    {
+      "path": "data/source/svc-shopping-centres.geojson",
+      "sha256": "sha256:a955517654e2d221e16b1f79c263c90330ef7a299d4dea08287792655751279d"
+    },
+    {
+      "path": "data/source/svc-universities.geojson",
+      "sha256": "sha256:2565715f11a6b613831c27813b0621c8b2003367f951de26e0aeb3adc882ae86"
+    },
+    {
+      "path": "data/source/svc-vocational-schools.geojson",
+      "sha256": "sha256:0a7ffda7791570be8aba6ef9d83a6bf4f5193d08459c8d84f2aca1aa89152ede"
+    },
+    {
+      "path": "data/source/tallinn-buildings-etak-ehr.parquet",
+      "sha256": "sha256:a79b3099a1158d01d778c7aac8750b138a02e7d66cdcea06d827df5a34e8ad9c"
+    },
+    {
+      "path": "data/source/tallinn-detailed-plans.parquet",
+      "sha256": "sha256:72df638ea275ba9572c4ff0c9f8320aa942a7e7491ba0bb904beaecfeb2a170d"
+    },
+    {
+      "path": "data/source/tallinn-districts.geojson",
+      "sha256": "sha256:3951285839859c10484f90c34b1b487fa7dfe8b3a6af77b5da94b4331e682a5b"
+    },
+    {
+      "path": "data/source/tallinn-gtfs.zip",
+      "sha256": "sha256:86bcd13585ac18e63e10347c23945dacd7ba5f1df1e1ca05322629620023e52f"
+    },
+    {
+      "path": "data/source/tallinn-subdistricts.geojson",
+      "sha256": "sha256:6941a4a5dd99b432f6f190acf12f0664cd55ae9580273e5c37c4d40bfcb5e489"
+    },
+    {
+      "path": "data/source/tallinn-tram-track-axes.geojson",
+      "sha256": "sha256:48b860ca8fde58c4e3492f9adf2ef1196faee456514c778ec274dec8a1ed15d3"
+    },
+    {
+      "path": "pipeline.py",
+      "sha256": "sha256:c96d3b5158c55f66a597068c2a2defc4771c4ba3906dea058ee6b5bd97eec5bc"
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "sha256:59b0161a87398b2b30c0cfdf8c6139607efd3e8accfa8d687c137a111fac9a38"
+    },
+    {
+      "path": "scenarios/tram-options.yaml",
+      "sha256": "sha256:4de62e9d10ae8bd84adaf58f572b2fad319c38ca77f6f0ad1ce220fbd286f88a"
+    },
+    {
+      "path": "vendor/maplibre-gl.css",
+      "sha256": "sha256:792ac997dcf6ae6f643eb4e2dee4630c85e7056526bd8fb85ffe83c67d6c41b4"
+    },
+    {
+      "path": "vendor/maplibre-gl.js",
+      "sha256": "sha256:07e6ca71a5b6d835a7c3803fb484f0a6e5f0dcbfa131407666edb9e9316564f9"
+    },
+    {
+      "path": "view.py",
+      "sha256": "sha256:6fef92cb6a771ae7a45fd2bd03848a985007397d38f040ae958cec48a11ae38e"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "dashboard.html",
+      "sha256": "sha256:ebbf370417a65308d6dfe66266156461a46417211a968fa671fa520038bb469b"
+    },
+    {
+      "path": "data/derived/buildings.parquet",
+      "sha256": "sha256:afeb18b2560272710dde5086b7f2cbfb19f93f8e7b2cedb3cfe1ac482f7e6e6a"
+    },
+    {
+      "path": "data/derived/districts.geojson",
+      "sha256": "sha256:548173f0822618e6cf55b6fb6bc7e3042d15b02f18917b7ab1cf3f7d9d66652d"
+    },
+    {
+      "path": "data/derived/existing-tram-catchments.geojson",
+      "sha256": "sha256:f8bec479afb1befb3bd1afaa1e83c1a449423790ac47d8035769e2d56b202e56"
+    },
+    {
+      "path": "data/derived/existing-tram-coverage.csv",
+      "sha256": "sha256:3009770278bd37dd08f464bceb463bcfd74ff0495a76f717d466ca68698656a6"
+    },
+    {
+      "path": "data/derived/existing-tram-coverage.xlsx",
+      "sha256": "sha256:b8b3b7d62adac20309f91968e9f0b7ad3c88b83da6d803f276e29feb61b987d8"
+    },
+    {
+      "path": "data/derived/existing-tram-lines.geojson",
+      "sha256": "sha256:8790d621fb54fc868d93e5e9a93000a4277d1ffafb67105fea244757e85ae016"
+    },
+    {
+      "path": "data/derived/existing-tram-stops.geojson",
+      "sha256": "sha256:3c11dc17281a611546a01e3dd9dc7c269f6e88e9ba0a1ea1e9147635df2dddf4"
+    },
+    {
+      "path": "data/derived/option-catchment-variants.geojson",
+      "sha256": "sha256:9ae27f829a32b455c291d5631a81d9cf72d99db2e58349dfeef34153a9ed5c81"
+    },
+    {
+      "path": "data/derived/option-catchments.geojson",
+      "sha256": "sha256:61f664f3ca7ea2780088046d5efb7050b90962d7949d9a44e311fdbd3106dde6"
+    },
+    {
+      "path": "data/derived/option-matrix.csv",
+      "sha256": "sha256:a132f93ebc1e0a4b09a53e96fc396d59cb96159ec16243cf3f5a1d7599875146"
+    },
+    {
+      "path": "data/derived/option-matrix.xlsx",
+      "sha256": "sha256:b18088621b4e63a69a5dd3d59a350a2783bf500732e704c369bac097e6339837"
+    },
+    {
+      "path": "data/derived/option-scores.csv",
+      "sha256": "sha256:d00ce07a5964253929bedf107eb0c619da93b56f7eed297c53f3084f3b52e8be"
+    },
+    {
+      "path": "data/derived/option-scores.xlsx",
+      "sha256": "sha256:003c22b176b6cdacc3da72ac23b0acdb3b282fac8dcc63bb4c08866f1b40a11f"
+    },
+    {
+      "path": "data/derived/option-summary.csv",
+      "sha256": "sha256:21d418d3e4a022c6ac50e6bb783f458e83988ff5bfdd3a50c100724641b38ea6"
+    },
+    {
+      "path": "data/derived/option-summary.xlsx",
+      "sha256": "sha256:f0f74028b5c2a08a956e5abd5c4cd7a8bd4c26d8346461a48c759032be085043"
+    },
+    {
+      "path": "data/derived/pipeline-buildings.geojson",
+      "sha256": "sha256:5dc1b2486c75abf818f02f603ef3fbb67c8d2f67056b06676ef178cde68b1d15"
+    },
+    {
+      "path": "data/derived/plans-in-process.geojson",
+      "sha256": "sha256:7a11d723228a50f78a771ae4e585016ea45fb3c18954ef6f805c914ef85a76e1"
+    },
+    {
+      "path": "data/derived/published-corridors.geojson",
+      "sha256": "sha256:f477a1971ed20f617088107cacc0f1d3d391c14d8d10290860e2079e91f8392d"
+    },
+    {
+      "path": "data/derived/services.geojson",
+      "sha256": "sha256:8d8975fe89d952e5548248c64577b729efa3ad70d938e5bf8d7254f906c1dd70"
+    },
+    {
+      "path": "data/derived/subdistricts.geojson",
+      "sha256": "sha256:f6c58124f2a575a60d3b369fb3889a5d74030cd877f582eb2515b62df28cc673"
+    },
+    {
+      "path": "data/derived/tram-option-stops.geojson",
+      "sha256": "sha256:66305c5f4f8c5462d9b682905a3dc066e92333dc5738e2ca8393b5b401ad4b82"
+    },
+    {
+      "path": "data/derived/tram-options.geojson",
+      "sha256": "sha256:7222bff4b1b0579e21680447de49e3a4b7ec2b18b61c8b349021bfefd9fcbe99"
+    },
+    {
+      "path": "delivery/dashboard-evidence.json",
+      "sha256": "sha256:81e2edfefc95024d7ac28cbde650106161378885f1946592c9126d131a130bcb"
+    },
+    {
+      "path": "findings.md",
+      "sha256": "sha256:0dc20f6f9e2cf679110b070fa678f8c5a0645d6e61775245567a2f2de94f8387"
+    }
+  ]
+}

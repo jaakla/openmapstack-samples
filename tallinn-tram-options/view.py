@@ -29,7 +29,7 @@ log = logging.getLogger("pipeline")
 # categorical palette, light and dark steps); the individual line is named by a label on the map
 # and in every list, so identity never rests on colour alone.
 FAMILY_COLOURS = {
-    "Lasnamäe": {"light": "#2a78d6", "dark": "#3987e5"},
+    "Lasnamäe and Pirita": {"light": "#2a78d6", "dark": "#3987e5"},
     "City centre": {"light": "#eb6834", "dark": "#d95926"},
     "Põhja-Tallinn": {"light": "#1baf7a", "dark": "#199e70"},
     "South": {"light": "#eda100", "dark": "#c98500"},
@@ -250,6 +250,25 @@ def validate(project: dict, facts: dict, frames: dict, root: Path, run_id: str) 
                    "options_without_published_length": lines["option"][lines["published_length_km"].isna()].tolist(), "beyond_30_pct": far,
                    **({"reason": "Modelled length differs from the published length by more than 30 % for: " + ", ".join(far)
                                  + ". The published figure describes a different extent of the same corridor (see each option's note)."} if far else {})})
+    # The 2019 study figures quoted per option: complete, and the declared stage and rubric score agree
+    # with the stage of the study corridors the routed line actually follows in the city's drawing.
+    rubric = {1: 1.0, 2: 1.0, 3: 0.5, 4: 0.25, 5: 0.25}
+    study_problems = []
+    for row in lines.itertuples():
+        if pd.isna(row.study_2019_stage) or pd.isna(row.study_2019_bcr) or not row.study_2019_corridor:
+            study_problems.append(f"{row.option}: no 2019 study figures recorded")
+            continue
+        if pd.notna(row.study_2019_stage_drawn) and int(row.study_2019_stage_drawn) != int(row.study_2019_stage):
+            study_problems.append(f"{row.option}: declared stage {int(row.study_2019_stage)}, drawing says {int(row.study_2019_stage_drawn)}")
+        if abs(rubric[int(row.study_2019_stage)] - row.fit_study_2019) > 1e-9:
+            study_problems.append(f"{row.option}: rubric score {row.fit_study_2019} does not follow from stage {int(row.study_2019_stage)}")
+    unread = lines["option"][lines["study_2019_stage_drawn"].isna()].tolist()
+    checks.append({"id": "study_2019_figures_consistent", "status": "failed" if study_problems else "passed",
+                   "stage_declared": {o: int(v) for o, v in zip(lines["option"], lines["study_2019_stage"]) if pd.notna(v)},
+                   "stage_read_from_drawing": {o: int(v) for o, v in zip(lines["option"], lines["study_2019_stage_drawn"]) if pd.notna(v)},
+                   "stage_not_readable_from_drawing": unread, "problems": study_problems,
+                   "note": "The benefit-cost figures are transcribed from Tables 45, 61 and 62 of the 2019 report; this check covers "
+                           "their presence and the stage, not the transcription."})
     _, gap = p.snap(frames["network"], np.column_stack([stops.geometry.x, stops.geometry.y]))
     checks.append({"id": "option_stops_on_network", "status": "passed" if gap.max() <= 150 else "failed",
                    "note": "The gap is walked in a straight line and counted in every distance; the largest gaps are on the unbuilt Rahu tee corridor.",
@@ -340,7 +359,10 @@ def render_dashboard(project: dict, facts: dict, frames: dict, report: dict, roo
                         "geometry_note": " ".join(d["geometry_note"].split()) if d.get("geometry_note") else None,
                         "colour": FAMILY_COLOURS[row.family], "from": row.from_label, "to": row.to_label,
                         "streets": d["streets"], "stand_in_streets": d.get("stand_in_streets") or [], "follows": d.get("follow"),
-                        "waypoints": [w.get("stop") or w.get("address") or " × ".join(w.get("junction", [])) for w in d["waypoints"]],
+                        "waypoints": [w.get("stop") or w.get("address") or (f"{w['corridor_end']['end']} of line {w['corridor_end']['fid']} of the corridor drawing"
+                                                                                 if "corridor_end" in w else " × ".join(w.get("junction", [])))
+                                      for w in d["waypoints"]],
+                        "appraisal_2019": d.get("appraisal_2019") or {},
                         "published": d.get("published") or {}, "strategy": d["strategy"], "strategy_fit": row.strategy_fit,
                         "evidence": d["evidence"], "override_id": f"SCENARIO-{row.option}",
                         "declared_street_share": row.declared_street_share, "stand_in_street_share": row.stand_in_street_share,
@@ -374,6 +396,7 @@ def render_dashboard(project: dict, facts: dict, frames: dict, report: dict, roo
         "layer_groups": presentation["map"]["layer_groups"], "layers": presentation["map"]["layers"],
         "canonical": facts["canonical"], "catchments": p.CATCHMENTS_M, "criteria": p.CRITERIA, "criterion_labels": CRITERION_LABEL,
         "profiles": [{"id": k, "label": v["label"], "weights": v["weights"]} for k, v in params["profiles"].items()],
+        "appraisal_scenarios": p.APPRAISAL_SCENARIOS, "appraisal_headline": p.APPRAISAL_HEADLINE,
         "options": options, "family_colours": FAMILY_COLOURS, "style": STYLE, "service_labels": SERVICE_LABEL, "tables": tables,
         "data": {
             "options": _geojson(lines[["option", "title", "short", "family", "geometry"]], 6),
@@ -439,13 +462,25 @@ def write_findings_file(project: dict, facts: dict, frames: dict, report: dict, 
     liiv, kaarli, lk = by.loc["liivalaia"], by.loc["kaarli_estonia"], by.loc["liivalaia_kristiine"]
     rahu, laagna = by.loc["lasnamae_rahu"], by.loc["lasnamae_laagna"]
     jarve = by.loc["jarve"]
+    fewer_than_jarve = int((summary["residents_new"] < jarve["residents_new"]).sum())
     scenario = "Lines and stops are modelled from public descriptions, not designed alignments."
+    # This model's ranking beside the benefit-cost ratio the 2019 study gives for the same corridors.
+    both = summary[summary["study_2019_bcr"].notna()]
+    rho = float(both["score_balanced"].rank().corr(both["study_2019_bcr"].rank()))
+    bcr_rank = both["study_2019_bcr"].rank(ascending=False, method="min")
+    gap = (both["rank_balanced"].rank(method="min") - bcr_rank)
+    higher_in_study = both.loc[gap.sort_values(ascending=False).index[:3]]
+    lower_in_study = both.loc[gap.sort_values().index[:3]]
+    best_bcr = both.sort_values(["study_2019_bcr", "rank_balanced"], ascending=[False, True]).drop_duplicates("study_2019_corridor").head(3)
+    headline = p.APPRAISAL_SCENARIOS[p.APPRAISAL_HEADLINE]
+    study_only = [o["id"] for o in frames["definitions"]["options"] if o.get("follow") and o["id"] != "lasnamae_rahu"]
+    added = summary[summary["option"].isin(study_only)].sort_values("rank_balanced")
     items = [
         {"id": "ranking", "evidence": ["option_summary", "option_scores"],
          "statement": (f"With the balanced weighting and a {reach} m walk to a stop, the highest-scoring of the {len(summary)} options are "
                        + "; ".join(f"{r.title} ({r.score_balanced:.1f} of 100)" for r in top.itertuples())
                        + f". The top option changes with the weighting: " + "; ".join(f"{labels[k]}: {title[v]}" for k, v in winners.items()) + "."
-                       + (f" Options that stay in the top five under all five weightings: " + ", ".join(title[o] for o in stable) + "." if stable else "")),
+                       + (f" Options that stay in the top five under all {len(labels)} weightings: " + ", ".join(title[o] for o in stable) + "." if stable else "")),
          "limitations": ["The score is a declared weighting of seven indicators, not a cost-benefit result; ridership, travel time and construction cost are not modelled.", scenario]},
         {"id": "existing_network", "evidence": ["existing_tram_coverage"],
          "statement": (f"Today {n(base['residents'])} residents, {base['share_of_city_pct']:.1f} % of an estimated {n(facts['population']['tallinn_population_est'])}, "
@@ -460,8 +495,9 @@ def write_findings_file(project: dict, facts: dict, frames: dict, report: dict, 
         {"id": "pelguranna", "evidence": ["option_matrix", "option_summary"],
          "statement": (f"The funded Pelguranna route (Putukaväil to Kolde pst, modelled {d['length_km']:.2f} km) puts {n(d['residents'])} residents within {reach} m, "
                        f"{n(d['residents_new'])} of them not near a tram today. The route dropped in February 2026 (Puhangu to Stroomi park, {a['length_km']:.2f} km) "
-                       f"would reach {n(a['residents'])} and {n(a['residents_new'])}. The funded route has the highest strategy fit of all options "
-                       f"({d['strategy_fit']:.2f} of 3) but ranks {int(d['rank_balanced'])} of {len(summary)} on the balanced score."),
+                       f"would reach {n(a['residents'])} and {n(a['residents_new'])}. The funded route has "
+                       + ("the highest strategy fit of all options " if d["strategy_fit"] >= summary["strategy_fit"].max() else "a strategy fit ")
+                       + f"({d['strategy_fit']:.2f} of 3) but ranks {int(d['rank_balanced'])} of {len(summary)} on the balanced score."),
          "limitations": ["Beyond Sõle the funded route runs in a corridor with no mapped street; the parallel part of Puhangu street stands in for it, up to 100 m away.", scenario]},
         {"id": "city_centre_link", "evidence": ["option_summary", "option_matrix"],
          "statement": (f"The abandoned Liivalaia section ({liiv['length_km']:.2f} km) and the Kaarli pst – Estonia pst alternative ({kaarli['length_km']:.2f} km) both run through "
@@ -475,9 +511,25 @@ def write_findings_file(project: dict, facts: dict, frames: dict, report: dict, 
                        f"{laagna['strategy_fit']:.2f} against {rahu['strategy_fit']:.2f} for the Rahu tee corridor."),
          "limitations": ["The Rahu tee line follows the city's published corridor drawing because the street is not built.", scenario]},
         {"id": "jarve", "evidence": ["option_summary"],
-         "statement": (f"The Järve extension ({jarve['length_km']:.2f} km) would bring {n(jarve['residents_new'])} residents newly within reach, the fewest of all options, "
-                       f"and ranks {int(jarve['rank_balanced'])} of {len(summary)}; it serves {n(jarve['workplace_floor_m2'] / 1000)} thousand m² of workplace floor area around Järve keskus."),
+         "statement": (f"The Järve extension ({jarve['length_km']:.2f} km) would bring {n(jarve['residents_new'])} residents newly within reach, "
+                       + ("the fewest of all options, " if fewer_than_jarve == 0 else f"fewer than all but {fewer_than_jarve} of the other options, ")
+                       + f"and ranks {int(jarve['rank_balanced'])} of {len(summary)}; it serves {n(jarve['workplace_floor_m2'] / 1000)} thousand m² of workplace floor area around Järve keskus."),
          "limitations": ["Park-and-ride and interchange with the railway, which the 2022 study names as the purpose of this line, are not measured.", scenario]},
+        {"id": "study_2019_appraisal", "evidence": ["option_summary", "tram_options"],
+         "statement": (f"The 2019 feasibility study gives every corridor compared here a benefit-cost ratio above 1: in its scenario '{headline}' the ratios run from "
+                       f"{both['study_2019_bcr'].min():.1f} to {both['study_2019_bcr'].max():.1f}. Its highest ratios are for "
+                       + "; ".join(f"{r.title} ({r.study_2019_bcr:.1f}, corridor {r.study_2019_corridor})" for r in best_bcr.itertuples())
+                       + f". This model's balanced ranking and the study's ratios agree in part (rank correlation {rho:.2f} over {len(both)} options). "
+                       "The study rates higher than this model: " + ", ".join(f"{r.title} (study {int(bcr_rank[i])}, here {int(r.rank_balanced)})" for i, r in higher_in_study.iterrows())
+                       + ". This model rates higher than the study: " + ", ".join(f"{r.title} (here {int(r.rank_balanced)}, study {int(bcr_rank[i])})" for i, r in lower_in_study.iterrows()) + "."),
+         "limitations": ["The study's ratio counts travel-time, traffic, environmental and health effects from a transport model of 2018; this model counts who and what is within a walk of a stop.",
+                         "The study appraises corridors that are not always the same extent as an option here; several options share one corridor's figures, and some figures cover more than the option (see each option's note).",
+                         "The figures are from 2019 and assume the study's Tallinn++ policy package; they are quoted, not recomputed."]},
+        {"id": "study_2019_corridors", "evidence": ["option_summary", "option_matrix"],
+         "statement": (f"{len(added)} corridors of the 2019 study inside Tallinn that are not in current debate were measured on the same basis, drawn as the city published them. "
+                       "They rank: " + "; ".join(f"{int(r.rank_balanced)} {r.title} ({n(r.residents)} residents in reach, {n(r.residents_new)} new, study stage {int(r.study_2019_stage)})" for r in added.itertuples()) + "."),
+         "limitations": ["These lines follow the city's drawing of the study corridors and were not checked against the street network.",
+                         "The Viimsi line is measured for its part inside Tallinn only, so its reach is understated.", scenario]},
         {"id": "strategy", "evidence": ["option_summary", "tram_options"],
          "statement": (f"Strategy fit and measured reach point in different directions. {best_fit['title']} has the highest strategy fit ({best_fit['strategy_fit']:.2f} of 3) and ranks "
                        f"{int(best_fit['rank_balanced'])} on the balanced score; the top-ranked option, {top.iloc[0]['title']}, has a strategy fit of {top.iloc[0]['strategy_fit']:.2f}."),

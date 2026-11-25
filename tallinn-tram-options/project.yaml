@@ -33,7 +33,7 @@ project:
     them in depth and provide a dashboard of the options, considering population, services, general strategies
     and plans.
   created_at: '2026-11-24T07:07:09+00:00'
-  updated_at: '2026-11-24T07:28:19.576010+00:00'
+  updated_at: '2026-11-25T18:12:11.178661+00:00'
   status: warning
   aoi:
     bbox:
@@ -57,9 +57,14 @@ interpretation:
     declared weightings.'
   assumptions:
   - id: A1
-    statement: 'The options are the 13 alignments in scenarios/tram-options.yaml: the lines and variants
-      discussed in city documents and news between 2019 and November 2026 that lie inside Tallinn. Lines
-      to Viimsi, Peetri/Jüri, Maardu and Tabasalu are left out.'
+    statement: 'The options are the 23 alignments in scenarios/tram-options.yaml: the 13 lines and variants
+      discussed in city documents and news between 2019 and November 2026, and 10 further corridors of
+      the 2019 feasibility and cost-benefit study that lie inside Tallinn. Left out: study corridors with
+      less than half their length in Tallinn (Peetri and Jüri, Maardu, Tabasalu), its railway services
+      (Balti jaam – Vesse, the Bekkeri branch), connecting links under 1 km (among them the airport –
+      Lubja tunnel link, corridor 5C), the loop inside Mustamäe drawn with corridor 7A, and corridors
+      the study itself dropped (Paljassaare, Veerenni, Tondi, Mustamäe tee). The Viimsi line is measured
+      for its part inside Tallinn only.'
     rationale: The building register layer used for residents and workplaces covers Tallinn only, so a
       line outside the city could not be measured on the same basis.
   - id: A2
@@ -77,7 +82,9 @@ interpretation:
     statement: Each line is the shortest path between its declared waypoints over the street network,
       with streets the option does not name costing 8 times their length. Where the described corridor
       has no street (the Putukaväil corridor, the planned Rahu tee) a named stand-in street or the city's
-      published corridor drawing is used, and the option says so.
+      published corridor drawing is used, and the option says so. The ten corridors added from the 2019
+      study, like the Rahu tee line, are taken from the city's published drawing of the study corridors,
+      between named ends of its lines, and are not routed on the street network.
     rationale: The sources describe alignments by street names, not coordinates. Routing by name on real
       geometry avoids hand-drawn lines and can be checked against the corridors the city has published.
   - id: A5
@@ -112,7 +119,8 @@ interpretation:
   - id: A9
     statement: 'Strategy fit (0-3) is the sum of three scores of 0-1 recorded per option with their sources:
       its place in the mobility plan SUMP 2035, its stage in the 2019 feasibility study, and the city
-      government''s position in 2026.'
+      government''s position in 2026. The study stage is read from the city''s drawing of the study corridors,
+      because the report shows the stages on maps only.'
     rationale: Strategies and political decisions are documents, not geodata. A fixed rubric applied to
       every option, with the evidence listed, keeps the judgement inspectable.
   - id: A10
@@ -120,6 +128,16 @@ interpretation:
       score.
     rationale: The estimates come from different years (2019 to 2026), price levels and alignments, and
       are missing for some options.
+  - id: A11
+    statement: 'The 2019 study''s own results are quoted per option and are not part of the score: stage,
+      infrastructure cost, and the benefit-cost ratio and net present value of the tram variant in its
+      four scenarios (final report, Tables 45, 61 and 62). Tables show the ratio for ''Tallinn++ with
+      free public transport''.'
+    rationale: The study measures something this model does not (travel time, traffic, environmental and
+      health effects from a transport model), for corridors that do not always match an option's extent.
+      Putting its ratio in the score would mix two methods and count 2019 assumptions as current. Tallinn++
+      is the scenario the study recommends, and its authors advise comparing on the free-public-transport
+      runs.
 sources:
   districts:
     role: authoritative_input
@@ -1412,6 +1430,245 @@ overrides:
     title: 'ERR: 2027 city budget (trolleybus infrastructure)'
   created_at: '2026-11-24T09:00:00+02:00'
   created_by: agent
+- id: SCENARIO-tammsaare
+  action: add_scenario
+  layer: tram_options
+  properties:
+    option: tammsaare
+    name: Mustamäe – Tammsaare tee, Järvevana tee to Ülemiste
+    status: hypothetical
+  definition_file:
+    path: scenarios/tram-options.yaml
+    entry: tammsaare
+  geometry_file:
+    path: data/overrides/options/tammsaare.geojson
+  geometry_origin: scenario
+  rationale: 'Hypothetical tram line compared in this analysis: a corridor of the 2019 feasibility study.
+    Its geometry is not typed by hand: build_scenarios.py takes it from the city''s published drawing
+    of the study corridors between the line ends named in the definition file, and the pipeline re-derives
+    it on every run and rejects the option if the stored geometry disagrees.'
+  evidence:
+  - type: document
+    value: https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf
+    title: 2019 feasibility study, Trass 11; Tables 45, 61, 62
+  created_at: '2026-11-25T20:00:00+02:00'
+  created_by: agent
+- id: SCENARIO-liivalaia_laagna
+  action: add_scenario
+  layer: tram_options
+  properties:
+    option: liivalaia_laagna
+    name: City centre – Juhkentali, Odra to Laagna tee
+    status: hypothetical
+  definition_file:
+    path: scenarios/tram-options.yaml
+    entry: liivalaia_laagna
+  geometry_file:
+    path: data/overrides/options/liivalaia_laagna.geojson
+  geometry_origin: scenario
+  rationale: 'Hypothetical tram line compared in this analysis: a corridor of the 2019 feasibility study.
+    Its geometry is not typed by hand: build_scenarios.py takes it from the city''s published drawing
+    of the study corridors between the line ends named in the definition file, and the pipeline re-derives
+    it on every run and rejects the option if the stored geometry disagrees.'
+  evidence:
+  - type: document
+    value: https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf
+    title: 2019 feasibility study, Trass 12; Tables 45, 61, 62
+  created_at: '2026-11-25T20:00:00+02:00'
+  created_by: agent
+- id: SCENARIO-toompuiestee
+  action: add_scenario
+  layer: tram_options
+  properties:
+    option: toompuiestee
+    name: City centre – Toompuiestee, Tõnismägi to Balti jaam
+    status: hypothetical
+  definition_file:
+    path: scenarios/tram-options.yaml
+    entry: toompuiestee
+  geometry_file:
+    path: data/overrides/options/toompuiestee.geojson
+  geometry_origin: scenario
+  rationale: 'Hypothetical tram line compared in this analysis: a corridor of the 2019 feasibility study.
+    Its geometry is not typed by hand: build_scenarios.py takes it from the city''s published drawing
+    of the study corridors between the line ends named in the definition file, and the pipeline re-derives
+    it on every run and rejects the option if the stored geometry disagrees.'
+  evidence:
+  - type: document
+    value: https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf
+    title: 2019 feasibility study, Trass 14; Tables 45, 61, 62
+  - type: document
+    value: https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20jatkusuutliku%20linnaliikuvuse%20kava%202035.pdf
+    title: SUMP 2035, prospective corridors
+  created_at: '2026-11-25T20:00:00+02:00'
+  created_by: agent
+- id: SCENARIO-majaka
+  action: add_scenario
+  layer: tram_options
+  properties:
+    option: majaka
+    name: Uuslinn and Sikupilli – Narva mnt to Majaka
+    status: hypothetical
+  definition_file:
+    path: scenarios/tram-options.yaml
+    entry: majaka
+  geometry_file:
+    path: data/overrides/options/majaka.geojson
+  geometry_origin: scenario
+  rationale: 'Hypothetical tram line compared in this analysis: a corridor of the 2019 feasibility study.
+    Its geometry is not typed by hand: build_scenarios.py takes it from the city''s published drawing
+    of the study corridors between the line ends named in the definition file, and the pipeline re-derives
+    it on every run and rejects the option if the stored geometry disagrees.'
+  evidence:
+  - type: document
+    value: https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf
+    title: 2019 feasibility study, Trass 18A and 18A'; Tables 45, 61, 62
+  created_at: '2026-11-25T20:00:00+02:00'
+  created_by: agent
+- id: SCENARIO-astangu
+  action: add_scenario
+  layer: tram_options
+  properties:
+    option: astangu
+    name: Väike-Õismäe and Astangu – Haabersti to Astangu
+    status: hypothetical
+  definition_file:
+    path: scenarios/tram-options.yaml
+    entry: astangu
+  geometry_file:
+    path: data/overrides/options/astangu.geojson
+  geometry_origin: scenario
+  rationale: 'Hypothetical tram line compared in this analysis: a corridor of the 2019 feasibility study.
+    Its geometry is not typed by hand: build_scenarios.py takes it from the city''s published drawing
+    of the study corridors between the line ends named in the definition file, and the pipeline re-derives
+    it on every run and rejects the option if the stored geometry disagrees.'
+  evidence:
+  - type: document
+    value: https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf
+    title: 2019 feasibility study, Trass 8B; Tables 45, 61, 62
+  created_at: '2026-11-25T20:00:00+02:00'
+  created_by: agent
+- id: SCENARIO-akadeemia
+  action: add_scenario
+  layer: tram_options
+  properties:
+    option: akadeemia
+    name: Mustamäe to Väike-Õismäe – Akadeemia tee
+    status: hypothetical
+  definition_file:
+    path: scenarios/tram-options.yaml
+    entry: akadeemia
+  geometry_file:
+    path: data/overrides/options/akadeemia.geojson
+  geometry_origin: scenario
+  rationale: 'Hypothetical tram line compared in this analysis: a corridor of the 2019 feasibility study.
+    Its geometry is not typed by hand: build_scenarios.py takes it from the city''s published drawing
+    of the study corridors between the line ends named in the definition file, and the pipeline re-derives
+    it on every run and rejects the option if the stored geometry disagrees.'
+  evidence:
+  - type: document
+    value: https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf
+    title: 2019 feasibility study, Trass 7B; Tables 45, 61, 62
+  - type: document
+    value: https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20jatkusuutliku%20linnaliikuvuse%20kava%202035.pdf
+    title: SUMP 2035, prospective corridors
+  created_at: '2026-11-25T20:00:00+02:00'
+  created_by: agent
+- id: SCENARIO-tervise
+  action: add_scenario
+  layer: tram_options
+  properties:
+    option: tervise
+    name: Järve to Mustamäe – Tervise
+    status: hypothetical
+  definition_file:
+    path: scenarios/tram-options.yaml
+    entry: tervise
+  geometry_file:
+    path: data/overrides/options/tervise.geojson
+  geometry_origin: scenario
+  rationale: 'Hypothetical tram line compared in this analysis: a corridor of the 2019 feasibility study.
+    Its geometry is not typed by hand: build_scenarios.py takes it from the city''s published drawing
+    of the study corridors between the line ends named in the definition file, and the pipeline re-derives
+    it on every run and rejects the option if the stored geometry disagrees.'
+  evidence:
+  - type: document
+    value: https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf
+    title: 2019 feasibility study, Trass 6B; Tables 45, 61, 62
+  created_at: '2026-11-25T20:00:00+02:00'
+  created_by: agent
+- id: SCENARIO-valukoja
+  action: add_scenario
+  layer: tram_options
+  properties:
+    option: valukoja
+    name: Ülemiste City – Valukoja
+    status: hypothetical
+  definition_file:
+    path: scenarios/tram-options.yaml
+    entry: valukoja
+  geometry_file:
+    path: data/overrides/options/valukoja.geojson
+  geometry_origin: scenario
+  rationale: 'Hypothetical tram line compared in this analysis: a corridor of the 2019 feasibility study.
+    Its geometry is not typed by hand: build_scenarios.py takes it from the city''s published drawing
+    of the study corridors between the line ends named in the definition file, and the pipeline re-derives
+    it on every run and rejects the option if the stored geometry disagrees.'
+  evidence:
+  - type: document
+    value: https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf
+    title: 2019 feasibility study, Trass 97; Tables 45, 61, 62
+  created_at: '2026-11-25T20:00:00+02:00'
+  created_by: agent
+- id: SCENARIO-peterburi
+  action: add_scenario
+  layer: tram_options
+  properties:
+    option: peterburi
+    name: Lasnamäe industrial area – Peterburi tee
+    status: hypothetical
+  definition_file:
+    path: scenarios/tram-options.yaml
+    entry: peterburi
+  geometry_file:
+    path: data/overrides/options/peterburi.geojson
+  geometry_origin: scenario
+  rationale: 'Hypothetical tram line compared in this analysis: a corridor of the 2019 feasibility study.
+    Its geometry is not typed by hand: build_scenarios.py takes it from the city''s published drawing
+    of the study corridors between the line ends named in the definition file, and the pipeline re-derives
+    it on every run and rejects the option if the stored geometry disagrees.'
+  evidence:
+  - type: document
+    value: https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf
+    title: 2019 feasibility study, Trass 4; Tables 45, 61, 62
+  created_at: '2026-11-25T20:00:00+02:00'
+  created_by: agent
+- id: SCENARIO-pirita
+  action: add_scenario
+  layer: tram_options
+  properties:
+    option: pirita
+    name: Pirita – Pirita tee and Merivälja tee (Viimsi line, part in Tallinn)
+    status: hypothetical
+  definition_file:
+    path: scenarios/tram-options.yaml
+    entry: pirita
+  geometry_file:
+    path: data/overrides/options/pirita.geojson
+  geometry_origin: scenario
+  rationale: 'Hypothetical tram line compared in this analysis: a corridor of the 2019 feasibility study.
+    Its geometry is not typed by hand: build_scenarios.py takes it from the city''s published drawing
+    of the study corridors between the line ends named in the definition file, and the pipeline re-derives
+    it on every run and rejects the option if the stored geometry disagrees.'
+  evidence:
+  - type: document
+    value: https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf
+    title: 2019 feasibility study, Trass 1; Tables 45, 61, 62
+  - type: document
+    value: https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20jatkusuutliku%20linnaliikuvuse%20kava%202035.pdf
+    title: SUMP 2035, prospective corridors
+  created_at: '2026-11-25T20:00:00+02:00'
+  created_by: agent
 processing:
   analysis_crs: EPSG:3301
   storage_crs: EPSG:4326
@@ -1582,6 +1839,16 @@ processing:
     - SCENARIO-lasnamae_laagna
     - SCENARIO-mustamae
     - SCENARIO-haabersti
+    - SCENARIO-tammsaare
+    - SCENARIO-liivalaia_laagna
+    - SCENARIO-toompuiestee
+    - SCENARIO-majaka
+    - SCENARIO-astangu
+    - SCENARIO-akadeemia
+    - SCENARIO-tervise
+    - SCENARIO-valukoja
+    - SCENARIO-peterburi
+    - SCENARIO-pirita
     crs: EPSG:3301
     verify: every waypoint must resolve in the immutable sources and at least 70 % of the routed line
       must follow the declared streets, else the option is rejected
@@ -1894,6 +2161,29 @@ outputs:
         type: integer
         label: In a 2019 study corridor
         unit: '%'
+      - name: study_2019_corridor
+        type: string
+        label: 2019 study corridor
+      - name: study_2019_stage
+        type: integer
+        label: 2019 study stage (1-5)
+      - name: study_2019_bcr
+        type: number
+        label: 2019 study benefit-cost ratio (Tallinn++, free public transport)
+      - name: study_2019_bcr_low
+        type: number
+        label: 2019 study benefit-cost ratio, lowest scenario
+      - name: study_2019_bcr_high
+        type: number
+        label: 2019 study benefit-cost ratio, highest scenario
+      - name: study_2019_enpv_meur
+        type: number
+        label: 2019 study net present value (Tallinn++, free public transport)
+        unit: million EUR
+      - name: study_2019_cost_meur
+        type: number
+        label: 2019 study infrastructure cost of the corridor
+        unit: million EUR
     downloads:
     - csv
     - xlsx
@@ -2078,6 +2368,9 @@ validation:
       matches
   - name: table_totals_consistent
     expression: option_summary rows = option_matrix rows at 500 m = building-level sums
+  - name: study_2019_figures_consistent
+    expression: every option carries the 2019 study figures; its declared stage equals the stage of the
+      study corridors it follows in the city's drawing; the rubric score follows from the stage
 presentation:
   intent: analytical_workspace
   primary_view: map
@@ -2340,6 +2633,17 @@ warnings:
     stops. Results near the ends of a line and for short lines depend most on these choices.
   mitigation: Use the results to compare corridors, not to judge a design. Replace an option with surveyed
     design geometry in data/overrides when it is published.
+- id: SCENARIO-002
+  severity: medium
+  layer: tram_options
+  issue: study_corridors_as_drawn
+  statement: Ten options are corridors of the 2019 study taken from the city's drawing of them, a schematic
+    line that was not checked against the street network. The Pirita option is the part of the Viimsi
+    line inside Tallinn, so its reach is understated. The 2019 benefit-cost figures shown per option are
+    quoted, refer to the study's corridors (which may be longer than the option or shared by several options)
+    and to 2019 assumptions.
+  mitigation: Read each option's note on the study figures; compare the Pirita option on per-kilometre
+    indicators only.
 - id: METHOD-001
   severity: medium
   layer: option_scores
@@ -2419,13 +2723,13 @@ runtime:
     - shapely==2.2.0
 runs:
   latest:
-    id: run-20261124-072758
-    started_at: '2026-11-24T07:27:58.532193+00:00'
-    completed_at: '2026-11-24T07:28:19.576010+00:00'
+    id: run-20261125-181144
+    started_at: '2026-11-25T18:11:44.096045+00:00'
+    completed_at: '2026-11-25T18:12:11.178661+00:00'
     status: warning
-    inputs_hash: sha256:95e952f1a0a49a1cae8d811a3a1d25f8964a2a9a7a585e1a25409f8ab44566a1
-    outputs_hash: sha256:a4278d016791e0b2c2f943d5aa04d9a0b2aaa4d10f8dadcc07bd827302b70063
+    inputs_hash: sha256:0a849afb389fa090c05f5fa1ab53713620f8c6de105780b1554b9490a97b54eb
+    outputs_hash: sha256:9fddcd0a5f3e5a5333c6a2d7e832f16d3b552716ccc8d41757099a28181c602b
     record:
-      path: runs/run-20261124-072758.json
+      path: runs/run-20261125-181144.json
     validation_report:
       path: validation/latest-report.json

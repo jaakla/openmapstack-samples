@@ -1,11 +1,11 @@
 {
-  "run_id": "run-20261124-072758",
+  "run_id": "run-20261125-181144",
   "status": "warning",
   "checks": [
     {
       "id": "geometry_valid",
       "status": "passed",
-      "features_checked": 31951,
+      "features_checked": 32083,
       "invalid_or_empty": {
         "tram_options": 0,
         "tram_option_stops": 0,
@@ -55,9 +55,9 @@
       "id": "row_count_gt_zero",
       "status": "passed",
       "rows": {
-        "tram_options": 13,
-        "tram_option_stops": 114,
-        "option_catchment_variants": 70,
+        "tram_options": 23,
+        "tram_option_stops": 186,
+        "option_catchment_variants": 120,
         "buildings": 29201,
         "services": 482,
         "plans_in_process": 329,
@@ -67,11 +67,11 @@
         "published_corridors": 117,
         "existing_tram_lines": 6,
         "existing_tram_stops": 81,
-        "option_catchments": 13,
+        "option_catchments": 23,
         "existing_tram_catchments": 5,
-        "option_summary": 13,
-        "option_matrix": 65,
-        "option_scores": 325,
+        "option_summary": 23,
+        "option_matrix": 115,
+        "option_scores": 575,
         "existing_tram_coverage": 5
       }
     },
@@ -336,6 +336,96 @@
           "declared_street_share": 1.0,
           "stand_in_street_share": 0.0,
           "stored_geometry_gap_m": 0.0
+        },
+        {
+          "id": "SCENARIO-tammsaare",
+          "status": "applied",
+          "length_km": 8.13,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.01,
+          "follows": "study_corridors_2019"
+        },
+        {
+          "id": "SCENARIO-liivalaia_laagna",
+          "status": "applied",
+          "length_km": 2.01,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.01,
+          "follows": "study_corridors_2019"
+        },
+        {
+          "id": "SCENARIO-toompuiestee",
+          "status": "applied",
+          "length_km": 1.84,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.01,
+          "follows": "study_corridors_2019"
+        },
+        {
+          "id": "SCENARIO-majaka",
+          "status": "applied",
+          "length_km": 2.14,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.0,
+          "follows": "study_corridors_2019"
+        },
+        {
+          "id": "SCENARIO-astangu",
+          "status": "applied",
+          "length_km": 3.67,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.01,
+          "follows": "study_corridors_2019"
+        },
+        {
+          "id": "SCENARIO-akadeemia",
+          "status": "applied",
+          "length_km": 1.95,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.01,
+          "follows": "study_corridors_2019"
+        },
+        {
+          "id": "SCENARIO-tervise",
+          "status": "applied",
+          "length_km": 1.82,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.01,
+          "follows": "study_corridors_2019"
+        },
+        {
+          "id": "SCENARIO-valukoja",
+          "status": "applied",
+          "length_km": 1.12,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.01,
+          "follows": "study_corridors_2019"
+        },
+        {
+          "id": "SCENARIO-peterburi",
+          "status": "applied",
+          "length_km": 1.0,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.01,
+          "follows": "study_corridors_2019"
+        },
+        {
+          "id": "SCENARIO-pirita",
+          "status": "applied",
+          "length_km": 7.31,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.01,
+          "follows": "study_corridors_2019"
         }
       ]
     },
@@ -352,7 +442,7 @@
         "catchment_m": 500,
         "profile": "balanced"
       },
-      "variants_materialised": 325,
+      "variants_materialised": 575,
       "problems": []
     },
     {
@@ -408,7 +498,17 @@
         "lasnamae_narva": 0.875,
         "lasnamae_laagna": 0.982,
         "mustamae": 1.0,
-        "haabersti": 1.0
+        "haabersti": 1.0,
+        "tammsaare": 1.0,
+        "liivalaia_laagna": 1.0,
+        "toompuiestee": 1.0,
+        "majaka": 1.0,
+        "astangu": 1.0,
+        "akadeemia": 1.0,
+        "tervise": 1.0,
+        "valukoja": 1.0,
+        "peterburi": 1.0,
+        "pirita": 1.0
       },
       "stand_in_street_share": {
         "pelguranna_d": 0.207
@@ -470,6 +570,46 @@
         "haabersti": {
           "study_2019": 0.842,
           "planning_documents": 0.686
+        },
+        "tammsaare": {
+          "study_2019": 1.0,
+          "planning_documents": 1.0
+        },
+        "liivalaia_laagna": {
+          "study_2019": 1.0,
+          "planning_documents": 1.0
+        },
+        "toompuiestee": {
+          "study_2019": 1.0,
+          "planning_documents": 1.0
+        },
+        "majaka": {
+          "study_2019": 1.0,
+          "planning_documents": 0.114
+        },
+        "astangu": {
+          "study_2019": 1.0,
+          "planning_documents": 1.0
+        },
+        "akadeemia": {
+          "study_2019": 1.0,
+          "planning_documents": 1.0
+        },
+        "tervise": {
+          "study_2019": 1.0,
+          "planning_documents": 1.0
+        },
+        "valukoja": {
+          "study_2019": 1.0,
+          "planning_documents": 0.0
+        },
+        "peterburi": {
+          "study_2019": 1.0,
+          "planning_documents": 1.0
+        },
+        "pirita": {
+          "study_2019": 1.0,
+          "planning_documents": 1.0
         }
       },
       "below_60_pct": [
@@ -491,25 +631,93 @@
         "lasnamae_rahu": -0.11,
         "lasnamae_narva": 0.05,
         "lasnamae_laagna": -0.172,
-        "mustamae": -0.004
+        "mustamae": -0.004,
+        "toompuiestee": -0.032,
+        "majaka": -0.108,
+        "astangu": -0.034,
+        "akadeemia": -0.025,
+        "valukoja": 0.018
       },
       "options_without_published_length": [
         "liivalaia",
-        "haabersti"
+        "haabersti",
+        "tammsaare",
+        "liivalaia_laagna",
+        "tervise",
+        "peterburi",
+        "pirita"
       ],
       "beyond_30_pct": []
+    },
+    {
+      "id": "study_2019_figures_consistent",
+      "status": "passed",
+      "stage_declared": {
+        "pelguranna_d": 3,
+        "pelguranna_a": 3,
+        "sole": 1,
+        "kalaranna": 3,
+        "liivalaia": 1,
+        "liivalaia_kristiine": 1,
+        "kaarli_estonia": 1,
+        "jarve": 5,
+        "lasnamae_rahu": 2,
+        "lasnamae_narva": 2,
+        "lasnamae_laagna": 1,
+        "mustamae": 2,
+        "haabersti": 3,
+        "tammsaare": 4,
+        "liivalaia_laagna": 2,
+        "toompuiestee": 4,
+        "majaka": 2,
+        "astangu": 3,
+        "akadeemia": 3,
+        "tervise": 5,
+        "valukoja": 4,
+        "peterburi": 5,
+        "pirita": 2
+      },
+      "stage_read_from_drawing": {
+        "pelguranna_d": 3,
+        "pelguranna_a": 3,
+        "sole": 1,
+        "kalaranna": 3,
+        "liivalaia": 1,
+        "liivalaia_kristiine": 1,
+        "kaarli_estonia": 1,
+        "jarve": 5,
+        "lasnamae_rahu": 2,
+        "lasnamae_laagna": 1,
+        "mustamae": 2,
+        "haabersti": 3,
+        "tammsaare": 4,
+        "liivalaia_laagna": 2,
+        "toompuiestee": 4,
+        "majaka": 2,
+        "astangu": 3,
+        "akadeemia": 3,
+        "tervise": 5,
+        "valukoja": 4,
+        "peterburi": 5,
+        "pirita": 2
+      },
+      "stage_not_readable_from_drawing": [
+        "lasnamae_narva"
+      ],
+      "problems": [],
+      "note": "The benefit-cost figures are transcribed from Tables 45, 61 and 62 of the 2019 report; this check covers their presence and the stage, not the transcription."
     },
     {
       "id": "option_stops_on_network",
       "status": "passed",
       "note": "The gap is walked in a straight line and counted in every distance; the largest gaps are on the unbuilt Rahu tee corridor.",
-      "max_gap_m": 61.7,
-      "stops_checked": 114
+      "max_gap_m": 69.1,
+      "stops_checked": 186
     },
     {
       "id": "catchments_monotonic",
       "status": "passed",
-      "rows": 65
+      "rows": 115
     },
     {
       "id": "new_not_more_than_total",
@@ -525,21 +733,21 @@
     {
       "id": "table_totals_consistent",
       "status": "passed",
-      "options": 13,
+      "options": 23,
       "building_level_sums_match": true,
       "summary_matches_matrix": true
     },
     {
       "id": "manifest_report_parity",
       "status": "passed",
-      "declared": 24,
-      "reported": 24,
+      "declared": 25,
+      "reported": 25,
       "missing_or_repeated": [],
       "undeclared": []
     }
   ],
   "headline": {
-    "options": 13,
+    "options": 23,
     "top_option": "lasnamae_laagna",
     "top_title": "Lasnamäe – Gonsiori and Laagna tee",
     "top_score": 67.1,
@@ -547,6 +755,6 @@
     "profile": "balanced",
     "tallinn_population_est": 454042
   },
-  "inputs_hash": "sha256:95e952f1a0a49a1cae8d811a3a1d25f8964a2a9a7a585e1a25409f8ab44566a1",
-  "outputs_hash": "sha256:a4278d016791e0b2c2f943d5aa04d9a0b2aaa4d10f8dadcc07bd827302b70063"
+  "inputs_hash": "sha256:0a849afb389fa090c05f5fa1ab53713620f8c6de105780b1554b9490a97b54eb",
+  "outputs_hash": "sha256:9fddcd0a5f3e5a5333c6a2d7e832f16d3b552716ccc8d41757099a28181c602b"
 }
