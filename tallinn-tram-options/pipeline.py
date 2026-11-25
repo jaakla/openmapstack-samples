@@ -69,6 +69,14 @@ SCENARIO_GEOMETRY_TOLERANCE_M = 2.0        # stored scenario geometry vs. the li
 WRITE_SCENARIOS = False                    # set by build_scenarios.py while it writes the stored geometry
 CORRIDOR_MATCH_M = 75.0                    # a routed line this close to a published corridor follows it
 CORRIDOR_WAYPOINT_M = 250.0               # a waypoint must lie this close to the corridor it follows
+STUDY_STAGE_MIN_SHARE = 0.5               # share of a line within CORRIDOR_MATCH_M of study corridors needed to read a stage off them
+# Results of the 2019 feasibility and cost-benefit study quoted per option (appraisal_2019 in
+# tram-options.yaml): benefit-cost ratio and net present value of the tram variant in its four
+# scenarios, in this order. The headline is "Tallinn++ with free public transport": Tallinn++ is the
+# scenario the study recommends, and its authors advise comparing on the free-public-transport runs.
+APPRAISAL_SCENARIOS = ["Tallinn+, free public transport", "Tallinn+, paid public transport",
+                       "Tallinn++, free public transport", "Tallinn++, paid public transport"]
+APPRAISAL_HEADLINE = 2
 BUS_CORRIDOR_M = 150.0                    # straight-line distance from the alignment to a bus stop
 NETWORK_STEP_M = 20.0                     # max spacing of routing nodes along a path
 OFF_PATH_M = 50.0                         # off-path allowance drawn around reached paths
@@ -112,6 +120,8 @@ PROFILES = {
     "plan_led":   {"new_residents": 0.10, "residents": 0.05, "workplaces": 0.10, "services": 0.05, "growth": 0.15, "efficiency": 0.05, "strategy": 0.50},
 }
 CANONICAL_PROFILE = "balanced"
+STUDY_COLUMNS = ["study_2019_corridor", "study_2019_stage", "study_2019_bcr", "study_2019_bcr_low", "study_2019_bcr_high",
+                 "study_2019_enpv_meur", "study_2019_cost_meur"]   # quoted from the 2019 study; never part of the score
 
 log = logging.getLogger("pipeline")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s", datefmt="%H:%M:%S")
@@ -484,6 +494,22 @@ def _resolve_waypoint(waypoint: dict, street: dict, stops: gpd.GeoDataFrame, tre
     return {"ok": False, "reason": "waypoint must name a stop or a junction"}
 
 
+def _resolve_corridor_end(spec: dict, layer: gpd.GeoDataFrame, street: dict, tree: cKDTree) -> dict:
+    """Waypoint {corridor_end: {fid, part, end}}: the first or last vertex of one line of the published
+    corridor drawing, named by the FID the city gave it. Only for options that follow that drawing."""
+    feature = layer[layer["FID"] == spec.get("fid")]
+    if len(feature) != 1:
+        return {"ok": False, "reason": f"published corridor line FID {spec.get('fid')!r} not found"}
+    parts = shapely.get_parts(feature.geometry.iloc[0])
+    part, end = int(spec.get("part", 0)), spec.get("end")
+    if part >= len(parts) or end not in ("start", "end"):
+        return {"ok": False, "reason": f"corridor_end needs an existing part and end: start|end (got {spec!r})"}
+    point = shapely.get_coordinates(shapely.get_point(parts[part], 0 if end == "start" else -1))[0]
+    gap, node = tree.query(point)
+    return {"ok": True, "node": int(node), "xy": street["xy"][node], "label": f"{end} of line {spec['fid']} in the city's drawing of the 2019 study corridors",
+            "kind": "corridor_end", "snap_m": round(float(gap), 1), "source_features": 1}
+
+
 def corridor_graph(file: str) -> dict:
     """A routable graph of a published corridor layer (the city's own drawing of study corridors).
 
@@ -525,6 +551,7 @@ def route_options(definitions: dict, network: dict, gtfs: dict, buildings: gpd.G
                   ) -> tuple[gpd.GeoDataFrame, gpd.GeoDataFrame, list[dict]]:
     streets_graph = network["street"]
     corridor_graphs = {key: corridor_graph(file) for key, file in CORRIDOR_LAYERS.items()}
+    corridor_layers = {key: read_geojson(file) for key, file in CORRIDOR_LAYERS.items()}
     street = streets_graph
     # Address waypoints: the centroid of the one existing registered building with that short address.
     known = buildings[(buildings["status"] == "existing") & buildings["ads_lahiaadress"].notna()]
@@ -563,7 +590,11 @@ def route_options(definitions: dict, network: dict, gtfs: dict, buildings: gpd.G
             continue
         resolved, previous = [], None
         for waypoint in option["waypoints"]:
-            r = _resolve_waypoint(waypoint, street, gtfs["stops"], conn_tree, previous, addresses)
+            if "corridor_end" in waypoint:
+                r = (_resolve_corridor_end(waypoint["corridor_end"], corridor_layers[follow], street, conn_tree) if follow
+                     else {"ok": False, "reason": "a corridor_end waypoint needs `follow`"})
+            else:
+                r = _resolve_waypoint(waypoint, street, gtfs["stops"], conn_tree, previous, addresses)
             if r["ok"] and follow and r["snap_m"] > CORRIDOR_WAYPOINT_M:
                 r = {"ok": False, "reason": f"{r['label']} is {r['snap_m']:.0f} m from the published corridor"}
             if not r["ok"]:
@@ -649,6 +680,8 @@ def route_options(definitions: dict, network: dict, gtfs: dict, buildings: gpd.G
                               "geometry": point})
         published = option.get("published") or {}
         strategy = option["strategy"]
+        appraisal = option.get("appraisal_2019") or {}
+        bcr, enpv = appraisal.get("bcr") or [], appraisal.get("enpv_meur") or []
         line_rows.append({
             "option": option["id"], "title": option["title"], "family": option.get("family", option["id"]),
             "short": option.get("short", option["title"]), "status": option.get("status"),
@@ -661,8 +694,15 @@ def route_options(definitions: dict, network: dict, gtfs: dict, buildings: gpd.G
             "published_note": published.get("cost_note"),
             "fit_sump": strategy["sump"]["score"], "fit_study_2019": strategy["study_2019"]["score"],
             "fit_city_2026": strategy["city_2026"]["score"],
-            "strategy_fit": round(sum(strategy[k]["score"] for k in STRATEGY_ITEMS), 2), "geometry": line})
+            "strategy_fit": round(sum(strategy[k]["score"] for k in STRATEGY_ITEMS), 2),
+            "study_2019_corridor": appraisal.get("corridor"), "study_2019_stage": appraisal.get("stage"),
+            "study_2019_bcr": bcr[APPRAISAL_HEADLINE] if bcr else None,
+            "study_2019_bcr_low": min(bcr) if bcr else None, "study_2019_bcr_high": max(bcr) if bcr else None,
+            "study_2019_enpv_meur": enpv[APPRAISAL_HEADLINE] if enpv else None,
+            "study_2019_cost_meur": appraisal.get("cost_meur"), "study_2019_note": appraisal.get("note"),
+            "geometry": line})
     lines = gpd.GeoDataFrame(line_rows, geometry="geometry", crs=ANALYSIS_CRS)
+    lines["study_2019_stage"] = lines["study_2019_stage"].astype("Int64")
     stops = gpd.GeoDataFrame(stop_rows, geometry="geometry", crs=ANALYSIS_CRS)
     return lines, stops, results
 
@@ -694,6 +734,18 @@ def corridor_overlap(lines: gpd.GeoDataFrame, corridors: gpd.GeoDataFrame) -> gp
                          ("plan_corridor_share", (corridors["layer"] == "planning_documents") & tram_kinds)):
         zone = shapely.union_all(shapely.buffer(corridors.geometry[mask].values, CORRIDOR_MATCH_M))
         lines[column] = np.round(shapely.length(shapely.intersection(lines.geometry.values, zone)) / lines.length.values, 3)
+    # Stage of the 2019 study read off the drawing: the stage of the study corridors that carry the
+    # largest part of the line, when at least STUDY_STAGE_MIN_SHARE of the line follows them.
+    study = corridors[corridors["layer"] == "study_2019"]
+    drawn = []
+    for line in lines.geometry.values:
+        by_stage = {}
+        for stage, group in study.groupby("stage"):
+            zone = shapely.union_all(shapely.buffer(group.geometry.values, CORRIDOR_MATCH_M))
+            by_stage[int(stage)] = float(shapely.length(shapely.intersection(line, zone))) / line.length
+        stage = max(by_stage, key=by_stage.get)
+        drawn.append(stage if by_stage[stage] >= STUDY_STAGE_MIN_SHARE else pd.NA)
+    lines["study_2019_stage_drawn"] = pd.array(drawn, dtype="Int64")
     return lines
 
 
@@ -944,7 +996,7 @@ def main() -> None:
     score_table = scores(matrix)
     canonical_scores = score_table[score_table["canonical"]].set_index("option")
     summary = matrix[matrix["canonical"]].drop(columns=["canonical"]).merge(
-        lines[["option", "title", "family", "status_label", "published_length_km"]], on="option")
+        lines[["option", "title", "family", "status_label", "published_length_km", *STUDY_COLUMNS]], on="option")
     summary["score_balanced"] = summary["option"].map(canonical_scores["score"])
     summary["rank_balanced"] = summary["option"].map(canonical_scores["rank"])
     lead = ["rank_balanced", "option", "title", "family", "status_label", "score_balanced", "length_km", "published_length_km"]
@@ -970,7 +1022,7 @@ def main() -> None:
         result[column] = result[column].round(2)
     result.to_parquet(OUT / "buildings.parquet", index=False)
 
-    lines_out = lines.merge(summary.drop(columns=["title", "family", "status_label", "length_km", "published_length_km",
+    lines_out = lines.merge(summary.drop(columns=[*STUDY_COLUMNS, "title", "family", "status_label", "length_km", "published_length_km",
                                                   "published_cost_meur", "published_cost_year", "strategy_fit"]), on="option")
     lines_out["geometry"] = shapely.simplify(lines_out.geometry.values, 1.0)
     to_geojson(lines_out, OUT / "tram-options.geojson")

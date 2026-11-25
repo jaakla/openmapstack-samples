@@ -289,8 +289,12 @@ function renderSelected() {
     <h4 style="margin:10px 0 2px;font-size:13px">Strategy fit ${fmt(o.strategy_fit, 2)} of 3</h4>
     ${[["sump", "Mobility plan SUMP 2035"], ["study_2019", "2019 feasibility study"], ["city_2026", "City position in 2026"]].map(([k, l]) =>
       `<div class="check"><span class="kv">${fmt(o.strategy[k].score, 2)}</span><span><b>${l}</b> – ${esc(o.strategy[k].note)}</span></div>`).join("")}
+    ${o.appraisal_2019.bcr ? `<h4 style="margin:10px 0 2px;font-size:13px">In the 2019 feasibility study: corridor ${esc(o.appraisal_2019.corridor)}, stage ${o.appraisal_2019.stage} of 5</h4>
+    <div class="crit">${P.appraisal_scenarios.map((l, i) => `<span>${esc(l)}${i === P.appraisal_headline ? " <span class=\"kv\">(shown in tables)</span>" : ""}</span>
+      <span class="bar" title="Benefit-cost ratio ${fmt(o.appraisal_2019.bcr[i], 1)}"><span style="width:${Math.min(100, 100 * o.appraisal_2019.bcr[i] / 9)}%"></span></span><span class="num">${fmt(o.appraisal_2019.bcr[i], 1)}</span>`).join("")}</div>
+    <p class="small">Benefit-cost ratio of the tram variant per scenario (bar scale 0–9); net present value €${fmt(o.appraisal_2019.enpv_meur[P.appraisal_headline], 1)}M and infrastructure cost €${fmt(o.appraisal_2019.cost_meur, 1)}M in 2019 prices. ${esc(o.appraisal_2019.note || "")} Quoted from the study, not used in the score.</p>` : ""}
     <p class="small">Measured against the city's own drawings: ${fmt(100 * o.plan_corridor_share)} % of the routed line lies within 75 m of a rail corridor in a planning document, ${fmt(100 * o.study_2019_share)} % within 75 m of a 2019 study corridor.</p>
-    <p class="small"><b>How the line was drawn</b> (${esc(o.override_id)}): ${o.follows ? "along the city's published 2019 study corridor" : `shortest path over the street network along ${esc(o.streets.join(", "))}`}
+    <p class="small"><b>How the line was drawn</b> (${esc(o.override_id)}): ${o.follows ? "on the city's published drawing of the 2019 study corridors" : `shortest path over the street network along ${esc(o.streets.join(", "))}`}
       ${o.stand_in_streets.length ? ` (stand-in for an unmapped corridor: ${esc(o.stand_in_streets.join(", "))})` : ""}, through ${esc(o.waypoints.join(" → "))}. ${fmt(100 * o.declared_street_share)} % of its length is on the declared streets.</p>
     <p class="small"><b>Evidence:</b> ${o.evidence.map((e) => `<a href="${esc(e.value)}" target="_blank" rel="noopener">${esc(e.title || e.value)}</a>`).join(" · ")}</p>`;
   $("clearsel").onclick = () => select(null);

@@ -4,8 +4,8 @@ project_id: tallinn-tram-options
 question: Tallinn has been discussing several options for a new tram line, with different
   routes. Analyse them in depth and provide a dashboard of the options, considering
   population, services, general strategies and plans.
-run_id: run-20261124-072758
-scope: 13 tram line options inside Tallinn, measured at a 500 m network walk to modelled
+run_id: run-20261125-181144
+scope: 23 tram line options inside Tallinn, measured at a 500 m network walk to modelled
   stops; population 2024, other data November 2026
 validation:
   status: warning
@@ -46,6 +46,8 @@ validation:
     status: warning
   - id: option_length_plausible
     status: passed
+  - id: study_2019_figures_consistent
+    status: passed
   - id: option_stops_on_network
     status: passed
   - id: catchments_monotonic
@@ -59,13 +61,18 @@ validation:
   - id: manifest_report_parity
     status: passed
 validation_report: validation/latest-report.json
-context_sha256: sha256:596ab5a4af36708783471e4e714ea32624a38d037eab24cc65e0c58e2bf5f4e8
+context_sha256: sha256:b7614a8ef5dce7626104d8671f5ba3027c13c3aa8c395c519300315e13c05433
 assumptions:
 - id: A1
-  statement: 'The options are the 13 alignments in scenarios/tram-options.yaml: the
-    lines and variants discussed in city documents and news between 2019 and November
-    2026 that lie inside Tallinn. Lines to Viimsi, Peetri/Jüri, Maardu and Tabasalu
-    are left out.'
+  statement: 'The options are the 23 alignments in scenarios/tram-options.yaml: the
+    13 lines and variants discussed in city documents and news between 2019 and November
+    2026, and 10 further corridors of the 2019 feasibility and cost-benefit study
+    that lie inside Tallinn. Left out: study corridors with less than half their length
+    in Tallinn (Peetri and Jüri, Maardu, Tabasalu), its railway services (Balti jaam
+    – Vesse, the Bekkeri branch), connecting links under 1 km (among them the airport
+    – Lubja tunnel link, corridor 5C), the loop inside Mustamäe drawn with corridor
+    7A, and corridors the study itself dropped (Paljassaare, Veerenni, Tondi, Mustamäe
+    tee). The Viimsi line is measured for its part inside Tallinn only.'
   rationale: The building register layer used for residents and workplaces covers
     Tallinn only, so a line outside the city could not be measured on the same basis.
 - id: A2
@@ -87,7 +94,9 @@ assumptions:
     street network, with streets the option does not name costing 8 times their length.
     Where the described corridor has no street (the Putukaväil corridor, the planned
     Rahu tee) a named stand-in street or the city's published corridor drawing is
-    used, and the option says so.
+    used, and the option says so. The ten corridors added from the 2019 study, like
+    the Rahu tee line, are taken from the city's published drawing of the study corridors,
+    between named ends of its lines, and are not routed on the street network.
   rationale: The sources describe alignments by street names, not coordinates. Routing
     by name on real geometry avoids hand-drawn lines and can be checked against the
     corridors the city has published.
@@ -126,7 +135,9 @@ assumptions:
 - id: A9
   statement: 'Strategy fit (0-3) is the sum of three scores of 0-1 recorded per option
     with their sources: its place in the mobility plan SUMP 2035, its stage in the
-    2019 feasibility study, and the city government''s position in 2026.'
+    2019 feasibility study, and the city government''s position in 2026. The study
+    stage is read from the city''s drawing of the study corridors, because the report
+    shows the stages on maps only.'
   rationale: Strategies and political decisions are documents, not geodata. A fixed
     rubric applied to every option, with the evidence listed, keeps the judgement
     inspectable.
@@ -135,6 +146,17 @@ assumptions:
     are not part of the score.
   rationale: The estimates come from different years (2019 to 2026), price levels
     and alignments, and are missing for some options.
+- id: A11
+  statement: 'The 2019 study''s own results are quoted per option and are not part
+    of the score: stage, infrastructure cost, and the benefit-cost ratio and net present
+    value of the tram variant in its four scenarios (final report, Tables 45, 61 and
+    62). Tables show the ratio for ''Tallinn++ with free public transport''.'
+  rationale: The study measures something this model does not (travel time, traffic,
+    environmental and health effects from a transport model), for corridors that do
+    not always match an option's extent. Putting its ratio in the score would mix
+    two methods and count 2019 assumptions as current. Tallinn++ is the scenario the
+    study recommends, and its authors advise comparing on the free-public-transport
+    runs.
 warnings:
 - id: SCENARIO-001
   severity: high
@@ -146,6 +168,18 @@ warnings:
     for short lines depend most on these choices.
   mitigation: Use the results to compare corridors, not to judge a design. Replace
     an option with surveyed design geometry in data/overrides when it is published.
+- id: SCENARIO-002
+  severity: medium
+  layer: tram_options
+  issue: study_corridors_as_drawn
+  statement: Ten options are corridors of the 2019 study taken from the city's drawing
+    of them, a schematic line that was not checked against the street network. The
+    Pirita option is the part of the Viimsi line inside Tallinn, so its reach is understated.
+    The 2019 benefit-cost figures shown per option are quoted, refer to the study's
+    corridors (which may be longer than the option or shared by several options) and
+    to 2019 assumptions.
+  mitigation: Read each option's note on the study figures; compare the Pirita option
+    on per-kilometre indicators only.
 - id: METHOD-001
   severity: medium
   layer: option_scores
@@ -206,13 +240,12 @@ findings:
   - option_summary
   - option_scores
   statement: 'With the balanced weighting and a 500 m walk to a stop, the highest-scoring
-    of the 13 options are Lasnamäe – Gonsiori and Laagna tee (67.1 of 100); Mustamäe
-    – Sõpruse pst to Ehitajate tee (59.5 of 100); Sõle – Kristiine to Kopli line (59.0
+    of the 23 options are Lasnamäe – Gonsiori and Laagna tee (67.1 of 100); Mustamäe
+    – Sõpruse pst to Ehitajate tee (62.0 of 100); Sõle – Kristiine to Kopli line (59.0
     of 100). The top option changes with the weighting: Balanced: Lasnamäe – Gonsiori
     and Laagna tee; People first: Lasnamäe – Gonsiori and Laagna tee; Growth and jobs:
     Sõle – Kristiine to Kopli line; Plan-led: Lasnamäe – Narva mnt and the Rahu tee
-    corridor; Value per km: Mustamäe – Sõpruse pst to Ehitajate tee. Options that
-    stay in the top five under all five weightings: Sõle – Kristiine to Kopli line.'
+    corridor; Value per km: Mustamäe – Sõpruse pst to Ehitajate tee.'
   limitations:
   - The score is a declared weighting of seven indicators, not a cost-benefit result;
     ridership, travel time and construction cost are not modelled.
@@ -245,7 +278,7 @@ findings:
     puts 10 254 residents within 500 m, 9 135 of them not near a tram today. The route
     dropped in February 2026 (Puhangu to Stroomi park, 2.11 km) would reach 13 166
     and 12 326. The funded route has the highest strategy fit of all options (2.50
-    of 3) but ranks 11 of 13 on the balanced score.
+    of 3) but ranks 14 of 23 on the balanced score.
   limitations:
   - Beyond Sõle the funded route runs in a corridor with no mapped street; the parallel
     part of Puhangu street stands in for it, up to 100 m away.
@@ -279,18 +312,68 @@ findings:
   evidence:
   - option_summary
   statement: The Järve extension (1.70 km) would bring 677 residents newly within
-    reach, the fewest of all options, and ranks 13 of 13; it serves 326 thousand m²
-    of workplace floor area around Järve keskus.
+    reach, fewer than all but 2 of the other options, and ranks 18 of 23; it serves
+    326 thousand m² of workplace floor area around Järve keskus.
   limitations:
   - Park-and-ride and interchange with the railway, which the 2022 study names as
     the purpose of this line, are not measured.
+  - Lines and stops are modelled from public descriptions, not designed alignments.
+- id: study_2019_appraisal
+  evidence:
+  - option_summary
+  - tram_options
+  statement: 'The 2019 feasibility study gives every corridor compared here a benefit-cost
+    ratio above 1: in its scenario ''Tallinn++, free public transport'' the ratios
+    run from 2.4 to 8.5. Its highest ratios are for Kristiine – Endla, Suur-Ameerika,
+    Liivalaia (8.5, corridor 10A); Haabersti – Paldiski mnt (7.8, corridor 8A); Kristiine
+    – Kaarli pst, Estonia pst, Gonsiori (7.3, corridor 10B). This model''s balanced
+    ranking and the study''s ratios agree in part (rank correlation 0.63 over 23 options).
+    The study rates higher than this model: Ülemiste City – Valukoja (study 11, here
+    22), Pirita – Pirita tee and Merivälja tee (Viimsi line, part in Tallinn) (study
+    10, here 20), Mustamäe to Väike-Õismäe – Akadeemia tee (study 7, here 16). This
+    model rates higher than the study: Lasnamäe – Narva mnt and the Rahu tee corridor
+    (here 4, study 12), Väike-Õismäe and Astangu – Haabersti to Astangu (here 10,
+    study 17), Sõle – Kristiine to Kopli line (here 3, study 9).'
+  limitations:
+  - The study's ratio counts travel-time, traffic, environmental and health effects
+    from a transport model of 2018; this model counts who and what is within a walk
+    of a stop.
+  - The study appraises corridors that are not always the same extent as an option
+    here; several options share one corridor's figures, and some figures cover more
+    than the option (see each option's note).
+  - The figures are from 2019 and assume the study's Tallinn++ policy package; they
+    are quoted, not recomputed.
+- id: study_2019_corridors
+  evidence:
+  - option_summary
+  - option_matrix
+  statement: '10 corridors of the 2019 study inside Tallinn that are not in current
+    debate were measured on the same basis, drawn as the city published them. They
+    rank: 9 City centre – Juhkentali, Odra to Laagna tee (15 721 residents in reach,
+    7 521 new, study stage 2); 10 Väike-Õismäe and Astangu – Haabersti to Astangu
+    (23 205 residents in reach, 23 205 new, study stage 3); 13 Mustamäe – Tammsaare
+    tee, Järvevana tee to Ülemiste (21 070 residents in reach, 21 070 new, study stage
+    4); 16 Mustamäe to Väike-Õismäe – Akadeemia tee (11 537 residents in reach, 11
+    537 new, study stage 3); 17 City centre – Toompuiestee, Tõnismägi to Balti jaam
+    (8 412 residents in reach, 3 423 new, study stage 4); 19 Uuslinn and Sikupilli
+    – Narva mnt to Majaka (6 828 residents in reach, 3 638 new, study stage 2); 20
+    Pirita – Pirita tee and Merivälja tee (Viimsi line, part in Tallinn) (2 500 residents
+    in reach, 2 496 new, study stage 2); 21 Järve to Mustamäe – Tervise (8 625 residents
+    in reach, 8 625 new, study stage 5); 22 Ülemiste City – Valukoja (21 residents
+    in reach, 0 new, study stage 4); 23 Lasnamäe industrial area – Peterburi tee (30
+    residents in reach, 0 new, study stage 5).'
+  limitations:
+  - These lines follow the city's drawing of the study corridors and were not checked
+    against the street network.
+  - The Viimsi line is measured for its part inside Tallinn only, so its reach is
+    understated.
   - Lines and stops are modelled from public descriptions, not designed alignments.
 - id: strategy
   evidence:
   - option_summary
   - tram_options
   statement: Strategy fit and measured reach point in different directions. Pelguranna
-    – Putukaväil to Kolde pst has the highest strategy fit (2.50 of 3) and ranks 11
+    – Putukaväil to Kolde pst has the highest strategy fit (2.50 of 3) and ranks 14
     on the balanced score; the top-ranked option, Lasnamäe – Gonsiori and Laagna tee,
     has a strategy fit of 1.00.
   limitations:
@@ -459,14 +542,37 @@ evidence:
           type: integer
           label: In a 2019 study corridor
           unit: '%'
+        - name: study_2019_corridor
+          type: string
+          label: 2019 study corridor
+        - name: study_2019_stage
+          type: integer
+          label: 2019 study stage (1-5)
+        - name: study_2019_bcr
+          type: number
+          label: 2019 study benefit-cost ratio (Tallinn++, free public transport)
+        - name: study_2019_bcr_low
+          type: number
+          label: 2019 study benefit-cost ratio, lowest scenario
+        - name: study_2019_bcr_high
+          type: number
+          label: 2019 study benefit-cost ratio, highest scenario
+        - name: study_2019_enpv_meur
+          type: number
+          label: 2019 study net present value (Tallinn++, free public transport)
+          unit: million EUR
+        - name: study_2019_cost_meur
+          type: number
+          label: 2019 study infrastructure cost of the corridor
+          unit: million EUR
       downloads:
       - csv
       - xlsx
     files:
     - path: data/derived/option-summary.csv
-      sha256: sha256:245a1c3cb582916f232a2f06a08c539c382708b1a7401f0c6bc9475e0303a5d1
+      sha256: sha256:21d418d3e4a022c6ac50e6bb783f458e83988ff5bfdd3a50c100724641b38ea6
     - path: data/derived/option-summary.xlsx
-      sha256: sha256:cc8a97e10622e7f4eb35eccda4e41093bbbc52b800266b1c9001d5661a307e72
+      sha256: sha256:f0f74028b5c2a08a956e5abd5c4cd7a8bd4c26d8346461a48c759032be085043
   option_scores:
     definition:
       path: data/derived/option-scores.csv
@@ -520,9 +626,9 @@ evidence:
       - xlsx
     files:
     - path: data/derived/option-scores.csv
-      sha256: sha256:92bc1f59e6f0b37566f9b8d18a94d60e42f6b21a7746279efc99decce290c316
+      sha256: sha256:d00ce07a5964253929bedf107eb0c619da93b56f7eed297c53f3084f3b52e8be
     - path: data/derived/option-scores.xlsx
-      sha256: sha256:d24244481156532d62de7af0722a9ecb23786bde41bb71ff22f88e1771f9649a
+      sha256: sha256:003c22b176b6cdacc3da72ac23b0acdb3b282fac8dcc63bb4c08866f1b40a11f
   existing_tram_coverage:
     definition:
       path: data/derived/existing-tram-coverage.csv
@@ -556,7 +662,7 @@ evidence:
     - path: data/derived/existing-tram-coverage.csv
       sha256: sha256:3009770278bd37dd08f464bceb463bcfd74ff0495a76f717d466ca68698656a6
     - path: data/derived/existing-tram-coverage.xlsx
-      sha256: sha256:61c9a8de5944b2ea9b2c8d6942a85cb77d4091ef77623c6aaa2c1bd47cdfef9c
+      sha256: sha256:b8b3b7d62adac20309f91968e9f0b7ad3c88b83da6d803f276e29feb61b987d8
   option_matrix:
     definition:
       path: data/derived/option-matrix.csv
@@ -605,9 +711,9 @@ evidence:
       - xlsx
     files:
     - path: data/derived/option-matrix.csv
-      sha256: sha256:45601144e442bd065cc7723b5397e9d00e6574a79272f097d10f83e0d9908431
+      sha256: sha256:a132f93ebc1e0a4b09a53e96fc396d59cb96159ec16243cf3f5a1d7599875146
     - path: data/derived/option-matrix.xlsx
-      sha256: sha256:1f32a862f0bb9a75a40f0118b16e9931edbc617c03b65d73547a8c4c8587a96c
+      sha256: sha256:b18088621b4e63a69a5dd3d59a350a2783bf500732e704c369bac097e6339837
   tram_options:
     definition:
       path: data/derived/tram-options.geojson
@@ -617,17 +723,17 @@ evidence:
         of the accepted setting.
     files:
     - path: data/derived/tram-options.geojson
-      sha256: sha256:e3dda1f3d5315c1012e880989ea62bdac41a556f6696da2e0bf57969f4896a22
+      sha256: sha256:7222bff4b1b0579e21680447de49e3a4b7ec2b18b61c8b349021bfefd9fcbe99
 ---
 # Findings
 
 Tallinn has been discussing several options for a new tram line, with different routes. Analyse them in depth and provide a dashboard of the options, considering population, services, general strategies and plans.
 
-Scope: 13 tram line options inside Tallinn, measured at a 500 m network walk to modelled stops; population 2024, other data November 2026. Run: `run-20261124-072758`. Validation: **warning**.
+Scope: 23 tram line options inside Tallinn, measured at a 500 m network walk to modelled stops; population 2024, other data November 2026. Run: `run-20261125-181144`. Validation: **warning**.
 
 ## ranking
 
-With the balanced weighting and a 500 m walk to a stop, the highest-scoring of the 13 options are Lasnamäe – Gonsiori and Laagna tee (67.1 of 100); Mustamäe – Sõpruse pst to Ehitajate tee (59.5 of 100); Sõle – Kristiine to Kopli line (59.0 of 100). The top option changes with the weighting: Balanced: Lasnamäe – Gonsiori and Laagna tee; People first: Lasnamäe – Gonsiori and Laagna tee; Growth and jobs: Sõle – Kristiine to Kopli line; Plan-led: Lasnamäe – Narva mnt and the Rahu tee corridor; Value per km: Mustamäe – Sõpruse pst to Ehitajate tee. Options that stay in the top five under all five weightings: Sõle – Kristiine to Kopli line.
+With the balanced weighting and a 500 m walk to a stop, the highest-scoring of the 23 options are Lasnamäe – Gonsiori and Laagna tee (67.1 of 100); Mustamäe – Sõpruse pst to Ehitajate tee (62.0 of 100); Sõle – Kristiine to Kopli line (59.0 of 100). The top option changes with the weighting: Balanced: Lasnamäe – Gonsiori and Laagna tee; People first: Lasnamäe – Gonsiori and Laagna tee; Growth and jobs: Sõle – Kristiine to Kopli line; Plan-led: Lasnamäe – Narva mnt and the Rahu tee corridor; Value per km: Mustamäe – Sõpruse pst to Ehitajate tee.
 
 Evidence:
 
@@ -668,7 +774,7 @@ Limitation: Lines and stops are modelled from public descriptions, not designed 
 
 ## pelguranna
 
-The funded Pelguranna route (Putukaväil to Kolde pst, modelled 1.83 km) puts 10 254 residents within 500 m, 9 135 of them not near a tram today. The route dropped in February 2026 (Puhangu to Stroomi park, 2.11 km) would reach 13 166 and 12 326. The funded route has the highest strategy fit of all options (2.50 of 3) but ranks 11 of 13 on the balanced score.
+The funded Pelguranna route (Putukaväil to Kolde pst, modelled 1.83 km) puts 10 254 residents within 500 m, 9 135 of them not near a tram today. The route dropped in February 2026 (Puhangu to Stroomi park, 2.11 km) would reach 13 166 and 12 326. The funded route has the highest strategy fit of all options (2.50 of 3) but ranks 14 of 23 on the balanced score.
 
 Evidence:
 
@@ -713,7 +819,7 @@ Limitation: Lines and stops are modelled from public descriptions, not designed 
 
 ## jarve
 
-The Järve extension (1.70 km) would bring 677 residents newly within reach, the fewest of all options, and ranks 13 of 13; it serves 326 thousand m² of workplace floor area around Järve keskus.
+The Järve extension (1.70 km) would bring 677 residents newly within reach, fewer than all but 2 of the other options, and ranks 18 of 23; it serves 326 thousand m² of workplace floor area around Järve keskus.
 
 Evidence:
 
@@ -724,9 +830,42 @@ Limitation: Park-and-ride and interchange with the railway, which the 2022 study
 
 Limitation: Lines and stops are modelled from public descriptions, not designed alignments.
 
+## study_2019_appraisal
+
+The 2019 feasibility study gives every corridor compared here a benefit-cost ratio above 1: in its scenario 'Tallinn++, free public transport' the ratios run from 2.4 to 8.5. Its highest ratios are for Kristiine – Endla, Suur-Ameerika, Liivalaia (8.5, corridor 10A); Haabersti – Paldiski mnt (7.8, corridor 8A); Kristiine – Kaarli pst, Estonia pst, Gonsiori (7.3, corridor 10B). This model's balanced ranking and the study's ratios agree in part (rank correlation 0.63 over 23 options). The study rates higher than this model: Ülemiste City – Valukoja (study 11, here 22), Pirita – Pirita tee and Merivälja tee (Viimsi line, part in Tallinn) (study 10, here 20), Mustamäe to Väike-Õismäe – Akadeemia tee (study 7, here 16). This model rates higher than the study: Lasnamäe – Narva mnt and the Rahu tee corridor (here 4, study 12), Väike-Õismäe and Astangu – Haabersti to Astangu (here 10, study 17), Sõle – Kristiine to Kopli line (here 3, study 9).
+
+Evidence:
+
+- [option_summary](data/derived/option-summary.csv)
+- [option_summary (xlsx)](data/derived/option-summary.xlsx)
+- [tram_options](data/derived/tram-options.geojson)
+
+Limitation: The study's ratio counts travel-time, traffic, environmental and health effects from a transport model of 2018; this model counts who and what is within a walk of a stop.
+
+Limitation: The study appraises corridors that are not always the same extent as an option here; several options share one corridor's figures, and some figures cover more than the option (see each option's note).
+
+Limitation: The figures are from 2019 and assume the study's Tallinn++ policy package; they are quoted, not recomputed.
+
+## study_2019_corridors
+
+10 corridors of the 2019 study inside Tallinn that are not in current debate were measured on the same basis, drawn as the city published them. They rank: 9 City centre – Juhkentali, Odra to Laagna tee (15 721 residents in reach, 7 521 new, study stage 2); 10 Väike-Õismäe and Astangu – Haabersti to Astangu (23 205 residents in reach, 23 205 new, study stage 3); 13 Mustamäe – Tammsaare tee, Järvevana tee to Ülemiste (21 070 residents in reach, 21 070 new, study stage 4); 16 Mustamäe to Väike-Õismäe – Akadeemia tee (11 537 residents in reach, 11 537 new, study stage 3); 17 City centre – Toompuiestee, Tõnismägi to Balti jaam (8 412 residents in reach, 3 423 new, study stage 4); 19 Uuslinn and Sikupilli – Narva mnt to Majaka (6 828 residents in reach, 3 638 new, study stage 2); 20 Pirita – Pirita tee and Merivälja tee (Viimsi line, part in Tallinn) (2 500 residents in reach, 2 496 new, study stage 2); 21 Järve to Mustamäe – Tervise (8 625 residents in reach, 8 625 new, study stage 5); 22 Ülemiste City – Valukoja (21 residents in reach, 0 new, study stage 4); 23 Lasnamäe industrial area – Peterburi tee (30 residents in reach, 0 new, study stage 5).
+
+Evidence:
+
+- [option_summary](data/derived/option-summary.csv)
+- [option_summary (xlsx)](data/derived/option-summary.xlsx)
+- [option_matrix](data/derived/option-matrix.csv)
+- [option_matrix (xlsx)](data/derived/option-matrix.xlsx)
+
+Limitation: These lines follow the city's drawing of the study corridors and were not checked against the street network.
+
+Limitation: The Viimsi line is measured for its part inside Tallinn only, so its reach is understated.
+
+Limitation: Lines and stops are modelled from public descriptions, not designed alignments.
+
 ## strategy
 
-Strategy fit and measured reach point in different directions. Pelguranna – Putukaväil to Kolde pst has the highest strategy fit (2.50 of 3) and ranks 11 on the balanced score; the top-ranked option, Lasnamäe – Gonsiori and Laagna tee, has a strategy fit of 1.00.
+Strategy fit and measured reach point in different directions. Pelguranna – Putukaväil to Kolde pst has the highest strategy fit (2.50 of 3) and ranks 14 on the balanced score; the top-ranked option, Lasnamäe – Gonsiori and Laagna tee, has a strategy fit of 1.00.
 
 Evidence:
 
@@ -738,17 +877,19 @@ Limitation: Strategy fit is a rubric applied to documents and news up to 24 Nove
 
 ## Assumptions and limitations
 
-- The options are the 13 alignments in scenarios/tram-options.yaml: the lines and variants discussed in city documents and news between 2019 and November 2026 that lie inside Tallinn. Lines to Viimsi, Peetri/Jüri, Maardu and Tabasalu are left out. The building register layer used for residents and workplaces covers Tallinn only, so a line outside the city could not be measured on the same basis.
+- The options are the 23 alignments in scenarios/tram-options.yaml: the 13 lines and variants discussed in city documents and news between 2019 and November 2026, and 10 further corridors of the 2019 feasibility and cost-benefit study that lie inside Tallinn. Left out: study corridors with less than half their length in Tallinn (Peetri and Jüri, Maardu, Tabasalu), its railway services (Balti jaam – Vesse, the Bekkeri branch), connecting links under 1 km (among them the airport – Lubja tunnel link, corridor 5C), the loop inside Mustamäe drawn with corridor 7A, and corridors the study itself dropped (Paljassaare, Veerenni, Tondi, Mustamäe tee). The Viimsi line is measured for its part inside Tallinn only. The building register layer used for residents and workplaces covers Tallinn only, so a line outside the city could not be measured on the same basis.
 - A place is within reach of a stop when the walk along the path network is at most 500 m (about 6 minutes at 4.8 km/h), including the straight-line gaps between the building or stop and the nearest path. Distances of 300, 400, 600 and 800 m are also computed. 400-500 m is the usual planning catchment of a tram stop; the Tallinn 2035 strategy uses 400 m. The other distances let the reader test the sensitivity.
 - Stops of a proposed line are modelled every 500 m along it, with a stop at each end. A modelled stop within 80 m of an existing tram stop is treated as that stop. Stop locations are published for almost none of the options. 500 m is close to the spacing of the existing network. Modelled stops are not planned stop locations.
-- Each line is the shortest path between its declared waypoints over the street network, with streets the option does not name costing 8 times their length. Where the described corridor has no street (the Putukaväil corridor, the planned Rahu tee) a named stand-in street or the city's published corridor drawing is used, and the option says so. The sources describe alignments by street names, not coordinates. Routing by name on real geometry avoids hand-drawn lines and can be checked against the corridors the city has published.
+- Each line is the shortest path between its declared waypoints over the street network, with streets the option does not name costing 8 times their length. Where the described corridor has no street (the Putukaväil corridor, the planned Rahu tee) a named stand-in street or the city's published corridor drawing is used, and the option says so. The ten corridors added from the 2019 study, like the Rahu tee line, are taken from the city's published drawing of the study corridors, between named ends of its lines, and are not routed on the street network. The sources describe alignments by street names, not coordinates. Routing by name on real geometry avoids hand-drawn lines and can be checked against the corridors the city has published.
 - Residents per building are estimated: the population of each Statistics Estonia 1 km grid cell (2024) is shared among the existing registered dwellings in the cell in proportion to their net floor area. Where Tallinn holds less than half of a boundary cell, only that share of the cell's population is allocated. No open dataset gives residents per building. The grid fixes the totals per square kilometre; registered dwelling floor area is the best open proxy inside a cell.
 - Workplaces and destinations are measured as the net floor area of existing registered non-residential buildings: hospitality, offices, retail and services, transport and communication buildings, industry and warehouses, and public buildings. Garages and outbuildings are not counted. Floor area is a proxy, not a count of jobs. No open dataset gives jobs at building or block level in Tallinn.
 - Development in preparation is measured two ways: the floor area of registered dwellings that are planned or under construction, and the area of detailed plans in process (initiated, adopted for display or applied for) inside the drawn catchment. The growth criterion is the average of the two, each relative to the best option. Neither measure is a forecast of new residents. Planned buildings appear in the layer only once they have a footprint; a plan in process says where development is being prepared, not how much.
 - The score is a weighted sum of seven criteria, each expressed as the option's value divided by the best option's value: residents newly in reach, all residents in reach, workplace floor area, public services, growth, residents in reach per km of new track, and strategy fit. The accepted weighting is 'balanced' (20, 10, 15, 10, 15, 15, 15 %); four other weightings are published. The question asks to consider population, services, strategies and plans together; any single ranking needs weights. The weights are a judgement, so the alternatives are computed by the pipeline and shown next to the accepted one.
-- Strategy fit (0-3) is the sum of three scores of 0-1 recorded per option with their sources: its place in the mobility plan SUMP 2035, its stage in the 2019 feasibility study, and the city government's position in 2026. Strategies and political decisions are documents, not geodata. A fixed rubric applied to every option, with the evidence listed, keeps the judgement inspectable.
+- Strategy fit (0-3) is the sum of three scores of 0-1 recorded per option with their sources: its place in the mobility plan SUMP 2035, its stage in the 2019 feasibility study, and the city government's position in 2026. The study stage is read from the city's drawing of the study corridors, because the report shows the stages on maps only. Strategies and political decisions are documents, not geodata. A fixed rubric applied to every option, with the evidence listed, keeps the judgement inspectable.
 - Published costs and ridership are quoted per option for reference and are not part of the score. The estimates come from different years (2019 to 2026), price levels and alignments, and are missing for some options.
+- The 2019 study's own results are quoted per option and are not part of the score: stage, infrastructure cost, and the benefit-cost ratio and net present value of the tram variant in its four scenarios (final report, Tables 45, 61 and 62). Tables show the ratio for 'Tallinn++ with free public transport'. The study measures something this model does not (travel time, traffic, environmental and health effects from a transport model), for corridors that do not always match an option's extent. Putting its ratio in the score would mix two methods and count 2019 assumptions as current. Tallinn++ is the scenario the study recommends, and its authors advise comparing on the free-public-transport runs.
 - Every proposed line is a modelled reading of public descriptions, routed along the street network. It is not a designed track alignment, and the stops, placed every 500 m, are not planned stops. Results near the ends of a line and for short lines depend most on these choices.
+- Ten options are corridors of the 2019 study taken from the city's drawing of them, a schematic line that was not checked against the street network. The Pirita option is the part of the Viimsi line inside Tallinn, so its reach is understated. The 2019 benefit-cost figures shown per option are quoted, refer to the study's corridors (which may be longer than the option or shared by several options) and to 2019 assumptions.
 - The ranking depends on the weights and on which criteria are included. Longer lines reach more people in total; the per-kilometre criterion only partly offsets that. Ridership, travel time, construction cost and traffic effects are not modelled.
 - Residents per building are estimated from the 2024 1 km population grid and registered dwelling floor area. Totals per grid cell are official; the split inside a cell is a model. Workplace floor area is a proxy for jobs and visitors, not a count.
 - Strategy fit is a rubric applied by the analyst to documents and news up to 24 November 2026. Political positions change; the Liivalaia and Pelguranna decisions both changed within the last year.
