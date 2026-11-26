@@ -3,7 +3,7 @@
   "frame_epsg3301": [
     529000,
     6577000,
-    555000,
+    561000,
     6607000
   ],
   "sources": {
@@ -251,10 +251,10 @@
       "file": "population-grid-1km.gml",
       "url": "https://inspire.geoportaal.ee/geoserver/PD_rahvastikutihedus/wfs",
       "typename": "PD_rahvastikutihedus:PD.StatisticalDistribution_",
-      "bbox": "6577000,529000,6607000,555000,urn:ogc:def:crs:EPSG::3301",
-      "retrieved_at": "2026-11-24T06:32:10+00:00",
-      "matched": 580,
-      "returned": 580,
+      "bbox": "6577000,529000,6607000,561000,urn:ogc:def:crs:EPSG::3301",
+      "retrieved_at": "2026-11-26T12:02:14+00:00",
+      "matched": 711,
+      "returned": 711,
       "page_size": 1000,
       "pages": 1,
       "dataset_last_update": "2025-05-07",
@@ -262,8 +262,8 @@
         "\n      ",
         "1.1.2024 - 31.12.2024"
       ],
-      "size_bytes": 2648275,
-      "sha256": "sha256:8b8c5216acba8341bf9ca39d6e093c5703006452ad7678ca916a1f2e90bdca1c"
+      "size_bytes": 3252220,
+      "sha256": "sha256:d380a380fbf33e60588a53425b6396268d8f10a2becccc0cf7d9f56db949a81d"
     },
     "gtfs": {
       "file": "tallinn-gtfs.zip",
@@ -282,7 +282,7 @@
       "bbox_overlap_4326": [
         24.49,
         59.31,
-        25.0,
+        25.09,
         59.61
       ],
       "columns": [
@@ -297,10 +297,10 @@
         "road_flags",
         "sources"
       ],
-      "retrieved_at": "2026-11-24T06:32:32+00:00",
-      "returned": 73364,
-      "size_bytes": 16431001,
-      "sha256": "sha256:659f502ea084ae4e3761c6074e418e679aa4c64e17d81924af996ad2b3808f44"
+      "retrieved_at": "2026-11-26T12:02:37+00:00",
+      "returned": 76453,
+      "size_bytes": 17139161,
+      "sha256": "sha256:b00b47ec9bc8a8fd72b1811712947a598fde2f6d5338fb7b308cd415d5442c0c"
     },
     "study_corridors_2019": {
       "file": "corridors-feasibility-study-2019.geojson",
@@ -333,6 +333,31 @@
       "service_copyright": null,
       "size_bytes": 90599,
       "sha256": "sha256:c5863146eb2dbdcc60f48e7f9e0f2165f601281ed7cdedc6f1764313ae5a1d07"
+    },
+    "buildings_surroundings": {
+      "file": "surroundings-buildings-etak-ehr.parquet",
+      "url": "https://geoportaal.maaruum.ee/index.php?lang_id=2&plugin_act=otsing&andmetyyp=ETAK&dl=1&f=tuletiskihid-etak_ehr_hooned_gpkg.zip&page_id=618",
+      "layer": "etak_ehr_hooned.gpkg",
+      "retrieved_at": "2026-11-26T12:02:45+00:00",
+      "archive_last_modified": "Mon, 23 Nov 2026 14:47:26 GMT",
+      "archive_etag": "\"27cecf22e614ecb335851956b6a85d22-18\"",
+      "archive_size_bytes": 143494158,
+      "archive_sha256": "sha256:65e98704a2699ebe465c43ca4f1aeae9a7dd297095c2264756d40853c9838ca1",
+      "features_in_national_file": 908064,
+      "bbox_epsg3301": [
+        529000,
+        6577000,
+        561000,
+        6607000
+      ],
+      "in_frame": 91815,
+      "dropped_centroid_in_tallinn": 50492,
+      "matched": 41323,
+      "returned": 41323,
+      "latest_change": "2026-11-19 19:30:31",
+      "out_sr": "EPSG:3301 (as published)",
+      "size_bytes": 4751157,
+      "sha256": "sha256:df32df3f82afe16f1ddeebb66bea9c4add9b721dec69e43f1a2a131330011edb"
     }
   }
 }

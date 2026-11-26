@@ -1,11 +1,11 @@
 {
-  "run_id": "run-20261125-181144",
+  "run_id": "run-20261126-120953",
   "status": "warning",
   "checks": [
     {
       "id": "geometry_valid",
       "status": "passed",
-      "features_checked": 32083,
+      "features_checked": 56801,
       "invalid_or_empty": {
         "tram_options": 0,
         "tram_option_stops": 0,
@@ -17,6 +17,7 @@
         "subdistricts": 0,
         "districts": 0,
         "published_corridors": 0,
+        "study_corridors": 0,
         "existing_tram_lines": 0,
         "existing_tram_stops": 0
       }
@@ -38,6 +39,7 @@
         "plans-in-process.geojson": "EPSG:4326",
         "published-corridors.geojson": "EPSG:4326",
         "services.geojson": "EPSG:4326",
+        "study-2019-corridors.geojson": "EPSG:4326",
         "subdistricts.geojson": "EPSG:4326",
         "tram-option-stops.geojson": "EPSG:4326",
         "tram-options.geojson": "EPSG:4326"
@@ -55,24 +57,27 @@
       "id": "row_count_gt_zero",
       "status": "passed",
       "rows": {
-        "tram_options": 23,
-        "tram_option_stops": 186,
-        "option_catchment_variants": 120,
-        "buildings": 29201,
+        "tram_options": 28,
+        "tram_option_stops": 258,
+        "option_catchment_variants": 145,
+        "buildings": 51046,
         "services": 482,
         "plans_in_process": 329,
-        "pipeline_buildings": 1446,
+        "pipeline_buildings": 4186,
         "subdistricts": 84,
         "districts": 8,
         "published_corridors": 117,
+        "study_corridors": 31,
         "existing_tram_lines": 6,
         "existing_tram_stops": 81,
-        "option_catchments": 23,
+        "option_catchments": 28,
         "existing_tram_catchments": 5,
-        "option_summary": 23,
-        "option_matrix": 115,
-        "option_scores": 575,
-        "existing_tram_coverage": 5
+        "option_summary": 28,
+        "option_matrix": 140,
+        "option_scores": 700,
+        "existing_tram_coverage": 5,
+        "study_corridor_table": 31,
+        "study_stages": 5
       }
     },
     {
@@ -98,7 +103,11 @@
         "Püstitamisel"
       ],
       "building_use_codes_are_5_digit_kaos": true,
-      "buildings_without_register_record_kept_unknown": 16741,
+      "buildings_without_register_record_kept_unknown": 30574,
+      "building_layers_checked": [
+        "tallinn-buildings-etak-ehr.parquet",
+        "surroundings-buildings-etak-ehr.parquet"
+      ],
       "plan_status_values_seen": [
         "algatatud",
         "kehtetu",
@@ -180,8 +189,8 @@
           "returned": 19
         },
         "population_grid": {
-          "matched": 580,
-          "returned": 580
+          "matched": 711,
+          "returned": 711
         },
         "gtfs": {
           "matched": null,
@@ -189,7 +198,7 @@
         },
         "overture_segments": {
           "matched": null,
-          "returned": 73364
+          "returned": 76453
         },
         "study_corridors_2019": {
           "matched": 37,
@@ -198,6 +207,10 @@
         "plan_corridors": {
           "matched": 80,
           "returned": 80
+        },
+        "buildings_surroundings": {
+          "matched": 41323,
+          "returned": 41323
         }
       },
       "incomplete": [],
@@ -316,8 +329,8 @@
         {
           "id": "SCENARIO-lasnamae_laagna",
           "status": "applied",
-          "length_km": 7.04,
-          "declared_street_share": 0.982,
+          "length_km": 8.67,
+          "declared_street_share": 0.989,
           "stand_in_street_share": 0.0,
           "stored_geometry_gap_m": 0.0
         },
@@ -421,7 +434,52 @@
         {
           "id": "SCENARIO-pirita",
           "status": "applied",
-          "length_km": 7.31,
+          "length_km": 9.95,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.01,
+          "follows": "study_corridors_2019"
+        },
+        {
+          "id": "SCENARIO-rae_peetri",
+          "status": "applied",
+          "length_km": 6.33,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.01,
+          "follows": "study_corridors_2019"
+        },
+        {
+          "id": "SCENARIO-rae_juri",
+          "status": "applied",
+          "length_km": 5.53,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.01,
+          "follows": "study_corridors_2019"
+        },
+        {
+          "id": "SCENARIO-tabasalu",
+          "status": "applied",
+          "length_km": 5.3,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.01,
+          "follows": "study_corridors_2019"
+        },
+        {
+          "id": "SCENARIO-tabasalu_ext",
+          "status": "applied",
+          "length_km": 1.05,
+          "declared_street_share": 1.0,
+          "stand_in_street_share": 0.0,
+          "stored_geometry_gap_m": 0.01,
+          "follows": "study_corridors_2019"
+        },
+        {
+          "id": "SCENARIO-maardu",
+          "status": "applied",
+          "length_km": 10.92,
           "declared_street_share": 1.0,
           "stand_in_street_share": 0.0,
           "stored_geometry_gap_m": 0.01,
@@ -432,7 +490,7 @@
     {
       "id": "manifest_graph_resolves",
       "status": "passed",
-      "steps": 14,
+      "steps": 15,
       "problems": []
     },
     {
@@ -442,20 +500,22 @@
         "catchment_m": 500,
         "profile": "balanced"
       },
-      "variants_materialised": 575,
+      "variants_materialised": 700,
       "problems": []
     },
     {
       "id": "population_conserved",
       "status": "warning",
-      "unallocated_cells": 7,
-      "unallocated_population": 2487.0,
-      "reason": "7 populated grid cells touching Tallinn hold no registered dwelling (2487 residents, mostly in neighbouring municipalities); they are not allocated."
+      "unallocated_cells": 3,
+      "unallocated_population": 13.0,
+      "frame_population": 548611.0,
+      "allocated_population": 548598.0,
+      "reason": "3 populated grid cells of the frame hold no dwelling footprint (13 of 548611 residents); they are not allocated."
     },
     {
       "id": "tallinn_population_plausible",
       "status": "passed",
-      "tallinn_population_est": 454042.1,
+      "tallinn_population_est": 456531.1,
       "expected_band": [
         430000,
         480000
@@ -467,20 +527,20 @@
       "status": "passed",
       "subdistricts": 84,
       "correlation": 0.9967,
-      "estimated_over_register": 1.0029,
-      "median_abs_relative_difference": 0.071,
+      "estimated_over_register": 1.0084,
+      "median_abs_relative_difference": 0.077,
       "note": "Independent check: the city's register population per sub-district is not used in the model."
     },
     {
       "id": "network_connected",
       "status": "passed",
-      "segments_in_source": 73364,
-      "road_segments": 72347,
-      "foot_denied_or_motorway_excluded": 7095,
-      "routing_nodes": 628588,
-      "routing_edges": 661228,
-      "network_km": 7176.5,
-      "main_component_length_share": 0.9657
+      "segments_in_source": 76453,
+      "road_segments": 75399,
+      "foot_denied_or_motorway_excluded": 7212,
+      "routing_nodes": 667932,
+      "routing_edges": 701945,
+      "network_km": 7718.9,
+      "main_component_length_share": 0.9681
     },
     {
       "id": "options_follow_declared_streets",
@@ -496,7 +556,7 @@
         "jarve": 0.931,
         "lasnamae_rahu": 1.0,
         "lasnamae_narva": 0.875,
-        "lasnamae_laagna": 0.982,
+        "lasnamae_laagna": 0.989,
         "mustamae": 1.0,
         "haabersti": 1.0,
         "tammsaare": 1.0,
@@ -508,7 +568,12 @@
         "tervise": 1.0,
         "valukoja": 1.0,
         "peterburi": 1.0,
-        "pirita": 1.0
+        "pirita": 1.0,
+        "rae_peetri": 1.0,
+        "rae_juri": 1.0,
+        "tabasalu": 1.0,
+        "tabasalu_ext": 1.0,
+        "maardu": 1.0
       },
       "stand_in_street_share": {
         "pelguranna_d": 0.207
@@ -561,7 +626,7 @@
         },
         "lasnamae_laagna": {
           "study_2019": 0.997,
-          "planning_documents": 0.996
+          "planning_documents": 0.997
         },
         "mustamae": {
           "study_2019": 1.0,
@@ -609,7 +674,27 @@
         },
         "pirita": {
           "study_2019": 1.0,
+          "planning_documents": 0.761
+        },
+        "rae_peetri": {
+          "study_2019": 1.0,
+          "planning_documents": 0.875
+        },
+        "rae_juri": {
+          "study_2019": 1.0,
+          "planning_documents": 0.605
+        },
+        "tabasalu": {
+          "study_2019": 1.0,
           "planning_documents": 1.0
+        },
+        "tabasalu_ext": {
+          "study_2019": 1.0,
+          "planning_documents": 1.0
+        },
+        "maardu": {
+          "study_2019": 1.0,
+          "planning_documents": 0.511
         }
       },
       "below_60_pct": [
@@ -630,13 +715,15 @@
         "jarve": -0.227,
         "lasnamae_rahu": -0.11,
         "lasnamae_narva": 0.05,
-        "lasnamae_laagna": -0.172,
+        "lasnamae_laagna": 0.02,
         "mustamae": -0.004,
         "toompuiestee": -0.032,
         "majaka": -0.108,
         "astangu": -0.034,
         "akadeemia": -0.025,
-        "valukoja": 0.018
+        "valukoja": 0.018,
+        "pirita": -0.061,
+        "maardu": -0.025
       },
       "options_without_published_length": [
         "liivalaia",
@@ -645,7 +732,10 @@
         "liivalaia_laagna",
         "tervise",
         "peterburi",
-        "pirita"
+        "rae_peetri",
+        "rae_juri",
+        "tabasalu",
+        "tabasalu_ext"
       ],
       "beyond_30_pct": []
     },
@@ -675,7 +765,12 @@
         "tervise": 5,
         "valukoja": 4,
         "peterburi": 5,
-        "pirita": 2
+        "pirita": 2,
+        "rae_peetri": 1,
+        "rae_juri": 4,
+        "tabasalu": 3,
+        "tabasalu_ext": 3,
+        "maardu": 5
       },
       "stage_read_from_drawing": {
         "pelguranna_d": 3,
@@ -699,7 +794,12 @@
         "tervise": 5,
         "valukoja": 4,
         "peterburi": 5,
-        "pirita": 2
+        "pirita": 2,
+        "rae_peetri": 1,
+        "rae_juri": 4,
+        "tabasalu": 3,
+        "tabasalu_ext": 3,
+        "maardu": 5
       },
       "stage_not_readable_from_drawing": [
         "lasnamae_narva"
@@ -708,16 +808,67 @@
       "note": "The benefit-cost figures are transcribed from Tables 45, 61 and 62 of the 2019 report; this check covers their presence and the stage, not the transcription."
     },
     {
+      "id": "study_stages_complete",
+      "status": "warning",
+      "lines_in_drawing": 37,
+      "lines_named": 36,
+      "duplicate_lines_dropped": {
+        "37": 28
+      },
+      "corridors": 31,
+      "stage_length_km": {
+        "1": {
+          "report": 23.2,
+          "drawn": 23.9
+        },
+        "2": {
+          "report": 28.1,
+          "drawn": 28.9
+        },
+        "3": {
+          "report": 21.3,
+          "drawn": 21.0
+        },
+        "4": {
+          "report": 23.1,
+          "drawn": 22.9
+        },
+        "5": {
+          "report": 16.1,
+          "drawn": 16.3
+        }
+      },
+      "length_tolerance": 0.06,
+      "problems": [],
+      "not_in_drawing": [
+        {
+          "stage": 1,
+          "code": "5A' alternative",
+          "name": "Tartu mnt direct to the planned Väike ringtee (possible alternative to the route past Peetri school)",
+          "note": "Drawn on the stage 1 map as 'võimalik alternatiivne trammitrass'; the city's drawing holds the modelled route only."
+        }
+      ],
+      "note": "Corridor codes and the study's figures are transcribed from the report; this check covers the join to the drawing, the stage and the stage lengths, not the transcription.",
+      "reason": "Shown on the report's stage maps but absent from the city's drawing, so not on the map: stage 1, 5A' alternative (Tartu mnt direct to the planned Väike ringtee (possible alternative to the route past Peetri school))."
+    },
+    {
       "id": "option_stops_on_network",
-      "status": "passed",
-      "note": "The gap is walked in a straight line and counted in every distance; the largest gaps are on the unbuilt Rahu tee corridor.",
-      "max_gap_m": 69.1,
-      "stops_checked": 186
+      "status": "warning",
+      "note": "The gap is walked in a straight line and counted in every distance.",
+      "max_gap_m": 337.2,
+      "stops_checked": 258,
+      "stops_beyond_150_m": [
+        "rae_peetri stop 9 (186 m)",
+        "rae_juri stop 3 (202 m)",
+        "maardu stop 15 (208 m)",
+        "maardu stop 18 (337 m)"
+      ],
+      "reason": "4 modelled stops lie more than 150 m from any mapped path, where a study corridor is drawn across open land: rae_peetri stop 9 (186 m), rae_juri stop 3 (202 m), maardu stop 15 (208 m), maardu stop 18 (337 m). The gap is counted in their walking distances, so they reach few or no buildings."
     },
     {
       "id": "catchments_monotonic",
       "status": "passed",
-      "rows": 115
+      "rows": 140
     },
     {
       "id": "new_not_more_than_total",
@@ -733,28 +884,28 @@
     {
       "id": "table_totals_consistent",
       "status": "passed",
-      "options": 23,
+      "options": 28,
       "building_level_sums_match": true,
       "summary_matches_matrix": true
     },
     {
       "id": "manifest_report_parity",
       "status": "passed",
-      "declared": 25,
-      "reported": 25,
+      "declared": 26,
+      "reported": 26,
       "missing_or_repeated": [],
       "undeclared": []
     }
   ],
   "headline": {
-    "options": 23,
+    "options": 28,
     "top_option": "lasnamae_laagna",
     "top_title": "Lasnamäe – Gonsiori and Laagna tee",
-    "top_score": 67.1,
+    "top_score": 72.3,
     "catchment_m": 500,
     "profile": "balanced",
-    "tallinn_population_est": 454042
+    "tallinn_population_est": 456531
   },
-  "inputs_hash": "sha256:0a849afb389fa090c05f5fa1ab53713620f8c6de105780b1554b9490a97b54eb",
-  "outputs_hash": "sha256:9fddcd0a5f3e5a5333c6a2d7e832f16d3b552716ccc8d41757099a28181c602b"
+  "inputs_hash": "sha256:67417b4fc0df659d0ec379866dee465a3c3e257d0fc3e51ff93a1893d0086f59",
+  "outputs_hash": "sha256:382fdfa0826021c6fb221aa6fc96a0b8e6a1f7ddd7fc23483775a47b8c8bccb3"
 }

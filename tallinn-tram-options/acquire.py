@@ -13,6 +13,8 @@ Hosts:
   inspire.geoportaal.ee                    Statistics Estonia 1 km population grid (INSPIRE PD WFS)
   transport.tallinn.ee                     Tallinn public transport GTFS
   overturemaps-us-west-2.s3.amazonaws.com  Overture Maps release (anonymous S3)
+  geoportaal.maaruum.ee                    Land and Spatial Development Board: ETAK buildings with Building
+                                           Register attributes, the national file (buildings around Tallinn)
 """
 
 from __future__ import annotations
@@ -41,11 +43,19 @@ OVERTURE_RELEASE = "2026-11-18.0"
 OVERTURE_BUCKET = "overturemaps-us-west-2"
 
 # Study frame. Tallinn's mainland extent is x 531472-552261, y 6579525-6599300
-# (EPSG:3301; Aegna island reaches y 6606023). The frame adds >= 2 km on the
-# landward sides and is aligned to the 1 km population grid, so every grid cell
-# crossing the city boundary is present in full.
-FRAME_3301 = (529000, 6577000, 555000, 6607000)  # xmin, ymin, xmax, ymax (easting, northing)
-FRAME_4326 = (24.49, 59.31, 25.00, 59.61)        # the same frame, padded outward (Overture bbox pushdown)
+# (EPSG:3301; Aegna island reaches y 6606023), and the corridors of the 2019 study
+# reach x 531073 (Tabasalu), x 558367 (Maardu) and y 6580181 (Jüri). The frame adds
+# >= 2 km around both and is aligned to the 1 km population grid, so every grid
+# cell crossing the city boundary or within reach of a corridor is present in full.
+FRAME_3301 = (529000, 6577000, 561000, 6607000)  # xmin, ymin, xmax, ymax (easting, northing)
+FRAME_4326 = (24.49, 59.31, 25.09, 59.61)        # the same frame, padded outward (Overture bbox pushdown)
+
+# Buildings outside Tallinn: the national file the city's own layer is a copy of.
+NATIONAL_BUILDINGS_URL = ("https://geoportaal.maaruum.ee/index.php?lang_id=2&plugin_act=otsing&andmetyyp=ETAK&dl=1"
+                          "&f=tuletiskihid-etak_ehr_hooned_gpkg.zip&page_id=618")
+NATIONAL_BUILDINGS_FIELDS = ["etak_id", "ehr_gid", "kood_tekst", "tyyp_tekst", "seisund", "kaos_kood_peamine",
+                             "kaos_nimetus_peamine", "suletud_netopind", "ehitisalune_pind", "max_korruste_arv",
+                             "korgus_m", "ads_lahiaadress", "taisaadress", "muutmisaeg"]
 
 UA = {"User-Agent": "openmapstack-project-acquire/1.0"}
 
@@ -134,6 +144,54 @@ def population_grid(name: str) -> dict:
             "size_bytes": path.stat().st_size, "sha256": sha256(path)}
 
 
+def national_buildings(name: str) -> dict:
+    """Buildings of the frame that lie outside Tallinn, from the national ETAK + Building Register file.
+
+    The file is one GeoPackage for all of Estonia (EPSG:3301). It is downloaded to a temporary
+    folder, read with the frame as bbox, and the buildings whose centroid lies in a Tallinn city
+    district are dropped: inside the city the pipeline uses the city's own copy of the same layer.
+    Geometry and attribute names are kept as published.
+    """
+    import tempfile
+    import zipfile
+
+    import pyogrio
+    import shapely
+
+    with tempfile.TemporaryDirectory() as folder:
+        archive = Path(folder) / "etak_ehr_hooned_gpkg.zip"
+        with requests.get(NATIONAL_BUILDINGS_URL, headers=UA, timeout=900, stream=True) as response:
+            response.raise_for_status()
+            with archive.open("wb") as handle:
+                for chunk in response.iter_content(1 << 20):
+                    handle.write(chunk)
+            headers = response.headers
+        with zipfile.ZipFile(archive) as zipped:
+            member = next(m for m in zipped.namelist() if m.endswith(".gpkg"))
+            zipped.extract(member, folder)
+        package = Path(folder) / member
+        info = pyogrio.read_info(package)
+        frame = gpd.read_file(package, bbox=FRAME_3301, columns=NATIONAL_BUILDINGS_FIELDS)
+        archive_size, archive_hash = archive.stat().st_size, sha256(archive)
+    assert frame.crs.to_epsg() == 3301, frame.crs
+    districts = gpd.read_file(SOURCE / "tallinn-districts.geojson").to_crs(frame.crs)
+    city = shapely.union_all(shapely.make_valid(districts.geometry.values))
+    shapely.prepare(city)
+    in_city = shapely.within(frame.geometry.centroid.values, city)
+    kept = frame[~in_city].sort_values("etak_id").reset_index(drop=True)
+    assert kept["etak_id"].is_unique
+    path = SOURCE / name
+    kept[NATIONAL_BUILDINGS_FIELDS + ["geometry"]].to_parquet(path, index=False, compression="zstd")
+    return {"file": name, "url": NATIONAL_BUILDINGS_URL, "layer": member, "retrieved_at": now(),
+            "archive_last_modified": headers.get("last-modified"), "archive_etag": headers.get("etag"),
+            "archive_size_bytes": archive_size, "archive_sha256": archive_hash,
+            "features_in_national_file": int(info["features"]), "bbox_epsg3301": list(FRAME_3301),
+            "in_frame": int(len(frame)), "dropped_centroid_in_tallinn": int(in_city.sum()),
+            "matched": int((~in_city).sum()), "returned": int(len(kept)),
+            "latest_change": str(kept["muutmisaeg"].max()), "out_sr": "EPSG:3301 (as published)",
+            "size_bytes": path.stat().st_size, "sha256": sha256(path)}
+
+
 def gtfs(name: str) -> dict:
     response = requests.get(GTFS_URL, headers=UA, timeout=300)
     response.raise_for_status()
@@ -195,6 +253,7 @@ def main() -> None:
     log = {"acquired_at": now(), "frame_epsg3301": list(FRAME_3301), "sources": {}}
     if only:
         log = json.loads((SOURCE / "acquisition.json").read_text())
+        log["frame_epsg3301"] = list(FRAME_3301)   # the frame the re-pulled sources were cut to
 
     s = log["sources"]
 
@@ -203,14 +262,6 @@ def main() -> None:
             s[key] = fn(*args, **kwargs)
 
     _pull(add)
-
-    # 9. Rail corridors as the city has drawn them from its planning documents:
-    #    (a) corridors of the 2019 light-rail feasibility study with their stage (etapp 1-5),
-    #    (b) corridors reserved in comprehensive plans, with the document and its status.
-    add("study_corridors_2019", arcgis, "Kergrööbastranspordi analüüs 2019/FeatureServer/0", "1=1", "FID,etapp",
-        "corridors-feasibility-study-2019.geojson", base=TALLINN_AGOL)
-    add("plan_corridors", arcgis, "Rööbasühistranspordi_võrk/FeatureServer/1096", "1=1",
-        "FID,perspektii,dokument,seisund,liik,olek,alaliik", "corridors-planning-documents.geojson", base=TALLINN_AGOL)
 
     (SOURCE / "acquisition.json").write_text(json.dumps(log, indent=2, ensure_ascii=False) + "\n")
     for key, entry in s.items():
@@ -266,6 +317,10 @@ def _pull(add) -> None:
         "corridors-feasibility-study-2019.geojson", base=TALLINN_AGOL)
     add("plan_corridors", arcgis, "Rööbasühistranspordi_võrk/FeatureServer/1096", "1=1",
         "FID,perspektii,dokument,seisund,liik,olek,alaliik", "corridors-planning-documents.geojson", base=TALLINN_AGOL)
+
+    # 10. Buildings outside Tallinn (Viimsi, Maardu, Jõelähtme, Rae, Harku, Saue ...): the national
+    #     ETAK + Building Register file, cut to the frame. Needs the districts of step 1.
+    add("buildings_surroundings", national_buildings, "surroundings-buildings-etak-ehr.parquet")
 
 
 if __name__ == "__main__":

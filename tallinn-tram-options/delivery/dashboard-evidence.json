@@ -11,8 +11,8 @@
         "assumptions": [
           {
             "id": "A1",
-            "statement": "The options are the 23 alignments in scenarios/tram-options.yaml: the 13 lines and variants discussed in city documents and news between 2019 and November 2026, and 10 further corridors of the 2019 feasibility and cost-benefit study that lie inside Tallinn. Left out: study corridors with less than half their length in Tallinn (Peetri and Jüri, Maardu, Tabasalu), its railway services (Balti jaam – Vesse, the Bekkeri branch), connecting links under 1 km (among them the airport – Lubja tunnel link, corridor 5C), the loop inside Mustamäe drawn with corridor 7A, and corridors the study itself dropped (Paljassaare, Veerenni, Tondi, Mustamäe tee). The Viimsi line is measured for its part inside Tallinn only.",
-            "rationale": "The building register layer used for residents and workplaces covers Tallinn only, so a line outside the city could not be measured on the same basis."
+            "statement": "The options are the 28 alignments in scenarios/tram-options.yaml: the 13 lines and variants discussed in city documents and news between 2019 and November 2026, and 15 further corridors of the 2019 feasibility and cost-benefit study, among them the corridors that leave Tallinn (Peetri and Assaku, Jüri, Tabasalu and its extension, Maardu, and the Viimsi line to Haabneeme). Not compared as options, but shown on the map by stage (A12): the study's railway services (Balti jaam – Vesse, the Bekkeri branch), connecting links under 1 km (the airport – Lubja tunnel link 5C, the Rahu tee – Laagna tee link 3A+) and the loop inside Mustamäe drawn with corridor 7A. Corridors the study itself dropped (Paljassaare, Veerenni, Tondi, Mustamäe tee) are in neither.",
+            "rationale": "The study plans a network for Tallinn and Harju county, and its first stage already leaves the city. Buildings of the municipalities around Tallinn come from the national copy of the same building layer (A13), so a line outside the city is measured on the same basis for residents and workplaces."
           },
           {
             "id": "A2",
@@ -26,12 +26,12 @@
           },
           {
             "id": "A4",
-            "statement": "Each line is the shortest path between its declared waypoints over the street network, with streets the option does not name costing 8 times their length. Where the described corridor has no street (the Putukaväil corridor, the planned Rahu tee) a named stand-in street or the city's published corridor drawing is used, and the option says so. The ten corridors added from the 2019 study, like the Rahu tee line, are taken from the city's published drawing of the study corridors, between named ends of its lines, and are not routed on the street network.",
+            "statement": "Each line is the shortest path between its declared waypoints over the street network, with streets the option does not name costing 8 times their length. Where the described corridor has no street (the Putukaväil corridor, the planned Rahu tee) a named stand-in street or the city's published corridor drawing is used, and the option says so. The fifteen corridors added from the 2019 study, like the Rahu tee line, are taken from the city's published drawing of the study corridors, between named ends of its lines, and are not routed on the street network.",
             "rationale": "The sources describe alignments by street names, not coordinates. Routing by name on real geometry avoids hand-drawn lines and can be checked against the corridors the city has published."
           },
           {
             "id": "A5",
-            "statement": "Residents per building are estimated: the population of each Statistics Estonia 1 km grid cell (2024) is shared among the existing registered dwellings in the cell in proportion to their net floor area. Where Tallinn holds less than half of a boundary cell, only that share of the cell's population is allocated.",
+            "statement": "Residents per building are estimated: the population of each Statistics Estonia 1 km grid cell (2024) is shared among the existing registered dwellings in the cell in proportion to their net floor area. Buildings cover the whole frame, so a cell on the city boundary is shared between the dwellings on both sides of it.",
             "rationale": "No open dataset gives residents per building. The grid fixes the totals per square kilometre; registered dwelling floor area is the best open proxy inside a cell."
           },
           {
@@ -41,7 +41,7 @@
           },
           {
             "id": "A7",
-            "statement": "Development in preparation is measured two ways: the floor area of registered dwellings that are planned or under construction, and the area of detailed plans in process (initiated, adopted for display or applied for) inside the drawn catchment. The growth criterion is the average of the two, each relative to the best option.",
+            "statement": "Development in preparation is measured two ways: the floor area of registered dwellings that are planned or under construction, and the area of detailed plans in process (initiated, adopted for display or applied for) inside the drawn catchment. The growth criterion is the average of the two, each relative to the best option. Planned buildings are measured in and around Tallinn; detailed plans in process are those of the Tallinn planning register only.",
             "rationale": "Neither measure is a forecast of new residents. Planned buildings appear in the layer only once they have a footprint; a plan in process says where development is being prepared, not how much."
           },
           {
@@ -63,6 +63,16 @@
             "id": "A11",
             "statement": "The 2019 study's own results are quoted per option and are not part of the score: stage, infrastructure cost, and the benefit-cost ratio and net present value of the tram variant in its four scenarios (final report, Tables 45, 61 and 62). Tables show the ratio for 'Tallinn++ with free public transport'.",
             "rationale": "The study measures something this model does not (travel time, traffic, environmental and health effects from a transport model), for corridors that do not always match an option's extent. Putting its ratio in the score would mix two methods and count 2019 assumptions as current. Tallinn++ is the scenario the study recommends, and its authors advise comparing on the free-public-transport runs."
+          },
+          {
+            "id": "A12",
+            "statement": "The five development stages of the 2019 study (report chapter 1.6) are shown in full: every line of the city's drawing of the study corridors, in and outside Tallinn, grouped by stage and named with the corridor code printed on the report's maps (scenarios/study-2019-stages.yaml). A study corridor counts as compared when at least half of it lies within 75 m of an option. The stage layer itself takes no part in the score; the options that stand for its corridors do.",
+            "rationale": "The study plans a network for Tallinn and Harju county, and its first stage already leaves the city (Peetri and Assaku). Showing only the options would hide the stage each belongs to and the corridors that are not compared."
+          },
+          {
+            "id": "A13",
+            "statement": "Outside Tallinn, residents, workplaces and planned buildings are measured from the national layer of ETAK building footprints with Building Register attributes, of which the city's layer is a copy; inside the city the city's copy is used and a building is never counted from both. Public services and detailed plans in process are the city's own layers and are counted in Tallinn only. The existing tram network is compared with Tallinn's population. The frame reaches at least 2 km beyond every study corridor.",
+            "rationale": "The two building layers have the same origin and fields and agree on status and use for over 99.8 % of the buildings in Tallinn, so the residents and workplace criteria are comparable across the boundary. No open layer of services or plans in process covers the neighbouring municipalities on the city's definitions; counting them in Tallinn only understates a line outside the city on two criteria, which is reported per option rather than hidden."
           }
         ]
       },
@@ -261,7 +271,91 @@
               "muutmisaeg"
             ]
           },
-          "rationale": "Registered status, main use and net floor area per building: the only open source that separates dwellings from workplaces and existing from planned buildings. Preferred over OpenStreetMap or Overture footprints, which carry no use class for most Tallinn buildings."
+          "rationale": "Registered status, main use and net floor area per building: the only open source that separates dwellings from workplaces and existing from planned buildings. Preferred over OpenStreetMap or Overture footprints, which carry no use class for most Tallinn buildings. Used for buildings inside Tallinn."
+        },
+        "buildings_surroundings": {
+          "role": "authoritative_input",
+          "provider": "Land and Spatial Development Board (Maa- ja Ruumiamet)",
+          "dataset": "ETAK buildings with Building Register (EHR) attributes – national derived layer etak_ehr_hooned; the buildings of the frame outside Tallinn",
+          "source_url": "https://geoportaal.maaruum.ee/index.php?lang_id=2&plugin_act=otsing&andmetyyp=ETAK&dl=1&f=tuletiskihid-etak_ehr_hooned_gpkg.zip&page_id=618",
+          "access": {
+            "method": "https",
+            "retrieved_at": "2026-11-26T12:02:45+00:00",
+            "downloaded_at": "2026-11-26T12:02:45+00:00",
+            "file": {
+              "name": "surroundings-buildings-etak-ehr.parquet",
+              "format": "GeoParquet (EPSG:3301, as published)",
+              "size_bytes": 4751157,
+              "row_count": 41323,
+              "column_count": 15
+            },
+            "request_spec": "HTTP GET of the national GeoPackage archive (143494158 bytes, sha256:65e98704a2699ebe465c43ca4f1aeae9a7dd297095c2264756d40853c9838ca1, 908064 buildings), read with the frame [529000, 6577000, 561000, 6607000] (EPSG:3301) as bbox; buildings whose centroid lies in a Tallinn city district are dropped. See acquire.py."
+          },
+          "version": {
+            "identifier": "etak_ehr_hooned_gpkg.zip, Last-Modified Mon, 23 Nov 2026 14:47:26 GMT; latest change 2026-11-19 19:30:31",
+            "published_at": "2026-11-23"
+          },
+          "pin": {
+            "class": "local_snapshot",
+            "path": "data/source/surroundings-buildings-etak-ehr.parquet",
+            "sha256": "sha256:df32df3f82afe16f1ddeebb66bea9c4add9b721dec69e43f1a2a131330011edb",
+            "captured_at": "2026-11-26T12:02:45+00:00"
+          },
+          "selection": {
+            "filter": "bbox of the study frame, building centroid outside the Tallinn city districts",
+            "semantic_predicates": [
+              {
+                "field": "seisund",
+                "domain_value": "as ehr_seisund of the city layer: Olemas = existing; Kavandatav = planned; Püstitamisel = under construction; empty = no register record (kept unknown)"
+              },
+              {
+                "field": "kaos_kood_peamine",
+                "domain_value": "KAOS main-use code, as kaos_peamine_kood of the city layer"
+              },
+              {
+                "field": "suletud_netopind",
+                "domain_value": "closed net floor area, m2"
+              },
+              {
+                "field": "taisaadress",
+                "domain_value": "full address 'county, municipality, settlement, ...'; its second part names the municipality"
+              }
+            ],
+            "completeness": {
+              "matched": 41323,
+              "returned": 41323,
+              "dropped_centroid_in_tallinn": 50492,
+              "note": "in_frame = buildings of the national file in the frame; matched = those with their centroid outside Tallinn, all of them returned",
+              "in_frame": 91815
+            }
+          },
+          "license": {
+            "name": "Maa- ja Ruumiamet open spatial data licence (attribution required)",
+            "url": "https://geoportaal.maaruum.ee/opendata-licence"
+          },
+          "schema": {
+            "crs": "EPSG:3301",
+            "key": "etak_id",
+            "columns": [
+              "etak_id",
+              "ehr_gid",
+              "kood_tekst",
+              "tyyp_tekst",
+              "seisund",
+              "kaos_kood_peamine",
+              "kaos_nimetus_peamine",
+              "suletud_netopind",
+              "ehitisalune_pind",
+              "max_korruste_arv",
+              "korgus_m",
+              "ads_lahiaadress",
+              "taisaadress",
+              "muutmisaeg",
+              "geometry"
+            ]
+          },
+          "rationale": "The national file the city's building layer is a copy of: the same footprints, status, main use and net floor area for Viimsi, Maardu, Jõelähtme, Rae, Harku, Saue and the other municipalities in the frame, so lines that leave Tallinn are measured on the same basis.",
+          "portal_page": "https://geoportaal.maaamet.ee/eng/spatial-data/estonian-topographic-database/download-topographic-data-p618.html"
         },
         "detailed_plans": {
           "role": "authoritative_input",
@@ -922,31 +1016,31 @@
           "source_url": "https://inspire.geoportaal.ee/geoserver/PD_rahvastikutihedus/wfs",
           "access": {
             "method": "WFS",
-            "retrieved_at": "2026-11-24T06:32:10+00:00",
-            "downloaded_at": "2026-11-24T06:32:10+00:00",
+            "retrieved_at": "2026-11-26T12:02:14+00:00",
+            "downloaded_at": "2026-11-26T12:02:14+00:00",
             "file": {
               "name": "population-grid-1km.gml",
               "format": "GML 3.2 (EPSG:3301, axis order northing-easting)",
-              "size_bytes": 2648275,
-              "row_count": 580
+              "size_bytes": 3252220,
+              "row_count": 711
             },
-            "request_spec": "WFS 2.0.0 GetFeature PD_rahvastikutihedus:PD.StatisticalDistribution_, bbox 6577000,529000,6607000,555000,urn:ogc:def:crs:EPSG::3301, sortBy gml_id, paged with startIndex until returned equals numberMatched. See acquire.py."
+            "request_spec": "WFS 2.0.0 GetFeature PD_rahvastikutihedus:PD.StatisticalDistribution_, bbox 6577000,529000,6607000,561000,urn:ogc:def:crs:EPSG::3301, sortBy gml_id, paged with startIndex until returned equals numberMatched. See acquire.py."
           },
           "version": {
-            "identifier": "PD.StatisticalDistribution_ (EPSG:3301 edition), dataset last update 2025-05-07, reference period \n      ",
+            "identifier": "PD.StatisticalDistribution_ (EPSG:3301 edition), dataset last update 2025-05-07, reference period 2024",
             "published_at": "2025-05-07"
           },
           "pin": {
             "class": "local_snapshot",
             "path": "data/source/population-grid-1km.gml",
-            "sha256": "sha256:8b8c5216acba8341bf9ca39d6e093c5703006452ad7678ca916a1f2e90bdca1c",
-            "captured_at": "2026-11-24T06:32:10+00:00"
+            "sha256": "sha256:d380a380fbf33e60588a53425b6396268d8f10a2becccc0cf7d9f56db949a81d",
+            "captured_at": "2026-11-26T12:02:14+00:00"
           },
           "selection": {
-            "filter": "bbox of the study frame 529000-555000 E, 6577000-6607000 N (EPSG:3301)",
+            "filter": "bbox of the study frame 529000-561000 E, 6577000-6607000 N (EPSG:3301)",
             "completeness": {
-              "matched": 580,
-              "returned": 580,
+              "matched": 711,
+              "returned": 711,
               "page_size": 1000,
               "pages": 1
             }
@@ -1016,16 +1110,16 @@
           "source_url": "s3://overturemaps-us-west-2/release/2026-11-18.0/theme=transportation/type=segment/",
           "access": {
             "method": "s3",
-            "retrieved_at": "2026-11-24T06:32:32+00:00",
-            "downloaded_at": "2026-11-24T06:32:32+00:00",
+            "retrieved_at": "2026-11-26T12:02:37+00:00",
+            "downloaded_at": "2026-11-26T12:02:37+00:00",
             "file": {
               "name": "overture-segments.parquet",
               "format": "Parquet (WKB geometry, EPSG:4326)",
-              "size_bytes": 16431001,
-              "row_count": 73364,
+              "size_bytes": 17139161,
+              "row_count": 76453,
               "column_count": 10
             },
-            "request_spec": "Anonymous S3 read of release 2026-11-18.0, bbox overlap [24.49, 59.31, 25.0, 59.61] (lon/lat), columns ['id', 'geometry', 'subtype', 'class', 'subclass', 'names', 'connectors', 'access_restrictions', 'road_flags', 'sources'], sorted by id. See acquire.py."
+            "request_spec": "Anonymous S3 read of release 2026-11-18.0, bbox overlap [24.49, 59.31, 25.09, 59.61] (lon/lat), columns ['id', 'geometry', 'subtype', 'class', 'subclass', 'names', 'connectors', 'access_restrictions', 'road_flags', 'sources'], sorted by id. See acquire.py."
           },
           "version": {
             "identifier": "Overture release 2026-11-18.0",
@@ -1034,8 +1128,8 @@
           "pin": {
             "class": "local_snapshot",
             "path": "data/source/overture-segments.parquet",
-            "sha256": "sha256:659f502ea084ae4e3761c6074e418e679aa4c64e17d81924af996ad2b3808f44",
-            "captured_at": "2026-11-24T06:32:32+00:00"
+            "sha256": "sha256:b00b47ec9bc8a8fd72b1811712947a598fde2f6d5338fb7b308cd415d5442c0c",
+            "captured_at": "2026-11-26T12:02:37+00:00"
           },
           "selection": {
             "filter": "bbox overlap with the study frame; the pipeline keeps subtype = road",
@@ -1936,7 +2030,7 @@
           "layer": "tram_options",
           "properties": {
             "option": "pirita",
-            "name": "Pirita – Pirita tee and Merivälja tee (Viimsi line, part in Tallinn)",
+            "name": "Pirita and Viimsi – Pirita tee, Merivälja tee to Haabneeme",
             "status": "hypothetical"
           },
           "definition_file": {
@@ -1961,6 +2055,156 @@
             }
           ],
           "created_at": "2026-11-25T20:00:00+02:00",
+          "created_by": "agent"
+        },
+        {
+          "id": "SCENARIO-rae_peetri",
+          "action": "add_scenario",
+          "layer": "tram_options",
+          "properties": {
+            "option": "rae_peetri",
+            "name": "Rae – airport to Peetri and Assaku",
+            "status": "hypothetical"
+          },
+          "definition_file": {
+            "path": "scenarios/tram-options.yaml",
+            "entry": "rae_peetri"
+          },
+          "geometry_file": {
+            "path": "data/overrides/options/rae_peetri.geojson"
+          },
+          "geometry_origin": "scenario",
+          "rationale": "Hypothetical tram line compared in this analysis: a corridor of the 2019 feasibility study. Its geometry is not typed by hand: build_scenarios.py takes it from the city's published drawing of the study corridors between the line ends named in the definition file, and the pipeline re-derives it on every run and rejects the option if the stored geometry disagrees.",
+          "evidence": [
+            {
+              "type": "document",
+              "value": "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf",
+              "title": "2019 feasibility study, Rae suund: trass 5A; chapter 1.6; Tables 45, 61, 62"
+            },
+            {
+              "type": "document",
+              "value": "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20jatkusuutliku%20linnaliikuvuse%20kava%202035.pdf",
+              "title": "SUMP 2035, prospective corridors"
+            }
+          ],
+          "created_at": "2026-11-26T14:00:00+02:00",
+          "created_by": "agent"
+        },
+        {
+          "id": "SCENARIO-rae_juri",
+          "action": "add_scenario",
+          "layer": "tram_options",
+          "properties": {
+            "option": "rae_juri",
+            "name": "Rae – Assaku to Jüri",
+            "status": "hypothetical"
+          },
+          "definition_file": {
+            "path": "scenarios/tram-options.yaml",
+            "entry": "rae_juri"
+          },
+          "geometry_file": {
+            "path": "data/overrides/options/rae_juri.geojson"
+          },
+          "geometry_origin": "scenario",
+          "rationale": "Hypothetical tram line compared in this analysis: a corridor of the 2019 feasibility study. Its geometry is not typed by hand: build_scenarios.py takes it from the city's published drawing of the study corridors between the line ends named in the definition file, and the pipeline re-derives it on every run and rejects the option if the stored geometry disagrees.",
+          "evidence": [
+            {
+              "type": "document",
+              "value": "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf",
+              "title": "2019 feasibility study, Rae suund: trass 5A; chapter 1.6; Tables 45, 61, 62"
+            }
+          ],
+          "created_at": "2026-11-26T14:00:00+02:00",
+          "created_by": "agent"
+        },
+        {
+          "id": "SCENARIO-tabasalu",
+          "action": "add_scenario",
+          "layer": "tram_options",
+          "properties": {
+            "option": "tabasalu",
+            "name": "Tabasalu – Haabersti junction to Tabasalu",
+            "status": "hypothetical"
+          },
+          "definition_file": {
+            "path": "scenarios/tram-options.yaml",
+            "entry": "tabasalu"
+          },
+          "geometry_file": {
+            "path": "data/overrides/options/tabasalu.geojson"
+          },
+          "geometry_origin": "scenario",
+          "rationale": "Hypothetical tram line compared in this analysis: a corridor of the 2019 feasibility study. Its geometry is not typed by hand: build_scenarios.py takes it from the city's published drawing of the study corridors between the line ends named in the definition file, and the pipeline re-derives it on every run and rejects the option if the stored geometry disagrees.",
+          "evidence": [
+            {
+              "type": "document",
+              "value": "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf",
+              "title": "2019 feasibility study, Harku suund: trass 8A; Tables 45, 61, 62"
+            },
+            {
+              "type": "document",
+              "value": "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20jatkusuutliku%20linnaliikuvuse%20kava%202035.pdf",
+              "title": "SUMP 2035, action 5.2.2"
+            }
+          ],
+          "created_at": "2026-11-26T14:00:00+02:00",
+          "created_by": "agent"
+        },
+        {
+          "id": "SCENARIO-tabasalu_ext",
+          "action": "add_scenario",
+          "layer": "tram_options",
+          "properties": {
+            "option": "tabasalu_ext",
+            "name": "Tabasalu – extension within Tabasalu",
+            "status": "hypothetical"
+          },
+          "definition_file": {
+            "path": "scenarios/tram-options.yaml",
+            "entry": "tabasalu_ext"
+          },
+          "geometry_file": {
+            "path": "data/overrides/options/tabasalu_ext.geojson"
+          },
+          "geometry_origin": "scenario",
+          "rationale": "Hypothetical tram line compared in this analysis: a corridor of the 2019 feasibility study. Its geometry is not typed by hand: build_scenarios.py takes it from the city's published drawing of the study corridors between the line ends named in the definition file, and the pipeline re-derives it on every run and rejects the option if the stored geometry disagrees.",
+          "evidence": [
+            {
+              "type": "document",
+              "value": "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf",
+              "title": "2019 feasibility study, Harku suund: trass 8A+; Tables 45, 61, 62"
+            }
+          ],
+          "created_at": "2026-11-26T14:00:00+02:00",
+          "created_by": "agent"
+        },
+        {
+          "id": "SCENARIO-maardu",
+          "action": "add_scenario",
+          "layer": "tram_options",
+          "properties": {
+            "option": "maardu",
+            "name": "Maardu – from the end of Laagna tee to Kallavere",
+            "status": "hypothetical"
+          },
+          "definition_file": {
+            "path": "scenarios/tram-options.yaml",
+            "entry": "maardu"
+          },
+          "geometry_file": {
+            "path": "data/overrides/options/maardu.geojson"
+          },
+          "geometry_origin": "scenario",
+          "rationale": "Hypothetical tram line compared in this analysis: a corridor of the 2019 feasibility study. Its geometry is not typed by hand: build_scenarios.py takes it from the city's published drawing of the study corridors between the line ends named in the definition file, and the pipeline re-derives it on every run and rejects the option if the stored geometry disagrees.",
+          "evidence": [
+            {
+              "type": "document",
+              "value": "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf",
+              "title": "2019 feasibility study, Maardu suund: trass 3B; Tables 45, 61, 62"
+            }
+          ],
+          "created_at": "2026-11-26T14:00:00+02:00",
           "created_by": "agent"
         }
       ],
@@ -2077,7 +2321,10 @@
               }
             }
           },
-          "canonical_profile": "balanced"
+          "canonical_profile": "balanced",
+          "study_stage_length_tolerance": 0.06,
+          "study_option_min_share": 0.5,
+          "study_part_duplicate_m": 5
         },
         "steps": [
           {
@@ -2103,13 +2350,15 @@
             "operation": "filter",
             "inputs": [
               "buildings",
+              "buildings_surroundings",
               "grid_cells",
               "admin_areas"
             ],
             "crs": "EPSG:3301",
             "expression": "existing = ehr_seisund 'Olemas'; dwelling = kaos 111/112/113; workplace = kaos 121,122,123,1241,125,126; pipeline = ehr_seisund in (Kavandatav, Püstitamisel); floor area >= 20 m2",
             "reference_geometry": "building centroid",
-            "output": "buildings_classified"
+            "output": "buildings_classified",
+            "note": "the city layer inside Tallinn, the national layer outside it (field names mapped to the city layer's); a footprint (etak_id) present in both is taken from the city layer"
           },
           {
             "id": "allocate_population",
@@ -2173,7 +2422,12 @@
               "SCENARIO-tervise",
               "SCENARIO-valukoja",
               "SCENARIO-peterburi",
-              "SCENARIO-pirita"
+              "SCENARIO-pirita",
+              "SCENARIO-rae_peetri",
+              "SCENARIO-rae_juri",
+              "SCENARIO-tabasalu",
+              "SCENARIO-tabasalu_ext",
+              "SCENARIO-maardu"
             ],
             "crs": "EPSG:3301",
             "verify": "every waypoint must resolve in the immutable sources and at least 70 % of the routed line must follow the declared streets, else the option is rejected",
@@ -2193,6 +2447,21 @@
             "buffer_m": 75,
             "expression": "share of each routed line within 75 m of a published corridor",
             "output": "options_checked"
+          },
+          {
+            "id": "stage_study_corridors",
+            "operation": "spatial_overlay",
+            "inputs": [
+              "study_corridors_2019",
+              "options_checked",
+              "admin_areas"
+            ],
+            "crs": "EPSG:3301",
+            "buffer_m": 75,
+            "definition_file": "scenarios/study-2019-stages.yaml",
+            "expression": "one feature per corridor of the 2019 study, from the lines of the city's drawing named for it; stage, share of length inside Tallinn, and the options within 75 m of at least half of it",
+            "verify": "every line of the drawing is named exactly once, in the stage the drawing gives it; the drawn length of each stage is within 6 % of the report's total",
+            "output": "study_corridors_staged"
           },
           {
             "id": "walk_distances",
@@ -2247,7 +2516,8 @@
             "crs": "EPSG:3301",
             "distance_basis": "building centroid or service point to nearest routing node (straight line) plus network distance to the nearest stop",
             "max_distance_m": 500,
-            "output": "measured_features"
+            "output": "measured_features",
+            "note": "buildings in and around Tallinn; services and detailed plans in Tallinn only (the city's layers)"
           },
           {
             "id": "summarise",
@@ -2324,6 +2594,24 @@
               "xlsx"
             ],
             "default_sort": "catchment_m"
+          },
+          {
+            "output": "study_stages",
+            "title": "2019 study: the five stages",
+            "downloads": [
+              "csv",
+              "xlsx"
+            ],
+            "default_sort": "stage"
+          },
+          {
+            "output": "study_corridor_table",
+            "title": "2019 study: corridors by stage",
+            "downloads": [
+              "csv",
+              "xlsx"
+            ],
+            "default_sort": "stage"
           }
         ],
         "controls": {
@@ -2416,6 +2704,11 @@
               "default_open": true
             },
             {
+              "id": "study",
+              "title": "2019 study corridors, by stage",
+              "default_open": true
+            },
+            {
               "id": "existing",
               "title": "Existing tram network",
               "default_open": true
@@ -2437,7 +2730,7 @@
             },
             {
               "id": "plans",
-              "title": "Published corridors and districts",
+              "title": "Corridors in planning documents; districts",
               "default_open": false
             }
           ],
@@ -2458,9 +2751,37 @@
               "semantic_role": "planned",
               "geometry": "line",
               "default_visible": false,
-              "note": "The city's drawings of study and plan corridors; a check on the routed options, not an input to the indicators.",
+              "note": "The city's drawing of rail corridors in comprehensive and county plans; a check on the routed options, not an input to the indicators.",
               "style": {
                 "visual_priority": "muted"
+              }
+            },
+            {
+              "source": "study_corridors",
+              "group": "study",
+              "semantic_role": "planned",
+              "geometry": "line",
+              "default_visible": true,
+              "sublayers": {
+                "field": "stage",
+                "values": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ],
+                "default_visible": [
+                  1,
+                  2,
+                  3,
+                  4,
+                  5
+                ]
+              },
+              "note": "All corridors of the 2019 study as the city drew them, in and outside Tallinn, one sublayer per stage. Context: not measured and not part of the score.",
+              "style": {
+                "visual_priority": "secondary"
               }
             },
             {
@@ -2648,6 +2969,223 @@
           "path": "data/derived/published-corridors.geojson",
           "format": "GeoJSON (EPSG:4326)",
           "generated_by": "check_against_published_corridors"
+        },
+        "study_corridors": {
+          "path": "data/derived/study-2019-corridors.geojson",
+          "format": "GeoJSON (EPSG:4326)",
+          "generated_by": "stage_study_corridors"
+        },
+        "study_corridor_table": {
+          "path": "data/derived/study-2019-corridors.csv",
+          "format": "CSV",
+          "kind": "table",
+          "generated_by": "stage_study_corridors",
+          "table": {
+            "key": [
+              "corridor"
+            ],
+            "columns": [
+              {
+                "name": "stage",
+                "type": "integer",
+                "label": "Stage"
+              },
+              {
+                "name": "corridor",
+                "type": "string",
+                "label": "Corridor"
+              },
+              {
+                "name": "name",
+                "type": "string",
+                "label": "Route"
+              },
+              {
+                "name": "mode",
+                "type": "string",
+                "label": "Mode"
+              },
+              {
+                "name": "length_km",
+                "type": "number",
+                "label": "Length as drawn",
+                "unit": "km"
+              },
+              {
+                "name": "tallinn_share",
+                "type": "number",
+                "label": "Share inside Tallinn",
+                "unit": "0-1"
+              },
+              {
+                "name": "compared",
+                "type": "string",
+                "label": "Compared as option"
+              },
+              {
+                "name": "options",
+                "type": "string",
+                "label": "Options that stand for it"
+              },
+              {
+                "name": "option_share",
+                "type": "number",
+                "label": "Share within 75 m of the option",
+                "unit": "0-1"
+              },
+              {
+                "name": "not_compared_reason",
+                "type": "string",
+                "label": "Why not compared"
+              },
+              {
+                "name": "study_table_row",
+                "type": "string",
+                "label": "Row in the study tables"
+              },
+              {
+                "name": "study_cost_meur",
+                "type": "number",
+                "label": "Study cost",
+                "unit": "M EUR (2019)"
+              },
+              {
+                "name": "study_bcr",
+                "type": "number",
+                "label": "Study benefit-cost ratio",
+                "unit": "Tallinn++, free PT"
+              },
+              {
+                "name": "study_bcr_low",
+                "type": "number",
+                "label": "Study BCR, lowest scenario"
+              },
+              {
+                "name": "study_bcr_high",
+                "type": "number",
+                "label": "Study BCR, highest scenario"
+              },
+              {
+                "name": "study_enpv_meur",
+                "type": "number",
+                "label": "Study net present value",
+                "unit": "M EUR"
+              },
+              {
+                "name": "note",
+                "type": "string",
+                "label": "Note"
+              },
+              {
+                "name": "source_fids",
+                "type": "string",
+                "label": "Lines of the city drawing (FID)"
+              }
+            ]
+          },
+          "downloads": [
+            "csv",
+            "xlsx"
+          ]
+        },
+        "study_stages": {
+          "path": "data/derived/study-2019-stages.csv",
+          "format": "CSV",
+          "kind": "table",
+          "generated_by": "stage_study_corridors",
+          "table": {
+            "key": [
+              "stage"
+            ],
+            "columns": [
+              {
+                "name": "stage",
+                "type": "integer",
+                "label": "Stage"
+              },
+              {
+                "name": "title",
+                "type": "string",
+                "label": "Name"
+              },
+              {
+                "name": "corridors",
+                "type": "integer",
+                "label": "Corridors"
+              },
+              {
+                "name": "corridor_codes",
+                "type": "string",
+                "label": "Corridor codes"
+              },
+              {
+                "name": "length_report_km",
+                "type": "number",
+                "label": "Length in the report",
+                "unit": "km"
+              },
+              {
+                "name": "length_drawn_km",
+                "type": "number",
+                "label": "Length as drawn",
+                "unit": "km"
+              },
+              {
+                "name": "length_difference_pct",
+                "type": "number",
+                "label": "Drawn vs report",
+                "unit": "%"
+              },
+              {
+                "name": "length_in_tallinn_km",
+                "type": "number",
+                "label": "Of it inside Tallinn",
+                "unit": "km"
+              },
+              {
+                "name": "corridors_compared",
+                "type": "integer",
+                "label": "Corridors compared as options"
+              },
+              {
+                "name": "study_bcr_tram",
+                "type": "number",
+                "label": "Study BCR, tram",
+                "unit": "Tallinn++, free PT"
+              },
+              {
+                "name": "study_bcr_tram_low",
+                "type": "number",
+                "label": "Study BCR tram, lowest scenario"
+              },
+              {
+                "name": "study_bcr_tram_high",
+                "type": "number",
+                "label": "Study BCR tram, highest scenario"
+              },
+              {
+                "name": "study_bcr_brt",
+                "type": "number",
+                "label": "Study BCR, bus rapid transit",
+                "unit": "Tallinn++, free PT"
+              },
+              {
+                "name": "study_enpv_meur",
+                "type": "number",
+                "label": "Study net present value, tram",
+                "unit": "M EUR"
+              },
+              {
+                "name": "summary",
+                "type": "string",
+                "label": "What the stage builds"
+              }
+            ]
+          },
+          "downloads": [
+            "csv",
+            "xlsx"
+          ]
         },
         "option_summary": {
           "path": "data/derived/option-summary.csv",
@@ -2851,6 +3389,17 @@
                 "type": "integer",
                 "label": "In a 2019 study corridor",
                 "unit": "%"
+              },
+              {
+                "name": "length_in_tallinn_pct",
+                "type": "integer",
+                "label": "Line inside Tallinn",
+                "unit": "%"
+              },
+              {
+                "name": "residents_outside_tallinn",
+                "type": "integer",
+                "label": "Residents in reach outside Tallinn"
               },
               {
                 "name": "study_2019_corridor",
@@ -3072,6 +3621,17 @@
                 "type": "integer",
                 "label": "In a 2019 study corridor",
                 "unit": "%"
+              },
+              {
+                "name": "length_in_tallinn_pct",
+                "type": "integer",
+                "label": "Line inside Tallinn",
+                "unit": "%"
+              },
+              {
+                "name": "residents_outside_tallinn",
+                "type": "integer",
+                "label": "Residents in reach outside Tallinn"
               }
             ]
           },
@@ -3227,8 +3787,8 @@
           "severity": "medium",
           "layer": "tram_options",
           "issue": "study_corridors_as_drawn",
-          "statement": "Ten options are corridors of the 2019 study taken from the city's drawing of them, a schematic line that was not checked against the street network. The Pirita option is the part of the Viimsi line inside Tallinn, so its reach is understated. The 2019 benefit-cost figures shown per option are quoted, refer to the study's corridors (which may be longer than the option or shared by several options) and to 2019 assumptions.",
-          "mitigation": "Read each option's note on the study figures; compare the Pirita option on per-kilometre indicators only."
+          "statement": "Fifteen options are corridors of the 2019 study taken from the city's drawing of them, a schematic line that was not checked against the street network. The 2019 benefit-cost figures shown per option are quoted, refer to the study's corridors (which may be longer than the option or shared by several options) and to 2019 assumptions. The Jüri, Tabasalu and Maardu options continue lines that are not built and are measured on their own.",
+          "mitigation": "Read each option's note on the study figures."
         },
         {
           "id": "METHOD-001",
@@ -3267,7 +3827,7 @@
           "severity": "low",
           "layer": "buildings",
           "issue": "license_not_stated",
-          "statement": "The Tallinn city ArcGIS services and the GTFS feed do not publish explicit licence text for these layers.",
+          "statement": "The Tallinn city ArcGIS services and the GTFS feed do not publish explicit licence text for these layers. The national building layer carries the Maa- ja Ruumiamet open data licence.",
           "mitigation": "Confirm reuse terms with Tallinn City Government before redistributing the source snapshots."
         },
         {
@@ -3277,29 +3837,40 @@
           "issue": "temporal_mismatch",
           "statement": "Population refers to 2024; buildings, plans, services, timetables and the street network to November 2026. Homes completed after 2024 carry too few residents.",
           "mitigation": "Rerun when Statistics Estonia publishes a newer grid."
+        },
+        {
+          "id": "DATA-004",
+          "severity": "medium",
+          "layer": "tram_options",
+          "issue": "services_and_plans_tallinn_only",
+          "statement": "Six options leave Tallinn. Residents, workplaces and planned buildings are measured outside the city from the national building layer, but public services and detailed plans in process are the city's own layers and are counted in Tallinn only. For those options the services criterion (10 % of the balanced score) and half of the growth criterion (7.5 %) are a lower bound. Bus departures come from the Tallinn timetable feed only.",
+          "mitigation": "Compare the options beyond Tallinn on residents, workplaces and residents per km; the share of each line inside Tallinn is in the tables (length_in_tallinn_pct). Add service and plan layers of Viimsi, Rae, Harku, Jõelähtme and Maardu to score them fully."
         }
       ]
     },
     "analytical_outputs": {
-      "tram_options": "sha256:7222bff4b1b0579e21680447de49e3a4b7ec2b18b61c8b349021bfefd9fcbe99",
-      "tram_option_stops": "sha256:66305c5f4f8c5462d9b682905a3dc066e92333dc5738e2ca8393b5b401ad4b82",
-      "option_catchments": "sha256:61f664f3ca7ea2780088046d5efb7050b90962d7949d9a44e311fdbd3106dde6",
-      "option_catchment_variants": "sha256:9ae27f829a32b455c291d5631a81d9cf72d99db2e58349dfeef34153a9ed5c81",
+      "tram_options": "sha256:c00e117027b5fd3143b5e66cf12dd061d5d9ed46d9b4a396a3d465ec6cd9c55f",
+      "tram_option_stops": "sha256:ca9201506ab0355df8210de16085239bcf3c3cbde61296415c7acff180b9a1a5",
+      "option_catchments": "sha256:6cfa2b11d46a0d372ed74fed6ff14b35bb35757d0531e744fb286d6e4d6cebae",
+      "option_catchment_variants": "sha256:d660c7b2c7778d63ea42cbd5966317ba4eb35bf5dfdbe2521146136a85436e3b",
       "existing_tram_catchments": "sha256:f8bec479afb1befb3bd1afaa1e83c1a449423790ac47d8035769e2d56b202e56",
       "existing_tram_lines": "sha256:8790d621fb54fc868d93e5e9a93000a4277d1ffafb67105fea244757e85ae016",
       "existing_tram_stops": "sha256:3c11dc17281a611546a01e3dd9dc7c269f6e88e9ba0a1ea1e9147635df2dddf4",
-      "buildings": "sha256:afeb18b2560272710dde5086b7f2cbfb19f93f8e7b2cedb3cfe1ac482f7e6e6a",
-      "services": "sha256:8d8975fe89d952e5548248c64577b729efa3ad70d938e5bf8d7254f906c1dd70",
+      "buildings": "sha256:0a9ee69445cd41e6cbeb5c5a8600d73cbee1c78aec2dcfa86bd1147193fed317",
+      "services": "sha256:6499851b7ab3d577fdad756c6ece7317917ebfe0913b18581773c722b3293423",
       "plans_in_process": "sha256:7a11d723228a50f78a771ae4e585016ea45fb3c18954ef6f805c914ef85a76e1",
-      "pipeline_buildings": "sha256:5dc1b2486c75abf818f02f603ef3fbb67c8d2f67056b06676ef178cde68b1d15",
-      "subdistricts": "sha256:f6c58124f2a575a60d3b369fb3889a5d74030cd877f582eb2515b62df28cc673",
+      "pipeline_buildings": "sha256:4b44906284e41cacebb59904eefd91232854fec06e2d438702d71272e3e862a1",
+      "subdistricts": "sha256:364844ebe82b79c4596dea4fc09ad95238dd49794dca71dc2cc1915519640751",
       "districts": "sha256:548173f0822618e6cf55b6fb6bc7e3042d15b02f18917b7ab1cf3f7d9d66652d",
       "published_corridors": "sha256:f477a1971ed20f617088107cacc0f1d3d391c14d8d10290860e2079e91f8392d",
-      "option_summary": "sha256:21d418d3e4a022c6ac50e6bb783f458e83988ff5bfdd3a50c100724641b38ea6",
-      "option_matrix": "sha256:a132f93ebc1e0a4b09a53e96fc396d59cb96159ec16243cf3f5a1d7599875146",
-      "option_scores": "sha256:d00ce07a5964253929bedf107eb0c619da93b56f7eed297c53f3084f3b52e8be",
-      "existing_tram_coverage": "sha256:3009770278bd37dd08f464bceb463bcfd74ff0495a76f717d466ca68698656a6"
+      "option_summary": "sha256:9d125da1cde7732fd35985ea3dab9c254b8f71d4d313bdef2cf51ac88039a4e4",
+      "option_matrix": "sha256:fd7385fb9c51434d691a6d4ebe1706319aa8f9ed104360cb4704a477b6174383",
+      "option_scores": "sha256:d4bca765398cd056bb338f13718da014033e271234daafa166f583bf392a412a",
+      "existing_tram_coverage": "sha256:a7915266392ea640c85dd511d4704edc805491a20fb4d35876cdd42447e9d38c",
+      "study_corridors": "sha256:a6f6ec9ec11c6121539beb4cf1d5df534fa544f0ee3865d496972246d0b61e58",
+      "study_corridor_table": "sha256:96329e010081de1aef01bd69145b66ce19b5d8e0f1e80231f86399ba2811f4c1",
+      "study_stages": "sha256:5f5c5e2369fc2cb3778738a1d0ddb8cc7e86400c7f2cbc2a7a581128b11fc94f"
     }
   },
-  "view_sha256": "sha256:ebbf370417a65308d6dfe66266156461a46417211a968fa671fa520038bb469b"
+  "view_sha256": "sha256:315a5e0d42a01bdea79238076363cd3ff3234feaddf2c1eb68968c909fe773e8"
 }

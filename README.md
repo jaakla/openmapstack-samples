@@ -67,9 +67,9 @@ Explore the Idaringtee 21 detailed plan in Tartu in 3D, with 32 proposed main-bu
 
 ## Tallinn new tram line options
 
-Which of the tram lines Tallinn has been discussing would serve the most people, and how do they stand in the city's plans? Twenty-three alignments, from the funded Pelguranna branch and the abandoned Liivalaia line to the corridors of the 2019 feasibility study, are drawn along the real street network or the city's published corridor drawings and measured by residents, workplace floor area, public services and development within a walk of modelled stops. Walking distance and the weighting of the criteria are live controls; each line shows the documents behind its strategy fit and the benefit-cost ratio the 2019 study gave its corridor. The lines are hypothetical readings of public descriptions, not designed alignments.
+Which of the tram lines Tallinn has been discussing would serve the most people, and how do they stand in the city's plans? Twenty-eight alignments, from the funded Pelguranna branch and the abandoned Liivalaia line to the corridors of the 2019 feasibility study, are drawn along the real street network or the city's published corridor drawings and measured by residents, workplace floor area, public services and development within a walk of modelled stops. Walking distance and the weighting of the criteria are live controls; each line shows the documents behind its strategy fit and the benefit-cost ratio the 2019 study gave its corridor. The lines are hypothetical readings of public descriptions, not designed alignments.
 
-[![Tallinn with twenty-three proposed tram lines and their walking catchments beside a ranking of the options](gallery/tallinn-tram-options-preview.png)](https://jaakla.github.io/openmapstack-samples/tallinn-tram-options/)
+[![Tallinn and its surroundings with twenty-eight proposed tram lines and their walking catchments beside a ranking of the options](gallery/tallinn-tram-options-preview.png)](https://jaakla.github.io/openmapstack-samples/tallinn-tram-options/)
 
 - [Open the dashboard](https://jaakla.github.io/openmapstack-samples/tallinn-tram-options/)
 - [Results, method, limits, sources and reproducible pipeline](tallinn-tram-options/README.md)
