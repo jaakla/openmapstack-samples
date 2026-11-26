@@ -10,11 +10,18 @@
 #              An option with `follow: study_corridors_2019` is routed on the city's drawing of
 #              the 2019 study corridors instead of the street network; there a waypoint may also be
 #              the start or end of one line of that drawing, named by its FID
-#              ({corridor_end: {fid: N, part: 0, end: start|end}}).
+#              ({corridor_end: {fid: N, part: 0, end: start|end}}). A street-routed option may end
+#              where a drawn corridor ends by naming the drawing too ({corridor_end: {layer:
+#              study_corridors_2019, fid: N, ...}}); it then takes the nearest point of its own streets.
 #   stand_in_streets  mapped streets used where the described corridor has no street of its
 #              own (a former railway, a park); reported per option, with a geometry_note.
 # pipeline.py (step 7) resolves the waypoints against the immutable sources and routes
 # the line along the street network; an option that does not resolve is rejected.
+#
+# An option may leave Tallinn (family "Beyond Tallinn", and the Viimsi line): residents, workplaces and
+# planned buildings are measured there too, from the national building layer. Public services and
+# detailed plans in process are counted in Tallinn only (the city's own layers), so the services and
+# growth criteria of such an option are a lower bound; `length_in_tallinn_pct` is reported per option.
 #
 # `strategy` is a documented judgement, scored with one rubric for every option:
 #   sump        Tallinn sustainable urban mobility plan 2035, Table 1:
@@ -338,13 +345,14 @@ options:
     status: study
     status_label: Study corridor (2019); trolleybus chosen for Laagna tee
     description: >-
-      Corridor 3A of the 2019 study with its Gonsiori connector: from the existing track at A. Laikmaa
-      along Gonsiori and the Laagna tee cutting to Mustakivi tee. The city has since chosen battery
-      trolleybuses for this corridor (in service 2029–2030).
+      Corridor 3A of the 2019 study with its Gonsiori connector (corridor 17): from the existing track at
+      A. Laikmaa along Gonsiori and the whole Laagna tee cutting to its east end by Priisle, where the
+      study's corridor ends. The city has since chosen battery trolleybuses for this corridor (in service
+      2029–2030).
     waypoints:
       - {stop: A. Laikmaa, mode: tram}
       - {junction: [Gonsiori, Laagna tee]}
-      - {stop: Mustakivi, mode: any}
+      - {corridor_end: {layer: study_corridors_2019, fid: 1, part: 0, end: start}}
     streets: [Gonsiori, Laagna tee]
     published: {length_km: 8.5, cost_meur: 46.4, cost_year: 2019,
                 cost_note: "2019 study: Laagna tee 6.9 km €37.8M plus Gonsiori connector 1.6 km €8.6M (2019 prices); 77,315 residents within 500 m of the Laagna tee part."}
@@ -675,28 +683,27 @@ options:
       - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf", title: "2019 feasibility study, Trass 4; Tables 45, 61, 62"}
 
   - id: pirita
-    title: Pirita – Pirita tee and Merivälja tee (Viimsi line, part in Tallinn)
-    short: Pirita (Viimsi line)
+    title: Pirita and Viimsi – Pirita tee, Merivälja tee to Haabneeme
+    short: Viimsi line (Pirita)
     family: Lasnamäe and Pirita
     status: study
     status_label: Study corridor (2019), prospective in SUMP 2035
     description: >-
-      The part inside Tallinn of corridor 1 of the 2019 study, the Viimsi line: from Narva maantee
-      at Russalka along Pirita tee and through Pirita to the city boundary at Merivälja. The
-      corridor continues to Haabneeme in Viimsi municipality, which this analysis cannot measure, so
-      reach is counted for the Tallinn part only.
+      Corridor 1 of the 2019 study, the Viimsi line, in full: from Narva maantee at Russalka along
+      Pirita tee and through Pirita and Merivälja, across the city boundary to Haabneeme and Lubja in
+      Viimsi municipality. About a quarter of the line lies outside Tallinn.
     follow: study_corridors_2019
     waypoints:
       - {corridor_end: {fid: 9, part: 0, end: start}}
-      - {stop: Merivälja, mode: any}
+      - {corridor_end: {fid: 9, part: 0, end: end}}
     streets: []
     geometry_note: >-
       Taken from the city's published drawing of the 2019 study corridors (line 9), not routed on the
       street network.
-    published: {length_km: null, cost_meur: null, cost_year: 2019,
-                cost_note: "The study gives 10.6 km and €54.3M (2019 prices) for the whole line to Haabneeme, and 11,279 residents within 500 m."}
+    published: {length_km: 10.6, cost_meur: 54.3, cost_year: 2019,
+                cost_note: "€54.3M infrastructure (2019 study, 2019 prices) for the 10.6 km to Haabneeme; the study text gives 11,279 residents within 500 m."}
     appraisal_2019: {corridor: "1", stage: 2, cost_meur: 54.3, bcr: [5.0, 3.6, 5.6, 4.2], enpv_meur: [303.7, 178.9, 334.8, 216.9],
-                     note: "Corridor 1, Russalka – Viimsi (Lubja): cost and value are for the whole line, about a quarter of which lies outside Tallinn."}
+                     note: "Corridor 1, Russalka – Viimsi (Lubja)."}
     strategy:
       sump: {score: 0.5, note: "SUMP 2035 names the Viimsi tram as a prospective corridor."}
       study_2019: {score: 1, note: "Corridor 1, stage 2."}
@@ -704,3 +711,152 @@ options:
     evidence:
       - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf", title: "2019 feasibility study, Trass 1; Tables 45, 61, 62"}
       - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20jatkusuutliku%20linnaliikuvuse%20kava%202035.pdf", title: "SUMP 2035, prospective corridors"}
+
+  - id: rae_peetri
+    title: Rae – airport to Peetri and Assaku
+    short: Peetri and Assaku
+    family: Beyond Tallinn
+    status: study
+    status_label: Study corridor (2019), stage 1; prospective in SUMP 2035
+    description: >-
+      The first part of corridor 5A / 5A' of the 2019 study: from the airport tram terminus south
+      across Tartu maantee into Rae municipality, past Peetri to the planned Rail Baltica stop at
+      Assaku. The study puts it in stage 1 because Peetri and Assaku grow fastest; two thirds of the
+      line lies outside Tallinn.
+    follow: study_corridors_2019
+    waypoints:
+      - {corridor_end: {fid: 7, part: 0, end: end}}
+      - {corridor_end: {fid: 8, part: 0, end: start}}
+    streets: []
+    geometry_note: >-
+      Taken from the city's published drawing of the 2019 study corridors (lines 7 and 8), not routed
+      on the street network. The alternative straight along Tartu maantee shown on the report's map is
+      not in the drawing.
+    published: {length_km: null, cost_meur: null, cost_year: 2019,
+                cost_note: "The study gives €65.7M (2019 prices) and 10.4-11.1 km for the whole corridor from the airport to Jüri, with 8,581-10,297 residents within 500 m."}
+    appraisal_2019: {corridor: "5A / 5A'", stage: 1, cost_meur: 65.7, bcr: [2.8, 2.0, 3.2, 2.3], enpv_meur: [122.6, 66.2, 145.1, 83.4],
+                     note: "Appraised as the whole corridor 'Lennujaam – Jüri'; this option is its inner part, the outer part to Jüri is stage 4."}
+    strategy:
+      sump: {score: 0.5, note: "SUMP 2035 names the Peetri tram from the airport into Rae municipality as a prospective corridor."}
+      study_2019: {score: 1, note: "Corridor 5A / 5A', stage 1."}
+      city_2026: {score: 0.25, note: "Not named in the city statements of 2026 reviewed for this analysis."}
+    evidence:
+      - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf", title: "2019 feasibility study, Rae suund: trass 5A; chapter 1.6; Tables 45, 61, 62"}
+      - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20jatkusuutliku%20linnaliikuvuse%20kava%202035.pdf", title: "SUMP 2035, prospective corridors"}
+
+  - id: rae_juri
+    title: Rae – Assaku to Jüri
+    short: Jüri extension
+    family: Beyond Tallinn
+    status: study
+    status_label: Study corridor (2019), stage 4
+    description: >-
+      The outer part of corridor 5A of the 2019 study, from the Rail Baltica stop at Assaku to Jüri,
+      entirely in Rae municipality. It presupposes the line from the airport to Assaku (stage 1) and
+      is measured here on its own.
+    follow: study_corridors_2019
+    waypoints:
+      - {corridor_end: {fid: 29, part: 0, end: end}}
+      - {corridor_end: {fid: 29, part: 0, end: start}}
+    streets: []
+    geometry_note: >-
+      Taken from the city's published drawing of the 2019 study corridors (line 29), not routed on the
+      street network.
+    published: {length_km: null, cost_meur: null, cost_year: 2019,
+                cost_note: "The study gives €65.7M (2019 prices) and 10.4-11.1 km for the whole corridor from the airport to Jüri."}
+    appraisal_2019: {corridor: "5A", stage: 4, cost_meur: 65.7, bcr: [2.8, 2.0, 3.2, 2.3], enpv_meur: [122.6, 66.2, 145.1, 83.4],
+                     note: "Appraised as the whole corridor 'Lennujaam – Jüri'; this option is its outer part, the inner part to Assaku is stage 1."}
+    strategy:
+      sump: {score: 0, note: "SUMP 2035 lists the Peetri tram into Rae municipality; the continuation to Jüri is not in its tram lists."}
+      study_2019: {score: 0.25, note: "Corridor 5A beyond Assaku, stage 4."}
+      city_2026: {score: 0.25, note: "Not named in the city statements of 2026 reviewed for this analysis."}
+    evidence:
+      - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf", title: "2019 feasibility study, Rae suund: trass 5A; chapter 1.6; Tables 45, 61, 62"}
+
+  - id: tabasalu
+    title: Tabasalu – Haabersti junction to Tabasalu
+    short: Tabasalu
+    family: Beyond Tallinn
+    status: study
+    status_label: Study corridor (2019), stage 3
+    description: >-
+      The outer part of corridor 8A of the 2019 study: from the Haabersti junction west past Rocca
+      al Mare and Kakumäe into Harku municipality, to Tabasalu. It presupposes the Paldiski maantee
+      line from Kristiine to Haabersti; half of it lies outside Tallinn.
+    follow: study_corridors_2019
+    waypoints:
+      - {corridor_end: {fid: 17, part: 0, end: start}}
+      - {corridor_end: {fid: 17, part: 0, end: end}}
+    streets: []
+    geometry_note: >-
+      Taken from the city's published drawing of the 2019 study corridors (line 17), not routed on the
+      street network.
+    published: {length_km: null, cost_meur: 29.1, cost_year: 2019,
+                cost_note: "€29.1M infrastructure (2019 study, 2019 prices). The study text gives 9.9 km from Kristiine to Tabasalu, 4.6 km of it to the Haabersti junction, and 11,697 residents within 500 m beyond Haabersti (8A and 8A+)."}
+    appraisal_2019: {corridor: "8A", stage: 3, cost_meur: 29.1, bcr: [3.5, 2.6, 3.8, 2.9], enpv_meur: [83.1, 49.9, 85.6, 56.5],
+                     note: "Corridor 8A, Tabasalu – Haabersti junction (table row VAR_8A_1)."}
+    strategy:
+      sump: {score: 0, note: "SUMP 2035 lists the Paldiski maantee tram; beyond Haabersti it only calls for fast public transport to Tabasalu (action 5.2.2)."}
+      study_2019: {score: 0.5, note: "Corridor 8A beyond Haabersti, stage 3."}
+      city_2026: {score: 0.25, note: "Not named in the city statements of 2026 reviewed for this analysis."}
+    evidence:
+      - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf", title: "2019 feasibility study, Harku suund: trass 8A; Tables 45, 61, 62"}
+      - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20jatkusuutliku%20linnaliikuvuse%20kava%202035.pdf", title: "SUMP 2035, action 5.2.2"}
+
+  - id: tabasalu_ext
+    title: Tabasalu – extension within Tabasalu
+    short: Tabasalu extension
+    family: Beyond Tallinn
+    status: study
+    status_label: Study corridor (2019), stage 3
+    description: >-
+      Corridor 8A+ of the 2019 study: one further kilometre from the end of the Tabasalu line into
+      the settlement, entirely in Harku municipality. The lowest benefit-cost ratio of the study's
+      tram corridors.
+    follow: study_corridors_2019
+    waypoints:
+      - {corridor_end: {fid: 23, part: 0, end: start}}
+      - {corridor_end: {fid: 23, part: 0, end: end}}
+    streets: []
+    geometry_note: >-
+      Taken from the city's published drawing of the 2019 study corridors (line 23), not routed on the
+      street network.
+    published: {length_km: null, cost_meur: 5.6, cost_year: 2019,
+                cost_note: "€5.6M infrastructure (2019 study, 2019 prices)."}
+    appraisal_2019: {corridor: "8A+", stage: 3, cost_meur: 5.6, bcr: [1.4, 1.0, 1.4, 1.1], enpv_meur: [1.8, 0.0, 1.9, 0.4],
+                     note: "Corridor 8A+, the Tabasalu extension."}
+    strategy:
+      sump: {score: 0, note: "Not in the SUMP 2035 tram lists."}
+      study_2019: {score: 0.5, note: "Corridor 8A+, stage 3."}
+      city_2026: {score: 0.25, note: "Not named in the city statements of 2026 reviewed for this analysis."}
+    evidence:
+      - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf", title: "2019 feasibility study, Harku suund: trass 8A+; Tables 45, 61, 62"}
+
+  - id: maardu
+    title: Maardu – from the end of Laagna tee to Kallavere
+    short: Maardu
+    family: Beyond Tallinn
+    status: study
+    status_label: Study corridor (2019), stage 5
+    description: >-
+      Corridor 3B / 3B'' of the 2019 study: from the east end of the Laagna tee line out of Tallinn,
+      through Jõelähtme municipality and the Kroodi business area to Kallavere in Maardu. It
+      presupposes the Laagna tee line; 95 % of it lies outside Tallinn.
+    follow: study_corridors_2019
+    waypoints:
+      - {corridor_end: {fid: 33, part: 0, end: start}}
+      - {corridor_end: {fid: 34, part: 0, end: end}}
+    streets: []
+    geometry_note: >-
+      Taken from the city's published drawing of the 2019 study corridors (lines 33, 35 and 34, without
+      the turning loop at the end), not routed on the street network.
+    published: {length_km: 11.2, cost_meur: 60.4, cost_year: 2019,
+                cost_note: "€60.4M infrastructure (2019 study, 2019 prices); the study text gives 11.2 km for 3B and 11.5 km with the 3B'' alternative."}
+    appraisal_2019: {corridor: "3B / 3B''", stage: 5, cost_meur: 60.4, bcr: [2.4, 1.8, 2.5, 1.9], enpv_meur: [82.6, 43.8, 85.2, 50.3],
+                     note: "Corridor 3B / 3B'', Maardu."}
+    strategy:
+      sump: {score: 0, note: "Not in the SUMP 2035 tram lists."}
+      study_2019: {score: 0.25, note: "Corridor 3B / 3B'', stage 5."}
+      city_2026: {score: 0.25, note: "Not named in the city statements of 2026 reviewed for this analysis."}
+    evidence:
+      - {type: document, value: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf", title: "2019 feasibility study, Maardu suund: trass 3B; Tables 45, 61, 62"}

@@ -70,6 +70,13 @@ WRITE_SCENARIOS = False                    # set by build_scenarios.py while it 
 CORRIDOR_MATCH_M = 75.0                    # a routed line this close to a published corridor follows it
 CORRIDOR_WAYPOINT_M = 250.0               # a waypoint must lie this close to the corridor it follows
 STUDY_STAGE_MIN_SHARE = 0.5               # share of a line within CORRIDOR_MATCH_M of study corridors needed to read a stage off them
+SURROUNDINGS_BUILDINGS = "surroundings-buildings-etak-ehr.parquet"   # the national layer, buildings outside Tallinn
+SURROUNDINGS_FIELDS = {"seisund": "ehr_seisund", "kaos_kood_peamine": "kaos_peamine_kood",      # national name -> the city layer's name
+                       "kaos_nimetus_peamine": "kaos_peamine_nimetus", "korgus_m": "korgus_etak"}
+STUDY_STAGES_FILE = "study-2019-stages.yaml"   # the study's five stages and their corridors, joined to the city's drawing
+STUDY_PART_DUPLICATE_M = 5.0              # parts of one drawn line this close to each other are one part drawn twice
+STUDY_STAGE_LENGTH_TOLERANCE = 0.06       # drawn length of a stage may differ this much from the report's total
+STUDY_OPTION_MIN_SHARE = 0.5              # share of a study corridor within CORRIDOR_MATCH_M of an option for the option to stand for it
 # Results of the 2019 feasibility and cost-benefit study quoted per option (appraisal_2019 in
 # tram-options.yaml): benefit-cost ratio and net present value of the tram variant in its four
 # scenarios, in this order. The headline is "Tallinn++ with free public transport": Tallinn++ is the
@@ -182,9 +189,12 @@ def load_population_grid() -> gpd.GeoDataFrame:
 
 # ------------------------------ STEP 3 ---------------------------------------
 # Buildings.
-#  Source: Tallinn City GIS, ETAK_EHR_hooned - ETAK footprints joined by the city
-#  with the national Building Register (EHR): status, main use (KAOS) and closed
-#  net floor area. Semantic predicates come from those coded fields:
+#  Sources: (a) Tallinn City GIS, ETAK_EHR_hooned - ETAK footprints joined with the
+#  national Building Register (EHR): status, main use (KAOS) and closed net floor
+#  area; (b) for the municipalities around Tallinn, the national file that layer is
+#  a copy of (Land and Spatial Development Board), cut to the frame in acquire.py.
+#  Inside the city the city's copy is used; a building of (b) is added only when it
+#  is not in (a). Semantic predicates come from the coded fields:
 #    ehr_seisund = 'Olemas'                -> the building exists
 #    ehr_seisund in Kavandatav/Püstitamisel -> planned or under construction
 #    kaos_peamine_kood 111/112/113          -> dwelling
@@ -195,9 +205,20 @@ def load_buildings(grid: gpd.GeoDataFrame, sub: gpd.GeoDataFrame) -> gpd.GeoData
     b = gpd.read_parquet(SOURCE / "tallinn-buildings-etak-ehr.parquet")
     assert b.crs is not None and b.crs.to_epsg() == 4326
     b = b.to_crs(ANALYSIS_CRS)
+    b["source_layer"], b["municipality"] = "tallinn_city_gis", "Tallinn"
+    around = gpd.read_parquet(SOURCE / SURROUNDINGS_BUILDINGS)
+    assert around.crs is not None and around.crs.to_epsg() == 3301
+    around = around.rename(columns=SURROUNDINGS_FIELDS)
+    around = around[~around["etak_id"].isin(set(b["etak_id"]))].copy()
+    around["source_layer"] = "national_etak_ehr"
+    # Full address "county, municipality, settlement, ..." - the municipality is its second part.
+    around["municipality"] = around["taisaadress"].str.split(", ").str[1]
+    shared = [c for c in b.columns if c in around.columns]
+    b = gpd.GeoDataFrame(pd.concat([b[shared], around[shared]], ignore_index=True), geometry="geometry", crs=ANALYSIS_CRS)
     b["geometry"] = shapely.make_valid(b.geometry.values)
     b = b[b.geometry.geom_type.isin(["Polygon", "MultiPolygon"]) & ~b.geometry.is_empty].copy()
-    b["id"] = b["objectid"].astype("int64")
+    b["id"] = b["etak_id"].astype("int64")      # the topographic database's id: one per footprint in both layers
+    assert b["id"].is_unique
     b["footprint_m2"] = b.area
     b["centroid"] = b.geometry.centroid
     kaos = b["kaos_peamine_kood"].fillna("")
@@ -230,6 +251,8 @@ def load_buildings(grid: gpd.GeoDataFrame, sub: gpd.GeoDataFrame) -> gpd.GeoData
     in_sub = in_sub.drop_duplicates("id").set_index("id")
     b["subdistrict"] = b["id"].map(in_sub["subdistrict"])
     b["district"] = b["id"].map(in_sub["district"])
+    # "Tallinn" is the city's districts, for both layers; outside them the address names the municipality.
+    b["municipality"] = np.where(b["district"].notna(), "Tallinn", b["municipality"].where(b["municipality"] != "Tallinn"))
     return b.sort_values("id").reset_index(drop=True)
 
 
@@ -238,10 +261,11 @@ def load_buildings(grid: gpd.GeoDataFrame, sub: gpd.GeoDataFrame) -> gpd.GeoData
 # registered dwellings whose centroid lies in that cell, in proportion to their
 # net floor area. Cells with residents but no registered dwelling fall back to
 # unregistered residential-type footprints; cells with none stay unallocated and
-# are reported, never silently dropped. Cells straddling the city boundary hold
-# residents of the neighbouring municipality too; there the whole cell is
-# assigned to Tallinn's buildings (a known overestimate at the edge, checked
-# against the city's register population per sub-district).
+# are reported, never silently dropped. The buildings cover the whole frame, so a
+# cell straddling the city boundary is shared between the dwellings on both sides
+# (checked against the city's register population per sub-district). The grid
+# service also returns the cells that only touch the frame from outside; their
+# buildings are not in the sources, so they are marked outside_frame and left out.
 def allocate_population(b: gpd.GeoDataFrame, grid: gpd.GeoDataFrame, city) -> tuple[gpd.GeoDataFrame, gpd.GeoDataFrame]:
     b = b.copy()
     b["pop_est"] = 0.0
@@ -250,9 +274,13 @@ def allocate_population(b: gpd.GeoDataFrame, grid: gpd.GeoDataFrame, city) -> tu
     grid["alloc_basis"] = "no_residents"
     inside = shapely.area(shapely.intersection(grid.geometry.values, city)) / 1e6
     grid["share_in_tallinn"] = np.round(inside, 4)
+    xmin, ymin, xmax, ymax = json.loads((SOURCE / "acquisition.json").read_text(encoding="utf-8"))["frame_epsg3301"]
+    centre = grid.geometry.centroid
+    in_frame = ((centre.x > xmin) & (centre.x < xmax) & (centre.y > ymin) & (centre.y < ymax)).values
+    grid.loc[~in_frame, "alloc_basis"] = "outside_frame"
     groups = {cell: frame for cell, frame in b[b["cell_id"].notna() & (b["tier"] > 0)].groupby("cell_id")}
     for row in grid.itertuples():
-        if row.population <= 0:
+        if row.population <= 0 or row.alloc_basis == "outside_frame":
             continue
         frame = groups.get(row.cell_id)
         chosen = None
@@ -263,12 +291,9 @@ def allocate_population(b: gpd.GeoDataFrame, grid: gpd.GeoDataFrame, city) -> tu
                     chosen, basis = subset, f"tier{tier}"
                     break
         if chosen is None:
-            grid.loc[row.Index, "alloc_basis"] = "unallocated" if row.share_in_tallinn > 0 else "outside_tallinn"
+            grid.loc[row.Index, "alloc_basis"] = "unallocated"
             continue
-        # A boundary cell contributes only the part of its population that its
-        # land share inside Tallinn suggests when Tallinn holds under half of it.
-        population = row.population * (row.share_in_tallinn if row.share_in_tallinn < 0.5 else 1.0)
-        b.loc[chosen.index, "pop_est"] = population * chosen["floor_m2"] / chosen["floor_m2"].sum()
+        b.loc[chosen.index, "pop_est"] = row.population * chosen["floor_m2"] / chosen["floor_m2"].sum()
         b.loc[chosen.index, "alloc_tier"] = int(basis[-1])
         grid.loc[row.Index, "alloc_basis"] = basis
     return b, grid
@@ -494,9 +519,11 @@ def _resolve_waypoint(waypoint: dict, street: dict, stops: gpd.GeoDataFrame, tre
     return {"ok": False, "reason": "waypoint must name a stop or a junction"}
 
 
-def _resolve_corridor_end(spec: dict, layer: gpd.GeoDataFrame, street: dict, tree: cKDTree) -> dict:
+def _resolve_corridor_end(spec: dict, layer: gpd.GeoDataFrame, street: dict, tree: cKDTree, nodes=None) -> dict:
     """Waypoint {corridor_end: {fid, part, end}}: the first or last vertex of one line of the published
-    corridor drawing, named by the FID the city gave it. Only for options that follow that drawing."""
+    corridor drawing, named by the FID the city gave it. An option that follows that drawing joins it
+    there; an option routed on the street network (which then names the drawing with `layer`) takes the
+    nearest point of its declared streets, `tree` being built over those `nodes` only."""
     feature = layer[layer["FID"] == spec.get("fid")]
     if len(feature) != 1:
         return {"ok": False, "reason": f"published corridor line FID {spec.get('fid')!r} not found"}
@@ -506,6 +533,7 @@ def _resolve_corridor_end(spec: dict, layer: gpd.GeoDataFrame, street: dict, tre
         return {"ok": False, "reason": f"corridor_end needs an existing part and end: start|end (got {spec!r})"}
     point = shapely.get_coordinates(shapely.get_point(parts[part], 0 if end == "start" else -1))[0]
     gap, node = tree.query(point)
+    node = int(node) if nodes is None else int(nodes[node])
     return {"ok": True, "node": int(node), "xy": street["xy"][node], "label": f"{end} of line {spec['fid']} in the city's drawing of the 2019 study corridors",
             "kind": "corridor_end", "snap_m": round(float(gap), 1), "source_features": 1}
 
@@ -554,7 +582,7 @@ def route_options(definitions: dict, network: dict, gtfs: dict, buildings: gpd.G
     corridor_layers = {key: read_geojson(file) for key, file in CORRIDOR_LAYERS.items()}
     street = streets_graph
     # Address waypoints: the centroid of the one existing registered building with that short address.
-    known = buildings[(buildings["status"] == "existing") & buildings["ads_lahiaadress"].notna()]
+    known = buildings[(buildings["status"] == "existing") & buildings["ads_lahiaadress"].notna() & buildings["district"].notna()]
     known = known[~known["ads_lahiaadress"].duplicated(keep=False)]
     addresses = {a: (c.x, c.y) for a, c in zip(known["ads_lahiaadress"], known["centroid"])}
     tram_stops = gtfs["stops"][gtfs["stops"]["tram"]]
@@ -591,12 +619,21 @@ def route_options(definitions: dict, network: dict, gtfs: dict, buildings: gpd.G
         resolved, previous = [], None
         for waypoint in option["waypoints"]:
             if "corridor_end" in waypoint:
-                r = (_resolve_corridor_end(waypoint["corridor_end"], corridor_layers[follow], street, conn_tree) if follow
-                     else {"ok": False, "reason": "a corridor_end waypoint needs `follow`"})
+                spec = waypoint["corridor_end"]
+                layer_key = follow or spec.get("layer")
+                if layer_key not in corridor_layers:
+                    r = {"ok": False, "reason": "a corridor_end waypoint needs `follow` or a known `layer`"}
+                elif follow:
+                    r = _resolve_corridor_end(spec, corridor_layers[layer_key], street, conn_tree)
+                else:
+                    # A street-routed option ends where the drawn corridor ends: the nearest point of its declared streets.
+                    on_named = np.isin(keys, [_name_key(s) for s in option["streets"]])
+                    named_nodes = np.unique(np.r_[street["u"][on_named], street["v"][on_named]])
+                    r = _resolve_corridor_end(spec, corridor_layers[layer_key], street, cKDTree(street["xy"][named_nodes]), named_nodes)
             else:
                 r = _resolve_waypoint(waypoint, street, gtfs["stops"], conn_tree, previous, addresses)
-            if r["ok"] and follow and r["snap_m"] > CORRIDOR_WAYPOINT_M:
-                r = {"ok": False, "reason": f"{r['label']} is {r['snap_m']:.0f} m from the published corridor"}
+            if r["ok"] and (follow or "corridor_end" in waypoint) and r["snap_m"] > CORRIDOR_WAYPOINT_M:
+                r = {"ok": False, "reason": f"{r['label']} is {r['snap_m']:.0f} m from the " + ("published corridor" if follow else "declared streets")}
             if not r["ok"]:
                 break
             resolved.append(r)
@@ -749,6 +786,95 @@ def corridor_overlap(lines: gpd.GeoDataFrame, corridors: gpd.GeoDataFrame) -> gp
     return lines
 
 
+# The 2019 study's five stages (report chapter 1.6), one feature per corridor of the report.
+#  Geometry: the city's drawing of the study corridors, every line of it, in and outside Tallinn.
+#  Corridor codes, names and the study's own figures: scenarios/study-2019-stages.yaml, a
+#  transcription of the report. Nothing here is measured against buildings; the columns say which
+#  compared option, if any, stands for a corridor and how much of it lies inside Tallinn.
+def study_stage_corridors(definition: dict, lines: gpd.GeoDataFrame, city) -> tuple[gpd.GeoDataFrame, pd.DataFrame, dict]:
+    drawing = read_geojson(CORRIDOR_LAYERS["study_corridors_2019"]).set_index("FID")
+    duplicates = {int(k): int(v) for k, v in (definition.get("duplicate_lines") or {}).items()}
+    problems, used, rows = [], {}, []
+    for fid, twin in duplicates.items():
+        if fid not in drawing.index or twin not in drawing.index:
+            problems.append(f"declared duplicate line {fid} or its twin {twin} is not in the drawing")
+        elif shapely.hausdorff_distance(drawing.geometry[fid], drawing.geometry[twin]) > STUDY_PART_DUPLICATE_M:
+            problems.append(f"line {fid} is declared a duplicate of {twin} but differs from it")
+    zones = {row.option: shapely.buffer(row.geometry, CORRIDOR_MATCH_M) for row in lines.itertuples()}
+    for stage in definition["stages"]:
+        for corridor in stage["corridors"]:
+            parts = []
+            for fid in corridor["lines"]:
+                if fid in used or fid in duplicates:
+                    problems.append(f"line {fid} is named more than once (corridor {corridor['code']})")
+                    continue
+                used[fid] = corridor["code"]
+                if fid not in drawing.index:
+                    problems.append(f"line {fid} of corridor {corridor['code']} is not in the city's drawing")
+                    continue
+                if int(drawing["etapp"][fid]) != int(stage["stage"]):
+                    problems.append(f"line {fid}: stage {stage['stage']} here, etapp {int(drawing['etapp'][fid])} in the drawing")
+                for part in shapely.get_parts(drawing.geometry[fid]):   # a part drawn twice is counted once
+                    if not any(shapely.hausdorff_distance(part, kept) < STUDY_PART_DUPLICATE_M for kept in parts):
+                        parts.append(part)
+            if not parts:
+                continue
+            geometry = shapely.multilinestrings(parts) if len(parts) > 1 else parts[0]
+            length = float(geometry.length)
+            inside = float(shapely.length(shapely.intersection(geometry, city))) / length
+            cover = {option: float(shapely.length(shapely.intersection(geometry, zone))) / length for option, zone in zones.items()}
+            standing = sorted((o for o, share in cover.items() if share >= STUDY_OPTION_MIN_SHARE), key=lambda o: -cover[o])
+            if standing:
+                compared, reason = "yes", None
+            elif corridor["mode"] == "railway":
+                compared, reason = "no", "Existing railway, not a tram line option."
+            elif length < 1000:
+                compared, reason = "no", "Connecting link under 1 km."
+            else:
+                compared, reason = "no", "Not compared as a separate option."
+            bcr, enpv = corridor.get("bcr") or [], corridor.get("enpv_meur") or []
+            rows.append({
+                "stage": int(stage["stage"]), "corridor": corridor["code"], "name": corridor["name"], "mode": corridor["mode"],
+                "length_km": round(length / 1000, 2), "tallinn_share": round(inside, 3),
+                "compared": compared, "options": ", ".join(standing) or None,
+                "option_share": round(max(cover.values()), 3) if standing else None, "not_compared_reason": reason,
+                "study_table_row": corridor.get("table"), "study_cost_meur": corridor.get("cost_meur"),
+                "study_bcr": bcr[APPRAISAL_HEADLINE] if bcr else None,
+                "study_bcr_low": min(bcr) if bcr else None, "study_bcr_high": max(bcr) if bcr else None,
+                "study_enpv_meur": enpv[APPRAISAL_HEADLINE] if enpv else None,
+                "note": " ".join(corridor["note"].split()) if corridor.get("note") else None,
+                "source_fids": ", ".join(str(f) for f in corridor["lines"]), "geometry": geometry})
+    unnamed = sorted(set(int(f) for f in drawing.index) - set(used) - set(duplicates))
+    if unnamed:
+        problems.append(f"lines of the city's drawing not named in {STUDY_STAGES_FILE}: {unnamed}")
+    corridors = gpd.GeoDataFrame(rows, geometry="geometry", crs=ANALYSIS_CRS)
+    stage_rows = []
+    for stage in definition["stages"]:
+        group = corridors[corridors["stage"] == stage["stage"]]
+        # The report's total leaves out the existing Balti jaam - Vesse railway in stage 1 and counts the Bekkeri railway in stage 4.
+        counted = group[group["corridor"] != "Balti jaam – Vesse"]
+        drawn = float(counted["length_km"].sum())
+        difference = drawn / stage["length_report_km"] - 1
+        if abs(difference) > STUDY_STAGE_LENGTH_TOLERANCE:
+            problems.append(f"stage {stage['stage']}: drawn {drawn:.1f} km, report {stage['length_report_km']} km")
+        stage_rows.append({
+            "stage": int(stage["stage"]), "title": stage["title"], "corridors": int(len(group)),
+            "corridor_codes": "; ".join(group["corridor"]),
+            "length_report_km": stage["length_report_km"], "length_drawn_km": round(drawn, 1),
+            "length_difference_pct": round(100 * difference, 1),
+            "length_in_tallinn_km": round(float((counted["length_km"] * counted["tallinn_share"]).sum()), 1),
+            "corridors_compared": int((group["compared"] == "yes").sum()),
+            "study_bcr_tram": stage["bcr_tram"][APPRAISAL_HEADLINE], "study_bcr_tram_low": min(stage["bcr_tram"]),
+            "study_bcr_tram_high": max(stage["bcr_tram"]), "study_bcr_brt": stage["bcr_brt"][APPRAISAL_HEADLINE],
+            "study_enpv_meur": stage["enpv_meur"][APPRAISAL_HEADLINE], "summary": " ".join(stage["summary"].split())})
+    facts = {"lines_in_drawing": int(len(drawing)), "lines_named": int(len(used)), "duplicate_lines": duplicates,
+             "corridors": int(len(corridors)), "problems": problems,
+             "not_in_drawing": definition.get("not_in_drawing") or [],
+             "outside_tallinn_km": round(float((corridors["length_km"] * (1 - corridors["tallinn_share"])).sum()), 1),
+             "total_km": round(float(corridors["length_km"].sum()), 1)}
+    return corridors, pd.DataFrame(stage_rows), facts
+
+
 # ------------------------------ STEP 8 ---------------------------------------
 # Walking distance from every routing node to the nearest stop of (a) the
 # existing tram network and (b) each proposed option. Each stop is a virtual node
@@ -849,6 +975,7 @@ def load_plans(city) -> gpd.GeoDataFrame:
 def indicators(lines, stops, buildings, bdist, services, sdist, plans, sheds, gtfs) -> pd.DataFrame:
     bus_stops = gtfs["stops"][gtfs["stops"]["bus_departures_weekday"] > 0]
     bus_tree = cKDTree(np.column_stack([bus_stops.geometry.x, bus_stops.geometry.y]))
+    outside_city = buildings["district"].isna().values
     rows = []
     for line in lines.itertuples():
         key = line.option
@@ -888,6 +1015,8 @@ def indicators(lines, stops, buildings, bdist, services, sdist, plans, sheds, gt
             row["strategy_fit"] = line.strategy_fit
             row["plan_corridor_share_pct"] = round(100 * line.plan_corridor_share)
             row["study_2019_share_pct"] = round(100 * line.study_2019_share)
+            row["length_in_tallinn_pct"] = round(100 * line.tallinn_share)
+            row["residents_outside_tallinn"] = round(float(buildings.loc[inside & outside_city, "pop_est"].sum()))
             rows.append(row)
     table = pd.DataFrame(rows)
     table["published_cost_year"] = table["published_cost_year"].astype("Int64")   # whole years, empty where none is published
@@ -963,6 +1092,12 @@ def main() -> None:
     lines, stops, scenario_results = route_options(definitions, network, gtfs, buildings)
     corridors = load_corridors()
     lines = corridor_overlap(lines, corridors)
+    lines["tallinn_share"] = np.round(shapely.length(shapely.intersection(lines.geometry.values, city)) / lines.length.values, 3)
+    study_definition = yaml.safe_load((ROOT / "scenarios" / STUDY_STAGES_FILE).read_text(encoding="utf-8"))
+    study_corridors, study_stages, study_facts = study_stage_corridors(study_definition, lines, city)
+    log.info("  2019 study: %d corridors in %d stages, %.1f km (%.1f km outside Tallinn), %d of them compared as options",
+             len(study_corridors), len(study_stages), study_facts["total_km"], study_facts["outside_tallinn_km"],
+             int((study_corridors["compared"] == "yes").sum()))
     for r in scenario_results:
         log.info("  %-28s %s %s", r["option"], r["status"],
                  f"{r.get('length_km')} km, {r.get('declared_street_share', 0):.0%} on declared streets" if "length_km" in r else r.get("reason"))
@@ -982,10 +1117,10 @@ def main() -> None:
     shed_frame = gpd.GeoDataFrame(shed_rows, crs=ANALYSIS_CRS)
 
     log.info("step 10: measure buildings, services, plans")
-    in_city = buildings["district"].notna()
-    measured = buildings[in_city & ((buildings["pop_est"] > 0) | (buildings["workplace_m2"] > 0)
-                                    | (buildings["pipeline_home_m2"] > 0) | (buildings["pipeline_work_m2"] > 0))].copy()
+    measured = buildings[(buildings["pop_est"] > 0) | (buildings["workplace_m2"] > 0)
+                         | (buildings["pipeline_home_m2"] > 0) | (buildings["pipeline_work_m2"] > 0)].copy()
     measured = measured.reset_index(drop=True)
+    in_city = measured["district"].notna().values
     bdist = measure_points(network, np.column_stack([measured["centroid"].x, measured["centroid"].y]), dist)
     services = load_services()
     sdist = measure_points(network, np.column_stack([services.geometry.x, services.geometry.y]), dist)
@@ -1002,9 +1137,9 @@ def main() -> None:
     lead = ["rank_balanced", "option", "title", "family", "status_label", "score_balanced", "length_km", "published_length_km"]
     summary = summary[lead + [c for c in summary.columns if c not in lead]].sort_values(["rank_balanced", "option"]).reset_index(drop=True)
     existing_rows = []
-    total_pop = float(measured["pop_est"].sum())
+    total_pop = float(measured.loc[in_city, "pop_est"].sum())      # Tallinn; the existing network is compared with the city
     for limit in CATCHMENTS_M:
-        inside = bdist["existing"] <= limit
+        inside = (bdist["existing"] <= limit) & in_city
         existing_rows.append({"catchment_m": limit, "tram_stops": int(len(tram_stops)),
                               "residents": round(float(measured.loc[inside, "pop_est"].sum())),
                               "share_of_city_pct": round(100 * float(measured.loc[inside, "pop_est"].sum()) / total_pop, 1),
@@ -1013,7 +1148,8 @@ def main() -> None:
 
     log.info("step 13: export")
     cols = ["id", "etak_id", "ehr_gid", "status", "use", "use_label", "floor_m2", "floor_basis", "pop_est", "alloc_tier",
-            "workplace_m2", "pipeline_home_m2", "pipeline_work_m2", "cell_id", "subdistrict", "district"]
+            "workplace_m2", "pipeline_home_m2", "pipeline_work_m2", "cell_id", "subdistrict", "district", "municipality",
+            "source_layer"]
     result = gpd.GeoDataFrame(measured[cols], geometry=measured.geometry, crs=ANALYSIS_CRS)
     result["walk_m_existing_tram"] = np.where(np.isfinite(bdist["existing"]), np.round(bdist["existing"]), np.nan)
     for key in lines["option"]:
@@ -1050,6 +1186,9 @@ def main() -> None:
     to_geojson(sub_out, OUT / "subdistricts.geojson")
     to_geojson(districts, OUT / "districts.geojson")
     to_geojson(corridors, OUT / "published-corridors.geojson")
+    to_geojson(study_corridors, OUT / "study-2019-corridors.geojson")
+    write_table(pd.DataFrame(study_corridors.drop(columns="geometry")), OUT / "study-2019-corridors.csv")
+    write_table(study_stages, OUT / "study-2019-stages.csv")
     write_table(summary, OUT / "option-summary.csv")
     write_table(matrix, OUT / "option-matrix.csv")
     write_table(score_table, OUT / "option-scores.csv")
@@ -1066,17 +1205,26 @@ def main() -> None:
         "gtfs": {"service_day": gtfs["service_day"], "route_types": gtfs["route_types"],
                  "tram_stops": int(len(tram_stops)), "tram_lines": int(len(gtfs["tram_lines"]))},
         "population": {
-            "grid_cells_in_frame": int(len(grid)), "grid_cells_touching_tallinn": int(in_tallinn.sum()),
+            "grid_cells_in_frame": int((grid["alloc_basis"] != "outside_frame").sum()), "grid_cells_touching_tallinn": int(in_tallinn.sum()),
             "grid_population_touching_tallinn": float(grid.loc[in_tallinn, "population"].sum()),
             "unallocated_cells": int((grid["alloc_basis"] == "unallocated").sum()),
             "unallocated_population": float(grid.loc[grid["alloc_basis"] == "unallocated", "population"].sum()),
             "tallinn_population_est": round(total_pop, 1),
+            "frame_population": float(grid.loc[grid["alloc_basis"] != "outside_frame", "population"].sum()),
+            "grid_cells_outside_frame": int((grid["alloc_basis"] == "outside_frame").sum()),
+            "allocated_population": round(float(measured["pop_est"].sum()), 1),
+            "allocated_outside_tallinn": round(float(measured.loc[~in_city, "pop_est"].sum()), 1),
+            "outside_by_municipality": {str(k): round(float(v)) for k, v in measured[~in_city].groupby("municipality")["pop_est"].sum()
+                                        .sort_values(ascending=False).items()},
             "register_population": float(sub["register_population"].sum()),
             "tier2_population": round(float(measured.loc[measured["alloc_tier"] == 2, "pop_est"].sum()), 1),
             "inhabited_buildings": int((measured["pop_est"] > 0).sum()),
+            "inhabited_buildings_outside_tallinn": int(((measured["pop_est"] > 0) & ~in_city).sum()),
             "reference_period": sorted(grid["reference_period"].unique())[0],
         },
         "buildings": {"in_source": int(len(buildings)),
+                      "by_source_layer": {k: int(v) for k, v in buildings["source_layer"].value_counts().items()},
+                      "workplace_floor_outside_tallinn_m2": round(float(measured.loc[~in_city, "workplace_m2"].sum())),
                       "status_counts": {k: int(v) for k, v in buildings["status"].value_counts().items()},
                       "use_counts": {k: int(v) for k, v in buildings["use"].value_counts().items()},
                       "workplace_floor_m2": round(float(measured["workplace_m2"].sum())),
@@ -1085,10 +1233,12 @@ def main() -> None:
         "services": {k: int(v) for k, v in services["category"].value_counts().items()},
         "plans_in_process": int(len(plans)),
         "overrides": scenario_results,
+        "study_2019": study_facts,
     }
     frames = {"measured": measured, "result": result, "buildings": buildings, "grid": grid, "sub": sub_out,
               "districts": districts, "lines": lines_out, "stops": stops, "sheds": shed_frame, "services": services,
-              "plans": plans, "corridors": corridors, "gtfs_stops": gtfs["stops"], "pipeline_buildings": pipeline_buildings, "matrix": matrix, "scores": score_table,
+              "plans": plans, "corridors": corridors, "study_corridors": study_corridors, "study_stages": study_stages,
+              "study_definition": study_definition, "gtfs_stops": gtfs["stops"], "pipeline_buildings": pipeline_buildings, "matrix": matrix, "scores": score_table,
               "summary": summary, "existing": existing, "tram_lines": gtfs["tram_lines"], "tram_stops": tram_out,
               "network": network, "bdist": bdist, "definitions": definitions}
 

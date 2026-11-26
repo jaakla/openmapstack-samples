@@ -25,7 +25,7 @@ from openmapstack.integrity import canonical_file_set_hash, declared_input_paths
 
 log = logging.getLogger("pipeline")
 
-# Colour identifies the part of the city (five hues, the first five slots of the reference
+# Colour identifies the part of the city, or "Beyond Tallinn" (six hues, the first six slots of the reference
 # categorical palette, light and dark steps); the individual line is named by a label on the map
 # and in every list, so identity never rests on colour alone.
 FAMILY_COLOURS = {
@@ -34,12 +34,18 @@ FAMILY_COLOURS = {
     "Põhja-Tallinn": {"light": "#1baf7a", "dark": "#199e70"},
     "South": {"light": "#eda100", "dark": "#c98500"},
     "West": {"light": "#e87ba4", "dark": "#d55181"},
+    "Beyond Tallinn": {"light": "#7a52c7", "dark": "#a487e8"},
 }
 STYLE = {
     "existing_tram": "#1f2937", "existing_catchment": "#6b7280", "reach_new": "#d9480f", "reach_existing": "#868e96",
     "reach_both": "#e8a13a", "outside": "#c9c8c2", "workplace": "#5b4bc4", "service": "#0b7285", "plan": "#b5651d",
     "pipeline": "#8e4b10", "corridor_study": "#e0a100", "corridor_plan": "#3b82c4", "admin_line": "#52514e",
 }
+# The five stages of the 2019 study are an order (first to last), so they take one ramp from dark to
+# light rather than five unrelated hues; the stage number is also written on every corridor label.
+STAGE_COLOURS = {1: {"light": "#3b0f70", "dark": "#a5b4fc"}, 2: {"light": "#8c2981", "dark": "#d081c8"},
+                 3: {"light": "#de4968", "dark": "#f0708a"}, 4: {"light": "#f1873d", "dark": "#f5a35c"},
+                 5: {"light": "#c9a227", "dark": "#f2d675"}}
 CRITERION_LABEL = {"new_residents": "Residents newly in reach", "residents": "All residents in reach", "workplaces": "Workplace floor area",
                    "services": "Public services", "growth": "Development in preparation", "efficiency": "Residents per km",
                    "strategy": "Strategy fit"}
@@ -84,7 +90,7 @@ def validate(project: dict, facts: dict, frames: dict, root: Path, run_id: str) 
     geodata = {"tram_options": lines, "tram_option_stops": stops, "option_catchment_variants": frames["sheds"],
                "buildings": frames["result"], "services": frames["services"], "plans_in_process": frames["plans"],
                "pipeline_buildings": frames["pipeline_buildings"], "subdistricts": frames["sub"], "districts": frames["districts"],
-               "published_corridors": frames["corridors"], "existing_tram_lines": frames["tram_lines"], "existing_tram_stops": frames["tram_stops"]}
+               "published_corridors": frames["corridors"], "study_corridors": frames["study_corridors"], "existing_tram_lines": frames["tram_lines"], "existing_tram_stops": frames["tram_stops"]}
     invalid = {name: int((~frame.geometry.is_valid).sum() + frame.geometry.is_empty.sum()) for name, frame in geodata.items()}
     checks.append({"id": "geometry_valid", "status": "passed" if not any(invalid.values()) else "failed",
                    "features_checked": int(sum(len(f) for f in geodata.values())), "invalid_or_empty": invalid})
@@ -112,7 +118,8 @@ def validate(project: dict, facts: dict, frames: dict, root: Path, run_id: str) 
     counts.update(option_catchments=int(((frames["sheds"]["option"] != "existing") & frames["sheds"]["canonical"]).sum()),
                   existing_tram_catchments=int((frames["sheds"]["option"] == "existing").sum()),
                   option_summary=int(len(summary)), option_matrix=int(len(matrix)), option_scores=int(len(scores)),
-                  existing_tram_coverage=int(len(frames["existing"])))
+                  existing_tram_coverage=int(len(frames["existing"])), study_corridor_table=int(len(frames["study_corridors"])),
+                  study_stages=int(len(frames["study_stages"])))
     checks.append({"id": "row_count_gt_zero", "status": "passed" if all(v > 0 for v in counts.values()) else "failed", "rows": counts})
     checks.append({"id": "no_duplicate_option", "status": "passed" if lines["option"].is_unique and summary["option"].is_unique else "failed",
                    "duplicates": int(lines["option"].duplicated().sum())})
@@ -122,8 +129,9 @@ def validate(project: dict, facts: dict, frames: dict, root: Path, run_id: str) 
     # Semantic predicates: every coded value the selection depends on lies inside its documented domain.
     raw = pd.read_parquet(source_dir / "tallinn-buildings-etak-ehr.parquet", columns=["ehr_seisund", "kaos_peamine_kood"])
     status_domain = {"Olemas", "Kavandatav", "Püstitamisel", "Lammutatud", "Lammutamisel", "Kustutatud", ""}
-    status_seen = set(raw["ehr_seisund"].fillna("").unique())
-    kaos = raw["kaos_peamine_kood"].dropna()
+    around = pd.read_parquet(source_dir / p.SURROUNDINGS_BUILDINGS, columns=["seisund", "kaos_kood_peamine"])
+    status_seen = set(raw["ehr_seisund"].fillna("").unique()) | set(around["seisund"].fillna("").unique())
+    kaos = pd.concat([raw["kaos_peamine_kood"], around["kaos_kood_peamine"]]).dropna()
     kaos_ok = bool(kaos.str.fullmatch(r"\d{5}").all())
     plans_raw = pd.read_parquet(source_dir / "tallinn-detailed-plans.parquet", columns=["seisundi_nimi"])
     plan_domain = {"kehtiv", "osaliselt kehtiv", "kehtetu", "lõpetatud", "algatatud", "taotletav", "vastuvõetud"}
@@ -132,7 +140,9 @@ def validate(project: dict, facts: dict, frames: dict, root: Path, run_id: str) 
     semantics_ok = status_seen <= status_domain and kaos_ok and plan_seen <= plan_domain and route_types_ok
     checks.append({"id": "source_semantics_verified", "status": "passed" if semantics_ok else "failed",
                    "building_status_values_seen": sorted(status_seen), "building_use_codes_are_5_digit_kaos": kaos_ok,
-                   "buildings_without_register_record_kept_unknown": int((raw["ehr_seisund"].fillna("") == "").sum()),
+                   "buildings_without_register_record_kept_unknown": int((raw["ehr_seisund"].fillna("") == "").sum()
+                                                                         + (around["seisund"].fillna("") == "").sum()),
+                   "building_layers_checked": ["tallinn-buildings-etak-ehr.parquet", p.SURROUNDINGS_BUILDINGS],
                    "plan_status_values_seen": sorted(plan_seen), "plans_without_status_not_counted": int(plans_raw["seisundi_nimi"].isna().sum()),
                    "gtfs_route_types_seen": sorted(facts["gtfs"]["route_types"])})
 
@@ -197,11 +207,14 @@ def validate(project: dict, facts: dict, frames: dict, root: Path, run_id: str) 
     score_columns = {c["name"] for c in project["outputs"]["option_scores"]["table"]["columns"]}
     for fields in profile["fields"].values():
         mismatches += [f"view field {f} not a column of option_scores" for f in fields if f not in score_columns]
-    for key in ("option_summary", "option_matrix", "option_scores", "existing_tram_coverage"):
+    for key in ("option_summary", "option_matrix", "option_scores", "existing_tram_coverage", "study_corridor_table", "study_stages"):
         table_columns = [c["name"] for c in project["outputs"][key]["table"]["columns"]]
         actual = list(pd.read_csv(root / project["outputs"][key]["path"], nrows=0).columns)
         if table_columns != actual:
             mismatches.append(f"{key}: declared columns differ from the file ({sorted(set(table_columns) ^ set(actual))})")
+    stages_shown = set(int(v) for v in frames["study_corridors"]["stage"])
+    if stages_shown != set(STAGE_COLOURS):
+        mismatches.append(f"study stages on the map {sorted(stages_shown)} differ from the stage sublayers {sorted(STAGE_COLOURS)}")
     families = {o.get("family") for o in frames["definitions"]["options"]}
     if not families <= set(FAMILY_COLOURS):
         mismatches.append(f"no colour declared for area(s) {sorted(families - set(FAMILY_COLOURS))}")
@@ -213,8 +226,9 @@ def validate(project: dict, facts: dict, frames: dict, root: Path, run_id: str) 
     pop = facts["population"]
     checks.append({"id": "population_conserved", "status": "passed" if pop["unallocated_cells"] == 0 else "warning",
                    "unallocated_cells": pop["unallocated_cells"], "unallocated_population": pop["unallocated_population"],
-                   **({"reason": f"{pop['unallocated_cells']} populated grid cells touching Tallinn hold no registered dwelling "
-                                 f"({pop['unallocated_population']:.0f} residents, mostly in neighbouring municipalities); they are not allocated."}
+                   "frame_population": pop["frame_population"], "allocated_population": pop["allocated_population"],
+                   **({"reason": f"{pop['unallocated_cells']} populated grid cells of the frame hold no dwelling footprint "
+                                 f"({pop['unallocated_population']:.0f} of {pop['frame_population']:.0f} residents); they are not allocated."}
                       if pop["unallocated_cells"] else {})})
     total = pop["tallinn_population_est"]
     checks.append({"id": "tallinn_population_plausible", "status": "passed" if 430000 <= total <= 480000 else "failed",
@@ -269,10 +283,31 @@ def validate(project: dict, facts: dict, frames: dict, root: Path, run_id: str) 
                    "stage_not_readable_from_drawing": unread, "problems": study_problems,
                    "note": "The benefit-cost figures are transcribed from Tables 45, 61 and 62 of the 2019 report; this check covers "
                            "their presence and the stage, not the transcription."})
+    # The five stages of the 2019 study: every line of the city's drawing is named once, in the stage the
+    # drawing gives it, and the drawn length of each stage agrees with the total the report prints.
+    study, stage_table = facts["study_2019"], frames["study_stages"]
+    missing = study["not_in_drawing"]
+    checks.append({"id": "study_stages_complete",
+                   "status": "failed" if study["problems"] or len(stage_table) != 5 else "warning" if missing else "passed",
+                   "lines_in_drawing": study["lines_in_drawing"], "lines_named": study["lines_named"],
+                   "duplicate_lines_dropped": study["duplicate_lines"], "corridors": study["corridors"],
+                   "stage_length_km": {int(r.stage): {"report": float(r.length_report_km), "drawn": float(r.length_drawn_km)} for r in stage_table.itertuples()},
+                   "length_tolerance": p.STUDY_STAGE_LENGTH_TOLERANCE, "problems": study["problems"], "not_in_drawing": missing,
+                   "note": "Corridor codes and the study's figures are transcribed from the report; this check covers the join to the drawing, the stage and the stage lengths, not the transcription.",
+                   **({"reason": "Shown on the report's stage maps but absent from the city's drawing, so not on the map: "
+                                 + "; ".join(f"stage {m['stage']}, {m['code']} ({m['name']})" for m in missing) + "."} if missing and not study["problems"] else {})})
     _, gap = p.snap(frames["network"], np.column_stack([stops.geometry.x, stops.geometry.y]))
-    checks.append({"id": "option_stops_on_network", "status": "passed" if gap.max() <= 150 else "failed",
-                   "note": "The gap is walked in a straight line and counted in every distance; the largest gaps are on the unbuilt Rahu tee corridor.",
-                   "max_gap_m": round(float(gap.max()), 1), "stops_checked": int(len(stops))})
+    # Up to 150 m a stop is on the network. Beyond that it stands where no path is mapped yet (a corridor drawn
+    # across open land): reported, and the gap still counts in every distance. Beyond the accepted walking
+    # distance the stop could reach nothing, which would mean broken geometry.
+    far_stops = [f"{o} stop {int(q)} ({g:.0f} m)" for o, q, g in zip(stops["option"], stops["seq"], gap) if g > 150]
+    checks.append({"id": "option_stops_on_network",
+                   "status": "passed" if gap.max() <= 150 else "warning" if gap.max() <= p.CANONICAL_CATCHMENT_M else "failed",
+                   "note": "The gap is walked in a straight line and counted in every distance.",
+                   "max_gap_m": round(float(gap.max()), 1), "stops_checked": int(len(stops)), "stops_beyond_150_m": far_stops,
+                   **({"reason": f"{len(far_stops)} modelled stops lie more than 150 m from any mapped path, where a study corridor is drawn across open land: "
+                                 + ", ".join(far_stops) + ". The gap is counted in their walking distances, so they reach few or no buildings."}
+                      if far_stops and gap.max() <= p.CANONICAL_CATCHMENT_M else {})})
     ordered = matrix.sort_values(["option", "catchment_m"])
     monotonic = all(bool((ordered.groupby("option")[c].diff().dropna() >= 0).all())
                     for c in ("residents", "workplace_floor_m2", "services", "pipeline_home_m2"))
@@ -344,7 +379,7 @@ def render_dashboard(project: dict, facts: dict, frames: dict, report: dict, roo
     keep = near_any & ((measured["pop_est"] > 0) | (measured["workplace_m2"] > 0))
     shown = measured[keep]
     compact = {"id": shown["id"].values, "p": shown["pop_est"].round(1).values, "w": shown["workplace_m2"].round().astype(int).values,
-               "u": shown["use_label"].fillna("").values, "s": shown["subdistrict"].fillna("").values,
+               "u": shown["use_label"].fillna("").values, "s": shown["subdistrict"].fillna(shown["municipality"]).fillna("").values,
                "e": np.where(bdist["existing"][keep] <= max_reach, np.round(bdist["existing"][keep]), -1).astype(int)}
     for index, key in enumerate(option_ids):
         compact[f"o{index}"] = np.where(bdist[key][keep] <= max_reach, np.round(bdist[key][keep]), -1).astype(int)
@@ -366,7 +401,8 @@ def render_dashboard(project: dict, facts: dict, frames: dict, report: dict, roo
                         "published": d.get("published") or {}, "strategy": d["strategy"], "strategy_fit": row.strategy_fit,
                         "evidence": d["evidence"], "override_id": f"SCENARIO-{row.option}",
                         "declared_street_share": row.declared_street_share, "stand_in_street_share": row.stand_in_street_share,
-                        "study_2019_share": row.study_2019_share, "plan_corridor_share": row.plan_corridor_share})
+                        "study_2019_share": row.study_2019_share, "plan_corridor_share": row.plan_corridor_share,
+                        "tallinn_share": row.tallinn_share})
 
     presentation = project["presentation"]
     sources = [{"key": key, "provider": s["provider"], "dataset": s["dataset"], "url": s.get("portal_page") or s["source_url"],
@@ -374,7 +410,9 @@ def render_dashboard(project: dict, facts: dict, frames: dict, report: dict, roo
                 "license_url": s["license"].get("url"), "rows": s["access"]["file"].get("row_count"), "rationale": s.get("rationale"),
                 "role": s["role"], "file": s["access"]["file"].get("name")} for key, s in project["sources"].items()]
     table_frames = {"option_summary": frames["summary"], "option_matrix": frames["matrix"], "option_scores": frames["scores"],
-                    "existing_tram_coverage": frames["existing"]}
+                    "existing_tram_coverage": frames["existing"],
+                    "study_corridor_table": pd.DataFrame(frames["study_corridors"].drop(columns="geometry")),
+                    "study_stages": frames["study_stages"]}
     tables = {}
     for entry in presentation["tables"]:
         output = project["outputs"][entry["output"]]
@@ -397,7 +435,9 @@ def render_dashboard(project: dict, facts: dict, frames: dict, report: dict, roo
         "canonical": facts["canonical"], "catchments": p.CATCHMENTS_M, "criteria": p.CRITERIA, "criterion_labels": CRITERION_LABEL,
         "profiles": [{"id": k, "label": v["label"], "weights": v["weights"]} for k, v in params["profiles"].items()],
         "appraisal_scenarios": p.APPRAISAL_SCENARIOS, "appraisal_headline": p.APPRAISAL_HEADLINE,
-        "options": options, "family_colours": FAMILY_COLOURS, "style": STYLE, "service_labels": SERVICE_LABEL, "tables": tables,
+        "options": options, "family_colours": FAMILY_COLOURS, "style": STYLE, "stage_colours": STAGE_COLOURS,
+        "study": {"document": frames["study_definition"]["document"], "stages": _records(frames["study_stages"]),
+                  "not_in_drawing": facts["study_2019"]["not_in_drawing"]}, "service_labels": SERVICE_LABEL, "tables": tables,
         "data": {
             "options": _geojson(lines[["option", "title", "short", "family", "geometry"]], 6),
             "stops": _geojson(frames["stops"], 6),
@@ -410,7 +450,8 @@ def render_dashboard(project: dict, facts: dict, frames: dict, report: dict, roo
             "services": _geojson(frames["services"][["service_id", "category", "name", "source_file", "geometry"]], 5),
             "plans": _geojson(frames["plans"], 5, simplify_m=3.0),
             "pipeline_buildings": _geojson(frames["pipeline_buildings"][["id", "use", "use_label", "floor_m2", "geometry"]], 5, simplify_m=1.0),
-            "corridors": _geojson(frames["corridors"], 5, simplify_m=5.0),
+            "corridors": _geojson(frames["corridors"][frames["corridors"]["layer"] == "planning_documents"], 5, simplify_m=5.0),
+            "study_corridors": _geojson(frames["study_corridors"], 5, simplify_m=3.0),
             "districts": _geojson(frames["districts"], 5, simplify_m=10.0),
         },
     }
@@ -475,6 +516,10 @@ def write_findings_file(project: dict, facts: dict, frames: dict, report: dict, 
     headline = p.APPRAISAL_SCENARIOS[p.APPRAISAL_HEADLINE]
     study_only = [o["id"] for o in frames["definitions"]["options"] if o.get("follow") and o["id"] != "lasnamae_rahu"]
     added = summary[summary["option"].isin(study_only)].sort_values("rank_balanced")
+    sc, stages, study = frames["study_corridors"], frames["study_stages"], facts["study_2019"]
+    not_compared = sc[sc["compared"] == "no"]
+    beyond = summary[summary["length_in_tallinn_pct"] < 100].sort_values("rank_balanced")
+    pop, weights = facts["population"], p.PROFILES[p.CANONICAL_PROFILE]
     items = [
         {"id": "ranking", "evidence": ["option_summary", "option_scores"],
          "statement": (f"With the balanced weighting and a {reach} m walk to a stop, the highest-scoring of the {len(summary)} options are "
@@ -526,17 +571,39 @@ def write_findings_file(project: dict, facts: dict, frames: dict, report: dict, 
                          "The study appraises corridors that are not always the same extent as an option here; several options share one corridor's figures, and some figures cover more than the option (see each option's note).",
                          "The figures are from 2019 and assume the study's Tallinn++ policy package; they are quoted, not recomputed."]},
         {"id": "study_2019_corridors", "evidence": ["option_summary", "option_matrix"],
-         "statement": (f"{len(added)} corridors of the 2019 study inside Tallinn that are not in current debate were measured on the same basis, drawn as the city published them. "
+         "statement": (f"{len(added)} corridors of the 2019 study that are not in current debate were measured on the same basis, drawn as the city published them. "
                        "They rank: " + "; ".join(f"{int(r.rank_balanced)} {r.title} ({n(r.residents)} residents in reach, {n(r.residents_new)} new, study stage {int(r.study_2019_stage)})" for r in added.itertuples()) + "."),
          "limitations": ["These lines follow the city's drawing of the study corridors and were not checked against the street network.",
-                         "The Viimsi line is measured for its part inside Tallinn only, so its reach is understated.", scenario]},
+                         scenario]},
+        {"id": "beyond_tallinn", "evidence": ["option_summary", "option_matrix", "buildings"],
+         "statement": (f"{len(beyond)} options leave Tallinn. Buildings of the municipalities around the city, from the national building layer, give them "
+                       f"residents and workplaces on the same basis as inside it: {n(pop['allocated_outside_tallinn'])} residents in "
+                       f"{n(pop['inhabited_buildings_outside_tallinn'])} buildings outside Tallinn are in the model. They rank: "
+                       + "; ".join(f"{int(r.rank_balanced)} {r.title} ({r.score_balanced:.1f}; {n(r.residents)} residents in reach, {n(r.residents_outside_tallinn)} of them outside Tallinn; "
+                                   f"{int(r.length_in_tallinn_pct)} % of the line in Tallinn)" for r in beyond.itertuples()) + "."),
+         "limitations": [f"Public services and detailed plans in process are the city's own layers and are counted in Tallinn only. For a line outside the city the services criterion "
+                         f"({100 * weights['services']:.0f} % of the balanced score) and half of the growth criterion ({100 * weights['growth'] / 2:.1f} %) are therefore a lower bound.",
+                         "Bus departures are from the Tallinn timetable feed; county lines are not in it.",
+                         "The Jüri, Tabasalu and Maardu lines each continue a line that is not built; they are measured on their own.", scenario]},
+        {"id": "study_2019_stages", "evidence": ["study_stages", "study_corridor_table", "study_corridors"],
+         "statement": (f"The 2019 study orders its corridors in five stages. All {len(sc)} corridors of the city's drawing of them ({study['total_km']:.1f} km, "
+                       f"{study['outside_tallinn_km']:.1f} km of it outside Tallinn) are on the map by stage. "
+                       + " ".join(f"Stage {int(r.stage)}: {int(r.corridors)} corridors, {r.length_report_km:.1f} km in the report ({r.length_drawn_km:.1f} km drawn), "
+                                  f"benefit-cost ratio {r.study_bcr_tram:.1f}." for r in stages.itertuples())
+                       + f" {int((sc['compared'] == 'yes').sum())} corridors are compared as options here, those leaving Tallinn included. Not compared: "
+                       + ", ".join(not_compared[not_compared["mode"] == "railway"]["corridor"]) + " (existing railways); "
+                       + ", ".join(not_compared[not_compared["mode"] == "tram"]["corridor"]) + " (short links)."),
+         "limitations": ["Corridor codes, stage totals and benefit-cost ratios are transcribed from the report (chapter 1.6, Tables 45, 61, 62 and 65); the lines are the city's schematic drawing.",
+                         f"The benefit-cost ratio is the study's, for the tram variant in its scenario '{headline}', in 2019 assumptions.",
+                         *(["Shown on the report's maps but not in the city's drawing, so not on the map: " + "; ".join(f"{m['code']} (stage {m['stage']})" for m in study["not_in_drawing"]) + "."]
+                           if study["not_in_drawing"] else [])]},
         {"id": "strategy", "evidence": ["option_summary", "tram_options"],
          "statement": (f"Strategy fit and measured reach point in different directions. {best_fit['title']} has the highest strategy fit ({best_fit['strategy_fit']:.2f} of 3) and ranks "
                        f"{int(best_fit['rank_balanced'])} on the balanced score; the top-ranked option, {top.iloc[0]['title']}, has a strategy fit of {top.iloc[0]['strategy_fit']:.2f}."),
          "limitations": ["Strategy fit is a rubric applied to documents and news up to 24 November 2026; positions change."]},
     ]
     write_findings(root, project, report=report,
-                   scope=(f"{len(summary)} tram line options inside Tallinn, measured at a {reach} m network walk to modelled stops; "
+                   scope=(f"{len(summary)} tram line options in Tallinn and the municipalities around it, measured at a {reach} m network walk to modelled stops; "
                           f"population 2024, other data November 2026"), findings=items)
 
 

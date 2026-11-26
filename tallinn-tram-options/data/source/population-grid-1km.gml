@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><wfs:FeatureCollection xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wfs="http://www.opengis.net/wfs/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:PD_rahvastikutihedus="ee.stat.pd-stat-rahvastikutihedus1x1km" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" numberMatched="580" numberReturned="580" timeStamp="2026-11-24T06:32:10.141Z" xsi:schemaLocation="http://www.opengis.net/wfs/2.0 https://inspire.geoportaal.ee/geoserver/schemas/wfs/2.0/wfs.xsd ee.stat.pd-stat-rahvastikutihedus1x1km https://inspire.geoportaal.ee/geoserver/PD_rahvastikutihedus/wfs?service=WFS&amp;version=2.0.0&amp;request=DescribeFeatureType&amp;typeName=PD_rahvastikutihedus%3APD.StatisticalDistribution_ http://www.opengis.net/gml/3.2 https://inspire.geoportaal.ee/geoserver/schemas/gml/3.2.1/gml.xsd">
+<?xml version="1.0" encoding="UTF-8"?><wfs:FeatureCollection xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wfs="http://www.opengis.net/wfs/2.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:PD_rahvastikutihedus="ee.stat.pd-stat-rahvastikutihedus1x1km" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" numberMatched="711" numberReturned="711" timeStamp="2026-11-26T12:02:13.901Z" xsi:schemaLocation="http://www.opengis.net/wfs/2.0 https://inspire.geoportaal.ee/geoserver/schemas/wfs/2.0/wfs.xsd ee.stat.pd-stat-rahvastikutihedus1x1km https://inspire.geoportaal.ee/geoserver/PD_rahvastikutihedus/wfs?service=WFS&amp;version=2.0.0&amp;request=DescribeFeatureType&amp;typeName=PD_rahvastikutihedus%3APD.StatisticalDistribution_ http://www.opengis.net/gml/3.2 https://inspire.geoportaal.ee/geoserver/schemas/gml/3.2.1/gml.xsd">
   <wfs:member>
     <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-11686">
       <PD_rahvastikutihedus:gml_id>S-11686</PD_rahvastikutihedus:gml_id>
@@ -23535,6 +23535,5356 @@
           <gml:exterior>
             <gml:LinearRing>
               <gml:posList>6594999.99999901 555000.00000001 6595999.99999901 555000.00000001 6595999.99999901 556000.00000001 6594999.99999901 556000.00000001 6594999.99999901 555000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16478">
+      <PD_rahvastikutihedus:gml_id>S-16478</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16478</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>5</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16478.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6575999.99999901 556000.00000001 6576999.99999901 556000.00000001 6576999.99999901 557000.00000001 6575999.99999901 557000.00000002 6575999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16479">
+      <PD_rahvastikutihedus:gml_id>S-16479</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16479</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16479.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6576999.99999901 556000.00000001 6577999.99999901 556000.00000001 6577999.99999901 557000.00000002 6576999.99999901 557000.00000001 6576999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16480">
+      <PD_rahvastikutihedus:gml_id>S-16480</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16480</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16480.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6577999.99999901 556000.00000001 6578999.99999901 556000.00000001 6578999.99999901 557000.00000002 6577999.99999901 557000.00000002 6577999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16481">
+      <PD_rahvastikutihedus:gml_id>S-16481</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16481</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>10</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16481.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6578999.99999901 556000.00000001 6579999.99999901 556000.00000001 6579999.99999901 557000.00000001 6578999.99999901 557000.00000002 6578999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16482">
+      <PD_rahvastikutihedus:gml_id>S-16482</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16482</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>18</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16482.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6579999.99999901 556000.00000001 6580999.99999901 556000.00000001 6580999.99999901 557000.00000001 6579999.99999901 557000.00000001 6579999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16483">
+      <PD_rahvastikutihedus:gml_id>S-16483</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16483</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16483.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6580999.99999901 556000.00000001 6581999.99999901 556000.00000002 6581999.99999901 557000.00000002 6580999.99999901 557000.00000001 6580999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16484">
+      <PD_rahvastikutihedus:gml_id>S-16484</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16484</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>23</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16484.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6581999.99999901 556000.00000002 6582999.99999901 556000.00000001 6582999.99999901 557000.00000002 6581999.99999901 557000.00000002 6581999.99999901 556000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16485">
+      <PD_rahvastikutihedus:gml_id>S-16485</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16485</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>44</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16485.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6582999.99999901 556000.00000001 6583999.99999901 556000.00000001 6583999.99999901 557000.00000001 6582999.99999901 557000.00000002 6582999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16486">
+      <PD_rahvastikutihedus:gml_id>S-16486</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16486</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16486.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6583999.99999901 556000.00000001 6584999.99999901 556000.00000001 6584999.99999901 557000.00000002 6583999.99999901 557000.00000001 6583999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16487">
+      <PD_rahvastikutihedus:gml_id>S-16487</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16487</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16487.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6584999.99999901 556000.00000001 6585999.99999901 556000.00000001 6585999.99999901 557000.00000001 6584999.99999901 557000.00000002 6584999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16488">
+      <PD_rahvastikutihedus:gml_id>S-16488</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16488</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>50</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16488.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6585999.99999901 556000.00000001 6586999.99999901 556000.00000001 6586999.99999901 557000.00000002 6585999.99999901 557000.00000001 6585999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16489">
+      <PD_rahvastikutihedus:gml_id>S-16489</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16489</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>64</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16489.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6586999.99999901 556000.00000001 6587999.99999901 556000.00000001 6587999.99999901 557000.00000002 6586999.99999901 557000.00000002 6586999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16490">
+      <PD_rahvastikutihedus:gml_id>S-16490</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16490</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>14</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16490.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6587999.99999901 556000.00000001 6588999.99999901 556000.00000001 6588999.99999901 557000.00000001 6587999.99999901 557000.00000002 6587999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16491">
+      <PD_rahvastikutihedus:gml_id>S-16491</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16491</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16491.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6588999.99999901 556000.00000001 6589999.99999901 556000.00000001 6589999.99999901 557000.00000001 6588999.99999901 557000.00000001 6588999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16492">
+      <PD_rahvastikutihedus:gml_id>S-16492</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16492</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>43</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16492.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6589999.99999901 556000.00000001 6590999.99999901 556000.00000001 6590999.99999901 557000.00000001 6589999.99999901 557000.00000001 6589999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16493">
+      <PD_rahvastikutihedus:gml_id>S-16493</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16493</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>7</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16493.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6590999.99999901 556000.00000001 6591999.99999901 556000.00000001 6591999.99999901 557000.00000002 6590999.99999901 557000.00000001 6590999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16494">
+      <PD_rahvastikutihedus:gml_id>S-16494</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16494</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16494.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6591999.99999901 556000.00000001 6592999.99999901 556000.00000001 6592999.99999901 557000.00000001 6591999.99999901 557000.00000002 6591999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16495">
+      <PD_rahvastikutihedus:gml_id>S-16495</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16495</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>143</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16495.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6592999.99999901 556000.00000001 6593999.99999901 556000.00000001 6593999.99999901 557000.00000002 6592999.99999901 557000.00000001 6592999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16496">
+      <PD_rahvastikutihedus:gml_id>S-16496</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16496</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>205</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16496.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6593999.99999901 556000.00000001 6594999.99999901 556000.00000001 6594999.99999901 557000.00000002 6593999.99999901 557000.00000002 6593999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16497">
+      <PD_rahvastikutihedus:gml_id>S-16497</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16497</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>8</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16497.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6594999.99999901 556000.00000001 6595999.99999901 556000.00000001 6595999.99999901 557000.00000001 6594999.99999901 557000.00000002 6594999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16498">
+      <PD_rahvastikutihedus:gml_id>S-16498</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16498</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16498.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6595999.99999901 556000.00000001 6596999.99999901 556000.00000002 6596999.99999901 557000.00000001 6595999.99999901 557000.00000001 6595999.99999901 556000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16499">
+      <PD_rahvastikutihedus:gml_id>S-16499</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16499</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16499.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6596999.99999901 556000.00000002 6597999.99999901 556000.00000001 6597999.99999901 557000.00000001 6596999.99999901 557000.00000001 6596999.99999901 556000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16650">
+      <PD_rahvastikutihedus:gml_id>S-16650</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16650</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>5</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16650.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6575999.99999901 557000.00000002 6576999.99999901 557000.00000001 6576999.99999901 558000.00000001 6575999.99999901 558000.00000002 6575999.99999901 557000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16651">
+      <PD_rahvastikutihedus:gml_id>S-16651</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16651</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>8</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16651.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6576999.99999901 557000.00000001 6577999.99999901 557000.00000002 6577999.99999901 558000.00000002 6576999.99999901 558000.00000001 6576999.99999901 557000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16652">
+      <PD_rahvastikutihedus:gml_id>S-16652</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16652</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>8</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16652.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6577999.99999901 557000.00000002 6578999.99999901 557000.00000002 6578999.99999901 558000.00000002 6577999.99999901 558000.00000002 6577999.99999901 557000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16653">
+      <PD_rahvastikutihedus:gml_id>S-16653</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16653</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>6</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16653.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6578999.99999901 557000.00000002 6579999.99999901 557000.00000001 6579999.99999901 558000.00000002 6578999.99999901 558000.00000002 6578999.99999901 557000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16654">
+      <PD_rahvastikutihedus:gml_id>S-16654</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16654</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16654.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6579999.99999901 557000.00000001 6580999.99999901 557000.00000001 6580999.99999901 558000.00000002 6579999.99999901 558000.00000002 6579999.99999901 557000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16655">
+      <PD_rahvastikutihedus:gml_id>S-16655</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16655</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>8</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16655.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6580999.99999901 557000.00000001 6581999.99999901 557000.00000002 6581999.99999901 558000.00000002 6580999.99999901 558000.00000002 6580999.99999901 557000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16656">
+      <PD_rahvastikutihedus:gml_id>S-16656</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16656</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>41</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16656.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6581999.99999901 557000.00000002 6582999.99999901 557000.00000002 6582999.99999901 558000.00000001 6581999.99999901 558000.00000002 6581999.99999901 557000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16657">
+      <PD_rahvastikutihedus:gml_id>S-16657</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16657</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>54</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16657.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6582999.99999901 557000.00000002 6583999.99999901 557000.00000001 6583999.99999901 558000.00000002 6582999.99999901 558000.00000001 6582999.99999901 557000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16658">
+      <PD_rahvastikutihedus:gml_id>S-16658</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16658</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16658.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6583999.99999901 557000.00000001 6584999.99999901 557000.00000002 6584999.99999901 558000.00000001 6583999.99999901 558000.00000002 6583999.99999901 557000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16659">
+      <PD_rahvastikutihedus:gml_id>S-16659</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16659</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16659.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6584999.99999901 557000.00000002 6585999.99999901 557000.00000001 6585999.99999901 558000.00000002 6584999.99999901 558000.00000001 6584999.99999901 557000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16660">
+      <PD_rahvastikutihedus:gml_id>S-16660</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16660</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>10</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16660.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6585999.99999901 557000.00000001 6586999.99999901 557000.00000002 6586999.99999901 558000.00000002 6585999.99999901 558000.00000002 6585999.99999901 557000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16661">
+      <PD_rahvastikutihedus:gml_id>S-16661</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16661</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>31</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16661.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6586999.99999901 557000.00000002 6587999.99999901 557000.00000002 6587999.99999901 558000.00000002 6586999.99999901 558000.00000002 6586999.99999901 557000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16662">
+      <PD_rahvastikutihedus:gml_id>S-16662</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16662</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>33</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16662.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6587999.99999901 557000.00000002 6588999.99999901 557000.00000001 6588999.99999901 558000.00000002 6587999.99999901 558000.00000002 6587999.99999901 557000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16663">
+      <PD_rahvastikutihedus:gml_id>S-16663</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16663</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>60</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16663.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6588999.99999901 557000.00000001 6589999.99999901 557000.00000001 6589999.99999901 558000.00000002 6588999.99999901 558000.00000002 6588999.99999901 557000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16664">
+      <PD_rahvastikutihedus:gml_id>S-16664</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16664</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>5</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16664.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6589999.99999901 557000.00000001 6590999.99999901 557000.00000001 6590999.99999901 558000.00000002 6589999.99999901 558000.00000002 6589999.99999901 557000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16665">
+      <PD_rahvastikutihedus:gml_id>S-16665</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16665</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16665.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6590999.99999901 557000.00000001 6591999.99999901 557000.00000002 6591999.99999901 558000.00000002 6590999.99999901 558000.00000002 6590999.99999901 557000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16666">
+      <PD_rahvastikutihedus:gml_id>S-16666</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16666</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16666.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6591999.99999901 557000.00000002 6592999.99999901 557000.00000001 6592999.99999901 558000.00000002 6591999.99999901 558000.00000002 6591999.99999901 557000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16667">
+      <PD_rahvastikutihedus:gml_id>S-16667</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16667</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>3591</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16667.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6592999.99999901 557000.00000001 6593999.99999901 557000.00000002 6593999.99999901 558000.00000002 6592999.99999901 558000.00000002 6592999.99999901 557000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16668">
+      <PD_rahvastikutihedus:gml_id>S-16668</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16668</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>4725</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16668.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6593999.99999901 557000.00000002 6594999.99999901 557000.00000002 6594999.99999901 558000.00000002 6593999.99999901 558000.00000002 6593999.99999901 557000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16669">
+      <PD_rahvastikutihedus:gml_id>S-16669</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16669</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>1723</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16669.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6594999.99999901 557000.00000002 6595999.99999901 557000.00000001 6595999.99999901 558000.00000002 6594999.99999901 558000.00000002 6594999.99999901 557000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16670">
+      <PD_rahvastikutihedus:gml_id>S-16670</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16670</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16670.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6595999.99999901 557000.00000001 6596999.99999901 557000.00000001 6596999.99999901 558000.00000002 6595999.99999901 558000.00000002 6595999.99999901 557000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16671">
+      <PD_rahvastikutihedus:gml_id>S-16671</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16671</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16671.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6596999.99999901 557000.00000001 6597999.99999901 557000.00000001 6597999.99999901 558000.00000002 6596999.99999901 558000.00000002 6596999.99999901 557000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16823">
+      <PD_rahvastikutihedus:gml_id>S-16823</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16823</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16823.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6575999.99999901 558000.00000002 6576999.99999901 558000.00000001 6576999.99999901 559000.00000002 6575999.99999901 559000.00000002 6575999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16824">
+      <PD_rahvastikutihedus:gml_id>S-16824</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16824</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16824.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6576999.99999901 558000.00000001 6577999.99999901 558000.00000002 6577999.99999901 559000.00000002 6576999.99999901 559000.00000002 6576999.99999901 558000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16825">
+      <PD_rahvastikutihedus:gml_id>S-16825</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16825</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16825.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6577999.99999901 558000.00000002 6578999.99999901 558000.00000002 6578999.99999901 559000.00000002 6577999.99999901 559000.00000002 6577999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16826">
+      <PD_rahvastikutihedus:gml_id>S-16826</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16826</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16826.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6578999.99999901 558000.00000002 6579999.99999901 558000.00000002 6579999.99999901 559000.00000002 6578999.99999901 559000.00000002 6578999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16827">
+      <PD_rahvastikutihedus:gml_id>S-16827</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16827</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>6</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16827.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6579999.99999901 558000.00000002 6580999.99999901 558000.00000002 6580999.99999901 559000.00000002 6579999.99999901 559000.00000002 6579999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16828">
+      <PD_rahvastikutihedus:gml_id>S-16828</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16828</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>28</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16828.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6580999.99999901 558000.00000002 6581999.99999901 558000.00000002 6581999.99999901 559000.00000002 6580999.99999901 559000.00000002 6580999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16829">
+      <PD_rahvastikutihedus:gml_id>S-16829</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16829</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16829.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6581999.99999901 558000.00000002 6582999.99999901 558000.00000001 6582999.99999901 559000.00000002 6581999.99999901 559000.00000002 6581999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16830">
+      <PD_rahvastikutihedus:gml_id>S-16830</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16830</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16830.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6582999.99999901 558000.00000001 6583999.99999901 558000.00000002 6583999.99999901 559000.00000002 6582999.99999901 559000.00000002 6582999.99999901 558000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16831">
+      <PD_rahvastikutihedus:gml_id>S-16831</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16831</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16831.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6583999.99999901 558000.00000002 6584999.99999901 558000.00000001 6584999.99999901 559000.00000002 6583999.99999901 559000.00000002 6583999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16832">
+      <PD_rahvastikutihedus:gml_id>S-16832</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16832</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16832.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6584999.99999901 558000.00000001 6585999.99999901 558000.00000002 6585999.99999901 559000.00000002 6584999.99999901 559000.00000002 6584999.99999901 558000.00000001</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16833">
+      <PD_rahvastikutihedus:gml_id>S-16833</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16833</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16833.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6585999.99999901 558000.00000002 6586999.99999901 558000.00000002 6586999.99999901 559000.00000002 6585999.99999901 559000.00000002 6585999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16834">
+      <PD_rahvastikutihedus:gml_id>S-16834</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16834</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>5</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16834.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6586999.99999901 558000.00000002 6587999.99999901 558000.00000002 6587999.99999901 559000.00000002 6586999.99999901 559000.00000002 6586999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16835">
+      <PD_rahvastikutihedus:gml_id>S-16835</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16835</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>57</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16835.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6587999.99999901 558000.00000002 6588999.99999901 558000.00000002 6588999.99999901 559000.00000002 6587999.99999901 559000.00000002 6587999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16836">
+      <PD_rahvastikutihedus:gml_id>S-16836</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16836</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>7</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16836.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6588999.99999901 558000.00000002 6589999.99999901 558000.00000002 6589999.99999901 559000.00000002 6588999.99999901 559000.00000002 6588999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16837">
+      <PD_rahvastikutihedus:gml_id>S-16837</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16837</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16837.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6589999.99999901 558000.00000002 6590999.99999901 558000.00000002 6590999.99999901 559000.00000002 6589999.99999901 559000.00000002 6589999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16838">
+      <PD_rahvastikutihedus:gml_id>S-16838</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16838</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16838.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6590999.99999901 558000.00000002 6591999.99999901 558000.00000002 6591999.99999901 559000.00000002 6590999.99999901 559000.00000002 6590999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16839">
+      <PD_rahvastikutihedus:gml_id>S-16839</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16839</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16839.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6591999.99999901 558000.00000002 6592999.99999901 558000.00000002 6592999.99999901 559000.00000002 6591999.99999901 559000.00000002 6591999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16840">
+      <PD_rahvastikutihedus:gml_id>S-16840</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16840</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>429</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16840.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6592999.99999901 558000.00000002 6593999.99999901 558000.00000002 6593999.99999901 559000.00000002 6592999.99999901 559000.00000002 6592999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16841">
+      <PD_rahvastikutihedus:gml_id>S-16841</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16841</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>2220</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16841.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6593999.99999901 558000.00000002 6594999.99999901 558000.00000002 6594999.99999901 559000.00000002 6593999.99999901 559000.00000002 6593999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16842">
+      <PD_rahvastikutihedus:gml_id>S-16842</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16842</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>761</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16842.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6594999.99999901 558000.00000002 6595999.99999901 558000.00000002 6595999.99999901 559000.00000002 6594999.99999901 559000.00000002 6594999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16843">
+      <PD_rahvastikutihedus:gml_id>S-16843</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16843</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>48</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16843.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6595999.99999901 558000.00000002 6596999.99999901 558000.00000002 6596999.99999901 559000.00000002 6595999.99999901 559000.00000002 6595999.99999901 558000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16993">
+      <PD_rahvastikutihedus:gml_id>S-16993</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16993</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16993.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6575999.99999901 559000.00000002 6576999.99999901 559000.00000002 6576999.99999901 560000.00000002 6575999.99999901 560000.00000002 6575999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16994">
+      <PD_rahvastikutihedus:gml_id>S-16994</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16994</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16994.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6576999.99999901 559000.00000002 6577999.99999901 559000.00000002 6577999.99999901 560000.00000002 6576999.99999901 560000.00000002 6576999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16995">
+      <PD_rahvastikutihedus:gml_id>S-16995</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16995</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16995.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6577999.99999901 559000.00000002 6578999.99999901 559000.00000002 6578999.99999901 560000.00000002 6577999.99999901 560000.00000002 6577999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16996">
+      <PD_rahvastikutihedus:gml_id>S-16996</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16996</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>7</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16996.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6578999.99999901 559000.00000002 6579999.99999901 559000.00000002 6579999.99999901 560000.00000002 6578999.99999901 560000.00000002 6578999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16997">
+      <PD_rahvastikutihedus:gml_id>S-16997</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16997</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>63</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16997.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6579999.99999901 559000.00000002 6580999.99999901 559000.00000002 6580999.99999901 560000.00000002 6579999.99999901 560000.00000002 6579999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16998">
+      <PD_rahvastikutihedus:gml_id>S-16998</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16998</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>6</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16998.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6580999.99999901 559000.00000002 6581999.99999901 559000.00000002 6581999.99999901 560000.00000002 6580999.99999901 560000.00000002 6580999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-16999">
+      <PD_rahvastikutihedus:gml_id>S-16999</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-16999</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>25</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-16999.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6581999.99999901 559000.00000002 6582999.99999901 559000.00000002 6582999.99999901 560000.00000002 6581999.99999901 560000.00000002 6581999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17000">
+      <PD_rahvastikutihedus:gml_id>S-17000</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17000</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>6</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17000.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6582999.99999901 559000.00000002 6583999.99999901 559000.00000002 6583999.99999901 560000.00000002 6582999.99999901 560000.00000002 6582999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17001">
+      <PD_rahvastikutihedus:gml_id>S-17001</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17001</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>5</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17001.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6583999.99999901 559000.00000002 6584999.99999901 559000.00000002 6584999.99999901 560000.00000002 6583999.99999901 560000.00000002 6583999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17002">
+      <PD_rahvastikutihedus:gml_id>S-17002</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17002</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17002.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6584999.99999901 559000.00000002 6585999.99999901 559000.00000002 6585999.99999901 560000.00000002 6584999.99999901 560000.00000002 6584999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17003">
+      <PD_rahvastikutihedus:gml_id>S-17003</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17003</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17003.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6585999.99999901 559000.00000002 6586999.99999901 559000.00000002 6586999.99999901 560000.00000002 6585999.99999901 560000.00000002 6585999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17004">
+      <PD_rahvastikutihedus:gml_id>S-17004</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17004</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17004.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6586999.99999901 559000.00000002 6587999.99999901 559000.00000002 6587999.99999901 560000.00000002 6586999.99999901 560000.00000002 6586999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17005">
+      <PD_rahvastikutihedus:gml_id>S-17005</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17005</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>18</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17005.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6587999.99999901 559000.00000002 6588999.99999901 559000.00000002 6588999.99999901 560000.00000002 6587999.99999901 560000.00000002 6587999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17006">
+      <PD_rahvastikutihedus:gml_id>S-17006</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17006</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17006.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6588999.99999901 559000.00000002 6589999.99999901 559000.00000002 6589999.99999901 560000.00000002 6588999.99999901 560000.00000002 6588999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17007">
+      <PD_rahvastikutihedus:gml_id>S-17007</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17007</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17007.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6589999.99999901 559000.00000002 6590999.99999901 559000.00000002 6590999.99999901 560000.00000002 6589999.99999901 560000.00000002 6589999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17008">
+      <PD_rahvastikutihedus:gml_id>S-17008</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17008</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17008.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6590999.99999901 559000.00000002 6591999.99999901 559000.00000002 6591999.99999901 560000.00000002 6590999.99999901 560000.00000002 6590999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17009">
+      <PD_rahvastikutihedus:gml_id>S-17009</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17009</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17009.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6591999.99999901 559000.00000002 6592999.99999901 559000.00000002 6592999.99999901 560000.00000002 6591999.99999901 560000.00000002 6591999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17010">
+      <PD_rahvastikutihedus:gml_id>S-17010</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17010</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17010.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6592999.99999901 559000.00000002 6593999.99999901 559000.00000002 6593999.99999901 560000.00000002 6592999.99999901 560000.00000002 6592999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17011">
+      <PD_rahvastikutihedus:gml_id>S-17011</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17011</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>23</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17011.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6593999.99999901 559000.00000002 6594999.99999901 559000.00000002 6594999.99999901 560000.00000002 6593999.99999901 560000.00000002 6593999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17012">
+      <PD_rahvastikutihedus:gml_id>S-17012</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17012</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>19</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17012.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6594999.99999901 559000.00000002 6595999.99999901 559000.00000002 6595999.99999901 560000.00000002 6594999.99999901 560000.00000002 6594999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17013">
+      <PD_rahvastikutihedus:gml_id>S-17013</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17013</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>59</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17013.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6595999.99999901 559000.00000002 6596999.99999901 559000.00000002 6596999.99999901 560000.00000002 6595999.99999901 560000.00000002 6595999.99999901 559000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17159">
+      <PD_rahvastikutihedus:gml_id>S-17159</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17159</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17159.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6575999.99999901 560000.00000002 6576999.99999901 560000.00000002 6576999.99999901 561000.00000002 6575999.99999901 561000.00000002 6575999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17160">
+      <PD_rahvastikutihedus:gml_id>S-17160</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17160</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17160.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6576999.99999901 560000.00000002 6577999.99999901 560000.00000002 6577999.99999901 561000.00000002 6576999.99999901 561000.00000002 6576999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17161">
+      <PD_rahvastikutihedus:gml_id>S-17161</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17161</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17161.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6577999.99999901 560000.00000002 6578999.99999901 560000.00000002 6578999.99999901 561000.00000002 6577999.99999901 561000.00000002 6577999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17162">
+      <PD_rahvastikutihedus:gml_id>S-17162</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17162</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>43</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17162.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6578999.99999901 560000.00000002 6579999.99999901 560000.00000002 6579999.99999901 561000.00000002 6578999.99999901 561000.00000002 6578999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17163">
+      <PD_rahvastikutihedus:gml_id>S-17163</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17163</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>298</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17163.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6579999.99999901 560000.00000002 6580999.99999901 560000.00000002 6580999.99999901 561000.00000002 6579999.99999901 561000.00000002 6579999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17164">
+      <PD_rahvastikutihedus:gml_id>S-17164</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17164</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>364</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17164.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6580999.99999901 560000.00000002 6581999.99999901 560000.00000002 6581999.99999901 561000.00000002 6580999.99999901 561000.00000002 6580999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17165">
+      <PD_rahvastikutihedus:gml_id>S-17165</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17165</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>70</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17165.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6581999.99999901 560000.00000002 6582999.99999901 560000.00000002 6582999.99999901 561000.00000002 6581999.99999901 561000.00000002 6581999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17166">
+      <PD_rahvastikutihedus:gml_id>S-17166</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17166</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>99</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17166.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6582999.99999901 560000.00000002 6583999.99999901 560000.00000002 6583999.99999901 561000.00000002 6582999.99999901 561000.00000002 6582999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17167">
+      <PD_rahvastikutihedus:gml_id>S-17167</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17167</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17167.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6583999.99999901 560000.00000002 6584999.99999901 560000.00000002 6584999.99999901 561000.00000002 6583999.99999901 561000.00000002 6583999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17168">
+      <PD_rahvastikutihedus:gml_id>S-17168</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17168</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17168.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6584999.99999901 560000.00000002 6585999.99999901 560000.00000002 6585999.99999901 561000.00000002 6584999.99999901 561000.00000002 6584999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17169">
+      <PD_rahvastikutihedus:gml_id>S-17169</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17169</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17169.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6585999.99999901 560000.00000002 6586999.99999901 560000.00000002 6586999.99999901 561000.00000002 6585999.99999901 561000.00000002 6585999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17170">
+      <PD_rahvastikutihedus:gml_id>S-17170</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17170</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17170.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6586999.99999901 560000.00000002 6587999.99999901 560000.00000002 6587999.99999901 561000.00000002 6586999.99999901 561000.00000002 6586999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17171">
+      <PD_rahvastikutihedus:gml_id>S-17171</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17171</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17171.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6587999.99999901 560000.00000002 6588999.99999901 560000.00000002 6588999.99999901 561000.00000002 6587999.99999901 561000.00000002 6587999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17172">
+      <PD_rahvastikutihedus:gml_id>S-17172</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17172</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>39</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17172.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6588999.99999901 560000.00000002 6589999.99999901 560000.00000002 6589999.99999901 561000.00000002 6588999.99999901 561000.00000002 6588999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17173">
+      <PD_rahvastikutihedus:gml_id>S-17173</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17173</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17173.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6589999.99999901 560000.00000002 6590999.99999901 560000.00000002 6590999.99999901 561000.00000002 6589999.99999901 561000.00000002 6589999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17174">
+      <PD_rahvastikutihedus:gml_id>S-17174</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17174</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>10</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17174.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6590999.99999901 560000.00000002 6591999.99999901 560000.00000002 6591999.99999901 561000.00000002 6590999.99999901 561000.00000002 6590999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17175">
+      <PD_rahvastikutihedus:gml_id>S-17175</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17175</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17175.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6591999.99999901 560000.00000002 6592999.99999901 560000.00000002 6592999.99999901 561000.00000002 6591999.99999901 561000.00000002 6591999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17176">
+      <PD_rahvastikutihedus:gml_id>S-17176</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17176</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17176.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6592999.99999901 560000.00000002 6593999.99999901 560000.00000002 6593999.99999901 561000.00000002 6592999.99999901 561000.00000002 6592999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17177">
+      <PD_rahvastikutihedus:gml_id>S-17177</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17177</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>62</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17177.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6593999.99999901 560000.00000002 6594999.99999901 560000.00000002 6594999.99999901 561000.00000002 6593999.99999901 561000.00000002 6593999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17178">
+      <PD_rahvastikutihedus:gml_id>S-17178</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17178</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17178.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6594999.99999901 560000.00000002 6595999.99999901 560000.00000002 6595999.99999901 561000.00000002 6594999.99999901 561000.00000002 6594999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17179">
+      <PD_rahvastikutihedus:gml_id>S-17179</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17179</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>10</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17179.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6595999.99999901 560000.00000002 6596999.99999901 560000.00000002 6596999.99999901 561000.00000002 6595999.99999901 561000.00000002 6595999.99999901 560000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17325">
+      <PD_rahvastikutihedus:gml_id>S-17325</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17325</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>7</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17325.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6575999.99999901 561000.00000002 6576999.99999901 561000.00000002 6576999.99999901 562000.00000002 6575999.99999901 562000.00000002 6575999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17326">
+      <PD_rahvastikutihedus:gml_id>S-17326</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17326</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>33</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17326.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6576999.99999901 561000.00000002 6577999.99999901 561000.00000002 6577999.99999901 562000.00000002 6576999.99999901 562000.00000002 6576999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17327">
+      <PD_rahvastikutihedus:gml_id>S-17327</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17327</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>4</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17327.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6577999.99999901 561000.00000002 6578999.99999901 561000.00000002 6578999.99999901 562000.00000002 6577999.99999901 562000.00000002 6577999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17328">
+      <PD_rahvastikutihedus:gml_id>S-17328</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17328</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>89</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17328.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6578999.99999901 561000.00000002 6579999.99999901 561000.00000002 6579999.99999901 562000.00000002 6578999.99999901 562000.00000002 6578999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17329">
+      <PD_rahvastikutihedus:gml_id>S-17329</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17329</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>301</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17329.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6579999.99999901 561000.00000002 6580999.99999901 561000.00000002 6580999.99999901 562000.00000002 6579999.99999901 562000.00000002 6579999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17330">
+      <PD_rahvastikutihedus:gml_id>S-17330</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17330</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>1198</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17330.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6580999.99999901 561000.00000002 6581999.99999901 561000.00000002 6581999.99999901 562000.00000002 6580999.99999901 562000.00000002 6580999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17331">
+      <PD_rahvastikutihedus:gml_id>S-17331</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17331</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>96</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17331.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6581999.99999901 561000.00000002 6582999.99999901 561000.00000002 6582999.99999901 562000.00000002 6581999.99999901 562000.00000002 6581999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17332">
+      <PD_rahvastikutihedus:gml_id>S-17332</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17332</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>4</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17332.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6582999.99999901 561000.00000002 6583999.99999901 561000.00000002 6583999.99999901 562000.00000002 6582999.99999901 562000.00000002 6582999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17333">
+      <PD_rahvastikutihedus:gml_id>S-17333</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17333</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>13</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17333.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6583999.99999901 561000.00000002 6584999.99999901 561000.00000002 6584999.99999901 562000.00000002 6583999.99999901 562000.00000002 6583999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17334">
+      <PD_rahvastikutihedus:gml_id>S-17334</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17334</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>17</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17334.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6584999.99999901 561000.00000002 6585999.99999901 561000.00000002 6585999.99999901 562000.00000002 6584999.99999901 562000.00000002 6584999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17335">
+      <PD_rahvastikutihedus:gml_id>S-17335</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17335</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>6</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17335.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6585999.99999901 561000.00000002 6586999.99999901 561000.00000002 6586999.99999901 562000.00000002 6585999.99999901 562000.00000002 6585999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17336">
+      <PD_rahvastikutihedus:gml_id>S-17336</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17336</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>7</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17336.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6586999.99999901 561000.00000002 6587999.99999901 561000.00000002 6587999.99999901 562000.00000002 6586999.99999901 562000.00000002 6586999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17337">
+      <PD_rahvastikutihedus:gml_id>S-17337</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17337</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>83</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17337.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6587999.99999901 561000.00000002 6588999.99999901 561000.00000002 6588999.99999901 562000.00000002 6587999.99999901 562000.00000002 6587999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17338">
+      <PD_rahvastikutihedus:gml_id>S-17338</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17338</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>19</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17338.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6588999.99999901 561000.00000002 6589999.99999901 561000.00000002 6589999.99999901 562000.00000002 6588999.99999901 562000.00000002 6588999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17339">
+      <PD_rahvastikutihedus:gml_id>S-17339</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17339</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>4</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17339.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6589999.99999901 561000.00000002 6590999.99999901 561000.00000002 6590999.99999901 562000.00000002 6589999.99999901 562000.00000002 6589999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17340">
+      <PD_rahvastikutihedus:gml_id>S-17340</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17340</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>33</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17340.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6590999.99999901 561000.00000002 6591999.99999901 561000.00000002 6591999.99999901 562000.00000002 6590999.99999901 562000.00000002 6590999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17341">
+      <PD_rahvastikutihedus:gml_id>S-17341</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17341</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>21</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17341.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6591999.99999901 561000.00000002 6592999.99999901 561000.00000002 6592999.99999901 562000.00000002 6591999.99999901 562000.00000002 6591999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17342">
+      <PD_rahvastikutihedus:gml_id>S-17342</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17342</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17342.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6592999.99999901 561000.00000002 6593999.99999901 561000.00000002 6593999.99999901 562000.00000002 6592999.99999901 562000.00000002 6592999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17343">
+      <PD_rahvastikutihedus:gml_id>S-17343</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17343</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>18</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17343.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6593999.99999901 561000.00000002 6594999.99999901 561000.00000002 6594999.99999901 562000.00000002 6593999.99999901 562000.00000002 6593999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17344">
+      <PD_rahvastikutihedus:gml_id>S-17344</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17344</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>8</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17344.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6594999.99999901 561000.00000002 6595999.99999901 561000.00000002 6595999.99999901 562000.00000002 6594999.99999901 562000.00000002 6594999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17345">
+      <PD_rahvastikutihedus:gml_id>S-17345</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17345</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>10</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17345.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6595999.99999901 561000.00000002 6596999.99999901 561000.00000002 6596999.99999901 562000.00000002 6595999.99999901 562000.00000002 6595999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17346">
+      <PD_rahvastikutihedus:gml_id>S-17346</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17346</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17346.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6596999.99999901 561000.00000002 6597999.99999901 561000.00000002 6597999.99999901 562000.00000002 6596999.99999901 562000.00000002 6596999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17347">
+      <PD_rahvastikutihedus:gml_id>S-17347</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17347</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17347.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6605999.99999901 561000.00000002 6606999.99999901 561000.00000002 6606999.99999901 562000.00000002 6605999.99999901 562000.00000002 6605999.99999901 561000.00000002</gml:posList>
+            </gml:LinearRing>
+          </gml:exterior>
+        </gml:Polygon>
+      </PD_rahvastikutihedus:geom>
+    </PD_rahvastikutihedus:PD.StatisticalDistribution_>
+  </wfs:member>
+<wfs:member>
+    <PD_rahvastikutihedus:PD.StatisticalDistribution_ gml:id="PD.StatisticalDistribution_.S-17348">
+      <PD_rahvastikutihedus:gml_id>S-17348</PD_rahvastikutihedus:gml_id>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_title>Eesti rahvastikutiheduse 1 km x 1 km ruutkaart</PD_rahvastikutihedus:gml_metadataproperty_xlink_title>
+      <PD_rahvastikutihedus:gml_metadataproperty_xlink_href>https://metadata.geoportaal.ee/geonetwork/srv/est/catalog.search#/metadata/21615a0b-0bbc-4d9d-a0b8-cf57bf2f4e30</PD_rahvastikutihedus:gml_metadataproperty_xlink_href>
+      <PD_rahvastikutihedus:gml_original_coordinate_system>http://www.opengis.net/def/crs/EPSG/0/3035</PD_rahvastikutihedus:gml_original_coordinate_system>
+      <PD_rahvastikutihedus:gml_parent_property>featureMember</PD_rahvastikutihedus:gml_parent_property>
+      <PD_rahvastikutihedus:gml_description>Last update:2025-05-07</PD_rahvastikutihedus:gml_description>
+      <PD_rahvastikutihedus:inspireid_identifier_localid>S-17348</PD_rahvastikutihedus:inspireid_identifier_localid>
+      <PD_rahvastikutihedus:inspireid_identifier_namespace>ee.stat.pd-stat-rahvastikutihedus1x1km</PD_rahvastikutihedus:inspireid_identifier_namespace>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>0-108</PD_rahvastikutihedus:classification_classification_item_classificationitem_typetitle>
+      <PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>https://inspire.ec.europa.eu/codelist/ClassificationTypeValue/ageByYear</PD_rahvastikutihedus:classification_classification_item_classificationitem_typehref>
+      <PD_rahvastikutihedus:classification_classification_type_xlink_title>ageByYear</PD_rahvastikutihedus:classification_classification_type_xlink_title>
+      <PD_rahvastikutihedus:domain_characterstring>demography</PD_rahvastikutihedus:domain_characterstring>
+      <PD_rahvastikutihedus:generalstatus_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticalDataStatusValue/definitive</PD_rahvastikutihedus:generalstatus_xlink_href>
+      <PD_rahvastikutihedus:generalstatus_xlink_title>definitive</PD_rahvastikutihedus:generalstatus_xlink_title>
+      <PD_rahvastikutihedus:measure_xlink_href>https://inspire.ec.europa.eu/codelist/VariableValue/populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_href>
+      <PD_rahvastikutihedus:measure_xlink_title>populationAtResidencePlace</PD_rahvastikutihedus:measure_xlink_title>
+      <PD_rahvastikutihedus:measurementmethod_xlink_href>https://inspire.ec.europa.eu/codelist/StatisticsMeasurementMethodValue/count</PD_rahvastikutihedus:measurementmethod_xlink_href>
+      <PD_rahvastikutihedus:measurementmethod_xlink_title>count</PD_rahvastikutihedus:measurementmethod_xlink_title>
+      <PD_rahvastikutihedus:measurementunit_uom>person</PD_rahvastikutihedus:measurementunit_uom>
+      <PD_rahvastikutihedus:periodofmeasurement_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofmeasurement_xlink_title>
+      <PD_rahvastikutihedus:periodofreference_xlink_title>1.1.2024 - 31.12.2024</PD_rahvastikutihedus:periodofreference_xlink_title>
+      <PD_rahvastikutihedus:universe_country>EE</PD_rahvastikutihedus:universe_country>
+      <PD_rahvastikutihedus:universe_country_codelist>https://inspire.ec.europa.eu/codelist/CountryCode</PD_rahvastikutihedus:universe_country_codelist>
+      <PD_rahvastikutihedus:universe_country_codelistvalue>CountryCode</PD_rahvastikutihedus:universe_country_codelistvalue>
+      <PD_rahvastikutihedus:value_statisticalvalue_value>0</PD_rahvastikutihedus:value_statisticalvalue_value>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>https://inspire.ec.europa.eu/codelist/SpecialValue/notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_href>
+      <PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>notApplicable</PD_rahvastikutihedus:value_statisticalvalue_specialvalue_xlink_title>
+      <PD_rahvastikutihedus:xml_ns_uri>http://inspire.ec.europa.eu/schemas/pd/4.0</PD_rahvastikutihedus:xml_ns_uri>
+      <PD_rahvastikutihedus:beginlifespanversion_xsi_nil>true</PD_rahvastikutihedus:beginlifespanversion_xsi_nil>
+      <PD_rahvastikutihedus:geom>
+        <gml:Polygon srsName="urn:ogc:def:crs:EPSG::3301" gml:id="PD.StatisticalDistribution_.S-17348.geom">
+          <gml:exterior>
+            <gml:LinearRing>
+              <gml:posList>6606999.99999901 561000.00000002 6607999.999999 561000.00000002 6607999.999999 562000.00000002 6606999.99999901 562000.00000002 6606999.99999901 561000.00000002</gml:posList>
             </gml:LinearRing>
           </gml:exterior>
         </gml:Polygon>

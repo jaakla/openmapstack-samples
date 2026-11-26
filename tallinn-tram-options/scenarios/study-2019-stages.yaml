@@ -1,0 +1,162 @@
+# The five development stages of the 2019 Tallinn & Harju light-rail feasibility and cost-benefit
+# study, and the corridors in each  --  a TRANSCRIPTION of the report, joined to the city's drawing.
+#
+# Source: "Tallinna ja Harjumaa kergrööbastranspordi teostatavus- ja tasuvusanalüüs" (2019), final
+# report: chapter 1.6 "Etapilise arendamise kava" (stage maps and stage totals, pp. 11-17), chapter 8
+# (the corridors of each stage, pp. 219-228), Table 45 (infrastructure cost, tram variant), Tables 61
+# and 62 (net present value and benefit-cost ratio per corridor, tram variant) and Table 65 (per stage).
+#
+# The city publishes the corridors as lines with two attributes only, FID and etapp (stage); the
+# corridor codes are printed on the report's maps. `lines` joins each code to the FIDs of the drawing
+# by comparing the drawing with those maps. pipeline.py checks that every line of the drawing is
+# named here exactly once, that the stage given here equals the `etapp` of each line, and that the
+# drawn length of each stage agrees with the report's total. It does not check the transcribed figures.
+#
+#   mode       tram = new light-rail corridor; railway = existing railway taken into passenger use
+#   lines      FIDs in data/source/corridors-feasibility-study-2019.geojson
+#   table      row of Tables 45, 61 and 62 the figures are quoted from (several corridors can share one)
+#   cost_meur  infrastructure cost, million EUR, 2019 prices (Table 45)
+#   bcr, enpv_meur  for the four scenarios [Tallinn+ free public transport, Tallinn+ paid,
+#              Tallinn++ free, Tallinn++ paid]; enpv in million EUR at 5 %
+#   length_report_km, bcr_tram, bcr_brt, enpv_meur of a stage: chapter 1.6 and Table 65
+schema: tallinn-tram-options/study-stages/v1
+created_at: 2026-11-26T12:00:00+02:00
+created_by: agent
+document:
+  title: "Tallinna ja Harjumaa kergrööbastranspordi teostatavus- ja tasuvusanalüüs (2019)"
+  url: "https://web.archive.org/web/2025id_/https://live.s3.teliahybridcloud.com/s3fs-public/inline-files/Tallinna%20ja%20Harjumaa%20kergr%C3%B6%C3%B6bastranspordi%20teostatavus%20ja%20tasuvusanal%C3%BC%C3%BCs.pdf"
+# Lines the city's drawing holds twice (same geometry, same stage); the second is not used.
+duplicate_lines: {37: 28}
+# Shown on the report's maps but absent from the city's drawing.
+not_in_drawing:
+  - {stage: 1, code: "5A' alternative", name: "Tartu mnt direct to the planned Väike ringtee (possible alternative to the route past Peetri school)",
+     note: "Drawn on the stage 1 map as 'võimalik alternatiivne trammitrass'; the city's drawing holds the modelled route only."}
+stages:
+  - stage: 1
+    title: First stage
+    length_report_km: 23.2
+    length_note: "Report total excludes the existing railway (Balti jaam – Vesse)."
+    bcr_tram: [6.0, 4.7, 6.8, 5.5]
+    bcr_brt: [5.6, 4.5, 6.2, 5.1]
+    enpv_meur: [1305, 885, 1389, 994]
+    summary: >-
+      Connects the centre with Lasnamäe along Laagna tee, with Peetri and Assaku in Rae municipality and
+      with Pelgulinn; builds the Liivalaia, Rävala and Gonsiori links in the centre and a frequent train
+      service Balti jaam – Vesse with an interchange at Kristiine.
+    corridors:
+      - {code: "3A", name: "Lasnamäe – Laagna tee", mode: tram, lines: [1], table: "VAR_3A",
+         cost_meur: 37.8, bcr: [6.2, 4.9, 7.1, 5.7], enpv_meur: [364.6, 257.4, 391.0, 287.8]}
+      - {code: "17", name: "Gonsiori – Laikmaa to Laagna tee", mode: tram, lines: [4], table: "VAR_17",
+         cost_meur: 8.6, bcr: [6.2, 4.9, 7.0, 5.7], enpv_meur: [83.6, 59.1, 86.3, 64.1]}
+      - {code: "10A", name: "Kristiine – Liivalaia to Tuukri", mode: tram, lines: [2], table: "VAR_10A",
+         cost_meur: 15.5, bcr: [7.4, 5.7, 8.5, 6.8], enpv_meur: [248.2, 164.2, 267.2, 189.6],
+         note: "Table 45 names it 'Koidu tn – Tuukri tn'; the part Kristiine – Koidu is costed separately as corridor 99 (€6.7M, BCR 6.9 / 5.3 / 7.8 / 6.3)."}
+      - {code: "10B", name: "Koidu – Rävala pst extension", mode: tram, lines: [5], table: "VAR_10B",
+         cost_meur: 9.7, bcr: [6.6, 5.1, 7.3, 5.9], enpv_meur: [108.1, 75.4, 109.4, 81.1]}
+      - {code: "15", name: "Sõle – Kopli line to Kristiine", mode: tram, lines: [3], table: "VAR_15",
+         cost_meur: 19.2, bcr: [5.3, 4.0, 6.0, 4.6], enpv_meur: [126.5, 81.2, 134.5, 90.8]}
+      - {code: "5A / 5A'", name: "Rae – airport to Peetri and Assaku", mode: tram, lines: [7, 8], table: "VAR_5A",
+         cost_meur: 65.7, bcr: [2.8, 2.0, 3.2, 2.3], enpv_meur: [122.6, 66.2, 145.1, 83.4],
+         note: "The figures are for the whole corridor 'Lennujaam – Jüri'; its outer part to Jüri is stage 4."}
+      - {code: "Balti jaam – Vesse", name: "Railway Balti jaam – Kristiine – Ülemiste – Vesse", mode: railway, lines: [6, 36], table: "VAR_BJ_Vesse",
+         cost_meur: 0.7, bcr: [6.9, 6.0, 7.7, 7.1], enpv_meur: [230.3, 158.9, 241.4, 177.2],
+         note: "Existing railway; the cost is for platforms. Not counted in the report's stage length."}
+  - stage: 2
+    title: Second stage
+    length_report_km: 28.1
+    bcr_tram: [5.1, 3.7, 5.7, 4.4]
+    bcr_brt: [4.9, 3.7, 5.3, 4.2]
+    enpv_meur: [916, 566, 1001, 668]
+    summary: >-
+      Connects the centre with Viimsi, northern Lasnamäe and Mustamäe, and adds the Juhkentali link
+      between the Liivalaia and Laagna tee corridors.
+    corridors:
+      - {code: "1", name: "Pirita and Viimsi – Russalka to Lubja", mode: tram, lines: [9], table: "VAR_1",
+         cost_meur: 54.3, bcr: [5.0, 3.6, 5.6, 4.2], enpv_meur: [303.7, 178.9, 334.8, 216.9],
+         note: "The part Poska – Russalka is costed separately as corridor 98 (€4.1M, BCR 6.6 / 5.0 / 7.7 / 6.1)."}
+      - {code: "2A", name: "Northern Lasnamäe – Narva mnt", mode: tram, lines: [15, 16], table: "VAR_2A/2A'/3A+",
+         cost_meur: 35.6, bcr: [4.3, 3.2, 4.8, 3.7], enpv_meur: [147.4, 95.5, 161.6, 112.6],
+         note: "One row of the tables covers 2A, 2A' and 3A+ ('Russalka – Lasnamäe lõpp')."}
+      - {code: "2A'", name: "Northern Lasnamäe – Rahu tee corridor", mode: tram, lines: [11], table: "VAR_2A/2A'/3A+",
+         cost_meur: 35.6, bcr: [4.3, 3.2, 4.8, 3.7], enpv_meur: [147.4, 95.5, 161.6, 112.6],
+         note: "One row of the tables covers 2A, 2A' and 3A+. The drawing repeats some parts of this line; they are counted once."}
+      - {code: "3A+", name: "Link between the Rahu tee corridor and Laagna tee", mode: tram, lines: [14], table: "VAR_2A/2A'/3A+",
+         cost_meur: 35.6, bcr: [4.3, 3.2, 4.8, 3.7], enpv_meur: [147.4, 95.5, 161.6, 112.6],
+         note: "One row of the tables covers 2A, 2A' and 3A+."}
+      - {code: "18A / 18A'", name: "Narva mnt to Majaka", mode: tram, lines: [13], table: "VAR_18A/18A'",
+         cost_meur: 12.7, bcr: [3.9, 2.7, 4.3, 3.2], enpv_meur: [44.2, 23.6, 47.6, 29.0]}
+      - {code: "12", name: "Juhkentali – Liivalaia to Laagna tee", mode: tram, lines: [10], table: "VAR_12",
+         cost_meur: 9.8, bcr: [5.7, 4.2, 6.6, 5.1], enpv_meur: [75.0, 46.6, 85.3, 57.1]}
+      - {code: "7A", name: "Mustamäe – Kristiine and Sõpruse pst, with the loop in Mustamäe", mode: tram, lines: [12], table: "VAR_7A/7B",
+         cost_meur: 48.6, bcr: [5.8, 4.3, 6.5, 5.0], enpv_meur: [384.1, 244.6, 411.3, 277.9],
+         note: "One row of the tables covers 7A and 7B (stage 3)."}
+  - stage: 3
+    title: Third stage
+    length_report_km: 21.3
+    bcr_tram: [4.9, 3.6, 5.3, 4.2]
+    bcr_brt: [4.7, 3.6, 5.0, 4.1]
+    enpv_meur: [623, 405, 649, 453]
+    summary: >-
+      Connects Tabasalu, Väike-Õismäe and Astangu, continues in Põhja-Tallinn (Kalaranna, Pelguranna)
+      and joins Mustamäe with Väike-Õismäe.
+    corridors:
+      - {code: "8A (Haabersti – Kristiine)", name: "Paldiski mnt – Haabersti to Kristiine", mode: tram, lines: [22], table: "VAR_8A_2",
+         cost_meur: 23.4, bcr: [6.9, 5.3, 7.8, 6.3], enpv_meur: [304.7, 205.7, 315.3, 228.0]}
+      - {code: "8A (Tabasalu – Haabersti)", name: "Tabasalu to the Haabersti junction", mode: tram, lines: [17], table: "VAR_8A_1",
+         cost_meur: 29.1, bcr: [3.5, 2.6, 3.8, 2.9], enpv_meur: [83.1, 49.9, 85.6, 56.5]}
+      - {code: "8A+", name: "Tabasalu extension", mode: tram, lines: [23], table: "VAR_8A+",
+         cost_meur: 5.6, bcr: [1.4, 1.0, 1.4, 1.1], enpv_meur: [1.8, 0.0, 1.9, 0.4]}
+      - {code: "8B", name: "Väike-Õismäe and Astangu – Paldiski mnt to Astangu", mode: tram, lines: [18], table: "VAR_8B",
+         cost_meur: 20.8, bcr: [3.5, 2.6, 3.7, 2.9], enpv_meur: [57.5, 34.9, 60.3, 39.8]}
+      - {code: "7B", name: "Mustamäe to Väike-Õismäe – Akadeemia tee", mode: tram, lines: [21], table: "VAR_7A/7B",
+         cost_meur: 48.6, bcr: [5.8, 4.3, 6.5, 5.0], enpv_meur: [384.1, 244.6, 411.3, 277.9],
+         note: "One row of the tables covers 7A (stage 2) and 7B."}
+      - {code: "9A", name: "Kalaranna – Kopli tn to Mere pst", mode: tram, lines: [19], table: "VAR_9A",
+         cost_meur: 18.0, bcr: [4.2, 3.2, 4.6, 3.6], enpv_meur: [71.2, 47.4, 74.2, 53.2]}
+      - {code: "9B", name: "Pelguranna to Kopli tn", mode: tram, lines: [20], table: "VAR_9B",
+         cost_meur: 9.0, bcr: [3.1, 2.4, 3.3, 2.6], enpv_meur: [19.9, 12.6, 20.4, 14.0]}
+  - stage: 4
+    title: Fourth stage
+    length_report_km: 23.1
+    length_note: "Report total includes the reconstruction of the Bekkeri railway."
+    bcr_tram: [3.1, 2.2, 3.4, 2.5]
+    bcr_brt: [3.1, 2.3, 3.4, 2.6]
+    enpv_meur: [314, 172, 355, 214]
+    summary: >-
+      Joins Mustamäe with Ülemiste along Tammsaare tee and Järvevana tee, adds a line inside Ülemiste
+      City, the tunnel link under the Ülemiste junction, the outer part of the Rae line to Jüri and the
+      Toompuiestee link, and takes the Bekkeri port railway into passenger use.
+    corridors:
+      - {code: "11", name: "Tammsaare tee and Järvevana tee – Mustamäe to Ülemiste", mode: tram, lines: [24], table: "VAR_11",
+         cost_meur: 43.1, bcr: [3.6, 2.5, 4.1, 3.0], enpv_meur: [126.2, 68.6, 146.4, 88.3]}
+      - {code: "97", name: "Ülemiste City – Valukoja", mode: tram, lines: [26], table: "VAR_97",
+         cost_meur: 4.6, bcr: [4.8, 3.4, 5.2, 4.0], enpv_meur: [23.4, 13.8, 24.5, 16.0]}
+      - {code: "5C", name: "Airport to Lubja – tunnel under the Ülemiste junction", mode: tram, lines: [27], table: "VAR_5C",
+         cost_meur: 18.3, bcr: [2.3, 1.6, 2.6, 1.8], enpv_meur: [22.8, 9.8, 26.4, 13.4],
+         note: "€14.2M of the cost is the tunnel."}
+      - {code: "5A (to Jüri)", name: "Rae – Assaku (Rail Baltica stop) to Jüri", mode: tram, lines: [29], table: "VAR_5A",
+         cost_meur: 65.7, bcr: [2.8, 2.0, 3.2, 2.3], enpv_meur: [122.6, 66.2, 145.1, 83.4],
+         note: "The figures are for the whole corridor 'Lennujaam – Jüri'; its inner part to Assaku is stage 1."}
+      - {code: "14", name: "Toompuiestee – Tõnismägi to Balti jaam", mode: tram, lines: [25], table: "VAR_14",
+         cost_meur: 10.1, bcr: [3.2, 2.3, 3.4, 2.6], enpv_meur: [23.5, 13.2, 24.7, 15.4]}
+      - {code: "Bekkeri – Balti jaam", name: "Railway Bekkeri port – Balti jaam", mode: railway, lines: [28], table: "VAR_BS_BJ",
+         cost_meur: 6.6, bcr: [2.7, 2.0, 2.8, 2.2], enpv_meur: [55.8, 32.5, 58.8, 38.1],
+         note: "Existing freight railway reconstructed for passenger trains."}
+  - stage: 5
+    title: Fifth stage
+    length_report_km: 16.1
+    bcr_tram: [2.4, 1.6, 2.5, 1.8]
+    bcr_brt: [2.6, 1.8, 2.7, 2.0]
+    enpv_meur: [121, 54, 128, 66]
+    summary: >-
+      Connects Maardu beyond the end of Laagna tee and extends existing lines along Peterburi tee and
+      Pärnu mnt to Järve, with a link from Järve to Mustamäe.
+    corridors:
+      - {code: "3B / 3B''", name: "Maardu – from the end of Laagna tee", mode: tram, lines: [33, 35, 34], table: "VAR_3B/3B\"",
+         cost_meur: 60.4, bcr: [2.4, 1.8, 2.5, 1.9], enpv_meur: [82.6, 43.8, 85.2, 50.3]}
+      - {code: "4", name: "Peterburi tee extension", mode: tram, lines: [30], table: "VAR_4",
+         cost_meur: 7.2, bcr: [2.1, 1.4, 2.5, 1.7], enpv_meur: [7.4, 2.3, 9.8, 4.5]}
+      - {code: "6A", name: "Pärnu mnt – Tondi to Järve", mode: tram, lines: [31], table: "VAR_6A",
+         cost_meur: 13.8, bcr: [2.2, 1.2, 2.4, 1.4], enpv_meur: [15.1, 2.4, 17.1, 5.1]}
+      - {code: "6B", name: "Järve to Mustamäe – Tervise", mode: tram, lines: [32], table: "VAR_6B",
+         cost_meur: 9.2, bcr: [2.7, 1.6, 2.9, 1.8], enpv_meur: [15.8, 5.1, 16.4, 6.2]}
